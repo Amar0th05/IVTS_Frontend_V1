@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SRB</title>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      margin: 10px;
+      padding: 0;
+    }
+
+    @page {
+      size: A4;
+      margin: 15mm;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+      text-align: center;
+      border-bottom: 2px solid black;
+      padding-bottom: 10px;
+      margin-bottom: 15px;
+    }
+
+    .header img:nth-of-type(1) {
+      height: 90px;
+      width: 120px;
+    }
+
+    .header img:nth-of-type(2) {
+      height: 90px;
+      width: 130px;
+    }
+
+    .header div {
+      text-align: center;
+    }
+
+    .header h3 {
+      margin: 0;
+      font-size: 12px;
+    }
+
+    .header p {
+      margin: 0;
+      margin-top: 10px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .info {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 25px;
+      margin-top: 25px;
+    }
+
+    .info h3 {
+      font-size: 14px;
+      margin: 0;
+    }
+
+    .table-container {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 50px;
+      margin-top: 25px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    td {
+      padding: 6px;
+      font-size: 13px;
+    }
+
+    td:first-child {
+      font-weight: bold;
+    }
+
+    .table-left {
+      text-align: left;
+      padding: 0;
+      width: 100%;
+    }
+
+    .table-right {
+      text-align: right;
+      width: 100%;
+      padding: 0;
+    }
+
+    #itemsTable th {
+      font-size: 13px;
+    }
+
+    #itemsTable th,
+    #itemsTable td {
+      padding: 8px;
+      text-align: left;
+      border: 1px solid #000000;
+      word-wrap: break-word;
+    }
+
+    @media print {
+      body {
+        margin: 0;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-BVjk1CBl38SYGw4zxjpqU-cbXmfK1-t73Q&s" alt="Logo 1" />
+    <div>
+      <h3>NATIONAL TECHNOLOGY CENTRE FOR PORTS, WATERWAYS & COASTS</h3>
+      <h3>NEW ACADEMIC COMPLEX 6th Floor #604-#607<br>
+        INDIAN INSTITUTE OF TECHNOLOGY MADRAS CHENNAI-600 036<br>
+        PHONE: (+91)044-22578918/044-22578919</h3>
+      <p>National Technology Centre for Ports Waterways and Costs</p>
+    </div>
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJkvW8jxjeRBp344sWaJyfO7mBRvC4SrKtMg&s" alt="Logo 2" />
+  </div>
+
+  <div class="info">
+    <h3>SRB No.: OEC/2025/845</h3>
+    <h3>Date: 23-04-2025</h3>
+  </div>
+
+  <div class="table-container">
+    <div class="table-left">
+      <table>
+        <tr><td>Project No:</td><td>RB22230018CPJNPTNTPHOC</td></tr>
+        <tr><td>PO No:</td><td>OEC/2024/3570/813/splx</td></tr>
+        <tr><td>Invoice No:</td><td>PSC/TN/01</td></tr>
+        <tr><td>Location:</td><td>NIOT</td></tr>
+        <tr><td>Sub Project No:</td><td></td></tr>
+        <tr><td>Supplier Name:</td><td>P.SUBMRAMANI & CO.</td></tr>
+      </table>
+    </div>
+
+    <div class="table-right">
+      <table>
+        <tr><td>Purchase/Work Type:</td><td>WORK</td></tr>
+        <tr><td>PO Date:</td><td>26-03-2024</td></tr>
+        <tr><td>Invoice Date:</td><td>26-03-2024</td></tr>
+        <tr><td>Employee Name:</td><td>Prof. Murali K</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div style="margin-top: 30px;">
+    <table id="itemsTable">
+      <thead>
+        <tr>
+          <th>Item Name</th>
+          <th>Description</th>
+          <th>Quantity & Units</th>
+          <th>Unit Price</th>
+          <th>Total Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Item 1</td>
+          <td>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iusto ipsa sequi ratione eaque deserunt porro! Qui placeat ipsum iure corrupti.</td>
+          <td>1 lu.sm</td>
+          <td>90000</td>
+          <td>90000</td>
+        </tr>
+        <tr>
+          <td>Item 2</td>
+          <td>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iusto ipsa sequi ratione eaque deserunt porro! Qui placeat ipsum iure corrupti.</td>
+          <td>1 lu.sm</td>
+          <td>90000</td>
+          <td>90000</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr><th colspan="4">Item total</th><td>Rs.156310</td></tr>
+        <tr><th colspan="4">Discount</th><td>Rs.0</td></tr>
+        <tr><th colspan="4">Total Amount</th><td>Rs.156310</td></tr>
+        <tr><th colspan="4">Other Charges</th><td>Rs.0.2</td></tr>
+        <tr><th colspan="4">GST Amount</th><td>Rs.281635.8</td></tr>
+        <tr><th colspan="4">Grand Total</th><td>Rs.18446</td></tr>
+      </tfoot>
+    </table>
+  </div>
+  <div style="position: fixed; bottom: 10px; width: 100%; text-align: left; font-size: 12px;">
+    Note : This is a system generated SRB.
+  </div>  
+</body>
+</html>
+
+<script>
+  const templateHTML = `
+ <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      margin: 10px;
+      padding: 0;
+    }
+
+    @page {
+      size: A4;
+      margin: 15mm;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+      text-align: center;
+      border-bottom: 2px solid black;
+      padding-bottom: 10px;
+      margin-bottom: 15px;
+    }
+
+    .header img:nth-of-type(1) {
+      height: 90px;
+      width: 120px;
+    }
+
+    .header img:nth-of-type(2) {
+      height: 90px;
+      width: 130px;
+    }
+
+    .header div {
+      text-align: center;
+    }
+
+    .header h3 {
+      margin: 0;
+      font-size: 16px;
+    }
+
+    .header p {
+      margin: 0;
+      margin-top: 10px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .info {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 25px;
+      margin-top: 25px;
+    }
+
+    .info h3 {
+      font-size: 14px;
+      margin: 0;
+    }
+
+    .table-container {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 50px;
+      margin-top: 25px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    td {
+      padding: 6px;
+      font-size: 13px;
+    }
+
+    td:first-child {
+      font-weight: bold;
+    }
+
+    .table-left {
+      text-align: left;
+      padding: 0;
+      width: 100%;
+    }
+
+    .table-right {
+      text-align: right;
+      width: 100%;
+      padding: 0;
+    }
+
+    #itemsTable th {
+      font-size: 13px;
+    }
+
+    #itemsTable th,
+    #itemsTable td {
+      padding: 8px;
+      text-align: left;
+      border: 1px solid #000000;
+      word-wrap: break-word;
+    }
+
+    @media print {
+      body {
+        margin: 0;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+    }
+  </style>
+  
+`;
+
+function generateSRB(data) {
+
+  let htmlContent = templateHTML
+    .replace('{{SRB_NO}}', data.srbSerialNo)
+    .replace('{{DATE}}', new Date().toLocaleDateString())
+    .replace('{{PROJECT_NO}}', data.projectNo)
+    .replace('{{PO_NO}}', data.srbPONumber)
+    .replace('{{INVOICE_NO}}', data.srbInvoiceNumber)
+    .replace('{{LOCATION}}', data.LOCATION || '')
+    .replace('{{SUB_PROJECT_NO}}', data.subProjectNo || '')
+    .replace('{{SUPPLIER_NAME}}', data.vendorName)
+    .replace('{{WORK_TYPE}}', data.srbFor)
+    .replace('{{PO_DATE}}', data.srbPODate)
+    .replace('{{INVOICE_DATE}}', data.srbInvoiceDate)
+    .replace('{{EMPLOYEE_NAME}}', data.srbEmployeeName)
+    .replace('{{ITEM_TOTAL}}', data.itemsTotal)
+    .replace('{{DISCOUNT}}', data.srbDiscount)
+    .replace('{{TOTAL_AMOUNT}}', data.itemsTotal-data.srbDiscount)
+    .replace('{{OTHER_CHARGES}}', data.srbOtherCharges)
+    .replace('{{GST}}', data.srbGSTAmount)
+    .replace('{{GRAND_TOTAL}}', data.srbGrandTotal);
+
+  
+  let itemsHTML = '';
+  data.items.forEach(item => {
+    itemsHTML += `
+      <tr>
+        <td>${item.name}</td>
+        <td>${item.desc}</td>
+        <td>${item.qty}</td>
+        <td>${item.price}</td>
+        <td>${item.total}</td>
+      </tr>
+    `;
+  });
+
+ 
+  htmlContent = htmlContent.replace('{{ITEMS}}', itemsHTML);
+
+
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+
+ 
+  doc.html(htmlContent, {
+    callback: function (doc) {
+      doc.save('SRB.pdf');
+    },
+    margin: [15, 15, 15, 15],
+  });
+}
+
+</script> 
+
+

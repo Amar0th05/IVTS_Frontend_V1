@@ -1,0 +1,1341 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Staff Details</title>
+    <!-- HTML5 Shim and Respond.js IE10 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 10]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+      <![endif]-->
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <meta name="keywords"
+        content="bootstrap, bootstrap admin template, admin theme, admin dashboard, dashboard template, admin template, responsive" />
+    <meta name="author" content="Codedthemes" />
+    <!-- Favicon icon -->
+    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+    <!-- Google font-->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
+    <!-- waves.css -->
+    <link rel="stylesheet" href="assets/pages/waves/css/waves.min.css" type="text/css" media="all">
+    <!-- Required Fremwork -->
+    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap/css/bootstrap.min.css">
+    <!-- waves.css -->
+    <link rel="stylesheet" href="assets/pages/waves/css/waves.min.css" type="text/css" media="all">
+    <!-- themify icon -->
+    <link rel="stylesheet" type="text/css" href="assets/icon/themify-icons/themify-icons.css">
+    <!-- font-awesome-n -->
+    <link rel="stylesheet" type="text/css" href="assets/css/font-awesome-n.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.min.css">
+    <!-- scrollbar.css -->
+    <link rel="stylesheet" type="text/css" href="assets/css/jquery.mCustomScrollbar.css">
+    <!-- Style.css -->
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/custom.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+        <!-- Include SweetAlert2 CSS & JS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css"> -->
+    <style>
+        #policyTable{
+            border-radius: 5px;
+        }
+    </style>
+<style>
+    .hidden {
+      display: none !important;
+    }
+  </style>
+<style>
+    .addNewRecord{
+      all:unset;
+      color: white !important;
+      padding: 10px 10px !important;
+      background: linear-gradient(135deg, #4931d1, #7f86f3);
+    }
+  </style>
+
+</head>
+
+<body>
+    <!-- Pre-loader start -->
+    <div class="theme-loader">
+         
+        <div class="loader-track">
+           
+            <div class="preloader-wrapper">
+               
+                <div class="spinner-layer spinner-blue">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+                <div class="spinner-layer spinner-red">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+
+                <div class="spinner-layer spinner-yellow">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+
+                <div class="spinner-layer spinner-green">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Pre-loader end -->
+    <div id="pcoded" class="pcoded">
+        <div class="pcoded-overlay-box"></div>
+        <div class="pcoded-container navbar-wrapper">
+            <nav class="navbar header-navbar pcoded-header">
+                <div class="navbar-wrapper">
+                    <div class="navbar-logo align-items-center">
+                        <a class="mobile-menu waves-effect waves-light" id="mobile-collapse" href="#!">
+                            <i class="ti-menu"></i>
+                        </a>
+                        <div class="mobile-search waves-effect waves-light">
+                            <div class="header-search">
+                                <div class="main-search morphsearch-search">
+                                    <div class="input-group">
+                                        <span class="input-group-prepend search-close"><i
+                                                class="ti-close input-group-text"></i></span>
+                                        <input type="text" class="form-control" placeholder="Enter Keyword">
+                                        <span class="input-group-append search-btn"><i
+                                                class="ti-search input-group-text"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="index.html">
+                            <!-- <img class="img-fluid" src="https://ntcpwc.iitm.ac.in/New/images/ntcpwc-logo.jpg" alt="Theme-Logo" style="height: 50px;" /> -->
+                            <h4 class="d-inline"><span class="text-lowercase">i</span>VTS-FMS</h4>
+                        </a>
+                        <a class="mobile-options waves-effect waves-light">
+                            <i class="ti-more"></i>
+                        </a>
+                    </div>
+                    <div class="navbar-container container-fluid">
+                        <ul class="nav-left">
+                            <li>
+                                <div class="sidebar_toggle"><a href="javascript:void(0)"><i class="ti-menu"></i></a>
+                                </div>
+                            </li>
+                            <li>
+                                <a href="#!" onclick="javascript:toggleFullScreen()" class="waves-effect waves-light">
+                                    <i class="ti-fullscreen"></i>
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="nav-right">
+                            <!-- <li class="header-notification">
+                                <a href="#!" class="waves-effect waves-light">
+                                    <i class="ti-bell"></i>
+                                    <span class="badge bg-c-red"></span>
+                                </a>
+                                <ul class="show-notification">
+                                    <li>
+                                        <h6>Notifications</h6>
+                                        <label class="label label-danger">New</label>
+                                    </li>
+                                    <li class="waves-effect waves-light">
+                                        <div class="media">
+                                            <img class="d-flex align-self-center img-radius"
+                                                src="assets/images/avatar-2.jpg" alt="Generic placeholder image">
+                                            <div class="media-body">
+                                                <h5 class="notification-user">John Doe</h5>
+                                                <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer
+                                                    elit.</p>
+                                                <span class="notification-time">30 minutes ago</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="waves-effect waves-light">
+                                        <div class="media">
+                                            <img class="d-flex align-self-center img-radius"
+                                                src="assets/images/avatar-4.jpg" alt="Generic placeholder image">
+                                            <div class="media-body">
+                                                <h5 class="notification-user">Joseph William</h5>
+                                                <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer
+                                                    elit.</p>
+                                                <span class="notification-time">30 minutes ago</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="waves-effect waves-light">
+                                        <div class="media">
+                                            <img class="d-flex align-self-center img-radius"
+                                                src="assets/images/avatar-3.jpg" alt="Generic placeholder image">
+                                            <div class="media-body">
+                                                <h5 class="notification-user">Sara Soudein</h5>
+                                                <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer
+                                                    elit.</p>
+                                                <span class="notification-time">30 minutes ago</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li> -->
+                            <li class="user-profile header-notification">
+                                <a href="#!" class="waves-effect waves-light">
+                                    <!-- <img src="assets/images/avatar-4.jpg" class="img-radius" alt="User-Profile-Image"> -->
+                                    <span id="username">John Doe</span>
+                                    <i class="ti-angle-down"></i>
+                                </a>
+                                <ul class="show-notification profile-notification">
+                                    <li class="waves-effect waves-light">
+                                        <a href="#!">
+                                            <i class="ti-settings"></i> Settings
+                                        </a>
+                                    </li>
+                                    <li class="waves-effect waves-light">
+                                        <a href="user-profile.html">
+                                            <i class="ti-user"></i> Profile
+                                        </a>
+                                    </li>
+                                    <li class="waves-effect waves-light">
+                                        <a href="index.html" id="logout-button">
+                                            <i class="ti-layout-sidebar-left"></i> Logout
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="pcoded-main-container">
+                <div class="pcoded-wrapper">
+                    <nav class="pcoded-navbar">
+                        <div class="sidebar_toggle"><a href="#"><i class="icon-close icons"></i></a></div>
+                        <div class="pcoded-inner-navbar main-menu">
+                            <div class="">
+                                <div class="main-menu-header">
+                                    <!-- <img class="img-80 img-radius" src="assets/images/avatar-4.jpg" alt="User-Profile-Image">
+                                    <div class="user-details">
+                                        <span id="more-details">John Doe<i class="fa fa-caret-down"></i></span>
+                                    </div> -->
+                                    <img src="assets/images/ntcpwc-logo.jpg" alt="ntcpwc-logo">
+                                </div>
+                                <div class="main-menu-content">
+                                    <ul>
+                                        <li class="more-details">
+                                            <a href="user-profile.html"><i class="ti-user"></i>View Profile</a>
+                                            <a href="#!"><i class="ti-settings"></i>Settings</a>
+                                            <a href="auth-normal-sign-in.html"><i
+                                                    class="ti-layout-sidebar-left"></i>Logout</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="p-15 p-b-0">
+                                <form class="form-material">
+                                    <div class="form-group form-primary">
+                                        <input type="text" name="footer-email" class="form-control">
+                                        <span class="form-bar"></span>
+                                        <label class="float-label"><i class="fa fa-search m-r-10"></i>Search</label>
+                                    </div>
+                                </form>
+                            </div>
+                            <div id="sidebar-container"></div>
+                            <!-- <div class="accordion">
+                                <div class="accordion-header">
+                                  <div class="pcoded-navigation-label accordion-toggle waves-effect waves-dark" onclick="toggleAccordion(this)">Project Tracking<i class="fa fa-chevron-down ml-1" id="accordion-icon"></i></div>
+                                </div>
+                                <div class="accordion-content" style="display: none;">
+                                
+                                    <ul class="pcoded-item pcoded-left-item">
+                                        <li>
+                                            <a href="projectTracking.html" class="waves-effect waves-dark">
+                                                <span class="pcoded-micon"><i class="ti-folder"></i><b>D</b></span>
+                                                <span class="pcoded-mtext">Projects</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                </div>
+                            <div class="accordion">
+                                <div class="accordion-header">
+                                  <div class="pcoded-navigation-label accordion-toggle waves-effect waves-dark" onclick="toggleAccordion(this)">Invoices<i class="fa fa-chevron-down ml-1" id="accordion-icon"></i></div>
+                                </div>
+                                <div class="accordion-content" style="display: none;">
+                                
+                                    <ul class="pcoded-item pcoded-left-item">
+                                        <li>
+                                            <a href="o&mInvoices.html" class="waves-effect waves-dark">
+                                                <span class="pcoded-micon"><i class="ti-calendar"></i><b>D</b></span>
+                                                <span class="pcoded-mtext">O&M Invoices</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                          <a href="equipment-invoices.html" class="waves-effect waves-dark">
+                                              <span class="pcoded-micon"><i class="ti-settings"></i><b>D</b></span>
+                                              <span class="pcoded-mtext">Equipment Invoices</span>
+                                              <span class="pcoded-mcaret"></span>
+                                          </a>
+                                      </li>
+                                      <li>
+                                        <a href="invoices.html" class="waves-effect waves-dark">
+                                            <span class="pcoded-micon"><i class="ti-receipt"></i><b>D</b></span>
+                                            <span class="pcoded-mtext">C&H Invoices</span>
+                                            <span class="pcoded-mcaret"></span>
+                                        </a>
+                                    </li>
+                                    </ul>
+                                </div>
+                                </div>
+                                <div class="accordion">
+                                  <div class="accordion-header">
+                                    <div class="pcoded-navigation-label accordion-toggle waves-effect waves-dark" onclick="toggleAccordion(this)">Equipments<i class="fa fa-chevron-down ml-1" id="accordion-icon"></i></div>
+                                  </div>
+                                  <div class="accordion-content" style="display: none;">
+                                    
+                                    <ul class="pcoded-item pcoded-left-item">
+                                        <li>
+                                            <a href="procurementStagesDashboard.html" class="waves-effect waves-dark">
+                                                <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
+                                                <span class="pcoded-mtext">Equipments Dashboard</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="equipmentlist.html" class="waves-effect waves-dark">
+                                                <span class="pcoded-micon"><i class="ti-receipt"></i><b>D</b></span>
+                                                <span class="pcoded-mtext">Equipment List</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    </div>
+                                    </div>
+                                    <div class="accordion">
+                                      <div class="accordion-header">
+                                        <div class="pcoded-navigation-label accordion-toggle waves-effect waves-dark" onclick="toggleAccordion(this)">Man Power Management<i class="fa fa-chevron-up ml-1" id="accordion-icon"></i></div>
+                                      </div>
+                                      <div class="accordion-content" style="display: block;">
+                                        <ul class="pcoded-item pcoded-left-item">
+                                          <li>
+                                              <a href="index.html" class="waves-effect waves-dark">
+                                                  <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
+                                                  <span class="pcoded-mtext">Dashboard</span>
+                                                  <span class="pcoded-mcaret"></span>
+                                              </a>
+                                          </li>
+                                          <li class="active">
+                                              <a href="staff-details.html" class="waves-effect waves-dark">
+                                                  <span class="pcoded-micon"><i class="ti-user"></i><b>BC</b></span>
+                                                  <span class="pcoded-mtext">Staff Details</span>
+                                                  <span class="pcoded-mcaret"></span>
+                                              </a>
+                                          </li>
+                                          <li>
+                                              <a href="contract-logs.html" class="waves-effect waves-dark">
+                                                  <span class="pcoded-micon"><i class="ti-notepad"></i><b>BC</b></span>
+                                                  <span class="pcoded-mtext">Contract Logs</span>
+                                                  <span class="pcoded-mcaret"></span>
+                                              </a>
+                                          </li>
+                                      </ul>
+                                      
+                                        </div>
+                                        </div> -->
+                    </nav>
+
+
+
+                    <div class="pcoded-content">
+                        <!-- Page-header start -->
+                        <div class="page-header">
+                            <div class="page-block">
+                                <div class="row align-items-center">
+                                    <div class="col-md-8">
+                                        <!-- <img src="assets/images/ntcpwc-logo.jpg" class="img-fluid w-25" -->
+                                            <!-- alt="NTCPWC LOGO"> -->
+                                        <div class="page-header-title">
+                                            <h5 class="m-b-10">Staff Details</h5>
+                                            <p class="m-b-0">Welcome to iVTS-FMS</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <ul class="breadcrumb">
+                                            <li class="breadcrumb-item">
+                                                <a href="index.html"> <i class="ti-home"></i> </a>
+                                            </li>
+                                            <li class="breadcrumb-item"><a href="#!">Staff Details</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Page-header end -->
+                        <div class="pcoded-inner-content">
+                            <div class="main-body">
+                                <div class="page-wrapper">
+                                    <div class="page-body">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <h5>Staff Details</h5>
+                                                        
+                                                        <!-- <div class="card-header-right">
+                                                            <ul class="list-unstyled card-option">
+                                                                <li><i class="fa fa fa-wrench open-card-option"></i>
+                                                                </li>
+                                                                <li><i class="fa fa-minus minimize-card"></i></li>
+                                                                <li><i class="fa fa-refresh reload-card"></i></li>
+                                                            </ul>
+                                                        </div> -->
+                                                    </div>
+
+                                                    <div class="card-block">
+                                                       
+ <!-----------------------------------------------ADD-NEW-MODAl-START--------------------------------------------------------------------->
+                                                      
+                                                        <div>
+                                                            
+                                                            <div class="d-none" id="tab">
+                                                                <div class="nav nav-tabs md-tabs" id="myTab" role="tablist">
+                                                                    <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab1" type="button">Basic Details</button>
+                                                                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab2" type="button">Insurance Details</button>
+                                                                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab3" type="button">Document Upload</button>
+                                                                </div>
+                                                               <div class="tab-content mt-3">
+                                                                <div class="tab-pane fade show active " id="tab1">
+                                                                    <!-- Modal Header -->
+                                                                    
+                                                        
+                                                                    <!-- Modal Body -->
+                                                                    <div class="modal-body">
+                                                                        <form id="new-staff-form">
+                                                                            <div class="row">
+                                                                                <!-- Left Column -->
+                                                                                <div class="col-md-6">
+                                                                                    <!-- Staff ID -->
+                                                                                    <div class="form-group">
+                                                                                        <label for="staffID">Staff ID<span class="text-danger">*</span></label>
+                                                                                        <input type="text" name="staffID" maxlength="20" class="form-control form-control-sm" id="staffId"
+                                                                                            placeholder="Enter Staff ID" required>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-md-6">
+                                                                                    <!-- Staff Name -->
+                                                                                    <div class="form-group">
+                                                                                        <label for="staffName">Staff Name</label>
+                                                                                        <input type="text" name="staffName" maxlength="25" class="form-control form-control-sm" id="staffName"
+                                                                                            placeholder="Enter Staff Name">
+                                                                                    </div>
+                                                        
+                                                                                </div>
+                                                        
+                                                                            </div>
+                                                                            <div class="row">
+                                                                                <div class="col-md-6">
+                                                                                    <div class="form-group">
+                                                                                        <label for="dateOfBirth">Date of Birth</label>
+                                                                                        <input type="date" name="dateOfBirth" class="form-control form-control-sm" id="dateOfBirth">
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-md-6">
+                                                                                    <!-- Aadhaar Number -->
+                                                                                    <div class="form-group">
+                                                                                        <label for="aadharNumber">Aadhaar Number</label>
+                                                                                        <input type="number"  name="aadharNumber" class="form-control form-control-sm" id="aadharNumber"
+                                                                                            placeholder="Aadhaar Number">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="row">
+                                                                                <div class="col-md-6">
+                                                                                    <!-- Contact Number -->
+                                                                                    <div class="form-group">
+                                                                                        <label for="contactNumber">Contact Number</label>
+                                                                                        <input type="tel" maxlength="10" name="contactNumber" class="form-control form-control-sm" id="contactNumber"
+                                                                                            placeholder="Enter Contact Number">
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-md-6">
+                                                                                    <!-- Email ID -->
+                                                                                    <div class="form-group">
+                                                                                        <label for="emailId">Email ID</label>
+                                                                                        <input type="email"  name="mail" class="form-control form-control-sm" id="email"
+                                                                                            placeholder="Enter Email ID">
+                                                                                    </div>
+                                                        
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="row">
+                                                                                <div class="col-md-12">
+                                                                                    <!-- Permanent Address -->
+                                                                                    <div class="form-group">
+                                                                                        <label for="permanentAddress">Permanent Address</label>
+                                                                                        <textarea class="form-control form-control-sm" id="permanentAddress" maxlength="255" name="permanentAddress" rows="2"
+                                                                                            placeholder="Enter Permanent Address"></textarea>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <hr>
+                                                                            <div class="row">
+                                                                                <div class="col-md-12">
+                                                                                    <div class="form-group">
+                                                                                        <label for="locationOfWork">Location of Work<span class="text-danger">*</span></label>
+                                                                                        <select class="form-control form-control-sm" id="locationSelect" name="locationOfWork">
+                                                                                            <option value="" disabled selected>Select Location</option>
+                                                                                           
+                                                                                        </select>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="row">
+                                                                                <div class="col-md-6">
+                                                                                    <!-- Date of Joining -->
+                                                                                    <div class="form-group">
+                                                                                        <label for="dateOfJoining">Date of Joining</label>
+                                                                                        <input type="date" name="dateOfJoining" class="form-control form-control-sm" id="dateOfJoining">
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-md-6">
+                                                                                    <!-- Salary at Joining -->
+                                                                                    <div class="form-group">
+                                                                                        <label for="salary">Salary at Joining</label>
+                                                                                        <input type="number" name="salary" class="form-control form-control-sm" id="salary"
+                                                                                            placeholder="Enter Salary">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="row d-flex align-items-center">
+                                                                                <div class="col-md-6">
+                                                                                    <div class="form-group">
+                                                                                        <label for="qualifications">Qualifications</label>
+                                                                                        <input type="text" name="qualifications" class="form-control form-control-sm" maxlength="100" id="qualifications"
+                                                                                            placeholder="Enter qualifications">
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-md-6">
+                                                                                    <!-- Highest Qualification -->
+                                                                                    <div class="form-group">
+                                                                                        <label for="highestQualification">Highest Qualification</label>
+                                                                                        <select class="form-control form-control-sm" id="highestQualificationSelect" name="highestQualification">
+                                                                                            <option value="" disabled selected>Select Qualification</option>
+                                                                                            
+                                                                                        </select>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="row d-flex align-items-center">
+                                                                                <div class="col-md-6">
+                                                                                    <div class="form-group">
+                                                                                        <label for="certifications">Certifications</label>
+                                                                                        <input type="text" name="certifications" class="form-control form-control-sm" id="certifications"
+                                                                                           maxlength="255"  placeholder="Enter Certifications">
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-md-6">
+                                                        
+                                                                                    <!-- Courses -->
+                                                                                    <div class="form-group">
+                                                                                        <label for="courses">Courses</label>
+                                                                                        <select class="form-control form-control-sm" id="courseSelect" name="courses">
+                                                                                            <option value="" disabled selected>Select Course</option>
+                                                                                        </select>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>                                                        
+                                                                        </form>
+                                                                    </div>
+                                                        
+                                                                    <!-- Modal Footer -->
+                                                                    
+                                                                </div>
+                                                                <div class="tab-pane fade" id="tab2">
+                                                                    <div class="modal-body">
+                                                                        <form id="new-insurance-form">
+                                                                            <div class="row">
+                                                                                <!-- Left Column -->
+                                                                                <div class="col-md-6">
+                                                                                    <!-- Staff ID -->
+                                                                                    <div class="form-group">
+                                                                                        <label for="insuranceProvider">Insurance Provider<span class="text-danger">*</span></label>
+                                                                                        <input type="text" name="insuranceProvider" maxlength="20" class="form-control form-control-sm" id="insuranceProvider"
+                                                                                            placeholder="Enter Insurance Provider" required>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-md-6">
+                                                                                    <!-- Staff Name -->
+                                                                                    <div class="form-group">
+                                                                                        <label for="policyNumber">Policy Number<span class="text-danger">*</span></label>
+                                                                                        <input type="text" name="policyNumber" maxlength="25" class="form-control form-control-sm" id="policyNumber"
+                                                                                            placeholder="Enter Policy Number">
+                                                                                    </div>
+                                                        
+                                                                                </div>
+                                                        
+                                                                            </div>
+                                                                            <div class="row">
+                                                                                <div class="col-md-6">
+                                                                                    <div class="form-group">
+                                                                                        <label for="policyStartDate">Policy Start Date<span class="text-danger">*</span></label>
+                                                                                        <input type="date" name="policyStartDate" maxlength="20" class="form-control form-control-sm" id="policyStartDate"
+                                                                                            placeholder="Enter Policy start Date" required>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-md-6">
+                                                                                    <div class="form-group">
+                                                                                        <label for="policyEndDate">Policy Expiry Date</label>
+                                                                                        <input type="date" name="policyExpiryDate" maxlength="20" class="form-control form-control-sm" id="policyExpiryDate"
+                                                                                            placeholder="Enter Policy Expiry Date" required>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </form>
+                                                                    </div>
+                                                                </div> 
+                                                                <div class="tab-pane fade" id="tab3">
+    <div class="modal-body">
+        <form id="new-Document-form" class="needs-validation" novalidate>
+            <div class="row">
+
+                <!-- Aadhaar Upload -->
+                <div class="col-md-6 mb-4">
+                    <label for="aadhaarFile" class="form-label fw-semibold">
+                        Aadhaar <span class="text-danger">*</span>
+                    </label>
+                    <div class="d-flex align-items-center border border-secondary rounded overflow-hidden">
+                        <input type="file" name="aadhaarFile" class="form-control border-0" id="aadhaarFile" required>
+                    </div>
+                </div>
+
+                <!-- PAN Upload -->
+                <div class="col-md-6 mb-4">
+                    <label for="panFile" class="form-label fw-semibold">
+                        PAN <span class="text-danger">*</span>
+                    </label>
+                    <div class="d-flex align-items-center border border-secondary rounded overflow-hidden">
+                        <input type="file" name="panFile" class="form-control border-0" id="panFile" required>
+                    </div>
+                </div>
+
+                <!-- Academic Certificate Upload -->
+                <div class="col-md-6 mb-4">
+                    <label for="certFile" class="form-label fw-semibold">
+                        Academic Certificate <span class="text-danger">*</span>
+                    </label>
+                    <div class="d-flex align-items-center border border-secondary rounded overflow-hidden">
+                        <input type="file" name="academicFile" class="form-control border-0" id="certFile" required>
+                    </div>
+                </div>
+
+                <!-- ID Card Upload -->
+                <div class="col-md-6 mb-4">
+                    <label for="idCardFile" class="form-label fw-semibold">
+                        ID Card <span class="text-danger">*</span>
+                    </label>
+                    <div class="d-flex align-items-center border border-secondary rounded overflow-hidden">
+                        <input type="file" name="idCardFile" class="form-control border-0" id="idCardFile" required>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <hr>
+                </div>
+
+                <!-- 10th Certificate Upload -->
+                <div class="col-md-6 mb-4">
+                    <label for="certFile10" class="form-label fw-semibold">
+                        10th Certificate
+                    </label>
+                    <div class="d-flex align-items-center border border-secondary rounded overflow-hidden">
+                        <input type="file" name="certFile10" class="form-control border-0" id="certFile10" required>
+                    </div>
+                </div>
+
+                <!-- 12th Certificate Upload -->
+                <div class="col-md-6 mb-4">
+                    <label for="certFile12" class="form-label fw-semibold">
+                        12th Certificate
+                    </label>
+                    <div class="d-flex align-items-center border border-secondary rounded overflow-hidden">
+                        <input type="file" name="certFile12" class="form-control border-0" id="certFile12" required>
+                    </div>
+                </div>
+
+                <!-- GMDSS Certificate Upload -->
+                <div class="col-md-6 mb-4">
+                    <label for="certFileGMDSS" class="form-label fw-semibold">
+                        GMDSS Certificate
+                    </label>
+                    <div class="d-flex align-items-center border border-secondary rounded overflow-hidden">
+                        <input type="file" name="certFileGMDSS" class="form-control border-0" id="certFileGMDSS" required>
+                    </div>
+                </div>
+
+                <!-- IALA Certificate Upload -->
+                <div class="col-md-6 mb-4">
+                    <label for="certFileIALA" class="form-label fw-semibold">
+                        IALA Certificate
+                    </label>
+                    <div class="d-flex align-items-center border border-secondary rounded overflow-hidden">
+                        <input type="file" name="certFileIALA" class="form-control border-0" id="certFileIALA" required>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <hr>
+                </div>
+
+                <!-- Others Section -->
+                <div class="col-md-12 mb-2">
+                    <label class="form-label fw-semibold">Others</label>
+                </div>
+
+            </div>
+
+<!-- Dynamic container -->
+<div id="other-certificates">
+    <!-- Default Field -->
+    <div class="row g-1 align-items-center mb-3 other-cert-row">
+        <div class="col-md-4">
+            <input type="text" class="form-control" name="otherCertName[]" placeholder="Certification Name">
+        </div>
+        <div class="col-md-6">
+            <input type="file" class="form-control" name="otherCertFile" required>
+        </div>
+        <div class="col-md-2 text-center">
+            <!-- Add More Button (Round + Icon) -->
+    <button type="button" class="btn btn-success rounded" id="addMoreBtn">
+       <i class="ti-plus"></i> Add More 
+    </button>
+            <button type="button" class="btn btn-danger rounded-circle remove-other-cert d-none">
+                <i class="ti-minus"></i> Remove
+            </button>
+        </div>
+    </div>
+</div>
+
+
+        </form>
+    </div>
+</div>
+ 
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-danger" data-dismiss="modal" id="exitButton">Exit</button>
+                                                                    <button type="submit" class="btn btn-success" id="add_staff_btn" data-dismiss="modal">Submit</button>
+                                                                </div>  
+                                                               </div>
+                                                            </div>
+                                                        </div>
+
+<!---------------------------------------------------------------------------------------------ADD-NEW-MODAL-END---------------------------------------------------->
+ <!-----------------------------------------------UPDATE-MODAl-START--------------------------------------------------------------------->
+                                                      
+ <div>
+ <div class="d-none" id="tabWrapper">
+        <div class="nav nav-tabs md-tabs" id="myTab1" role="tablist">
+            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab4" type="button">Basic Details</button>
+            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab5" type="button">Insurance Details</button>
+            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab6" type="button">Document Update</button>
+
+        </div>
+        <div class="tab-content mt-3">
+            <div class="tab-pane fade show active " id="tab4">
+             <!-- Modal Body -->
+             <div class="modal-body">
+                 <form id="update-staff-form">
+                     <div class="row">
+                         <!-- Left Column -->
+                         <div class="col-md-6">
+                             <!-- Staff ID -->
+                             <div class="form-group">
+                                 <label for="update-staffId">Staff ID</label>
+                                 <input type="text" name="staffID" class="form-control form-control-sm editElement" id="update-staffId" maxlength="20"
+                                     placeholder="Enter Staff ID">
+                             </div>
+                         </div>
+                         <div class="col-md-6">
+                             <!-- Staff Name -->
+                             <div class="form-group">
+                                 <label for="update-staffName">Staff Name</label>
+                                 <input type="text" maxlength="25" class="form-control form-control-sm editElement" name="staffName" id="update-staffName"
+                                     placeholder="Enter Staff Name">
+                             </div>
+    
+                         </div>
+    
+                     </div>
+                     <div class="row">
+                         <div class="col-md-6">
+                             <div class="form-group">
+                                 <label for="update-dateOfBirth">Date of Birth</label>
+                                 <input type="date" name="dateOfBirth" class="form-control form-control-sm editElement" id="update-dateOfBirth">
+                             </div>
+                         </div>
+                         <div class="col-md-6">
+                             <!-- Aadhaar Number -->
+                             <div class="form-group">
+                                 <label for="update-aadharNumber" id="aadharLabel">Aadhaar Number</label>
+                                 <input type="number" name="aadharNumber" class="form-control form-control-sm editElement" id="update-aadharNumber"
+                                     placeholder="Aadhaar Number" maxlength="12">
+                             </div>
+                         </div>
+                     </div>
+                     <div class="row">
+                         <div class="col-md-6">
+                             <!-- Contact Number -->
+                             <div class="form-group">
+                                 <label for="update-contactNumber">Contact Number</label>
+                                 <input type="tel" class="form-control form-control-sm editElement" maxlength="10" name="contactNumber" id="update-contactNumber"
+                                     placeholder="Enter Contact Number">
+                             </div>
+                         </div>
+                         <div class="col-md-6">
+                             <!-- Email ID -->
+                             <div class="form-group">
+                                 <label for="update-mail">Email ID</label>
+                                 <input type="email" name="mail" class="form-control form-control-sm editElement" id="update-mail"
+                                     placeholder="Enter Email ID">
+                             </div>
+    
+                         </div>
+                     </div>
+                     <div class="row">
+                         <div class="col-md-12">
+                             <!-- Permanent Address -->
+                             <div class="form-group">
+                                 <label for="update-permanentAddress">Permanent Address</label>
+                                 <textarea class="form-control form-control-sm editElement" id="update-permanentAddress" name="permanentAddress" rows="2" maxlength="255"
+                                     placeholder="Enter Permanent Address"></textarea>
+                             </div>
+                         </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="update-location">Location of Work</label>
+                                <select class="form-control form-control-sm editElement" id="update-location" name="locationOfWork">  </select> 
+                            </div>
+                        </div>
+                    </div>
+                     <div class="row">
+                         <div class="col-md-6">
+                             <!-- Date of Joining -->
+                             <div class="form-group">
+                                 <label for="update-dateOfJoining">Date of Joining</label>
+                                 <input type="date" name="dateOfJoining" class="form-control form-control-sm editElement" id="update-dateOfJoining">
+                             </div>
+                         </div>
+                         <div class="col-md-6">
+                             <!-- Salary at Joining -->
+                             <div class="form-group">
+                                 <label for="update-salary">Salary at Joining</label>
+                                 <input type="number" name="salary" class="form-control form-control-sm editElement" id="update-salary"
+                                     placeholder="Enter Salary">
+                             </div>
+                         </div>
+                     </div>
+                     
+                     <div class="row d-flex align-items-center">
+                         <div class="col-md-6">
+                             <div class="form-group">
+                                 <label for="update-qualifications">Qualifications</label>
+                                 <input type="text" name="qualifications" maxlength="100" class="form-control form-control-sm editElement" id="update-qualifications"
+                                     placeholder="Enter qualifications">
+                             </div>
+                         </div>
+                         <div class="col-md-6">
+                             <!-- Highest Qualification -->
+                             <div class="form-group">
+                                 <label for="update-highestQualification">Highest Qualification</label>
+                                 <select class="form-control form-control-sm editElement" id="update-highestQualification" name="highestQualification">
+                                     
+                                 </select>
+                             </div>
+                         </div>
+                     </div>
+                     <div class="row d-flex align-items-center">
+                         <div class="col-md-6">
+                             <div class="form-group">
+                                 <label for="update-certifications">Certifications</label>
+                                 <input type="text" class="form-control form-control-sm editElement" id="update-certifications"
+                                     placeholder="Enter Certifications" name="certifications">
+                             </div>
+                         </div>
+                         <div class="col-md-6">
+    
+                             <!-- Courses -->
+                             <div class="form-group">
+                                 <label for="update-courses">Courses</label>
+                                 <select class="form-control form-control-sm editElement" id="update-courseSelect" name="courses">
+                                     <option value="" disabled selected>Select Course</option>
+                                 </select>
+                             </div>
+                         </div>
+                     </div>                                                       
+                 </form>
+             </div>
+        </div>
+        <div class="tab-pane fade show" id="tab5">
+            <div class="mt-4">
+                <table id="policyTable" class="table">
+                    <thead class="bg-primary text-white">
+                        <tr>
+                            <th>Update Date</th>
+                            <th>New Policy Number</th>
+                            <th>New Provider</th>
+                            <th>New Policy Start Date</th>
+                            <th>New Expiry Date</th>
+                            <th>Updated By</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2/1/2025</td>
+                            <td>INS-99999</td>
+                            <td>ABC Insurance</td>
+                            <td>2/1/2025</td>
+                            <td>2/1/2026</td>
+                            <td>HR Admin</td>
+                        </tr>
+                        <tr>
+                            <td>5/10/2024</td>
+                            <td>INS-88888</td>
+                            <td>XYZ Insurance</td>
+                            <td>5/10/2024</td>
+                            <td>5/10/2025</td>
+                            <td>HR Manager</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="text-end mt-2">
+                    <button class="btn btn-success btn-sm writeElement" id="addRowBtn">
+                        <i class="ti-plus"></i> Add Row
+                    </button>
+                </div>
+            </div>
+            
+            
+            
+            
+            
+        </div>
+        <div class="tab-pane fade show" id="tab6">
+    <div class="mt-4">
+        <table id="documentTable" class="table">
+            <thead class="bg-primary text-white">
+                <tr>
+                    <th>Documents</th>
+                    <th>Edit</th>
+                </tr>
+            </thead>
+            <tbody id="documentTableBody">
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+        </div>
+        
+
+
+         <!-- Modal Footer -->
+         <div class="modal-footer">
+             <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal" id="exitButton2">Exit</button>
+             <button type="button" id="update_staff_btn" class="btn btn-success btn-sm writeElement">Update</button>
+         </div>
+     
+ </div>
+</div>
+
+
+<!---------------------------------------------------------------------------------------------UPDATE-MODAL-END---------------------------------------------------->   
+
+
+                                                       <div id="tableCard">
+                                                        <div class="d-flex justify-content-end mb-5">
+                                                            <button id="addNew"
+                                                                class="btn btn-primary addNewRecord writeElement d-flex align-items-center gap-2 px-sm-4 py-sm-2 rounded-pill shadow"
+                                                                data-toggle="modal" data-target="#addNewModal">
+                                                                <i class="ti-plus text-white fs-5"></i>
+                                                                <span class="fw-bold">Add New Staff</span>
+                                                            </button>
+                                                        </div>
+
+                                                        <div class="mb-3 p-3 rounded shadow shadow-sm filter">
+                                                            <div class="row g-3">
+                                                                <div class="col-md-6">
+                                                                    <div class="d-flex flex-column">
+                                                                        <label for="designationFilter" class="text-muted small mb-1">Designation</label>
+                                                                        <select id="designationFilter" class="form-select form-select-sm border-secondary">
+                                                                            <option value="">Show all</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                        
+                                                                <div class="col-md-6">
+                                                                    <div class="d-flex flex-column">
+                                                                        <label for="locationFilter" class="text-muted small mb-1">Location</label>
+                                                                        <select id="locationFilter" class="form-select form-select-sm border-secondary">
+                                                                            <option value="">Show all</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row">
+                                                            <div id="exportButtons" class="mb-3">
+                                                                <button onclick="fetchDataAndGenerateExcel()" class="dt-button">
+                                                                    Download All Data
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="d-flex justify-content-center align-items-center">
+                                                            <div class="table-responsive">
+                                                                
+                                                                
+                                                                
+                                                                <table id="myTable"
+                                                                    class="table table-striped rounded table-hover">
+                                                                    <thead class="bg-primary text-white text-center">
+                                                                        <tr>
+                                                                            <th>Staff ID</th>
+                                                                            <th>Staff Name</th>
+                                                                            <th>Location Of Work</th>
+                                                                            <th>Date Of Joining</th>
+                                                                            <th>Current Salary</th>
+                                                                            <th>Current Designation</th>
+                                                                            <th>Status</th>
+                                                                            <!-- <th>Actions</th> -->
+                                                                             <th>Update</th>
+                                                                            
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <!-- <tr class="align-items-center">
+                                                                            <td>1</td>
+                                                                            <td>Divyan</td>
+                                                                            <td>Sirkali</td>
+                                                                            <td>1/1/2025</td>
+                                                                            <td>
+                                                                                <div class="container">
+                                                                                    <div class="toggle-btn active" onclick="toggleSwitch(this)">
+                                                                                        <div class="slider"></div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </td>
+                                                                            <td>
+                                                                                <div class="row d-flex justify-content-center">
+                                                                                    <button class="btn btn-edit d-flex align-items-center justify-content-center p-0 " style="width: 40px; height: 40px;" data-toggle="modal" data-target="#updateModal">
+                                                                                        <i class="ti-pencil text-white" style="font-size: larger;"></i>
+                                                                                    </button>
+                                                                                    <button class="btn btn-danger d-flex align-items-center justify-content-center p-0" style="width: 40px; height: 40px;" data-toggle="modal" data-target="#updateModal">
+                                                                                        <i class="ti-trash text-white" style="font-size: larger;"></i>
+                                                                                    </button>
+                                                                                </div>
+                                                                            </td> 
+                                                                        </tr> -->
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                       </div>
+
+
+                                                    </div>
+                                                    <!-- table staff details end --> 
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- Warning Section Starts -->
+
+    <div id="pcoded-container" class="pcoded">
+        <div class="pcoded-innenr-content">
+
+        </div>
+    </div>
+    <script src="assets/js/roleUtil.js"></script>
+
+  <!-- Required jQuery -->
+<script type="text/javascript" src="assets/js/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="assets/js/jquery-ui/jquery-ui.min.js"></script>
+<script type="text/javascript" src="assets/js/popper.js/popper.min.js"></script>
+<script type="text/javascript" src="assets/js/bootstrap/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- DataTables CSS -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
+<!-- jQuery and DataTables JS -->
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+<!-- DataTables Buttons Extension JS -->
+<script src="https://cdn.datatables.net/buttons/2.1.0/js/dataTables.buttons.min.js"></script>
+
+<!-- Buttons for Excel, CSV, and PDF -->
+<script src="https://cdn.datatables.net/buttons/2.1.0/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js"></script>
+
+<!-- Excel export -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+
+<!-- JSZip for Excel export -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
+
+<!-- pdfMake for PDF export -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+
+<!-- DataTables Buttons CSS -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.1.0/css/buttons.dataTables.min.css">
+
+<!-- Toastr and other scripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script src="assets/pages/waves/js/waves.min.js"></script>
+<script type="text/javascript" src="assets/js/jquery-slimscroll/jquery.slimscroll.js"></script>
+<script src="assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="assets/js/pcoded.min.js"></script>
+<script src="assets/js/vertical/vertical-layout.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<!-- Custom scripts -->
+<script type="module" src="./assets/js/axiosInstance.js"></script>
+<script src="assets/js/popup.js"></script>
+<script src="assets/js/staff-details.js"></script>
+<script type="text/javascript" src="assets/js/script.js"></script>
+<script src="./assets/js/api.js"></script>
+<script src="./assets/js/apiRequests.js"></script>
+
+<!-- Initialize DataTable -->
+<script>
+   $(document).ready(function () {
+       const datatable = $('#myTable').DataTable({
+           "paging": true,
+           "pageLength": 25,
+           "lengthMenu": [5, 10, 25, 50, 100],
+           dom: '<"top"l>frtip',
+           buttons: ['excel', 'csv', 'pdf']
+       });
+
+       datatable.buttons().container().appendTo($('#exportButtons'));
+
+
+
+ $('#designationFilter').on('change', function () {
+        const selectedDesignation = $(this).val();
+        datatable.column(5).search(selectedDesignation ? '^' + selectedDesignation + '$' : '', true, false).draw();
+    });
+
+    $('#locationFilter').on('change', function () {
+        const selectedLocation = $(this).val();
+        datatable.column(2).search(selectedLocation ? '^' + selectedLocation + '$' : '', true, false).draw(); 
+    });
+
+   });
+
+
+    
+    $('#filter').on('change', function () {
+        const selectedCategory = $(this).val();
+        if (selectedCategory) {
+            datatable.column(1).search(selectedCategory).draw();
+        } else {
+            datatable.column(1).search('').draw(); 
+        }
+    });
+
+    function toggleAccordion(button) {
+        const content = button.parentElement.nextElementSibling;
+        content.style.display = (content.style.display === "none" || content.style.display === "") ? "block" : "none";
+        const icon = button.querySelector("i");
+        icon.classList.toggle("fa-chevron-down");
+        icon.classList.toggle("fa-chevron-up");
+    }
+</script>
+<script>
+    document.querySelector('#addNew').addEventListener('click', function () {
+        document.querySelector('#tab').classList.remove('d-none');
+        document.querySelector('#tableCard').style.display = 'none';
+        document.querySelector('#exitButton').addEventListener('click',function(){
+            document.querySelector('#tab').classList.add('d-none');
+            document.querySelector('#tableCard').style.display = 'block';
+        });
+    });
+
+</script>
+<script>
+ $(document).ready(async function () {
+    let table = $('#policyTable').DataTable();
+
+    
+    $('#addRowBtn').click(async function () {
+        const empID = $('#update-staffId').val();
+
+        try {
+            const checkResponse = await axiosInstance.get(`/insurance/active/${empID}`);
+            if (checkResponse.data.hasActivePolicy) {
+                showErrorPopupFadeInDown('Employee already has an active policy.');
+                return;
+            }
+        } catch (error) {
+            console.error(error);
+            alert('Error checking active policy.');
+            return;
+        }
+
+        let rowNode = table.row.add([
+            `<input type="date" class="form-control policyStartDate editElement">`,
+            `<input type="text" class="form-control policyNumber editElement" placeholder="Policy Number">`,
+            `<input type="text" class="form-control provider editElement" placeholder="Provider">`,
+            `<input type="date" class="form-control policyStartDate editElement">`,
+            `<input type="date" class="form-control policyExpiryDate editElement" readonly>`,
+            `<input type="text" class="form-control updatedBy editElement" placeholder="Updated By">`,
+            `<button class="btn btn-danger btn-sm deleteRow writeElement">Delete</button>`
+        ]).draw(false).node();
+
+        
+        autoSaveInsurance(rowNode);
+    });
+
+   
+    $('#policyTable tbody').on('change', '.policyStartDate', function () {
+        let row = $(this).closest('tr');
+        let startDate = new Date($(this).val());
+        if (!isNaN(startDate)) {
+            startDate.setFullYear(startDate.getFullYear() + 1);
+            row.find('.policyExpiryDate').val(startDate.toISOString().split('T')[0]);
+        }
+    });
+
+  
+    $('#policyTable tbody').on('change', 'input', function () {
+        let row = $(this).closest('tr');
+        autoSaveInsurance(row);
+    });
+
+   
+    async function autoSaveInsurance(row) {
+        let empID = $('#update-staffId').val();
+        let policyNumber = $(row).find('.policyNumber').val();
+        let provider = $(row).find('.provider').val();
+        let policyStartDate = $(row).find('.policyStartDate').val();
+        let policyExpiryDate = $(row).find('.policyExpiryDate').val();
+        let updatedBy = $(row).find('.updatedBy').val();
+
+        if (!policyNumber || !provider || !policyStartDate || !policyExpiryDate || !updatedBy) {
+            console.warn('Skipping auto-save: missing fields');
+            return;
+        }
+
+        let insuranceData = {
+            employeeId:empID,
+            policyNumber:policyNumber,
+             provider,
+            policyStartDate,
+            policyEndDate:policyExpiryDate,
+            updatedBy:updatedBy
+        };
+
+        try {
+        await axiosInstance.post('/insurance/', insuranceData);
+        showSucessPopupFadeInDownLong('Insurance record added successfully.');
+
+        
+        row.html(`
+            <td>${policyStartDate}</td>
+            <td>${policyNumber}</td>
+            <td>${provider}</td>
+            <td>${policyStartDate}</td>
+            <td>${policyExpiryDate}</td>
+            <td>${updatedBy}</td>
+        `);
+    } catch (error) {
+        showErrorPopupFadeInDown('Error saving insurance record.');
+        console.error('Error saving insurance record:', error);
+    }
+    }
+
+    
+    $('#policyTable tbody').on('click', '.deleteRow', function () {
+        table.row($(this).parents('tr')).remove().draw();
+    });
+
+
+    roles = await axiosInstance.get('/roles/role/perms');
+roles = roles.data.roles;
+// console.log(roles);
+window.roles = roles;
+    handlePermission('#username');
+
+});
+
+
+    </script>
+    <script>
+        document.getElementById('policyStartDate').addEventListener('change', function () {
+    let startDate = new Date(this.value);
+    if (!isNaN(startDate)) {
+        startDate.setFullYear(startDate.getFullYear() + 1); 
+        document.getElementById('policyExpiryDate').value = startDate.toISOString().split('T')[0]; 
+    }
+});
+
+    </script>
+    <script src="assets/js/sweetAlert.js"></script>
+</body>
+
+</html>

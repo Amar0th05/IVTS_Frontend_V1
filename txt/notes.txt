@@ -1,0 +1,39 @@
+---------------------------------            
+            equipments
+---------------------------------
+        payments terms
+
+        cost
+        exclusive of gst
+        gst 
+        total cost
+
+        invoice
+        payment data
+        upload invoice
+
+-----------------------------
+            IC & SR
+----------------------------
+approved by ic & sr date
+
+in case of rejection
+
+rejected by ic & sr date
+reason
+
+-------------------------------------------------
+
+                Projects Dashboard
+
+-------------------------------------------------
+
+pie chart - project status
+
+projects count
+                                      ----
+project cost ongoing - cost details       |
+                                          |====> PIE CHART
+proect cost completed - cost details      |
+                                      ----
+

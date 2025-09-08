@@ -1,0 +1,101 @@
+tbl_indents:
+    ID
+    ModeOfPurchase
+    Purpose
+    document
+    VendorID
+    TypeOfIndent
+    QuotationAvailabe
+    ExtraGST
+    Price
+    TypeOfCurrency
+    Payment
+    DeliveryPlace
+    Delivery
+    OtherTerms
+    ProjectID
+    SubProjectNO
+    ProjectRemarks
+    CreatedAt
+    CreatedBy
+
+mmt_vendors:
+    ID
+    VendorName
+    Address
+    Phone
+    Mail
+    GSTNO
+    PANNO
+    AccountNO
+    IFSC
+    Bank
+    BranchAddress
+
+tbl_fund_check:
+    ID
+    IndentID
+    FundAvailable
+
+    (if not available)
+
+    AlternateProjectNO
+    AlternateProjectName
+    Remarks
+    FundCheckedAt
+    FundCheckedBy
+
+tbl_LPC_completion:
+    ID
+    IndentID
+    DocumentsProcessedDate
+    DocumentsDispatchedDate
+    DocumentsReceivedAtNACDate
+    CompletionDate
+    SupportDocument
+    LPCCompletedAt
+    LPCCompletedBy
+
+
+tbl_indent_approval:
+    ID
+    IndentID
+    Remarks
+    SupportDocument
+    Status (Revert back, Approved, Rejected) if reverted back it is sent to the user created the indent for changes
+    ApprovedAt
+    ApprovedBy
+
+tbl_PO_approval:
+    ID
+    IndentID
+    TypeOfOrder
+    Category
+    ReferenceNO
+    ApprovalDate
+    ApprovedBy
+
+tbl_PO_generated:
+    ID
+    IndentID
+    signedPOMailedDate
+    SignedPO
+
+tbl_SRB_Create:
+    ID
+    IndentID
+    Type
+    PONO
+    PODate
+    EmpName
+    Discount
+    DeductedAmount
+    InvoiceNO
+    InvoiceDate
+    warranty
+    Others
+    OtherCharges
+    GSTAmount
+    GrandTotal
+    File
+    SRB

@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Contract Logs</title>
+    <!-- HTML5 Shim and Respond.js IE10 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 10]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+      <![endif]-->
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <meta name="keywords"
+        content="bootstrap, bootstrap admin template, admin theme, admin dashboard, dashboard template, admin template, responsive" />
+    <meta name="author" content="Codedthemes" />
+    <!-- Favicon icon -->
+    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+    <!-- Google font-->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
+    <!-- waves.css -->
+    <link rel="stylesheet" href="assets/pages/waves/css/waves.min.css" type="text/css" media="all">
+    <!-- Required Fremwork -->
+    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap/css/bootstrap.min.css">
+    <!-- waves.css -->
+    <link rel="stylesheet" href="assets/pages/waves/css/waves.min.css" type="text/css" media="all">
+    <!-- themify icon -->
+    <link rel="stylesheet" type="text/css" href="assets/icon/themify-icons/themify-icons.css">
+    <!-- font-awesome-n -->
+    <link rel="stylesheet" type="text/css" href="assets/css/font-awesome-n.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.min.css">
+    <!-- scrollbar.css -->
+    <link rel="stylesheet" type="text/css" href="assets/css/jquery.mCustomScrollbar.css">
+    <!-- Style.css -->
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+
+
+<link rel="stylesheet" href="assets/css/custom.css">
+
+    <!-- Toastr CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <style>
+        .ColVis_collection {
+            position: absolute; 
+            z-index: 1000; 
+        }
+        </style>
+        <style>
+            .hidden {
+              display: none !important;
+            }
+          </style>
+
+<style>
+    .addNewRecord{
+      all:unset;
+      color: white !important;
+      padding: 10px 10px !important;
+      background: linear-gradient(135deg, #4931d1, #7f86f3);
+    }
+  </style>
+
+
+</head>
+
+<bo>
+    <!-- Pre-loader start -->
+    <div class="theme-loader">
+        <div class="loader-track">
+            <div class="preloader-wrapper">
+                <div class="spinner-layer spinner-blue">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+                <div class="spinner-layer spinner-red">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+
+                <div class="spinner-layer spinner-yellow">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+
+                <div class="spinner-layer spinner-green">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Pre-loader end -->
+    <div id="pcoded" class="pcoded">
+        <div class="pcoded-overlay-box"></div>
+        <div class="pcoded-container navbar-wrapper">
+            <nav class="navbar header-navbar pcoded-header">
+                <div class="navbar-wrapper">
+                    <div class="navbar-logo align-items-center">
+                        <a class="mobile-menu waves-effect waves-light" id="mobile-collapse" href="#!">
+                            <i class="ti-menu"></i>
+                        </a>
+                        <div class="mobile-search waves-effect waves-light">
+                            <div class="header-search">
+                                <div class="main-search morphsearch-search">
+                                    <div class="input-group">
+                                        <span class="input-group-prepend search-close"><i
+                                                class="ti-close input-group-text"></i></span>
+                                        <input type="text" class="form-control" placeholder="Enter Keyword">
+                                        <span class="input-group-append search-btn"><i
+                                                class="ti-search input-group-text"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="index.html">
+                            <!-- <img class="img-fluid" src="https://ntcpwc.iitm.ac.in/New/images/ntcpwc-logo.jpg" alt="Theme-Logo" style="height: 50px;" /> -->
+                            <h4 class="d-inline"><span class="text-lowercase">i</span>VTS-FMS</h4>
+                        </a>
+                        <a class="mobile-options waves-effect waves-light">
+                            <i class="ti-more"></i>
+                        </a>
+                    </div>
+                    <div class="navbar-container container-fluid">
+                        <ul class="nav-left">
+                            <li>
+                                <div class="sidebar_toggle"><a href="javascript:void(0)"><i class="ti-menu"></i></a>
+                                </div>
+                            </li>
+                            <li>
+                                <a href="#!" onclick="javascript:toggleFullScreen()" class="waves-effect waves-light">
+                                    <i class="ti-fullscreen"></i>
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="nav-right">
+                            <!-- <li class="header-notification">
+                                <a href="#!" class="waves-effect waves-light">
+                                    <i class="ti-bell"></i>
+                                    <span class="badge bg-c-red"></span>
+                                </a>
+                                <ul class="show-notification">
+                                    <li>
+                                        <h6>Notifications</h6>
+                                        <label class="label label-danger">New</label>
+                                    </li>
+                                    <li class="waves-effect waves-light">
+                                        <div class="media">
+                                            <img class="d-flex align-self-center img-radius"
+                                                src="assets/images/avatar-2.jpg" alt="Generic placeholder image">
+                                            <div class="media-body">
+                                                <h5 class="notification-user">John Doe</h5>
+                                                <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer
+                                                    elit.</p>
+                                                <span class="notification-time">30 minutes ago</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="waves-effect waves-light">
+                                        <div class="media">
+                                            <img class="d-flex align-self-center img-radius"
+                                                src="assets/images/avatar-4.jpg" alt="Generic placeholder image">
+                                            <div class="media-body">
+                                                <h5 class="notification-user">Joseph William</h5>
+                                                <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer
+                                                    elit.</p>
+                                                <span class="notification-time">30 minutes ago</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="waves-effect waves-light">
+                                        <div class="media">
+                                            <img class="d-flex align-self-center img-radius"
+                                                src="assets/images/avatar-3.jpg" alt="Generic placeholder image">
+                                            <div class="media-body">
+                                                <h5 class="notification-user">Sara Soudein</h5>
+                                                <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer
+                                                    elit.</p>
+                                                <span class="notification-time">30 minutes ago</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li> -->
+                            <li class="user-profile header-notification">
+                                <a href="#!" class="waves-effect waves-light">
+                                    <!-- <img src="assets/images/avatar-4.jpg" class="img-radius" alt="User-Profile-Image"> -->
+                                    <span id="username">John Doe</span>
+                                    <i class="ti-angle-down"></i>
+                                </a>
+                                <ul class="show-notification profile-notification">
+                                    <li class="waves-effect waves-light">
+                                        <a href="#!">
+                                            <i class="ti-settings"></i> Settings
+                                        </a>
+                                    </li>
+                                    <li class="waves-effect waves-light">
+                                        <a href="user-profile.html">
+                                            <i class="ti-user"></i> Profile
+                                        </a>
+                                    </li>
+                                    <li class="waves-effect waves-light">
+                                        <a href="index.html" id="logout-button">
+                                            <i class="ti-layout-sidebar-left"></i> Logout
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="pcoded-main-container">
+                <div class="pcoded-wrapper">
+                    <nav class="pcoded-navbar">
+                        <div class="sidebar_toggle"><a href="#"><i class="icon-close icons"></i></a></div>
+                        <div class="pcoded-inner-navbar main-menu">
+                            <div class="">
+                                <div class="main-menu-header">
+                                    <!-- <img class="img-80 img-radius" src="assets/images/avatar-4.jpg" alt="User-Profile-Image">
+                                    <div class="user-details">
+                                        <span id="more-details">John Doe<i class="fa fa-caret-down"></i></span>
+                                    </div> -->
+                                    <img src="assets/images/ntcpwc-logo.jpg" alt="ntcpwc-logo">
+                                </div>
+                                <div class="main-menu-content">
+                                    <ul>
+                                        <li class="more-details">
+                                            <a href="user-profile.html"><i class="ti-user"></i>View Profile</a>
+                                            <a href="#!"><i class="ti-settings"></i>Settings</a>
+                                            <a href="auth-normal-sign-in.html"><i
+                                                    class="ti-layout-sidebar-left"></i>Logout</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="p-15 p-b-0">
+                                <form class="form-material">
+                                    <div class="form-group form-primary">
+                                        <input type="text" name="footer-email" class="form-control">
+                                        <span class="form-bar"></span>
+                                        <label class="float-label"><i class="fa fa-search m-r-10"></i>Search</label>
+                                    </div>
+                                </form>
+                            </div>
+                            <div id="sidebar-container"> 
+
+                            </div>
+                            <!-- <div class="accordion">
+                                <div class="accordion-header">
+                                  <div class="pcoded-navigation-label accordion-toggle waves-effect waves-dark" onclick="toggleAccordion(this)">Project Tracking<i class="fa fa-chevron-down ml-1" id="accordion-icon"></i></div>
+                                </div>
+                                <div class="accordion-content" style="display: none;">
+                                
+                                    <ul class="pcoded-item pcoded-left-item">
+                                        <li>
+                                            <a href="projectTracking.html" class="waves-effect waves-dark">
+                                                <span class="pcoded-micon"><i class="ti-folder"></i><b>D</b></span>
+                                                <span class="pcoded-mtext">Projects</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                </div>
+                            <div class="accordion">
+                                <div class="accordion-header">
+                                  <div class="pcoded-navigation-label accordion-toggle waves-effect waves-dark" onclick="toggleAccordion(this)">Invoices<i class="fa fa-chevron-down ml-1" id="accordion-icon"></i></div>
+                                </div>
+                                <div class="accordion-content" style="display: none;">
+                                
+                                    <ul class="pcoded-item pcoded-left-item">
+                                        <li>
+                                            <a href="o&mInvoices.html" class="waves-effect waves-dark">
+                                                <span class="pcoded-micon"><i class="ti-calendar"></i><b>D</b></span>
+                                                <span class="pcoded-mtext">O&M Invoices</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                          <a href="equipment-invoices.html" class="waves-effect waves-dark">
+                                              <span class="pcoded-micon"><i class="ti-settings"></i><b>D</b></span>
+                                              <span class="pcoded-mtext">Equipment Invoices</span>
+                                              <span class="pcoded-mcaret"></span>
+                                          </a>
+                                      </li>
+                                      <li>
+                                        <a href="invoices.html" class="waves-effect waves-dark">
+                                            <span class="pcoded-micon"><i class="ti-receipt"></i><b>D</b></span>
+                                            <span class="pcoded-mtext">C&H Invoices</span>
+                                            <span class="pcoded-mcaret"></span>
+                                        </a>
+                                    </li>
+                                    </ul>
+                                </div>
+                                </div>
+                                
+                                <div class="accordion">
+                                  <div class="accordion-header">
+                                    <div class="pcoded-navigation-label accordion-toggle waves-effect waves-dark" onclick="toggleAccordion(this)">Equipments<i class="fa fa-chevron-down ml-1" id="accordion-icon"></i></div>
+                                  </div>
+                                  <div class="accordion-content" style="display: none;">
+                                    
+                                    <ul class="pcoded-item pcoded-left-item">
+                                        <li>
+                                            <a href="procurementStagesDashboard.html" class="waves-effect waves-dark">
+                                                <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
+                                                <span class="pcoded-mtext">Equipments Dashboard</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="equipmentlist.html" class="waves-effect waves-dark">
+                                                <span class="pcoded-micon"><i class="ti-receipt"></i><b>D</b></span>
+                                                <span class="pcoded-mtext">Equipment List</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    </div>
+                                    </div>
+                                    <div class="accordion">
+                                      <div class="accordion-header">
+                                        <div class="pcoded-navigation-label accordion-toggle waves-effect waves-dark" onclick="toggleAccordion(this)">Man Power Management<i class="fa fa-chevron-up ml-1" id="accordion-icon"></i></div>
+                                      </div>
+                                      <div class="accordion-content" style="display: block;">
+                                        <ul class="pcoded-item pcoded-left-item">
+                                          <li>
+                                              <a href="index.html" class="waves-effect waves-dark">
+                                                  <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
+                                                  <span class="pcoded-mtext">Dashboard</span>
+                                                  <span class="pcoded-mcaret"></span>
+                                              </a>
+                                          </li>
+                                          <li>
+                                              <a href="staff-details.html" class="waves-effect waves-dark">
+                                                  <span class="pcoded-micon"><i class="ti-user"></i><b>BC</b></span>
+                                                  <span class="pcoded-mtext">Staff Details</span>
+                                                  <span class="pcoded-mcaret"></span>
+                                              </a>
+                                          </li>
+                                          <li class="active">
+                                              <a href="contract-logs.html" class="waves-effect waves-dark">
+                                                  <span class="pcoded-micon"><i class="ti-notepad"></i><b>BC</b></span>
+                                                  <span class="pcoded-mtext">Contract Logs</span>
+                                                  <span class="pcoded-mcaret"></span>
+                                              </a>
+                                          </li>
+                                      </ul>
+                                      
+                                        </div>
+                                        </div> -->
+                    </nav>
+
+
+
+                    <div class="pcoded-content">
+                        <!-- Page-header start -->
+                        <div class="page-header">
+                            <div class="page-block">
+                                <div class="row align-items-center">
+                                    <div class="col-md-8">
+                                        <!-- <img src="assets/images/ntcpwc-logo.jpg" class="img-fluid w-25"
+                                            alt="NTCPWC LOGO"> -->
+                                        <div class="page-header-title">
+                                            <h5 class="m-b-10">Contract Logs</h5>
+                                            <p class="m-b-0">Welcome to iVTS-FMS</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <ul class="breadcrumb">
+                                            <li class="breadcrumb-item">
+                                                <a href="index.html"> <i class="ti-home"></i> </a>
+                                            </li>
+                                            <li class="breadcrumb-item"><a href="#!">Contract Logs</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Page-header end -->
+                        <div class="pcoded-inner-content">
+                            <div class="main-body">
+                                <div class="page-wrapper">
+                                    <div class="page-body">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <h5>Contract Logs</h5>
+                                                    </div>
+
+                                                    <div class="card-block">
+
+<!-----------------------------------------------ADD-NEW-LOG-MODAl-START--------------------------------------------------------------------->
+
+                                                        <div class="modal fade" id="addNewModal" tabindex="-1"
+                                                            role="dialog" aria-labelledby="addNewModalLabel"
+                                                            aria-hidden="true">
+                                                            <div class="modal-dialog modal-lg" role="document">
+                                                                <div class="modal-content">
+                                                                    <!-- Modal Header -->
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title" id="addNewModalLabel">
+                                                                            Add New Contract Log</h5>
+                                                                        <button type="button" class="close"
+                                                                            data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div>
+
+                                                                    <!-- Modal Body -->
+                                                                    <div class="modal-body">
+                                                                        <form id="addNewLogForm">
+                                                                            <div class="row">
+                                                                               <div class="col-md-6">
+                                                                                <div class="form-group">
+                                                                                    <label for="staffID">Staff ID</label>
+                                                                                    <select class="form-control form-control-sm" name="staffID" id="staffId-select">
+                                                                                        <option value="" disabled selected>Select Satff ID</option>
+                                                                                        
+                                                                                    </select>
+                                                                                </div>
+                                                                               </div>
+                                                                               <div class="col-md-6">
+                                                                                <div class="form-group">
+                                                                                    <label for="staffName">Staff Name</label>
+                                                                                    <input type="text" name="staffName"
+                                                                                        class="form-control form-control-sm"
+                                                                                        id="staffName"
+                                                                                        placeholder="Enter Staff Name" disabled>
+                                                                                </div>
+                                                                               </div>
+                                                                            </div>
+                                                                            <div class="row">
+                                                                                <div class="col-md-6">
+                                                                                    <div class="form-group">
+                                                                                        <label
+                                                                                            for="contractStartDate">Contract
+                                                                                            Start Date</label>
+                                                                                        <input type="date"
+                                                                                            class="form-control form-control-sm"
+                                                                                            id="contractStartDate" name="contractStartDate">
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-md-6">
+                                                                                    <div class="form-group">
+                                                                                        <label
+                                                                                            for="contractEndDate">Contract
+                                                                                            End Date</label>
+                                                                                        <input type="date"
+                                                                                            class="form-control form-control-sm"
+                                                                                            id="contractEndDate" name="contractEndDate">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="row">
+                                                                                <div class="col-md-6">
+                                                                                    <div class="form-group">
+                                                                                        <label for="basicPay">Basic Pay</label>
+                                                                                        <input type="number"
+                                                                                            class="form-control form-control-sm"
+                                                                                            id="basicPay"
+                                                                                            placeholder="Enter Basic Pay" name="basicPay">
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-md-6">
+                                                                                    <div class="form-group">
+                                                                                        <label for="allowance">Allowance</label>
+                                                                                        <input type="number"
+                                                                                            class="form-control form-control-sm"
+                                                                                            id="allowance"
+                                                                                            placeholder="Enter Allowance" name="allowance">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="row">
+                                                                                <div class="col-md-12">
+                                                                                    <div class="form-group">
+                                                                                        <label for="grossPay">Gross Pay</label>
+                                                                                        <input type="number"
+                                                                                            class="form-control form-control-sm"
+                                                                                            id="grossPay"
+                                                                                            placeholder="0.0" name="grossPay" aria-disabled="true" disabled>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="row">
+                                                                                <div class="col-md-12">
+                                                                                    <div class="form-group">
+                                                                                        <label for="designation">Current Designation</label>
+                                                                                        <select class="form-control form-control-sm" id="designationSelect" name="designationSelect">
+                                                                                            <option value="" disabled selected>Select Designation</option>
+                                                                                        </select>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </form>
+                                                                    </div>
+
+                                                                    <!-- Modal Footer -->
+                                                                    <div class="modal-footer">
+                                                                        <button type="button"
+                                                                            class="btn btn-danger btn-sm"
+                                                                            data-dismiss="modal">Exit</button>
+                                                                        <button type="button"
+                                                                            class="btn btn-success btn-sm" id="add_log_btn" data-dismiss="modal">Submit</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+ <!---------------------------------------------------------------------------------------------ADD-NEW-LOG-MODAL-END---------------------------------------------------->
+ <!-----------------------------------------------UPDATE-LOG-MODAl-START--------------------------------------------------------------------->
+ 
+<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="updateModalLabel">
+                    Update Contract Log</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <form id="updateLogForm">
+                    <div class="row">
+                        <div class="col-md-6">
+                         <div class="form-group">
+                             <label for="update-staffID">Staff ID</label>
+                             <select class="form-control form-control-sm editElement" name="staffID" id="update-staffId">
+                                 
+                                
+                             </select>
+                         </div>
+                        </div>
+                        <div class="col-md-6">
+                         <div class="form-group">
+                             <label for="update-staffName">Staff Name</label>
+                             <input type="text"
+                                 class="form-control form-control-sm editElement"
+                                 id="update-staffName" name="staffName"
+                                 placeholder="Enter Staff Name" disabled>
+                         </div>
+                        </div>
+                     </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="update-basicPay">Basic Pay</label>
+                                <input type="number" name="basicPay" class="form-control form-control-sm editElement" id="update-basicPay"
+                                    placeholder="Enter Basic Pay">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="update-allowance">Allowance</label>
+                                <input type="number" name="allowance" class="form-control form-control-sm editElement" id="update-allowance"
+                                    placeholder="Enter Allowance">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="update-grossPay">Gross Pay</label>
+                                <input type="number"  name="grossPay" class="form-control form-control-sm editElement" id="update-grossPay"
+                                    placeholder="0.0" aria-disabled="true" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="update-designation">Current Designation</label>
+                                <select class="form-control form-control-sm editElement" name="designation" id="update-designation">
+                                    <option value="" disabled selected>Select Designation</option>
+                                    
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Exit</button>
+                <button type="button" class="btn btn-success btn-sm writeElement" id="update_log_btn">Update</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!---------------------------------------------------------------------------------------------UPDATE-LOG-MODAL-END---------------------------------------------------->
+
+                                                        <div class="d-flex justify-content-end mb-5">
+                                                            <button
+                                                                class="btn btn-primary writeElement addNewRecord d-flex align-items-center gap-2 px-sm-4 py-sm-2 rounded-pill shadow"
+                                                                data-toggle="modal" data-target="#addNewModal">
+                                                                <i class="ti-plus text-white fs-5"></i>
+                                                                <span class="fw-bold">Add New Contract Log</span>
+                                                            </button>
+                                                            
+                                                        </div>
+                                                       
+                                                        <div class="mb-3 p-3 filter">
+                                                            <div class="row g-3">
+                                                                <div class="col-md-6">
+                                                                    <div class="d-flex flex-column">
+                                                                        <label for="designationFilter" class="text-muted small mb-1">Designation</label>
+                                                                        <select id="designationFilter" class="form-select form-select-sm border-secondary">
+                                                                            <option value="">All</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                        
+                                                                <div class="col-md-6">
+                                                                    <div class="d-flex flex-column">
+                                                                        <label for="staffIdFilter" class="text-muted small mb-1">Staff ID</label>
+                                                                        <select id="staffIdFilter" class="form-select form-select-sm border-secondary">
+                                                                            <option value="">All</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        <div class="row">
+                                                            <div id="exportButtons" class="mb-3">
+                                                            
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        
+                                                        <!-- <div id="colvisContainer"></div> -->
+                                                        <div class="d-flex justify-content-center align-items-center">
+                                                            
+                                                            <div class="table-responsive">
+                                                                <table id="myTable"
+                                                                    class="table table-striped  rounded table-hover">
+                                                                    <thead class="bg-primary text-white">
+                                                                        <tr>
+                                                                            <th>Staff ID</th>
+                                                                            <th>Contract Start Date</th>
+                                                                            <th>Contract End Date</th>
+                                                                            <th>Basic Pay</th>
+                                                                            <th>Allowance</th>
+                                                                            <th>Gross Pay</th>
+                                                                            <th>Current Designation</th>
+                                                                            <!-- <th>Actions</th> -->
+                                                                            <th>Update</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                    <!-- table staff details end -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- Warning Section Starts -->
+
+    <div id="pcoded-container" class="pcoded">
+        <div class="pcoded-innenr-content">
+
+        </div>
+    </div>
+
+    <script src="assets/js/roleUtil.js"></script>
+<!-- jquery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+
+<!-- bootstrap -->
+<script src="assets/js/popper.js/popper.min.js"></script>
+<script src="assets/js/bootstrap/js/bootstrap.min.js"></script>
+
+<!-- data tables -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+
+<script src="https://cdn.datatables.net/buttons/2.1.0/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.1.0/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.1.0/js/buttons.print.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.1.0/css/buttons.dataTables.min.css">
+
+
+<script src="assets/pages/waves/js/waves.min.js"></script>
+<script src="assets/js/jquery-slimscroll/jquery.slimscroll.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script src="assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="assets/js/pcoded.min.js"></script>
+<script src="assets/js/vertical/vertical-layout.min.js"></script>
+
+<!-- axios -->
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<!-- custom scripts -->
+<script type="module" src="./assets/js/axiosInstance.js"></script>
+<script src="./assets/js/apiRequests.js"></script>
+<script src="./assets/js/api.js"></script>
+<script src="assets/js/contract-logs.js"></script>
+<script src="assets/js/popup.js"></script>
+<script src="assets/js/script.js"></script>
+
+
+<script>
+$(document).ready(async function () {
+    var table = $('#myTable').DataTable({
+        "paging": true,
+        "pageLength": 25,
+        "lengthMenu": [5, 10, 25, 50, 100],
+        dom: '<"top"l>frtip',
+        buttons: ['excel', 'csv', 'pdf']
+    });
+
+    // new $.fn.dataTable.Buttons(table, {
+    //     buttons: [
+    //         { extend: 'excelHtml5', title: 'Contract logs', exportOptions: { columns: [0, 1, 2, 3, 4, 6] } },
+    //         { extend: 'csvHtml5', title: 'Contract logs', exportOptions: { columns: [0, 1, 2, 3, 4, 6] } },
+    //         { extend: 'pdfHtml5', title: 'Contract logs', exportOptions: { columns: [0, 1, 2, 3, 4, 6] } },
+    //         { extend: 'colvis', text: 'Column Visibility', postfixButtons: ['colvisRestore'], className: 'btn btn-primary' }
+    //     ]
+    // });
+
+    // table.buttons(0, null).container().appendTo($('#exportButtons'));
+    
+    table.buttons().container().appendTo($('#exportButtons'));
+
+    // $('#exportExcel').on('click', function () { table.button('.buttons-excel').trigger(); });
+    // $('#exportCSV').on('click', function () { table.button('.buttons-csv').trigger(); });
+    // $('#exportPDF').on('click', function () { table.button('.buttons-pdf').trigger(); });
+    // $('#colvis').on('click', function () { table.button('.buttons-colvis').trigger(); });
+
+
+    $('#designationFilter').on('change', function () {
+        const selectedDesignation = $(this).val();
+        table.column(6).search(selectedDesignation ? '^' + selectedDesignation + '$' : '', true, false).draw();
+    });
+
+
+    $('#staffIdFilter').on('change', function () {
+        const selectedStaffId = $(this).val();
+        table.column(0).search(selectedStaffId ? '^' + selectedStaffId + '$' : '', true, false).draw();
+    });
+
+
+
+});
+
+
+document.getElementById('basicPay').addEventListener('input', updateGrossPay);
+document.getElementById('allowance').addEventListener('input', updateGrossPay);
+function updateGrossPay() {
+    let basicPay = parseFloat(document.getElementById('basicPay').value) || 0.0;
+    let allowance = parseFloat(document.getElementById('allowance').value) || 0.0;
+    document.getElementById('grossPay').value = (basicPay + allowance).toFixed(2);
+}
+
+
+function toggleAccordion(button) {
+    
+        const content = button.parentElement.nextElementSibling;
+        content.style.display = (content.style.display === "none" || content.style.display === "") ? "block" : "none";
+
+        const icon = button.querySelector("i");
+        icon.classList.toggle("fa-chevron-down");
+        icon.classList.toggle("fa-chevron-up");
+}
+
+</script>
+<script>
+ 
+</script>
+    
+</body>
+
+</html>

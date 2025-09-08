@@ -1,0 +1,271 @@
+.toggle-btn {
+    width: 40px; 
+    height: 20px; 
+    background-color: #ccc;
+    border-radius: 50px;
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.3s;
+}
+
+.toggle-btn.editElement {
+    pointer-events: none;
+    cursor: not-allowed !important;
+    /* opacity: 0.7; */
+}
+
+.toggle-btn .slider {
+    position: absolute;
+    top: 2px; 
+    left: 3px;
+    width: 16px; 
+    height: 16px; 
+    background-color: white;
+    border-radius: 50%;
+    transition: transform 0.3s;
+}
+
+.toggle-btn.active {
+    background-color: #28a745; 
+}
+
+.toggle-btn.active .slider {
+    transform: translateX(20px);
+}
+
+
+.dt-button {
+    all: unset !important;
+    background-color: #448aff !important; 
+    color: white !important;  
+    border-radius: 2px !important; 
+    padding: 8px 10px !important; 
+    font-size: 14px; 
+    border: hidden !important;
+    cursor: pointer !important;
+    text-transform: uppercase; 
+}
+
+.dt-button:first-of-type {
+    margin-left: 10px !important;
+}
+
+
+.dt-button:hover {
+    background-color: #7eabf8 !important;
+    border-color: #004085; 
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.dt-button-collection .dt-button.active {
+    all: unset !important;
+    
+    padding: 4px 6px !important;
+    width: 93% !important;
+    margin: auto;
+    background-color: #03aff3 !important; 
+    color: white !important; 
+}
+
+
+.dt-button-collection .dt-button {
+    background-color: #fbfbfb !important; 
+    color: gray !important;
+    border: none !important; 
+    display: block; 
+    width: 90% !important; 
+    margin: auto !important;
+}
+
+
+.dt-button-collection .dt-button:hover {
+    background-color: #4da3ff !important;
+    color: white !important; 
+}
+
+
+
+
+/* .buttons-excel {
+    background-color: #4CAF50 ;
+}
+
+.buttons-excel:hover {
+    background-color: #45a049 ;
+}
+
+.buttons-csv {
+    background-color: #ff9800 ;
+}
+
+.buttons-csv:hover {
+    background-color: #fb8c00;
+}
+
+.buttons-pdf {
+    background-color: #f44336;
+}
+
+.buttons-pdf:hover {
+    background-color: #e53935;
+} */
+.dataTables_paginate {
+    margin-top: 20px !important;
+}
+
+div.dataTables_filter {
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+div.dt-button-background {
+    background: transparent !important;
+}
+
+.filter{
+    width: 100% !important;
+    border-radius: 5px !important;
+    padding: 15px 10px !important;
+    margin-bottom: 30px !important;
+    margin-top: 10px !important;
+    font-size: 14px !important;
+    outline: none !important;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2) !important;
+    /* box-shadow: inset 0px 2px 5px rgba(0, 0, 0, 0.1) !important; */
+}
+
+.filter label{
+    color:#444 !important;
+    font-weight: medium !important;
+    font-size: 14px !important;
+}
+
+.filter select{
+    height: 30px !important;
+    border: 1px solid #ccc !important;
+    border-radius: 5px !important;
+}
+
+
+.client{
+    height: 40px !important;
+    border: 1px solid #ccc !important;
+    border-radius: 5px !important;
+}
+
+.nav-tabs{
+    border: none !important;
+    
+}
+.nav-tabs .nav-link {
+    position: relative;
+    font-size: 1rem;
+    padding-bottom: 10px;
+    color:black;
+    font-weight:550;
+}
+
+.nav-tabs .nav-link:focus,
+.nav-tabs .nav-link:active {
+    outline: none !important;
+    box-shadow: none !important;
+}
+.nav-tabs .nav-link{
+    background-color: white;
+}
+
+.nav-tabs .nav-link.active::after,
+.nav-tabs .nav-link:hover::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #007bff; 
+    border-radius: 50px;
+}
+#tab1 label,#tab2 label,#tab3 label,#tab4 label{
+    color:black !important;
+    font-weight: 550 !important;
+}
+#tab1 input,select, #tab2 input,select,#tab3 input,select,#tab4 input,select{
+    height: 40px;
+    border-radius: 5px;
+    box-shadow: none;
+    color:black;
+}
+
+#tab1,#tab2,#tab3,#tab4{
+    color:black;
+}
+
+#monthlyStatus{
+    color:black;
+}
+#monthlyStatus input,select{
+    height: 40px;
+    border-radius: 5px;
+    box-shadow: none;
+    color:black;
+}
+#pdfForm input{
+    height: 40px;
+    border-radius: 5px;
+    box-shadow: none;
+    color:black;
+}
+#tab1 textarea,#tab2 textarea,#tab3 textarea,#tab4 textarea{
+    border-radius: 5px;
+}
+#monthlyStatus textarea,#monthlyStatus textarea,#monthlyStatus textarea,#monthlyStatus textarea{
+    border-radius: 5px;
+}
+#monthlyStatus label{
+    color:black !important;
+    font-weight: 550 !important;
+}
+
+#monthlyStatus table th{
+    text-align: center;
+   
+}
+#monthlyStatus table td{
+    text-align: center;    
+}
+
+/* #monthlyStatus table input[type='checkbox']{
+    border-radius: 5px;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.108);
+} */
+
+#date-pill{
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.103);
+}
+
+#invoiceLogs td{
+    text-align: center;
+   
+}
+    
+
+#invoiceLogs textarea,#invoiceLogs textarea,#invoiceLogs textarea,#invoiceLogs textarea{
+    border-radius: 5px;
+}
+#invoiceLogs label{
+    color:black !important;
+    font-weight: 550 !important;
+}
+
+#invoiceLogs table th{
+    text-align: center;
+   
+}
+#invoiceLogs table td{
+    text-align: center;    
+}
+
+.pcoded-navigation-label{
+    font-size: 14px !important;
+}

@@ -1,0 +1,1367 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Equipments Dashboard</title>
+    <!-- HTML5 Shim and Respond.js IE10 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 10]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+      <![endif]-->
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <meta name="keywords" content="" />
+    <meta name="author" content="Codedthemes" />
+    <!-- Favicon icon -->
+    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+    <!-- Google font-->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
+    <!-- waves.css -->
+    <link rel="stylesheet" href="assets/pages/waves/css/waves.min.css" type="text/css" media="all">
+    <!-- Required Fremwork -->
+    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap/css/bootstrap.min.css">
+    <!-- waves.css -->
+    <link rel="stylesheet" href="assets/pages/waves/css/waves.min.css" type="text/css" media="all">
+    <!-- themify icon -->
+    <link rel="stylesheet" type="text/css" href="assets/icon/themify-icons/themify-icons.css">
+    <!-- font-awesome-n -->
+    <link rel="stylesheet" type="text/css" href="assets/css/font-awesome-n.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.min.css">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.datatables.net/buttons/2.1.0/css/buttons.dataTables.min.css">
+
+    <!-- scrollbar.css -->
+    <link rel="stylesheet" type="text/css" href="assets/css/jquery.mCustomScrollbar.css">
+    <!-- Style.css -->
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/custom.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
+
+    <style>
+        .modern-table {
+            color: black !important;
+            width: 90%;
+            border-collapse: separate;
+            border-spacing: 0 10px;
+            border: 1px solid #ddd;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 10px;
+        }
+
+        .modern-table thead {
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+        }
+
+        .modern-table th,
+        .modern-table td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 2px solid #ddd;
+        }
+
+        .modern-table tbody tr {
+            background: white;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .modern-table tbody tr:hover {
+            transform: scale(1.02);
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .modern-table tr:hover {
+            transform: scale(1.02);
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .modern-table td {
+            width: 50%;
+        }
+
+        .chart-container {
+            width: 100%;
+            height: 250px;
+        }
+
+        .legend-container {
+            width: 100%;
+            max-height: 100px;
+            overflow-y: auto;
+            text-align: center;
+            padding: 10px;
+        }
+    </style>
+    <style>
+        .hidden {
+            display: none !important;
+        }
+    </style>
+    <style>
+        .table-modern {
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .table-modern th,
+        .table-modern td {
+            padding: 12px 15px;
+            text-align: center !important;
+        }
+
+        .table-modern th:first-child,
+        .table-modern td:first-child {
+            text-align: justify;
+            color: white;
+            background-color: #007bffc9;
+            font-weight: 600;
+            width: fit-content;
+        }
+
+        .table-modern thead th {
+            background-color: #007bffc9;
+            color: white;
+            font-weight: 600;
+        }
+
+        .table-modern tbody tr:nth-child(odd) {
+            background-color: #f8f9fa;
+        }
+
+        .table-modern tbody tr:hover {
+            background-color: #e9ecef;
+        }
+    </style>
+    <style>
+        .table-equipments {
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: 10px;
+            overflow: hidden;
+            font-size: 14px !important;
+        }
+
+        .table-equipments tbody {
+            display: block;
+            max-height: 290px;
+            overflow-y: auto;
+        }
+
+        .table-equipments th,
+        .table-equipments td {
+            padding: 5px 10px;
+            text-align: center;
+        }
+
+        .table-equipments thead th {
+            background-color: #007bffc9;
+            color: white;
+            font-weight: 600;
+        }
+
+        .table-equipments tbody tr:nth-child(odd) {
+            background-color: #f8f9fa;
+        }
+
+        .table-equipments tbody tr:hover {
+            background-color: #e9ecef;
+        }
+
+        .table-equipments thead,
+        .table-equipments tbody tr {
+            display: table;
+            width: 100%;
+            table-layout: fixed;
+        }
+    </style>
+    <style>
+        #chartdiv {
+            width: 100%;
+            height: 280px;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        #equipmentChart {
+            width: 100%;
+            height: 500px;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        .am5chart-Legend {
+            margin-top: 20px;
+        }
+
+        #payHikeChart {
+            width: 100%;
+            height: 350px;
+
+            min-height: 250px;
+        }
+
+        .card-block {
+            padding: 10px;
+
+        }
+    </style>
+
+    <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/percent.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+
+</head>
+
+<body>
+    <!-- Pre-loader start -->
+    <div class="theme-loader">
+        <div class="loader-track">
+            <div class="preloader-wrapper">
+                <div class="spinner-layer spinner-blue">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+                <div class="spinner-layer spinner-red">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+
+                <div class="spinner-layer spinner-yellow">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+
+                <div class="spinner-layer spinner-green">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Pre-loader end -->
+    <div id="pcoded" class="pcoded">
+        <div class="pcoded-overlay-box"></div>
+        <div class="pcoded-container navbar-wrapper">
+            <nav class="navbar header-navbar pcoded-header">
+                <div class="navbar-wrapper">
+                    <div class="navbar-logo align-items-center">
+                        <a class="mobile-menu waves-effect waves-light" id="mobile-collapse" href="#!">
+                            <i class="ti-menu"></i>
+                        </a>
+                        <div class="mobile-search waves-effect waves-light">
+                            <div class="header-search">
+                                <div class="main-search morphsearch-search">
+                                    <div class="input-group">
+                                        <span class="input-group-prepend search-close"><i
+                                                class="ti-close input-group-text"></i></span>
+                                        <input type="text" class="form-control" placeholder="Enter Keyword">
+                                        <span class="input-group-append search-btn"><i
+                                                class="ti-search input-group-text"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="index.html">
+                            <!-- <img class="img-fluid" src="https://ntcpwc.iitm.ac.in/New/images/ntcpwc-logo.jpg" alt="Theme-Logo" style="height: 50px;" /> -->
+                            <h4 class="d-inline"><span class="text-lowercase">i</span>VTS-FMS</h4>
+                        </a>
+                        <a class="mobile-options waves-effect waves-light">
+                            <i class="ti-more"></i>
+                        </a>
+                    </div>
+                    <div class="navbar-container container-fluid">
+                        <ul class="nav-left">
+                            <li>
+                                <div class="sidebar_toggle"><a href="javascript:void(0)"><i class="ti-menu"></i></a>
+                                </div>
+                            </li>
+                            <li>
+                                <a href="#!" onclick="javascript:toggleFullScreen()" class="waves-effect waves-light">
+                                    <i class="ti-fullscreen"></i>
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="nav-right">
+                            <!-- <li class="header-notification">
+                                <a href="#!" class="waves-effect waves-light">
+                                    <i class="ti-bell"></i>
+                                    <span class="badge bg-c-red"></span>
+                                </a>
+                                <ul class="show-notification">
+                                    <li>
+                                        <h6>Notifications</h6>
+                                        <label class="label label-danger">New</label>
+                                    </li>
+                                    <li class="waves-effect waves-light">
+                                        <div class="media">
+                                            <img class="d-flex align-self-center img-radius" src="assets/images/avatar-2.jpg" alt="Generic placeholder image">
+                                            <div class="media-body">
+                                                <h5 class="notification-user">John Doe</h5>
+                                                <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer elit.</p>
+                                                <span class="notification-time">30 minutes ago</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="waves-effect waves-light">
+                                        <div class="media">
+                                            <img class="d-flex align-self-center img-radius" src="assets/images/avatar-4.jpg" alt="Generic placeholder image">
+                                            <div class="media-body">
+                                                <h5 class="notification-user">Joseph William</h5>
+                                                <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer elit.</p>
+                                                <span class="notification-time">30 minutes ago</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="waves-effect waves-light">
+                                        <div class="media">
+                                            <img class="d-flex align-self-center img-radius" src="assets/images/avatar-3.jpg" alt="Generic placeholder image">
+                                            <div class="media-body">
+                                                <h5 class="notification-user">Sara Soudein</h5>
+                                                <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer elit.</p>
+                                                <span class="notification-time">30 minutes ago</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li> -->
+                            <li class="user-profile header-notification">
+                                <a href="#!" class="waves-effect waves-light">
+                                    <!-- <img src="assets/images/avatar-4.jpg" class="img-radius" alt="User-Profile-Image"> -->
+                                    <span id="username">John Doe</span>
+                                    <i class="ti-angle-down"></i>
+                                </a>
+                                <ul class="show-notification profile-notification">
+                                    <li class="waves-effect waves-light">
+                                        <a href="#!">
+                                            <i class="ti-settings"></i> Settings
+                                        </a>
+                                    </li>
+                                    <li class="waves-effect waves-light">
+                                        <a href="user-profile.html">
+                                            <i class="ti-user"></i> Profile
+                                        </a>
+                                    </li>
+                                    <li class="waves-effect waves-light">
+                                        <a href="index.html" id="logout-button">
+                                            <i class="ti-layout-sidebar-left"></i> Logout
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="pcoded-main-container">
+                <div class="pcoded-wrapper">
+                    <nav class="pcoded-navbar">
+                        <div class="sidebar_toggle"><a href="#"><i class="icon-close icons"></i></a></div>
+                        <div class="pcoded-inner-navbar main-menu">
+                            <div class="">
+                                <div class="main-menu-header">
+                                    <!-- <img class="img-80 img-radius" src="assets/images/avatar-4.jpg" alt="User-Profile-Image">
+                                    <div class="user-details">
+                                        <span id="more-details">John Doe<i class="fa fa-caret-down"></i></span>
+                                    </div> -->
+                                    <img src="assets/images/ntcpwc-logo.jpg" alt="ntcpwc-logo">
+                                </div>
+                                <div class="main-menu-content">
+                                    <ul>
+                                        <li class="more-details">
+                                            <a href="user-profile.html"><i class="ti-user"></i>View Profile</a>
+                                            <a href="#!"><i class="ti-settings"></i>Settings</a>
+                                            <a href="index.html"><i class="ti-layout-sidebar-left"></i>Logout</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="p-15 p-b-0">
+                                <form class="form-material">
+                                    <div class="form-group form-primary">
+                                        <input type="text" name="footer-email" class="form-control">
+                                        <span class="form-bar"></span>
+                                        <label class="float-label"><i class="fa fa-search m-r-10"></i>Search</label>
+                                    </div>
+                                </form>
+                            </div>
+                            <div id="sidebar-container"></div>
+                            <!-- <div class="accordion">
+                                <div class="accordion-header">
+                                  <div class="pcoded-navigation-label accordion-toggle waves-effect waves-dark" onclick="toggleAccordion(this)">Project Tracking<i class="fa fa-chevron-down ml-1" id="accordion-icon"></i></div>
+                                </div>
+                                <div class="accordion-content" style="display: none;">
+                                
+                                    <ul class="pcoded-item pcoded-left-item">
+                                        <li>
+                                            <a href="projectTracking.html" class="waves-effect waves-dark">
+                                                <span class="pcoded-micon"><i class="ti-folder"></i><b>D</b></span>
+                                                <span class="pcoded-mtext">Projects</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                </div>
+                            <div class="accordion">
+                              <div class="accordion-header">
+                                <div class="pcoded-navigation-label accordion-toggle waves-effect waves-dark" onclick="toggleAccordion(this)">Invoices<i class="fa fa-chevron-down ml-1" id="accordion-icon"></i></div>
+                              </div>
+                              <div class="accordion-content" style="display: none;">
+                              
+                                  <ul class="pcoded-item pcoded-left-item">
+                                      <li>
+                                          <a href="o&mInvoices.html" class="waves-effect waves-dark">
+                                              <span class="pcoded-micon"><i class="ti-calendar"></i><b>D</b></span>
+                                              <span class="pcoded-mtext">O&M Invoices</span>
+                                              <span class="pcoded-mcaret"></span>
+                                          </a>
+                                      </li>
+                                      <li>
+                                        <a href="equipment-invoices.html" class="waves-effect waves-dark">
+                                            <span class="pcoded-micon"><i class="ti-settings"></i><b>D</b></span>
+                                            <span class="pcoded-mtext">Equipment Invoices</span>
+                                            <span class="pcoded-mcaret"></span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                      <a href="invoices.html" class="waves-effect waves-dark">
+                                          <span class="pcoded-micon"><i class="ti-receipt"></i><b>D</b></span>
+                                          <span class="pcoded-mtext">C&H Invoices</span>
+                                          <span class="pcoded-mcaret"></span>
+                                      </a>
+                                  </li>
+                                  </ul>
+                              </div>
+                              </div>
+                              <div class="accordion">
+                                <div class="accordion-header">
+                                  <div class="pcoded-navigation-label accordion-toggle waves-effect waves-dark" onclick="toggleAccordion(this)">Equipments<i class="fa fa-chevron-up ml-1" id="accordion-icon"></i></div>
+                                </div>
+                                <div class="accordion-content" style="display: block;">
+                                  
+                                  <ul class="pcoded-item pcoded-left-item">
+                                    <li class="active">
+                                        <a href="procurementStagesDashboard.html" class="waves-effect waves-dark">
+                                            <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
+                                            <span class="pcoded-mtext">Equipments Dashboard</span>
+                                            <span class="pcoded-mcaret"></span>
+                                        </a>
+                                    </li>
+                                      <li>
+                                          <a href="equipmentlist.html" class="waves-effect waves-dark">
+                                              <span class="pcoded-micon"><i class="ti-receipt"></i><b>D</b></span>
+                                              <span class="pcoded-mtext">Equipment List</span>
+                                              <span class="pcoded-mcaret"></span>
+                                          </a>
+                                      </li>
+                                  </ul>
+                                  </div>
+                                  </div>
+                                  <div class="accordion">
+                                    <div class="accordion-header">
+                                      <div class="pcoded-navigation-label accordion-toggle waves-effect waves-dark" onclick="toggleAccordion(this)">Man Power Management<i class="fa fa-chevron-down ml-1" id="accordion-icon"></i></div>
+                                    </div>
+                                    <div class="accordion-content" style="display: none;">
+                                      <ul class="pcoded-item pcoded-left-item">
+                                        <li>
+                                            <a href="index.html" class="waves-effect waves-dark">
+                                                <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
+                                                <span class="pcoded-mtext">Dashboard</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="staff-details.html" class="waves-effect waves-dark">
+                                                <span class="pcoded-micon"><i class="ti-user"></i><b>BC</b></span>
+                                                <span class="pcoded-mtext">Staff Details</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="contract-logs.html" class="waves-effect waves-dark">
+                                                <span class="pcoded-micon"><i class="ti-notepad"></i><b>BC</b></span>
+                                                <span class="pcoded-mtext">Contract Logs</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    
+                                      </div>
+                                      </div> -->
+
+
+                    </nav>
+                    <div class="pcoded-content">
+                        <!-- Page-header start -->
+                        <div class="page-header">
+                            <div class="page-block">
+                                <div class="row align-items-center">
+                                    <div class="col-md-8">
+                                        <!-- <img src="assets/images/ntcpwc-logo.jpg" class="img-fluid w-25" alt="NTCPWC LOGO"> -->
+                                        <div class="page-header-title">
+                                            <h5 class="m-b-10">Equipments Dashboard</h5>
+                                            <p class="m-b-0">Welcome to iVTS-FMS</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <ul class="breadcrumb">
+                                            <li class="breadcrumb-item">
+                                                <a href="index.html"> <i class="fa fa-home"></i> </a>
+                                            </li>
+                                            <li class="breadcrumb-item"><a href="#!">Equipments Dashboard</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Page-header end -->
+                        <div class="pcoded-inner-content">
+                            <!-- Main-body start -->
+                            <div class="main-body">
+                                <div class="page-wrapper">
+                                    <!-- Page-body start -->
+                                    <div class="page-body">
+                                        <div class="row">
+                                            <div class="col-md-12 mb-1">
+                                                <button class="btn btn-primary px-5 py-1" id="chartsBtn">Charts</button>
+                                                <button class="btn btn-primary px-5 py-1" id="tableBtn">Table</button>
+                                            </div>
+                                        </div>
+                                        <div class="row" id="chartCard">
+                                            <div class="col-md-12">
+                                                <div class="card shadow-sm">
+                                                    <div class="card-header">
+                                                        <h5 class="mb-0">Procurement Overview</h5>
+                                                        <ul class="nav nav-tabs card-header-tabs mt-2" id="chartTabs"
+                                                            role="tablist">
+
+                                                        </ul>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <div class="row g-3">
+                                                            <div class="col-md-12 chart-container-wrapper">
+                                                                <div class="card p-3 shadow-sm">
+                                                                    <div class="card-header">
+                                                                        <h5>VTMS IT EQUIPMENTS AND HARDWARE</h5>
+                                                                    </div>
+                                                                    <div id="chartdiv1" class="chart-container"
+                                                                        style="width: 100%; height: 250px; cursor: pointer;">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-md-6 d-none  table-container"
+                                                                id="table-containerchartdiv1">
+                                                                <div class="equipmentsTable-wrapper table-responsive">
+                                                                    <div class="d-flex justify-content-end"><i
+                                                                            class="ti ti-close text-white bg-danger p-1 rounded tbl-close"
+                                                                            style="cursor: pointer;"></i></div>
+                                                                    <table class="table table-equipments">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th>Equipment</th>
+                                                                                <th>Quantity</th>
+                                                                            </tr>
+                                                                        </thead>
+
+                                                                        <tbody></tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row">
+
+                                                            <div class="col-md-12 chart-container-wrapper">
+                                                                <div class="card p-3 shadow-sm">
+                                                                    <div class="card-header">
+                                                                        <h5>VTMS SENSORS</h5>
+                                                                    </div>
+                                                                    <div id="chartdiv2" class="chart-container"
+                                                                        style="width: 100%; height: 250px;"></div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6 d-none table-container"
+                                                                id="table-containerchartdiv2">
+                                                                <div class="equipmentsTable-wrapper table-responsive">
+                                                                    <div class="d-flex justify-content-end"><i
+                                                                            class="ti ti-close text-white bg-danger p-1 rounded tbl-close"
+                                                                            style="cursor: pointer;"></i></div>
+                                                                    <table class="table table-equipments">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th>Equipment</th>
+                                                                                <th>Quantity</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody></tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row g-3 mt-2">
+                                                            <div class="col-md-12 chart-container-wrapper">
+                                                                <div class="card p-3 shadow-sm">
+                                                                    <div class="card-header">
+                                                                        <h5>VTMS CENTRE SURVILLENCE</h5>
+                                                                    </div>
+                                                                    <div id="chartdiv3" class="chart-container"
+                                                                        style="width: 100%; height: 250px;"></div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6 d-none table-container"
+                                                                id="table-containerchartdiv3">
+                                                                <div class="equipmentsTable-wrapper table-responsive">
+                                                                    <div class="d-flex justify-content-end"><i
+                                                                            class="ti ti-close text-white bg-danger p-1 rounded tbl-close"
+                                                                            style="cursor: pointer;"></i></div>
+                                                                    <table class="table table-equipments">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th>Equipment</th>
+                                                                                <th>Quantity</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody></tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-12 chart-container-wrapper">
+                                                                <div class="card p-3 shadow-sm">
+                                                                    <div class="card-header">
+                                                                        <h5>VTMS DISPLAY</h5>
+                                                                    </div>
+                                                                    <div id="chartdiv4" class="chart-container"
+                                                                        style="width: 100%; height: 250px;"></div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6 d-none table-container"
+                                                                id="table-containerchartdiv4">
+                                                                <div class="equipmentsTable-wrapper table-responsive">
+                                                                    <div class="d-flex justify-content-end"><i
+                                                                            class="ti ti-close text-white bg-danger p-1 rounded tbl-close"
+                                                                            style="cursor: pointer;"></i></div>
+                                                                    <table class="table table-equipments">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th>Equipment</th>
+                                                                                <th>Quantity</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody></tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="mt-4 text-center legend-container d-none">
+                                                            <div id="legenddiv" style="width: 100%; height: 50px;">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="row d-none" id="tableCard">
+                                            <div class="col">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <h5 class="mb-5">Equipements Delivery Overview</h5>
+                                                        <!-- Nav tabs -->
+                                                        <ul class="nav nav-tabs card-header-tabs" id="tbl-tabs"
+                                                            role="tablist">
+
+                                                        </ul>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                            <div id="exportButtons" class="mb-3">
+
+                                                            </div>
+                                                        </div>
+                                                        <table class="table table-modern" id="equipmentsOverviewTable">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Stage</th>
+                                                                    <th>VTMS IT EQUIPMENTS AND HARDWARE</th>
+                                                                    <th>VTMS SENSORS</th>
+                                                                    <th>VTMS CENTRE SURVILLENCE</th>
+                                                                    <th>VTMS DISPLAY WALL</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody></tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+
+                                        </div>
+
+                                    </div>
+
+                                    <!-- Page-body end -->
+                                </div>
+                                <div id="styleSelector"> </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Warning Section Starts -->
+    <!-- Older IE warning message -->
+    <!--[if lt IE 10]>
+<div class="ie-warning">
+    <h1>Warning!!</h1>
+    <p>You are using an outdated version of Internet Explorer, please upgrade <br/>to any of the following web browsers to access this website.</p>
+    <div class="iew-container">
+        <ul class="iew-download">
+            <li>
+                <a href="http://www.google.com/chrome/">
+                    <img src="assets/images/browser/chrome.png" alt="Chrome">
+                    <div>Chrome</div>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.mozilla.org/en-US/firefox/new/">
+                    <img src="assets/images/browser/firefox.png" alt="Firefox">
+                    <div>Firefox</div>
+                </a>
+            </li>
+            <li>
+                <a href="http://www.opera.com">
+                    <img src="assets/images/browser/opera.png" alt="Opera">
+                    <div>Opera</div>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.apple.com/safari/">
+                    <img src="assets/images/browser/safari.png" alt="Safari">
+                    <div>Safari</div>
+                </a>
+            </li>
+            <li>
+                <a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie">
+                    <img src="assets/images/browser/ie.png" alt="">
+                    <div>IE (9 & above)</div>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <p>Sorry for the inconvenience!</p>
+</div>
+<![endif]-->
+    <!-- Warning Section Ends -->
+    <script src="assets/js/roleUtil.js"></script>
+    <!-- Required Jquery -->
+    <!-- <script type="text/javascript" src="assets/js/jquery/jquery.min.js "></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="assets/js/jquery-ui/jquery-ui.min.js "></script>
+    <script type="text/javascript" src="assets/js/popper.js/popper.min.js"></script>
+    <script type="text/javascript" src="assets/js/bootstrap/js/bootstrap.min.js "></script>
+    <!-- waves js -->
+    <script src="assets/pages/waves/js/waves.min.js"></script>
+    <!-- jquery slimscroll js -->
+    <script type="text/javascript" src="assets/js/jquery-slimscroll/jquery.slimscroll.js"></script>
+
+    <!-- slimscroll js -->
+    <script src="assets/js/jquery.mCustomScrollbar.concat.min.js "></script>
+
+    <!-- menu js -->
+    <script src="assets/js/pcoded.min.js"></script>
+    <script src="assets/js/vertical/vertical-layout.min.js "></script>
+
+
+    <!-- DataTables Core -->
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+    <!-- DataTables Buttons Extension -->
+    <script src="https://cdn.datatables.net/buttons/2.1.0/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.1.0/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.1.0/js/buttons.print.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js"></script>
+
+    <!-- Excel & PDF Export Dependencies -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <!-- Needed for Excel Export -->
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script src="./assets/js/axiosInstance.js"></script>
+    <script src="./assets/js/api.js"></script>
+    <script src="./assets/js/apiRequests.js"></script>
+    <script type="text/javascript" src="assets/js/script.js "></script>
+    <script type="text/javascript" src="assets/js/popup.js"></script>
+    <!-- <script src="/assets/js/index.js"></script> -->
+
+    <script>
+
+        document.addEventListener('DOMContentLoaded', async () => {
+
+            roles = await axiosInstance.get('/roles/role/perms');
+            roles = roles.data.roles;
+            // console.log(roles);
+            window.roles = roles;
+            handlePermission('#username');
+
+const sidebarContainer = document.getElementById('sidebar-container');
+if (sidebarContainer) {
+    sidebarContainer.innerHTML = generateSidebar();
+
+
+    const currentPage = window.location.pathname.split('/').pop().split('.')[0];
+    const navLinks = document.querySelectorAll('.pcoded-item a');
+
+    navLinks.forEach(link => {
+        if (link.getAttribute('href').includes(currentPage)) {
+            link.parentElement.classList.add('active');
+
+
+            const accordionContent = link.closest('.accordion-content');
+            if (accordionContent) {
+                accordionContent.style.display = 'block';
+                const header = accordionContent.previousElementSibling;
+                const icon = header.querySelector('.accordion-icon');
+                if (icon) {
+                    icon.classList.remove('fa-chevron-down');
+                    icon.classList.add('fa-chevron-up');
+                }
+            }
+        }
+    });
+}
+        })
+       
+
+        // const token=sessionStorage.getItem('token');
+        // const user=JSON.parse(sessionStorage.getItem('user'));
+        // if(token===null||user===null){
+        //     window.location.href="login.html";
+        // }else if(user.role===2){
+        //     window.location.href="user-details.html";
+        // }
+
+        // $('#username').text(user.name);
+
+        document.getElementById('logout-button').addEventListener('click', logout);
+        function logout() {
+            sessionStorage.removeItem('token');
+        }
+
+
+        function toggleAccordion(button) {
+            const content = button.parentElement.nextElementSibling;
+            content.style.display = (content.style.display === "none" || content.style.display === "") ? "block" : "none";
+
+            const icon = button.querySelector("i");
+            icon.classList.toggle("fa-chevron-down");
+            icon.classList.toggle("fa-chevron-up");
+        }
+    </script>
+
+    <script>
+
+
+        let equipments = [];
+        let tableRecords = [];
+
+
+        async function getOrganisationsHavingProcurements() {
+            //   const response=await axios.get('http://localhost:3000/stages/organisation/data',{
+            //     headers: {
+            //       'Content-Type': 'application/json',
+            //       'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+            //     }
+            //   });
+
+            const response = await axiosInstance.get('stages/organisation/data');
+
+            let organisations = response.data.organisations;
+
+            return organisations || null;
+
+
+        }
+
+
+
+        let chartRoots = {};
+
+
+        let data1 = [], data2 = [], data3 = [], data4 = [];
+
+        function createPieChart(divId, data) {
+
+            if (chartRoots[divId]) {
+                chartRoots[divId].dispose();
+            }
+
+            let root = am5.Root.new(divId);
+            chartRoots[divId] = root;
+
+            root.setThemes([am5themes_Animated.new(root)]);
+
+            let chart = root.container.children.push(am5percent.PieChart.new(root, {}));
+
+            let series = chart.series.push(am5percent.PieSeries.new(root, {
+                valueField: "value",
+                categoryField: "stage",
+            }));
+
+            series.labels.template.setAll({
+                text: "{stage} : {value}  |  {valuePercentTotal.formatNumber('0.000')}%",
+                radius: 20,
+                fontSize: "12px",
+                fill: am5.color("#000"),
+                forceHidden: false,
+                oversizedBehavior: "none"
+            });
+
+            series.slices.template.events.on("click", function (event) {
+                let sliceData = event.target.dataItem.dataContext;
+
+                // console.log(sliceData);
+                let chartParent = $("#" + divId).closest(".chart-container-wrapper");
+
+                let tableContainer = $("#table-container" + divId);
+                let tablebody = tableContainer.find('tbody')
+
+                tablebody.empty();
+
+                // console.log(equipments);
+
+                let equipmentData = equipments[sliceData.cid][sliceData.sid];
+                equipmentData.forEach(element => {
+                    tablebody.append(`
+                            <tr>
+                                <td>${element.equipment}</td>
+                                <td>${element.totalQuantity}</td>
+                            </tr>
+                        `);
+
+                })
+
+
+
+                if (chartParent.hasClass("col-md-12")) {
+                    chartParent.removeClass("col-md-12").addClass("col-md-6");
+                    tableContainer.removeClass("d-none");
+                }
+            });
+
+            series.ticks.template.setAll({
+                strokeWidth: 1
+            });
+
+            series.slices.template.setAll({
+                strokeWidth: 0.5
+            });
+
+            series.slices.template.adapters.add("tooltipText", function (text) {
+                return "[fontSize:10px]" + text;
+            });
+
+            series.data.setAll(data);
+        }
+        function refreshPieChart(divId) {
+            let root = chartRoots[divId];
+            if (root) {
+                let chart = root.container.children.getIndex(0);
+                if (chart) {
+                    let series = chart.series.getIndex(0);
+                    if (series) {
+                        series.data.setAll(series.data.values);
+                        series.appear(1000, 100);
+                        root._render();
+                    }
+                }
+            }
+        }
+
+
+        $('.tbl-close').on('click', function () {
+            let tableContainer = $(this).closest('.table-container');
+            let chartParent = tableContainer.prev('.chart-container-wrapper');
+
+            if (chartParent.length) {
+                chartParent.removeClass('col-md-6').addClass('col-md-12');
+            }
+
+            tableContainer.addClass('d-none');
+
+            let chartDiv = chartParent.find('[id^="chartdiv"]');
+
+            if (chartDiv.length) {
+                let chartId = chartDiv.attr('id');
+                if (chartId) {
+                    setTimeout(() => refreshPieChart(chartId), 0);
+                }
+            }
+        });
+
+
+
+
+        async function displayChart(id) {
+
+            if (chartRoots["chartdiv1"]) chartRoots["chartdiv1"].dispose();
+            if (chartRoots["chartdiv2"]) chartRoots["chartdiv2"].dispose();
+            if (chartRoots["chartdiv3"]) chartRoots["chartdiv3"].dispose();
+            if (chartRoots["chartdiv4"]) chartRoots["chartdiv4"].dispose();
+
+            chartRoots = {};
+
+            data1.length = 0;
+            data2.length = 0;
+            data3.length = 0;
+            data4.length = 0;
+
+            try {
+                let response = await axiosInstance.get(`/stages/org/data/${id}`);
+
+                let records = response.data.records;
+
+                records.forEach(record => {
+                    if (record.v1 !== 0) data1.push({ stage: record.stage, value: record.v1, cid: 1, sid: record.stageID });
+                    if (record.v2 !== 0) data2.push({ stage: record.stage, value: record.v2, cid: 3, sid: record.stageID });
+                    if (record.v3 !== 0) data3.push({ stage: record.stage, value: record.v3, cid: 4, sid: record.stageID });
+                    if (record.v4 !== 0) data4.push({ stage: record.stage, value: record.v4, cid: 5, sid: record.stageID });
+                });
+
+                // console.log({data1}, {data2}, {data3}, {data4});
+
+
+
+                createPieChart('chartdiv1', data1);
+                createPieChart('chartdiv2', data2);
+                createPieChart('chartdiv3', data3);
+                createPieChart('chartdiv4', data4);
+            } catch (err) {
+                console.error("Error fetching data:", err);
+            }
+        }
+
+
+
+        async function getStageDataByOrganisationID(id) {
+            let response = await axiosInstance.get(`/stages/organisation/data/category/${id}`);
+
+            let records = response.data.records;
+            // console.log(records);
+
+            return records;
+        }
+
+
+
+        // am5.ready(async function() { 
+        //     await displayChart(4);
+        // });
+
+
+        const orgNameMapping = {
+            "Head Quarters": "HQ",
+            "Chennai Port Authority": "ChPA",
+            "Jawaharlal Nehru Port Authority": "JNPA",
+            "Kamarajar Port Limited": "KPL",
+            "New Mangalore Port Authority": "NMPA",
+            "Paradip Port Authority": "PPA",
+            "VOC Port Authority": "VoCPA",
+            "Visakhapatnam Port Authority": "VPA",
+            "Cochin Port Authority": "CPA",
+            "Syama Prasad Mookerjee Port Authority": "SPMPA",
+            "Deendayal Port Authority": "DPA",
+            "Mumbai Port Authority": "MbPA",
+            "Marmugao Port Authority": "MPA",
+        };
+
+
+
+        function getOrganizationShortForm(orgName) {
+            if (orgNameMapping[orgName]) {
+                return orgNameMapping[orgName];
+            }
+
+            return orgName
+                .split(" ")
+                .map(word => word.charAt(0))
+                .join("")
+                .toUpperCase();
+        }
+
+        document.addEventListener('DOMContentLoaded', async function () {
+            let organisations = await getOrganisationsHavingProcurements();
+            tableRecords = await getStageDataByOrganisationID(organisations[0].id);
+
+
+
+            let equipmentsOverViewTable = document.getElementById('equipmentsOverviewTable');
+            let tableHead = equipmentsOverViewTable.querySelector('thead');
+            tableHead.innerHTML = '';
+
+
+
+            // console.log({tableRecords});
+
+            keys = tableRecords[0] ? Object.keys(tableRecords[0]) : [];
+            keys.splice(1, 1);
+            keys = keys.map(item => {
+                return item.split('_').join(' ').toUpperCase();
+            });
+
+            // console.log({keys});
+
+            const headerRow = `<tr>${keys.map(key => `<th scope="col">${key}</th>`).join('')}</tr>`;
+            tableHead.insertAdjacentHTML('beforeend', headerRow);
+
+
+            tableBody = equipmentsOverViewTable.querySelector('tbody');
+            tableBody.innerHTML = '';
+
+
+
+            tableRecords.forEach(record => {
+                const row = `<tr scope="row">
+                    <td>${record.stage}</td>
+                    <td>${record['VTMS_IT_EQUIPMENTS_AND_HARDWARE']}</td>
+                    <td>${record['VTMS_SENSORS']}</td>
+                    <td>${record['VTMS_CENTRE_SURVILLENCE']}</td>
+                    <td>${record['VTMS_DISPLAY_WALL']}</td>
+                  </tr>`;
+
+
+
+                tableBody.insertAdjacentHTML('beforeend', row);
+
+            });
+
+
+            let chartTabs = document.getElementById('chartTabs');
+            chartTabs.innerHTML = "";
+
+            let data = organisations.map(item => ({
+                organisation: getOrganizationShortForm(item.org),
+                id: item.id
+            }));
+
+            let tableTabs = document.getElementById('tbl-tabs');
+            tableTabs.innerHTML = "";
+
+
+
+            data.forEach(item => {
+                chartTabs.insertAdjacentHTML('beforeend', `
+            <li class="nav-item" role="presentation">
+                <button class="nav-link tabbtn" id="chartTabs-tab${item.id}" type="button" role="tab" aria-selected="true" data-org-id="${item.id}">
+                    ${item.organisation}
+                </button>
+            </li>
+        `);
+
+                tableTabs.insertAdjacentHTML('beforeend', `
+        
+        
+         <li class="nav-item" role="presentation">
+                                                          <button class="nav-link charttabbtn" id="tbl-tabs-tab${item.id}"  data-bs-target="#tab1" type="button" role="tab"  aria-selected="true" data-org-id="${item.id}">${item.organisation}</button>
+                                                        </li>
+        
+        
+        `);
+
+            });
+            displayChart(data[0].id);
+            equipments = await getAllEquipmentsForPort(data[0].id);
+            document.querySelector('.tabbtn').classList.add("active");
+            document.querySelector('.charttabbtn').classList.add("active");
+
+            document.querySelectorAll(".tabbtn").forEach(btn => {
+                btn.addEventListener('click', async () => {
+                    document.querySelectorAll(".tabbtn").forEach(btn => {
+                        btn.classList.remove("active");
+                    });
+
+                    btn.classList.add("active");
+                    const id = btn.dataset.orgId;
+                    equipments = await getAllEquipmentsForPort(id);
+                    // console.log(equipments);
+                    document.querySelectorAll('.chart-container-wrapper').forEach(chart => {
+                        chart.classList.remove('col-md-6');
+                        chart.classList.add('col-md-12');
+                    });
+                    document.querySelectorAll('.table-container').forEach(table => {
+                        table.classList.add('d-none');
+                    });
+
+
+
+
+                    displayChart(id);
+                });
+            });
+
+            document.querySelectorAll(".charttabbtn").forEach(btn => {
+                btn.addEventListener('click', async () => {
+                    document.querySelectorAll(".charttabbtn").forEach(btn => {
+                        btn.classList.remove("active");
+                    });
+
+                    btn.classList.add("active");
+                    const id = btn.dataset.orgId;
+                    tableRecords = await getStageDataByOrganisationID(id);
+
+                    let equipmentsOverViewTable = document.getElementById('equipmentsOverviewTable');
+                    let tableHead = equipmentsOverViewTable.querySelector('thead');
+                    tableHead.innerHTML = '';
+
+
+
+                    const headerRow = `<tr>${keys.map(key => `<th scope="col">${key}</th>`).join('')}</tr>`;
+                    tableHead.insertAdjacentHTML('beforeend', headerRow);
+
+                    tableBody = equipmentsOverViewTable.querySelector('tbody');
+                    tableBody.innerHTML = '';
+
+                    tableRecords.forEach(record => {
+
+                        const row = `<tr scope="row">
+                              <td>${record.stage}</td>
+                              <td>${record['VTMS_IT_EQUIPMENTS_AND_HARDWARE']}</td>
+                              <td>${record['VTMS_SENSORS']}</td>
+                              <td>${record['VTMS_CENTRE_SURVILLENCE']}</td>
+                              <td>${record['VTMS_DISPLAY_WALL']}</td>
+                            </tr>`;
+                        tableBody.insertAdjacentHTML('beforeend', row);
+                    });
+                });
+
+
+
+            });
+            var table = $('#equipmentsOverviewTable').DataTable({
+                "paging": true,
+                "pageLength": 25,
+                order: [],
+                "lengthMenu": [5, 10, 25, 50, 100],
+                dom: '<"top"l>frtip',
+                buttons: ['excel', 'csv', 'pdf'],
+            });
+
+            table.buttons().container().appendTo('#exportButtons');
+
+        });
+
+    </script>
+
+
+    <script>
+        async function getAllEquipmentsForPort(portId) {
+            try {
+                const response = await axiosInstance.get(`/equipmentsDelivery/port/${portId}`, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                    }
+                });
+                return response.data.equipments;
+            } catch (error) {
+                console.error('Error fetching equipments:', error);
+                return [];
+            }
+        }
+
+    </script>
+
+    <!-- <script>
+       $(document).ready(function () {
+    var table = $('#equipmentsOverviewTable').DataTable({
+        "paging": true,
+        "pageLength": 25,
+        "lengthMenu": [5, 10, 25, 50, 100],
+        dom: '<"top"l>frtip',
+        buttons: ['excel', 'csv', 'pdf'],
+    });
+
+    table.buttons().container().appendTo('#exportButtons');
+});
+
+  </script> -->
+
+
+    <script>
+        let chartCard = document.getElementById('chartCard');
+        let tableCard = document.getElementById('tableCard');
+        let chartBtn = document.getElementById('chartsBtn');
+        let tableBtn = document.getElementById('tableBtn');
+
+        chartBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+            chartCard.classList.remove('d-none');
+            tableCard.classList.add('d-none');
+        });
+        tableBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+            chartCard.classList.add('d-none');
+            tableCard.classList.remove('d-none');
+        });
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,2491 @@
+let gst = 0;
+let gstCost = 0;
+let totalCost = 0;
+let vendorSelect = document.querySelector('#vendorSelect');
+let projectSelect = document.querySelector('#projectSelect');
+let selectedVendor=null;
+let selectedProject=null;
+let globalIndentID = null;
+let globalFundStatus = true;
+let subTotal = 0;
+
+
+const user = JSON.parse(sessionStorage.getItem('user'));
+
+let allowedPages=roleUtil.getAllowedPages(user.role);
+
+console.log(typeof allowedPages)
+
+
+function getModulePermissions(permissionsObject) {
+  if (typeof permissionsObject !== 'object' || permissionsObject === null) {
+      // console.error('Expected an object but got:', permissiosnsObject);
+      return {};  
+  }
+
+  const result = {
+      write: [],
+      read: []
+  };
+
+ 
+  for (const key in permissionsObject) {
+      if (permissionsObject.hasOwnProperty(key)) {
+          const item = permissionsObject[key];
+          const { module, permission } = item;
+          
+
+          if (permission === 'write') {
+              if (!result.write.includes(module)) {
+                  result.write.push(module);
+              }
+          } else if (permission === 'read') {
+              
+              if (!result.read.includes(module)) {
+                  result.read.push(module);
+              }
+          }
+      }
+  }
+
+  return result;
+}
+
+
+const categorizedModules = getModulePermissions(allowedPages);
+const writeModules = categorizedModules.write;
+
+
+function hideNonWriteElements() {
+  const writeModules = categorizedModules.write;
+  const allElements = document.querySelectorAll('[data-module]');
+  
+  allElements.forEach(function (element) {
+      const moduleName = element.getAttribute('data-module');
+      
+      if (!writeModules.includes(moduleName)) {
+          element.classList.add('hidden');
+      }
+  });
+}
+
+hideNonWriteElements();
+
+console.log({categorizedModules});
+
+async function getAllIndents() {
+  try {
+    const response = await axiosInstance.get('/indents/basic');
+    const indents = response.data.indents;
+    return indents;
+  } catch (err) {
+    console.error('Error fetching indents:', err);
+    showErrorPopupFadeInDown('Error fetching indents');
+  }
+}
+
+async function getIndentByID(id) {
+  try {
+    const response = await axiosInstance.get(`/indents/${id}`);
+    const indent = response.data.indent;
+    return indent;
+  } catch (err) {
+    console.error('Error fetching indent:', err);
+    showErrorPopupFadeInDown('Error fetching indent');
+  }
+}
+async function downloadFile(id) {
+  try {
+
+    const response = await axiosInstance.get(`/indents/download/${id}`, {
+      responseType: "blob"
+    });
+
+    const blob = new Blob([response.data], { type: "application/pdf" });
+    const url = window.URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `indents_${id}.pdf`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+
+    window.URL.revokeObjectURL(url);
+  } catch (error) {
+    console.error("Error downloading PDF:", error);
+    showErrorPopupFadeInDown("Download failed!");
+  }
+}
+
+
+let fundCheckSubmit = document.querySelector('#fundCheckSubmit');
+
+fundCheckSubmit.addEventListener('click', async () => {
+
+  let IndentID = globalIndentID;
+  if (!IndentID) {
+    showErrorPopupFadeInDown('No Indent ID found');
+    return;
+  }
+
+  if (!globalFundStatus && !selectedAltProject) {
+    console.log({ globalFundStatus, selectedAltProject });
+    showErrorPopupFadeInDown('Please select an alternate project');
+    return;
+  }
+
+  let remarksField = document.querySelector('#fundCheckRemarks');
+  let remarks = remarksField.value;
+
+  if (!remarks) {
+    showErrorPopupFadeInDown('Please enter remarks');
+    return;
+  }
+
+  let data = {};
+
+  data['FundAvailable'] = globalFundStatus ? 1 : 0;
+  data['AlternateProjectNo'] = globalFundStatus ? null : selectedAltProject.ProjectID;
+  data['Remarks'] = remarks;
+
+  // console.log(data);
+  // return;
+  try {
+    let response = await axiosInstance.post(`/fundCheck/${IndentID}`, data);
+    console.log(response.data);
+    showPopupFadeInDown('Fund Check Submitted');
+    setTimeout(() => {
+      location.reload();
+    }, 2000);
+  } catch (err) {
+    console.error(err);
+    if (err.response) {
+      console.error('Server error:', err.response.data.message);
+      showErrorPopupFadeInDown(err.response.data.message);
+    } else {
+      console.error('Network/other error:', err.message);
+      showErrorPopupFadeInDown('Network error. Please try again.');
+    }
+  }
+
+
+
+
+});
+
+
+async function openFullscreenModal(button) {
+
+  let stageIDs = [
+    'indentCreatedStage',
+    'fundCheckStage',
+    'lpcCompletedStage',
+    'indentApprovalStage',
+    'poApprovedStage',
+    'poGeneratedStage',
+    'srbCreatedStage',
+    'icSrSubmittedStage'
+  ];
+
+  let stageNames = ['Awaiting For Fund Check', 'Awaiting For LPC Completion', 'Awaiting For Indent Approval', 'Awaiting For PO Approval', 'Awaiting For PO Generation', 'Awaiting For SRB Creation', 'Awaiting For ICSR Submission','Completed'];
+
+    document.querySelectorAll('.indent-stage').forEach(stage => {
+    stage.classList.remove('active', 'completed', 'rejected');
+  });
+
+  stageIDs.forEach(stageID => {
+    const stageElement = document.getElementById(stageID);
+    if (stageElement) {
+      stageElement.classList.remove('completed', 'active', 'rejected');
+    }
+  });
+
+  const stageElements = document.querySelectorAll('.indent-stage');
+  let currentIndex = stageNames.indexOf(indent.CurrentStage);
+
+  for (let i = 0; i <= currentIndex; i++) {
+    if (hasStageAccess(stageElements[i])) {
+      stageElements[i].classList.add('completed');
+    }
+  }
+
+  if (currentIndex < stageElements.length - 1 && hasStageAccess(stageElements[currentIndex + 1])) {
+    stageElements[currentIndex + 1].classList.add('active');
+  }
+
+  stageIDs.forEach((id, i) => {
+    const content = document.getElementById(id);
+    if (content) {
+      content.classList.toggle('d-none', !hasStageAccess(stageElements[i]));
+    }
+  });
+
+  
+
+
+  let indentID = button.getAttribute("data-id");
+  globalIndentID = indentID;
+
+  // alert('Indent ID: ' + indentID);
+
+
+
+  let indent = await getIndentByID(indentID);
+  if (!indent) {
+    showErrorPopupFadeInDown('Error fetching indent');
+    return;
+  }
+
+
+  const stage = button.getAttribute("data-stage");
+  console.log("Stage:", stage);
+
+
+
+  let index = stageNames.indexOf(stage);
+  console.log({ index });
+
+  if (indent.CurrentStage === 'Reverted Back' || indent.CurrentStage === 'Rejected') {
+    index = 2;
+  }
+
+  // if(indent.CurrentStage === 'Completed') {
+  //   index = 6;
+  //   document.getElementById('ICSRContent').classList.add('d-none');
+  //   document.getElementById('icSrSubmittedStage').classList.add('completed');
+  //   document.getElementById('icSrSubmittedStage').classList.remove('active');
+
+  // }
+
+  if (indent.CurrentStage === 'Completed') {
+    index = 7;  // Completed stage
+    document.getElementById('ICSRContent').classList.add('d-none');  // Hide ICSR content
+    document.getElementById('stageDetailsContent').classList.remove('d-none');  // Show stageDetailsContent
+    document.getElementById('icSrSubmittedStage').classList.add('completed');
+    document.getElementById('icSrSubmittedStage').classList.remove('active');
+     document.getElementById('ICSRContent').classList.add('d-none'); 
+  }
+  
+
+ 
+  if (index >= 0) {
+    stageIDs.forEach((stageID, i) => {
+      if (i <= index) {
+        document.getElementById(stageID).classList.add('completed');
+      } else {
+        document.getElementById(stageID).classList.remove('completed');
+      }
+    });
+  }
+
+  if (indent.CurrentStage === 'Rejected') {
+    document.getElementById('indentApprovalStage').classList.add('rejected');
+  }
+
+  if( stage === 'Completed') {
+    document.getElementById('ICSRContent').classList.add('d-none');
+    document.getElementById('icSrSubmittedStage').classList.add('completed');
+    document.getElementById('icSrSubmittedStage').classList.remove('active');
+    let stageData=await fetchStageData(index-1);
+    renderData(stageData,index-1);
+  }
+
+ 
+
+
+  if(index!==7 ){
+    document.getElementById(stageIDs[index + 1]).classList.add('active');
+  }
+  
+
+  const stagesContent = ['previewContent', 'fundcheckContent', 'lpcContent', 'approvalContent', 'poApprovalContent', 'poGeneratedContent', 'SRBContent', 'ICSRContent'];
+  
+  if(index!==7){
+    document.getElementById(stagesContent[index + 1]).classList.remove('d-none');
+  }
+ 
+
+  document.querySelectorAll('.indent-stage').forEach((stage, index) => {
+
+    stage.addEventListener('click',async () => {
+      if (!stage.classList.contains('completed') && !stage.classList.contains('active')) {
+        return;
+      }
+      
+      if(index!==0 && stage.classList.contains('completed')){
+        // alert(stage.classList.contains('completed'));
+        let stageData=await fetchStageData(index-1);
+        renderData(stageData,index-1);
+      }
+      
+
+      stagesContent.forEach(contentId => {
+        document.getElementById(contentId)?.classList.add('d-none');
+      });
+
+      if(stage.classList.contains('completed')) {
+        document.getElementById('stageDetailsContent').classList.remove('d-none');
+        if(index === 0) {
+          document.getElementById('stageDetailsContent').classList.add('d-none');
+          document.getElementById(stagesContent[index])?.classList.remove('d-none');
+        }
+      }else{
+       
+        document.getElementById(stagesContent[index])?.classList.remove('d-none');
+        document.getElementById('stageDetailsContent').classList.add('d-none');
+        
+      }
+
+
+      // document.getElementById(stagesContent[index])?.classList.remove('d-none');
+    });
+  });
+
+  document.querySelector('#stageCloser').addEventListener('click', () => {
+
+    stagesContent.forEach(contentId => {
+      document.getElementById(contentId)?.classList.add('d-none');
+    });
+
+  });
+
+  setText('VendorNameDisplay', indent.VendorName);
+  setText('VendorAddressDisplay', indent.VendorAddress);
+  setText('VendorPhoneDisplay', indent.VendorPhone);
+  setText('VendorMailDisplay', indent.VendorEmail);
+  setText('VendorGstDisplay', indent.VendorGSTNO);
+  setText('VendorPanDisplay', indent.VendorPANNO);
+  setText('VendorAccountDisplay', indent.VendorAccountNumber);
+  setText('VendorIfscDisplay', indent.VendorIFSC);
+  setText('VendorBankDisplay', indent.VendorBankName);
+  setText('VendorBankAddressDisplay', indent.VendorBankBranch);
+
+  setText('ExtraGstDisplay', indent.ExtraGST);
+  setText('PriceDisplay', indent.Price);
+  setText('PaymentDisplay', indent.PaymentTerms);
+  setText('DeliveryPlaceDisplay', indent.DeliveryPlace);
+  setText('DeliveryDisplay', indent.Delivery);
+  setText('CurrencyDisplay', indent.TypeOfCurrency);
+  setText('OtherTermsDisplay', indent.OtherTerms);
+
+  setText('ProjectNumberDisplay', indent.ProjectNo);
+  // showErrorPopupFadeInDown(indent.ProjectNo);
+  setText('SubProjectNumberDisplay', indent.SubProjectNo);
+  setText('ProjectRemarksDisplay', indent.ProjectRemarks);
+  // setText('projectDepartmentDisplay',indent.Department);
+  setText('ProjectIvestigatorDisplay', indent.ProjectIncharge);
+
+  // alert(indent.ProjectIncharge);
+
+
+  setText('ModeOfPurchaseDisplay', indent.ModeOfPurchase);
+  setText('PurposeDisplay', indent.Purpose);
+  setText('indentTypeDisplay', indent.TypeOfIndent);
+  setText('quotationDisplay', indent.QuotationAvailable ? 'Yes' : 'No');
+  // setText('costDisplay',indent.Purpose);
+
+  setText('FCprojectNameDisplay', indent.ProjectName);
+  setText('FCprojectNumberDisplay', indent.ProjectNo);
+
+
+  document.getElementById('updateExtraGst').value = indent.ExtraGST;
+  document.getElementById('updatePrice').value = indent.Price;
+  document.getElementById('updateCurrencySelect').value = indent.TypeOfCurrency;
+  document.getElementById('updatePayment').value = indent.PaymentTerms;
+  document.getElementById('updateDeliveryPlace').value = indent.DeliveryPlace;
+  document.getElementById('updateDelivery').value = indent.Delivery;
+
+  let srbTableBody = document.getElementById('srbTableBody');
+  srbTableBody.innerHTML = '';
+  indent.items.forEach((item, index) => {
+    let row = `
+    <tr>
+      <td>${item.ProductName}</td>
+      <td>${item.ItemName}</td>
+      <td>${item.Description}</td>
+      <td>${item.ItemClassification}</td>
+      <td>${item.Quantity}</td>
+      <td>${item.Quantity}</td>
+      <td>${item.EstimatedUnitPrice}</td>
+      <td>${item.EstimatedTotalPrice}</td>
+      <td>${item.Remarks}</td>
+    </tr>
+  `;
+    srbTableBody.innerHTML += row;
+  });
+
+  document.getElementById('srbProjectNumber').value = indent.ProjectNo;
+  document.getElementById('srbSubProjectNumber').value = indent.SubProjectNo;
+  document.getElementById('srbVendorName').value = indent.VendorName;
+  document.getElementById('srbSubTotal').value = indent.Price;
+  subTotal = indent.Price;
+
+  document.getElementById('srbGrandTotal').value = indent.Price;
+
+ 
+
+  let tableBody = document.getElementById('ItemsPreviewTableBody');
+
+  tableBody.innerHTML = '';
+
+
+  indent.items.forEach((item, index) => {
+
+    let row = `
+      <tr>
+        <td>${item.ProductName}</td>
+        <td>${item.ItemName}</td>
+        <td>${item.Description}</td>
+        <td>${item.ItemClassification}</td>
+        <td>${item.Quantity}</td>
+        <td>${item.Quantity}</td>
+        <td>${item.EstimatedUnitPrice}</td>
+        <td>${item.EstimatedTotalPrice}</td>
+        <td>${item.Remarks}</td>
+      </tr>
+    `;
+    tableBody.innerHTML += row;
+  });
+
+
+
+  const myModal = new bootstrap.Modal(document.getElementById('fullscreenItemModal'));
+  myModal.show();
+}
+
+
+function renderData(data,index){
+  document.getElementById('stageDetailsContent').innerHTML = '';
+  let html;
+
+  if(index === 0) {
+     html=`
+    
+           <div class="col-md-6 mb-3">
+                  <label class="form-label text-dark">Is Fund Availabe ?</label>
+                  <div class="p-2 border rounded bg-light">${data.FundAvailable? 'Yes':'No'}</div>
+                </div>
+                 <div class="col-md-6 mb-3">
+                  <label class="form-label text-dark">Alternate Project Number</label>
+                  <div class="p-2 border rounded bg-light">${data.AlternateProjectNo||'-'}</div>
+                </div>
+                 <div class="col-md-6 mb-3">
+                  <label class="form-label text-dark">Remarks</label>
+                  <div class="p-2 border rounded bg-light">${data.Remarks||'-'}</div>
+                </div>
+                 <div class="col-md-6 mb-3">
+                  <label class="form-label text-dark">Verified On</label>
+                  <div class="p-2 border rounded bg-light">${new Date(data.VerifiedAt).toLocaleDateString()}</div>
+                </div>
+                 <div class="col-md-12 mb-3">
+                  <label class="form-label text-dark">Verified By</label>
+                  <div class="p-2 border rounded bg-light">${data.Username+' - '+data.VerifiedBy}</div>
+                </div>
+                
+    `;
+
+  }
+
+  if(index === 1) {
+    html=`
+        <div class="col-md-6 mb-3">
+            <label class="form-label text-dark">Documents Processed Date</label>
+            <div class="p-2 border rounded bg-light">${data.DocumentsProcessedDate ? new Date(data.DocumentsProcessedDate).toLocaleDateString() : '-'}</div>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label class="form-label text-dark">Documents Dispatched Date</label>
+            <div class="p-2 border rounded bg-light">${data.DocumentsDispatchedDate ? new Date(data.DocumentsDispatchedDate).toLocaleDateString() : '-'}</div>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label class="form-label text-dark">Documents Received Date</label>
+            <div class="p-2 border rounded bg-light">${data.DocumentsReceivedDate ? new Date(data.DocumentsReceivedDate).toLocaleDateString() : '-'}</div>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label class="form-label text-dark">Completion Date</label>
+            <div class="p-2 border rounded bg-light">${data.CompletionDate ? new Date(data.CompletionDate).toLocaleDateString() : '-'}</div>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label class="form-label text-dark">Support Document</label>
+          <div class="p-2 border rounded bg-light">
+              ${data.HasDocument ? 
+                  `<button class="btn btn-primary btn-sm download-po" onclick="downloadDocument('${'lpc'}')">
+                      <i class="fas fa-file-download me-2"></i> Download PO
+                  </button>` : 
+                  '-'}
+          </div>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label class="form-label text-dark">Remarks</label>
+            <div class="p-2 border rounded bg-light">${data.Remarks || '-'}</div>
+        </div>
+        <div class="col-md-12 mb-3">
+            <label class="form-label text-dark">Processed By</label>
+            <div class="p-2 border rounded bg-light">${data.Username ? data.Username + ' - ' + data.ProcessedBy : '-'}</div>
+        </div>
+        <div class="col-md-12 mb-3">
+            <label class="form-label text-dark">Processed On</label>
+            <div class="p-2 border rounded bg-light">${data.ProcessedAt ? new Date(data.ProcessedAt).toLocaleDateString() : '-'}</div>
+        </div>
+    `;
+}
+if(index === 2) {
+  html=`
+      <div class="col-md-6 mb-3">
+          <label class="form-label text-dark">Approval Status</label>
+          <div class="p-2 border rounded bg-light">
+              ${data.Status}
+          </div>
+      </div>
+      <div class="col-md-6 mb-3">
+          <label class="form-label text-dark">Support Document</label>
+          <div class="p-2 border rounded bg-light">
+              ${data.HasDocument ? 
+                  `<button class="btn btn-primary btn-sm download-btn" onclick="downloadDocument('${'indentApproval'}')" data-id="${data.ApprovalID}">
+                      <i class="fa-solid fa-download me-2"></i>Download
+                  </button>` : 
+                  '-'}
+          </div>
+      </div>
+      <div class="col-md-12 mb-3">
+          <label class="form-label text-dark">Remarks</label>
+          <div class="p-2 border rounded bg-light">${data.Remarks || '-'}</div>
+      </div>
+      <div class="col-md-6 mb-3">
+          <label class="form-label text-dark">Action By</label>
+          <div class="p-2 border rounded bg-light">${data.Username ? `${data.Username} (${data.ActionBy})` : '-'}</div>
+      </div>
+      <div class="col-md-6 mb-3">
+          <label class="form-label text-dark">Action Date</label>
+          <div class="p-2 border rounded bg-light">${data.ActionAt ? new Date(data.ActionAt).toLocaleString() : '-'}</div>
+      </div>
+  `;
+}
+if(index === 3) {
+  html=`
+      <div class="col-md-6 mb-3">
+          <label class="form-label text-dark">Type of Order</label>
+          <div class="p-2 border rounded bg-light">${data.TypeOfOrder || '-'}</div>
+      </div>
+      <div class="col-md-6 mb-3">
+          <label class="form-label text-dark">Category</label>
+          <div class="p-2 border rounded bg-light">${data.Category || '-'}</div>
+      </div>
+      <div class="col-md-6 mb-3">
+          <label class="form-label text-dark">Reference Number</label>
+          <div class="p-2 border rounded bg-light">${data.ReferenceNo || '-'}</div>
+      </div>
+      <div class="col-md-6 mb-3">
+          <label class="form-label text-dark">Reference Date</label>
+          <div class="p-2 border rounded bg-light">${data.ReferenceDate ? new Date(data.ReferenceDate).toLocaleDateString() : '-'}</div>
+      </div>
+      <div class="col-md-6 mb-3">
+          <label class="form-label text-dark">Approval Date</label>
+          <div class="p-2 border rounded bg-light">${data.ApprovalDate ? new Date(data.ApprovalDate).toLocaleDateString() : '-'}</div>
+      </div>
+      <div class="col-md-6 mb-3">
+          <label class="form-label text-dark">Name of Work</label>
+          <div class="p-2 border rounded bg-light">${data.NameOfWork || '-'}</div>
+      </div>
+      <div class="col-md-12 mb-3">
+          <label class="form-label text-dark">Approved By</label>
+          <div class="p-2 border rounded bg-light">${data.Username ? `${data.Username} (${data.ApprovedBy})` : '-'}</div>
+      </div>
+  `;
+}
+if(index === 4) {
+  html=`
+      <div class="col-md-6 mb-3">
+          <label class="form-label text-dark">PO Number</label>
+          <div class="p-2 border rounded bg-light">${data.PONumber || '-'}</div>
+      </div>
+      <div class="col-md-6 mb-3">
+          <label class="form-label text-dark">Signed PO Mailed Date</label>
+          <div class="p-2 border rounded bg-light">${data.SignedPOMailedDate ? new Date(data.SignedPOMailedDate).toLocaleDateString() : '-'}</div>
+      </div>
+      <div class="col-md-6 mb-3">
+          <label class="form-label text-dark">Generated On</label>
+          <div class="p-2 border rounded bg-light">${data.GeneratedAt ? new Date(data.GeneratedAt).toLocaleString() : '-'}</div>
+      </div>
+      <div class="col-md-6 mb-3">
+          <label class="form-label text-dark">Signed PO Document</label>
+          <div class="p-2 border rounded bg-light">
+              ${data.HasDocument ? 
+                  `<button class="btn btn-primary btn-sm download-po" onclick="downloadDocument('${'poGenerated'}')" data-id="${data.POGenerationID}">
+                      <i class="fas fa-file-download me-2"></i> Download PO
+                  </button>` : 
+                  '-'}
+          </div>
+      </div>
+      <div class="col-md-12 mb-3">
+          <label class="form-label text-dark">Generated By</label>
+          <div class="p-2 border rounded bg-light">${data.Username ? `${data.Username} (${data.GeneratedBy})` : '-'}</div>
+      </div>
+  `;
+}
+if(index === 5) {  // Assuming this is stage 5
+  html = `
+      <div class="row">
+          <!-- Basic Information -->
+          <div class="col-md-6 mb-3">
+              <label class="form-label text-dark">SRB For</label>
+              <div class="p-2 border rounded bg-light">${data.SRBFor || '-'}</div>
+          </div>
+          <div class="col-md-6 mb-3">
+              <label class="form-label text-dark">Serial Number</label>
+              <div class="p-2 border rounded bg-light">${data.SerialNo || '-'}</div>
+          </div>
+          <div class="col-md-6 mb-3">
+              <label class="form-label text-dark">Type</label>
+              <div class="p-2 border rounded bg-light">${data.Type || '-'}</div>
+          </div>
+          <div class="col-md-6 mb-3">
+              <label class="form-label text-dark">PO Number</label>
+              <div class="p-2 border rounded bg-light">${data.PONumber || '-'}</div>
+          </div>
+          <div class="col-md-6 mb-3">
+              <label class="form-label text-dark">PO Date</label>
+              <div class="p-2 border rounded bg-light">${data.PODate ? new Date(data.PODate).toLocaleDateString() : '-'}</div>
+          </div>
+          
+          <!-- Employee/Vendor Information -->
+          <div class="col-md-6 mb-3">
+              <label class="form-label text-dark">Employee/Vendor Name</label>
+              <div class="p-2 border rounded bg-light">${data.EmpName || '-'}</div>
+          </div>
+          
+          <!-- Invoice Details -->
+          <div class="col-md-6 mb-3">
+              <label class="form-label text-dark">Invoice Number</label>
+              <div class="p-2 border rounded bg-light">${data.InvoiceNo || '-'}</div>
+          </div>
+          <div class="col-md-6 mb-3">
+              <label class="form-label text-dark">Invoice Date</label>
+              <div class="p-2 border rounded bg-light">${data.InvoiceDate ? new Date(data.InvoiceDate).toLocaleDateString() : '-'}</div>
+          </div>
+          
+          <!-- Financial Information -->
+          <div class="col-md-4 mb-3">
+              <label class="form-label text-dark">Discount</label>
+              <div class="p-2 border rounded bg-light">${data.Discount ? '₹' + data.Discount : '-'}</div>
+          </div>
+          <div class="col-md-4 mb-3">
+              <label class="form-label text-dark">Deducted Amount</label>
+              <div class="p-2 border rounded bg-light">${data.DeductedAmount ? '₹' + data.DeductedAmount : '-'}</div>
+          </div>
+          <div class="col-md-4 mb-3">
+              <label class="form-label text-dark">GST Amount</label>
+              <div class="p-2 border rounded bg-light">${data.GSTAmount ? '₹' + data.GSTAmount : '-'}</div>
+          </div>
+          <div class="col-md-6 mb-3">
+              <label class="form-label text-dark">Other Charges</label>
+              <div class="p-2 border rounded bg-light">${data.OtherCharges ? '₹' + data.OtherCharges : '-'}</div>
+          </div>
+          <div class="col-md-6 mb-3">
+              <label class="form-label text-dark">Grand Total</label>
+              <div class="p-2 border rounded bg-light font-weight-bold">${data.GrandTotal ? '₹' + data.GrandTotal : '-'}</div>
+          </div>
+          
+          <!-- Warranty and Others -->
+          <div class="col-md-6 mb-3">
+              <label class="form-label text-dark">Warranty</label>
+              <div class="p-2 border rounded bg-light">${data.Warranty || '-'}</div>
+          </div>
+          <div class="col-md-6 mb-3">
+              <label class="form-label text-dark">Other Details</label>
+              <div class="p-2 border rounded bg-light">${data.Others || '-'}</div>
+          </div>
+          
+          <!-- Document and Creation Info -->
+          <div class="col-md-6 mb-3">
+              <label class="form-label text-dark">SRB Document</label>
+              <div class="p-2 border rounded bg-light">
+                  ${data.HasDocument ? 
+                      `<button class="btn btn-primary btn-sm download-srb" onclick="downloadDocument('${'srb'}')" data-id="${data.SRBID}">
+                          <i class="fas fa-file-download me-2"></i> Download SRB
+                      </button>` : 
+                      '-'}
+              </div>
+          </div>
+          <div class="col-md-6 mb-3">
+              <label class="form-label text-dark">Created On</label>
+              <div class="p-2 border rounded bg-light">${data.CreatedAt ? new Date(data.CreatedAt).toLocaleString() : '-'}</div>
+          </div>
+          <div class="col-md-12 mb-3">
+              <label class="form-label text-dark">Created By</label>
+              <div class="p-2 border rounded bg-light">${data.Username ? `${data.Username} (${data.CreatedBy})` : '-'}</div>
+          </div>
+      </div>
+  `;
+}
+if(index === 6) {  // Assuming this is stage 6
+  const statusText = data.Status === true ? 'Approved' : 'Rejected';
+  const statusClass = data.Status === true ? 'text-success' : 'text-danger';
+
+  html = `
+    
+          <!-- Status Information -->
+          <div class="col-md-6 mb-3">
+              <label class="form-label text-dark">Status</label>
+              <div class="p-2 border rounded bg-light">
+                  <span class=" ${statusClass}">${statusText}</span>
+              </div>
+          </div>
+          
+          <!-- Approval Date (shown when status is 1) -->
+          ${data.Status === 1 ? `
+              <div class="col-md-6 mb-3">
+                  <label class="form-label text-dark">Approval Date</label>
+                  <div class="p-2 border rounded bg-light">
+                      ${data.ApprovalDate ? new Date(data.ApprovalDate).toLocaleDateString() : '-'}
+                  </div>
+              </div>
+          ` : ''}
+          
+          <!-- Rejection Date (shown when status is 0) -->
+          ${data.Status === 0 ? `
+              <div class="col-md-6 mb-3">
+                  <label class="form-label text-dark">Rejection Date</label>
+                  <div class="p-2 border rounded bg-light">
+                      ${data.RejectionDate ? new Date(data.RejectionDate).toLocaleDateString() : '-'}
+                  </div>
+              </div>
+          ` : ''}
+          
+          <!-- Rejection Remarks (shown when status is 0) -->
+          ${data.Status === false ? `
+              <div class="col-md-6 mb-3">
+                  <label class="form-label text-dark">Rejection Remarks</label>
+                  <div class="p-2 border rounded bg-light">
+                      ${data.RejectionRemarks || 'No remarks provided'}
+                  </div>
+              </div>
+          ` : ''}
+          
+          <!-- Creation Information (always shown) -->
+          <div class="col-md-6 mb-3">
+              <label class="form-label text-dark">Created On</label>
+              <div class="p-2 border rounded bg-light">
+                  ${data.CreatedAt ? new Date(data.CreatedAt).toLocaleString() : '-'}
+              </div>
+          </div>
+          <div class="col-md-6 mb-3">
+              <label class="form-label text-dark">Created By</label>
+              <div class="p-2 border rounded bg-light">
+                  ${data.Username ? `${data.Username} (${data.CreatedBy})` : '-'}
+              </div>
+          </div>
+      
+  `;
+}
+  document.getElementById('stageDetailsContent').innerHTML=html;
+
+}
+
+async function downloadDocument(api){
+  try {
+    const response = await axiosInstance.get(`/${api}/download/${globalIndentID}`, {
+        responseType: "blob" 
+    });
+
+    const blob = new Blob([response.data], { type: "application/pdf" });
+    const url = window.URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `IND_${api}.pdf`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+
+    window.URL.revokeObjectURL(url);
+} catch (error) {
+    console.error("Error downloading PDF:", error);
+    alert("Download failed!");
+}
+}
+
+async function fetchStageData(index) {
+  const endpoints = ['fundCheck', 'lpc', 'indentApproval', 'poApproval', 'poGenerated', 'srb', 'icsr'];
+
+
+  if (index < 0 || index >= endpoints.length) {
+    throw new Error("Invalid stage index");
+  }
+
+  try {
+    const response = await axiosInstance.get(`/${endpoints[index]}/${globalIndentID}`);
+    
+    const data = response.data.record;
+    data['api-stage'] = endpoints[index];
+    return data;
+  } catch (error) {
+    console.error("Error fetching stage data: ", error);
+    showErrorPopupFadeInDown("Error fetching stage data");
+    return null;
+  }
+}
+
+
+async function addRow(data) {
+  let table = $('#indentsTable').DataTable();
+  if ($.fn.dataTable.isDataTable('#indentsTable')) {
+    table = $('#indentsTable').DataTable();
+  }
+  if (!data) {
+    console.error('no data to add');
+    return;
+  }
+
+  if (data.IsDocumentAvailable) {
+    data.IsDocumentAvailable = `<div class="bg-facebook rounded p-2" onclick="downloadFile(${data.IndentID})" style="cursor:pointer;"><i class="fa-solid fa-download text-white"></i></div>`;
+  } else {
+    data.IsDocumentAvailable = `<i class="fa-solid fa-circle text-muted"></i>`;
+  }
+
+  let currentStage = data.CurrentStage;
+  let lastRow = `<button class="btn btn-sm view-btn" data-stage="${data.CurrentStage}" data-id="${data.IndentID}" onclick="openFullscreenModal(this)" title="View Details">
+  <i class="ti-eye me-1"></i> View
+</button>
+`;
+
+  if (currentStage === 'Reverted Back' && data.userID === user.id) {
+    lastRow = `<div class="d-flex justify-content-center align-items-center"><button class="btn btn-sm view-btn m-1 " data-stage="${data.CurrentStage}" data-id="${data.IndentID}" onclick="openFullscreenModal(this)" title="View Details">
+    <i class="ti-eye me-1"></i> View
+  </button>  <button class="btn btn-sm m-1 view-btn bg-danger " data-stage="${data.CurrentStage}" data-id="${data.IndentID}" onclick="openFullscreenModal(this)" title="View Details">
+  <i class="ti-pencil me-1"></i> Edit
+</button></div>
+  `;
+  }
+
+  table.row.add([
+    data.IndentID,
+    data.ProjectNo,
+    data.SubProjectNo,
+    data.VendorName,
+    data.CreatedBy,
+    data.IsDocumentAvailable,
+    `<p class="status-badge text-nowrap">${data.CurrentStage}</p>`,
+
+    lastRow,
+  ]).draw(false);
+
+}
+
+document.addEventListener('DOMContentLoaded', async () => {
+  let indents = await getAllIndents();
+  if (indents.length) {
+    indents.forEach(indent => {
+      addRow(indent);
+    });
+  }
+
+
+  let response = await axiosInstance.get('/vendors/all');
+  let vendors = response.data.vendors;
+  // let vendorSelect=document.querySelector('#vendorSelect');
+  // vendorSelect.innerHTML='';
+
+  response = await axiosInstance.get('/projects/all');
+  let projects = response.data.projects;
+  // let altProjectSelect = document.querySelector('#altProjectSelect');
+  let projectList = document.querySelector('#projectList');
+  let altProjectList = document.querySelector('#altProjectList');
+  projects.forEach(project => {
+    let option = document.createElement('option');
+    option.value = project.ProjectID;
+    option.textContent = project.ProjectID;
+    option.dataset.project = JSON.stringify(project);
+    // projectSelect.appendChild(option);
+    altProjectList.appendChild(option.cloneNode(true));
+    projectList.appendChild(option.cloneNode(true));
+  })
+
+  vendors.forEach(vendor => {
+    let option = document.createElement('option');
+    option.value = vendor.VendorID;
+    option.textContent = vendor.VendorName;
+    option.dataset.vendor = JSON.stringify(vendor);
+    vendorSelect.appendChild(option);
+  })
+
+
+
+  // console.log(vendors);
+})
+
+
+vendorSelect.addEventListener('change', () => {
+  try {
+    const selectedOption = vendorSelect.options[vendorSelect.selectedIndex];
+    selectedVendor = JSON.parse(selectedOption.dataset.vendor || 'null');
+    console.log('Selected Vendor:', selectedVendor);
+  } catch (error) {
+    console.error('Error parsing vendor data:', error);
+    selectedVendor = null;
+  }
+});
+
+// projectSelect.addEventListener('change', () => {
+//   try {
+//     const selectedOption = projectSelect.options[projectSelect.selectedIndex];
+//     selectedProject = JSON.parse(selectedOption.dataset.project || 'null');
+//     console.log('Selected Project:', selectedProject);
+//   } catch (error) {
+//     console.error('Error parsing project data:', error);
+//     selectedProject = null;
+//   }
+// })
+
+const projectInput = document.getElementById('projectInput');
+const projectList = document.getElementById('projectList');
+
+projectInput.addEventListener('input', () => {
+  const inputValue = projectInput.value;
+  selectedProject = null;
+
+  Array.from(projectList.options).forEach(option => {
+    if (option.value === inputValue) {
+      try {
+        selectedProject = JSON.parse(option.dataset.project || 'null');
+        console.log('Selected Project:', selectedProject);
+      } catch (error) {
+        console.error('Error parsing project data:', error);
+      }
+    }
+  });
+
+  if (!selectedProject) {
+    showErrorPopupFadeInDown('No Matching Project Found');
+  }
+});
+
+const altProjectInput = document.getElementById('altProjectInput');
+const altProjectList = document.getElementById('altProjectList');
+let selectedAltProject = null;
+
+altProjectInput.addEventListener('input', () => {
+  const inputValue = altProjectInput.value;
+  selectedAltProject = null;
+
+  Array.from(projectList.options).forEach(option => {
+    if (option.value === inputValue) {
+      try {
+        selectedAltProject = JSON.parse(option.dataset.project || 'null');
+        document.getElementById('altProjectNameInput').value = selectedAltProject.ProjectName;
+        console.log('Selected Project:', { selectedAltProject });
+      } catch (error) {
+        console.error('Error parsing project data:', error);
+      }
+    }
+  });
+
+  if (!selectedAltProject) {
+    showErrorPopupFadeInDown('No Matching Project Found');
+  }
+});
+
+
+$(document).ready(function () {
+  const datatable = $('#indentsTable').DataTable({
+    dom: 'Bfrtip',
+    buttons: [
+      'csv', 'excel', 'pdf', 'colvis'
+    ]
+  });
+
+  datatable.buttons().container().appendTo($('#exportButtons'));
+
+
+});
+
+document.querySelector('#addNew').addEventListener('click', function () {
+  document.querySelector('#projectIndentModal').classList.remove('d-none');
+  document.querySelector('#tableContainer').classList.add('d-none');
+});
+
+
+document.querySelectorAll('.modalClose').forEach(button => {
+  button.addEventListener('click', () => {
+    document.querySelector('#projectIndentModal').classList.add('d-none');
+    document.querySelector('#tableContainer').classList.remove('d-none');
+  });
+})
+
+
+function goToNextTab() {
+  const activeTab = document.querySelector('.nav-tabs .nav-link.active');
+  const nextTab = activeTab.parentElement.nextElementSibling;
+  if (nextTab) {
+    const link = nextTab.querySelector('.nav-link');
+    new bootstrap.Tab(link).show();
+  }
+}
+
+
+document.querySelectorAll('.indent-stage').forEach(stage => {
+  stage.addEventListener('mouseover', () => {
+    if (stage.classList.contains('completed') || stage.classList.contains('active')) {
+      stage.style.cursor = 'pointer';
+    } else {
+      stage.style.cursor = 'not-allowed';
+    }
+  });
+
+  stage.addEventListener('mouseout', () => {
+    stage.style.cursor = '';
+  });
+});
+
+
+document.querySelectorAll('.tc-check').forEach(chk => {
+  chk.addEventListener('click', () => {
+    if (chk.classList.contains('fa-circle')) {
+      chk.classList.add('text-success');
+      chk.classList.remove('fa-regular');
+      chk.classList.remove('fa-circle');
+      chk.classList.add('fa-solid');
+      chk.classList.add('fa-circle-check');
+
+      chk.classList.remove('text-muted');
+
+    } else if (chk.classList.contains('fa-circle-check')) {
+      chk.classList.remove('text-success');
+      chk.classList.remove('fa-solid');
+      chk.classList.remove('fa-circle-check');
+      chk.classList.add('fa-regular');
+      chk.classList.add('fa-circle');
+      chk.classList.add('text-muted');
+
+    }
+  });
+});
+
+
+function showSRBFileName(input) {
+  const fileNameDisplay = document.getElementById('srbDocumentDisplay');
+  if (input.files.length > 0) {
+    fileNameDisplay.textContent = "Selected file: " + input.files[0].name;
+  } else {
+    fileNameDisplay.textContent = "";
+  }
+}
+
+
+function showFileName(input) {
+  const fileNameDisplay = document.getElementById('fileNameDisplay');
+  if (input.files.length > 0) {
+    fileNameDisplay.textContent = "Selected file: " + input.files[0].name;
+  } else {
+    fileNameDisplay.textContent = "";
+  }
+}
+function showFileName2(input) {
+  const fileNameDisplay = document.getElementById('fileNameDisplay1');
+  if (input.files.length > 0) {
+    fileNameDisplay.textContent = "Selected file: " + input.files[0].name;
+  } else {
+    fileNameDisplay.textContent = "";
+  }
+}
+function showFileName3(input) {
+  const fileNameDisplay = document.getElementById('fileNameDisplay3');
+  if (input.files.length > 0) {
+    fileNameDisplay.textContent = "Selected file: " + input.files[0].name;
+  } else {
+    fileNameDisplay.textContent = "";
+  }
+}
+
+function showPOName(input) {
+  const fileNameDisplay = document.getElementById('poNameDisplay');
+  if (input.files.length > 0) {
+    fileNameDisplay.textContent = "Selected file: " + input.files[0].name;
+  } else {
+    fileNameDisplay.textContent = "";
+  }
+}
+
+
+
+let items = [];
+
+function addItem() {
+  // 1. GRAB ALL 10 FIELDS (NO MORE, NO LESS)
+  const productName = document.getElementById('productName').value.trim();
+  const name = document.getElementById('itemName').value.trim();
+  const desc = document.getElementById('itemDesc').value.trim();
+  const classification = document.getElementById('itemClass').value;
+  const qty = parseInt(document.getElementById('itemQty').value);
+  const unit = document.getElementById('itemUnit').value;
+  const price = parseFloat(document.getElementById('unitPrice').value);
+  const estTotalPrice = parseFloat(document.getElementById('itemPrice').value);
+  const remarks = document.getElementById('itemsRemarks').value.trim();
+  const total = qty * price; // Calculated field
+
+  // 2. HARD VALIDATION (EXACTLY WHAT YOU NEED)
+  if (!name || !desc || isNaN(qty) || qty <= 0 || isNaN(price) || price <= 0) {
+    showErrorPopupFadeInDown("Fill: Name, Description, Valid Qty (>0), Valid Price (>0)");
+    return;
+  }
+
+  // 3. BUILD THE ITEM OBJECT (WITH ALL 10 FIELDS)
+  items.push({
+    productName,
+    name,
+    desc,
+    classification,
+    qty,
+    unit,
+    price,
+    estTotalPrice: isNaN(estTotalPrice) ? total : estTotalPrice, // Auto-calc if invalid
+    remarks,
+    total
+  });
+
+ 
+  renderItems();
+  document.getElementById('itemForm').reset();
+}
+
+function removeItem(index) {
+  items.splice(index, 1);
+  renderItems();
+}
+
+function renderItems() {
+  const tableBody = document.getElementById('itemsTableBody');
+  tableBody.innerHTML = '';
+  let total = 0;
+
+  // Define your classification options
+  const classificationOptions = ['Electronics', 'Clothing', 'Groceries', 'Furniture', 'Other'];
+
+  items.forEach((item, index) => {
+    total += item.qty * item.price;
+
+    const row = `
+          <tr data-index="${index}">
+              <td class="editable" data-field="productName">${item.productName}</td>
+              <td class="editable" data-field="name">${item.name}</td>
+              <td class="editable" data-field="desc">${item.desc}</td>
+              <td class="editable-select" data-field="classification">
+                  ${item.classification}
+              </td>
+              <td>
+                  <input type="number" min="1" value="${item.qty}" class="form-control form-control-sm qty-input" 
+                         data-index="${index}" data-field="qty" style="width: 70px;">
+                  <span>${item.unit}</span>
+              </td>
+              <td class="editable" data-field="price">₹${item.price.toFixed(2)}</td>
+              <td>₹${(item.qty * item.price).toFixed(2)}</td>
+              <td class="editable" data-field="remarks">${item.remarks}</td>
+              <td>
+                  <button class="btn btn-sm btn-outline-danger" onclick="removeItem(${index})">
+                      <i class="fas fa-trash"></i>
+                  </button>
+              </td>
+          </tr>
+      `;
+    tableBody.innerHTML += row;
+  });
+
+  // Add event listeners for editable cells
+  document.querySelectorAll('.editable').forEach(cell => {
+    cell.addEventListener('click', (e) => {
+      if (e.target.classList.contains('editable')) {
+        showEditModal(e.target);
+      }
+    });
+  });
+
+  // Add event listeners for editable select cells
+  document.querySelectorAll('.editable-select').forEach(cell => {
+    cell.addEventListener('click', (e) => {
+      if (e.target.classList.contains('editable-select')) {
+        showSelectModal(e.target);
+      }
+    });
+  });
+
+  // Add event listeners for quantity inputs
+  document.querySelectorAll('.qty-input').forEach(input => {
+    input.addEventListener('change', (e) => {
+      const index = e.target.getAttribute('data-index');
+      const field = e.target.getAttribute('data-field');
+      const value = parseFloat(e.target.value);
+
+      if (!isNaN(value) && value > 0) {
+        items[index][field] = value;
+        renderItems();
+      }
+    });
+  });
+
+  document.getElementById('totalAmount').innerText = total.toFixed(2);
+  totalCost = total;
+}
+
+function showSelectModal(cell) {
+  const row = cell.closest('tr');
+  const index = row.getAttribute('data-index');
+  const field = cell.getAttribute('data-field');
+  const currentValue = items[index][field];
+  const classificationOptions = ['Electronics', 'Clothing', 'Groceries', 'Furniture', 'Other'];
+
+  // Create modal with select dropdown
+  const modal = `
+      <div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
+          <div class="modal-dialog">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h5 class="modal-title">Edit Classification</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                      <select class="form-select form-control" id="editFieldInput">
+                          ${classificationOptions.map(option =>
+    `<option value="${option}" ${option === currentValue ? 'selected' : ''}>${option}</option>`
+  ).join('')}
+                      </select>
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                      <button type="button" class="btn btn-primary" onclick="saveEdit(${index}, '${field}')">Save</button>
+                  </div>
+              </div>
+          </div>
+      </div>
+  `;
+
+  // Add modal to body and show it
+  document.body.insertAdjacentHTML('beforeend', modal);
+  const modalEl = new bootstrap.Modal(document.getElementById('editModal'));
+  modalEl.show();
+
+  // Remove modal after it's closed
+  document.getElementById('editModal').addEventListener('hidden.bs.modal', function () {
+    this.remove();
+  });
+}
+
+function showEditModal(cell) {
+  const row = cell.closest('tr');
+  const index = row.getAttribute('data-index');
+  const field = cell.getAttribute('data-field');
+  const currentValue = items[index][field];
+
+  // Skip if this is the classification field (handled by showSelectModal)
+  if (field === 'classification') return;
+
+  // Create and show modal
+  const modal = `
+      <div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
+          <div class="modal-dialog">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h5 class="modal-title">Edit ${field}</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                      <input type="${field === 'price' ? 'number' : 'text'}" 
+                             class="form-control" 
+                             id="editFieldInput" 
+                             value="${currentValue}" 
+                             step="${field === 'price' ? '0.01' : '1'}">
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                      <button type="button" class="btn btn-primary" onclick="saveEdit(${index}, '${field}')">Save</button>
+                  </div>
+              </div>
+          </div>
+      </div>
+  `;
+
+  // Add modal to body and show it
+  document.body.insertAdjacentHTML('beforeend', modal);
+  const modalEl = new bootstrap.Modal(document.getElementById('editModal'));
+  modalEl.show();
+
+  // Remove modal after it's closed
+  document.getElementById('editModal').addEventListener('hidden.bs.modal', function () {
+    this.remove();
+  });
+}
+
+function saveEdit(index, field) {
+  let newValue;
+
+  if (field === 'classification') {
+    newValue = document.getElementById('editFieldInput').value;
+  } else {
+    newValue = field === 'price'
+      ? parseFloat(document.getElementById('editFieldInput').value)
+      : document.getElementById('editFieldInput').value;
+  }
+
+  if ((field === 'price' && isNaN(newValue)) || !newValue) {
+    showErrorPopupFadeInDown('Please enter a valid value');
+    return;
+  }
+
+  items[index][field] = newValue;
+  renderItems();
+  bootstrap.Modal.getInstance(document.getElementById('editModal')).hide();
+}
+
+
+document.querySelectorAll('input[name="fundStatus"]').forEach((radio) => {
+  radio.addEventListener('change', (event) => {
+    if (event.target.checked) {
+      console.log(`Selected: ${event.target.id}`);
+
+
+      if (event.target.id === "fundAvailable") {
+        globalFundStatus = true;
+        document.getElementById("altProject").classList.add("d-none");
+      } else {
+        globalFundStatus = false;
+
+        document.getElementById("altProject").classList.remove("d-none");
+      }
+    }
+  });
+});
+
+function validateRequiredFields(formSelector) {
+  const form = document.querySelector(formSelector);
+  const requiredInputs = form.querySelectorAll('[required]');
+  for (let input of requiredInputs) {
+    if (!input.value || input.value.trim() === '') {
+      input.focus();
+      showErrorPopupFadeInDown(`Please fill the required field: ${input.dataset.name || input.id}`);
+      return false;
+    }
+  }
+  return true;
+}
+
+
+function formDataToObject(formData) {
+  const obj = {};
+  formData.forEach((value, key) => {
+    obj[key] = value;
+  });
+  return obj;
+}
+
+async function showPreviewModal() {
+
+
+
+
+  if (!selectedVendor) {
+    showErrorPopupFadeInDown('Please select a vendor');
+    return;
+  }
+
+
+  const allForms = [
+    '#vendorForm',
+    '#itemDetailsForm',
+    '#itemForm',
+    '#commercialForm',
+    '#projectForm',
+    '#indentForm'
+  ];
+
+  for (let formSelector of allForms) {
+    if (!validateRequiredFields(formSelector)) return;
+  }
+
+
+  const vendorFormData = formDataToObject(new FormData(document.querySelector('#vendorForm')));
+  const itemDetailsForm = formDataToObject(new FormData(document.querySelector('#itemDetailsForm')));
+  const itemForm = formDataToObject(new FormData(document.querySelector('#itemForm')));
+  const commercialForm = formDataToObject(new FormData(document.querySelector('#commercialForm')));
+  const projectForm = formDataToObject(new FormData(document.querySelector('#projectForm')));
+  const indentForm = formDataToObject(new FormData(document.querySelector('#indentForm')));
+
+  itemForm['items'] = items;
+
+  let totalCost = 0;
+  items.forEach((item) => {
+    totalCost += parseFloat(item.estTotalPrice);
+  });
+
+  const gstCost = (totalCost * parseFloat(commercialForm['extraGST'])) / 100;
+  totalCost += gstCost;
+
+  itemForm['cost'] = totalCost;
+  itemForm['totalCost'] = totalCost;
+  itemForm['gstCost'] = gstCost;
+
+  if (!selectedVendor) {
+    showErrorPopupFadeInDown('Please select a vendor');
+    return;
+  }
+
+  if (!selectedProject) {
+    showErrorPopupFadeInDown('Please select a project');
+    return;
+  }
+
+
+
+  if (!items.length) {
+    showErrorPopupFadeInDown('Please add at least one item');
+    return;
+  }
+
+  // Vendor section
+  setText('vendorNameDisplay', selectedVendor.VendorName);
+  setText('vendorAddressDisplay', selectedVendor.Address);
+  setText('vendorPhoneDisplay', selectedVendor.Phone);
+  setText('vendorMailDisplay', selectedVendor.Email);
+  setText('vendorGSTDisplay', selectedVendor.GSTNo);
+  setText('vendorPANDisplay', selectedVendor.PANNo);
+  setText('vendorAccountDisplay', selectedVendor.AccountNo);
+  setText('vendorIFSCDisplay', selectedVendor.IFSCode);
+  setText('vendorBankDisplay', selectedVendor.BankName);
+  setText('vendorBankAddressDisplay', selectedVendor.Branch);
+
+  // Commercial
+  setText('extraGSTDisplay', commercialForm['extraGST']);
+  setText('priceDisplay', commercialForm['price']);
+  setText('paymentDisplay', commercialForm['payment']);
+  setText('deliveryPlaceDisplay', commercialForm['deliveryPlace']);
+  setText('deliveryDisplay', commercialForm['delivery']);
+  setText('otherTermsDisplay', commercialForm['otherTerms']);
+
+  // Project
+  setText('projectNumberDisplay', projectForm['project']);
+  setText('subProjectNumberDisplay', projectForm['subProject']);
+  setText('remarksDisplay', projectForm['remarks']);
+  setText('departmentDisplay', projectForm['department']);
+  setText('projectInvestigatorDisplay', selectedProject.ProjectIncharge);
+
+  // Indent
+  setText('modeOfPurchaseDisplay', indentForm['indentMode']);
+  setText('purposeDisplay', indentForm['indentPurpose']);
+  setText('typeOfIndentDisplay', itemDetailsForm['indentType']);
+  setText('isQuotationAvailableDisplay', itemDetailsForm['isQuotationAvailable']);
+
+  // Cost Preview
+  setText('costDisplay', `₹${(totalCost - gstCost).toFixed(2)}`);
+  setText('gstDisplay', `₹${gstCost.toFixed(2)}`);
+  setText('totalCostDisplay', `₹${totalCost.toFixed(2)}`);
+
+  // Items table
+  document.getElementById('itemsPreviewTableBody').innerHTML = '';
+  items.forEach((item) => {
+    document.getElementById('itemsPreviewTableBody').innerHTML += `
+      <tr>
+        <td>${item.productName}</td>
+        <td>${item.name}</td>
+        <td>${item.desc}</td>
+        <td>${item.classification}</td>
+        <td>${item.qty}</td>
+        <td>${item.unit}</td>
+        <td>${item.price}</td>
+        <td>${item.estTotalPrice}</td>
+        <td>${item.remarks}</td>
+      </tr>
+    `;
+  });
+
+  const previewModal = new bootstrap.Modal(document.getElementById('fullscreenItemModal2'));
+  previewModal.show();
+}
+
+async function createIndent() {
+  const vendorFormData = formDataToObject(new FormData(document.querySelector('#vendorForm')));
+  const itemDetailsForm = formDataToObject(new FormData(document.querySelector('#itemDetailsForm')));
+  const itemForm = formDataToObject(new FormData(document.querySelector('#itemForm')));
+  const commercialForm = formDataToObject(new FormData(document.querySelector('#commercialForm')));
+  const projectForm = formDataToObject(new FormData(document.querySelector('#projectForm')));
+  const indentForm = formDataToObject(new FormData(document.querySelector('#indentForm')));
+
+  // Add items to the form data
+  itemForm['items'] = items;
+
+  // Prepare final form data to be sent
+  const finalFormData = new FormData();
+  finalFormData.append('vendorDetails', JSON.stringify(vendorFormData));
+  finalFormData.append('itemDetails', JSON.stringify(itemDetailsForm));
+  finalFormData.append('items', JSON.stringify(itemForm['items']));
+  finalFormData.append('commercialDetails', JSON.stringify(commercialForm));
+  finalFormData.append('projectDetails', JSON.stringify(projectForm));
+
+  const indentFormObj = { ...indentForm };
+  delete indentFormObj.supportDoc;  // Remove supportDoc from indent form
+  finalFormData.append('indentDetails', JSON.stringify(indentFormObj));
+
+  finalFormData.append('selectedProject', selectedProject.ProjectID);
+  finalFormData.append('selectedVendor', selectedVendor.VendorID);
+
+  // Attach the support document if available
+  const fileInput = document.querySelector('#supportDoc3');
+  if (fileInput.files.length > 0) {
+    finalFormData.append('supportDoc', fileInput.files[0]);
+  }
+
+  try {
+    // Make the API call to create the indent
+    const res = await axiosInstance.post('/indents', finalFormData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    console.log('✅ Indent submitted:', res.data.message);
+    showPopupFadeInDown('Indent created successfully');
+  } catch (err) {
+    if (err.response) {
+      console.error('❌ Server error:', err.response.data.message);
+      showErrorPopupFadeInDown(err.response.data.message);
+    } else {
+      console.error('❌ Network/other error:', err.message);
+      showErrorPopupFadeInDown('Network error. Please try again.');
+    }
+  }
+}
+
+
+document.getElementById('submitIndentBtn').addEventListener('click', async () => {
+  await createIndent();
+});
+
+// function downloadPreview() {
+
+// const html = document.getElementById('receiptcontent').innerHTML;
+//   const html = `
+//                   <div style="padding: 40px;" id="receiptcontent">
+// <!-- Data Grid Layout -->
+// <div style="font-size: 10px; display: flex;">
+
+//  <!-- Left Column - Key Information -->
+//  <div style="width: 33.33%; border-right: 1px solid #dee2e6; padding: 16px; background-color: #f8f9fa;">
+
+//   <!-- Vendor Block -->
+//   <div style="margin-bottom: 16px;">
+//     <h2 style="display: flex; align-items: center; text-transform: uppercase; color: blue; font-size: 10px; margin-bottom: 12px; font-weight: 100;">
+//       <span style="background-color: #0d6efd; color: white; padding: 4px 8px; border-radius: 4px; margin-right: 8px;">1</span>
+//       Vendor Details
+//     </h2>
+//     <div style="padding-left: 16px;">
+//       <p style="display: flex; margin-bottom: 8px;">
+//         <span style="color: black; width: 40%;">Vendor:</span>
+//         <span style="font-weight: 500;">ABC Industrial</span>
+//       </p>
+//       <p style="display: flex; margin-bottom: 8px;">
+//         <span style="color: black; width: 40%;">Vendor Address:</span>
+//         <span style="font-weight: 500;"></span>
+//       </p>
+//       <p style="display: flex; margin-bottom: 8px;">
+//         <span style="color: black; width: 40%;">Vendor Phone NO.:</span>
+//         <span style="font-weight: 500;"></span>
+//       </p>
+//       <p style="display: flex; margin-bottom: 8px;">
+//         <span style="color: black; width: 40%;">Vendor Mail ID.:</span>
+//         <span style="font-weight: 500;"></span>
+//       </p>
+//       <p style="display: flex; margin-bottom: 8px;">
+//         <span style="color: black; width: 40%;">Vendor GST NO.:</span>
+//         <span style="font-weight: 500;"></span>
+//       </p>
+//       <p style="display: flex; margin-bottom: 8px;">
+//         <span style="color: black; width: 40%;">Vendor PAN NO.:</span>
+//         <span style="font-weight: 500;"></span>
+//       </p>
+//       <p style="display: flex; margin-bottom: 8px;">
+//         <span style="color: black; width: 40%;">Account NO.:</span>
+//         <span style="font-weight: 500;"></span>
+//       </p>
+//       <p style="display: flex; margin-bottom: 8px;">
+//         <span style="color: black; width: 40%;">IFSC Code:</span>
+//         <span style="font-weight: 500;"></span>
+//       </p>
+//       <p style="display: flex; margin-bottom: 8px;">
+//         <span style="color: black; width: 40%;">Bank Name:</span>
+//         <span style="font-weight: 500;"></span>
+//       </p>
+//       <p style="display: flex; margin-bottom: 8px;">
+//         <span style="color: black; width: 40%;">Bank Address:</span>
+//         <span style="font-weight: 500;"></span>
+//       </p>
+//     </div>
+//   </div>
+
+//   <div style="margin-bottom: 16px;">
+//     <h2 style="display: flex; align-items: center; text-transform: uppercase; color: blue; font-size: 10px; margin-bottom: 12px; font-weight: 100;">
+//       <span style="background-color: rgba(13, 110, 253, 0.1); color: white; padding: 4px 8px; border-radius: 4px; margin-right: 8px;">2</span>
+//       Commercial Specification
+//     </h2>
+//     <div style="padding-left: 16px;">
+//       <p style="display: flex; margin-bottom: 8px;">
+//         <span style="color: black; width: 40%;">Extra GST:</span>
+//         <span style="font-weight: 500;">18%</span>
+//       </p>
+//       <p style="display: flex; margin-bottom: 8px;">
+//         <span style="color: black; width: 40%;">Price:</span>
+//         <span style="font-weight: 500;">0</span>
+//       </p>
+//       <p style="display: flex; margin-bottom: 8px;">
+//         <span style="color: black; width: 40%;">Payment:</span>
+//         <span style="font-weight: 500;">18</span>
+//       </p>
+//       <p style="display: flex; margin-bottom: 8px;">
+//         <span style="color: black; width: 40%;">Delivery Place:</span>
+//         <span style="font-weight: 500;">Place</span>
+//       </p>
+//       <p style="display: flex; margin-bottom: 8px;">
+//         <span style="color: black; width: 40%;">Delivery:</span>
+//         <span style="font-weight: 500;"></span>
+//       </p>
+//       <p style="display: flex; margin-bottom: 8px;">
+//         <span style="color: black; width: 40%;">Type of Currency:</span>
+//         <span style="font-weight: 500;">INR</span>
+//       </p>
+//       <p style="display: flex; margin-bottom: 8px;">
+//         <span style="color: black; width: 40%;">Other Terms:</span>
+//         <span style="font-weight: 500;"></span>
+//       </p>
+//     </div>
+//   </div>
+
+//   <!-- Project Details -->
+//   <div>
+//     <h2 style="display: flex; align-items: center; text-transform: uppercase; color: blue; font-size: 10px; margin-bottom: 12px; font-weight: 100;">
+//       <span style="background-color: rgba(13, 110, 253, 0.1); color: white; padding: 4px 8px; border-radius: 4px; margin-right: 8px;">3</span>
+//       Project Details
+//     </h2>
+//     <div style="padding-left: 16px;">
+//       <p style="display: flex; margin-bottom: 8px;">
+//         <span style="color: black; width: 40%;">Project Number:</span>
+//         <span style="font-weight: 500;">PRJ - 0001</span>
+//       </p>
+//       <p style="display: flex; margin-bottom: 8px;">
+//         <span style="color: black; width: 40%;">Sub Project Number:</span>
+//         <span style="font-weight: 500;">SUB-PRJ-001</span>
+//       </p>
+//       <p style="display: flex; margin-bottom: 8px;">
+//         <span style="color: black; width: 40%;">Remarks:</span>
+//         <span style="font-weight: 500; color: #198754;"></span>
+//       </p>
+//     </div>
+//   </div>
+//   <!-- Indent Details -->
+//   <div>
+//     <h2 style="display: flex; align-items: center; text-transform: uppercase; color: black; font-size: 10px; margin-bottom: 12px; color: blue; font-weight: 100;">
+//       <span style="background-color: rgba(13, 110, 253, 0.1); color: white; padding: 4px 8px; border-radius: 4px; margin-right: 8px;">4</span>
+//       Indent Details
+//     </h2>
+//     <div style="padding-left: 16px;">
+//       <p style="display: flex; margin-bottom: 8px;">
+//         <span style="color: black; width: 40%;">Mode of Purchase:</span>
+//         <span style="font-weight: 500;"></span>
+//       </p>
+//       <p style="display: flex; margin-bottom: 8px;">
+//         <span style="color: black; width: 40%;">Purpose:</span>
+//         <span style="font-weight: 500;"></span>
+//       </p>
+//     </div>
+//   </div>
+// </div>
+
+// <!-- Right Column - Line Items -->
+// <div style="width: 66.67%; padding: 16px;">
+//   <h2 style="display: flex; align-items: center; text-transform: uppercase; color: black; font-size: 10px; margin-bottom: 12px; color: blue; font-weight: 100;">
+//     <span style="background-color: rgba(13, 110, 253, 0.1); color: white; padding: 4px 8px; border-radius: 4px; margin-right: 8px;">5</span>
+//     Item Details
+//   </h2>
+//   <div style="display: flex; flex-wrap: wrap; margin-bottom: 16px;">
+//     <p style="display: flex; margin-bottom: 8px; width: 41.66%;">
+//       <span style="color: black; width: 40%;">Type of Indent:</span>
+//       <span style="font-weight: 500;"></span>
+//     </p>
+//     <p style="display: flex; margin-bottom: 8px; width: 58.33%;">
+//       <span style="color: black; width: 40%;">Is Quotation Available ?:</span>
+//       <span style="font-weight: 500; color: #198754;">yes</span>
+//     </p>
+//   </div>
+//   <!-- Items Table -->
+//   <div style="overflow-x: auto;">
+//     <table style="width: 100%; border-collapse: collapse; vertical-align: middle;" id="itemsPreviewTable">
+//       <thead style="background-color: #0d6efd; color: white;">
+//         <tr style="border-bottom: 1px solid #dee2e6; font-size: 10px; text-transform: uppercase;">
+//           <th style="border: 1px solid black; text-align: left; padding-left: 0;">Product Name</th>
+//           <th style="border: 1px solid black;">Item Name</th>
+//           <th style="border: 1px solid black; text-align: right;">Description</th>
+//           <th style="border: 1px solid black; text-align: right;">Item Classification</th>
+//           <th style="border: 1px solid black; text-align: right; padding-right: 0;">Quantity</th>
+//           <th style="border: 1px solid black; text-align: right; padding-right: 0;">Unit</th>
+//           <th style="border: 1px solid black; text-align: right; padding-right: 0;">Estimated Unit Price</th>
+//           <th style="border: 1px solid black; text-align: right; padding-right: 0;">Estimated Total Price</th>
+//         </tr>
+//       </thead>
+//       <tbody>
+//         <tr>
+//           <td style="border: 1px solid black;">Product 1</td>
+//           <td style="border: 1px solid black;">Item 1</td>
+//           <td style="border: 1px solid black;">Description</td>
+//           <td style="border: 1px solid black;">Classification</td>
+//           <td style="border: 1px solid black;">Quantity</td>
+//           <td style="border: 1px solid black;">Unit</td>
+//           <td style="border: 1px solid black;">1</td>
+//           <td style="border: 1px solid black;">2</td>
+//         </tr>
+//         <tr>
+//           <td style="border: 1px solid black;">Product 2</td>
+//           <td style="border: 1px solid black;">Item 2</td>
+//           <td style="border: 1px solid black;">Description</td>
+//           <td style="border: 1px solid black;">Classification</td>
+//           <td style="border: 1px solid black;">Quantity</td>
+//           <td style="border: 1px solid black;">Unit</td>
+//           <td style="border: 1px solid black;">1</td>
+//           <td style="border: 1px solid black;">2</td>
+//         </tr>
+//         <tr>
+//           <td style="border: 1px solid black;">Product 3</td>
+//           <td style="border: 1px solid black;">Item 3</td>
+//           <td style="border: 1px solid black;">Description</td>
+//           <td style="border: 1px solid black;">Classification</td>
+//           <td style="border: 1px solid black;">Quantity</td>
+//           <td style="border: 1px solid black;">Unit</td>
+//           <td style="border: 1px solid black;">1</td>
+//           <td style="border: 1px solid black;">2</td>
+//         </tr>
+//         <tr>
+//           <td style="border: 1px solid black;">Product 4</td>
+//           <td style="border: 1px solid black;">Item 4</td>
+//           <td style="border: 1px solid black;">Description</td>
+//           <td style="border: 1px solid black;">Classification</td>
+//           <td style="border: 1px solid black;">Quantity</td>
+//           <td style="border: 1px solid black;">Unit</td>
+//           <td style="border: 1px solid black;">1</td>
+//           <td style="border: 1px solid black;">2</td>
+//         </tr>
+//       </tbody>
+//     </table>
+//   </div>
+
+//   <!-- Summary -->
+//   <div style="margin-top: 16px; padding-top: 12px; border-top: 1px solid #dee2e6;">
+//     <div style="display: flex; flex-wrap: wrap; justify-content: flex-end;">
+//       <div style="width: 50%;">
+//         <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+//           <span style="color: black;">Cost:</span>
+//           <span style="font-weight: 500;">₹3,08,050</span>
+//         </div>
+//         <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+//           <span style="color: black;">GST (18%):</span>
+//           <span style="font-weight: 500;">₹55,449</span>
+//         </div>
+//         <div style="display: flex; justify-content: space-between; font-size: 12px; margin-top: 12px;">
+//           <span style="color: black;">Total Cost:</span>
+//           <span style="font-weight: bold; color: #0d6efd;">₹3,63,499</span>
+//         </div>
+//       </div>
+//     </div>
+//   </div>
+// </div>
+// </div>
+// </div>
+
+//       `;
+//   const converted = htmlToPdfmake(html);
+//   const docDefinition = {
+//     pageOrientation: 'landscape',
+//     pageSize: 'A4',
+//     content: converted,
+//   };
+//   pdfMake.createPdf(docDefinition).download('document.pdf');
+// }
+
+
+function generatePDF() {
+  const content = document.getElementById("receiptcontent");
+  // content.style.fontSize='10px';
+  const pdfContent = htmlToPdfmake(content.innerHTML);
+
+
+  pdfMake.createPdf(docDefinition).download("bootstrap-styled.pdf");
+}
+
+function setText(fieldId, text) {
+  document.getElementById(fieldId).textContent = text;
+}
+
+
+function checkBudget() {
+  const projectSelect = document.getElementById('projectSelect');
+  const selectedOption = projectSelect.options[projectSelect.selectedIndex];
+  const container = document.getElementById('budgetStatusContainer');
+
+  if (!selectedOption.value) {
+    container.classList.add('d-none');
+    return;
+  }
+
+
+  const totalBudget = parseFloat(selectedOption.dataset.budget);
+  const usedBudget = parseFloat(selectedOption.dataset.used);
+  const available = totalBudget - usedBudget;
+  const indentValue = 150000;
+
+  document.getElementById('indentValue').textContent = `₹${indentValue.toLocaleString()}`;
+  document.getElementById('availableBalance').textContent = `₹${available.toLocaleString()}`;
+
+  const statusBadge = document.getElementById('statusBadge');
+  const overBudgetFields = document.getElementById('overBudgetFields');
+
+  if (indentValue <= available) {
+    statusBadge.innerHTML = `<span class="badge bg-success px-3 py-2">Available</span>`;
+    overBudgetFields.classList.add('d-none');
+  } else {
+    statusBadge.innerHTML = `<span class="badge bg-danger px-3 py-2">Insufficient</span>`;
+    document.getElementById('deficitAmount').textContent =
+      `₹${(indentValue - available).toLocaleString()}`;
+    overBudgetFields.classList.remove('d-none');
+  }
+
+  container.classList.remove('d-none');
+}
+
+
+
+
+let rejectionDate = document.querySelector('#rejectionDate');
+let rejectionReason = document.querySelector('#rejectionReason');
+let approvalDate = document.querySelector('#approvalDate');
+
+
+
+rejectionDate.addEventListener('change', (event) => {
+
+  if (event.target.value !== '') {
+    document.querySelectorAll('.rejection-span').forEach(sp => {
+      sp.classList.remove('d-none');
+    });
+
+    document.querySelectorAll('.approval-span').forEach(aspan => {
+      aspan.classList.add('d-none');
+    });
+
+    approvalDate.value = '';
+  }
+});
+
+rejectionReason.addEventListener('input', (event) => {
+
+  if (event.target.value !== '') {
+    document.querySelectorAll('.rejection-span').forEach(sp => {
+      sp.classList.remove('d-none');
+    });
+
+    document.querySelectorAll('.approval-span').forEach(aspan => {
+      aspan.classList.add('d-none');
+    });
+  }
+
+  approvalDate.value = '';
+});
+
+approvalDate.addEventListener('change', (event) => {
+
+
+  document.querySelectorAll('.rejection-span').forEach(sp => {
+    sp.classList.add('d-none');
+  });
+
+  document.querySelectorAll('.approval-span').forEach(aspan => {
+    aspan.classList.remove('d-none');
+  });
+
+  rejectionDate.value = '';
+  rejectionReason.value = '';
+
+});
+
+let lpcSubmitButton = document.querySelector('#lpcSubmitBtn');
+
+lpcSubmitButton.addEventListener('click', async (event) => {
+  event.preventDefault();
+
+  let DocumentsProcessedDate = document.querySelector('#documentsProcessedDate').value;
+  let DocumentsDispatchedDate = document.querySelector('#documentsDispatchedDate').value;
+  let DocumentsReceivedDate = document.querySelector('#documentsReceivedDate').value;
+  let CompletionDate = document.querySelector('#LPCCompletionDate').value;
+  let file = document.querySelector('#supportDoc1').files[0];
+
+  if (!DocumentsProcessedDate || !DocumentsDispatchedDate || !DocumentsReceivedDate || !CompletionDate) {
+    showErrorPopupFadeInDown('Please fill all the required fields');
+    return;
+  }
+
+  let IndentId = globalIndentID;
+
+  if (!IndentId) {
+    showErrorPopupFadeInDown('Indent ID not found');
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append('DocumentsProcessedDate', DocumentsProcessedDate);
+  formData.append('DocumentsDispatchedDate', DocumentsDispatchedDate);
+  formData.append('DocumentsReceivedDate', DocumentsReceivedDate);
+  formData.append('CompletionDate', CompletionDate);
+  if (file) {
+    formData.append('file', file);
+  }
+
+  try {
+    let response = await axiosInstance.post(`/lpc/${IndentId}`, formData);
+
+    console.log('LPC Submit Response:', response);
+
+    if (response.status === 200) {
+      showPopupFadeInDown('LPC submitted successfully');
+      setTimeout(() => {
+        window.reload();
+      }, 2000);
+    } else {
+      showErrorPopupFadeInDown('LPC submission failed');
+    }
+
+  } catch (error) {
+    console.error("LPC Submit Error:", error);
+    showErrorPopupFadeInDown("Network error. Please try again.");
+  }
+
+});
+
+
+let revertBtn = document.querySelector('#revertBtn');
+let rejectBtn = document.querySelector('#indentRejectBtn');
+let approveBtn = document.querySelector('#indentAapproveBtn');
+
+async function handleApproveIndent(event) {
+  event.preventDefault();
+
+  let IndentId = globalIndentID;
+
+  if (!IndentId) {
+    showErrorPopupFadeInDown('Indent ID not found');
+    return;
+  }
+
+  let approvalRemarks = document.querySelector('#approvalRemarks').value;
+  let file = document.querySelector('#supportDoc').files[0];
+
+  if (!approvalRemarks) {
+    showErrorPopupFadeInDown('Please Enter Remarks');
+    return;
+  }
+
+  let formData = new FormData();
+  formData.append('Remarks', approvalRemarks);
+
+  if (file) {
+    formData.append('file', file);
+  }
+
+  if (event.target === approveBtn) {
+    formData.append('Status', 'Approved');
+  } else if (event.target === rejectBtn) {
+    formData.append('Status', 'Rejected');
+  } else if (event.target === revertBtn) {
+    formData.append('Status', 'Reverted');
+  }
+
+  try {
+    let response = await axiosInstance.post(`/indentApproval/${IndentId}`, formData);
+
+    console.log('Indent Approval Response:', response);
+    if (response.status === 200 || response.status === 201) {
+      showPopupFadeInDown('Indent status updated successfully');
+      setTimeout(() => {
+        location.reload();
+      }, 2000);
+    } else {
+      showErrorPopupFadeInDown('Indent status update failed');
+    }
+  } catch (error) {
+    console.error("Indent Approval Error:", error);
+    showErrorPopupFadeInDown("Network error. Please try again.");
+  }
+}
+
+
+rejectBtn.addEventListener('click', handleApproveIndent);
+approveBtn.addEventListener('click', handleApproveIndent);
+revertBtn.addEventListener('click', handleApproveIndent);
+
+function getText(id) {
+  return document.getElementById(id).value;
+}
+let poApprovalUpdates = [];
+
+function listenUpdates(id) {
+
+
+
+
+  document.getElementById(id).addEventListener('input', (event) => {
+    const existingIndex = poApprovalUpdates.findIndex(item => item.field === id);
+
+    if (existingIndex !== -1) {
+
+      poApprovalUpdates[existingIndex].value = event.target.value;
+    } else {
+
+      poApprovalUpdates.push({ field: id, value: event.target.value });
+    }
+  });
+}
+
+//----------------------------------------------//
+//               LISTEN FOR UPDATES             //
+//----------------------------------------------//
+
+listenUpdates('updateExtraGst');
+listenUpdates('updateCurrencySelect');
+listenUpdates('updatePayment');
+listenUpdates('updateDeliveryPlace');
+listenUpdates('updateDelivery');
+listenUpdates('updatePrice');
+
+let poApprovalData = {};
+
+function openPoPreviewModal() {
+
+
+
+  setText('PreviewtypeOfOrder', getText('typeOfOrder'));
+  setText('previewpoApprovalCategorySelect', getText('poApprovalCategorySelect'));
+
+  setText('PreviewPOreferenceNo', getText('POreferenceNo'));
+  setText('PreviewPOreferenceDate', getText('POreferenceDate'));
+  setText('PreviewNameOfWork', getText('NameOfWork'));
+  setText('PreviewupdateExtraGst', getText('updateExtraGst'));
+  setText('PreviewupdateCurrencySelect', getText('updateCurrencySelect'));
+  setText('PreiviewupdatePayment', getText('updatePayment'));
+  setText('PreviewupdateDeliveryPlace', getText('updateDeliveryPlace'));
+  setText('previewupdateDelivery', getText('updateDelivery'));
+  setText('previewupdatePrice', getText('updatePrice'));
+
+  poApprovalData['TypeOfOrder'] = getText('typeOfOrder');
+  poApprovalData['Category'] = getText('poApprovalCategorySelect');
+  poApprovalData['ReferenceNo'] = getText('POreferenceNo');
+  poApprovalData['ReferenceDate'] = getText('POreferenceDate');
+  poApprovalData['NameOfWork'] = getText('NameOfWork');
+
+
+  const modal = new bootstrap.Modal(document.getElementById('popreviewModal'));
+  modal.show();
+}
+
+
+document.querySelector('#POApprovalSubmitBtn').addEventListener('click', async () => {
+
+
+  let updates = poApprovalUpdates.reduce((acc, item) => {
+    acc[item.field] = item.value;
+    return acc;
+  }, {});
+
+  Object.keys(updates).forEach(field => {
+    if (field === 'updateExtraGst') {
+      updates['ExtraGST'] = updates[field];
+      delete updates[field];
+    }
+    if (field === 'updateCurrencySelect') {
+      updates['Currency'] = updates[field];
+      delete updates[field];
+    }
+    if (field === 'updatePayment') {
+      updates['Payment'] = updates[field];
+      delete updates[field];
+    }
+    if (field === 'updateDeliveryPlace') {
+      updates['DeliveryPlace'] = updates[field];
+      delete updates[field];
+    }
+    if (field === 'updateDelivery') {
+      updates['Delivery'] = updates[field];
+      delete updates[field];
+    }
+    if (field === 'updatePrice') {
+      updates['Price'] = updates[field];
+      delete updates[field];
+    }
+  });
+
+
+  // console.log({poApprovalData});
+
+
+
+  if (!poApprovalData['TypeOfOrder']) {
+    showErrorPopupFadeInDown('Please select the type of order');
+    return;
+  }
+  if (!poApprovalData['Category']) {
+    showErrorPopupFadeInDown('Please select the category');
+    return;
+  }
+
+  if (!poApprovalData['ReferenceNo']) {
+    showErrorPopupFadeInDown('Please enter the reference number');
+    return;
+  }
+
+  if (!poApprovalData['ReferenceDate']) {
+    showErrorPopupFadeInDown('Please enter the reference date');
+    return;
+  }
+  if (!poApprovalData['NameOfWork']) {
+    showErrorPopupFadeInDown('Please enter the name of work');
+    return;
+  }
+
+  // console.log('PO Approval Data:', poApprovalData);
+  // return;
+
+
+  poApprovalData['updates'] = updates;
+
+  try {
+    let response = await axiosInstance.post(`/poApproval/${globalIndentID}`, poApprovalData);
+    console.log('PO Approval Response:', response);
+
+    if (response.status === 200 || response.status === 201) {
+      showPopupFadeInDown('PO Approval updated successfully');
+      setTimeout(() => {
+        location.reload();
+      }, 1000);
+
+    } else {
+      showErrorPopupFadeInDown('PO Approval update failed');
+    }
+  } catch (err) {
+    console.log(err);
+    if (err.response) {
+      console.error('Server error:', err.response.data.message);
+      showErrorPopupFadeInDown(err.response.data.message);
+    } else {
+      console.error('Network/other error:', err.message);
+      showErrorPopupFadeInDown('Network error. Please try again.');
+    }
+  }
+
+  const modal = new bootstrap.Modal(document.getElementById('popreviewModal'));
+  modal.hide();
+});
+
+let poGenSubmitBtn = document.querySelector('#poGenSubmitBtn');
+
+poGenSubmitBtn.addEventListener('click', async (event) => {
+  event.preventDefault();
+
+  let IndentId = globalIndentID;
+
+  if (!IndentId) {
+    showErrorPopupFadeInDown('Indent ID not found');
+    return;
+  }
+
+  let SignedPoMailedDate = document.querySelector('#signedPoMailedDate').value;
+  let file = document.querySelector('#signedPO').files[0];
+
+  if (!SignedPoMailedDate) {
+    showErrorPopupFadeInDown('Please Enter Date');
+    return;
+  }
+
+  if (!file) {
+    showErrorPopupFadeInDown('Please Upload Signed PO');
+    return;
+  }
+
+  if (!file.name.endsWith('.pdf')) {
+    showErrorPopupFadeInDown('Please Upload Signed PO in PDF format');
+    return;
+  }
+
+  let formData = new FormData();
+  formData.append('SignedPOMailedDate', SignedPoMailedDate);
+
+  if (file) {
+    formData.append('file', file);
+  }
+
+  try {
+    let response = await axiosInstance.post(`/poGenerated/${IndentId}`, formData);
+
+    console.log('PO Generation Response:', response);
+    if (response.status === 200 || response.status === 201) {
+      showPopupFadeInDown('Success!');
+      setTimeout(() => {
+        location.reload();
+      }, 2000);
+    } else {
+      showErrorPopupFadeInDown('PO generation failed');
+    }
+  } catch (error) {
+    console.error("PO Generation Error:", error);
+    showErrorPopupFadeInDown("Network error. Please try again.");
+  }
+});
+
+
+function updateGrandTotal() {
+  let total = typeof subTotal !== "undefined" ? subTotal : 0;
+  total = isNaN(total) ? 0 : total;
+
+  let discountPercentage = parseFloat(document.querySelector('#srbDiscount').value) || 0;
+
+  if (discountPercentage < 0 || discountPercentage > 100) {
+    showErrorPopupFadeInDown('Discount percentage must be between 0 and 100');
+    discountPercentage = 0;
+    document.querySelector('#srbDiscount').value = '';
+  }
+
+  let discountAmount = total * discountPercentage / 100;
+  document.querySelector('#srbDeductedAmount').value = discountAmount.toFixed(2);
+
+  let gstAmount = parseFloat(document.querySelector('#srbGSTAmount').value) || 0;
+
+  if (gstAmount < 0) {
+    showErrorPopupFadeInDown('GST amount cannot be negative');
+    gstAmount = 0;
+    document.querySelector('#srbGSTAmount').value = '0';
+  }
+
+  let otherCharges = parseFloat(document.querySelector('#srbotherCharges').value) || 0;
+
+  if (otherCharges < 0) {
+    showErrorPopupFadeInDown('Other charges cannot be negative');
+    otherCharges = 0;
+    document.querySelector('#srbotherCharges').value = '0';
+  }
+
+  let grandTotal = total - discountAmount + gstAmount + otherCharges;
+  document.querySelector('#srbGrandTotal').value = grandTotal.toFixed(2);
+}
+
+document.querySelector('#srbDiscount').addEventListener('input', updateGrandTotal);
+document.querySelector('#srbGSTAmount').addEventListener('input', updateGrandTotal);
+document.querySelector('#srbotherCharges').addEventListener('input', updateGrandTotal);
+
+
+async function submitSRBForm() {
+
+  const srbFor = document.getElementById('srbFor').value;
+  const srbSerialNo = document.getElementById('srbSerialNo').value;
+  const srbType = document.getElementById('srbTypeSelect').value;
+  const srbPONumber = document.getElementById('srbPONumber').value;
+  const srbPODate = document.getElementById('srbPODate').value;
+  const srbEmployeeName = document.getElementById('srbEmployeeName').value;
+  const srbDiscount = parseFloat(document.getElementById('srbDiscount').value) || 0;
+  const srbDeductedAmount = parseFloat(document.getElementById('srbDeductedAmount').value) || 0;
+  const srbInvoiceNumber = document.getElementById('srbInvoiceNumber').value;
+  const srbInvoiceDate = document.getElementById('srbInvoiceDate').value;
+  const srbWarranty = document.getElementById('srbWarranty').value;
+  const srbOthers = document.getElementById('srbothers').value;
+  const srbGSTAmount = parseFloat(document.getElementById('srbGSTAmount').value) || 0;
+  const srbOtherCharges = parseFloat(document.getElementById('srbotherCharges').value) || 0;
+  const srbGrandTotal = parseFloat(document.getElementById('srbGrandTotal').value) || 0;
+  const fileInput = document.getElementById('srbDocument');
+  const file = fileInput.files[0];
+
+  if (!srbPONumber || !srbEmployeeName || !srbInvoiceNumber || !srbInvoiceDate || !srbWarranty || !srbOthers || !file) {
+    showErrorPopupFadeInDown("Please fill in all required fields and upload a file.");
+    return;
+  }
+
+
+  const formData = new FormData();
+  formData.append('SRBFor', 'Project Purchase');
+  formData.append('SerialNo', srbSerialNo);
+  formData.append('Type', srbType);
+  formData.append('PONumber', srbPONumber);
+  formData.append('PODate', srbPODate);
+  formData.append('EmpName', srbEmployeeName);
+  formData.append('Discount', srbDiscount);
+  formData.append('DeductedAmount', srbDeductedAmount);
+  formData.append('InvoiceNo', srbInvoiceNumber);
+  formData.append('InvoiceDate', srbInvoiceDate);
+  formData.append('Warranty', srbWarranty);
+  formData.append('OtherCharges', srbOtherCharges);
+  formData.append('GSTAmount', srbGSTAmount);
+  formData.append('GrandTotal', srbGrandTotal);
+  formData.append('file', file);
+  formData.append('Others', srbOthers);
+
+
+  try {
+    let response = await axiosInstance.post(`/srb/${globalIndentID}`, formData);
+    console.log('SRB Submit Response:', response);
+    if (response.status === 200) {
+      showPopupFadeInDown('SRB submitted successfully');
+      setTimeout(() => {
+        location.reload();
+      }, 2000);
+    }
+  } catch (err) {
+    console.log(err);
+    if (err.response) {
+      console.error('Server error:', err.response.data.message);
+      console.error('Server error:', err.response.data);
+      showErrorPopupFadeInDown(err?.response?.data?.message);
+    } else {
+      console.error('Network/other error:', err.message);
+      showErrorPopupFadeInDown('Network error. Please try again.');
+    }
+  }
+
+}
+
+
+document.getElementById('srbSubmitBtn').addEventListener('click', submitSRBForm);
+
+
+document.querySelector('#poApprovalPreviewBtn').addEventListener('click', openPoPreviewModal);
+
+
+let icsrSubmissionBtn = document.querySelector('#icsrSubmit');
+
+icsrSubmissionBtn.addEventListener('click', async (event) => {
+  event.preventDefault();
+
+  let IndentId = globalIndentID;
+  if (!IndentId) {
+    showErrorPopupFadeInDown('Indent ID not found');
+    return;
+  }
+
+
+  let RejectionDate = document.querySelector('#rejectionDate').value;
+  let RejectionRemarks = document.querySelector('#rejectionReason').value;
+  let ApprovalDate = document.querySelector('#approvalDate').value;
+
+  if (!RejectionDate && !ApprovalDate) {
+    showErrorPopupFadeInDown('Please select Rejection Date or Approval Date');
+    return;
+  }
+
+  if (RejectionDate && !RejectionRemarks) {
+    showErrorPopupFadeInDown('Please Enter Rejection Remarks');
+    return;
+  }
+
+  try {
+
+    let response = await axiosInstance.post(`/icsr/${IndentId}`, {
+      RejectionDate: RejectionDate,
+      RejectionRemarks: RejectionRemarks,
+      ApprovalDate: ApprovalDate
+    });
+
+    console.log('ICS Submission Response:', response);
+
+
+    if (response.status === 200) {
+      showPopupFadeInDown('Submitted successfully');
+      setTimeout(() => {
+        location.reload();
+      }, 2000);
+    }
+  } catch (err) {
+    console.log(err);
+
+
+    if (err.response) {
+      console.error('Server error:', err.response.data.message);
+      showErrorPopupFadeInDown(err?.response?.data?.message);
+    } else {
+      console.error('Network/other error:', err.message);
+      showErrorPopupFadeInDown('Network error. Please try again.');
+    }
+  }
+});
+
+
+document.addEventListener('DOMContentLoaded',async ()=>{
+
+
+  handlePermission('#username');
+
+
+  const sidebarContainer = document.getElementById('sidebar-container');
+  if (sidebarContainer) {
+      sidebarContainer.innerHTML = generateSidebar();
+      
+     
+      const currentPage = window.location.pathname.split('/').pop().split('.')[0];
+      const navLinks = document.querySelectorAll('.pcoded-item a');
+      
+      navLinks.forEach(link => {
+          if (link.getAttribute('href').includes(currentPage)) {
+              link.parentElement.classList.add('active');
+              
+          
+              const accordionContent = link.closest('.accordion-content');
+              if (accordionContent) {
+                  accordionContent.style.display = 'block';
+                  const header = accordionContent.previousElementSibling;
+                  const icon = header.querySelector('.accordion-icon');
+                  if (icon) {
+                      icon.classList.remove('fa-chevron-down');
+                      icon.classList.add('fa-chevron-up');
+                  }
+              }
+          }
+      });
+  }
+
+  // const user=JSON.parse(sessionStorage.getItem('user'));
+  // const token=sessionStorage.getItem('token');
+
+  // if(token===null||user===null){
+  //     window.location.href="login.html";
+  // }
+
+  // if(user.role===2){
+  //     window.location.href="user-details.html";
+  //     return;
+  // }
+
+  // document.getElementById('username').innerText=user.name;
+
+
+
+ 
+      
+ 
+});
+
+function toggleAccordion(button) {
+  const content = button.parentElement.nextElementSibling;
+  content.style.display = (content.style.display === "none" || content.style.display === "") ? "block" : "none";
+
+  const icon = button.querySelector("i");
+  icon.classList.toggle("fa-chevron-down");
+  icon.classList.toggle("fa-chevron-up");
+}
+
+document.querySelector('#logout-button').addEventListener('click',()=>{
+      sessionStorage.removeItem('user');
+      sessionStorage.removeItem('token');
+      window.location.href='login.html';
+});
+
+function hasStageAccess(stageElement) {
+  const moduleName = stageElement.getAttribute('data-access-module');
+  // If no module restriction, allow access
+  if (!moduleName) return true; 
+  // Check if module exists in write permissions
+  return categorizedModules.write.includes(moduleName);
+}

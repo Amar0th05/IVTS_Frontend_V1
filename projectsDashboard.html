@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>iVTS-FMS</title>
+    <!-- HTML5 Shim and Respond.js IE10 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 10]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+      <![endif]-->
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <meta name="keywords" content="" />
+    <meta name="author" content="Codedthemes" />
+    <!-- Favicon icon -->
+    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+    <!-- Google font-->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
+    <!-- waves.css -->
+    <link rel="stylesheet" href="assets/pages/waves/css/waves.min.css" type="text/css" media="all">
+    <!-- Required Fremwork -->
+    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap/css/bootstrap.min.css">
+    <!-- waves.css -->
+    <link rel="stylesheet" href="assets/pages/waves/css/waves.min.css" type="text/css" media="all">
+    <!-- themify icon -->
+    <link rel="stylesheet" type="text/css" href="assets/icon/themify-icons/themify-icons.css">
+    <!-- font-awesome-n -->
+    <link rel="stylesheet" type="text/css" href="assets/css/font-awesome-n.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.min.css">
+    <!-- scrollbar.css -->
+    <link rel="stylesheet" type="text/css" href="assets/css/jquery.mCustomScrollbar.css">
+    <!-- Style.css -->
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/custom.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <style>
+        .hidden {
+          display: none !important;
+        }
+      </style>
+    
+  <style>
+      .modern-table {
+      color: black !important;
+      width: 90%;
+      border-collapse: separate;
+      border-spacing: 0 10px;
+      border: 1px solid #ddd;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 10px;
+    }
+    .modern-table thead {
+      background-color: #007bff;
+      color: white;
+      text-align: center;
+    }
+    .modern-table th, .modern-table td {
+      padding: 12px;
+      text-align: center;
+      border-bottom: 2px solid #ddd;
+    }
+    .modern-table tbody tr {
+      background: white;
+      transition: transform 0.2s ease-in-out;
+    }
+    .modern-table tbody tr:hover {
+      transform: scale(1.02);
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+    }
+    .modern-table tr:hover{
+      transform: scale(1.02);
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+    }
+   .modern-table td{
+    width: 50%;
+   }
+
+   .chart-container {
+        width: 100%;
+        height: 250px;
+    }
+    
+    .legend-container {
+        width: 100%;
+        max-height: 100px; 
+        overflow-y: auto;
+        text-align: center;
+        padding: 10px;
+    }
+   
+
+  </style>
+    <style>
+    
+      .table-modern {
+        border-collapse: separate;
+        border-spacing: 0;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      .table-modern th,
+      .table-modern td {
+        padding: 12px 15px;
+        text-align: center;
+      }
+      .table-modern th:first-child,
+      .table-modern td:first-child {
+        text-align: justify;
+        color:white;
+        background-color: #007bffc9;
+        font-weight: 600;
+        width: fit-content;
+      }
+      .table-modern thead th {
+        background-color: #007bffc9;
+        color: white;
+        font-weight: 600;
+      }
+      .table-modern tbody tr:nth-child(odd) {
+        background-color: #f8f9fa;
+      }
+      .table-modern tbody tr:hover {
+        background-color: #e9ecef;
+      }
+     
+    </style>
+    <style>
+      .table-equipments {
+        border-collapse: separate;
+        border-spacing: 0;
+        border-radius: 10px;
+        overflow: hidden;
+        font-size: 14px !important;
+      }
+      .table-equipments tbody {
+        display: block;
+        max-height: 290px;
+        overflow-y: auto;
+      }
+      .table-equipments th,
+      .table-equipments td {
+        padding: 5px 10px;
+        text-align: center;
+      }
+     
+      .table-equipments thead th {
+        background-color: #007bffc9;
+        color: white;
+        font-weight: 600;
+      }
+      .table-equipments tbody tr:nth-child(odd) {
+        background-color: #f8f9fa;
+      }
+      .table-equipments tbody tr:hover {
+        background-color: #e9ecef;
+      }
+      .table-equipments thead, 
+      .table-equipments tbody tr {
+        display: table;
+        width: 100%;
+        table-layout: fixed;
+      }
+      
+    </style>
+    <style>
+         #chartdiv {
+      width: 100%;
+      height: 280px;
+      max-width: 100%;
+      margin: 0 auto;
+    }
+    #equipmentChart {
+      width: 100%;
+      height: 500px;
+      max-width: 100%;
+      margin: 0 auto;
+    }
+    .am5chart-Legend {
+      margin-top: 20px; 
+    }
+    #payHikeChart {
+      width: 100%;
+      height: 350px;
+     
+      min-height: 250px;
+    }
+  
+    .card-block {
+      padding: 10px;
+     
+    }
+    
+  </style>
+
+<script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+<script src="https://cdn.amcharts.com/lib/5/percent.js"></script>
+<script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+
+</head>
+
+<body>
+    <!-- Pre-loader start -->
+    <div class="theme-loader">
+        <div class="loader-track">
+            <div class="preloader-wrapper">
+                <div class="spinner-layer spinner-blue">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+                <div class="spinner-layer spinner-red">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+
+                <div class="spinner-layer spinner-yellow">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+
+                <div class="spinner-layer spinner-green">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Pre-loader end -->
+    <div id="pcoded" class="pcoded">
+        <div class="pcoded-overlay-box"></div>
+        <div class="pcoded-container navbar-wrapper">
+            <nav class="navbar header-navbar pcoded-header">
+                <div class="navbar-wrapper">
+                    <div class="navbar-logo align-items-center">
+                        <a class="mobile-menu waves-effect waves-light" id="mobile-collapse" href="#!">
+                            <i class="ti-menu"></i>
+                        </a>
+                        <div class="mobile-search waves-effect waves-light">
+                            <div class="header-search">
+                                <div class="main-search morphsearch-search">
+                                    <div class="input-group">
+                                        <span class="input-group-prepend search-close"><i class="ti-close input-group-text"></i></span>
+                                        <input type="text" class="form-control" placeholder="Enter Keyword">
+                                        <span class="input-group-append search-btn"><i class="ti-search input-group-text"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="index.html">
+                            <!-- <img class="img-fluid" src="https://ntcpwc.iitm.ac.in/New/images/ntcpwc-logo.jpg" alt="Theme-Logo" style="height: 50px;" /> -->
+                             <h4 class="d-inline"><span class="text-lowercase">i</span>VTS-FMS</h4>
+                        </a>
+                        <a class="mobile-options waves-effect waves-light">
+                            <i class="ti-more"></i>
+                        </a>
+                    </div>
+                    <div class="navbar-container container-fluid">
+                        <ul class="nav-left">
+                            <li>
+                                <div class="sidebar_toggle"><a href="javascript:void(0)"><i class="ti-menu"></i></a></div>
+                            </li>
+                            <li>
+                                <a href="#!" onclick="javascript:toggleFullScreen()" class="waves-effect waves-light">
+                                    <i class="ti-fullscreen"></i>
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="nav-right">
+                            <li class="user-profile header-notification">
+                                <a href="#!" class="waves-effect waves-light">
+                                    <!-- <img src="assets/images/avatar-4.jpg" class="img-radius" alt="User-Profile-Image"> -->
+                                    <span id="username">John Doe</span>
+                                    <i class="ti-angle-down"></i>
+                                </a>
+                                <ul class="show-notification profile-notification">
+                                    <li class="waves-effect waves-light">
+                                        <a href="#!">
+                                            <i class="ti-settings"></i> Settings
+                                        </a>
+                                    </li>
+                                    <li class="waves-effect waves-light">
+                                        <a href="user-profile.html">
+                                            <i class="ti-user"></i> Profile
+                                        </a>
+                                    </li>
+                                    <li class="waves-effect waves-light">
+                                        <a href="index.html" id="logout-button">
+                                            <i class="ti-layout-sidebar-left"></i> Logout
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="pcoded-main-container">
+                <div class="pcoded-wrapper">
+                    <nav class="pcoded-navbar">
+                        <div class="sidebar_toggle"><a href="#"><i class="icon-close icons"></i></a></div>
+                        <div class="pcoded-inner-navbar main-menu">
+                            <div class="">
+                                <div class="main-menu-header">
+                                    <!-- <img class="img-80 img-radius" src="assets/images/avatar-4.jpg" alt="User-Profile-Image">
+                                    <div class="user-details">
+                                        <span id="more-details">John Doe<i class="fa fa-caret-down"></i></span>
+                                    </div> -->
+                                    <img src="assets/images/ntcpwc-logo.jpg" alt="ntcpwc-logo">
+                                </div>
+                                <div class="main-menu-content">
+                                    <ul>
+                                        <li class="more-details">
+                                            <a href="user-profile.html"><i class="ti-user"></i>View Profile</a>
+                                            <a href="#!"><i class="ti-settings"></i>Settings</a>
+                                            <a href="index.html"><i class="ti-layout-sidebar-left"></i>Logout</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="p-15 p-b-0">
+                                <form class="form-material">
+                                    <div class="form-group form-primary">
+                                        <input type="text" name="footer-email" class="form-control">
+                                        <span class="form-bar"></span>
+                                        <label class="float-label"><i class="fa fa-search m-r-10"></i>Search</label>
+                                    </div>
+                                </form>
+                            </div>
+                            <div id="sidebar-container"></div>
+                            <!-- <div class="accordion">
+                              <div class="accordion-header">
+                                <div class="pcoded-navigation-label accordion-toggle waves-effect waves-dark" onclick="toggleAccordion(this)">Project Tracking<i class="fa fa-chevron-down ml-1" id="accordion-icon"></i></div>
+                              </div>
+                              <div class="accordion-content" style="display: none;">
+                              
+                                  <ul class="pcoded-item pcoded-left-item">
+                                      <li>
+                                          <a href="projectTracking.html" class="waves-effect waves-dark">
+                                              <span class="pcoded-micon"><i class="ti-folder"></i><b>D</b></span>
+                                              <span class="pcoded-mtext">Projects</span>
+                                              <span class="pcoded-mcaret"></span>
+                                          </a>
+                                      </li>
+                                  </ul>
+                              </div>
+                              </div>
+                            <div class="accordion">
+                              <div class="accordion-header">
+                                <div class="pcoded-navigation-label accordion-toggle waves-effect waves-dark" onclick="toggleAccordion(this)">Invoices<i class="fa fa-chevron-down ml-1" id="accordion-icon"></i></div>
+                              </div>
+                              <div class="accordion-content" style="display: none;">
+                              
+                                  <ul class="pcoded-item pcoded-left-item">
+                                      <li>
+                                          <a href="o&mInvoices.html" class="waves-effect waves-dark">
+                                              <span class="pcoded-micon"><i class="ti-calendar"></i><b>D</b></span>
+                                              <span class="pcoded-mtext">O&M Invoices</span>
+                                              <span class="pcoded-mcaret"></span>
+                                          </a>
+                                      </li>
+                                      <li>
+                                        <a href="equipment-invoices.html" class="waves-effect waves-dark">
+                                            <span class="pcoded-micon"><i class="ti-settings"></i><b>D</b></span>
+                                            <span class="pcoded-mtext">Equipment Invoices</span>
+                                            <span class="pcoded-mcaret"></span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                      <a href="invoices.html" class="waves-effect waves-dark">
+                                          <span class="pcoded-micon"><i class="ti-receipt"></i><b>D</b></span>
+                                          <span class="pcoded-mtext">C&H Invoices</span>
+                                          <span class="pcoded-mcaret"></span>
+                                      </a>
+                                  </li>
+                                  </ul>
+                              </div>
+                              </div>
+                              <div class="accordion">
+                                <div class="accordion-header">
+                                  <div class="pcoded-navigation-label accordion-toggle waves-effect waves-dark" onclick="toggleAccordion(this)">Equipments<i class="fa fa-chevron-down ml-1" id="accordion-icon"></i></div>
+                                </div>
+                                <div class="accordion-content" style="display: none;">
+                                  
+                                  <ul class="pcoded-item pcoded-left-item">
+                                      <li>
+                                        <a href="procurementStagesDashboard.html" class="waves-effect waves-dark">
+                                            <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
+                                            <span class="pcoded-mtext">Equipments Dashboard</span>
+                                            <span class="pcoded-mcaret"></span>
+                                        </a>
+                                    </li>
+                                      <li>
+                                          <a href="equipmentlist.html" class="waves-effect waves-dark">
+                                              <span class="pcoded-micon"><i class="ti-receipt"></i><b>D</b></span>
+                                              <span class="pcoded-mtext">Equipment List</span>
+                                              <span class="pcoded-mcaret"></span>
+                                          </a>
+                                      </li>
+                                  </ul>
+                                  </div>
+                                  </div>
+                                  <div class="accordion">
+                                    <div class="accordion-header">
+                                      <div class="pcoded-navigation-label accordion-toggle waves-effect waves-dark" onclick="toggleAccordion(this)">Man Power Management<i class="fa fa-chevron-up ml-1" id="accordion-icon"></i></div>
+                                    </div>
+                                    <div class="accordion-content" style="display: block;">
+                                      <ul class="pcoded-item pcoded-left-item">
+                                        <li class="active">
+                                            <a href="index.html" class="waves-effect waves-dark">
+                                                <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
+                                                <span class="pcoded-mtext">Dashboard</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="staff-details.html" class="waves-effect waves-dark">
+                                                <span class="pcoded-micon"><i class="ti-user"></i><b>BC</b></span>
+                                                <span class="pcoded-mtext">Staff Details</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="contract-logs.html" class="waves-effect waves-dark">
+                                                <span class="pcoded-micon"><i class="ti-notepad"></i><b>BC</b></span>
+                                                <span class="pcoded-mtext">Contract Logs</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    
+                                      </div>
+                                      </div> -->
+                            
+                            
+                    </nav>
+                    <div class="pcoded-content">
+                        <!-- Page-header start -->
+                        <div class="page-header">
+                            <div class="page-block">
+                                <div class="row align-items-center">
+                                    <div class="col-md-8">
+                                        <!-- <img src="assets/images/ntcpwc-logo.jpg" class="img-fluid w-25" alt="NTCPWC LOGO"> -->
+                                        <div class="page-header-title">
+                                            <h5 class="m-b-10">Dashboard</h5>
+                                            <p class="m-b-0">Welcome to iVTS-FMS</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <ul class="breadcrumb">
+                                            <li class="breadcrumb-item">
+                                                <a href="index.html"> <i class="fa fa-home"></i> </a>
+                                            </li>
+                                            <li class="breadcrumb-item"><a href="#!">Dashboard</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Page-header end -->
+                        <div class="pcoded-inner-content">
+                            <!-- Main-body start -->
+                            <div class="main-body">
+                                <div class="page-wrapper">
+                                    <!-- Page-body start -->
+                                    <div class="page-body">
+
+                                        <div class="row">
+                                            <div class="col-xl-12 col-md-12">
+                                                <div class="card text-start">
+                                                    <div class="card-header">
+                                                        <h5>Project Status Overview</h5>
+                                                      
+                                                    </div>
+                                                    <div class="card-block">
+                                                        <div id="chartdiv1" style="height: 350px;"></div>
+                                                    </div>
+                                                </div>
+                                              
+                                                
+                                            </div>
+                                        </div>
+                                            
+                                        <div class="row">
+                                            <div class="col-xl-6 col-md-12">
+                                                <div class="card text-start">
+                                                    <div class="card-header">
+                                                        <h5>Payments Received - Completed Projects</h5>
+                                                      
+                                                    </div>
+                                                    <div class="card-block">
+                                                        <div id="chartdiv2" style="height: 350px;"></div>
+                                                    </div>
+                                                </div>
+                                              
+                                                
+                                            </div>
+                                            <div class="col-xl-6 col-md-12">
+                                                <div class="card text-start">
+                                                    <div class="card-header">
+                                                        <h5>Payments Received  -  Ongoing Projects</h5>
+                                                      
+                                                    </div>
+                                                    <div class="card-block">
+                                                        <div id="chartdiv3" style="height: 350px;"></div>
+                                                    </div>
+                                                </div>
+                                              
+                                                
+                                            </div>
+                                        </div>
+                                            
+                                             
+
+
+                                    </div>
+                                    
+
+
+                                  
+                                    <!-- Page-body end -->
+                                </div>
+                                <div id="styleSelector"> </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Warning Section Starts -->
+    <!-- Older IE warning message -->
+    <!--[if lt IE 10]>
+<div class="ie-warning">
+    <h1>Warning!!</h1>
+    <p>You are using an outdated version of Internet Explorer, please upgrade <br/>to any of the following web browsers to access this website.</p>
+    <div class="iew-container">
+        <ul class="iew-download">
+            <li>
+                <a href="http://www.google.com/chrome/">
+                    <img src="assets/images/browser/chrome.png" alt="Chrome">
+                    <div>Chrome</div>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.mozilla.org/en-US/firefox/new/">
+                    <img src="assets/images/browser/firefox.png" alt="Firefox">
+                    <div>Firefox</div>
+                </a>
+            </li>
+            <li>
+                <a href="http://www.opera.com">
+                    <img src="assets/images/browser/opera.png" alt="Opera">
+                    <div>Opera</div>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.apple.com/safari/">
+                    <img src="assets/images/browser/safari.png" alt="Safari">
+                    <div>Safari</div>
+                </a>
+            </li>
+            <li>
+                <a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie">
+                    <img src="assets/images/browser/ie.png" alt="">
+                    <div>IE (9 & above)</div>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <p>Sorry for the inconvenience!</p>
+</div>
+<![endif]-->
+    <!-- Warning Section Ends -->
+    <script src="assets/js/roleUtil.js"></script>
+    <!-- Required Jquery -->
+    <script type="text/javascript" src="assets/js/jquery/jquery.min.js "></script>
+    <script type="text/javascript" src="assets/js/jquery-ui/jquery-ui.min.js "></script>
+    <script type="text/javascript" src="assets/js/popper.js/popper.min.js"></script>
+    <script type="text/javascript" src="assets/js/bootstrap/js/bootstrap.min.js "></script>
+    <!-- waves js -->
+    <script src="assets/pages/waves/js/waves.min.js"></script>
+    <!-- jquery slimscroll js -->
+    <script type="text/javascript" src="assets/js/jquery-slimscroll/jquery.slimscroll.js"></script>
+
+    <!-- slimscroll js -->
+    <script src="assets/js/jquery.mCustomScrollbar.concat.min.js "></script>
+
+    <!-- menu js -->
+    <script src="assets/js/pcoded.min.js"></script>
+    <script src="assets/js/vertical/vertical-layout.min.js "></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script src="./assets/js/axiosInstance.js"></script>
+    <script  src="./assets/js/api.js"></script>
+    <script src="./assets/js/apiRequests.js"></script>
+    <script type="text/javascript" src="assets/js/script.js "></script>
+    <script type="text/javascript" src="assets/js/popup.js"></script>
+    <script src="assets/js/projectDashboard.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async function(event) {
+            roles=await axiosInstance.get('/roles/role/perms');
+    roles=roles.data.roles;
+    // console.log(roles); 
+    window.roles=roles;
+        handlePermission('#username');
+       
+    const sidebarContainer = document.getElementById('sidebar-container');
+    if (sidebarContainer) {
+        sidebarContainer.innerHTML = generateSidebar();
+        
+        // Set the current page as active
+        const currentPage = window.location.pathname.split('/').pop().split('.')[0];
+        const navLinks = document.querySelectorAll('.pcoded-item a');
+        
+        navLinks.forEach(link => {
+            if (link.getAttribute('href').includes(currentPage)) {
+                link.parentElement.classList.add('active');
+                
+                // Expand the parent accordion
+                const accordionContent = link.closest('.accordion-content');
+                if (accordionContent) {
+                    accordionContent.style.display = 'block';
+                    const header = accordionContent.previousElementSibling;
+                    const icon = header.querySelector('.accordion-icon');
+                    if (icon) {
+                        icon.classList.remove('fa-chevron-down');
+                        icon.classList.add('fa-chevron-up');
+                    }
+                }
+            }
+        });
+    }
+        })
+        const token=sessionStorage.getItem('token');
+        const user=JSON.parse(sessionStorage.getItem('user'));
+        if(token===null||user===null){
+            window.location.href="login.html";
+        }
+
+        
+
+        $('#username').text(user.name);
+
+        document.getElementById('logout-button').addEventListener('click',logout);
+        function logout(){
+            sessionStorage.removeItem('token');
+        }
+
+
+        function toggleAccordion(button) {
+        const content = button.parentElement.nextElementSibling;
+        content.style.display = (content.style.display === "none" || content.style.display === "") ? "block" : "none";
+
+        const icon = button.querySelector("i");
+        icon.classList.toggle("fa-chevron-down");
+        icon.classList.toggle("fa-chevron-up");
+    }
+    </script>
+ 
+
+ <script>
+    am5.ready(async function() {
+let data=await axiosInstance.get('/projects/all/status');
+let apiResponse=data.data;
+// console.log(data);
+var root = am5.Root.new("chartdiv1");
+
+var chart = root.container.children.push(
+am5percent.PieChart.new(root, {
+layout: root.verticalLayout
+})
+);
+
+var series = chart.series.push(
+am5percent.PieSeries.new(root, {
+name: "Project Status",
+categoryField: "status",
+valueField: "count",
+innerRadius: am5.percent(40)
+})
+);
+
+
+const statusColors = {
+  "Ongoing": am5.color("#3a86ff"),
+  "Completed": am5.color("#4cc9f0"),
+  "Withdrawn": am5.color("#f72585"),
+  "": am5.color("#adb5bd") 
+};
+
+const chartData = apiResponse.map(item => ({
+  status: item.ProjectStatus || "Unknown",
+  count: item.Count,
+  color: statusColors[item.ProjectStatus] || am5.color("#cccccc") 
+}));
+series.data.setAll(chartData);
+
+series.labels.template.set("visible", false);
+series.ticks.template.set("visible", false);
+
+var legend = chart.children.push(
+am5.Legend.new(root, {
+centerX: am5.percent(50),
+x: am5.percent(50),
+layout: root.horizontalLayout
+})
+);
+legend.data.setAll(series.dataItems);
+});
+</script>
+      
+<script>
+   am5.ready(function () {
+    let rs=[
+    {
+        "TotalCost": 105,
+        "PaymentReceived": 105,
+        "ProjectStatus": "Ongoing"
+    },
+    {
+        "TotalCost": 105,
+        "PaymentReceived": 105,
+        "ProjectStatus": "Ongoing"
+    },
+    {
+        "TotalCost": 105,
+        "PaymentReceived": 105,
+        "ProjectStatus": "Ongoing"
+    },
+    {
+        "TotalCost": 1005,
+        "PaymentReceived": 105,
+        "ProjectStatus": "Ongoing"
+    }
+];
+
+let ongoing={};
+let completed={};
+
+rs.forEach(r=>{
+    if(r.ProjectStatus=='Ongoing'){
+        let tc=r.TotalCost;
+        let pr=r.PaymentReceived;
+        let percentage=pr/tc*100;
+        percentage=percentage.toFixed(2);
+        // ongoing['percentage']=percentage,
+        let count=ongoing[percentage]?ongoing[percentage]+1:1;
+        if(percentage==0){
+            ongoing['0']=count;
+        }else if(percentage<25){
+           ongoing['<25']=count;
+        }else if(percentage<50){
+            ongoing['<50']=count;
+        }else if(percentage<75){
+            ongoing['<75']=count;
+        }else if(percentage>=75){
+            ongoing['>75']=count;
+        }
+    }
+    else if(r.ProjectStatus=='Completed'){
+        let tc=r.TotalCost;
+        let pr=r.PaymentReceived;
+        let percentage=pr/tc*100;
+        completed[percentage]=completed[percentage]?completed[percentage]+1:1;
+    }
+});
+
+let ongoingStatus=[];
+let completedStatus=[];
+
+
+
+
+console.log(ongoing,completed);
+
+// console.log(data);
+  var root = am5.Root.new("chartdiv2");
+
+  // Optional: use theme
+  root.setThemes([am5themes_Animated.new(root)]);
+
+  var chart = root.container.children.push(
+    am5percent.PieChart.new(root, {
+      layout: root.verticalLayout
+    })
+  );
+
+  var series = chart.series.push(
+    am5percent.PieSeries.new(root, {
+      name: "Payment Progress",
+      categoryField: "milestone",
+      valueField: "count",
+      innerRadius: am5.percent(30),
+      legendLabelText: "{category}: {value}"
+    })
+  );
+
+  // Custom color set
+  var customColors = ["#ffbe0b", "#fc79d3", "#8338ec", "#06d6a0"];
+  series.get("colors").setAll({
+    colors: customColors.map(c => am5.color(c))
+  });
+
+  // Set data
+  series.data.setAll([
+    { milestone: "25% Paid", count: 2 },
+    { milestone: "50% Paid", count: 40 },
+    { milestone: "75% Paid", count: 26 },
+    { milestone: "more than 75% Paid", count: 20 }
+  ]);
+
+  // Automatically hide 0% slices
+  series.slices.template.adapters.add("visible", function (visible, target) {
+    return target.dataItem.get("valueY") > 0;
+  });
+
+  // Add legend with gridLayout for multiple rows
+  var legend = chart.children.push(
+    am5.Legend.new(root, {
+      centerX: am5.percent(50),
+      x: am5.percent(50),
+      layout: root.gridLayout,
+      width: am5.percent(100)
+    })
+  );
+
+  legend.labels.template.setAll({
+    text: "{category}: {value}  {valuePercentTotal.formatNumber('0.00')}%",
+    fontSize: 11,
+    populateText: true
+  });
+
+  // Set the number of columns in the grid layout
+  legend.itemContainers.template.setAll({
+    layout: root.horizontalLayout
+  });
+
+  // Connect legend to series
+  legend.data.setAll(series.dataItems);
+});
+
+</script>
+    
+<script>
+    am5.ready(function () {
+  var root = am5.Root.new("chartdiv3");
+
+  // Optional: use theme
+  root.setThemes([am5themes_Animated.new(root)]);
+
+  var chart = root.container.children.push(
+    am5percent.PieChart.new(root, {
+      layout: root.verticalLayout
+    })
+  );
+
+  var series = chart.series.push(
+    am5percent.PieSeries.new(root, {
+      name: "Payment Progress",
+      categoryField: "milestone",
+      valueField: "count",
+      innerRadius: am5.percent(30),
+      legendLabelText: "{category}: {value}"
+    })
+  );
+
+  // Custom color set
+  var customColors = ["#ffa0ab", "#fb5607", "#8338ec", "#06d6a0"];
+  series.get("colors").setAll({
+    colors: customColors.map(c => am5.color(c))
+  });
+
+  // Set data
+  series.data.setAll([
+    { milestone: "25% Paid", count: 20 },
+    { milestone: "50% Paid", count: 4 },
+    { milestone: "75% Paid", count: 10 },
+    { milestone: "more than 75% Paid", count: 20 }
+  ]);
+
+  // Automatically hide 0% slices
+  series.slices.template.adapters.add("visible", function (visible, target) {
+    return target.dataItem.get("valueY") > 0;
+  });
+
+  // Add legend with gridLayout for multiple rows
+  var legend = chart.children.push(
+    am5.Legend.new(root, {
+      centerX: am5.percent(50),
+      x: am5.percent(50),
+      layout: root.gridLayout,
+      width: am5.percent(100)
+    })
+  );
+
+  legend.labels.template.setAll({
+    text: "{category}: {value}  {valuePercentTotal.formatNumber('0.00')}%",
+    fontSize: 11,
+    populateText: true
+  });
+
+  // Set the number of columns in the grid layout
+  legend.itemContainers.template.setAll({
+    layout: root.horizontalLayout
+  });
+
+  // Connect legend to series
+  legend.data.setAll(series.dataItems);
+});
+
+
+</script>
+        
+        
+       
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

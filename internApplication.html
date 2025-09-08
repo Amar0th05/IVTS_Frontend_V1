@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Internship Registration Form</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #0d6efd;
+            --primary-dark: #0b5ed7;
+            --header-color: #0a2351;
+            /* Navy Blue */
+            --background-color: #ffffff;
+        }
+
+        body {
+            background-image: url('');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .form-container {
+            background: var(--background-color);
+            border-radius: 15px;
+            overflow: hidden;
+            margin: auto;
+            max-width: 900px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .form-header {
+            background-color: var(--header-color);
+            color: white;
+            padding: 1.5rem 2rem;
+            /* Adjusted padding for logos */
+            /* Flexbox for logo alignment */
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        /* NEW: Style for the header logos */
+        .header-logo {
+            height: 60px;
+            /* Adjust height as needed */
+            width: auto;
+            object-fit: contain;
+        }
+
+        .form-header h2 {
+            font-size: 1.75rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .step-indicator {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 2rem 0;
+            padding: 0 1rem;
+        }
+
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            color: #6c757d;
+            font-weight: 500;
+        }
+
+        .step.active {
+            color: var(--primary-color);
+        }
+
+        .step.completed {
+            color: #198754;
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid #6c757d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .step span {
+            font-size: 0.85rem;
+        }
+
+        .step.active .step-number {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
+        }
+
+        .step.completed .step-number {
+            background-color: #198754;
+            border-color: #198754;
+            color: white;
+        }
+
+        .step-line {
+            flex: 1;
+            height: 2px;
+            background-color: #dee2e6;
+            margin: 0 1rem;
+            transform: translateY(-1.25rem);
+        }
+
+        .step.completed+.step-line {
+            background-color: #198754;
+        }
+
+        .form-step {
+            display: none;
+            padding: 2rem;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .form-step.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .required-field::after {
+            content: " *";
+            color: #dc3545;
+        }
+
+        /* Other styles remain the same... */
+        .input-group-text {
+            background-color: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-right: 0;
+            color: var(--primary-color);
+        }
+
+        .form-control,
+        .form-select {
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 0.75rem;
+            transition: all 0.3s ease;
+        }
+
+        .input-group .form-control,
+        .input-group .form-select {
+            border-radius: 0 8px 8px 0;
+        }
+
+        .input-group .input-group-text {
+            border-radius: 8px 0 0 8px;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            border-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .form-navigation {
+            padding: 2rem;
+            border-top: 1px solid #e9ecef;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .file-upload {
+            position: relative;
+        }
+
+        .file-upload input[type=file] {
+            position: absolute;
+            opacity: 0;
+            width: 1px;
+            height: 1px;
+        }
+
+        .file-upload-label {
+            display: block;
+            padding: 1rem;
+            border: 2px dashed #dee2e6;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background-color: #f8f9fa;
+        }
+
+        .file-upload-label:hover {
+            border-color: var(--primary-color);
+            background-color: rgba(13, 110, 253, 0.05);
+        }
+
+        .section-title {
+            color: var(--primary-color);
+            font-weight: bold;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Responsive adjustments */
+        @media (min-width: 576px) {
+            .step {
+                flex-direction: row;
+                text-align: left;
+            }
+
+            .step-number {
+                margin-bottom: 0;
+                margin-right: 0.5rem;
+            }
+
+            .step-line {
+                transform: translateY(0);
+            }
+        }
+
+        /* NEW: Responsive styles for header on small screens */
+        @media (max-width: 767px) {
+            .form-header {
+                padding: 1rem;
+                flex-wrap: wrap;
+                /* Allow wrapping if needed */
+                justify-content: center;
+                /* Center items on small screens */
+            }
+
+            .header-logo {
+                height: 45px;
+                /* Smaller logos on mobile */
+            }
+
+            .form-header .header-text-block {
+                order: -1;
+                /* Move text block to the top on mobile */
+                width: 100%;
+                margin-bottom: 0.5rem;
+            }
+
+            .form-header h2 {
+                font-size: 1.5rem;
+                /* Smaller title on mobile */
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid py-5">
+        <div class="container shadow-lg">
+            <!-- Header -->
+            <div class="form-header">
+                <div><img src="assets/images/ntcpwc-logo.jpg" alt="Company Logo" class="header-logo"></div>
+                <div class="text-center header-text-block">
+                    <h2><i class="fas fa-user-graduate me-2"></i>Internship Registration</h2>
+                    <p class="mb-0 d-none d-md-block">Complete your application in simple steps</p>
+                </div>
+                <div></div>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="px-4 pt-4 mb-3">
+                <div class="progress" style="height: 8px;">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: 0%" id="progressBar"></div>
+                </div>
+            </div>
+
+            <!-- Step Indicator -->
+            <div class="step-indicator">
+                <div class="step active" id="step-1">
+                    <div class="step-number">1</div><span>Personal<span class="d-none d-sm-inline"> Info</span></span>
+                </div>
+                <div class="step-line"></div>
+                <div class="step" id="step-2">
+                    <div class="step-number">2</div><span>Academic<span class="d-none d-sm-inline">
+                            Details</span></span>
+                </div>
+                <div class="step-line"></div>
+                <div class="step" id="step-3">
+                    <div class="step-number">3</div><span>Preferences</span>
+                </div>
+                <div class="step-line"></div>
+                <div class="step" id="step-4">
+                    <div class="step-number">4</div><span>Documents</span>
+                </div>
+                <div class="step-line"></div>
+                <div class="step" id="step-5">
+                    <div class="step-number">5</div><span>Additional<span class="d-none d-sm-inline"> Info</span></span>
+                </div>
+            </div>
+
+            <form id="internshipForm" novalidate autocomplete="off">
+                <!-- Step 1: Personal Information -->
+                <div class="form-step active" id="form-step-1">
+                    <h4 class="section-title"><i class="fas fa-user-circle me-2"></i>Section 1: Personal Information
+                    </h4>
+                    <div class="row">
+                        <div class="col-md-6 mb-4"><label for="fullName" class="form-label required-field">Full
+                                Name</label>
+                            <div class="input-group"><span class="input-group-text"><i
+                                        class="fas fa-user"></i></span><input type="text" class="form-control"
+                                    id="fullName" name="fullName" placeholder="Enter your full legal name" required>
+                            </div>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="col-md-6 mb-4"><label for="dob" class="form-label required-field">Date of
+                                Birth</label>
+                            <div class="input-group"><span class="input-group-text"><i
+                                        class="fas fa-calendar-alt"></i></span><input type="date" class="form-control"
+                                    id="dob" name="dob" required></div>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <label for="gender" class="form-label required-field">Gender</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-venus-mars"></i></span>
+                                <select class="form-select" id="gender" name="gender" required>
+                                    <option value="" selected disabled>Select Gender</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="prefer-not-to-say">Prefer not to say</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div class="invalid-feedback"></div>
+                            <div class="mt-2" id="otherGenderContainer" style="display: none;">
+                                <label for="otherGender" class="form-label">Please specify</label>
+                                <input type="text" id="otherGender" name="otherGender" class="form-control">
+                                <div class="invalid-feedback"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4"><label for="mobile" class="form-label required-field">Mobile
+                                Number</label>
+                            <div class="input-group"><span class="input-group-text"><i
+                                        class="fas fa-phone"></i></span><input type="tel" class="form-control"
+                                    id="mobile" name="mobile" placeholder="e.g., 9876543210" required></div>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="col-md-6 mb-4"><label for="location" class="form-label required-field">Current
+                                Location</label>
+                            <div class="input-group"><span class="input-group-text"><i
+                                        class="fas fa-map-marker-alt"></i></span><input type="text" class="form-control"
+                                    id="location" name="location" placeholder="City, State" required></div>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="col-md-6 mb-4"><label for="email" class="form-label required-field">Personal Email
+                                ID</label>
+                            <div class="input-group"><span class="input-group-text"><i
+                                        class="fas fa-envelope"></i></span><input type="email" class="form-control"
+                                    id="email" name="email" placeholder="example@domain.com" required></div>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="col-12 mb-4"><label for="portfolio" class="form-label">LinkedIn / GitHub / Portfolio
+                                Link</label>
+                            <div class="input-group"><span class="input-group-text"><i
+                                        class="fas fa-link"></i></span><input type="url" class="form-control"
+                                    id="portfolio" name="portfolio" placeholder="https://..."></div>
+                            <div class="form-text">Optional: Share any professional profile or portfolio.</div>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="col-md-4 mb-4"><label for="emergencyName"
+                                class="form-label required-field">Emergency Contact Name</label>
+                            <div class="input-group"><span class="input-group-text"><i
+                                        class="fas fa-user-shield"></i></span><input type="text" class="form-control"
+                                    placeholder="Full name" id="emergencyName" name="emergencyName" required></div>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="col-md-4 mb-4"><label for="relationship"
+                                class="form-label required-field">Relationship</label>
+                            <div class="input-group"><span class="input-group-text"><i
+                                        class="fas fa-users"></i></span><input type="text" class="form-control"
+                                    id="relationship" name="relationship" placeholder="e.g., Parent" required></div>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="col-md-4 mb-4"><label for="emergencyNumber"
+                                class="form-label required-field">Emergency Contact Number</label>
+                            <div class="input-group"><span class="input-group-text"><i
+                                        class="fas fa-phone-alt"></i></span><input type="tel" class="form-control"
+                                    placeholder="Contact number" id="emergencyNumber" name="emergencyNumber" required>
+                            </div>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2: Academic Details -->
+                <div class="form-step" id="form-step-2">
+                    <h4 class="section-title"><i class="fas fa-graduation-cap me-2"></i>Section 2: Academic Details</h4>
+                    <div class="row">
+                        <div class="col-md-6 mb-4"><label for="college" class="form-label required-field">Name of
+                                College / University</label>
+                            <div class="input-group"><span class="input-group-text"><i
+                                        class="fas fa-university"></i></span><input type="text" class="form-control"
+                                    id="college" name="college" placeholder="Full official name" required></div>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="col-md-6 mb-4"><label for="degree" class="form-label required-field">Degree Program
+                                & Department</label>
+                            <div class="input-group"><span class="input-group-text"><i
+                                        class="fas fa-book-open"></i></span><input type="text" class="form-control"
+                                    id="degree" name="degree" placeholder="e.g., B.Tech in CSE" required></div>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="col-md-6 mb-4"><label for="curriculum" class="form-label required-field">Is this
+                                internship part of your curriculum?</label>
+                            <div class="input-group"><span class="input-group-text"><i
+                                        class="fas fa-question-circle"></i></span>
+                                <select class="form-select" id="curriculum" name="curriculum" required>
+                                    <option value="" selected disabled>Select Option</option>
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
+                                </select>
+                            </div>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="col-md-6 mb-4"><label for="supervisor" class="form-label">Faculty / Supervisor
+                                Name</label>
+                            <div class="input-group"><span class="input-group-text"><i
+                                        class="fas fa-chalkboard-teacher"></i></span><input type="text"
+                                    class="form-control" id="supervisor" name="supervisor"
+                                    placeholder="Name of supervising faculty"></div>
+                            <div class="form-text">Optional: Provide if this internship is supervised by faculty.</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Step 3: Internship Preferences -->
+                <div class="form-step" id="form-step-3">
+                    <h4 class="section-title"><i class="fas fa-calendar-alt me-2"></i>Section 3: Internship Preferences
+                    </h4>
+                    <div class="row">
+                        <div class="col-md-4 mb-4"><label for="startDate" class="form-label required-field">Preferred
+                                Start Date</label>
+                            <div class="input-group"><span class="input-group-text"><i
+                                        class="fas fa-calendar-plus"></i></span><input type="date" class="form-control"
+                                    id="startDate" name="startDate" required></div>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="col-md-4 mb-4"><label for="endDate" class="form-label required-field">Preferred End
+                                Date</label>
+                            <div class="input-group"><span class="input-group-text"><i
+                                        class="fas fa-calendar-minus"></i></span><input type="date" class="form-control"
+                                    id="endDate" name="endDate" required></div>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="col-md-4 mb-4"><label for="mode" class="form-label required-field">Mode of
+                                Internship</label>
+                            <div class="input-group"><span class="input-group-text"><i
+                                        class="fas fa-laptop-house"></i></span>
+                                <select class="form-select" id="mode" name="mode" required>
+                                    <option value="" selected disabled>Select Mode</option>
+                                    <option value="online">Online</option>
+                                    <option value="offline">Offline</option>
+                                </select>
+                            </div>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Step 4: Document Uploads -->
+                <div class="form-step" id="form-step-4">
+                    <h4 class="section-title"><i class="fas fa-file-upload me-2"></i>Section 4: Mandatory Document
+                        Uploads</h4>
+                    <div class="row">
+                        <div class="col-md-6 mb-4"><label class="form-label required-field">Bonafide / NOC / Self
+                                Declaration</label>
+                            <div class="file-upload"><input type="file" id="bonafide" name="bonafide" accept=".pdf"
+                                    required><label for="bonafide" class="file-upload-label"><i
+                                        class="fas fa-cloud-upload-alt fa-2x mb-2 text-primary"></i>
+                                    <div>Upload PDF (Max 10MB)</div>
+                                </label></div>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="col-md-6 mb-4"><label class="form-label required-field">Updated Resume / CV</label>
+                            <div class="file-upload"><input type="file" id="resume" name="resume" accept=".pdf"
+                                    required><label for="resume" class="file-upload-label"><i
+                                        class="fas fa-cloud-upload-alt fa-2x mb-2 text-primary"></i>
+                                    <div>Upload PDF (Max 10MB)</div>
+                                </label></div>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="col-md-6 mb-4"><label class="form-label required-field">Recent Passport-size
+                                Photograph</label>
+                            <div class="file-upload"><input type="file" id="photo" name="photo" accept=".jpg,.jpeg,.png"
+                                    required><label for="photo" class="file-upload-label"><i
+                                        class="fas fa-image fa-2x mb-2 text-primary"></i>
+                                    <div>Upload JPG/PNG (Max 10MB)</div>
+                                </label></div>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="col-md-6 mb-4"><label class="form-label required-field">Government-issued ID
+                                Proof</label>
+                            <div class="file-upload"><input type="file" id="idProof" name="idProof" accept=".pdf"
+                                    required><label for="idProof" class="file-upload-label"><i
+                                        class="fas fa-id-card fa-2x mb-2 text-primary"></i>
+                                    <div>Upload PDF (Max 10MB)</div>
+                                </label></div>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Step 5: Additional Information -->
+                <div class="form-step" id="form-step-5">
+                    <h4 class="section-title"><i class="fas fa-info-circle me-2"></i>Section 5: Additional Information
+                    </h4>
+                    <div class="row">
+                        <div class="col-12 mb-4"><label for="source" class="form-label required-field">How did you hear
+                                about us?</label>
+                            <div class="input-group"><span class="input-group-text"><i
+                                        class="fas fa-bullhorn"></i></span>
+                                <select class="form-select" id="source" name="source" required>
+                                    <option value="" selected disabled>Select Source</option>
+                                    <option value="college">College</option>
+                                    <option value="placement-cell">University Placement Cell</option>
+                                    <option value="faculty">Faculty / Professor Recommendation</option>
+                                    <option value="linkedin">LinkedIn</option>
+                                    <option value="website">Company Website</option>
+                                    <option value="referral">Referral</option>
+                                    <option value="portal">Internship Portal (e.g., Internshala)</option>
+                                    <option value="others">Others</option>
+                                </select>
+                            </div>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                    </div>
+                    <div class="alert alert-success mt-4">
+                        <h5><i class="fas fa-check-circle me-2"></i>Review Your Application</h5>
+                        <p class="mb-0">You're at the final step! Please review all the information you've provided
+                            before submitting.</p>
+                    </div>
+                </div>
+
+                <!-- Navigation Buttons -->
+                <div class="form-navigation">
+                    <button type="button" class="btn btn-outline-primary" id="prevBtn" onclick="changeStep(-1)"
+                        style="display: none;"><i class="fas fa-arrow-left me-2"></i>Previous</button>
+                    <div class="ms-auto">
+                        <button type="button" class="btn btn-primary" id="nextBtn" onclick="changeStep(1)">Next<i
+                                class="fas fa-arrow-right ms-2"></i></button>
+                        <button type="submit" class="btn btn-success" id="submitBtn" style="display: none;"><i
+                                class="fas fa-paper-plane me-2"></i>Submit Application</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/internApplication.js"></script>
+</body>
+
+</html>

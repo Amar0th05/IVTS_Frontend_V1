@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Radar Data Visualizer</title>
+    <script src="https://cdn.socket.io/4.4.1/socket.io.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+            text-align: center;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        .container {
+            display: inline-block;
+            position: relative;
+            margin-top: 50px;
+        }
+        canvas {
+            border-radius: 50%;
+            background-color: #f0f0f0;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .controls {
+            margin-top: 10px;
+        }
+        .data-display {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            margin: 0 auto;
+            text-align: left;
+        }
+        .data-display p {
+            font-size: 14px;
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Radar Data Visualizer</h1>
+    <div class="container">
+        <canvas id="radarCanvas" width="400" height="400"></canvas>
+    </div>
+
+    <div class="data-display" id="dataDisplay">
+        <h3>Latest Data:</h3>
+        <p><strong>Message Type:</strong> <span id="messageType">-</span></p>
+        <p><strong>SAC:</strong> <span id="sac">-</span>, <strong>SIC:</strong> <span id="sic">-</span></p>
+        <p><strong>Video Record Header:</strong> <span id="vrh">-</span></p>
+        <p><strong>Resolution:</strong> <span id="resolution">-</span>, <strong>Compression:</strong> <span id="compression">-</span></p>
+        <p><strong>Flags:</strong> <span id="flags">-</span></p>
+    </div>
+
+    <script>
+        const socket = io('http://localhost:5000');
+        const canvas = document.getElementById('radarCanvas');
+        const ctx = canvas.getContext('2d');
+        const centerX = canvas.width / 2;
+        const centerY = canvas.height / 2;
+        const radius = canvas.width / 2 - 20;
+
+        // Function to draw radar points (blips)
+        function drawRadarPoint(angle, distance) {
+            const radian = (angle - 90) * (Math.PI / 180); // Convert azimuth angle to radians
+            const x = centerX + Math.cos(radian) * distance;
+            const y = centerY + Math.sin(radian) * distance;
+            ctx.beginPath();
+            ctx.arc(x, y, 5, 0, 2 * Math.PI); // Draw a small circle as a radar point
+            ctx.fillStyle = '#FF5733'; // Red color for radar points
+            ctx.fill();
+        }
+
+        // Draw the radar background (circle and grid)
+        function drawRadarBackground() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear previous frame
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+            ctx.strokeStyle = '#333';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            // Draw grid lines (every 45 degrees)
+            for (let i = 0; i < 8; i++) {
+                const angle = i * 45;
+                const radian = angle * (Math.PI / 180);
+                const x1 = centerX + Math.cos(radian) * 10;
+                const y1 = centerY + Math.sin(radian) * 10;
+                const x2 = centerX + Math.cos(radian) * radius;
+                const y2 = centerY + Math.sin(radian) * radius;
+
+                ctx.beginPath();
+                ctx.moveTo(x1, y1);
+                ctx.lineTo(x2, y2);
+                ctx.strokeStyle = '#999';
+                ctx.stroke();
+            }
+        }
+
+        // Listen for incoming radar data and visualize
+        socket.on('radar_data', function(data) {
+            console.log('Received radar data:', data);
+
+            // Draw the background and grid
+            drawRadarBackground();
+
+            // Display the message type, SAC, SIC, and other details in the sidebar
+            document.getElementById('messageType').textContent = data.data_items['I240/000']?.MessageType || '-';
+            document.getElementById('sac').textContent = data.data_items['I240/010']?.SAC || '-';
+            document.getElementById('sic').textContent = data.data_items['I240/010']?.SIC || '-';
+            document.getElementById('vrh').textContent = data.data_items['I240/020']?.VideoRecordHeader || '-';
+            document.getElementById('resolution').textContent = data.data_items['I240/048']?.Resolution || '-';
+            document.getElementById('compression').textContent = data.data_items['I240/048']?.Compression || '-';
+            document.getElementById('flags').textContent = data.data_items['I240/050']?.Flags || '-';
+
+            // If azimuth is available, plot the point
+            if (data.data_items['I240/030']) {
+                const azimuth = data.data_items['I240/030'].Azimuth; // azimuth in degrees
+                const distance = 100; // You can customize this distance value
+                drawRadarPoint(azimuth, distance);
+            }
+        });
+
+        // Initial empty radar background
+        drawRadarBackground();
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,251 @@
+async function openFullscreenModal(button) {
+
+  let stageIDs = [
+    'indentCreatedStage',
+    'fundCheckStage',
+    'lpcCompletedStage',
+    'indentApprovalStage',
+    'poApprovedStage',
+    'poGeneratedStage',
+    'srbCreatedStage',
+    'icSrSubmittedStage'
+  ];
+
+  stageIDs.forEach(stageID => {
+    const stageElement = document.getElementById(stageID);
+    if (stageElement) {
+      stageElement.classList.remove('completed', 'active', 'rejected');
+    }
+  });
+
+  let stageNames = ['Awaiting For Fund Check', 'Awaiting For LPC Completion', 'Awaiting For Indent Approval', 'Awaiting For PO Approval', 'Awaiting For PO Generation', 'Awaiting For SRB Creation', 'Awaiting For ICSR Submission','Completed'];
+
+
+  let indentID = button.getAttribute("data-id");
+  globalIndentID = indentID;
+
+  // alert('Indent ID: ' + indentID);
+
+
+
+  let indent = await getIndentByID(indentID);
+  if (!indent) {
+    showErrorPopupFadeInDown('Error fetching indent');
+    return;
+  }
+
+
+  const stage = button.getAttribute("data-stage");
+  console.log("Stage:", stage);
+
+
+
+  let index = stageNames.indexOf(stage);
+  console.log({ index });
+
+  if (indent.CurrentStage === 'Reverted Back' || indent.CurrentStage === 'Rejected') {
+    index = 2;
+  }
+
+  // if(indent.CurrentStage === 'Completed') {
+  //   index = 6;
+  //   document.getElementById('ICSRContent').classList.add('d-none');
+  //   document.getElementById('icSrSubmittedStage').classList.add('completed');
+  //   document.getElementById('icSrSubmittedStage').classList.remove('active');
+
+  // }
+
+  if (indent.CurrentStage === 'Completed') {
+    index = 7;  // Completed stage
+    document.getElementById('ICSRContent').classList.add('d-none');  // Hide ICSR content
+    document.getElementById('stageDetailsContent').classList.remove('d-none');  // Show stageDetailsContent
+    document.getElementById('icSrSubmittedStage').classList.add('completed');
+    document.getElementById('icSrSubmittedStage').classList.remove('active');
+     document.getElementById('ICSRContent').classList.add('d-none'); 
+  }
+  
+
+ 
+  if (index >= 0) {
+    stageIDs.forEach((stageID, i) => {
+      if (i <= index) {
+        document.getElementById(stageID).classList.add('completed');
+      } else {
+        document.getElementById(stageID).classList.remove('completed');
+      }
+    });
+  }
+
+  if (indent.CurrentStage === 'Rejected') {
+    document.getElementById('indentApprovalStage').classList.add('rejected');
+  }
+
+  if( stage === 'Completed') {
+    document.getElementById('ICSRContent').classList.add('d-none');
+    document.getElementById('icSrSubmittedStage').classList.add('completed');
+    document.getElementById('icSrSubmittedStage').classList.remove('active');
+    let stageData=await fetchStageData(index-1);
+    renderData(stageData,index-1);
+  }
+
+ 
+
+
+  if(index!==7 && hasStageAccess()){
+    document.getElementById(stageIDs[index + 1]).classList.add('active');
+  }
+  
+
+  const stagesContent = ['previewContent', 'fundcheckContent', 'lpcContent', 'approvalContent', 'poApprovalContent', 'poGeneratedContent', 'SRBContent', 'ICSRContent'];
+  if(index!==7){
+    document.getElementById(stagesContent[index + 1]).classList.remove('d-none');
+  }
+ 
+
+  document.querySelectorAll('.indent-stage').forEach((stage, index) => {
+
+    stage.addEventListener('click',async () => {
+      if (!stage.classList.contains('completed') && !stage.classList.contains('active')) {
+        return;
+      }
+      
+      if(index!==0 && stage.classList.contains('completed')){
+        // alert(stage.classList.contains('completed'));
+        let stageData=await fetchStageData(index-1);
+        renderData(stageData,index-1);
+      }
+      
+
+      stagesContent.forEach(contentId => {
+        document.getElementById(contentId)?.classList.add('d-none');
+      });
+
+      if(stage.classList.contains('completed')) {
+        document.getElementById('stageDetailsContent').classList.remove('d-none');
+        if(index === 0) {
+          document.getElementById('stageDetailsContent').classList.add('d-none');
+          document.getElementById(stagesContent[index])?.classList.remove('d-none');
+        }
+      }else{
+       
+        document.getElementById(stagesContent[index])?.classList.remove('d-none');
+        document.getElementById('stageDetailsContent').classList.add('d-none');
+        
+      }
+
+
+      // document.getElementById(stagesContent[index])?.classList.remove('d-none');
+    });
+  });
+
+  document.querySelector('#stageCloser').addEventListener('click', () => {
+
+    stagesContent.forEach(contentId => {
+      document.getElementById(contentId)?.classList.add('d-none');
+    });
+
+  });
+
+  setText('VendorNameDisplay', indent.VendorName);
+  setText('VendorAddressDisplay', indent.VendorAddress);
+  setText('VendorPhoneDisplay', indent.VendorPhone);
+  setText('VendorMailDisplay', indent.VendorEmail);
+  setText('VendorGstDisplay', indent.VendorGSTNO);
+  setText('VendorPanDisplay', indent.VendorPANNO);
+  setText('VendorAccountDisplay', indent.VendorAccountNumber);
+  setText('VendorIfscDisplay', indent.VendorIFSC);
+  setText('VendorBankDisplay', indent.VendorBankName);
+  setText('VendorBankAddressDisplay', indent.VendorBankBranch);
+
+  setText('ExtraGstDisplay', indent.ExtraGST);
+  setText('PriceDisplay', indent.Price);
+  setText('PaymentDisplay', indent.PaymentTerms);
+  setText('DeliveryPlaceDisplay', indent.DeliveryPlace);
+  setText('DeliveryDisplay', indent.Delivery);
+  setText('CurrencyDisplay', indent.TypeOfCurrency);
+  setText('OtherTermsDisplay', indent.OtherTerms);
+
+  setText('ProjectNumberDisplay', indent.ProjectNo);
+  // showErrorPopupFadeInDown(indent.ProjectNo);
+  setText('SubProjectNumberDisplay', indent.SubProjectNo);
+  setText('ProjectRemarksDisplay', indent.ProjectRemarks);
+  // setText('projectDepartmentDisplay',indent.Department);
+  setText('ProjectIvestigatorDisplay', indent.ProjectIncharge);
+
+  // alert(indent.ProjectIncharge);
+
+
+  setText('ModeOfPurchaseDisplay', indent.ModeOfPurchase);
+  setText('PurposeDisplay', indent.Purpose);
+  setText('indentTypeDisplay', indent.TypeOfIndent);
+  setText('quotationDisplay', indent.QuotationAvailable ? 'Yes' : 'No');
+  // setText('costDisplay',indent.Purpose);
+
+  setText('FCprojectNameDisplay', indent.ProjectName);
+  setText('FCprojectNumberDisplay', indent.ProjectNo);
+
+
+  document.getElementById('updateExtraGst').value = indent.ExtraGST;
+  document.getElementById('updatePrice').value = indent.Price;
+  document.getElementById('updateCurrencySelect').value = indent.TypeOfCurrency;
+  document.getElementById('updatePayment').value = indent.PaymentTerms;
+  document.getElementById('updateDeliveryPlace').value = indent.DeliveryPlace;
+  document.getElementById('updateDelivery').value = indent.Delivery;
+
+  let srbTableBody = document.getElementById('srbTableBody');
+  srbTableBody.innerHTML = '';
+  indent.items.forEach((item, index) => {
+    let row = `
+    <tr>
+      <td>${item.ProductName}</td>
+      <td>${item.ItemName}</td>
+      <td>${item.Description}</td>
+      <td>${item.ItemClassification}</td>
+      <td>${item.Quantity}</td>
+      <td>${item.Quantity}</td>
+      <td>${item.EstimatedUnitPrice}</td>
+      <td>${item.EstimatedTotalPrice}</td>
+      <td>${item.Remarks}</td>
+    </tr>
+  `;
+    srbTableBody.innerHTML += row;
+  });
+
+  document.getElementById('srbProjectNumber').value = indent.ProjectNo;
+  document.getElementById('srbSubProjectNumber').value = indent.SubProjectNo;
+  document.getElementById('srbVendorName').value = indent.VendorName;
+  document.getElementById('srbSubTotal').value = indent.Price;
+  subTotal = indent.Price;
+
+  document.getElementById('srbGrandTotal').value = indent.Price;
+
+ 
+
+  let tableBody = document.getElementById('ItemsPreviewTableBody');
+
+  tableBody.innerHTML = '';
+
+
+  indent.items.forEach((item, index) => {
+
+    let row = `
+      <tr>
+        <td>${item.ProductName}</td>
+        <td>${item.ItemName}</td>
+        <td>${item.Description}</td>
+        <td>${item.ItemClassification}</td>
+        <td>${item.Quantity}</td>
+        <td>${item.Quantity}</td>
+        <td>${item.EstimatedUnitPrice}</td>
+        <td>${item.EstimatedTotalPrice}</td>
+        <td>${item.Remarks}</td>
+      </tr>
+    `;
+    tableBody.innerHTML += row;
+  });
+
+
+
+  const myModal = new bootstrap.Modal(document.getElementById('fullscreenItemModal'));
+  myModal.show();
+}

@@ -1,0 +1,485 @@
+
+document.getElementById('logout-button').addEventListener('click',logout);
+function logout(){
+    sessionStorage.removeItem('token');
+}
+
+
+const addStaffButton = document.getElementById('add_staff_btn');
+const updateStaffButton = document.getElementById('update_staff_btn');
+
+
+async function loadCourseOptions(id) {
+    try {
+        // const response = await axiosInstance.get(API_ROUTES.courses);
+        const courses = await api.getCourses();
+        const select = document.getElementById(id);
+
+        select.innerHTML = '<option value="">Select Course</option>';
+        courses.forEach(course => {
+            const option = document.createElement("option");
+            option.value = course.course_id;
+            option.textContent = course.course_name;
+            select.appendChild(option);
+        });
+    } catch (error) {
+        console.error("Error loading courses:", error);
+    }
+}
+
+
+async function loadOrganisationOptions(id) {
+    try {
+        const organisations = await api.getOrganisations();
+        const select = document.getElementById(id);
+
+        select.innerHTML = '<option value="">Select Organisation</option>';
+        organisations.forEach(organisation => {
+            const option = document.createElement("option");
+            option.value = organisation.org_id;
+            option.textContent = organisation.organisation_name;
+            select.appendChild(option);
+        });
+    } catch (error) {
+        console.error("Error loading organisations:", error);
+    }
+}
+
+
+async function loadHighestQualificationsOptions(id) {
+    try {
+        // const response = await axiosInstance.get(API_ROUTES.getHighestQualifications);
+        const highestQualifications = await api.getHighestQualifications();
+        const select = document.getElementById(id);
+
+        select.innerHTML = '<option value="">Select Highest Qualification</option>';
+        highestQualifications.forEach(qualification => {
+            const option = document.createElement("option");
+            option.value = qualification.qual_id;
+            option.textContent = qualification.highest_qualification;
+            select.appendChild(option);
+        });
+    } catch (error) {
+        console.error("Error loading highest qualifications:", error);
+    }
+}
+
+// add staff 
+addStaffButton.addEventListener('click', async (e) => {
+    e.preventDefault();
+    console.log('Add Staff Button Clicked');
+
+    let form = document.getElementById('new-staff-form');
+    let formData = new FormData(form);
+
+    if (validateForm(formData)) {
+        try {
+            console.log('Submitting Payload...');
+            const response = await axiosInstance.post(API_ROUTES.addStaff, formData, {
+                headers: { 'Content-Type': 'multipart/form-data' },
+            });
+
+            table.clear();
+            await fetchAllData();
+            handlePermission('#username');
+            showSucessPopupFadeInDownLong(response.data.message);
+            form.reset();
+            insuranceForm.reset();
+            document.querySelector('#tab').classList.add('d-none');
+            document.querySelector('#tableCard').style.display = 'block';
+        } catch (error) {
+            showErrorPopupFadeInDown(error.response?.data?.message || 'Failed to add staff. Please try again later.');
+        }
+    }
+});
+
+// update staff
+updateStaffButton.addEventListener('click', async (e) => {
+    
+    e.preventDefault();
+    let form = document.getElementById('update-staff-form');
+    let formData = new FormData(form);
+
+    const data={};
+    
+    const intFields = ["courses", "locationOfWork", "highestQualification"];
+    const numericFields = ["aadharNumber", "contactNumber"];
+
+    formData.forEach((value, key) => {
+        value = value.trim(); 
+    
+        if (value === "") {
+            data[key] = null; 
+            return;
+        }
+    
+        if (intFields.includes(key)) {
+            data[key] = parseInt(value, 10);
+        } else if (numericFields.includes(key)) {
+            data[key] = Number(value);
+        } else {
+            data[key] = value;
+        }
+    });
+    data['status']=true;
+
+    if (validateForm(formData)) {
+        try {
+            const responseData=await api.updateStaff(data);
+            table.clear();
+            await fetchAllData();
+            handlePermission('#username');
+            showSucessPopupFadeInDownLong(responseData.message);
+        } catch (error) {
+            showErrorPopupFadeInDown(error.response?.data?.message || 'Failed to add staff. Please try again later.');
+        }
+    }
+    
+});
+
+let decidedPermission;
+document.addEventListener('DOMContentLoaded',async ()=>{
+    roles = await axiosInstance.get('/roles/role/perms');
+roles = roles.data.roles;
+// console.log(roles);
+window.roles = roles;
+    decidedPermission=handlePermission('#username');
+});
+
+if(decidedPermission!==''){
+    decidedPermission='editElement';
+    // alert(decidedPermission)
+}
+
+let table;
+function addRow(data){
+    if ( $.fn.dataTable.isDataTable( '#myTable' ) ) {
+        table = $('#myTable').DataTable();
+    }
+   
+   if(!data){
+    console.error('no data to add');
+    return;
+   }
+
+    if(data.dateOfJoining){
+        data.dateOfJoining=new Date(data.dateOfJoining).toLocaleDateString();
+    }else{
+        data.dateOfJoining='';
+    }
+
+    if(data.status){
+        data.status=true;
+    }else{
+        data.status=false;
+    }
+
+    table.row.add([
+      data.employeeId,
+      data.staffName,
+      data.designation,
+      data.department,
+      data.contactNumber,
+      data.workLocation,
+        `<div class="container">
+            <div class="toggle-btn ${decidedPermission}  ${data.status===true?'active':''}" onclick="toggleStatus(this,'${data.staffID}')">
+                <div class="slider"></div>
+            </div>
+        </div>`
+        ,
+        `<div class="row d-flex justify-content-center">
+    <div class="d-flex align-items-center justify-content-center p-0 edit-btn" 
+        style="width: 40px; height: 40px; cursor:pointer" 
+        data-staff-id="${data.staffName}">
+        <i class="ti-pencil-alt text-inverse" style="font-size: larger;"></i>
+    </div>
+</div>
+`,
+        
+    ]).draw(false);
+};
+
+// edit btn
+document.querySelector('#myTable').addEventListener('click', function (event) {
+    if (event.target.closest('.edit-btn')) {
+        let button = event.target.closest('.edit-btn');
+        let staffID = button.getAttribute('data-staff-id');
+        loadUpdateDetails(staffID);
+        // loadDocumentTable(staffID);
+        document.querySelector('#tabWrapper').classList.remove('d-none');
+        document.querySelector('#tableCard').style.display = 'none';
+    }
+});
+
+document.querySelector('#exitButton2').addEventListener('click', function () {
+    document.querySelector('#tabWrapper').classList.add('d-none');
+    document.querySelector('#tableCard').style.display = 'block';
+});
+
+// side bar 
+
+document.addEventListener('DOMContentLoaded',async ()=>{
+
+    roles = await axiosInstance.get('/roles/role/perms');
+    roles = roles.data.roles;
+    // console.log(roles);
+    window.roles = roles;
+    handlePermission('#username');
+
+
+    const sidebarContainer = document.getElementById('sidebar-container');
+    if (sidebarContainer) {
+        sidebarContainer.innerHTML = generateSidebar();
+        
+       
+        const currentPage = window.location.pathname.split('/').pop().split('.')[0];
+        const navLinks = document.querySelectorAll('.pcoded-item a');
+        
+        navLinks.forEach(link => {
+            if (link.getAttribute('href').includes(currentPage)) {
+                link.parentElement.classList.add('active');
+                
+            
+                const accordionContent = link.closest('.accordion-content');
+                if (accordionContent) {
+                    accordionContent.style.display = 'block';
+                    const header = accordionContent.previousElementSibling;
+                    const icon = header.querySelector('.accordion-icon');
+                    if (icon) {
+                        icon.classList.remove('fa-chevron-down');
+                        icon.classList.add('fa-chevron-up');
+                    }
+                }
+            }
+        });
+    }
+
+    
+
+    await loadCourseOptions('courseSelect');
+    await loadOrganisationOptions("locationSelect");
+    await loadHighestQualificationsOptions("highestQualificationSelect");
+    await fetchAllData();
+    
+    handlePermission('#username');
+});
+
+
+// toggle status
+
+async function toggleStatus(element, id) {
+
+    if(element.classList.contains('editElement')) return;
+
+    if (!id) return;
+
+    try {
+        const data=await api.toggleStaffStatus(id);
+        // showSucessPopupFadeInDownLong(data.message);
+
+        if (element) {
+            element.classList.toggle('active');
+        }
+    } catch (error) {
+        showErrorPopupFadeInDown(error);
+    }
+}
+
+// fetch all data
+async function fetchAllData() {
+    try {
+        const staffs = await api.getAllStaff();
+        console.log('staffDetails',staffs);
+
+        staffs.forEach(staffs => {
+            addRow(staffs);
+
+        });
+
+        handlePermission('#username');
+        
+
+    } catch (error) {
+        console.error("Error fetching staff details:", error);
+    }
+}
+
+
+function limitLength(str, length) {
+    if (str.length > length) {
+        return str.substring(0, length);
+    }
+    return str;
+};
+
+
+
+
+function validateForm(formData) {
+    let errors = [];
+
+    const data=["employeeId","staffName","dateOfBirth","gender","contactNumber","personalEmail","emergencyContactName","permanentAddress","dateOfJoining","workLocation","department","designation","employmentType","reportingManager","highestQualification","specialization"];
+    data.forEach(field=>{
+        const value = formData.get(field)?.trim();
+        if (!value) {
+            errors.push(`${field} is required.`);
+        }
+        if (field === "contactNumber" && !/^\d{10}$/.test(value)) {
+            errors.push("Contact Number must be exactly 10 digits.");
+        }
+        if (field === "personalEmail" && !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value)) {
+        showErrorPopupFadeInDown('Invalid Email format');
+        errors.push("Invalid email format.");
+    }
+    });
+    
+    
+    if (errors.length > 0) {
+        console.log("Form validation failed:", errors);
+        return false;
+    }
+
+
+    return true;
+}
+
+// update staff details
+
+async function loadUpdateDetails(id) {
+    try {
+        const response = await axiosInstance.get(API_ROUTES.getStaff(id));
+        const data = response.data.staffDetail;
+        const insurance = response.data.insuranceDetail;
+
+        document.getElementById('update-staffId').value = data.staffID;
+        document.getElementById('update-staffName').value = data.staffName;
+        document.getElementById('update-contactNumber').value = data.contactNumber;
+        document.getElementById('update-aadharNumber').value = data.aadharNumber;
+        document.getElementById('update-mail').value = data.mail;
+        document.getElementById('update-dateOfBirth').value = formatDate(data.dateOfBirth);
+        document.getElementById('update-location').value = data.locationOfWork;
+        document.getElementById('update-highestQualification').value = data.highestQualification;
+        document.getElementById('update-qualifications').value = data.qualifications;
+        document.getElementById('update-courseSelect').value = data.courses;
+        document.getElementById('update-dateOfJoining').value = formatDate(data.dateOfJoining);
+        document.getElementById('update-certifications').value = data.certifications;
+        document.getElementById('update-salary').value = data.salary ? parseFloat(data.salary) : '';
+        document.getElementById('update-permanentAddress').value = data.permanentAddress;
+
+      
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+
+function formatDate(dateStr) {
+    if (!dateStr) return '';
+    let date = new Date(dateStr);
+    return date.toISOString().split('T')[0];
+}
+
+// edit btn
+$(document).on('click', '.edit-btn', function () {
+    let staffId = $(this).data('staff-id');
+    loadUpdateDetails(staffId);
+
+});
+
+//generate pdf
+
+async function fetchDataAndGeneratePDF() {
+    try {
+        const res = await api.downloadStaffData();
+        if (!Array.isArray(res) || res.length === 0) throw new Error("No staff data available");
+
+        const tableBody = [
+            ["ID", "Name", "Date Of Birth", "Aadhar Number", "Contact Number", "Mail", "Permanent Address", "Salary At Joining", "Qualifications", "Highest Qualification", "Location Of Work", "Date of Joining", "Certifications", "Courses", "Current Salary", "Current Designation", "Status"],
+            ...res.map(staff => [
+                staff.staffID || "N/A",
+                staff.staffName || "N/A",
+                staff.dateOfBirth || "N/A",
+                staff.aadharNumber || "N/A",
+                staff.contactNumber || "N/A",
+                staff.mail || "N/A",
+                staff.permanentAddress || "N/A",
+                staff.salaryAtJoining || "N/A",
+                staff.qualifications || "N/A",
+                staff.highestQualification || "N/A",
+                staff.locationOfWork || "N/A",
+                staff.dateOfJoining || "N/A",
+                staff.certifications || "N/A",
+                staff.courses || "N/A",
+                staff.currentSalary || "N/A",
+                staff.currentDesignation || "N/A",
+                staff.status || "N/A"
+            ])
+        ];
+
+        const docDefinition = {
+            pageOrientation: "landscape", 
+            content: [
+                { text: "Staff Details", style: "header" },
+                {
+                    table: {
+                        headerRows: 1,
+                        widths: ["5%", "5%", "10%", "10%", "10%", "5%", "5%", "10%", "10%", "10%", "10%", "10%", "10%", "10%", "10%", "15%", "10%"],
+                        body: tableBody
+                    }
+                }
+            ],
+            styles: {
+                header: { fontSize: 18, bold: true, margin: [0, 0, 0, 10]}
+            },
+            defaultStyle: {
+                fontSize: 6 
+            }
+        };
+
+        pdfMake.createPdf(docDefinition).download("Staff_List.html");
+        
+    } catch (err) {
+        console.error("Error fetching or generating PDF:", err);
+        showErrorPopupFadeInDown(err.message || "Can't download the staff details.");
+    }
+}
+
+// generate excel
+async function fetchDataAndGenerateExcel() {
+    try {
+        const res = await api.downloadStaffData();
+
+        
+        const headers = [
+            "ID", "Name", "Date Of Birth", "Aadhar Number", "Contact Number", "Mail",
+            "Permanent Address", "Salary At Joining", "Qualifications", "Highest Qualification",
+            "Location Of Work", "Date of Joining", "Certifications", "Courses",
+            "Current Salary", "Current Designation", "Status"
+        ];
+
+       
+        const data = res.map(staff => [
+            staff.staffID, staff.staffName, new Date(staff.dateOfBirth).toLocaleDateString('eng-GB'), staff.aadharNumber, 
+            staff.contactNumber, staff.email, staff.permanentAddress, staff.salaryAtJoining, 
+            staff.qualification, staff.highestQualification, staff.locationOfWork, 
+            new Date(staff.dateOfJoining).toLocaleDateString('eng-GB')
+            , staff.certifications, staff.course, staff.currentSalary, 
+            staff.currentDesignation, staff.status
+        ]);
+
+      
+        const ws = XLSX.utils.aoa_to_sheet([headers, ...data]);
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, "Staff Details");
+
+        
+        XLSX.writeFile(wb, "Staff_List.xlsx");
+    } catch (err) {
+        console.error("Error fetching or generating Excel:", err);
+        showErrorPopupFadeInDown("Can't download the staff details.");
+    }
+}
+
+
+
+
