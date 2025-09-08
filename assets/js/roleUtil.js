@@ -23,10 +23,205 @@ const modules = [
     'TALENT POOL',
 ];
 
+// const roles = {
 
+//     'ADMIN': {
+//         id:1,
+//         name: 'administrator',
+//         writes: [
+//             'DASHBOARD',
+//             'PROJECT TRACKING',
+//             'O&M INVOICES',
+//             'EQUIPMENT INVOICES',
+//             'EQUIPMENTS',
+//             'STAFF DETAILS',
+//             'CONTRACT LOGS',
+//         ],
+//         reads: [
+//             'PROJECT TRACKING',
+//             'O&M INVOICES',
+//             'EQUIPMENT INVOICES',
+//             'EQUIPMENTS',
+//             'STAFF DETAILS',
+//             'CONTRACT LOGS',
+//             'INDENT CREATION',
+//             'FUND CHECK',
+//             'LPC COMPLETED',
+//             'INDENT APPROVAL',
+//             'PO APPROVAL',
+//             'PO GENERATED',
+//             'SRB CREATED',
+//             'IC & SR SUBMISSION',
+//             'INDENTS DASHBOARD'
+//         ]
+
+//     },
+
+//     'SUPERADMIN': {
+//         id:2,
+//         name: 'superadministrator',
+//         writes: [
+//             'USER MANAGEMENT',
+//             'MASTER MANAGEMENT',
+            
+//         ],
+//         reads: [
+//             'USER MANAGEMENT',
+//             'MASTER MANAGEMENT'
+//         ]
+//     },
+
+//     'DATAENTRY': {
+//         id:3,
+//         name: 'data entry operator',
+//         writes: [
+//             'DASHBOARD',
+//             'PROJECT TRACKING',
+//             'O&M INVOICES',
+//             'EQUIPMENT INVOICES',
+//             'EQUIPMENTS',
+//             'STAFF DETAILS',    
+//             'CONTRACT LOGS',
+            
+//         ],
+//         reads: [
+//             'DASHBOARD',
+//             'PROJECT TRACKING',
+//             'O&M INVOICES',
+//             'EQUIPMENT INVOICES',
+//             'EQUIPMENTS',
+//             'STAFF DETAILS',
+//             'CONTRACT LOGS',
+//             'INDENT CREATION',
+//             'FUND CHECK',
+//             'LPC COMPLETED',
+//             'INDENT APPROVAL',
+//             'PO APPROVAL',
+//             'PO GENERATED',
+//             'SRB CREATED',
+//             'IC & SR SUBMISSION',
+//             'INDENTS DASHBOARD'
+//         ]
+//     },
+
+//     'INDENTER': {
+//         id:9,
+//         name: 'indenter',
+//         writes: [
+//             'INDENT CREATION',
+//         ],
+//         reads: [
+//             'INDENT CREATION',
+//             'FUND CHECK',
+//             'LPC COMPLETED',
+//             'INDENT APPROVAL',
+//             'PO APPROVAL',
+//             'PO GENERATED',
+//             'SRB CREATED',
+//             'IC & SR SUBMISSION',
+//             'INDENTS DASHBOARD'
+//         ]
+//     },
+
+
+//     'FUNDCHECK': {
+//         id:6,
+//         name: 'fund checker',
+//         writes: [
+//             'FUND CHECK',
+//         ],  
+//         reads: [
+//             'INDENTS DASHBOARD',
+//             'INDENT CREATION',
+//             'FUND CHECK',
+//             'LPC COMPLETED',
+//             'INDENT APPROVAL',
+//             'PO APPROVAL',
+//             'PO GENERATED',
+//             'SRB CREATED',
+//             'IC & SR SUBMISSION',
+//             'INDENTS DASHBOARD'
+            
+//         ]
+//     },
+
+//     'INDENT-INVOICE': {
+//         id:5,
+//         name: 'indenter - invoice',
+//         writes: [
+//             'INDENT CREATION',
+//             'O&M INVOICES',
+//             // 'DASHBOARD',
+//         ],
+//         reads: [
+            
+//             'O&M INVOICES',
+//             'INDENT CREATION',
+//             'FUND CHECK',
+//             'LPC COMPLETED',
+//             'INDENT APPROVAL',
+//             'PO APPROVAL',
+//             'PO GENERATED',
+//             'SRB CREATED',
+//             'IC & SR SUBMISSION',
+//             'INDENTS DASHBOARD'
+//         ]
+//     },
+
+
+//     'POAPPROVAR': {
+//         id:7,
+//         name: 'po approver',
+//         writes: [
+//             'PO APPROVAL',
+//             'INDENT APPROVAL',
+//             'PO GENERATED',
+//              'IC & SR SUBMISSION'
+//         ],
+//         reads: [
+//             'INDENT CREATION',
+//             'FUND CHECK',
+//             'LPC COMPLETED',
+//             'INDENT APPROVAL',
+//             'PO APPROVAL',
+//             'PO GENERATED',
+//             'SRB CREATED',
+//             'IC & SR SUBMISSION',
+//             'INDENTS DASHBOARD'
+//         ]
+//     },
+
+//     'OTHERS': {
+//         id:8,
+//         name: 'others',
+//         writes: [
+//             'LPC COMPLETED',
+//             'PO GENERATED',
+//             'SRB CREATED',
+//             'IC & SR SUBMISSION'
+//         ],
+//         reads: [
+//             'INDENT CREATION',
+//             'FUND CHECK',
+//             'LPC COMPLETED',
+//             'INDENT APPROVAL',
+//             'PO APPROVAL',
+//             'PO GENERATED',
+//             'SRB CREATED',
+//             'IC & SR SUBMISSION',
+//             'INDENTS DASHBOARD'
+//         ]
+//     }
+
+// }
 
 let roles=window.roles;
 
+// document.addEventListener('DOMContentLoaded',async ()=>{
+//     roles=await axiosInstance.get('/roles/role/perms');
+//     roles=roles.data.roles;
+//     console.log(roles);
+// });
 
 const moduleMaps={
     'DASHBOARD':['index'],
@@ -58,7 +253,7 @@ const moduleMaps={
     'IIT STAFF': ['employeeDashboard','staffs'],
     'INTERNS':['interns'],
     'NEW JOINIES':['talentPool']
-};
+}
 
 
 function getRoleKeyById(id){
@@ -103,7 +298,7 @@ function getAllowedPages(roleId) {
         const pages = moduleMaps[module] || [];
         for (const page of pages) {
             allowedPages.push({
-                page: page,
+                page: "ivts-fms/" + page,
                 permission: permissions[module].permission,
                 module: permissions[module].module  
             });
@@ -161,7 +356,7 @@ function getPagePermissions(roleId) {
 
 function loginRedirect(role){
     const pages = getAllowedPages(role);
-    window.location.href=pages[0].page+'.html';
+    window.location.href= "/" + pages[0].page+'.html';
 }
 
 function handlePermission(usernameDisplayId) {
@@ -174,8 +369,7 @@ function handlePermission(usernameDisplayId) {
 
     const pages = getAllowedPages(user.role);
     roleId = user.role;
-    const currentPage = window.location.pathname.substring(1).split('.')[0];
-    
+    const currentPage =  window.location.pathname.substring(1).split('.')[0];
     // console.log(pages);
 
     const pageObj = pages.find(p => p.page === currentPage);
@@ -185,7 +379,6 @@ function handlePermission(usernameDisplayId) {
     if (!pageObj) {
         
         window.location.href=pages[0].page+'.html';
-        
         return;
     }
 
@@ -250,10 +443,7 @@ function generateSidebar() {
     for (const [categoryName, categoryModules] of Object.entries(categories)) {
         const allowedCategoryModules = categoryModules.filter(module => 
             allowedModules.includes(module)
-            
         );
-
-        console.log({categoryName, allowedCategoryModules});
         
         if (allowedCategoryModules.length === 0) continue;
         
@@ -334,8 +524,6 @@ function getPageInfo(page) {
         'staffs': { title: 'Staffs', icon: 'ti-bar-chart' },
         'interns':{ title: 'Interns', icon: 'ti-bar-chart' },
         'employeeDashboard':{ title: 'Employee Dashboard', icon: 'ti-bar-chart' },
-        
-
     };
     
     return pageInfoMap[page];
