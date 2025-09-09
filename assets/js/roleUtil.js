@@ -299,6 +299,7 @@ function getAllowedPages(roleId) {
         for (const page of pages) {
             allowedPages.push({
                 page: "ivts-fms/" + page,
+                // page: page,
                 permission: permissions[module].permission,
                 module: permissions[module].module  
             });

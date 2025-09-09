@@ -64,83 +64,6 @@ async function loadHighestQualificationsOptions(id) {
     }
 }
 
-
-// addStaffButton.addEventListener('click', async (e) => {
-//     e.preventDefault();
-
-//     let form = document.getElementById('new-staff-form');
-//     let insuranceForm = document.getElementById('new-insurance-form');
-//     let documentForm = document.getElementById('new-Document-form');
-
-//     let formData = new FormData(form);
-//     let insuranceFormData = new FormData(insuranceForm);
-//     let documentFormData = new FormData(documentForm);
-
-
-//     const data = {};
-//     const intFields = ["courses", "locationOfWork", "highestQualification"];
-//     const numericFields = ["aadharNumber", "contactNumber"];
-
-//     formData.forEach((value, key) => {
-//         value = value.trim();
-//         if (value === "") {
-//             data[key] = null;
-//             return;
-//         }
-//         if (intFields.includes(key)) {
-//             data[key] = parseInt(value, 10);
-//         } else if (numericFields.includes(key)) {
-//             data[key] = Number(value);
-//         } else {
-//             data[key] = value;
-//         }
-//     });
-
-//     data['status'] = true;
-//     const insuranceData = Object.fromEntries(insuranceFormData.entries());
-
-//     const documentData = {};
-//     documentFormData.forEach((value, key) => {
-//             if(value instanceof File) {
-//             if(value.name === "" ){
-//                 documentData[key] = null; 
-//             }else{
-//                 documentData[key] = value; 
-//             }
-//             return;
-//         }
-
-//     });
-
-//     console.log("Staff Data:", data);
-//     console.log("Insurance Data:", insuranceData);
-//     console.log("Document Data",documentData);
-
-//     if (validateForm(formData)) {
-//         try {
-//             const response = await axiosInstance.post(API_ROUTES.staff, {
-//                 data,
-//                 insuranceData,
-//                 documentData,
-//             });
-
-//             table.clear();
-//             await fetchAllData();
-//             handlePermission('#username');
-//             showSucessPopupFadeInDownLong(response.data.message);
-//             form.reset();
-//             insuranceForm.reset();
-//             document.querySelector('#tab').classList.add('d-none');
-//             document.querySelector('#tableCard').style.display = 'block';
-
-//         } catch (error) {
-//             showErrorPopupFadeInDown(error.response?.data?.message || 'Failed to add staff. Please try again later.');
-//         }
-//     }
-// });
-
-
-
 addStaffButton.addEventListener('click', async (e) => {
     e.preventDefault();
     console.log('Add Staff Button Clicked');
@@ -176,7 +99,7 @@ addStaffButton.addEventListener('click', async (e) => {
     const payload = new FormData();
     payload.append('data', JSON.stringify(data));
     payload.append('insuranceData', JSON.stringify(insuranceData));
-
+    console.log("documentFormData",documentFormData);
     // Append all file inputs
     documentFormData.forEach((value, key) => {
         if (value instanceof File && value.name !== '') {

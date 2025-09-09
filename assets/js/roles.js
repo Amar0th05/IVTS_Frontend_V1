@@ -389,7 +389,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         ModuleID: moduleID
       });
   
-      
+      showPopupFadeInDown(response.data.message);
       return response.data;
   
     } catch (err) {
