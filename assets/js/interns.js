@@ -59,7 +59,7 @@ function addRow(data){
       data.CollegeName,
       data.DegreeProgram,
         `<div class="container">
-            <div class="toggle-btn ${decidedPermission}  ${data.status===true?'active':''}" onclick="toggleStatus(this,'${data.staffID}')">
+            <div class="toggle-btn ${decidedPermission}  ${data.status===true?'active':''}" onclick="toggleStatus(this,'${data.Id}')">
                 <div class="slider"></div>
             </div>
         </div>`
@@ -147,8 +147,8 @@ async function toggleStatus(element, id) {
     if (!id) return;
 
     try {
-        const data=await api.toggleStaffStatus(id);
-        // showSucessPopupFadeInDownLong(data.message);
+        const data=await api.toggleInternStatus(id);
+        showSucessPopupFadeInDownLong(data.message);
 
         if (element) {
             element.classList.toggle('active');

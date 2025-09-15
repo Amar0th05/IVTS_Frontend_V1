@@ -94,6 +94,7 @@ getIITStaff:(id)=>`/staffs/all/${id}`,
 toggleIITStaffStatus:`/staffs/all/status/`,
 
 
+// intern
 
     applyInternship:`/internship/apply`,
     getAllIntern: `/intern`,
@@ -101,6 +102,9 @@ toggleIITStaffStatus:`/staffs/all/status/`,
     downloadInternDocument:(internId, docName)=>`/intern/${internId}/documents/${docName}`,
     deleteInternDocument:(internId, docName)=>`/intern/${internId}/documents/${docName}`,
     uploadInternDocument:(staffId, docName)=>`/intern/${staffId}/documents/${docName}`,
+    getActiveintern:`/activeIntern/all`,
+
+
 
 // talent Pool
     

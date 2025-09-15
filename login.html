@@ -22,7 +22,7 @@
       <!-- Google font-->
       <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
       <!-- Required Fremwork -->
-      <link rel="stylesheet" type="text/css" href="assets/css/bootstrap/css/bootstrap.min.css">
+      <!-- <link rel="stylesheet" type="text/css" href="assets/css/bootstrap/css/bootstrap.min.css"> -->
       <!-- waves.css -->
       <link rel="stylesheet" href="assets/pages/waves/css/waves.min.css" type="text/css" media="all">
       <!-- themify-icons line icon -->
@@ -35,235 +35,441 @@
       <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-  </head>
-  <style>
-    .password-wrapper {
-    position: relative;
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #255099 0%, #EEF5F7 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Floating shapes animation */
+        .floating-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+        
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.08;
+            animation: float 15s infinite ease-in-out, fade 6s infinite alternate;
+        }
+        
+        .circle {
+            width: 80px;
+            height: 80px;
+            background: #EEF5F7;
+            top: 15%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+        
+        .square {
+            width: 60px;
+            height: 60px;
+            background: #152762;
+            top: 70%;
+            left: 80%;
+            border-radius: 10px;
+            animation-delay: 2s;
+        }
+        
+        .triangle {
+            width: 0;
+            height: 0;
+            border-left: 40px solid transparent;
+            border-right: 40px solid transparent;
+            border-bottom: 70px solid #152762;
+            background: transparent;
+            top: 30%;
+            left: 85%;
+            animation-delay: 4s;
+            border-radius: 0;
+        }
+        
+        .circle2 {
+            width: 100px;
+            height: 100px;
+            background: #152762;
+            top: 75%;
+            left: 15%;
+            animation-delay: 6s;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(10deg);
+            }
+            100% {
+                transform: translateY(0) rotate(0deg);
+            }
+        }
+
+        @keyframes fade {
+            0% {
+                opacity: 0.04;
+            }
+            100% {
+                opacity: 0.12;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .floating-shapes {
+                opacity: 0.03;
+            }
+            .floating-shapes .shape {
+                transform: scale(0.6);
+            }
+        }
+        
+        .container {
+            display: flex;
+            width: 100%;
+            max-width: 1000px;
+            min-height: 600px;
+            background: #fff;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+            z-index: 10;
+        }
+        
+        .left-column {
+            flex: 1;
+            background: linear-gradient(to bottom right, #448AFF, #0f1b4a);
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .left-column::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(-45deg);
+            top: -50%;
+            left: -50%;
+        }
+        
+        .illustration {
+            /* width: 100%;term */
+            max-width: 520px;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .left-content {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .left-content h2 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        
+        .left-content p {
+            font-size: 16px;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+        
+        .right-column {
+            flex: 1;
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .logo img {
+            max-width: 120px;
+            margin-bottom: 15px;
+        }
+        
+      .logo h1 {
+    font-size: 24px;
+    font-weight: 700;
+    background: linear-gradient(to bottom right, #448AFF, #0f1b4a);
+    -webkit-background-clip: text; /* Needed for Chrome, Safari, Edge */
+    -webkit-text-fill-color: transparent; /* Makes text transparent to show gradient */
+    background-clip: text; /* Standard property */
+    color: transparent; /* Fallback */  
 }
 
-.toggle-password {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer;
-    color: #888;
-}
 
-.toggle-password:hover {
-    color: #333;
-}
-  </style>
-  <body themebg-pattern="theme1">
-  <!-- Pre-loader start -->
-  <div class="theme-loader">
-      <div class="loader-track">
-          <div class="preloader-wrapper">
-              <div class="spinner-layer spinner-blue">
-                  <div class="circle-clipper left">
-                      <div class="circle"></div>
-                  </div>
-                  <div class="gap-patch">
-                      <div class="circle"></div>
-                  </div>
-                  <div class="circle-clipper right">
-                      <div class="circle"></div>
-                  </div>
-              </div>
-              <div class="spinner-layer spinner-red">
-                  <div class="circle-clipper left">
-                      <div class="circle"></div>
-                  </div>
-                  <div class="gap-patch">
-                      <div class="circle"></div>
-                  </div>
-                  <div class="circle-clipper right">
-                      <div class="circle"></div>
-                  </div>
-              </div>
-
-              <div class="spinner-layer spinner-yellow">
-                  <div class="circle-clipper left">
-                      <div class="circle"></div>
-                  </div>
-                  <div class="gap-patch">
-                      <div class="circle"></div>
-                  </div>
-                  <div class="circle-clipper right">
-                      <div class="circle"></div>
-                  </div>
-              </div>
-
-              <div class="spinner-layer spinner-green">
-                  <div class="circle-clipper left">
-                      <div class="circle"></div>
-                  </div>
-                  <div class="gap-patch">
-                      <div class="circle"></div>
-                  </div>
-                  <div class="circle-clipper right">
-                      <div class="circle"></div>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
-  <!-- Pre-loader end -->
-
-    <section class="login-block align">
-        <!-- Container-fluid starts -->
-        <div class="container bg-white p-5 rounded">
-            <div class="row align-items-center">
-                <div class="col-md-6">
-                    <a class="mobile-options waves-effect waves-light" href="index.html">
-                        <i class="ti-angle-left"></i>
-                    </a>
-                    <img src="assets/images/fms.jpg" alt="staff illustration" class="img-fluid">
-                </div>
-                <div class="col-md-6">
-                    <div class="col-sm-12">
-                        <!-- Authentication card start -->
-    
-                            <form class="md-float-material form-material" id="login-form">
-                                <div class="text-center">
-                                    <!-- <img src="assets/images/logo.png" alt="logo.png"> -->
-                                </div>
-                                <div class="">
-                                    <div class="card-block">
-                                        <div class="row mb-4">
-                                            <div class="col-md-12 p-2 d-flex justify-content-center align-items-center flex-column">
-                                                <img src="assets/images/ntcpwc-logo.jpg" class="img-fluid w-50 d-block mx-auto border-1" alt="ntcpwc-logo">
-                                                <h3 class="text-center fw-bold mt-3">IVTMS Management Portal</h3>
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="form-group form-primary">
-                                            <input type="text" name="mail" class="form-control" id="mail" required>
-                                            <span class="form-bar"></span>
-                                            <label class="float-label">Your Email Address</label>
-                                        </div>
-                                        <div class="form-group form-primary">
-                                            <div class="password-wrapper">
-                                                <input type="password" name="password" id="password" class="form-control" autocomplete="off" required>
-                                                <span class="form-bar"></span>
-                                                <label class="float-label">Password</label>
-                                                <span class="toggle-password" onclick="togglePasswordVisibility()">
-                                                    <i class="fa fa-eye" id="eye-icon"></i>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="row m-t-25 text-left">
-                                            <div class="col-12">
-                                                <div class="checkbox-fade fade-in-primary d-">
-                                                    <label>
-                                                        <input type="checkbox" value="remember" id="remember">
-                                                        <span class="cr"><i class="cr-icon icofont icofont-ui-check txt-primary"></i></span>
-                                                        <span class="text-inverse">Remember me</span>
-                                                    </label>
-                                                </div>
-                                                <div class="forgot-phone text-right f-right">
-                                                    <a href="forgot-password.html" class="text-right f-w-600"> Forgot Password?</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row m-t-30">
-                                            <div class="col-md-12">
-                                                <button type="submit" class="btn btn-primary btn-md btn-block waves-effect waves-light text-center m-b-20">Sign in</button>
-                                            </div>
-                                        </div>
-                                        <hr/>
-                                        <div class="row d-flex justify-content-end">
-                                           
-                                            <div class="col-md-6">
-                                                <!-- <img src="assets/images/auth/Logo-small-bottom.png" alt="small-logo.png"> -->
-                                                <p class="text-right f-right text-inverse"><a href="signup.html">Don't have an account?</a></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                            <!-- end of form -->
-                    </div>
-                    <!-- end of col-sm-12 -->
-                </div>
-            </div>
-           
-            <!-- end of row -->
-        </div>
-        <!-- end of container-fluid -->
-    </section>
-    <!-- Warning Section Starts -->
-    <!-- Older IE warning message -->
-    <!--[if lt IE 10]>
- <div class="ie-warning">
-    <h1>Warning!!</h1>
-    <p>You are using an outdated version of Internet Explorer, please upgrade <br/>to any of the following web browsers to access this website.</p>
-    <div class="iew-container">
-        <ul class="iew-download">
-            <li>
-                <a href="http://www.google.com/chrome/">
-                    <img src="assets/images/browser/chrome.png" alt="Chrome">
-                    <div>Chrome</div>
-                </a>
-            </li>
-            <li>
-                <a href="https://www.mozilla.org/en-US/firefox/new/">
-                    <img src="assets/images/browser/firefox.png" alt="Firefox">
-                    <div>Firefox</div>
-                </a>
-            </li>
-            <li>
-                <a href="http://www.opera.com">
-                    <img src="assets/images/browser/opera.png" alt="Opera">
-                    <div>Opera</div>
-                </a>
-            </li>
-            <li>
-                <a href="https://www.apple.com/safari/">
-                    <img src="assets/images/browser/safari.png" alt="Safari">
-                    <div>Safari</div>
-                </a>
-            </li>
-            <li>
-                <a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie">
-                    <img src="assets/images/browser/ie.png" alt="">
-                    <div>IE (9 & above)</div>
-                </a>
-            </li>
-        </ul>
+        .logo p {
+            color: #64748b;
+            margin-top: 8px;
+            font-size: 15px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #2c3e50;
+            font-size: 14px;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        
+        .form-control:focus {
+            border-color: #152762;
+            box-shadow: 0 0 0 3px rgba(21, 39, 98, 0.15);
+            outline: none;
+        }
+        
+        .password-wrapper {
+            position: relative;
+        }
+        
+        .toggle-password {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #94a3b8;
+            background: none;
+            border: none;
+            font-size: 18px;
+        }
+        
+        .options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .remember {
+            display: flex;
+            align-items: center;
+        }
+        
+        .remember input {
+            margin-right: 8px;
+        }
+        
+        .forgot-password {
+            color: #152762;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+        
+        .btn-login {
+            background: linear-gradient(to right, #152762, #0f1b4a);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+            box-shadow: 0 4px 15px rgba(21, 39, 98, 0.3);
+        }
+        
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 20px rgba(21, 39, 98, 0.4);
+        }
+        
+        .signup-link {
+            text-align: center;
+            margin-top: 30px;
+            color: #1d64c7;
+            font-size: 15px;
+        }
+        
+        .signup-link a {
+            color: #152762;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #64748b;
+            font-size: 14px;
+        }
+        
+        /* Responsive styles */
+        @media (max-width: 900px) {
+            .container {
+                flex-direction: column;
+                max-width: 500px;
+            }
+            
+            .left-column {
+                padding: 30px;
+                display: none; /* Hide left column on smaller screens */
+            }
+            
+            .right-column {
+                padding: 40px 30px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .right-column {
+                padding: 30px 20px;
+            }
+            
+            .options {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .forgot-password {
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated floating shapes -->
+    <div class="floating-shapes">
+        <div class="shape circle"></div>
+        <div class="shape square"></div>
+        <div class="shape triangle"></div>
+        <div class="shape circle2"></div>
     </div>
-    <p>Sorry for the inconvenience!</p>
-</div> -->
-<!-- <![endif] --> 
-<!-- Warning Section Ends -->
-<!-- Required Jquery -->
- <script src="assets/js/roleUtil.js"></script>
+    
+    <div class="container">
+        <div class="left-column">
+            <img src="assets/images/login1.png" alt="Login Illustration" class="illustration">
+            <div class="left-content">
+                <h2>Welcome to WorkSphere</h2>
+                <p>unified workplace & project management</p>
+            </div>
+        </div>
+        
+        <div class="right-column">
+            <div class="logo">
+                <img src="assets/images/ntcpwc-logo.jpg" alt="Logo">
+                <h1>WorkSphere</h1>
+                <p>Sign in to access your account</p>
+            </div>
+            
+            <form class="login-form">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" class="form-control" placeholder="Enter your email address">
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="password" class="form-control" placeholder="Enter your password">
+                        <button type="button" class="toggle-password" id="togglePassword">
+<span class="toggle-password" onclick="togglePasswordVisibility()">
+    <i id="toggleEye" class="fa fa-eye"></i>
+</span>                        </button>
+                    </div>
+                </div>
+                
+                <div class="options">
+                    <div class="remember">
+                        <input type="checkbox" id="remember">
+                        <label for="remember">Remember me</label>
+                    </div>
+                    <a href="forgot-password.html" class="forgot-password">Forgot Password?</a>
+                </div>
+                
+                <button type="submit" class="btn-login">Sign In</button>
+                
+                <!-- <div class="signup-link">
+                    Don't have an account? <a href="signup.html">Sign up now</a>
+                </div> -->
+            </form>
+            
+            <!-- <div class="footer">
+                <p>© 2023 IVTMS Management Portal. All rights reserved.</p>
+            </div> -->
+        </div>
+    </div>
+
+<script src="assets/js/roleUtil.js"></script>
 <script type="text/javascript" src="assets/js/jquery/jquery.min.js "></script>
 <script type="text/javascript" src="assets/js/jquery-ui/jquery-ui.min.js "></script>
 <script type="text/javascript" src="assets/js/popper.js/popper.min.js"></script>
 <script type="text/javascript" src="assets/js/bootstrap/js/bootstrap.min.js "></script>
-<!-- waves js -->
 <script src="assets/pages/waves/js/waves.min.js"></script>
-<!-- jquery slimscroll js -->
 <script type="text/javascript" src="assets/js/jquery-slimscroll/jquery.slimscroll.js"></script>
 <script type="text/javascript" src="assets/js/common-pages.js"></script>
-
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
 <script type="module" src="./assets/js/axiosInstance.js"></script>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-
 <script src="assets/js/popup.js"></script>
-
 <script src="./assets/js/login.js"></script>
-<script  src="./assets/js/api.js"></script>
+<script src="./assets/js/api.js"></script>
 <script src="./assets/js/apiRequests.js"></script>
 <script>
     function togglePasswordVisibility() {
     const passwordInput = document.getElementById('password');
-    const eyeIcon = document.getElementById('eye-icon');
-
+    const eyeIcon = document.getElementById('toggleEye');
+    
     if (passwordInput.type === 'password') {
         passwordInput.type = 'text';
         eyeIcon.classList.remove('fa-eye');
@@ -274,8 +480,8 @@
         eyeIcon.classList.add('fa-eye'); 
     }
 }
+
 </script>
 
 </body>
-
 </html>

@@ -133,10 +133,13 @@ const api = {
     downloadIITStaffData:()=>fetchData('/staffs/all/download',"staffs"),
     addIITStaff:(data)=>postData(API_ROUTES.addStaff,{data}),
 
+    // intern
 
-        getAllIntern: () => fetchData(API_ROUTES.getAllIntern+`/all`, "intern"),
+    getAllIntern: () => fetchData(API_ROUTES.getAllIntern+`/all`, "intern"),
     getInterById:(id) => fetchData(API_ROUTES.getAllIntern+`/${id}`, "intern"),
     updateIntern: (id,data) => putData(API_ROUTES.getAllIntern+`/${id}`, { data }),
+    toggleInternStatus: (id) => putData(`/intern/status/${id}`),
+
 // talent Pool
     getAllPersons:()=>fetchData(API_ROUTES.getAllTalentpool,"talent"),
     updatePerson: (data) => putData(API_ROUTES.talentpool, { data }),

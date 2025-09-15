@@ -1,27 +1,28 @@
-
-document.addEventListener('DOMContentLoaded',()=>{
+document.addEventListener('DOMContentLoaded', () => {
+    // Check if already logged in
     const token = sessionStorage.getItem('token');
-    if(token){
-        showPopupFadeInDown(`already logged in`);
-        document.querySelector("#login-form").remove(); 
+    if (token) {
+        showPopupFadeInDown(`Already logged in`);
+        document.querySelector(".login-form").remove(); // matches your form's class
         setTimeout(() => {
             window.location.href = window.history.go(-1);
-        },1500);
+        }, 1500);
+        return;
     }
-    
-    const loginForm = document.getElementById('login-form');
 
-    loginForm.addEventListener('submit',async (e)=>{
+    const loginForm = document.querySelector('.login-form'); // match your form selector
+
+    loginForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        const loginData=new FormData(e.target);
-        const mail=loginData.get('mail');
-        const password=loginData.get('password');
-        const remember=document.getElementById('remember').checked? 'true' : 'false';
 
-     
+        // Match your HTML input IDs
+        const mail = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value.trim();
+        const remember = document.getElementById('remember')?.checked ? 'true' : 'false';
 
-
+        
         try {
+            // Call your existing API endpoint
             const response = await axiosInstance.post(API_ROUTES.login, {
                 mail,
                 password,
