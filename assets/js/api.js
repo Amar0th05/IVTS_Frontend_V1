@@ -101,6 +101,18 @@ toggleIITStaffStatus:`/staffs/all/status/`,
     downloadInternDocument:(internId, docName)=>`/intern/${internId}/documents/${docName}`,
     deleteInternDocument:(internId, docName)=>`/intern/${internId}/documents/${docName}`,
     uploadInternDocument:(staffId, docName)=>`/intern/${staffId}/documents/${docName}`,
+
+// talent Pool
+    
+    getPerson:(id)=>`/talentpool/${id}`,
+    talentpool:`/talentpool`,
+    getAllTalentpool:`/talentpool/all`,
+    getPersonDocumentsMetadata:(id)=>`/talentpool/${id}/documents/metadata`,
+    downloadDocument:(personId, docName)=>`/talentpool/${personId}/documents/${docName}`,
+    deleteDocument:(personId, docName)=>`/talentpool/${personId}/documents/${docName}`,
+    uploadDocument:(personId, docName)=>`/talentpool/${personId}/documents/${docName}`,
+    checkID:(id)=>`/talentpool/checkID/${id}`,
+
 };
 
 

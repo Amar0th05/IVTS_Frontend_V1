@@ -137,10 +137,10 @@ const api = {
         getAllIntern: () => fetchData(API_ROUTES.getAllIntern+`/all`, "intern"),
     getInterById:(id) => fetchData(API_ROUTES.getAllIntern+`/${id}`, "intern"),
     updateIntern: (id,data) => putData(API_ROUTES.getAllIntern+`/${id}`, { data }),
-
-
-
-    
+// talent Pool
+    getAllPersons:()=>fetchData(API_ROUTES.getAllTalentpool,"talent"),
+    updatePerson: (data) => putData(API_ROUTES.talentpool, { data }),
+    addTalent: (data) => postData(API_ROUTES.talentpool, { data }),
 
 
 };
