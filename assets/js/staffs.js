@@ -71,13 +71,16 @@ addStaffButton.addEventListener('click', async (e) => {
 
     let form = document.getElementById('new-staff-form');
     let formData = new FormData(form);
+    
+    let Data = Object.fromEntries(formData.entries());
+
+
+    
 
     if (validateForm(formData)) {
         try {
             console.log('Submitting Payload...');
-            const response = await axiosInstance.post(API_ROUTES.addStaff, formData, {
-                headers: { 'Content-Type': 'multipart/form-data' },
-            });
+            const response = await api.addIITStaff(Data);
 
             table.clear();
             await fetchAllData();
@@ -100,38 +103,18 @@ updateStaffButton.addEventListener('click', async (e) => {
     let form = document.getElementById('update-staff-form');
     let formData = new FormData(form);
 
-    const data={};
-    
-    const intFields = ["courses", "locationOfWork", "highestQualification"];
-    const numericFields = ["aadharNumber", "contactNumber"];
-
-    formData.forEach((value, key) => {
-        value = value.trim(); 
-    
-        if (value === "") {
-            data[key] = null; 
-            return;
-        }
-    
-        if (intFields.includes(key)) {
-            data[key] = parseInt(value, 10);
-        } else if (numericFields.includes(key)) {
-            data[key] = Number(value);
-        } else {
-            data[key] = value;
-        }
-    });
-    data['status']=true;
+    let Data = Object.fromEntries(formData.entries());
 
     if (validateForm(formData)) {
+        console.log("enter",formData);
         try {
-            const responseData=await api.updateStaff(data);
+            const responseData=await api.updateIITStaff(Data);
             table.clear();
             await fetchAllData();
             handlePermission('#username');
             showSucessPopupFadeInDownLong(responseData.message);
         } catch (error) {
-            showErrorPopupFadeInDown(error.response?.data?.message || 'Failed to add staff. Please try again later.');
+            showErrorPopupFadeInDown(error.response?.data?.message || 'Failed to update staff. Please try again later.');
         }
     }
     
@@ -182,7 +165,7 @@ function addRow(data){
       data.contactNumber,
       data.workLocation,
         `<div class="container">
-            <div class="toggle-btn ${decidedPermission}  ${data.status===true?'active':''}" onclick="toggleStatus(this,'${data.staffID}')">
+            <div class="toggle-btn ${decidedPermission}  ${data.status===true?'active':''}" onclick="toggleStatus(this,'${data.employeeId}')">
                 <div class="slider"></div>
             </div>
         </div>`
@@ -190,7 +173,7 @@ function addRow(data){
         `<div class="row d-flex justify-content-center">
     <div class="d-flex align-items-center justify-content-center p-0 edit-btn" 
         style="width: 40px; height: 40px; cursor:pointer" 
-        data-staff-id="${data.staffName}">
+        data-staff-id="${data.employeeId}">
         <i class="ti-pencil-alt text-inverse" style="font-size: larger;"></i>
     </div>
 </div>
@@ -255,10 +238,6 @@ document.addEventListener('DOMContentLoaded',async ()=>{
     }
 
     
-
-    await loadCourseOptions('courseSelect');
-    await loadOrganisationOptions("locationSelect");
-    await loadHighestQualificationsOptions("highestQualificationSelect");
     await fetchAllData();
     
     handlePermission('#username');
@@ -274,15 +253,14 @@ async function toggleStatus(element, id) {
     if (!id) return;
 
     try {
-        const data=await api.toggleStaffStatus(id);
-        // showSucessPopupFadeInDownLong(data.message);
-
+        const data=await api.toggleIITStaffStatus(id);
+        showSucessPopupFadeInDownLong(data.message);
         if (element) {
             element.classList.toggle('active');
         }
     } catch (error) {
         showErrorPopupFadeInDown(error);
-    }
+    }s
 }
 
 // fetch all data
@@ -298,7 +276,7 @@ async function fetchAllData() {
 
         handlePermission('#username');
         
-
+                        
     } catch (error) {
         console.error("Error fetching staff details:", error);
     }
@@ -323,9 +301,14 @@ function validateForm(formData) {
         const value = formData.get(field)?.trim();
         if (!value) {
             errors.push(`${field} is required.`);
+            showErrorPopupFadeInDown(`${field} is Required`);
+
         }
         if (field === "contactNumber" && !/^\d{10}$/.test(value)) {
             errors.push("Contact Number must be exactly 10 digits.");
+            showErrorPopupFadeInDown('Invalid Contact Number format');
+
+
         }
         if (field === "personalEmail" && !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value)) {
         showErrorPopupFadeInDown('Invalid Email format');
@@ -347,24 +330,42 @@ function validateForm(formData) {
 
 async function loadUpdateDetails(id) {
     try {
-        const response = await axiosInstance.get(API_ROUTES.getStaff(id));
-        const data = response.data.staffDetail;
-        const insurance = response.data.insuranceDetail;
+        console.log("id",typeof(id));
 
-        document.getElementById('update-staffId').value = data.staffID;
-        document.getElementById('update-staffName').value = data.staffName;
-        document.getElementById('update-contactNumber').value = data.contactNumber;
-        document.getElementById('update-aadharNumber').value = data.aadharNumber;
-        document.getElementById('update-mail').value = data.mail;
-        document.getElementById('update-dateOfBirth').value = formatDate(data.dateOfBirth);
-        document.getElementById('update-location').value = data.locationOfWork;
-        document.getElementById('update-highestQualification').value = data.highestQualification;
-        document.getElementById('update-qualifications').value = data.qualifications;
-        document.getElementById('update-courseSelect').value = data.courses;
-        document.getElementById('update-dateOfJoining').value = formatDate(data.dateOfJoining);
-        document.getElementById('update-certifications').value = data.certifications;
-        document.getElementById('update-salary').value = data.salary ? parseFloat(data.salary) : '';
-        document.getElementById('update-permanentAddress').value = data.permanentAddress;
+        const response = await axiosInstance.get(API_ROUTES.getIITStaff(id));
+        const data = response.data.staffs;
+
+        console.log(data);
+        console.log(data.staffName);
+
+        console.log(document.getElementById('employeeId'));
+    
+
+
+document.querySelectorAll("#employeeId")[1].value = data.employeeId;
+document.querySelectorAll("#staffName")[1].value = data.staffName;
+document.querySelectorAll("#dateOfBirth")[1].value = formatDate(data.dob);
+document.querySelectorAll("#gender")[1].value = data.gender;
+document.querySelectorAll("#contactNumber")[1].value = Number(data.contactNumber);
+document.querySelectorAll("#personalEmail")[1].value = data.personalEmail;
+document.querySelectorAll("#emergencyContactName")[1].value = data.emergencyContactName;
+document.querySelectorAll("#emergencyContactNumber")[1].value = Number(data.emergencyContactNumber);
+document.querySelectorAll("#permanentAddress")[1].value = data.address;
+document.querySelectorAll("#dateOfJoining")[1].value = formatDate(data.dateOfJoining);
+document.querySelectorAll("#workLocation")[1].value = data.workLocation;
+document.querySelectorAll("#department")[1].value = data.department;
+document.querySelectorAll("#designation")[1].value = data.designation;
+document.querySelectorAll("#employmentType")[1].value = data.employmentType;
+document.querySelectorAll("#reportingManager")[1].value = data.reportingManager;
+document.querySelectorAll("#highestQualification")[1].value = data.education;
+document.querySelectorAll("#specialization")[1].value = data.specialization;
+document.querySelectorAll("#previousCompany")[1].value = data.previousCompany;
+document.querySelectorAll("#experience")[1].value = data.experience;
+document.querySelectorAll("#portfolio")[1].value = data.linkedin;
+document.querySelectorAll("#officeAssets")[1].value = data.assets;
+document.querySelectorAll("#officialEmail")[1].value = data.officialEmail;
+
+
 
       
     } catch (error) {
@@ -380,11 +381,11 @@ function formatDate(dateStr) {
 }
 
 // edit btn
-$(document).on('click', '.edit-btn', function () {
-    let staffId = $(this).data('staff-id');
-    loadUpdateDetails(staffId);
+// $(document).on('click', '.edit-btn', function () {
+//     let staffId = $(this).data('data-staff-id');
+//     loadUpdateDetails(staffId);
 
-});
+// });
 
 //generate pdf
 
@@ -447,24 +448,23 @@ async function fetchDataAndGeneratePDF() {
 // generate excel
 async function fetchDataAndGenerateExcel() {
     try {
-        const res = await api.downloadStaffData();
+        const res = await api.downloadIITStaffData();
 
         
         const headers = [
-            "ID", "Name", "Date Of Birth", "Aadhar Number", "Contact Number", "Mail",
-            "Permanent Address", "Salary At Joining", "Qualifications", "Highest Qualification",
-            "Location Of Work", "Date of Joining", "Certifications", "Courses",
-            "Current Salary", "Current Designation", "Status"
+            "Employee ID", "Staff Name", "Date of Birth", "Gender", "Contact Number", "Personal Email",
+            "Emergency Contact Name", "Emergency Contact Number", "Permanent Address", "Date of Joining",
+            "Work Location", "Department", "Designation", "Employment Type",
+            "Reporting Manager", "Highest Educational Qualification", "Specialization","Previous Company","Total Years of Experience","LinkedIn / GitHub / Portfolio Link","Office Assets","Official Email Address"
         ];
 
        
         const data = res.map(staff => [
-            staff.staffID, staff.staffName, new Date(staff.dateOfBirth).toLocaleDateString('eng-GB'), staff.aadharNumber, 
-            staff.contactNumber, staff.email, staff.permanentAddress, staff.salaryAtJoining, 
-            staff.qualification, staff.highestQualification, staff.locationOfWork, 
-            new Date(staff.dateOfJoining).toLocaleDateString('eng-GB')
-            , staff.certifications, staff.course, staff.currentSalary, 
-            staff.currentDesignation, staff.status
+            staff.employeeId, staff.staffName, new Date(staff.dob).toLocaleDateString('eng-GB'), staff.gender, 
+            staff.contactNumber, staff.personalEmail, staff.address,new Date(staff.dateOfJoining).toLocaleDateString('eng-GB'), 
+            staff.department, staff.designation, staff.employmentType, 
+            , staff.reportingManager, staff.workLocation, staff.education, 
+            staff.specialization, staff.previousCompany,staff.experience,staff.linkedin,staff.assets,staff.officialEmail,staff.emergencyContactName,staff.emergencyContactNumber,staff.status
         ]);
 
       

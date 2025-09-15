@@ -128,6 +128,17 @@ const api = {
     createClient:(ClientName)=>postData(API_ROUTES.clientBase,{ClientName}),
 
     getAllStaff:()=>fetchData(API_ROUTES.getAllStaff,"staffs"),
+    updateIITStaff: (data) => putData(API_ROUTES.getAllStaff, { data }),
+    toggleIITStaffStatus: (id) => putData(API_ROUTES.toggleIITStaffStatus+`${id}`),
+    downloadIITStaffData:()=>fetchData('/staffs/all/download',"staffs"),
+    addIITStaff:(data)=>postData(API_ROUTES.addStaff,{data}),
+
+
+        getAllIntern: () => fetchData(API_ROUTES.getAllIntern+`/all`, "intern"),
+    getInterById:(id) => fetchData(API_ROUTES.getAllIntern+`/${id}`, "intern"),
+    updateIntern: (id,data) => putData(API_ROUTES.getAllIntern+`/${id}`, { data }),
+
+
 
     
 

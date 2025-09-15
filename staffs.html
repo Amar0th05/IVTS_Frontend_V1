@@ -557,9 +557,7 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label for="workLocation">Work Location<span class="text-danger">*</span></label>
-                <select class="form-control form-control-sm" id="workLocation" name="workLocation" required>
-                    <option value="" disabled selected>Select Location</option>
-                </select>
+                <input type="text" class="form-control form-control-sm" id="workLocation" name="workLocation" required>
             </div>
         </div>
     </div>
@@ -818,9 +816,7 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label for="workLocation">Work Location<span class="text-danger">*</span></label>
-                <select class="form-control form-control-sm" id="workLocation" name="workLocation" required>
-                    <option value="" disabled selected>Select Location</option>
-                </select>
+                <input type="text" name="workLocation" class="form-control form-control-sm" id="workLocation">
             </div>
         </div>
     </div>
@@ -852,8 +848,8 @@
                 <label for="employmentType">Employment Type</label>
                 <select class="form-control form-control-sm" id="employmentType" name="employmentType">
                     <option value="" disabled selected>Select Employment Type</option>
-                    <option value="Full-Time">Full-Time</option>
-                    <option value="Part-Time">Part-Time</option>
+                    <option value="Contract - Full-time">Full-Time</option>
+                    <option value="Contract - Part-time">Part-Time</option>
                     <option value="Contract">Contract</option>
                     <option value="Intern">Intern</option>
                 </select>
@@ -904,7 +900,7 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label for="experience">Total Years of Experience</label>
-                <input type="number" name="experience" class="form-control form-control-sm" id="experience"
+                <input type="text" name="experience" class="form-control form-control-sm" id="experience"
                     placeholder="Enter Years of Experience">
             </div>
         </div>
@@ -980,6 +976,9 @@
                                                                         <label for="designationFilter" class="text-muted small mb-1">Designation</label>
                                                                         <select id="designationFilter" class="form-select form-select-sm border-secondary">
                                                                             <option value="">Show all</option>
+                                                                            <option value="Full Stack Development">Full Stack Development</option>
+                                                                            <option value=""></option>
+                                                                            
                                                                         </select>
                                                                     </div>
                                                                 </div>
@@ -1104,10 +1103,11 @@
 <!-- Custom scripts -->
 <script type="module" src="./assets/js/axiosInstance.js"></script>
 <script src="assets/js/popup.js"></script>
-<script src="assets/js/staffs.js"></script>
-<script type="text/javascript" src="assets/js/script.js"></script>
 <script src="./assets/js/api.js"></script>
 <script src="./assets/js/apiRequests.js"></script>
+<script src="assets/js/staffs.js"></script>
+<script type="text/javascript" src="assets/js/script.js"></script>
+
 
 <!-- Initialize DataTable -->
 <script>
@@ -1126,12 +1126,12 @@
 
  $('#designationFilter').on('change', function () {
         const selectedDesignation = $(this).val();
-        datatable.column(5).search(selectedDesignation ? '^' + selectedDesignation + '$' : '', true, false).draw();
+        datatable.column(0).search(selectedDesignation ? '^' + selectedDesignation + '$' : '', true, false).draw();
     });
 
     $('#locationFilter').on('change', function () {
         const selectedLocation = $(this).val();
-        datatable.column(2).search(selectedLocation ? '^' + selectedLocation + '$' : '', true, false).draw(); 
+        datatable.column(5).search(selectedLocation ? '^' + selectedLocation + '$' : '', true, false).draw(); 
     });
 
    });

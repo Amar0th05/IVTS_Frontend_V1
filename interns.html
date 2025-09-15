@@ -1,0 +1,1583 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title> Details</title>
+    <!-- HTML5 Shim and Respond.js IE10 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 10]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+      <![endif]-->
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <meta name="keywords"
+        content="bootstrap, bootstrap admin template, admin theme, admin dashboard, dashboard template, admin template, responsive" />
+    <meta name="author" content="Codedthemes" />
+    <!-- Favicon icon -->
+    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+    <!-- Google font-->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
+    <!-- waves.css -->
+    <link rel="stylesheet" href="assets/pages/waves/css/waves.min.css" type="text/css" media="all">
+    <!-- Required Fremwork -->
+    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap/css/bootstrap.min.css">
+    <!-- waves.css -->
+    <link rel="stylesheet" href="assets/pages/waves/css/waves.min.css" type="text/css" media="all">
+    <!-- themify icon -->
+    <link rel="stylesheet" type="text/css" href="assets/icon/themify-icons/themify-icons.css">
+    <!-- font-awesome-n -->
+    <link rel="stylesheet" type="text/css" href="assets/css/font-awesome-n.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.min.css">
+    <!-- scrollbar.css -->
+    <link rel="stylesheet" type="text/css" href="assets/css/jquery.mCustomScrollbar.css">
+    <!-- Style.css -->
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/custom.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <!-- Include SweetAlert2 CSS & JS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css"> -->
+    <style>
+        #policyTable {
+            border-radius: 5px;
+        }
+    </style>
+    <style>
+        .hidden {
+            display: none !important;
+        }
+    </style>
+    <style>
+        .addNewRecord {
+            all: unset;
+            color: white !important;
+            padding: 10px 10px !important;
+            background: linear-gradient(135deg, #4931d1, #7f86f3);
+        }
+
+    </style>
+
+</head>
+
+<body>
+    <!-- Pre-loader start -->
+    <div class="theme-loader">
+
+        <div class="loader-track">
+
+            <div class="preloader-wrapper">
+
+                <div class="spinner-layer spinner-blue">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+                <div class="spinner-layer spinner-red">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+
+                <div class="spinner-layer spinner-yellow">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+
+                <div class="spinner-layer spinner-green">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Pre-loader end -->
+    <div id="pcoded" class="pcoded">
+        <div class="pcoded-overlay-box"></div>
+        <div class="pcoded-container navbar-wrapper">
+            <nav class="navbar header-navbar pcoded-header">
+                <div class="navbar-wrapper">
+                    <div class="navbar-logo align-items-center">
+                        <a class="mobile-menu waves-effect waves-light" id="mobile-collapse" href="#!">
+                            <i class="ti-menu"></i>
+                        </a>
+                        <div class="mobile-search waves-effect waves-light">
+                            <div class="header-search">
+                                <div class="main-search morphsearch-search">
+                                    <div class="input-group">
+                                        <span class="input-group-prepend search-close"><i
+                                                class="ti-close input-group-text"></i></span>
+                                        <input type="text" class="form-control" placeholder="Enter Keyword">
+                                        <span class="input-group-append search-btn"><i
+                                                class="ti-search input-group-text"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="index.html">
+                            <!-- <img class="img-fluid" src="https://ntcpwc.iitm.ac.in/New/images/ntcpwc-logo.jpg" alt="Theme-Logo" style="height: 50px;" /> -->
+                            <h4 class="d-inline"><span class="text-lowercase">i</span>VTS-FMS</h4>
+                        </a>
+                        <a class="mobile-options waves-effect waves-light">
+                            <i class="ti-more"></i>
+                        </a>
+                    </div>
+                    <div class="navbar-container container-fluid">
+                        <ul class="nav-left">
+                            <li>
+                                <div class="sidebar_toggle"><a href="javascript:void(0)"><i class="ti-menu"></i></a>
+                                </div>
+                            </li>
+                            <li>
+                                <a href="#!" onclick="javascript:toggleFullScreen()" class="waves-effect waves-light">
+                                    <i class="ti-fullscreen"></i>
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="nav-right">
+                            <!-- <li class="header-notification">
+                                <a href="#!" class="waves-effect waves-light">
+                                    <i class="ti-bell"></i>
+                                    <span class="badge bg-c-red"></span>
+                                </a>
+                                <ul class="show-notification">
+                                    <li>
+                                        <h6>Notifications</h6>
+                                        <label class="label label-danger">New</label>
+                                    </li>
+                                    <li class="waves-effect waves-light">
+                                        <div class="media">
+                                            <img class="d-flex align-self-center img-radius"
+                                                src="assets/images/avatar-2.jpg" alt="Generic placeholder image">
+                                            <div class="media-body">
+                                                <h5 class="notification-user">John Doe</h5>
+                                                <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer
+                                                    elit.</p>
+                                                <span class="notification-time">30 minutes ago</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="waves-effect waves-light">
+                                        <div class="media">
+                                            <img class="d-flex align-self-center img-radius"
+                                                src="assets/images/avatar-4.jpg" alt="Generic placeholder image">
+                                            <div class="media-body">
+                                                <h5 class="notification-user">Joseph William</h5>
+                                                <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer
+                                                    elit.</p>
+                                                <span class="notification-time">30 minutes ago</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="waves-effect waves-light">
+                                        <div class="media">
+                                            <img class="d-flex align-self-center img-radius"
+                                                src="assets/images/avatar-3.jpg" alt="Generic placeholder image">
+                                            <div class="media-body">
+                                                <h5 class="notification-user">Sara Soudein</h5>
+                                                <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer
+                                                    elit.</p>
+                                                <span class="notification-time">30 minutes ago</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li> -->
+                            <li class="user-profile header-notification">
+                                <a href="#!" class="waves-effect waves-light">
+                                    <!-- <img src="assets/images/avatar-4.jpg" class="img-radius" alt="User-Profile-Image"> -->
+                                    <span id="username">John Doe</span>
+                                    <i class="ti-angle-down"></i>
+                                </a>
+                                <ul class="show-notification profile-notification">
+                                    <li class="waves-effect waves-light">
+                                        <a href="#!">
+                                            <i class="ti-settings"></i> Settings
+                                        </a>
+                                    </li>
+                                    <li class="waves-effect waves-light">
+                                        <a href="user-profile.html">
+                                            <i class="ti-user"></i> Profile
+                                        </a>
+                                    </li>
+                                    <li class="waves-effect waves-light">
+                                        <a href="index.html" id="logout-button">
+                                            <i class="ti-layout-sidebar-left"></i> Logout
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="pcoded-main-container">
+                <div class="pcoded-wrapper">
+                    <nav class="pcoded-navbar">
+                        <div class="sidebar_toggle"><a href="#"><i class="icon-close icons"></i></a></div>
+                        <div class="pcoded-inner-navbar main-menu">
+                            <div class="">
+                                <div class="main-menu-header">
+                                    <!-- <img class="img-80 img-radius" src="assets/images/avatar-4.jpg" alt="User-Profile-Image">
+                                    <div class="user-details">
+                                        <span id="more-details">John Doe<i class="fa fa-caret-down"></i></span>
+                                    </div> -->
+                                    <img src="assets/images/ntcpwc-logo.jpg" alt="ntcpwc-logo">
+                                </div>
+                                <div class="main-menu-content">
+                                    <ul>
+                                        <li class="more-details">
+                                            <a href="user-profile.html"><i class="ti-user"></i>View Profile</a>
+                                            <a href="#!"><i class="ti-settings"></i>Settings</a>
+                                            <a href="auth-normal-sign-in.html"><i
+                                                    class="ti-layout-sidebar-left"></i>Logout</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="p-15 p-b-0">
+                                <form class="form-material">
+                                    <div class="form-group form-primary">
+                                        <input type="text" name="footer-email" class="form-control">
+                                        <span class="form-bar"></span>
+                                        <label class="float-label"><i class="fa fa-search m-r-10"></i>Search</label>
+                                    </div>
+                                </form>
+                            </div>
+                            <div id="sidebar-container"></div>
+                            <!-- <div class="accordion">
+                                <div class="accordion-header">
+                                  <div class="pcoded-navigation-label accordion-toggle waves-effect waves-dark" onclick="toggleAccordion(this)">Project Tracking<i class="fa fa-chevron-down ml-1" id="accordion-icon"></i></div>
+                                </div>
+                                <div class="accordion-content" style="display: none;">
+                                
+                                    <ul class="pcoded-item pcoded-left-item">
+                                        <li>
+                                            <a href="projectTracking.html" class="waves-effect waves-dark">
+                                                <span class="pcoded-micon"><i class="ti-folder"></i><b>D</b></span>
+                                                <span class="pcoded-mtext">Projects</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                </div>
+                            <div class="accordion">
+                                <div class="accordion-header">
+                                  <div class="pcoded-navigation-label accordion-toggle waves-effect waves-dark" onclick="toggleAccordion(this)">Invoices<i class="fa fa-chevron-down ml-1" id="accordion-icon"></i></div>
+                                </div>
+                                <div class="accordion-content" style="display: none;">
+                                
+                                    <ul class="pcoded-item pcoded-left-item">
+                                        <li>
+                                            <a href="o&mInvoices.html" class="waves-effect waves-dark">
+                                                <span class="pcoded-micon"><i class="ti-calendar"></i><b>D</b></span>
+                                                <span class="pcoded-mtext">O&M Invoices</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                          <a href="equipment-invoices.html" class="waves-effect waves-dark">
+                                              <span class="pcoded-micon"><i class="ti-settings"></i><b>D</b></span>
+                                              <span class="pcoded-mtext">Equipment Invoices</span>
+                                              <span class="pcoded-mcaret"></span>
+                                          </a>
+                                      </li>
+                                      <li>
+                                        <a href="invoices.html" class="waves-effect waves-dark">
+                                            <span class="pcoded-micon"><i class="ti-receipt"></i><b>D</b></span>
+                                            <span class="pcoded-mtext">C&H Invoices</span>
+                                            <span class="pcoded-mcaret"></span>
+                                        </a>
+                                    </li>
+                                    </ul>
+                                </div>
+                                </div>
+                                <div class="accordion">
+                                  <div class="accordion-header">
+                                    <div class="pcoded-navigation-label accordion-toggle waves-effect waves-dark" onclick="toggleAccordion(this)">Equipments<i class="fa fa-chevron-down ml-1" id="accordion-icon"></i></div>
+                                  </div>
+                                  <div class="accordion-content" style="display: none;">
+                                    
+                                    <ul class="pcoded-item pcoded-left-item">
+                                        <li>
+                                            <a href="procurementStagesDashboard.html" class="waves-effect waves-dark">
+                                                <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
+                                                <span class="pcoded-mtext">Equipments Dashboard</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="equipmentlist.html" class="waves-effect waves-dark">
+                                                <span class="pcoded-micon"><i class="ti-receipt"></i><b>D</b></span>
+                                                <span class="pcoded-mtext">Equipment List</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    </div>
+                                    </div>
+                                    <div class="accordion">
+                                      <div class="accordion-header">
+                                        <div class="pcoded-navigation-label accordion-toggle waves-effect waves-dark" onclick="toggleAccordion(this)">Man Power Management<i class="fa fa-chevron-up ml-1" id="accordion-icon"></i></div>
+                                      </div>
+                                      <div class="accordion-content" style="display: block;">
+                                        <ul class="pcoded-item pcoded-left-item">
+                                          <li>
+                                              <a href="index.html" class="waves-effect waves-dark">
+                                                  <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
+                                                  <span class="pcoded-mtext">Dashboard</span>
+                                                  <span class="pcoded-mcaret"></span>
+                                              </a>
+                                          </li>
+                                          <li class="active">
+                                              <a href="staff-details.html" class="waves-effect waves-dark">
+                                                  <span class="pcoded-micon"><i class="ti-user"></i><b>BC</b></span>
+                                                  <span class="pcoded-mtext">Staff Details</span>
+                                                  <span class="pcoded-mcaret"></span>
+                                              </a>
+                                          </li>
+                                          <li>
+                                              <a href="contract-logs.html" class="waves-effect waves-dark">
+                                                  <span class="pcoded-micon"><i class="ti-notepad"></i><b>BC</b></span>
+                                                  <span class="pcoded-mtext">Contract Logs</span>
+                                                  <span class="pcoded-mcaret"></span>
+                                              </a>
+                                          </li>
+                                      </ul>
+                                      
+                                        </div>
+                                        </div> -->
+                    </nav>
+
+
+
+                    <div class="pcoded-content">
+                        <!-- Page-header start -->
+                        <div class="page-header">
+                            <div class="page-block">
+                                <div class="row align-items-center">
+                                    <div class="col-md-8">
+                                        <!-- <img src="assets/images/ntcpwc-logo.jpg" class="img-fluid w-25" -->
+                                        <!-- alt="NTCPWC LOGO"> -->
+                                        <div class="page-header-title">
+                                            <h5 class="m-b-10">Indents Details</h5>
+                                            <p class="m-b-0">Welcome to iVTS-FMS</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <ul class="breadcrumb">
+                                            <li class="breadcrumb-item">
+                                                <a href="index.html"> <i class="ti-home"></i> </a>
+                                            </li>
+                                            <li class="breadcrumb-item"><a href="#!">Indents Details</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Page-header end -->
+                        <div class="pcoded-inner-content">
+                            <div class="main-body">
+                                <div class="page-wrapper">
+                                    <div class="page-body">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <h5>Indents</h5>
+
+                                                        <!-- <div class="card-header-right">
+                                                            <ul class="list-unstyled card-option">
+                                                                <li><i class="fa fa fa-wrench open-card-option"></i>
+                                                                </li>
+                                                                <li><i class="fa fa-minus minimize-card"></i></li>
+                                                                <li><i class="fa fa-refresh reload-card"></i></li>
+                                                            </ul>
+                                                        </div> -->
+                                                    </div>
+
+                                                    <div class="card-block">
+
+                                                        <!-----------------------------------------------ADD-NEW-MODAl-START--------------------------------------------------------------------->
+
+                                                        <div>
+
+                                                            <div class="d-none" id="tab">
+
+                                                                <div class="nav nav-tabs md-tabs" id="myTab"
+                                                                    role="tablist">
+                                                                    <button class="nav-link active" data-bs-toggle="tab"
+                                                                        data-bs-target="#tab1" type="button">Basic
+                                                                        Details</button>
+                                                                    <button class="nav-link" data-bs-toggle="tab"
+                                                                        data-bs-target="#tab2" type="button">Document
+                                                                        Upload</button>
+                                                                </div>
+                                                                <div class="tab-content mt-3">
+                                                                    <div class="tab-pane fade show active " id="tab1">
+                                                                        <!-- Modal Body -->
+                                                                        <div class="modal-body">
+                                                                            <form id="add-intern-form">
+                                                                                <div class="row">
+                                                                                    <!-- FullName -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label for="fullName">Full
+                                                                                                Name <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <input type="text"
+                                                                                                name="fullName"
+                                                                                                maxlength="50"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="fullName"
+                                                                                                placeholder="Enter Full Name"
+                                                                                                required>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <!-- Date of Birth -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="dateOfBirth">Date
+                                                                                                of Birth</label>
+                                                                                            <input type="date"
+                                                                                                name="dateOfBirth"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="dateOfBirth">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="row">
+                                                                                    <!-- Gender -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="gender">Gender</label>
+                                                                                            <select
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="gender"
+                                                                                                name="gender">
+                                                                                                <option value=""
+                                                                                                    disabled selected>
+                                                                                                    Select Gender
+                                                                                                </option>
+                                                                                                <option value="Male">
+                                                                                                    Male</option>
+                                                                                                <option value="Female">
+                                                                                                    Female</option>
+                                                                                                <option value="Other">
+                                                                                                    Other</option>
+                                                                                            </select>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <!-- OtherGender (Conditional) -->
+                                                                                    <div class="col-md-6"
+                                                                                        id="otherGenderField"
+                                                                                          style="display: none;">
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="otherGender">Please
+                                                                                                Specify Gender</label>
+                                                                                            <input type="text"
+                                                                                                name="otherGender"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="otherGender"
+                                                                                                placeholder="Enter Gender">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                
+
+                                                                             
+                                                                                    <!-- Mobile Number -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="mobileNumber">Mobile
+                                                                                                Number</label>
+                                                                                            <input type="tel"
+                                                                                                maxlength="10"
+                                                                                                name="mobileNumber"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="mobileNumber"
+                                                                                                placeholder="Enter Mobile Number">
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <!-- Current Location -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="currentLocation">Current
+                                                                                                Location</label>
+                                                                                            <input type="text"
+                                                                                                name="currentLocation"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="currentLocation"
+                                                                                                placeholder="Enter Current Location">
+                                                                                        </div>
+                                                                                    </div>
+                                                                               
+
+                                                                               
+                                                                                    <!-- Email -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label for="email">Email
+                                                                                                <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <input type="email"
+                                                                                                name="email"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="email"
+                                                                                                placeholder="Enter Email Address"
+                                                                                                required>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <!-- PortfolioLink -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="portfolioLink">Portfolio
+                                                                                                Link</label>
+                                                                                            <input type="url"
+                                                                                                name="portfolioLink"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="portfolioLink"
+                                                                                                placeholder="Enter Portfolio Link (LinkedIn/GitHub etc.)">
+                                                                                        </div>
+                                                                                    </div>
+                                                                              
+
+
+                                                                               
+                                                                                    <!-- Emergency Contact Name -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="emergencyContactName">Emergency
+                                                                                                Contact Name</label>
+                                                                                            <input type="text"
+                                                                                                name="emergencyContactName"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="emergencyContactName"
+                                                                                                placeholder="Enter Name">
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <!-- Emergency Contact Relationship -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="emergencyContactRelationship">Relationship</label>
+                                                                                            <input type="text"
+                                                                                                name="emergencyContactRelationship"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="emergencyContactRelationship"
+                                                                                                placeholder="e.g., Parent, Sibling">
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <!-- Emergency Contact Number -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="emergencyContactNumber">Emergency
+                                                                                                Contact Number</label>
+                                                                                            <input type="tel"
+                                                                                                maxlength="10"
+                                                                                                name="emergencyContactNumber"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="emergencyContactNumber"
+                                                                                                placeholder="Enter Number">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                
+
+                                                                                <!-- <hr>
+                                                                                <h5>Internship Details</h5> -->
+                                                                                
+                                                                                    <!-- College Name -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="collegeName">College
+                                                                                                Name</label>
+                                                                                            <input type="text"
+                                                                                                name="collegeName"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="collegeName"
+                                                                                                placeholder="Enter College Name">
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <!-- Degree Program -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="degreeProgram">Degree
+                                                                                                Program</label>
+                                                                                            <input type="text"
+                                                                                                name="degreeProgram"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="degreeProgram"
+                                                                                                placeholder="Enter Degree Program">
+                                                                                        </div>
+                                                                                    </div>
+                                                                               
+
+                                                                               
+                                                                                    <!-- Is Part of Curriculum -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="isPartOfCurriculum">Is
+                                                                                                this part of your
+                                                                                                curriculum?</label>
+                                                                                            <select
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="isPartOfCurriculum"
+                                                                                                name="isPartOfCurriculum">
+                                                                                                <option value=""
+                                                                                                    disabled selected>
+                                                                                                    Select Option
+                                                                                                </option>
+                                                                                                <option value="Yes">Yes
+                                                                                                </option>
+                                                                                                <option value="No">No
+                                                                                                </option>
+                                                                                            </select>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <!-- Faculty Supervisor -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="facultySupervisor">Faculty
+                                                                                                Supervisor</label>
+                                                                                            <input type="text"
+                                                                                                name="facultySupervisor"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="facultySupervisor"
+                                                                                                placeholder="Enter Faculty Supervisor Name">
+                                                                                        </div>
+                                                                                    </div>
+                                                                              
+                                                                                    <!-- Preferred Start Date -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="preferredStartDate">Preferred
+                                                                                                Start Date</label>
+                                                                                            <input type="date"
+                                                                                                name="preferredStartDate"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="preferredStartDate">
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <!-- Preferred End Date -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="preferredEndDate">Preferred
+                                                                                                End Date</label>
+                                                                                            <input type="date"
+                                                                                                name="preferredEndDate"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="preferredEndDate">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                
+                                                                                    <!-- Internship Mode -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="internshipMode">Internship
+                                                                                                Mode</label>
+                                                                                            <select
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="internshipMode"
+                                                                                                name="internshipMode">
+                                                                                                <option value=""
+                                                                                                    disabled selected>
+                                                                                                    Select Mode</option>
+                                                                                                <option value="On-site">
+                                                                                                    On-site</option>
+                                                                                                <option value="Remote">
+                                                                                                    Remote</option>
+                                                                                                <option value="Hybrid">
+                                                                                                    Hybrid</option>
+                                                                                            </select>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <!-- How Heard About Us -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="howHeardAboutUs">How
+                                                                                                did you hear about
+                                                                                                us?</label>
+                                                                                            <input type="text"
+                                                                                                name="howHeardAboutUs"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="howHeardAboutUs"
+                                                                                                placeholder="e.g., Social Media, Referral">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="row">
+                                                                                    <!-- Submission Date -->
+                                                                                    <div class="col-md-12">
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="submissionDate">Submission
+                                                                                                Date</label>
+                                                                                            <input type="date"
+                                                                                                name="submissionDate"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="submissionDate"
+                                                                                                readonly>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </form>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="tab-pane fade" id="tab2">
+                                                                        <div class="modal-body">
+                                                                            <form id="new-Document-form"
+                                                                                class="needs-validation" novalidate>
+                                                                                <div class="row">
+
+                                                                                    <!-- Bonafide File Upload -->
+                                                                                    <div class="col-md-6 mb-4">
+                                                                                        <label for="bonafideFile"
+                                                                                            class="form-label fw-semibold">
+                                                                                            Bonafide <span
+                                                                                                class="text-danger">*</span>
+                                                                                        </label>
+                                                                                        <div
+                                                                                            class="d-flex align-items-center border border-secondary rounded overflow-hidden">
+                                                                                            <input type="file"
+                                                                                                name="bonafideFile"
+                                                                                                class="form-control border-0"
+                                                                                                id="bonafideFile"
+                                                                                                required>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <!-- Resume File Upload -->
+                                                                                    <div class="col-md-6 mb-4">
+                                                                                        <label for="resumeFile"
+                                                                                            class="form-label fw-semibold">
+                                                                                            Resume <span
+                                                                                                class="text-danger">*</span>
+                                                                                        </label>
+                                                                                        <div
+                                                                                            class="d-flex align-items-center border border-secondary rounded overflow-hidden">
+                                                                                            <input type="file"
+                                                                                                name="resumeFile"
+                                                                                                class="form-control border-0"
+                                                                                                id="resumeFile"
+                                                                                                required>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <!-- Photo File Upload -->
+                                                                                    <div class="col-md-6 mb-4">
+                                                                                        <label for="photoFile"
+                                                                                            class="form-label fw-semibold">
+                                                                                            Photo <span
+                                                                                                class="text-danger">*</span>
+                                                                                        </label>
+                                                                                        <div
+                                                                                            class="d-flex align-items-center border border-secondary rounded overflow-hidden">
+                                                                                            <input type="file"
+                                                                                                name="photoFile"
+                                                                                                class="form-control border-0"
+                                                                                                id="photoFile" required>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <!-- ID Proof File Upload -->
+                                                                                    <div class="col-md-6 mb-4">
+                                                                                        <label for="idProofFile"
+                                                                                            class="form-label fw-semibold">
+                                                                                            ID Proof <span
+                                                                                                class="text-danger">*</span>
+                                                                                        </label>
+                                                                                        <div
+                                                                                            class="d-flex align-items-center border border-secondary rounded overflow-hidden">
+                                                                                            <input type="file"
+                                                                                                name="idProofFile"
+                                                                                                class="form-control border-0"
+                                                                                                id="idProofFile"
+                                                                                                required>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </form>
+                                                                        </div>
+                                                                    </div>
+
+
+
+
+
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-danger"
+                                                                            data-dismiss="modal"
+                                                                            id="exitButton">Exit</button>
+                                                                        <button type="submit" class="btn btn-success"
+                                                                            id="add_staff_btn"
+                                                                            data-dismiss="modal">Submit</button>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+
+
+
+
+                                                        </div>
+
+
+
+                                                        <!---------------------------------------------------------------------------------------------ADD-NEW-MODAL-END---------------------------------------------------->
+                                                        <!-----------------------------------------------UPDATE-MODAl-START--------------------------------------------------------------------->
+
+                                                        <div>
+                                                            <div class="d-none" id="tabWrapper">
+                                                                <div class="nav nav-tabs md-tabs" id="myTab1"
+                                                                    role="tablist">
+                                                                    <button class="nav-link active" data-bs-toggle="tab"
+                                                                        data-bs-target="#tab3" type="button">Intern
+                                                                        Details
+                                                                    </button>
+                                                                    <button class="nav-link" data-bs-toggle="tab"
+                                                                        data-bs-target="#tab4" type="button">Document
+                                                                        Upload</button>
+
+                                                                </div>
+                                                                <div class="tab-content mt-3">
+                                                                    <div class="tab-pane fade show active " id="tab3">
+                                                                        <!-- Modal Body -->
+                                                                        <div class="modal-body">
+                                                                            <form id="update-intern-form">
+                                                                                <div class="row">
+                                                                                        <div class="col-md-6 d-none">
+                                                                                        <div class="form-group">
+                                                                                            <label for="fullName">Id <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <input type="text"
+                                                                                                name="id"
+
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="id1"
+                                                                                                placeholder="Enter Full Name"
+                                                                                                >
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <!-- FullName -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label for="fullName">Full
+                                                                                                Name <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <input type="text"
+                                                                                                name="fullName"
+                                                                                                maxlength="50"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="fullName1"
+                                                                                                placeholder="Enter Full Name"
+                                                                                                required>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <!-- Date of Birth -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="dateOfBirth">Date
+                                                                                                of Birth</label>
+                                                                                            <input type="date"
+                                                                                                name="dateOfBirth"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="dateOfBirth1">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="row">
+                                                                                    <!-- Gender -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="gender">Gender</label>
+                                                                                            <select
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="gender1"
+                                                                                                name="gender">
+                                                                                                <option value=""
+                                                                                                    disabled selected>
+                                                                                                    Select Gender
+                                                                                                </option>
+                                                                                                <option value="male">
+                                                                                                    Male</option>
+                                                                                                <option value="female">
+                                                                                                    Female</option>
+                                                                                                <option value="other">
+                                                                                                    Other</option>
+                                                                                            </select>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <!-- OtherGender (Conditional) -->
+                                                                                    <div class="col-md-6"
+                                                                                        id="otherGenderField1"
+                                                                                          style="display: none;">
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="otherGender">Please
+                                                                                                Specify Gender</label>
+                                                                                            <input type="text"
+                                                                                                name="otherGender"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="otherGender1"
+                                                                                                placeholder="Enter Gender">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                
+
+                                                                             
+                                                                                    <!-- Mobile Number -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="mobileNumber">Mobile
+                                                                                                Number</label>
+                                                                                            <input type="tel"
+                                                                                                maxlength="10"
+                                                                                                name="mobileNumber"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="mobileNumber1"
+                                                                                                placeholder="Enter Mobile Number">
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <!-- Current Location -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="currentLocation">Current
+                                                                                                Location</label>
+                                                                                            <input type="text"
+                                                                                                name="currentLocation"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="currentLocation1"
+                                                                                                placeholder="Enter Current Location">
+                                                                                        </div>
+                                                                                    </div>
+                                                                               
+
+                                                                               
+                                                                                    <!-- Email -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label for="email">Email
+                                                                                                <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <input type="email"
+                                                                                                name="email"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="email1"
+                                                                                                placeholder="Enter Email Address"
+                                                                                                required>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <!-- PortfolioLink -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="portfolioLink">Portfolio
+                                                                                                Link</label>
+                                                                                            <input type="url"
+                                                                                                name="portfolioLink"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="portfolioLink1"
+                                                                                                placeholder="Enter Portfolio Link (LinkedIn/GitHub etc.)">
+                                                                                        </div>
+                                                                                    </div>
+                                                                              
+
+
+                                                                               
+                                                                                    <!-- Emergency Contact Name -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="emergencyContactName">Emergency
+                                                                                                Contact Name</label>
+                                                                                            <input type="text"
+                                                                                                name="emergencyContactName"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="emergencyContactName1"
+                                                                                                placeholder="Enter Name">
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <!-- Emergency Contact Relationship -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="emergencyContactRelationship">Relationship</label>
+                                                                                            <input type="text"
+                                                                                                name="emergencyContactRelationship"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="emergencyContactRelationship1"
+                                                                                                placeholder="e.g., Parent, Sibling">
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <!-- Emergency Contact Number -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="emergencyContactNumber">Emergency
+                                                                                                Contact Number</label>
+                                                                                            <input type="tel"
+                                                                                                maxlength="10"
+                                                                                                name="emergencyContactNumber"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="emergencyContactNumber1"
+                                                                                                placeholder="Enter Number">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                
+
+                                                                                <!-- <hr>
+                                                                                <h5>Internship Details</h5> -->
+                                                                                
+                                                                                    <!-- College Name -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="collegeName">College
+                                                                                                Name</label>
+                                                                                            <input type="text"
+                                                                                                name="collegeName"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="collegeName1"
+                                                                                                placeholder="Enter College Name">
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <!-- Degree Program -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="degreeProgram">Degree
+                                                                                                Program</label>
+                                                                                            <input type="text"
+                                                                                                name="degreeProgram"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="degreeProgram1"
+                                                                                                placeholder="Enter Degree Program">
+                                                                                        </div>
+                                                                                    </div>
+                                                                               
+
+                                                                               
+                                                                                    <!-- Is Part of Curriculum -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="isPartOfCurriculum">Is
+                                                                                                this part of your
+                                                                                                curriculum?</label>
+                                                                                            <select
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="isPartOfCurriculum1"
+                                                                                                name="isPartOfCurriculum">
+                                                                                                <option value=""
+                                                                                                    disabled selected>
+                                                                                                    Select Option
+                                                                                                </option>
+                                                                                                <option value="Yes">Yes
+                                                                                                </option>
+                                                                                                <option value="No">No
+                                                                                                </option>
+                                                                                            </select>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <!-- Faculty Supervisor -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="facultySupervisor">Faculty
+                                                                                                Supervisor</label>
+                                                                                            <input type="text"
+                                                                                                name="facultySupervisor"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="facultySupervisor1"
+                                                                                                placeholder="Enter Faculty Supervisor Name">
+                                                                                        </div>
+                                                                                    </div>
+                                                                              
+                                                                                    <!-- Preferred Start Date -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="preferredStartDate">Preferred
+                                                                                                Start Date</label>
+                                                                                            <input type="date"
+                                                                                                name="preferredStartDate"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="preferredStartDate1">
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <!-- Preferred End Date -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="preferredEndDate">Preferred
+                                                                                                End Date</label>
+                                                                                            <input type="date"
+                                                                                                name="preferredEndDate"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="preferredEndDate1">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                
+                                                                                    <!-- Internship Mode -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="internshipMode">Internship
+                                                                                                Mode</label>
+                                                                                            <select
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="internshipMode1"
+                                                                                                name="internshipMode">
+                                                                                                <option value=""
+                                                                                                    disabled selected>
+                                                                                                    Select Mode</option>
+                                                                                                <option value="online">
+                                                                                                    online</option>
+                                                                                                <option value="offline">
+                                                                                                    offline</option>
+                                                                                                <option value="Hybrid">
+                                                                                                    Hybrid</option>
+                                                                                            </select>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <!-- How Heard About Us -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="howHeardAboutUs">How
+                                                                                                did you hear about
+                                                                                                us?</label>
+                                                                                            <input type="text"
+                                                                                                name="howHeardAboutUs"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="howHeardAboutUs1"
+                                                                                                placeholder="e.g., Social Media, Referral">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="row">
+                                                                                    <!-- Submission Date -->
+                                                                                    <div class="col-md-12">
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="submissionDate">Submission
+                                                                                                Date</label>
+                                                                                            <input type="date"
+                                                                                                name="submissionDate"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="submissionDate1"
+                                                                                                readonly>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </form>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="tab-pane fade show" id="tab4"
+                                                                        role="tabpanel">
+                                                                        <div class="mt-4">
+                                                                            <table id="documentTable" class="table">
+                                                                                <thead class="bg-primary text-white">
+                                                                                    <tr>
+                                                                                        <th>Documents</th>
+                                                                                        <th>Edit</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody id="documentTableBody">
+                                                                                    <tr>
+                                                                                        <td>BonafideFileData</td>
+                                                                                        <td>
+                                                                                            <!-- <button
+                                                                                                onclick="downloadDocument('0000', 'BonafideFileData')"
+                                                                                                class="btn btn-sm btn-primary">Download</button>
+                                                                                            <button
+                                                                                                onclick="deleteDocument('0000', 'BonafideFileData')"
+                                                                                                class="btn btn-sm btn-danger">Delete</button> -->
+                                                                                        </td>
+                                                                                    </tr>
+
+                                                                                    <tr>
+                                                                                        <td>ResumeFileData</td>
+                                                                                        <td>
+                                                                                            <!-- <button
+                                                                                                onclick="downloadDocument('0000', 'ResumeFileData')"
+                                                                                                class="btn btn-sm btn-primary">Download</button>
+                                                                                            <button
+                                                                                                onclick="deleteDocument('0000', 'ResumeFileData')"
+                                                                                                class="btn btn-sm btn-danger">Delete</button> -->
+                                                                                        </td>
+                                                                                    </tr>
+
+                                                                                    <tr>
+                                                                                        <td>PhotoFileData</td>
+                                                                                        <td>
+                                                                                            <!-- <button
+                                                                                                onclick="downloadDocument('0000', 'PhotoFileData')"
+                                                                                                class="btn btn-sm btn-primary">Download</button>
+                                                                                            <button
+                                                                                                onclick="deleteDocument('0000', 'PhotoFileData')"
+                                                                                                class="btn btn-sm btn-danger">Delete</button> -->
+                                                                                        </td>
+                                                                                    </tr>
+
+                                                                                    <tr>
+                                                                                        <td>IdProofFileData</td>
+                                                                                        <td>
+                                                                                            <!-- <button
+                                                                                                onclick="downloadDocument('0000', 'IdProofFileData')"
+                                                                                                class="btn btn-sm btn-primary">Download</button>
+                                                                                            <button
+                                                                                                onclick="deleteDocument('0000', 'IdProofFileData')"
+                                                                                                class="btn btn-sm btn-danger">Delete</button> -->
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+
+
+                                                                <!-- Modal Footer -->
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-danger btn-sm"
+                                                                        data-dismiss="modal"
+                                                                        id="exitButton2">Exit</button>
+                                                                    <button type="button" id="update_intern_btn"
+                                                                        class="btn btn-success btn-sm writeElement">Update</button>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+
+
+
+
+                                                        <!---------------------------------------------------------------------------------------------UPDATE-MODAL-END---------------------------------------------------->
+
+
+                                                        <div id="tableCard">
+
+
+                                                            <div class="mb-3 p-3 rounded shadow shadow-sm filter">
+                                                                <div class="row g-3">
+                                                                    <div class="col-md-6">
+                                                                        <div class="d-flex flex-column">
+                                                                            <label for="designationFilter"
+                                                                                class="text-muted small mb-1">Designation</label>
+                                                                            <select id="designationFilter"
+                                                                                class="form-select form-select-sm border-secondary">
+                                                                                <option value="">Show all</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-md-6">
+                                                                        <div class="d-flex flex-column">
+                                                                            <label for="locationFilter"
+                                                                                class="text-muted small mb-1">Location</label>
+                                                                            <select id="locationFilter"
+                                                                                class="form-select form-select-sm border-secondary">
+                                                                                <option value="">Show all</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <div id="exportButtons" class="mb-3">
+                                                                    <button onclick="fetchDataAndGenerateExcel()"
+                                                                        class="dt-button">
+                                                                        Download All Data
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="d-flex justify-content-center align-items-center">
+                                                                <div class="table-responsive">
+
+
+
+                                                                    <table id="myTable1"
+                                                                        class="table table-striped rounded table-hover">
+                                                                        <thead
+                                                                            class="bg-primary text-white text-center">
+                                                                            <tr>
+                                                                                <th>ID</th>
+                                                                                <th>Full Name</th>
+                                                                                <th>Date of Birth</th>
+                                                                                <th>Mobile Number</th>
+                                                                                <th>Email Id</th>
+                                                                                <th>College Name</th>
+                                                                                <th>Degree Program</th>
+                                                                                <th>Action</th>
+                                                                                <!-- <th>Actions</th> -->
+                                                                                <th>Update</th>
+
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+
+                                                    </div>
+                                                    <!-- card-block table staff details end -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- Warning Section Starts -->
+
+    <div id="pcoded-container" class="pcoded">
+        <div class="pcoded-innenr-content">
+
+        </div>
+    </div>
+    <script src="assets/js/roleUtil.js"></script>
+
+    <!-- Required jQuery -->
+    <script type="text/javascript" src="assets/js/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="assets/js/jquery-ui/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="assets/js/popper.js/popper.min.js"></script>
+    <script type="text/javascript" src="assets/js/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
+    <!-- jQuery and DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+    <!-- DataTables Buttons Extension JS -->
+    <script src="https://cdn.datatables.net/buttons/2.1.0/js/dataTables.buttons.min.js"></script>
+
+    <!-- Buttons for Excel, CSV, and PDF -->
+    <script src="https://cdn.datatables.net/buttons/2.1.0/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js"></script>
+
+    <!-- Excel export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+
+    <!-- JSZip for Excel export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
+
+    <!-- pdfMake for PDF export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+
+    <!-- DataTables Buttons CSS -->
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.datatables.net/buttons/2.1.0/css/buttons.dataTables.min.css">
+
+    <!-- Toastr and other scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="assets/pages/waves/js/waves.min.js"></script>
+    <script type="text/javascript" src="assets/js/jquery-slimscroll/jquery.slimscroll.js"></script>
+    <script src="assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="assets/js/pcoded.min.js"></script>
+    <script src="assets/js/vertical/vertical-layout.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <!-- Custom scripts -->
+    <script type="module" src="./assets/js/axiosInstance.js"></script>
+    <script src="assets/js/popup.js"></script>
+    <script src="assets/js/interns.js"></script>
+    <script type="text/javascript" src="assets/js/script.js"></script>
+    <script src="./assets/js/api.js"></script>
+    <script src="./assets/js/apiRequests.js"></script>
+
+    <!-- Initialize DataTable -->
+    <script>
+        $(document).ready(function () {
+            const datatable = $('#myTable1').DataTable({
+                "paging": true,
+                "pageLength": 25,
+                "lengthMenu": [5, 10, 25, 50, 100],
+                dom: '<"top"l>frtip',
+                buttons: ['excel', 'csv', 'pdf']
+            });
+
+            datatable.buttons().container().appendTo($('#exportButtons'));
+
+
+
+            $('#designationFilter').on('change', function () {
+                const selectedDesignation = $(this).val();
+                datatable.column(5).search(selectedDesignation ? '^' + selectedDesignation + '$' : '', true, false).draw();
+            });
+
+            $('#locationFilter').on('change', function () {
+                const selectedLocation = $(this).val();
+                datatable.column(2).search(selectedLocation ? '^' + selectedLocation + '$' : '', true, false).draw();
+            });
+
+        });
+
+
+
+        $('#filter').on('change', function () {
+            const selectedCategory = $(this).val();
+            if (selectedCategory) {
+                datatable.column(1).search(selectedCategory).draw();
+            } else {
+                datatable.column(1).search('').draw();
+            }
+        });
+
+        function toggleAccordion(button) {
+            const content = button.parentElement.nextElementSibling;
+            content.style.display = (content.style.display === "none" || content.style.display === "") ? "block" : "none";
+            const icon = button.querySelector("i");
+            icon.classList.toggle("fa-chevron-down");
+            icon.classList.toggle("fa-chevron-up");
+        }
+    </script>
+    <script>
+        document.querySelector('#addNew').addEventListener('click', function () {
+            document.querySelector('#tab').classList.remove('d-none');
+            document.querySelector('#tableCard').style.display = 'none';
+            document.querySelector('#exitButton').addEventListener('click', function () {
+                document.querySelector('#tab').classList.add('d-none');
+                document.querySelector('#tableCard').style.display = 'block';
+            });
+        });
+
+    </script>
+    <script>
+        // JavaScript to show/hide "Other Gender" input
+        document.getElementById('gender1').addEventListener('change', function () {
+            var otherGenderField = document.getElementById('otherGenderField1');
+            if (this.value === 'other') {
+                otherGenderField.style.display = 'block';
+            } else {
+                otherGenderField.style.display = 'none';
+            }
+        });
+                document.getElementById('gender').addEventListener('change', function () {
+            var otherGenderField = document.getElementById('otherGenderField');
+            if (this.value === 'Other') {
+                otherGenderField.style.display = 'block';
+            } else {
+                otherGenderField.style.display = 'none';
+            }
+        });
+
+        // Set submission date to today's date automatically
+        document.addEventListener('DOMContentLoaded', function () {
+            var today = new Date();
+            var dd = String(today.getDate()).padStart(2, '0');
+            var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+            var yyyy = today.getFullYear();
+
+            today = yyyy + '-' + mm + '-' + dd;
+            document.getElementById('submissionDate').value = today;
+        });
+    </script>
+
+
+
+
+
+    <script src="assets/js/sweetAlert.js"></script>
+</body>
+
+</html>

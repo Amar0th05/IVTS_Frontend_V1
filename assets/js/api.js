@@ -90,11 +90,17 @@ const   API_ROUTES = {
 
 addStaff:`/staffs/all/add`,
 getAllStaff: `/staffs/all`,
-  getAllIntern: `/intern`,
-  downlodeIntern:`http://localhost:5000/intern`,
+getIITStaff:(id)=>`/staffs/all/${id}`,
+toggleIITStaffStatus:`/staffs/all/status/`,
 
 
-    applyInternship:`/internship/apply`
+
+    applyInternship:`/internship/apply`,
+    getAllIntern: `/intern`,
+    getInternDocumentsMetadata:(id)=>`/intern/${id}/documents/metadata`,
+    downloadInternDocument:(internId, docName)=>`/intern/${internId}/documents/${docName}`,
+    deleteInternDocument:(internId, docName)=>`/intern/${internId}/documents/${docName}`,
+    uploadInternDocument:(staffId, docName)=>`/intern/${staffId}/documents/${docName}`,
 };
 
 
