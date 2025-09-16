@@ -298,7 +298,7 @@ function getAllowedPages(roleId) {
         const pages = moduleMaps[module] || [];
         for (const page of pages) {
             allowedPages.push({
-                page: "ivts-fms/" + page,
+                page: "worksphere/" + page,
                 // page: page,
                 permission: permissions[module].permission,
                 module: permissions[module].module  
