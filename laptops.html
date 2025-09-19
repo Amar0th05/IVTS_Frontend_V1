@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Staff Details</title>
+    <title>Laptop Details</title>
     <!-- HTML5 Shim and Respond.js IE10 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 10]>
@@ -43,6 +43,10 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+
+
+
+
     <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css"> -->
     <style>
         #policyTable{
@@ -61,7 +65,36 @@
       padding: 10px 10px !important;
       background: linear-gradient(135deg, #4931d1, #7f86f3);
     }
+
   </style>
+  <style>
+.dropdownPopup .list-group-item:hover,
+.dropdownPopup .list-group-item.active {
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+}
+
+
+  </style>
+  <style>
+  /* remove right border-radius from input */
+  .no-radius-end {
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+  }
+
+  /* remove left border-radius from select */
+  .no-radius-start {
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+  }
+
+  /* gray background for select */
+  .bg-light {
+    background-color: #f1f1f1 !important;
+  }
+</style>
 
 </head>
 
@@ -277,110 +310,7 @@
                                 </form>
                             </div>
                             <div id="sidebar-container"></div>
-                            <!-- <div class="accordion">
-                                <div class="accordion-header">
-                                  <div class="pcoded-navigation-label accordion-toggle waves-effect waves-dark" onclick="toggleAccordion(this)">Project Tracking<i class="fa fa-chevron-down ml-1" id="accordion-icon"></i></div>
-                                </div>
-                                <div class="accordion-content" style="display: none;">
-                                
-                                    <ul class="pcoded-item pcoded-left-item">
-                                        <li>
-                                            <a href="projectTracking.html" class="waves-effect waves-dark">
-                                                <span class="pcoded-micon"><i class="ti-folder"></i><b>D</b></span>
-                                                <span class="pcoded-mtext">Projects</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                </div>
-                            <div class="accordion">
-                                <div class="accordion-header">
-                                  <div class="pcoded-navigation-label accordion-toggle waves-effect waves-dark" onclick="toggleAccordion(this)">Invoices<i class="fa fa-chevron-down ml-1" id="accordion-icon"></i></div>
-                                </div>
-                                <div class="accordion-content" style="display: none;">
-                                
-                                    <ul class="pcoded-item pcoded-left-item">
-                                        <li>
-                                            <a href="o&mInvoices.html" class="waves-effect waves-dark">
-                                                <span class="pcoded-micon"><i class="ti-calendar"></i><b>D</b></span>
-                                                <span class="pcoded-mtext">O&M Invoices</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                          <a href="equipment-invoices.html" class="waves-effect waves-dark">
-                                              <span class="pcoded-micon"><i class="ti-settings"></i><b>D</b></span>
-                                              <span class="pcoded-mtext">Equipment Invoices</span>
-                                              <span class="pcoded-mcaret"></span>
-                                          </a>
-                                      </li>
-                                      <li>
-                                        <a href="invoices.html" class="waves-effect waves-dark">
-                                            <span class="pcoded-micon"><i class="ti-receipt"></i><b>D</b></span>
-                                            <span class="pcoded-mtext">C&H Invoices</span>
-                                            <span class="pcoded-mcaret"></span>
-                                        </a>
-                                    </li>
-                                    </ul>
-                                </div>
-                                </div>
-                                <div class="accordion">
-                                  <div class="accordion-header">
-                                    <div class="pcoded-navigation-label accordion-toggle waves-effect waves-dark" onclick="toggleAccordion(this)">Equipments<i class="fa fa-chevron-down ml-1" id="accordion-icon"></i></div>
-                                  </div>
-                                  <div class="accordion-content" style="display: none;">
-                                    
-                                    <ul class="pcoded-item pcoded-left-item">
-                                        <li>
-                                            <a href="procurementStagesDashboard.html" class="waves-effect waves-dark">
-                                                <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
-                                                <span class="pcoded-mtext">Equipments Dashboard</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="equipmentlist.html" class="waves-effect waves-dark">
-                                                <span class="pcoded-micon"><i class="ti-receipt"></i><b>D</b></span>
-                                                <span class="pcoded-mtext">Equipment List</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                    </div>
-                                    </div>
-                                    <div class="accordion">
-                                      <div class="accordion-header">
-                                        <div class="pcoded-navigation-label accordion-toggle waves-effect waves-dark" onclick="toggleAccordion(this)">Man Power Management<i class="fa fa-chevron-up ml-1" id="accordion-icon"></i></div>
-                                      </div>
-                                      <div class="accordion-content" style="display: block;">
-                                        <ul class="pcoded-item pcoded-left-item">
-                                          <li>
-                                              <a href="index.html" class="waves-effect waves-dark">
-                                                  <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
-                                                  <span class="pcoded-mtext">Dashboard</span>
-                                                  <span class="pcoded-mcaret"></span>
-                                              </a>
-                                          </li>
-                                          <li class="active">
-                                              <a href="staff-details.html" class="waves-effect waves-dark">
-                                                  <span class="pcoded-micon"><i class="ti-user"></i><b>BC</b></span>
-                                                  <span class="pcoded-mtext">Staff Details</span>
-                                                  <span class="pcoded-mcaret"></span>
-                                              </a>
-                                          </li>
-                                          <li>
-                                              <a href="contract-logs.html" class="waves-effect waves-dark">
-                                                  <span class="pcoded-micon"><i class="ti-notepad"></i><b>BC</b></span>
-                                                  <span class="pcoded-mtext">Contract Logs</span>
-                                                  <span class="pcoded-mcaret"></span>
-                                              </a>
-                                          </li>
-                                      </ul>
-                                      
-                                        </div>
-                                        </div> -->
-                    </nav>
+         </nav>
 
 
 
@@ -393,7 +323,7 @@
                                         <!-- <img src="assets/images/ntcpwc-logo.jpg" class="img-fluid w-25" -->
                                             <!-- alt="NTCPWC LOGO"> -->
                                         <div class="page-header-title">
-                                            <h5 class="m-b-10">Staff Details</h5>
+                                            <h5 class="m-b-10">Assets Details</h5>
                                             <p class="m-b-0">Welcome to WorkSphere</p>
                                         </div>
                                     </div>
@@ -402,7 +332,7 @@
                                             <li class="breadcrumb-item">
                                                 <a href="index.html"> <i class="ti-home"></i> </a>
                                             </li>
-                                            <li class="breadcrumb-item"><a href="#!">Staff Details</a>
+                                            <li class="breadcrumb-item"><a href="#!">Laptops Details</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -418,7 +348,7 @@
                                             <div class="col-sm-12">
                                                 <div class="card">
                                                     <div class="card-header">
-                                                        <h5>Staff</h5>
+                                                        <h5>Laptops</h5>
                                                         
                                                         <!-- <div class="card-header-right">
                                                             <ul class="list-unstyled card-option">
@@ -437,258 +367,257 @@
                                                         <div>
                                                             
                                                             <div class="d-none" id="tab">
-                                                                <!-- <div class="nav nav-tabs md-tabs" id="myTab" role="tablist">
-                                                                    <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab1" type="button">Basic Details</button>
-                                                                </div> -->
+                                                                <div class="nav nav-tabs md-tabs" id="myTab" role="tablist">
+                                                                    <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab1" type="button">Laptops Details</button>
+                                                                </div>
                                                                <div class="tab-content mt-3">
+
+                                                                <!-- laptop -->
                                                                 <div class="tab-pane fade show active " id="tab1">
                                                                     <!-- Modal Header -->
                                                                     
                                                         
                                                                     <!-- Modal Body -->
                                                                     <div class="modal-body">
-                                                                        <form id="new-staff-form">
+                                                                        <form id="laptop_add_form">
     <div class="row">
-        <!-- Employee ID -->
+        <!-- User Name -->
         <div class="col-md-6">
             <div class="form-group">
-                <label for="employeeId">Employee ID<span class="text-danger">*</span></label>
-                <input type="text" name="employeeId" maxlength="20" class="form-control form-control-sm" id="employeeId"
-                    placeholder="Enter Employee ID" required>
+                <label for="userName1">User Name</label>
+               <select id="userName1" name="userName" class="form-control form-control-sm userName" style="width:100%;">
+                <option value="">StaffId</option>
+               </select>
+
             </div>
         </div>
 
-        <!-- Staff Name -->
+        <!-- Model No -->
         <div class="col-md-6">
             <div class="form-group">
-                <label for="staffName">Staff Name<span class="text-danger">*</span></label>
-                <input type="text" name="staffName" maxlength="50" class="form-control form-control-sm" id="staffName"
-                    placeholder="Enter Staff Name" required>
+                <label for="modelNo">Model No</label>
+                <input type="text" name="Model_No" class="form-control form-control-sm" id="modelNo"
+                    placeholder="Enter Model No">
             </div>
         </div>
     </div>
 
     <div class="row">
-        <!-- Date of Birth -->
+        <!-- Serial No -->
         <div class="col-md-6">
             <div class="form-group">
-                <label for="dateOfBirth">Date of Birth</label>
-                <input type="date" name="dateOfBirth" class="form-control form-control-sm" id="dateOfBirth">
+                <label for="serialNo">Serial No</label>
+                <input type="text" name="Serial_No" class="form-control form-control-sm" id="serialNo"
+                    placeholder="Enter Serial No">
             </div>
         </div>
 
-        <!-- Gender -->
+        <!-- Processor Type -->
         <div class="col-md-6">
             <div class="form-group">
-                <label for="gender">Gender</label>
-                <select class="form-control form-control-sm" id="gender" name="gender">
-                    <option value="" disabled selected>Select Gender</option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                    <option value="Other">Other</option>
-                </select>
+                <label for="processorType">Processor Type</label>
+                <input type="text" name="Processor_Type" class="form-control form-control-sm" id="processorType"
+                    placeholder="Enter Processor Type">
             </div>
         </div>
     </div>
 
     <div class="row">
-        <!-- Contact Number -->
+        <!-- RAM (GB) -->
         <div class="col-md-6">
             <div class="form-group">
-                <label for="contactNumber">Contact Number</label>
-                <input type="tel" maxlength="10" name="contactNumber" class="form-control form-control-sm" id="contactNumber"
-                    placeholder="Enter Contact Number">
+                <label for="ramGb">RAM (GB)</label>
+                <input type="number" name="RAM_GB" class="form-control form-control-sm" id="ramGb"
+                    placeholder="Enter RAM in GB">
             </div>
         </div>
 
-        <!-- Personal Email -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="personalEmail">Personal Email</label>
-                <input type="email" name="personalEmail" class="form-control form-control-sm" id="personalEmail"
-                    placeholder="Enter Personal Email">
-            </div>
-        </div>
+        <!-- HDD (GB/TB) -->
+         <div class="col-md-6">
+  <div class="form-group">
+    <label for="storage" class="form-label">HDD (GB/TB)</label>
+    <div class="d-flex">
+      <input type="number" 
+             name="HDD_GB_TB" 
+             class="form-control form-control-sm no-radius-end" 
+             id="storage" 
+             placeholder="Enter value" 
+             min="1" 
+             step="1" 
+             required>
+      <select name="storageUnit" class="form-select form-select-sm no-radius-start bg-light text-dark" style="max-width: 90px;">
+        <option value="GB">GB</option>
+        <option value="TB">TB</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+
+
+
     </div>
 
     <div class="row">
-        <!-- Emergency Contact Name -->
+        <!-- Graphics -->
         <div class="col-md-6">
             <div class="form-group">
-                <label for="emergencyContactName">Emergency Contact Name</label>
-                <input type="text" name="emergencyContactName" class="form-control form-control-sm" id="emergencyContactName"
-                    placeholder="Enter Emergency Contact Name">
+                <label for="graphics">Graphics</label>
+                <input type="text" name="Graphics" class="form-control form-control-sm" id="graphics"
+                    placeholder="Enter Graphics Info">
             </div>
         </div>
 
-        <!-- Emergency Contact Number -->
+        <!-- OS Type -->
         <div class="col-md-6">
             <div class="form-group">
-                <label for="emergencyContactNumber">Emergency Contact Number</label>
-                <input type="tel" maxlength="10" name="emergencyContactNumber" class="form-control form-control-sm" id="emergencyContactNumber"
-                    placeholder="Enter Emergency Contact Number">
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <!-- Permanent Address -->
-        <div class="col-md-12">
-            <div class="form-group">
-                <label for="permanentAddress">Permanent Address</label>
-                <textarea class="form-control form-control-sm" id="permanentAddress" maxlength="255" name="permanentAddress" rows="2"
-                    placeholder="Enter Permanent Address"></textarea>
+                <label for="osType">OS Type</label>
+                <input type="text" name="OS_Type" class="form-control form-control-sm" id="osType"
+                    placeholder="Enter Operating System">
             </div>
         </div>
     </div>
 
     <hr>
-    <!-- Work Details -->
+    <!-- Networking Details -->
     <div class="row">
-        <!-- Date of Joining -->
+        <!-- Host Name -->
         <div class="col-md-6">
             <div class="form-group">
-                <label for="dateOfJoining">Date of Joining</label>
-                <input type="date" name="dateOfJoining" class="form-control form-control-sm" id="dateOfJoining">
+                <label for="hostName">Host Name</label>
+                <input type="text" name="Host_Name" class="form-control form-control-sm" id="hostName"
+                    placeholder="Enter Host Name">
             </div>
         </div>
 
-        <!-- Work Location -->
+        <!-- IP Address -->
         <div class="col-md-6">
             <div class="form-group">
-                <label for="workLocation">Work Location<span class="text-danger">*</span></label>
-                <input type="text" class="form-control form-control-sm" id="workLocation" name="workLocation" required>
+                <label for="ipAddress">IP Address</label>
+                <input type="text" name="IP_Address" class="form-control form-control-sm" id="ipAddress"
+                    placeholder="Enter IP Address">
             </div>
         </div>
     </div>
 
     <div class="row">
+        <!-- MAC Address -->
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="macAddress">MAC Address</label>
+                <input type="text" name="MAC_Address" class="form-control form-control-sm" id="macAddress"
+                    placeholder="Enter MAC Address">
+            </div>
+        </div>
+    </div>
+
+    <hr>
+    <!-- Purchase / Vendor Details -->
+    <div class="row">
+        <!-- Project No -->
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="projectNo">Project No</label>
+                <input type="text" name="Project_No" class="form-control form-control-sm" id="projectNo"
+                    placeholder="Enter Project No">
+            </div>
+        </div>
+
+        <!-- PO No -->
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="poNo">PO No</label>
+                <input type="text" name="PO_No" class="form-control form-control-sm" id="poNo"
+                    placeholder="Enter PO No">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- PO Date -->
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="poDate">PO Date</label>
+                <input type="date" name="PO_Date" class="form-control form-control-sm" id="poDate">
+            </div>
+        </div>
+
+        <!-- Vendor Name -->
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="vendorName">Vendor Name</label>
+                <input type="text" name="Vendor_Name" class="form-control form-control-sm" id="vendorName"
+                    placeholder="Enter Vendor Name">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Invoice No -->
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="invoiceNo">Invoice No</label>
+                <input type="text" name="Invoice_No" class="form-control form-control-sm" id="invoiceNo"
+                    placeholder="Enter Invoice No">
+            </div>
+        </div>
+
+        <!-- Invoice Date -->
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="invoiceDate">Invoice Date</label>
+                <input type="date" name="Invoice_Date" class="form-control form-control-sm" id="invoiceDate">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- SRB -->
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="srb">SRB</label>
+                <input type="text" name="SRB" class="form-control form-control-sm" id="srb"
+                    placeholder="Enter SRB No">
+            </div>
+        </div>
+
         <!-- Department -->
         <div class="col-md-6">
             <div class="form-group">
-                <label for="department">Department</label>
-                <input type="text" name="department" class="form-control form-control-sm" id="department"
+                <label for="dept">Department</label>
+                <input type="text" name="Dept" class="form-control form-control-sm" id="dept"
                     placeholder="Enter Department">
             </div>
         </div>
-
-        <!-- Designation -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="designation">Designation</label>
-                <input type="text" name="designation" class="form-control form-control-sm" id="designation"
-                    placeholder="Enter Designation">
-            </div>
-        </div>
     </div>
 
     <div class="row">
-        <!-- Employment Type -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="employmentType">Employment Type</label>
-                <select class="form-control form-control-sm" id="employmentType" name="employmentType">
-                    <option value="" disabled selected>Select Employment Type</option>
-                    <option value="Full-Time">Full-Time</option>
-                    <option value="Part-Time">Part-Time</option>
-                    <option value="Contract">Contract</option>
-                    <option value="Intern">Intern</option>
-                </select>
-            </div>
-        </div>
-
-        <!-- Reporting Manager -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="reportingManager">Reporting Manager</label>
-                <input type="text" name="reportingManager" class="form-control form-control-sm" id="reportingManager"
-                    placeholder="Enter Reporting Manager Name">
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <!-- Highest Qualification -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="highestQualification">Highest Educational Qualification</label>
-                <input type="text" name="highestQualification" class="form-control form-control-sm" id="highestQualification"
-                    placeholder="Enter Highest Qualification">
-            </div>
-        </div>
-
-        <!-- Specialization -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="specialization">Specialization</label>
-                <input type="text" name="specialization" class="form-control form-control-sm" id="specialization"
-                    placeholder="Enter Specialization">
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <!-- Previous Company -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="previousCompany">Previous Company</label>
-                <input type="text" name="previousCompany" class="form-control form-control-sm" id="previousCompany"
-                    placeholder="Enter Previous Company">
-            </div>
-        </div>
-
-        <!-- Total Years of Experience -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="experience">Total Years of Experience</label>
-                <input type="number" name="experience" class="form-control form-control-sm" id="experience"
-                    placeholder="Enter Years of Experience">
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <!-- LinkedIn/GitHub -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="portfolio">LinkedIn / GitHub / Portfolio Link</label>
-                <input type="url" name="portfolio" class="form-control form-control-sm" id="portfolio"
-                    placeholder="Enter Profile Link">
-            </div>
-        </div>
-
-        <!-- Office Assets -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="officeAssets">Office Assets</label>
-                <textarea class="form-control form-control-sm" id="officeAssets" name="officeAssets" rows="2"
-                    placeholder="Enter Office Assets (Laptop/Desktop/iPad etc.)"></textarea>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <!-- Official Email -->
+        <!-- Remarks -->
         <div class="col-md-12">
             <div class="form-group">
-                <label for="officialEmail">Official Email Address</label>
-                <input type="email" name="officialEmail" class="form-control form-control-sm" id="officialEmail"
-                    placeholder="Enter Official Email Address">
+                <label for="remarks">Remarks</label>
+                <textarea class="form-control form-control-sm" id="remarks" name="Remarks" rows="2"
+                    placeholder="Enter Remarks"></textarea>
             </div>
         </div>
     </div>
 </form>
 
+
+
                                                                     </div>
+
+                                                                    <!-- model Footer -->
+                                                                    <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-danger" data-dismiss="modal" id="exitButton">Exit</button>
+                                                                    <button type="submit" class="btn btn-success" id="add_laptop_btn" data-dismiss="modal">Submit Laptop</button>
+                                                                    </div> 
                                                         
                                                                     <!-- Modal Footer -->
                                                                     
                                                                 </div>
  
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-danger" data-dismiss="modal" id="exitButton">Exit</button>
-                                                                    <button type="submit" class="btn btn-success" id="add_staff_btn" data-dismiss="modal">Submit</button>
-                                                                </div>  
+ 
                                                                </div>
                                                             </div>
                                                         </div>
@@ -706,238 +635,244 @@
             <div class="tab-pane fade show active " id="tab4">
              <!-- Modal Body -->
              <div class="modal-body">
-                 <form id="update-staff-form">
-    <div class="row">
-        <!-- Employee ID -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="employeeId">Employee ID<span class="text-danger">*</span></label>
-                <input type="text" name="employeeId" maxlength="20" class="form-control form-control-sm" id="employeeId"
-                    placeholder="Enter Employee ID" required>
-            </div>
-        </div>
-
-        <!-- Staff Name -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="staffName">Staff Name<span class="text-danger">*</span></label>
-                <input type="text" name="staffName" maxlength="50" class="form-control form-control-sm" id="staffName"
-                    placeholder="Enter Staff Name" required>
-            </div>
-        </div>
+        <form id="update-asset-form">
+  <div class="row">
+    <!-- Asset ID -->
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="assetId">Asset ID<span class="text-danger">*</span></label>
+        <input type="text" name="Asset_ID" maxlength="20" class="form-control form-control-sm" id="assetId"
+               placeholder="Enter Asset ID" required readonly>
+      </div>
     </div>
 
-    <div class="row">
-        <!-- Date of Birth -->
-        <div class="col-md-6">
+    <!-- Category -->
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="category">Category<span class="text-danger">*</span></label>
+        <input type="text" name="Category" maxlength="50" class="form-control form-control-sm" id="category"
+               placeholder="Enter Category" required>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <!-- User Name (Staff ID Select) -->
+             <div class="col-md-6">
             <div class="form-group">
-                <label for="dateOfBirth">Date of Birth</label>
-                <input type="date" name="dateOfBirth" class="form-control form-control-sm" id="dateOfBirth">
+                <label for="userName2">User Name</label>
+               <select id="userName2" name="userName" class="form-control form-control-sm userName" style="width:100%;">
+                <option value="">StaffId</option>
+               </select>
+
             </div>
         </div>
 
-        <!-- Gender -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="gender">Gender</label>
-                <select class="form-control form-control-sm" id="gender" name="gender">
-                    <option value="" disabled selected>Select Gender</option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                    <option value="Other">Other</option>
-                </select>
-            </div>
-        </div>
+    <!-- Model No -->
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="modelNo">Model No</label>
+        <input type="text" name="Model_No" class="form-control form-control-sm" id="modelNo"
+               placeholder="Enter Model No">
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <!-- Serial No -->
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="serialNo">Serial No</label>
+        <input type="text" name="Serial_No" class="form-control form-control-sm" id="serialNo"
+               placeholder="Enter Serial No">
+      </div>
     </div>
 
-    <div class="row">
-        <!-- Contact Number -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="contactNumber">Contact Number</label>
-                <input type="tel" maxlength="10" name="contactNumber" class="form-control form-control-sm" id="contactNumber"
-                    placeholder="Enter Contact Number">
-            </div>
-        </div>
+    <!-- Processor Type -->
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="processorType">Processor Type</label>
+        <input type="text" name="Processor_Type" class="form-control form-control-sm" id="processorType"
+               placeholder="Enter Processor Type">
+      </div>
+    </div>
+  </div>
 
-        <!-- Personal Email -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="personalEmail">Personal Email</label>
-                <input type="email" name="personalEmail" class="form-control form-control-sm" id="personalEmail"
-                    placeholder="Enter Personal Email">
-            </div>
-        </div>
+  <div class="row">
+    <!-- RAM -->
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="ramGb">RAM (GB)</label>
+        <input type="number" name="RAM_GB" class="form-control form-control-sm" id="ramGb"
+               placeholder="Enter RAM in GB">
+      </div>
     </div>
 
-    <div class="row">
-        <!-- Emergency Contact Name -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="emergencyContactName">Emergency Contact Name</label>
-                <input type="text" name="emergencyContactName" class="form-control form-control-sm" id="emergencyContactName"
-                    placeholder="Enter Emergency Contact Name">
-            </div>
+    <!-- HDD / Storage -->
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="storage">HDD (GB/TB)</label>
+        <div class="d-flex">
+          <input type="number" 
+                 name="HDD_GB_TB" 
+                 class="form-control form-control-sm no-radius-end" 
+                 id="storage" 
+                 placeholder="Enter value" 
+                 min="1" 
+                 step="1">
+          <select name="storageUnit" class="form-select form-select-sm no-radius-start bg-light text-dark" style="max-width: 90px;">
+            <option value="GB">GB</option>
+            <option value="TB">TB</option>
+          </select>
         </div>
+      </div>
+    </div>
+  </div>
 
-        <!-- Emergency Contact Number -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="emergencyContactNumber">Emergency Contact Number</label>
-                <input type="tel" maxlength="10" name="emergencyContactNumber" class="form-control form-control-sm" id="emergencyContactNumber"
-                    placeholder="Enter Emergency Contact Number">
-            </div>
-        </div>
+  <div class="row">
+    <!-- Graphics -->
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="graphics">Graphics</label>
+        <input type="text" name="Graphics" class="form-control form-control-sm" id="graphics"
+               placeholder="Enter Graphics Info">
+      </div>
     </div>
 
-    <div class="row">
-        <!-- Permanent Address -->
-        <div class="col-md-12">
-            <div class="form-group">
-                <label for="permanentAddress">Permanent Address</label>
-                <textarea class="form-control form-control-sm" id="permanentAddress" maxlength="255" name="permanentAddress" rows="2"
-                    placeholder="Enter Permanent Address"></textarea>
-            </div>
-        </div>
+    <!-- OS Type -->
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="osType">OS Type</label>
+        <input type="text" name="OS_Type" class="form-control form-control-sm" id="osType"
+               placeholder="Enter Operating System">
+      </div>
+    </div>
+  </div>
+
+  <hr>
+  <!-- Networking Details -->
+  <div class="row">
+    <!-- Host Name -->
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="hostName">Host Name</label>
+        <input type="text" name="Host_Name" class="form-control form-control-sm" id="hostName"
+               placeholder="Enter Host Name">
+      </div>
     </div>
 
-    <hr>
-    <!-- Work Details -->
-    <div class="row">
-        <!-- Date of Joining -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="dateOfJoining">Date of Joining</label>
-                <input type="date" name="dateOfJoining" class="form-control form-control-sm" id="dateOfJoining">
-            </div>
-        </div>
+    <!-- IP Address -->
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="ipAddress">IP Address<span class="text-danger">*</span></label>
+        <input type="text" name="IP_Address" class="form-control form-control-sm" id="ipAddress"
+               placeholder="Enter IP Address" required>
+      </div>
+    </div>
+  </div>
 
-        <!-- Work Location -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="workLocation">Work Location<span class="text-danger">*</span></label>
-                <input type="text" name="workLocation" class="form-control form-control-sm" id="workLocation">
-            </div>
-        </div>
+  <div class="row">
+    <!-- MAC Address -->
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="macAddress">MAC Address</label>
+        <input type="text" name="MAC_Address" class="form-control form-control-sm" id="macAddress"
+               placeholder="Enter MAC Address">
+      </div>
+    </div>
+  </div>
+
+  <hr>
+  <!-- Purchase / Vendor Details -->
+  <div class="row">
+    <!-- Project No -->
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="projectNo">Project No</label>
+        <input type="text" name="Project_No" class="form-control form-control-sm" id="projectNo"
+               placeholder="Enter Project No">
+      </div>
     </div>
 
-    <div class="row">
-        <!-- Department -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="department">Department</label>
-                <input type="text" name="department" class="form-control form-control-sm" id="department"
-                    placeholder="Enter Department">
-            </div>
-        </div>
+    <!-- PO No -->
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="poNo">PO No</label>
+        <input type="text" name="PO_No" class="form-control form-control-sm" id="poNo"
+               placeholder="Enter PO No">
+      </div>
+    </div>
+  </div>
 
-        <!-- Designation -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="designation">Designation</label>
-                <input type="text" name="designation" class="form-control form-control-sm" id="designation"
-                    placeholder="Enter Designation">
-            </div>
-        </div>
+  <div class="row">
+    <!-- PO Date -->
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="poDate">PO Date</label>
+        <input type="date" name="PO_Date" class="form-control form-control-sm" id="poDate">
+      </div>
     </div>
 
-    <div class="row">
-        <!-- Employment Type -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="employmentType">Employment Type</label>
-                <select class="form-control form-control-sm" id="employmentType" name="employmentType">
-                    <option value="" disabled selected>Select Employment Type</option>
-                    <option value="Contract - Full-time">Full-Time</option>
-                    <option value="Contract - Part-time">Part-Time</option>
-                    <option value="Contract">Contract</option>
-                    <option value="Intern">Intern</option>
-                </select>
-            </div>
-        </div>
+    <!-- Vendor Name -->
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="vendorName">Vendor Name</label>
+        <input type="text" name="Vendor_Name" class="form-control form-control-sm" id="vendorName"
+               placeholder="Enter Vendor Name">
+      </div>
+    </div>
+  </div>
 
-        <!-- Reporting Manager -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="reportingManager">Reporting Manager</label>
-                <input type="text" name="reportingManager" class="form-control form-control-sm" id="reportingManager"
-                    placeholder="Enter Reporting Manager Name">
-            </div>
-        </div>
+  <div class="row">
+    <!-- Invoice No -->
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="invoiceNo">Invoice No</label>
+        <input type="text" name="Invoice_No" class="form-control form-control-sm" id="invoiceNo"
+               placeholder="Enter Invoice No">
+      </div>
     </div>
 
-    <div class="row">
-        <!-- Highest Qualification -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="highestQualification">Highest Educational Qualification</label>
-                <input type="text" name="highestQualification" class="form-control form-control-sm" id="highestQualification"
-                    placeholder="Enter Highest Qualification">
-            </div>
-        </div>
+    <!-- Invoice Date -->
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="invoiceDate">Invoice Date</label>
+        <input type="date" name="Invoice_Date" class="form-control form-control-sm" id="invoiceDate">
+      </div>
+    </div>
+  </div>
 
-        <!-- Specialization -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="specialization">Specialization</label>
-                <input type="text" name="specialization" class="form-control form-control-sm" id="specialization"
-                    placeholder="Enter Specialization">
-            </div>
-        </div>
+  <div class="row">
+    <!-- SRB -->
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="srb">SRB</label>
+        <input type="text" name="SRB" class="form-control form-control-sm" id="srb"
+               placeholder="Enter SRB No">
+      </div>
     </div>
 
-    <div class="row">
-        <!-- Previous Company -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="previousCompany">Previous Company</label>
-                <input type="text" name="previousCompany" class="form-control form-control-sm" id="previousCompany"
-                    placeholder="Enter Previous Company">
-            </div>
-        </div>
-
-        <!-- Total Years of Experience -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="experience">Total Years of Experience</label>
-                <input type="text" name="experience" class="form-control form-control-sm" id="experience"
-                    placeholder="Enter Years of Experience">
-            </div>
-        </div>
+    <!-- Department -->
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="dept">Department</label>
+        <input type="text" name="Dept" class="form-control form-control-sm" id="dept"
+               placeholder="Enter Department">
+      </div>
     </div>
+  </div>
 
-    <div class="row">
-        <!-- LinkedIn/GitHub -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="portfolio">LinkedIn / GitHub / Portfolio Link</label>
-                <input type="url" name="portfolio" class="form-control form-control-sm" id="portfolio"
-                    placeholder="Enter Profile Link">
-            </div>
-        </div>
-
-        <!-- Office Assets -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="officeAssets">Office Assets</label>
-                <textarea class="form-control form-control-sm" id="officeAssets" name="officeAssets" rows="2"
-                    placeholder="Enter Office Assets (Laptop/Desktop/iPad etc.)"></textarea>
-            </div>
-        </div>
+  <div class="row">
+    <!-- Remarks -->
+    <div class="col-md-12">
+      <div class="form-group">
+        <label for="remarks">Remarks</label>
+        <textarea class="form-control form-control-sm" id="remarks" name="Remarks" rows="2"
+                  placeholder="Enter Remarks"></textarea>
+      </div>
     </div>
-
-    <div class="row">
-        <!-- Official Email -->
-        <div class="col-md-12">
-            <div class="form-group">
-                <label for="officialEmail">Official Email Address</label>
-                <input type="email" name="officialEmail" class="form-control form-control-sm" id="officialEmail"
-                    placeholder="Enter Official Email Address">
-            </div>
-        </div>
-    </div>
+  </div>
 </form>
-
              </div>
         </div>
 
@@ -949,7 +884,7 @@
          <!-- Modal Footer -->
          <div class="modal-footer">
              <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal" id="exitButton2">Exit</button>
-             <button type="button" id="update_staff_btn" class="btn btn-success btn-sm writeElement">Update</button>
+             <button type="button" id="update_laptop_btn" class="btn btn-success btn-sm writeElement">Update</button>
          </div>
      
  </div>
@@ -965,7 +900,7 @@
                                                                 class="btn btn-primary addNewRecord writeElement d-flex align-items-center gap-2 px-sm-4 py-sm-2 rounded-pill shadow"
                                                                 data-toggle="modal" data-target="#addNewModal">
                                                                 <i class="ti-plus text-white fs-5"></i>
-                                                                <span class="fw-bold">Add New Staff</span>
+                                                                <span class="fw-bold">Add New Laptops</span>
                                                             </button>
                                                         </div>
 
@@ -1010,12 +945,12 @@
                                                                     class="table table-striped rounded table-hover">
                                                                     <thead class="bg-primary text-white text-center">
                                                                         <tr>
-                                                                            <th>Employee Id</th>
-                                                                            <th>Staff Name</th>
+                                                                            <th>Serial No</th>
+                                                                            <th>Asset ID</th>
+                                                                            <th>Category</th>
+                                                                            <th>Vendor Name</th>
+                                                                            <th>User Name</th>
                                                                             <th>Department</th>
-                                                                            <th>Designation</th>
-                                                                            <th>Contact Number</th>
-                                                                            <th>Work Locationr</th>
                                                                             <th>Action</th>
                                                                             <!-- <th>Actions</th> -->
                                                                              <th>Update</th>
@@ -1055,6 +990,9 @@
 
         </div>
     </div>
+
+
+    
     <script src="assets/js/roleUtil.js"></script>
 
   <!-- Required jQuery -->
@@ -1105,7 +1043,7 @@
 <script src="assets/js/popup.js"></script>
 <script src="./assets/js/api.js"></script>
 <script src="./assets/js/apiRequests.js"></script>
-<script src="assets/js/staffs.js"></script>
+<script src="assets/js/laptops.js"></script>
 <script type="text/javascript" src="assets/js/script.js"></script>
 
 
@@ -1166,6 +1104,69 @@
     });
 
 </script>
+
+<script>
+    // Show/Hide "Other" input dynamically
+    document.getElementById("category").addEventListener("change", function () {
+        let otherDiv = document.getElementById("otherCategoryDiv");
+        if (this.value === "Other") {
+            otherDiv.style.display = "block";
+        } else {
+            otherDiv.style.display = "none";
+            document.getElementById("otherCategory").value = "";
+        }
+    });
+</script>
+
+<script>
+$(document).ready(function () {
+    // Load staff and populate dropdown
+    api.getstaffid()
+        .then(staffList => {
+            staffList.forEach(staff => {
+                $('.userName').append(
+                    $('<option>', { value: `${staff.id} - ${staff.name}`, text: `${staff.id}-${staff.name}` })
+                );
+            });
+
+            // Initialize Select2
+            $('.userName').select2({
+                placeholder: 'Select Staff ID',
+                allowClear: true,
+                width: '100%'
+            });
+        })
+        .catch(error => {
+            console.error('Error loading staff:', error);
+        });
+
+    // Prevent Select2 dropdown clicks from bubbling
+    $('.userName').on('select2:open select2:closing', function(event) {
+        event.stopPropagation();
+    });
+
+    // Prevent regular click on the select from bubbling
+    $('.userName').on('click', function(e){
+        e.stopPropagation();
+    });
+
+
+});
+
+</script>
+
+
+
+
+<!-- Bootstrap + jQuery + Select2 -->
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<!-- Bootstrap + jQuery + Select2 -->
+
+
+
+
     <script src="assets/js/sweetAlert.js"></script>
 </body>
 

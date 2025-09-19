@@ -58,7 +58,7 @@ const moduleMaps={
     'IIT STAFF': ['employeeDashboard','staffs'],
     'INTERNS':['interns'],
     'NEW JOINIES':['talentPool'],
-    'ASSETS':['assets']
+    'ASSETS':['assetsDashboard','laptops','desktops','server']
 }
 
 
@@ -104,8 +104,8 @@ function getAllowedPages(roleId) {
         const pages = moduleMaps[module] || [];
         for (const page of pages) {
             allowedPages.push({
-                page: "worksphere/" + page,
-                // page: page,
+                // page: "worksphere/" + page,  
+                page: page,
                 permission: permissions[module].permission,
                 module: permissions[module].module  
             });
@@ -332,7 +332,14 @@ function getPageInfo(page) {
         'staffs': { title: 'Staffs', icon: 'ti-bar-chart' },
         'interns':{ title: 'Interns', icon: 'ti-bar-chart' },
         'employeeDashboard':{ title: 'Employee Dashboard', icon: 'ti-bar-chart' },
-        'assets':{ title: 'Assets', icon: 'ti-bar-chart' },
+        'assetsDashboard':{ title: 'Assets Dashboard', icon: 'ti-bar-chart' },
+        'laptops':{ title: 'Laptops', icon: 'ti-bar-chart' },
+        'desktops':{ title: 'Desktops', icon: 'ti-bar-chart' },
+        'server':{ title: 'Server', icon: 'ti-bar-chart' },
+
+
+
+
     };
     
     return pageInfoMap[page];

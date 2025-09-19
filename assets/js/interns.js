@@ -474,7 +474,7 @@ updateInternButton.addEventListener('click', async (e) =>{
             table.clear();
             await fetchAllData();
             handlePermission('#username');
-            showSucessPopupFadeInDownLong(responseData.message);
+            showSucessPopupFadeInDownLong(responseData.message );
         } catch (error) {
             showErrorPopupFadeInDown(error.response?.data?.message || 'Failed to add staff. Please try again later.');
         }

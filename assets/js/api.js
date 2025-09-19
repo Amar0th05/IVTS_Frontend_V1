@@ -117,6 +117,13 @@ toggleIITStaffStatus:`/staffs/all/status/`,
     uploadDocument:(personId, docName)=>`/talentpool/${personId}/documents/${docName}`,
     checkID:(id)=>`/talentpool/checkID/${id}`,
 
+// Assets
+    //laptop
+    addLaptops:`/assets/Laptops/add`,
+    toggleLaptopStatus:`/assets/Laptops/status/`,
+    getAllAssets: `/Assets`,
+    getAssets:(id)=>`/Assets/${id}`,
+    getstaffid: `/Assets/getstaff`,
 };
 
 
