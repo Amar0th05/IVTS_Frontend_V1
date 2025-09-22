@@ -1,0 +1,360 @@
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #255099 0%, #EEF5F7 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Floating shapes animation */
+        .floating-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.08;
+            animation: float 15s infinite ease-in-out, fade 6s infinite alternate;
+        }
+
+        .circle {
+            width: 80px;
+            height: 80px;
+            background: #EEF5F7;
+            top: 15%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .square {
+            width: 60px;
+            height: 60px;
+            background: #152762;
+            top: 70%;
+            left: 80%;
+            border-radius: 10px;
+            animation-delay: 2s;
+        }
+
+        .triangle {
+            width: 0;
+            height: 0;
+            border-left: 40px solid transparent;
+            border-right: 40px solid transparent;
+            border-bottom: 70px solid #152762;
+            background: transparent;
+            top: 30%;
+            left: 85%;
+            animation-delay: 4s;
+            border-radius: 0;
+        }
+
+        .circle2 {
+            width: 100px;
+            height: 100px;
+            background: #152762;
+            top: 75%;
+            left: 15%;
+            animation-delay: 6s;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-20px) rotate(10deg);
+            }
+
+            100% {
+                transform: translateY(0) rotate(0deg);
+            }
+        }
+
+        @keyframes fade {
+            0% {
+                opacity: 0.04;
+            }
+
+            100% {
+                opacity: 0.12;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .floating-shapes {
+                opacity: 0.03;
+            }
+
+            .floating-shapes .shape {
+                transform: scale(0.6);
+            }
+        }
+
+        .container {
+            display: flex;
+            width: 100%;
+            max-width: 1000px;
+            min-height: 600px;
+            background: #fff;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+            z-index: 10;
+        }
+
+        .left-column {
+            flex: 1;
+            background: linear-gradient(to bottom right, #448AFF, #0f1b4a);
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .left-column::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(-45deg);
+            top: -50%;
+            left: -50%;
+        }
+
+        .illustration {
+            /* width: 100%;term */
+            max-width: 520px;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .left-content {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .left-content h2 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .left-content p {
+            font-size: 16px;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        .right-column {
+            flex: 1;
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo img {
+            max-width: 120px;
+            margin-bottom: 15px;
+        }
+
+        .logo h1 {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(to bottom right, #448AFF, #0f1b4a);
+            -webkit-background-clip: text;
+            /* Needed for Chrome, Safari, Edge */
+            -webkit-text-fill-color: transparent;
+            /* Makes text transparent to show gradient */
+            background-clip: text;
+            /* Standard property */
+            color: transparent;
+            /* Fallback */
+        }
+
+
+        .logo p {
+            color: #64748b;
+            margin-top: 8px;
+            font-size: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #2c3e50;
+            font-size: 14px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: #152762;
+            box-shadow: 0 0 0 3px rgba(21, 39, 98, 0.15);
+            outline: none;
+        }
+
+        .password-wrapper {
+            position: relative;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #94a3b8;
+            background: none;
+            border: none;
+            font-size: 18px;
+        }
+
+        .options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .remember {
+            display: flex;
+            align-items: center;
+        }
+
+        .remember input {
+            margin-right: 8px;
+        }
+
+        .forgot-password {
+            color: #152762;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+
+        .btn-login {
+            background: linear-gradient(to right, #152762, #0f1b4a);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+            box-shadow: 0 4px 15px rgba(21, 39, 98, 0.3);
+        }
+
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 20px rgba(21, 39, 98, 0.4);
+        }
+
+        .signup-link {
+            text-align: center;
+            margin-top: 30px;
+            color: #1d64c7;
+            font-size: 15px;
+        }
+
+        .signup-link a {
+            color: #152762;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 900px) {
+            .container {
+                flex-direction: column;
+                max-width: 500px;
+            }
+
+            .left-column {
+                padding: 30px;
+                display: none;
+                /* Hide left column on smaller screens */
+            }
+
+            .right-column {
+                padding: 40px 30px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .right-column {
+                padding: 30px 20px;
+            }
+
+            .options {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .forgot-password {
+                margin-top: 10px;
+            }
+        }
+.login-link{
+    margin-top: 10px;
+}

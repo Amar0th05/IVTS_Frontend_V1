@@ -1,8 +1,4 @@
 
-document.getElementById('logout-button').addEventListener('click',logout);
-function logout(){
-    sessionStorage.removeItem('token');
-}
 
 document.getElementById('staffId-select').addEventListener('change', (e) => {
     const text = e.target.options[e.target.selectedIndex].text;
@@ -49,8 +45,6 @@ async function loadDesignationOptions(id) {
         console.error("Error loading designation options:", error);
     }
 }
-
-
 
 addLogButton.addEventListener('click', async (e) => {
     
@@ -192,9 +186,6 @@ function addRow(data){
     ]).draw(false);
 };
 
-
-
-
 async function fetchAllData() {
     try {
        const data=await api.getAllContractLogs();
@@ -227,56 +218,7 @@ async function fetchAllData() {
     }
 }
 
-
-
 document.addEventListener('DOMContentLoaded',async ()=>{
-    roles = await axiosInstance.get('/roles/role/perms');
-    roles = roles.data.roles;
-    // console.log(roles);
-    window.roles = roles;
-    handlePermission('#username');
-
-    const sidebarContainer = document.getElementById('sidebar-container');
-    if (sidebarContainer) {
-        sidebarContainer.innerHTML = generateSidebar();
-        
-        // Set the current page as active
-        const currentPage = window.location.pathname.split('/').pop().split('.')[0];
-        const navLinks = document.querySelectorAll('.pcoded-item a');
-        
-        navLinks.forEach(link => {
-            if (link.getAttribute('href').includes(currentPage)) {
-                link.parentElement.classList.add('active');
-                
-                // Expand the parent accordion
-                const accordionContent = link.closest('.accordion-content');
-                if (accordionContent) {
-                    accordionContent.style.display = 'block';
-                    const header = accordionContent.previousElementSibling;
-                    const icon = header.querySelector('.accordion-icon');
-                    if (icon) {
-                        icon.classList.remove('fa-chevron-down');
-                        icon.classList.add('fa-chevron-up');
-                    }
-                }
-            }
-        });
-    }
-
-    // const token=sessionStorage.getItem('token');
-    // const user=JSON.parse(sessionStorage.getItem('user'));
-    // if(!token||!user){
-    //     window.location.href = 'login.html';
-    //     return;
-    // }else if(user.role===2){
-    //     window.location.href = 'user-details.html';
-    //     return;
-    // }
-
-
-    // document.getElementById('username').innerText=user.name;
-    // document.getElementById('more-details').innerText=user.name;
-
     await loadStaffOptions('staffId-select');
     await loadDesignationOptions('designationSelect');
     
@@ -362,8 +304,6 @@ document.getElementById('update-staffId').addEventListener('change', (e) => {
     const match = text.match(/\((.*?)\)/);
     document.getElementById('update-staffName').value = match ? match[1] : '';
  });
-
- 
  document.getElementById('update-basicPay').addEventListener('input',updateGrossPay);
  document.getElementById('update-allowance').addEventListener('input',updateGrossPay);
 
@@ -411,4 +351,31 @@ document.getElementById('update-staffId').addEventListener('change', (e) => {
     }
 
     return errors.length === 0;
+}
+
+$(document).ready(async function () {
+    var table = $('#myTable').DataTable({
+        "paging": true,
+        "pageLength": 25,
+        "lengthMenu": [5, 10, 25, 50, 100],
+        dom: '<"top"l>frtip',
+        buttons: ['excel', 'csv', 'pdf']
+    });
+
+    table.buttons().container().appendTo($('#exportButtons'));
+    $('#designationFilter').on('change', function () {
+        const selectedDesignation = $(this).val();
+        table.column(6).search(selectedDesignation ? '^' + selectedDesignation + '$' : '', true, false).draw();
+    });
+    $('#staffIdFilter').on('change', function () {
+        const selectedStaffId = $(this).val();
+        table.column(0).search(selectedStaffId ? '^' + selectedStaffId + '$' : '', true, false).draw();
+    });
+});
+document.getElementById('basicPay').addEventListener('input', updateGrossPay);
+document.getElementById('allowance').addEventListener('input', updateGrossPay);
+function updateGrossPay() {
+    let basicPay = parseFloat(document.getElementById('basicPay').value) || 0.0;
+    let allowance = parseFloat(document.getElementById('allowance').value) || 0.0;
+    document.getElementById('grossPay').value = (basicPay + allowance).toFixed(2);
 }

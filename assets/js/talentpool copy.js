@@ -1,8 +1,3 @@
-// ================== Logout ==================
-document.getElementById('logout-button').addEventListener('click', () => {
-    sessionStorage.removeItem('token');
-    window.location.href = 'login.html';
-});
 
 // ================== Global variables ==================
 let table;
@@ -10,44 +5,7 @@ let decidedPermission = '';
 
 // ================== On DOM Load ==================
 document.addEventListener('DOMContentLoaded',async ()=>{
-
-    roles = await axiosInstance.get('/roles/role/perms');
-    roles = roles.data.roles;
-    // console.log(roles);
-    window.roles = roles;
-    handlePermission('#username');
-
-
-    const sidebarContainer = document.getElementById('sidebar-container');
-    if (sidebarContainer) {
-        sidebarContainer.innerHTML = generateSidebar();
-        
-       
-        const currentPage = window.location.pathname.split('/').pop().split('.')[0];
-        const navLinks = document.querySelectorAll('.pcoded-item a');
-        
-        navLinks.forEach(link => {
-            if (link.getAttribute('href').includes(currentPage)) {
-                link.parentElement.classList.add('active');
-                
-            
-                const accordionContent = link.closest('.accordion-content');
-                if (accordionContent) {
-                    accordionContent.style.display = 'block';
-                    const header = accordionContent.previousElementSibling;
-                    const icon = header.querySelector('.accordion-icon');
-                    if (icon) {
-                        icon.classList.remove('fa-chevron-down');
-                        icon.classList.add('fa-chevron-up');
-                    }
-                }
-            }
-        });
-    }
-
-    
 await fetchAllData();
-    
     handlePermission('#username');
 });
 
@@ -406,6 +364,39 @@ async function fetchDataAndGenerateExcel() {
         showErrorPopupFadeInDown("Can't download talentpool details.");
     }
 }
+// ================== Export Button Listeners ==================
+
+   $(document).ready(function () {
+       const datatable = $('#myTable').DataTable({
+           "paging": true,
+           "pageLength": 25,
+           "lengthMenu": [5, 10, 25, 50, 100],
+           dom: '<"top"l>frtip',
+           buttons: ['excel', 'csv', 'pdf']
+       });
+       datatable.buttons().container().appendTo($('#exportButtons'));
+
+        const selectedCategory = $(this).val();
+        if (selectedCategory) {
+            datatable.column(1).search(selectedCategory).draw();
+        } else {
+            datatable.column(1).search('').draw(); 
+        }
+    });
+// ================== Add New Person Button ==================
+    document.querySelector('#addNew').addEventListener('click', function () {
+        document.querySelector('#tab').classList.remove('d-none');
+        document.querySelector('#tableCard').style.display = 'none';
+        document.querySelector('#exitButton').addEventListener('click',function(){
+            document.querySelector('#tab').classList.add('d-none');
+            document.querySelector('#tableCard').style.display = 'block';
+        });
+    });
+// ================== Exit Button ==================
+ document.querySelector('#exitButton1').addEventListener('click',function(){
+            document.querySelector('#tab').classList.add('d-none');
+            document.querySelector('#tableCard').style.display = 'block';
+        });
 
 
 

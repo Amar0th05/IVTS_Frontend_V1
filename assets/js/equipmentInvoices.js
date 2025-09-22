@@ -103,54 +103,6 @@ document.querySelector('#submit-btn').addEventListener('click', async (event) =>
 });
 
 document.addEventListener('DOMContentLoaded', async function () {
-    roles = await axiosInstance.get('/roles/role/perms');
-    roles = roles.data.roles;
-    // console.log(roles);
-    window.roles = roles;
-
-    handlePermission('#username');
-
-
-    const sidebarContainer = document.getElementById('sidebar-container');
-    if (sidebarContainer) {
-        sidebarContainer.innerHTML = generateSidebar();
-        
-        // Set the current page as active
-        const currentPage = window.location.pathname.split('/').pop().split('.')[0];
-        const navLinks = document.querySelectorAll('.pcoded-item a');
-        
-        navLinks.forEach(link => {
-            if (link.getAttribute('href').includes(currentPage)) {
-                link.parentElement.classList.add('active');
-                
-                // Expand the parent accordion
-                const accordionContent = link.closest('.accordion-content');
-                if (accordionContent) {
-                    accordionContent.style.display = 'block';
-                    const header = accordionContent.previousElementSibling;
-                    const icon = header.querySelector('.accordion-icon');
-                    if (icon) {
-                        icon.classList.remove('fa-chevron-down');
-                        icon.classList.add('fa-chevron-up');
-                    }
-                }
-            }
-        });
-    }
-
-    // const token = sessionStorage.getItem('token');
-    // const user = JSON.parse(sessionStorage.getItem('user'));
-    // if (!token || !user) {
-    //     window.location.href = 'login.html';
-    //     return;
-    // }
-    // if(user.role===2){
-    //     window.location.href = 'user-details.html';
-    //     return;
-    // }
-
-    // document.getElementById('username').innerText = user.name;  
-
     await loadOrganisationOptions('port');
     initializeDataTables();
     await refreshEquipmentInvoiceTable();
@@ -263,11 +215,6 @@ function formatDateForMSSQL(date) {
     return d.toISOString().slice(0, 10);
 }
 
-$('#logout-button').on('click', function () {
-    sessionStorage.removeItem('token');
-    sessionStorage.removeItem('user');
-    window.location.href = 'login.html';
-});
 
 
 
@@ -382,3 +329,32 @@ async function updateInvoice(id, column, value) {
     
     
 }
+    $(document).ready(function () {
+        const datatable=$('#equipmentInvoiceTable').DataTable({
+            "paging": true,
+            "pageLength": 25,
+            "lengthMenu": [5, 10, 25, 50, 100],
+            dom: '<"top"l>frtip',
+            buttons: ['excel', 'csv', 'pdf']
+        });
+        const equipmentInvoiceModalTable=$('#equipmentInvoiceModalTable').DataTable({
+            "paging": true,
+            "pageLength": 25,
+            "lengthMenu": [5, 10, 25, 50, 100],
+            dom: '<"top"l>frtip',
+            buttons: ['excel', 'csv', 'pdf']
+        });
+        
+
+          
+       
+        datatable.buttons().container().appendTo($('#exportButtons'));
+        equipmentInvoiceModalTable.buttons().container().appendTo($('#equipmentInvoiceModalExportButtons'));
+    });
+    $('#invoiceAmount, #gst').on('input', function () {
+        let invoiceAmount = Math.max(parseFloat($('#invoiceAmount').val()) || 0, 0);
+        let gst = Math.max(parseFloat($('#gst').val()) || 0, 0);
+        $('#invoiceAmount').val(invoiceAmount);
+        $('#gst').val(gst);
+        $('#totalInvoiceAmount').val(invoiceAmount + gst);
+    });
