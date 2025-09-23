@@ -2,49 +2,41 @@
 <html lang="en">
 
 <head>
-    <title>iVTS-FMS</title>
-    <!-- HTML5 Shim and Respond.js IE10 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 10]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-      <![endif]-->
-    <!-- Meta -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>iVTS-FMS</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="keywords" content="" />
+  <meta name="author" content="Codedthemes" />
+  <!-- Favicon icon -->
+  <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+  <script src="https://kit.fontawesome.com/1799ed0397.js" crossorigin="anonymous"></script>
 
-    <meta name="keywords" content="" />
-    <meta name="author" content="Codedthemes" />
-    <!-- Favicon icon -->
-    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
-    <!-- Google font-->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
-    <!-- waves.css -->
-    <link rel="stylesheet" href="assets/pages/waves/css/waves.min.css" type="text/css" media="all">
-    <!-- Required Fremwork -->
-    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap/css/bootstrap.min.css">
-    <!-- waves.css -->
-    <link rel="stylesheet" href="assets/pages/waves/css/waves.min.css" type="text/css" media="all">
-    <!-- themify icon -->
-    <link rel="stylesheet" type="text/css" href="assets/icon/themify-icons/themify-icons.css">
-    <!-- font-awesome-n -->
-    <link rel="stylesheet" type="text/css" href="assets/css/font-awesome-n.min.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.min.css">
-    <!-- scrollbar.css -->
-    <link rel="stylesheet" type="text/css" href="assets/css/jquery.mCustomScrollbar.css">
-    <!-- Style.css -->
-    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/custom.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-    
-    <style>
-      .hidden {
-        display: none !important;
-      }
-    </style>
+  <!-- Google font-->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
+  <!-- waves.css -->
+  <link rel="stylesheet" href="assets/pages/waves/css/waves.min.css" type="text/css" media="all">
+  <!-- Required Fremwork -->
+  <link rel="stylesheet" type="text/css" href="assets/css/bootstrap/css/bootstrap.min.css">
+  <!-- waves.css -->
+  <link rel="stylesheet" href="assets/pages/waves/css/waves.min.css" type="text/css" media="all">
+  <!-- themify icon -->
+  <link rel="stylesheet" type="text/css" href="assets/icon/themify-icons/themify-icons.css">
+  <!-- font-awesome-n -->
+  <link rel="stylesheet" type="text/css" href="assets/css/font-awesome-n.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.min.css">
+  <!-- scrollbar.css -->
+  <link rel="stylesheet" type="text/css" href="assets/css/jquery.mCustomScrollbar.css">
+  <!-- Style.css -->
+  <link rel="stylesheet" type="text/css" href="assets/css/style copy.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/custom.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
   <style>
-      .modern-table {
+    .hidden {
+      display: none !important;
+    }
+    .modern-table {
       color: black !important;
       width: 90%;
       border-collapse: separate;
@@ -54,2139 +46,581 @@
       margin-right: auto;
       padding: 10px;
     }
+
     .modern-table thead {
       background-color: #007bff;
       color: white;
       text-align: center;
     }
-    .modern-table th, .modern-table td {
+
+    .modern-table th,
+    .modern-table td {
       padding: 12px;
       text-align: center;
       border-bottom: 2px solid #ddd;
     }
+
     .modern-table tbody tr {
       background: white;
       transition: transform 0.2s ease-in-out;
     }
+
     .modern-table tbody tr:hover {
       transform: scale(1.02);
       box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
     }
-    .modern-table tr:hover{
+
+    .modern-table tr:hover {
       transform: scale(1.02);
       box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
     }
-   .modern-table td{
-    width: 50%;
-   }
 
-   .chart-container {
-        width: 100%;
-        height: 250px;
+    .modern-table td {
+      width: 50%;
     }
-    
+
+    .chart-container {
+      width: 100%;
+      height: 250px;
+    }
+
     .legend-container {
-        width: 100%;
-        max-height: 100px; 
-        overflow-y: auto;
-        text-align: center;
-        padding: 10px;
+      width: 100%;
+      max-height: 100px;
+      overflow-y: auto;
+      text-align: center;
+      padding: 10px;
     }
-   
+    .table-modern {
+      border-collapse: separate;
+      border-spacing: 0;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
 
-  </style>
-    <style>
-    
-      .table-modern {
-        border-collapse: separate;
-        border-spacing: 0;
-        border-radius: 10px;
-        overflow: hidden;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      }
-      .table-modern th,
-      .table-modern td {
-        padding: 12px 15px;
-        text-align: center;
-      }
-      .table-modern th:first-child,
-      .table-modern td:first-child {
-        text-align: justify;
-        color:white;
-        background-color: #007bffc9;
-        font-weight: 600;
-        width: fit-content;
-      }
-      .table-modern thead th {
-        background-color: #007bffc9;
-        color: white;
-        font-weight: 600;
-      }
-      .table-modern tbody tr:nth-child(odd) {
-        background-color: #f8f9fa;
-      }
-      .table-modern tbody tr:hover {
-        background-color: #e9ecef;
-      }
-     
-    </style>
-    <style>
-      .table-equipments {
-        border-collapse: separate;
-        border-spacing: 0;
-        border-radius: 10px;
-        overflow: hidden;
-        font-size: 14px !important;
-      }
-      .table-equipments tbody {
-        display: block;
-        max-height: 290px;
-        overflow-y: auto;
-      }
-      .table-equipments th,
-      .table-equipments td {
-        padding: 5px 10px;
-        text-align: center;
-      }
-     
-      .table-equipments thead th {
-        background-color: #007bffc9;
-        color: white;
-        font-weight: 600;
-      }
-      .table-equipments tbody tr:nth-child(odd) {
-        background-color: #f8f9fa;
-      }
-      .table-equipments tbody tr:hover {
-        background-color: #e9ecef;
-      }
-      .table-equipments thead, 
-      .table-equipments tbody tr {
-        display: table;
-        width: 100%;
-        table-layout: fixed;
-      }
-      
-    </style>
-    <style>
-         #chartdiv {
+    .table-modern th,
+    .table-modern td {
+      padding: 12px 15px;
+      text-align: center;
+    }
+
+    .table-modern th:first-child,
+    .table-modern td:first-child {
+      text-align: justify;
+      color: white;
+      background-color: #007bffc9;
+      font-weight: 600;
+      width: fit-content;
+    }
+
+    .table-modern thead th {
+      background-color: #007bffc9;
+      color: white;
+      font-weight: 600;
+    }
+
+    .table-modern tbody tr:nth-child(odd) {
+      background-color: #f8f9fa;
+    }
+
+    .table-modern tbody tr:hover {
+      background-color: #e9ecef;
+    }
+    .table-equipments {
+      border-collapse: separate;
+      border-spacing: 0;
+      border-radius: 10px;
+      overflow: hidden;
+      font-size: 14px !important;
+    }
+
+    .table-equipments tbody {
+      display: block;
+      max-height: 290px;
+      overflow-y: auto;
+    }
+
+    .table-equipments th,
+    .table-equipments td {
+      padding: 5px 10px;
+      text-align: center;
+    }
+
+    .table-equipments thead th {
+      background-color: #007bffc9;
+      color: white;
+      font-weight: 600;
+    }
+
+    .table-equipments tbody tr:nth-child(odd) {
+      background-color: #f8f9fa;
+    }
+
+    .table-equipments tbody tr:hover {
+      background-color: #e9ecef;
+    }
+
+    .table-equipments thead,
+    .table-equipments tbody tr {
+      display: table;
+      width: 100%;
+      table-layout: fixed;
+    }
+    #chartdiv {
       width: 100%;
       height: 280px;
       max-width: 100%;
       margin: 0 auto;
     }
+
     #equipmentChart {
       width: 100%;
       height: 500px;
       max-width: 100%;
       margin: 0 auto;
     }
+
     .am5chart-Legend {
-      margin-top: 20px; 
+      margin-top: 20px;
     }
+
     #payHikeChart {
       width: 100%;
       height: 350px;
-     
+
       min-height: 250px;
     }
-  
+
     .card-block {
       padding: 10px;
-     
+
     }
-    
   </style>
-
-    <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/percent.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
-
+  <!-- amchart -->
+  <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+  <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
+  <script src="https://cdn.amcharts.com/lib/5/percent.js"></script>
+  <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+  <!-- amchart -->
 </head>
 
 <body>
-    <!-- Pre-loader start -->
-    <div class="theme-loader">
-        <div class="loader-track">
-            <div class="preloader-wrapper">
-                <div class="spinner-layer spinner-blue">
-                    <div class="circle-clipper left">
-                        <div class="circle"></div>
-                    </div>
-                    <div class="gap-patch">
-                        <div class="circle"></div>
-                    </div>
-                    <div class="circle-clipper right">
-                        <div class="circle"></div>
-                    </div>
-                </div>
-                <div class="spinner-layer spinner-red">
-                    <div class="circle-clipper left">
-                        <div class="circle"></div>
-                    </div>
-                    <div class="gap-patch">
-                        <div class="circle"></div>
-                    </div>
-                    <div class="circle-clipper right">
-                        <div class="circle"></div>
-                    </div>
-                </div>
-
-                <div class="spinner-layer spinner-yellow">
-                    <div class="circle-clipper left">
-                        <div class="circle"></div>
-                    </div>
-                    <div class="gap-patch">
-                        <div class="circle"></div>
-                    </div>
-                    <div class="circle-clipper right">
-                        <div class="circle"></div>
-                    </div>
-                </div>
-
-                <div class="spinner-layer spinner-green">
-                    <div class="circle-clipper left">
-                        <div class="circle"></div>
-                    </div>
-                    <div class="gap-patch">
-                        <div class="circle"></div>
-                    </div>
-                    <div class="circle-clipper right">
-                        <div class="circle"></div>
-                    </div>
-                </div>
-            </div>
+  <!-- Pre-loader start -->
+  <div class="theme-loader">
+    <div class="loader-track">
+      <div class="preloader-wrapper">
+        <div class="spinner-layer spinner-blue">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div>
+          <div class="gap-patch">
+            <div class="circle"></div>
+          </div>
+          <div class="circle-clipper right">
+            <div class="circle"></div>
+          </div>
         </div>
-    </div>
-    <!-- Pre-loader end -->
-    <div id="pcoded" class="pcoded">
-        <div class="pcoded-overlay-box"></div>
-        <div class="pcoded-container navbar-wrapper">
-            <nav class="navbar header-navbar pcoded-header">
-                <div class="navbar-wrapper">
-                    <div class="navbar-logo align-items-center">
-                        <a class="mobile-menu waves-effect waves-light" id="mobile-collapse" href="#!">
-                            <i class="ti-menu"></i>
-                        </a>
-                        <div class="mobile-search waves-effect waves-light">
-                            <div class="header-search">
-                                <div class="main-search morphsearch-search">
-                                    <div class="input-group">
-                                        <span class="input-group-prepend search-close"><i class="ti-close input-group-text"></i></span>
-                                        <input type="text" class="form-control" placeholder="Enter Keyword">
-                                        <span class="input-group-append search-btn"><i class="ti-search input-group-text"></i></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="index.html">
-                            <!-- <img class="img-fluid" src="https://ntcpwc.iitm.ac.in/New/images/ntcpwc-logo.jpg" alt="Theme-Logo" style="height: 50px;" /> -->
-                             <h4 class="d-inline"><span class="text-lowercase">i</span>VTS-FMS</h4>
-                        </a>
-                        <a class="mobile-options waves-effect waves-light">
-                            <i class="ti-more"></i>
-                        </a>
-                    </div>
-                    <div class="navbar-container container-fluid">
-                        <ul class="nav-left">
-                            <li>
-                                <div class="sidebar_toggle"><a href="javascript:void(0)"><i class="ti-menu"></i></a></div>
-                            </li>
-                            <li>
-                                <a href="#!" onclick="javascript:toggleFullScreen()" class="waves-effect waves-light">
-                                    <i class="ti-fullscreen"></i>
-                                </a>
-                            </li>
-                        </ul>
-                        <ul class="nav-right">
-                            <!-- <li class="header-notification">
-                                <a href="#!" class="waves-effect waves-light">
-                                    <i class="ti-bell"></i>
-                                    <span class="badge bg-c-red"></span>
-                                </a>
-                                <ul class="show-notification">
-                                    <li>
-                                        <h6>Notifications</h6>
-                                        <label class="label label-danger">New</label>
-                                    </li>
-                                    <li class="waves-effect waves-light">
-                                        <div class="media">
-                                            <img class="d-flex align-self-center img-radius" src="assets/images/avatar-2.jpg" alt="Generic placeholder image">
-                                            <div class="media-body">
-                                                <h5 class="notification-user">John Doe</h5>
-                                                <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer elit.</p>
-                                                <span class="notification-time">30 minutes ago</span>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="waves-effect waves-light">
-                                        <div class="media">
-                                            <img class="d-flex align-self-center img-radius" src="assets/images/avatar-4.jpg" alt="Generic placeholder image">
-                                            <div class="media-body">
-                                                <h5 class="notification-user">Joseph William</h5>
-                                                <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer elit.</p>
-                                                <span class="notification-time">30 minutes ago</span>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="waves-effect waves-light">
-                                        <div class="media">
-                                            <img class="d-flex align-self-center img-radius" src="assets/images/avatar-3.jpg" alt="Generic placeholder image">
-                                            <div class="media-body">
-                                                <h5 class="notification-user">Sara Soudein</h5>
-                                                <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer elit.</p>
-                                                <span class="notification-time">30 minutes ago</span>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </li> -->
-                            <li class="user-profile header-notification">
-                                <a href="#!" class="waves-effect waves-light">
-                                    <!-- <img src="assets/images/avatar-4.jpg" class="img-radius" alt="User-Profile-Image"> -->
-                                    <span id="username">John Doe</span>
-                                    <i class="ti-angle-down"></i>
-                                </a>
-                                <ul class="show-notification profile-notification">
-                                    <li class="waves-effect waves-light">
-                                        <a href="#!">
-                                            <i class="ti-settings"></i> Settings
-                                        </a>
-                                    </li>
-                                    <li class="waves-effect waves-light">
-                                        <a href="user-profile.html">
-                                            <i class="ti-user"></i> Profile
-                                        </a>
-                                    </li>
-                                    <li class="waves-effect waves-light">
-                                        <a href="index.html" id="logout-button">
-                                            <i class="ti-layout-sidebar-left"></i> Logout
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-
-            <div class="pcoded-main-container">
-                <div class="pcoded-wrapper">
-                    <nav class="pcoded-navbar">
-                        <div class="sidebar_toggle"><a href="#"><i class="icon-close icons"></i></a></div>
-                        <div class="pcoded-inner-navbar main-menu">
-                            <div class="">
-                                <div class="main-menu-header">
-                                    <!-- <img class="img-80 img-radius" src="assets/images/avatar-4.jpg" alt="User-Profile-Image">
-                                    <div class="user-details">
-                                        <span id="more-details">John Doe<i class="fa fa-caret-down"></i></span>
-                                    </div> -->
-                                    <img src="assets/images/ntcpwc-logo.jpg" alt="ntcpwc-logo">
-                                </div>
-                                <div class="main-menu-content">
-                                    <ul>
-                                        <li class="more-details">
-                                            <a href="user-profile.html"><i class="ti-user"></i>View Profile</a>
-                                            <a href="#!"><i class="ti-settings"></i>Settings</a>
-                                            <a href="index.html"><i class="ti-layout-sidebar-left"></i>Logout</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="p-15 p-b-0">
-                                <form class="form-material">
-                                    <div class="form-group form-primary">
-                                        <input type="text" name="footer-email" class="form-control">
-                                        <span class="form-bar"></span>
-                                        <label class="float-label"><i class="fa fa-search m-r-10"></i>Search</label>
-                                    </div>
-                                </form>
-                            </div>
-                            <div id="sidebar-container">
-
-                            </div>
-                            <!-- <div class="accordion">
-                              <div class="accordion-header">
-                                <div class="pcoded-navigation-label accordion-toggle waves-effect waves-dark" onclick="toggleAccordion(this)">Project Tracking<i class="fa fa-chevron-down ml-1" id="accordion-icon"></i></div>
-                              </div>
-                              <div class="accordion-content" style="display: none;">
-                              
-                                  <ul class="pcoded-item pcoded-left-item">
-                                      <li>
-                                          <a href="projectTracking.html" class="waves-effect waves-dark">
-                                              <span class="pcoded-micon"><i class="ti-folder"></i><b>D</b></span>
-                                              <span class="pcoded-mtext">Projects</span>
-                                              <span class="pcoded-mcaret"></span>
-                                          </a>
-                                      </li>
-                                  </ul>
-                              </div>
-                              </div>
-                            <div class="accordion">
-                              <div class="accordion-header">
-                                <div class="pcoded-navigation-label accordion-toggle waves-effect waves-dark" onclick="toggleAccordion(this)">Invoices<i class="fa fa-chevron-down ml-1" id="accordion-icon"></i></div>
-                              </div>
-                              <div class="accordion-content" style="display: none;">
-                              
-                                  <ul class="pcoded-item pcoded-left-item">
-                                      <li>
-                                          <a href="o&mInvoices.html" class="waves-effect waves-dark">
-                                              <span class="pcoded-micon"><i class="ti-calendar"></i><b>D</b></span>
-                                              <span class="pcoded-mtext">O&M Invoices</span>
-                                              <span class="pcoded-mcaret"></span>
-                                          </a>
-                                      </li>
-                                      <li>
-                                        <a href="equipment-invoices.html" class="waves-effect waves-dark">
-                                            <span class="pcoded-micon"><i class="ti-settings"></i><b>D</b></span>
-                                            <span class="pcoded-mtext">Equipment Invoices</span>
-                                            <span class="pcoded-mcaret"></span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                      <a href="invoices.html" class="waves-effect waves-dark">
-                                          <span class="pcoded-micon"><i class="ti-receipt"></i><b>D</b></span>
-                                          <span class="pcoded-mtext">C&H Invoices</span>
-                                          <span class="pcoded-mcaret"></span>
-                                      </a>
-                                  </li>
-                                  </ul>
-                              </div>
-                              </div>
-                              <div class="accordion">
-                                <div class="accordion-header">
-                                  <div class="pcoded-navigation-label accordion-toggle waves-effect waves-dark" onclick="toggleAccordion(this)">Equipments<i class="fa fa-chevron-down ml-1" id="accordion-icon"></i></div>
-                                </div>
-                                <div class="accordion-content" style="display: none;">
-                                  
-                                  <ul class="pcoded-item pcoded-left-item">
-                                      <li>
-                                        <a href="procurementStagesDashboard.html" class="waves-effect waves-dark">
-                                            <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
-                                            <span class="pcoded-mtext">Equipments Dashboard</span>
-                                            <span class="pcoded-mcaret"></span>
-                                        </a>
-                                    </li>
-                                      <li>
-                                          <a href="equipmentlist.html" class="waves-effect waves-dark">
-                                              <span class="pcoded-micon"><i class="ti-receipt"></i><b>D</b></span>
-                                              <span class="pcoded-mtext">Equipment List</span>
-                                              <span class="pcoded-mcaret"></span>
-                                          </a>
-                                      </li>
-                                  </ul>
-                                  </div>
-                                  </div>
-                                  <div class="accordion">
-                                    <div class="accordion-header">
-                                      <div class="pcoded-navigation-label accordion-toggle waves-effect waves-dark" onclick="toggleAccordion(this)">Man Power Management<i class="fa fa-chevron-up ml-1" id="accordion-icon"></i></div>
-                                    </div>
-                                    <div class="accordion-content" style="display: block;">
-                                      <ul class="pcoded-item pcoded-left-item">
-                                        <li class="active">
-                                            <a href="index.html" class="waves-effect waves-dark">
-                                                <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
-                                                <span class="pcoded-mtext">Dashboard</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="staff-details.html" class="waves-effect waves-dark">
-                                                <span class="pcoded-micon"><i class="ti-user"></i><b>BC</b></span>
-                                                <span class="pcoded-mtext">Staff Details</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="contract-logs.html" class="waves-effect waves-dark">
-                                                <span class="pcoded-micon"><i class="ti-notepad"></i><b>BC</b></span>
-                                                <span class="pcoded-mtext">Contract Logs</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                    
-                                      </div>
-                                      </div> -->
-                            
-                            
-                    </nav>
-                    <div class="pcoded-content">
-                        <!-- Page-header start -->
-                        <div class="page-header">
-                            <div class="page-block">
-                                <div class="row align-items-center">
-                                    <div class="col-md-8">
-                                        <!-- <img src="assets/images/ntcpwc-logo.jpg" class="img-fluid w-25" alt="NTCPWC LOGO"> -->
-                                        <div class="page-header-title">
-                                            <h5 class="m-b-10">Dashboard</h5>
-                                            <p class="m-b-0">Welcome to iVTS-FMS</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <ul class="breadcrumb">
-                                            <li class="breadcrumb-item">
-                                                <a href="index.html"> <i class="fa fa-home"></i> </a>
-                                            </li>
-                                            <li class="breadcrumb-item"><a href="#!">Dashboard</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Page-header end -->
-                        <div class="pcoded-inner-content">
-                            <!-- Main-body start -->
-                            <div class="main-body">
-                                <div class="page-wrapper">
-                                    <!-- Page-body start -->
-                                    <div class="page-body">
-                                        <div class="row">
-                                               
-                                                <div class="col-xl-4 col-md-12">
-                                                    <div class="card text-start">
-                                                        <div class="card-header">
-                                                            <h5>Man Power Overview</h5>
-                                                          
-                                                        </div>
-                                                        <div class="card-block">
-                                                          <div class="table-responsive custom-table">
-                                                            <table id="manPowerTable" class="table table-striped table-border-small rounded table-hover">
-                                                              <thead class="bg-primary text-white">
-                                                                <tr >
-                                                                  <th >Designation</th>
-                                                                  <th>Total Staff Count</th>
-                                                                </tr>
-                                                              </thead>
-                                                             <tbody>
-
-                                                             </tbody>
-                                                            </table>
-                                                          </div>
-                                                                  
-                                                        </div>
-                                                    </div>
-                                                    
-                                                </div>
-                                                <div class="col-xl-8 col-md-12" >
-                                                  <div class="card text-start">
-                                                      <div class="card-header">
-                                                          <h5>Overview</h5>
-                                                          
-                                                      </div>
-                                                      <div class="card-block">
-                                                          <div id="chartdiv">
-                                                          </div>
-                                                      </div>
-                                                  </div>
-                                                  
-                                              </div>
-                                                
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-xl-6 col-md-12">
-                                                  <div class="card text-start">
-                                                      <div class="card-header">
-                                                          <h5>Certification Courses - VTS Operators</h5>
-                                                         
-                                                      </div>
-                                                      <div class="card-block" style="height: 300px;">
-                                                          <div id="operatorsCertificationChart" style="width: 100%; height: 100%;"></div>
-
-                                                      </div>
-                                                  </div>
-                                                  
-                                                  
-                                              </div>
-                                              <div class="col-xl-6 col-md-12">
-                                                <div class="card text-start">
-                                                    <div class="card-header">
-                                                        <h5>Certification Courses - Other Designations</h5>
-                                                       
-                                                    </div>
-                                                    <div class="card-block" style="height: 300px;">
-                                                        <div id="certificationChart" style="width: 100%; height: 100%;"></div>
-
-                                                    </div>
-                                                </div>
-                                                
-                                            
-                                            </div>
-                                            
-                                                
-                                            </div>
-                                            <div class="row">
-                                             
-                                          
-                                          
-                                            <div class="col-xl-6 col-md-12">
-                                              <div class="card text-start">
-                                                  <div class="card-header">
-                                                      <h5>Highest Education Qualification - VTS Operators</h5>
-                                                     
-                                                  </div>
-                                                  <div class="card-block" style="height: 300px;">
-                                                      <div id="operatorsEducationChart" style="width: 100%; height: 100%;"></div>
-
-                                                  </div>
-                                              </div>
-                                              
-                                          </div>
-                                          <div class="col-xl-6 col-md-12">
-                                            <div class="card text-start">
-                                                <div class="card-header">
-                                                    <h5>Highest Education Qualification - Other Designations</h5>
-                                                   
-                                                </div>
-                                                <div class="card-block" style="height: 300px;">
-                                                    <div id="educationChart" style="width: 100%; height: 100%;"></div>
-
-                                                </div>
-                                            </div>
-                                            
-                                        </div>
-                                         
-                                          </div>
-                                           
-                                            <div class="row d-flex align-items-stretch h-100">
-                                              <div class="col-xl-12 col-md-12 d-flex flex-column">
-                                                <div class="card text-start flex-grow-1">
-                                                  <div class="card-header">
-                                                    <h5>Salary Overview</h5>
-                                                    
-                                                  </div>
-                                                  <div class="card-block d-flex align-items-center justify-content-center">
-                                                    <div id="payHikeChart"></div> 
-                                                  </div>
-                                                </div>
-                                              </div>
-                                            
-                                              <!-- <div class="col-xl-4 col-md-12 d-flex flex-column">
-                                                <div class="row flex-grow-1 mb-2">
-                                                  <div class="col-12">
-                                                    <div class="card text-start shadow-sm border-0 rounded-3 hover-effect">
-                                                      <div class="card-body text-center">
-                                                        <h5 class="text-dark fw-bold">Highest Pay Hike</h5>
-                                                        <p class="mb-1" id="hph-name">NAME</p>
-                                                        <p class="mb-1" id="hph-org">ORGANISATION</p>
-                                                        <p class="fw-bold text-primary" id="hph-hike" style="font-size: 30px;">60%</p>
-                                                      </div>
-                                                    </div>
-                                                    
-                                                  </div>
-                                                </div>
-                                                <div class="row flex-grow-1">
-                                                  <div class="col-12">
-                                                    <div class="card text-start shadow-sm border-0 rounded-3 hover-effect">
-                                                      <div class="card-body text-center">
-                                                        <h5 class="text-dark fw-bold">Lowest Pay Hike</h5>
-                                                        <p class="mb-1" id="lph-name">NAME</p>
-                                                        <p class="mb-1" id="lph-org">ORGANISATION</p>
-                                                        <p class="fw-bold text-danger" id="lph-hike" style="font-size: 30px;">2%</p>
-                                                      </div>
-                                                    </div>
-                                                    
-                                                  </div>
-                                                </div>
-                                              </div> -->
-                                            </div>
-                                            
-                                            <div class="row">
-                                              <!-- 1st box -->
-                                              <div class="col-md-4 col-sm-12">
-                                                <div class="card shadow-sm border-0 rounded-3 text-center h-100">
-                                                  <div class="card-body d-flex flex-column align-items-center justify-content-center">
-                                                    <!-- Icon -->
-                                                    <div class="mb-2 text-primary" style="font-size: 2rem;">
-                                                      
-                                                      <i class="bi bi-people-fill"></i>
-                                                    </div>
-                                                    
-                                                    <h4 class="card-title mb-0 text-primary fw-bold" id="manpower-deployed">37</h>
-                                                    <!-- Label -->
-                                                    <h6 class="text-dark fw-bold">Total Manpower Deployed</>
-                                                  </div>
-                                                </div>
-                                              </div>
-                                              
-                                              <div class="col-md-4 col-sm-12">
-                                                <div class="card shadow-sm border-0 rounded-3 text-center h-100" data-toggle="modal" data-target="#invoiceModal" style="cursor: pointer;">
-                                                  <div class="card-body card-hover d-flex flex-column align-items-center justify-content-center">
-                                                    <!-- Icon -->
-                                                    <div class="mb-2 text-success" style="font-size: 2rem;">
-                                                      
-                                                      <i class="bi bi-currency-rupee"></i>
-                                                    </div>
-                                                   
-                                                    <h4 class="card-title mb-0 text-primary fw-bold" id="total-manning-cost">₹ 0</h4>
-                                                    <h6 class="text-dark fw-bold">Total Manning Cost / month</>
-                                                  </div>
-                                                </div>
-                                              </div>
-
-                                             
-                                              <div class="col-md-4 col-sm-12">
-                                                <div class="card shadow-sm border-0 rounded-3 text-center h-100" data-toggle="modal" data-target="#modernModal" style="cursor: pointer;">
-                                                  <div class="card-body d-flex flex-column align-items-center justify-content-center">
-                                                    
-                                                    <div class="mb-2 text-success" style="font-size: 2rem;">
-                                                     
-                                                      <i class="bi bi-currency-rupee"></i>
-                                                    </div>
-                                                    
-                                                    <h4 class="card-title text-primary mb-0 fw-bold" id="invoice-raised">₹ 0</h4>
-                                                    <!-- Label -->
-                                                    <h6 class="text-dark fw-bolder">Invoice Raised / month</h6>
-                                                  </div>
-                                                </div>
-                                              </div>
-                                            </div>
-                                            
-                                              <div class="row" style="margin-top: 20px;">
-                                                <div class="col-xl-12 col-md-12">
-                                                  <div class="card text-start">
-                                                    <div class="card-header">
-                                                      <h5>Manning Cost Vs Invoice Cost</h5>
-                                                      <!-- <div class="card-header-right">
-                                                        <ul class="list-unstyled card-option">
-                                                          <li><i class="fa fa-wrench open-card-option"></i></li>
-                                                          <li><i class="fa fa-window-maximize full-card"></i></li>
-                                                          <li><i class="fa fa-minus minimize-card"></i></li>
-                                                          <li><i class="fa fa-refresh reload-card"></i></li>
-                                                        </ul>
-                                                      </div> -->
-                                                    </div>
-                                                    <div class="card-block">
-                                                      <div id="payHikeBreakdownChart" style="width: 100%; min-height: 650px;"></div>
-                                                    </div>
-                                                  </div>
-                                                </div>
-                                              </div>
-                                              
-                                            
-                                             
-
-
-                                              <div class="row">
-
-                                              </div>
-                                              <div class="modal fade" id="invoiceModal" tabindex="-1" aria-labelledby="invoiceModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog modal-lg">
-                                                  <div class="modal-content">
-                                                    <div class="modal-header bg-primary text-white">
-                                                      <h5 class="modal-title" id="invoiceModalLabel">Manning Cost / Month</h5>
-                                                      <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                      </button>
-                                                    </div>
-                                                    <div class="modal-body table-responsive">
-                                                      <table class="table modern-table mx-auto">
-                                                        <thead>
-                                                          <tr>
-                                                            <th>Organisation</th>
-                                                            <th>Manning Cost</th>
-                                                          </tr>
-                                                        </thead>
-                                                        <tbody id="manningCostTable">
-                                                         
-                                                        </tbody>
-                                                      </table>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                      <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
-                                                    </div>
-                                                  </div>
-                                                </div>
-                                              </div>
-                                              
-                                    </div>
-                                    
-
-
-                                    <div class="modal fade" id="modernModal" tabindex="-1" aria-labelledby="modernModalLabel" aria-hidden="true">
-                                      <div class="modal-dialog modal-lg">
-                                        <div class="modal-content">
-                                          <div class="modal-header bg-primary text-white">
-                                            <h5 class="modal-title" id="modernModalLabel">Invoice Summary</h5>
-                                            <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-                                              <span aria-hidden="true">&times;</span>
-                                            </button>
-                                          </div>
-                                          <div class="modal-body table-responsive">
-                                            <table class="table modern-table" id="invoiceTable">
-                                              <thead>
-                                                <tr>
-                                                  <td>Organisation</td>
-                                                  <td>Invoice Raised</td>
-                                                </tr>
-                                              </thead>
-                                              <tbody id="modernTableBody">
-                                                <!-- Dynamic Data Here -->
-                                              </tbody>
-                                            </table>
-                                          </div>
-                                          <div class="modal-footer">
-                                            <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <!-- Page-body end -->
-                                </div>
-                                <div id="styleSelector"> </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="spinner-layer spinner-red">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div>
+          <div class="gap-patch">
+            <div class="circle"></div>
+          </div>
+          <div class="circle-clipper right">
+            <div class="circle"></div>
+          </div>
         </div>
+
+        <div class="spinner-layer spinner-yellow">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div>
+          <div class="gap-patch">
+            <div class="circle"></div>
+          </div>
+          <div class="circle-clipper right">
+            <div class="circle"></div>
+          </div>
+        </div>
+
+        <div class="spinner-layer spinner-green">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div>
+          <div class="gap-patch">
+            <div class="circle"></div>
+          </div>
+          <div class="circle-clipper right">
+            <div class="circle"></div>
+          </div>
+        </div>
+      </div>
     </div>
-    <!-- Warning Section Starts -->
-    <!-- Older IE warning message -->
-    <!--[if lt IE 10]>
-<div class="ie-warning">
-    <h1>Warning!!</h1>
-    <p>You are using an outdated version of Internet Explorer, please upgrade <br/>to any of the following web browsers to access this website.</p>
-    <div class="iew-container">
-        <ul class="iew-download">
-            <li>
-                <a href="http://www.google.com/chrome/">
-                    <img src="assets/images/browser/chrome.png" alt="Chrome">
-                    <div>Chrome</div>
+  </div>
+  <!-- Pre-loader end -->
+  <div id="pcoded" class="pcoded">
+    <div class="pcoded-overlay-box"></div>
+    <div class="pcoded-container navbar-wrapper">
+
+      <nav class="navbar header-navbar pcoded-header">
+        <div class="navbar-wrapper">
+          <div class="navbar-logo align-items-center">
+            <a class="mobile-menu waves-effect waves-light" id="mobile-collapse" href="#!">
+              <i class="ti-menu"></i>
+            </a>
+            <div>
+              <a href="index.html">
+                <img class="img-fluid" src="assets/images/Gemini_Generated_Image_ode7ogode7ogode7-removebg-preview.png"
+                  alt="Theme-Logo" style="height: 50px;" />
+                <h4 class="d-inline"><span class="text-lowercase">WorkSphere</h4>
+              </a>
+            </div>
+            <a class="mobile-options waves-effect waves-light">
+              <i class="ti-more"></i>
+            </a>
+          </div>
+          <div class="navbar-container container-fluid">
+            <ul class="nav-left">
+              <li>
+                <div class="sidebar_toggle"><a href="javascript:void(0)"><i class="ti-menu"></i></a></div>
+              </li>
+              <li>
+                <a href="#!" onclick="javascript:toggleFullScreen()" class="waves-effect waves-light">
+                  <i class="ti-fullscreen"></i>
                 </a>
-            </li>
-            <li>
-                <a href="https://www.mozilla.org/en-US/firefox/new/">
-                    <img src="assets/images/browser/firefox.png" alt="Firefox">
-                    <div>Firefox</div>
+              </li>
+            </ul>
+            <ul class="nav-right">
+              <li class="user-profile header-notification">
+                <a href="#!" class="waves-effect waves-light">
+                  <span id="username">John Doe</span>
+                  <i class="ti-angle-down"></i>
                 </a>
-            </li>
-            <li>
-                <a href="http://www.opera.com">
-                    <img src="assets/images/browser/opera.png" alt="Opera">
-                    <div>Opera</div>
-                </a>
-            </li>
-            <li>
-                <a href="https://www.apple.com/safari/">
-                    <img src="assets/images/browser/safari.png" alt="Safari">
-                    <div>Safari</div>
-                </a>
-            </li>
-            <li>
-                <a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie">
-                    <img src="assets/images/browser/ie.png" alt="">
-                    <div>IE (9 & above)</div>
-                </a>
-            </li>
-        </ul>
+                <ul class="show-notification profile-notification">
+                  <li class="waves-effect waves-light">
+                    <a href="user-profile.html">
+                      <i class="fa-solid fa-id-card"></i> Profile
+                    </a>
+                  </li>
+                  <li class="waves-effect waves-light">
+                    <a href="login.html" id="logout-button">
+
+                      <i class="fa-solid fa-right-to-bracket fa-flip-horizontal"></i> Logout
+
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <div class="pcoded-main-container">
+        <div class="pcoded-wrapper">
+          
+          <nav class="pcoded-navbar">
+            <div class="sidebar_toggle"><a href="#"><i class="icon-close icons"></i></a></div>
+            <div class="pcoded-inner-navbar main-menu">
+              <div class="">
+                <div class="main-menu-content">
+                  <ul>
+                    <li class="more-details">
+                      <a href="user-profile.html"><i class="ti-user"></i>View Profile</a>
+                      <!-- <a href="#!"><i class="ti-settings"></i>Settings</a> -->
+                      <a href="login.html"><i class="ti-layout-sidebar-left"></i>Logout</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div id="sidebar-container">
+
+              </div>
+
+          </nav>
+
+          <div class="pcoded-content">
+            <!-- Page-header start -->
+            <div class="page-header">
+              <div class="page-block">
+                <div class="row align-items-center">
+                  <div class="col-md-8">
+                    <div class="page-title">
+                      <span class="page-title-icon bg-gradient-primary text-white mr-2">
+                        <i class="fa fa-chart-line"></i>
+                      </span>
+                      <h5>Dashboard</h5>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <ul class="breadcrumb">
+                      <li class="breadcrumb-item">
+                        <a href="index.html"> <i class="fa fa-home"></i> </a>
+                      </li>
+                      <li class="breadcrumb-item"><a href="#!">Dashboard</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Page-header end -->
+            <div class="pcoded-inner-content">
+              <!-- Main-body start -->
+              <div class="main-body">
+                <div class="page-wrapper">
+                  <!-- Page-body start -->
+                  <div class="page-body">
+                    <div class="row">
+                      <!-- 1st box -->
+                      <div class="col-md-4 col-sm-12">
+                        <div class="card shadow-sm border-0 rounded-3 text-center h-100">
+                          <div class="card-body d-flex flex-column align-items-center justify-content-center">
+                            <!-- Icon -->
+                            <h4 class="card-title mb-0 text-primary fw-bold" id="manpower-deployed">37</h>
+                              <!-- Label -->
+                              <h6 class="text-dark fw-bold">Total Manpower Deployed</h6>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-4 col-sm-12">
+                        <div class="card shadow-sm border-0 rounded-3 text-center h-100" data-toggle="modal"
+                          data-target="#invoiceModal" style="cursor: pointer;">
+                          <div
+                            class="card-body card-hover d-flex flex-column align-items-center justify-content-center">
+                            <!-- <div class="mb-2 text-success" style="font-size: 2rem;">
+                              <i class="bi bi-currency-rupee"></i>
+                            </div> -->
+                            <h4 class="card-title mb-0 text-primary fw-bold" id="total-manning-cost">₹ 0</h4>
+                            <h6 class="text-dark fw-bold">Total Manning Cost / month</h6>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-4 col-sm-12">
+                        <div class="card shadow-sm border-0 rounded-3 text-center h-100" data-toggle="modal"
+                          data-target="#modernModal" style="cursor: pointer;">
+                          <div class="card-body d-flex flex-column align-items-center justify-content-center">
+                            <!-- <div class="mb-2 text-success" style="font-size: 2rem;">
+                              <i class="bi bi-currency-rupee"></i>
+                            </div> -->
+                            <h4 class="card-title text-primary mb-0 fw-bold" id="invoice-raised">₹ 0</h4>
+                            <h6 class="text-dark fw-bolder">Invoice Raised / month</h6>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row" style="margin-top:20px">
+                      <div class="col-xl-4 col-md-12">
+                        <div class="card text-start">
+                          <div class="card-header">
+                            <h5>Man Power Overview</h5>
+                          </div>
+                          <div class="card-block">
+                            <div class="table-responsive custom-table">
+                              <table id="manPowerTable"
+                                class="table table-striped table-border-small rounded table-hover">
+                                <thead class="bg-primary text-white">
+                                  <tr>
+                                    <th>Designation</th>
+                                    <th>Total Staff Count</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                              </table>
+                            </div>
+
+                          </div>
+                        </div>
+
+                      </div>
+                      <div class="col-xl-8 col-md-12">
+                        <div class="card text-start">
+                          <div class="card-header">
+                            <h5>Overview</h5>
+
+                          </div>
+                          <div class="card-block">
+                            <div id="chartdiv">
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+
+                    </div>
+                    <div class="row">
+                      <div class="col-xl-6 col-md-12">
+                        <div class="card text-start">
+                          <div class="card-header">
+                            <h5>Certification Courses - VTS Operators</h5>
+
+                          </div>
+                          <div class="card-block" style="height: 300px;">
+                            <div id="operatorsCertificationChart" style="width: 100%; height: 100%;"></div>
+
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-xl-6 col-md-12">
+                        <div class="card text-start">
+                          <div class="card-header">
+                            <h5>Certification Courses - Other Designations</h5>
+
+                          </div>
+                          <div class="card-block" style="height: 300px;">
+                            <div id="certificationChart" style="width: 100%; height: 100%;"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xl-6 col-md-12">
+                        <div class="card text-start">
+                          <div class="card-header">
+                            <h5>Highest Education Qualification - VTS Operators</h5>
+                          </div>
+                          <div class="card-block" style="height: 300px;">
+                            <div id="operatorsEducationChart" style="width: 100%; height: 100%;"></div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-xl-6 col-md-12">
+                        <div class="card text-start">
+                          <div class="card-header">
+                            <h5>Highest Education Qualification - Other Designations</h5>
+                          </div>
+                          <div class="card-block" style="height: 300px;">
+                            <div id="educationChart" style="width: 100%; height: 100%;"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row d-flex align-items-stretch h-100">
+                      <div class="col-xl-12 col-md-12 d-flex flex-column">
+                        <div class="card text-start flex-grow-1">
+                          <div class="card-header">
+                            <h5>Salary Overview</h5>
+
+                          </div>
+                          <div class="card-block d-flex align-items-center justify-content-center">
+                            <div id="payHikeChart"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row" style="margin-top: 20px;">
+                      <div class="col-xl-12 col-md-12">
+                        <div class="card text-start">
+                          <div class="card-header">
+                            <h5>Manning Cost Vs Invoice Cost</h5>
+                          </div>
+                          <div class="card-block">
+                            <div id="payHikeBreakdownChart" style="width: 100%; min-height: 650px;"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  <div class="row">
+                    </div>
+                    <div class="modal fade" id="invoiceModal" tabindex="-1" aria-labelledby="invoiceModalLabel"
+                      aria-hidden="true">
+                      <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                          <div class="modal-header bg-primary text-white">
+                            <h5 class="modal-title" id="invoiceModalLabel">Manning Cost / Month</h5>
+                            <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body table-responsive">
+                            <table class="table modern-table mx-auto">
+                              <thead>
+                                <tr>
+                                  <th>Organisation</th>
+                                  <th>Manning Cost</th>
+                                </tr>
+                              </thead>
+                              <tbody id="manningCostTable">
+
+                              </tbody>
+                            </table>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    </div>
+                  </div>
+                  <div class="modal fade" id="modernModal" tabindex="-1" aria-labelledby="modernModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                      <div class="modal-content">
+                        <div class="modal-header bg-primary text-white">
+                          <h5 class="modal-title" id="modernModalLabel">Invoice Summary</h5>
+                          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body table-responsive">
+                          <table class="table modern-table" id="invoiceTable">
+                            <thead>
+                              <tr>
+                                <td>Organisation</td>
+                                <td>Invoice Raised</td>
+                              </tr>
+                            </thead>
+                            <tbody id="modernTableBody">
+                              <!-- Dynamic Data Here -->
+                            </tbody>
+                          </table>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Page-body end -->
+                </div>
+                <div id="styleSelector"> </div>
+              </div>
+              <!-- Main-body end -->
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <p>Sorry for the inconvenience!</p>
-</div>
-<![endif]-->
-    <!-- Warning Section Ends -->
-    <script src="assets/js/roleUtil.js"></script>
-    <!-- Required Jquery -->
-    <script type="text/javascript" src="assets/js/jquery/jquery.min.js "></script>
-    <script type="text/javascript" src="assets/js/jquery-ui/jquery-ui.min.js "></script>
-    <script type="text/javascript" src="assets/js/popper.js/popper.min.js"></script>
-    <script type="text/javascript" src="assets/js/bootstrap/js/bootstrap.min.js "></script>
-    <!-- waves js -->
-    <script src="assets/pages/waves/js/waves.min.js"></script>
-    <!-- jquery slimscroll js -->
-    <script type="text/javascript" src="assets/js/jquery-slimscroll/jquery.slimscroll.js"></script>
-
-    <!-- slimscroll js -->
-    <script src="assets/js/jquery.mCustomScrollbar.concat.min.js "></script>
-
-    <!-- menu js -->
-    <script src="assets/js/pcoded.min.js"></script>
-    <script src="assets/js/vertical/vertical-layout.min.js "></script>
-
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
-    <script src="./assets/js/axiosInstance.js"></script>
-    <script  src="./assets/js/api.js"></script>
-    <script src="./assets/js/apiRequests.js"></script>
-    <script type="text/javascript" src="assets/js/script.js "></script>
-    <script type="text/javascript" src="assets/js/popup.js"></script>
-    <!-- <script src="/assets/js/index.js"></script> -->
-    <script>
-
-
-        // const token=sessionStorage.getItem('token');
-        // const user=JSON.parse(sessionStorage.getItem('user'));
-        // if(token===null||user===null){
-        //     window.location.href="login.html";
-        // }else if(user.role===2){
-        //     window.location.href="user-details.html";
-        // }
-
-        // $('#username').text(user.name);
-
-        document.getElementById('logout-button').addEventListener('click',logout);
-        function logout(){
-            sessionStorage.removeItem('token');
-            window.location.href='login.html';
-        }
-
-
-        function toggleAccordion(button) {
-        const content = button.parentElement.nextElementSibling;
-        content.style.display = (content.style.display === "none" || content.style.display === "") ? "block" : "none";
-
-        const icon = button.querySelector("i");
-        icon.classList.toggle("fa-chevron-down");
-        icon.classList.toggle("fa-chevron-up");
-    }
-    </script>
-  <script>
-    document.addEventListener("DOMContentLoaded", async function () {
-      // var manningcost = await fetch('http://localhost:3000/dashboard/manningcost', {
-      //   method: 'GET',
-      //   headers: {
-      //     'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
-      //     'Content-Type': 'application/json'
-      //   }
-      // }).then(response => response.json());
-
-      let user=JSON.parse(sessionStorage.getItem('user'));
-      let token=sessionStorage.getItem('token');
-      if(token===null||user===null){
-        window.location.href="login.html";
-      }else{
-            
-    roles=await axiosInstance.get('/roles/role/perms');
-    roles=roles.data.roles;
-    // console.log(roles); 
-    window.roles=roles;
-        handlePermission('#username');
-       
-    const sidebarContainer = document.getElementById('sidebar-container');
-    if (sidebarContainer) {
-        sidebarContainer.innerHTML = generateSidebar();
-        
-        // Set the current page as active
-        const currentPage = window.location.pathname.split('/').pop().split('.')[0];
-        const navLinks = document.querySelectorAll('.pcoded-item a');
-        
-        navLinks.forEach(link => {
-            if (link.getAttribute('href').includes(currentPage)) {
-                link.parentElement.classList.add('active');
-                
-                // Expand the parent accordion
-                const accordionContent = link.closest('.accordion-content');
-                if (accordionContent) {
-                    accordionContent.style.display = 'block';
-                    const header = accordionContent.previousElementSibling;
-                    const icon = header.querySelector('.accordion-icon');
-                    if (icon) {
-                        icon.classList.remove('fa-chevron-down');
-                        icon.classList.add('fa-chevron-up');
-                    }
-                }
-            }
-        });
-    }
-
-      }
-
-  
-
-      var response=await axiosInstance.get('/dashboard/manningcost');
-      var manningcost=response.data;
-      // console.log(manningcost);
-  
-      if (manningcost) {
-        const manningCostTable = document.getElementById('manningCostTable');
-        manningCostTable.innerHTML = '';
-        manningcost=manningcost.result;
-        // console.log(manningcost);
-        manningcost.forEach((data) => {
-manningCostTable.insertAdjacentHTML('beforeend', `
-  <tr>
-    <td>${data.organisation}</td>
-    <td>₹ ${data.manningCost}</td>
-  </tr>
-`);
-});
-      }
-
-
-   
-
-
-    });
-  </script>
-
-    <script>
-
-      am5.ready(async function() {
- 
- var root = am5.Root.new("chartdiv");
- root.setThemes([am5themes_Animated.new(root)]);
-
- var chart = root.container.children.push(
-   am5xy.XYChart.new(root, {
-     panX: true,
-     panY: true,
-     wheelX: "panX",
-     wheelY: "zoomX",
-     paddingBottom: 100
-   })
- );
-
- 
- chart.set("tooltip", am5.Tooltip.new(root, {}));
-
- let backendData;
- 
- try {
-  //  const response = await fetch('http://localhost:3000/dashboard/staffs/organisation', {
-  //    method: 'GET',
-  //    headers: {
-  //      'Content-Type': 'application/json',
-  //      'Authorization': 'Bearer ' + sessionStorage.getItem('token')
-  //    }
-  //  });
-
-  const response=await axiosInstance.get('/dashboard/staffs/organisation');
-
-   
-
-   backendData = response.data.result;
-  //  console.log(backendData);
- } catch (error) {
-   console.error("Error fetching data:", error);
-   return; 
- }
-
- const orgNameMapping = {
-   "Head Quarters": "HQ",
-   "Chennai Port Authority": "ChPA",
-   "Jawaharlal Nehru Port Authority": "JNPA",
-   "Kamarajar Port Limited": "KPL",
-   "New Mangalore Port Authority": "NMPA",
-   "Paradip Port Authority": "PPA",
-   "VOC Port Authority": "VoCPA",
-   "Visakhapatnam Port Authority": "VPA",
-   "Cochin Port Authority":"CPA",
-   "Syama Prasad Mookerjee Port Authority":"SPMPA",
-   "Deendayal Port Authority":"DPA",
-   "Mumbai Port Authority":"MbPA",
-   "Marmugao Port Authority":"MPA",
- };
-
- function getOrganizationShortForm(orgName) {
-   if (orgNameMapping[orgName]) {
-     return orgNameMapping[orgName];
-   }
- 
-   return orgName
-     .split(" ")
-     .map(word => word.charAt(0))
-     .join("")
-     .toUpperCase();
- }
-
- const designationSet = new Set();
- backendData.forEach(item => {
-   Object.keys(item).forEach(key => {
-     if (key !== "entity") {
-       designationSet.add(key);
-     }
-   });
- });
- const allDesignations = Array.from(designationSet);
- 
- function toCamelCase(str) {
-   return str
-     .split(" ")
-     .map((word, i) =>
-       i === 0
-         ? word.toLowerCase()
-         : word.charAt(0).toUpperCase() + word.slice(1)
-     )
-     .join("");
- }
-
- const chartData = backendData.map(item => {
-   let newItem = { entity: getOrganizationShortForm(item.entity) };
-   allDesignations.forEach(designation => {
-     const key = toCamelCase(designation);
-     newItem[key] = item.hasOwnProperty(designation) ? item[designation] : 0;
-   });
-   return newItem;
- });
-
- var xAxis = chart.xAxes.push(
-   am5xy.CategoryAxis.new(root, {
-     categoryField: "entity",
-     renderer: am5xy.AxisRendererX.new(root, { minGridDistance: 0 })
-   })
- );
- xAxis.get("renderer").labels.template.setAll({ fontSize: "10px" });
- xAxis.data.setAll(chartData);
-
- var yAxis = chart.yAxes.push(
-   am5xy.ValueAxis.new(root, {
-     renderer: am5xy.AxisRendererY.new(root, { strokeOpacity: 0.1 })
-   })
- );
- yAxis.get("renderer").labels.template.setAll({ fontSize: "10px" });
-
- const validDesignations = allDesignations.filter(designation => {
-   const key = toCamelCase(designation);
-   return chartData.some(item => item[key] > 0);
- });
-
- function createSeries(field, name, color) {
-   var series = chart.series.push(
-     am5xy.ColumnSeries.new(root, {
-       name: name,
-       xAxis: xAxis,
-       yAxis: yAxis,
-       valueYField: field,
-       categoryXField: "entity",
-       stacked: true
-     })
-   );
-
-  series.columns.template.setAll({
-  tooltipText: "[bold]{name}[/]\n{categoryX}: {valueY}",
-  interactive: true, 
-  cursorOverStyle: "pointer"
-});
-
-
-   series.setAll({
-     interactive: true 
-   });
-
-  
-   series.events.on("pointerover", function(ev) {
-     console.log("Hovered on:", ev.target.dataItem?.dataContext);
-   });
-
-   if (color) {
-     series.columns.template.set("fill", am5.color(color));
-   }
-
-   series.columns.template.setAll({
-     width: am5.percent(45),
-     minWidth: 45,
-     strokeOpacity: 0
-   });
-
-   series.bullets.push(function() {
-     let label = am5.Label.new(root, {
-       text: "{valueY}",
-       centerY: am5.p50,
-       populateText: true,
-       fontSize: "12px"
-     });
-
-     label.adapters.add("text", function(text, target) {
-       const dataItem = target.dataItem;
-       if (dataItem && dataItem.get("valueY") === 0) {
-         return "";
-       }
-       return text;
-     });
-     return am5.Bullet.new(root, {
-       locationY: 0.5,
-       sprite: label
-     });
-   });
-
-   series.data.setAll(chartData);
-   series.appear();
-   return series;
- }
-
- validDesignations.forEach(designation => {
-   const key = toCamelCase(designation);
-   createSeries(key, designation, null); 
- });
-
- var legend = chart.children.push(am5.Legend.new(root, {
-   centerX: am5.p50,
-   x: am5.p50,
-   y: am5.p100,
-   marginTop: 20,
-   layout: am5.GridLayout.new(root, { maxColumns: 4 })
- }));
- legend.labels.template.setAll({ fontSize: "10px" });
- legend.data.setAll(chart.series.values);
-
- chart.appear(1000, 100);
-});
-
-
-am5.ready(async function() {
-
-
-var root = am5.Root.new("educationChart"); 
-
-root.setThemes([
-  am5themes_Animated.new(root)
-]);
-
-
-var chart = root.container.children.push(
-  am5xy.XYChart.new(root, {
-    panX: false,
-    panY: false,
-    wheelX: "panX",
-    wheelY: "zoomX",
-    layout: root.verticalLayout,
-    paddingTop: 20,
-    paddingBottom: 30
-  })
-);
-
-
-// var response=await fetch('http://localhost:3000/dashboard/staffs/hq',{
-//     method:'GET',
-//     headers: {
-//         'Content-Type': 'application/json',
-//         'Authorization': 'Bearer '+sessionStorage.getItem('token')
-//     }
-// }).then(response => response.json());
-
-var response=await axiosInstance.get('/dashboard/staffs/hq');
-
-
-var data=response.data.result;
-
-
-// console.log('qualifications : ',data);
-
-var xAxis = chart.xAxes.push(
-  am5xy.CategoryAxis.new(root, {
-    categoryField: "qualification",
-    renderer: am5xy.AxisRendererX.new(root, {
-      minGridDistance: 20,
-      
-    })
-  })
-);
-
-xAxis.get("renderer").labels.template.setAll({
-  fontSize: "10px"
-});
-
-xAxis.data.setAll(data);
-
-var yAxis = chart.yAxes.push(
-  am5xy.ValueAxis.new(root, {
-    min: 0,  
-    renderer: am5xy.AxisRendererY.new(root, {})
-  })
-);
-
-yAxis.get("renderer").labels.template.setAll({
-  fontSize: "10px"                                                                                                                  
-});
-
-var series = chart.series.push(
-  am5xy.ColumnSeries.new(root, {
-    name: "Count",
-    xAxis: xAxis,
-    yAxis: yAxis,
-    valueYField: "count",
-    categoryXField: "qualification",
-    tooltip: am5.Tooltip.new(root, {
-      labelText: "{categoryX}: {valueY}"
-    })
-  })
-);
-
-series.columns.template.setAll({
-  width: am5.percent(40),
-  minWidth:20,
-  fill: am5.color(0x5BF0cE),  
-  strokeOpacity:0,
-  cornerRadiusTL: 5,
-  cornerRadiusTR: 5
-});
-
-series.bullets.push(function () {
-  return am5.Bullet.new(root, {
-    locationY: 0.5,
-    sprite: am5.Label.new(root, {
-      text: "{valueY}",
-      populateText: true,
-      centerX: am5.p50,
-      centerY: am5.p50,
-      fontSize: "15px",
-      fill: am5.color(0xffffff)
-    })
-  });
-});
-series.columns.template.setAll({
-  tooltipText: "[bold]{name}[/]\n{categoryX}: {valueY}",
-  interactive: true, 
-  cursorOverStyle: "pointer"
-});
-series.data.setAll(data);
-
-
-chart.appear(1000, 100);
-series.appear();
-
-});
-
-am5.ready(async function() {
-
-
-var root = am5.Root.new("operatorsEducationChart"); 
-
-root.setThemes([
-  am5themes_Animated.new(root)
-]);
-
-
-var chart = root.container.children.push(
-  am5xy.XYChart.new(root, {
-    panX: false,
-    panY: false,
-    wheelX: "panX",
-    wheelY: "zoomX",
-    layout: root.verticalLayout,
-    paddingTop: 20,
-    paddingBottom: 30
-  })
-);
-
-
-
-// var response=await fetch('http://localhost:3000/dashboard/staffs/operators/hq',{
-//     method:'GET',
-//     headers: {
-//         'Content-Type': 'application/json',
-//         'Authorization': 'Bearer '+sessionStorage.getItem('token')
-//     }
-// }).then(response => response.json());
-
-var response=await axiosInstance.get('/dashboard/staffs/operators/hq');
-
-var data=response.data.result;
-
-// console.log('qualifications : ',data);
-
-var xAxis = chart.xAxes.push(
-  am5xy.CategoryAxis.new(root, {
-    categoryField: "qualification",
-    renderer: am5xy.AxisRendererX.new(root, {
-      minGridDistance: 20,
-      
-    })
-  })
-);
-
-xAxis.get("renderer").labels.template.setAll({
-  fontSize: "10px"
-});
-
-xAxis.data.setAll(data);
-
-var yAxis = chart.yAxes.push(
-  am5xy.ValueAxis.new(root, {
-    min: 0,  
-    renderer: am5xy.AxisRendererY.new(root, {})
-  })
-);
-
-yAxis.get("renderer").labels.template.setAll({
-  fontSize: "10px"                                                                                                                  
-});
-
-var series = chart.series.push(
-  am5xy.ColumnSeries.new(root, {
-    name: "Count",
-    xAxis: xAxis,
-    yAxis: yAxis,
-    valueYField: "count",
-    categoryXField: "qualification",
-    tooltip: am5.Tooltip.new(root, {
-      labelText: "{categoryX}: {valueY}"
-    })
-  })
-);
-
-series.columns.template.setAll({
-  width: am5.percent(40),
-  minWidth:20,
-  fill: am5.color(0x5BF0cE),  
-  strokeOpacity:0,
-  cornerRadiusTL: 5,
-  cornerRadiusTR: 5
-});
-
-series.bullets.push(function () {
-  return am5.Bullet.new(root, {
-    locationY: 0.5,
-    sprite: am5.Label.new(root, {
-      text: "{valueY}",
-      populateText: true,
-      centerX: am5.p50,
-      centerY: am5.p50,
-      fontSize: "15px",
-      fill: am5.color(0xffffff)
-    })
-  });
-});
-series.columns.template.setAll({
-  tooltipText: "[bold]{name}[/]\n{categoryX}: {valueY}",
-  interactive: true, 
-  cursorOverStyle: "pointer"
-});
-series.data.setAll(data);
-
-
-chart.appear(1000, 100);
-series.appear();
-
-});
-
-
-
-      </script>
-      <script>
-         am5.ready(async function() {
-
-
-var root = am5.Root.new("certificationChart"); 
-
-
-root.setThemes([
-  am5themes_Animated.new(root)
-]);
-
-var chart = root.container.children.push(
-  am5xy.XYChart.new(root, {
-    panX: false,
-    panY: false,
-    wheelX: "panX",
-    wheelY: "zoomX",
-    layout: root.verticalLayout,
-    paddingTop: 20,
-    paddingBottom: 30
-  })
-);
-
-
-
-// var response=await fetch('http://localhost:3000/dashboard/staffs/courses',{
-//     method:'GET',
-//     headers: {
-//         'Content-Type': 'application/json',
-//         'Authorization': 'Bearer '+sessionStorage.getItem('token')
-//     }
-// }).then(response => response.json());
-
-
-var response=await axiosInstance.get('/dashboard/staffs/courses');
-
-// var data = [
-//   { course: "GDMSS", count: 4 },
-//   { course: "VTS 103A", count: 5 },
-//   { course: "GDMSS & VTS 103A", count: 3 },
-//   { course: "NA", count: 4 },
-// ];
-
-var data=response.data.result;
-
-// console.log(data);
-
-var xAxis = chart.xAxes.push(
-  am5xy.CategoryAxis.new(root, {
-    categoryField: "course",
-    renderer: am5xy.AxisRendererX.new(root, {
-      minGridDistance: 20,
-    
-    })
-  })
-);
-
-xAxis.get("renderer").labels.template.setAll({
-  fontSize: "10px"
-});
-
-xAxis.data.setAll(data);
-
-var yAxis = chart.yAxes.push(
-  am5xy.ValueAxis.new(root, {
-    min: 0,  // if all counts are >= 0
-    renderer: am5xy.AxisRendererY.new(root, {})
-  })
-);
-
-yAxis.get("renderer").labels.template.setAll({
-  fontSize: "10px"                                                                                                                  
-});
-
-var series = chart.series.push(
-  am5xy.ColumnSeries.new(root, {
-    name: "Count",
-    xAxis: xAxis,
-    yAxis: yAxis,
-    valueYField: "count",
-    categoryXField: "course",
-    tooltip: am5.Tooltip.new(root, {
-      labelText: "{categoryX}: {valueY}"
-    })
-  })
-);
-
-series.columns.template.setAll({
-  width: am5.percent(40),
-  minWidth:20,
-  fill: am5.color(0x5BF0cE),   
-  strokeOpacity:0,
-  cornerRadiusTL: 5,
-  cornerRadiusTR: 5
-});
-
-
-series.columns.template.setAll({
-  tooltipText: "[bold]{name}[/]\n{categoryX}: {valueY}",
-  interactive: true, 
-  cursorOverStyle: "pointer"
-});
-
-series.bullets.push(function () {
-  return am5.Bullet.new(root, {
-    locationY: 0.5,
-    sprite: am5.Label.new(root, {
-      text: "{valueY}",
-      populateText: true,
-      centerX: am5.p50,
-      centerY: am5.p50,
-      fontSize: "15px",
-      fill: am5.color(0xffffff)
-    })
-  });
-});
-
-series.data.setAll(data);
-
-
-chart.appear(1000, 100);
-series.appear();
-
-});
-
-am5.ready(async function() {
-
-
-var root = am5.Root.new("operatorsCertificationChart"); 
-
-
-root.setThemes([
-  am5themes_Animated.new(root)
-]);
-
-var chart = root.container.children.push(
-  am5xy.XYChart.new(root, {
-    panX: false,
-    panY: false,
-    wheelX: "panX",
-    wheelY: "zoomX",
-    layout: root.verticalLayout,
-    paddingTop: 20,
-    paddingBottom: 30
-  })
-);
-
-
-
-// var response=await fetch('http://localhost:3000/dashboard/staffs/operators/courses',{
-//     method:'GET',
-//     headers: {
-//         'Content-Type': 'application/json',
-//         'Authorization': 'Bearer '+sessionStorage.getItem('token')
-//     }
-// }).then(response => response.json());
-
-var response=await axiosInstance.get('/dashboard/staffs/operators/courses');
-
-// var data = [
-//   { course: "GDMSS", count: 4 },
-//   { course: "VTS 103A", count: 5 },
-//   { course: "GDMSS & VTS 103A", count: 3 },
-//   { course: "NA", count: 4 },
-// ];
-
-var data=response.data.result;
-// console.log(data);
-
-var xAxis = chart.xAxes.push(
-  am5xy.CategoryAxis.new(root, {
-    categoryField: "course",
-    renderer: am5xy.AxisRendererX.new(root, {
-      minGridDistance: 20,
-    
-    })
-  })
-);
-
-xAxis.get("renderer").labels.template.setAll({
-  fontSize: "10px"
-});
-
-xAxis.data.setAll(data);
-
-var yAxis = chart.yAxes.push(
-  am5xy.ValueAxis.new(root, {
-    min: 0,  // if all counts are >= 0
-    renderer: am5xy.AxisRendererY.new(root, {})
-  })
-);
-
-yAxis.get("renderer").labels.template.setAll({
-  fontSize: "10px"                                                                                                                  
-});
-
-var series = chart.series.push(
-  am5xy.ColumnSeries.new(root, {
-    name: "Count",
-    xAxis: xAxis,
-    yAxis: yAxis,
-    valueYField: "count",
-    categoryXField: "course",
-    tooltip: am5.Tooltip.new(root, {
-      labelText: "{categoryX}: {valueY}"
-    })
-  })
-);
-
-series.columns.template.setAll({
-  width: am5.percent(40),
-  minWidth:20,
-  fill: am5.color(0x5BF0cE),   
-  strokeOpacity:0,
-  cornerRadiusTL: 5,
-  cornerRadiusTR: 5
-});
-
-
-series.columns.template.setAll({
-  tooltipText: "[bold]{name}[/]\n{categoryX}: {valueY}",
-  interactive: true, 
-  cursorOverStyle: "pointer"
-});
-
-series.bullets.push(function () {
-  return am5.Bullet.new(root, {
-    locationY: 0.5,
-    sprite: am5.Label.new(root, {
-      text: "{valueY}",
-      populateText: true,
-      centerX: am5.p50,
-      centerY: am5.p50,
-      fontSize: "15px",
-      fill: am5.color(0xffffff)
-    })
-  });
-});
-
-series.data.setAll(data);
-
-
-chart.appear(1000, 100);
-series.appear();
-
-});
-
-
-
-      </script>
-      <script>
-        am5.ready(async function() {
-        
-       
-          var root = am5.Root.new("payHikeChart");
-        
-          root.setThemes([
-            am5themes_Animated.new(root)
-          ]);
-        
-          
-          var chart = root.container.children.push(
-            am5percent.PieChart.new(root, {
-              layout: root.verticalLayout,
-              innerRadius: 0 
-            })
-          );
-        
-          
-          // const response=await fetch('http://localhost:3000/dashboard/hike',{
-          //   method:'GET',
-          //   headers:{
-          //     'Authorization':'Bearer '+sessionStorage.getItem('token'),
-          //     'Content-Type':'application/json'
-          //   }
-          // }).then(response => response.json());
-
-          const response=await axiosInstance.get('/dashboard/hike');
-
-          const hikes=response.data.hikes;
-
-          // console.log(hikes);
-          
-          var data=[
-            { category: "less than 25000", value: 0 },
-            { category: "25000 to 50000", value:0 },
-            { category: "50000 to 1 lakh", value: 0 },
-            { category: "above 1 lakh", value: 0 }
-          ]
-
-          hikes.forEach(hike => {
-            if(hike<25000){
-              data[0].value+=1;
-            }else
-            if(hike>25000 && hike<50000){
-              data[1].value+=1;
-            }
-            else if(hike>=50000 && hike<100000){
-              data[2].value+=1;
-            }
-            else if(hike>=100000){
-              data[3].value+=1;
-            } 
-          });
-
-         
-
-          var series = chart.series.push(
-            am5percent.PieSeries.new(root, {
-              name: "Pay Hike Series",
-              categoryField: "category",
-              valueField: "value",
-              tooltip: am5.Tooltip.new(root, {
-                labelText: "{category}: {value} ({valuePercentTotal.formatNumber('0.000')}%)"
-              })
-              
-            })
-          );
-        
-         
-          series.data.setAll(data);
-        
-        
-          series.set("radius", am5.percent(70));
-          series.set("marginTop", 15);
-          series.slices.template.setAll({
-            stroke: am5.color(0xffffff),
-            strokeWidth: 2
-          });
-        
-          
-          series.labels.template.setAll({
-            text: "{value} | {valuePercentTotal.formatNumber('0.000')}%",
-            radius: 20,
-            fontSize: "12px",
-            fill: am5.color("#000"),
-            forceHidden: false,    
-            oversizedBehavior: "none"
-          });
-        
-    
-          var legend = chart.children.push(
-            am5.Legend.new(root, {
-              centerX: am5.p50,
-              x: am5.p50,
-              layout: root.horizontalLayout,
-              paddingTop: 10
-            })
-          );
-          legend.data.setAll(series.dataItems);
-        
-         
-          series.appear(1000, 100);
-          chart.appear(1000, 100);
-        
-        }); // end am5.ready()
-        </script>
-        <script>
-            am5.ready(async function() {
-            
-              var root = am5.Root.new("payHikeBreakdownChart");
-            
-              
-              root.setThemes([am5themes_Animated.new(root)]);
-            
-             
-              var chart = root.container.children.push(
-                am5xy.XYChart.new(root, {
-                  panX: true,
-                  panY: true,
-                  wheelX: "panX",
-                  wheelY: "zoomX",
-                  layout: root.verticalLayout,
-                  paddingLeft: 70,
-                  paddingRight: 70,
-                  paddingTop: 30,
-                  paddingBottom: 30
-                })
-              );
-                
-              
-              const orgNameMapping = {
-                "Head Quarters": "HQ",
-                "Chennai Port Authority": "ChPA",
-                "Jawaharlal Nehru Port Authority": "JNPA",
-                "Kamarajar Port Limited": "KPL",
-                "New Mangalore Port Authority": "NMPA",
-                "Paradip Port Authority": "PPA",
-                "VOC Port Authority": "VoCPA",
-                "Visakhapatnam Port Authority": "VPA",
-                "Cochin Port Authority":"CPA",
-                "Syama Prasad Mookerjee Port Authority":"SPMPA",
-                "Deendayal Port Authority":"DPA",
-                "Mumbai Port Authority":"MbPA",
-                "Marmugao Port Authority":"MPA",
-              };
-
-
-              function getOrganizationShortForm(orgName) {
-                if (orgNameMapping[orgName]) {
-                  return orgNameMapping[orgName];
-                }
-              
-                return orgName
-                  .split(" ")
-                  .map(word => word.charAt(0))
-                  .join("")
-                  .toUpperCase();
-              }
-               
-
-              const invoiceMapping={
-                'JNPA':10542336,
-                'VPA':477842,
-                'VoCPA':500000,
-                'PPA':0,
-                'NMPA':1260000,
-                'KPL':750000,
-                'ChPA':1045945,
-                'HQ':92562
-              };
-
-              
-
-              // var response=await fetch('http://localhost:3000/dashboard/manningcost',{
-              //     method:'GET',
-              //     headers:{
-              //       'Authorization':'Bearer '+sessionStorage.getItem('token'),
-              //       'Content-Type':'application/json'
-              //     }
-              // }).then(response=>response.json());
-
-              var response=await axiosInstance.get('/dashboard/manningCost');
-              
-              var apiData=response.data.result;
-
-              // console.log(apiData);
-              
-              var data=[];
-
-              var sum=0;
-              var invoiceSum=0;
-
-              apiData.map(item=>{
-                const entity={};
-                entity['organisation']=getOrganizationShortForm(item.organisation),
-                entity['actualCost']=item.manningCost,
-                entity['invoiceRaised']=invoiceMapping[getOrganizationShortForm(item.organisation)],
-                entity['other']=0
-                sum+=parseFloat(item.manningCost);
-                data.push(entity);
-              });
-              // console.log(sum);
-              // console.log('formatted data: ',data);
-
-              function getOrgFullName(shortForm) {
-                 return Object.keys(orgNameMapping).find(key => orgNameMapping[key] === shortForm) || null;
-            }
-            
-              invoiceSum = Object.values(invoiceMapping).reduce((t, n) => t + n, 0);
-
-              let tableBody = document.getElementById("invoiceTable");
-              // tableBody.innerHTML = ""; 
-
-              Object.entries(invoiceMapping).forEach(([org, cost]) => {
-                let row = document.createElement("tr");
-                row.innerHTML = `
-                  <td>${getOrgFullName(org)}</td>
-                  <td>₹ ${cost.toLocaleString()}</td>
-                `;
-                tableBody.appendChild(row);
-              });
-
-
-              
-              document.getElementById('invoice-raised').innerHTML='₹ '+invoiceSum.toLocaleString();
-
-              document.getElementById('total-manning-cost').innerHTML='₹ '+parseFloat(sum).toLocaleString();
-
-              // var data = [
-              //   { organisation: "JNPA", actualCost: 0, invoiceRaised: 10542336, other: 0 },
-              //   { organisation: "VPA", actualCost: 226750, invoiceRaised: 477842, other: 0 },
-              //   { organisation: "VoCPA", actualCost: 267000, invoiceRaised: 500000, other: 0 },
-              //   { organisation: "PPA", actualCost: 75000, invoiceRaised: 0, other: 0 },
-              //   { organisation: "NMPA", actualCost: 1029734, invoiceRaised: 1260000, other: 0 },
-              //   { organisation: "KPL", actualCost: 306042, invoiceRaised: 750000, other: 0 },
-              //   { organisation: "ChPA", actualCost: 267500, invoiceRaised: 1045945, other: 0 },
-              //   { organisation: "HQ", actualCost: 0, invoiceRaised: 92562, other: 0 }
-              // ];
-            
-              
-              var yAxis = chart.yAxes.push(
-                am5xy.CategoryAxis.new(root, {
-                  categoryField: "organisation",
-                  renderer: am5xy.AxisRendererY.new(root, {
-                    inversed: true,
-                    cellStartLocation: 0, 
-                    cellEndLocation: 1    
-                  })
-                })
-              );
-              yAxis.data.setAll(data);
-            
-              var xAxis = chart.xAxes.push(
-                am5xy.ValueAxis.new(root, {
-                  min: 0,
-                  renderer: am5xy.AxisRendererX.new(root, {
-                    strokeOpacity: 0.1,
-                    minGridDistance: 50
-                  })
-                })
-              );
-            
-              xAxis.get("renderer").labels.template.setAll({
-                fontSize: "10px"
-              });
-            
-              
-              function createSeries(field, name, color) {
-                var series = chart.series.push(
-                  am5xy.ColumnSeries.new(root, {
-                    name: name,
-                    xAxis: xAxis,
-                    yAxis: yAxis,
-                    valueXField: field,
-                    categoryYField: "organisation",
-                    tooltip: am5.Tooltip.new(root, {
-                      pointerOrientation: "horizontal",
-                      labelText: "[bold]{name}[/]\n{categoryY}: {valueX}"
-                    })
-                  })
-                );
-            
-               
-                if (color) {
-                  series.columns.template.set("fill", am5.color(color));
-                  series.columns.template.set("stroke", am5.color(color));
-                }
-            
-                series.columns.template.setAll({
-                  height: am5.percent(100),
-                  strokeOpacity: 0
-                });
-            
-                series.bullets.push(function () {
-                  return am5.Bullet.new(root, {
-                    locationX: 1,
-                    locationY: 0.5,
-                    sprite: am5.Label.new(root, {
-                      centerY: am5.p50,
-                      text: "{valueX}",
-                      populateText: true,
-                      dx: 5,
-                      fill: am5.color("#000"),
-                      fontSize: "12px"
-                    })
-                  });
-                });
-            
-                series.data.setAll(data);
-                series.appear(1000);
-                return series;
-              }
-            
-             
-              createSeries("actualCost", "Actual Manning Cost / Month", 0x0066cc); 
-              createSeries("invoiceRaised", "Invoice Raised / Month", 0x5DE2E7);   
-              createSeries("other", "Other", 0xff9900);                          
-            
-             
-              var legend = chart.children.push(
-                am5.Legend.new(root, {
-                  centerX: am5.p50,
-                  x: am5.p50,
-                  layout: am5.GridLayout.new(root, {
-                    maxColumns: 3,
-                    fixedWidthGrid: false,
-                    useDefault: true
-                  })
-                })
-              );
-              legend.data.setAll(chart.series.values);
-            
-             
-              var cursor = chart.set(
-                "cursor",
-                am5xy.XYCursor.new(root, {
-                  behavior: "zoomY"
-                })
-              );
-              cursor.lineY.set("forceHidden", true);
-              cursor.lineX.set("forceHidden", true);
-            
-              
-              chart.appear(1000, 100);
-            }); 
-
-            </script>
-          <script>
-            document.addEventListener('DOMContentLoaded', async () => {
-              if (window.api) {
-                window.getStaffsCountByHighestQualification = window.api.getStaffsCountByHighestQualification;
-                // console.log(window.getStaffsCountByHighestQualification);
-              } else {
-                console.error("api not found");
-              }
-
-            
-
-              // var response = await fetch('http://localhost:3000/dashboard/hike/hl', {
-              //  method: 'GET',
-              //   headers: {
-              //     'Content-Type': 'application/json',
-              //     'Authorization': 'Bearer ' + sessionStorage.getItem('token')
-              //   }
-              // }).then(response => response.json());
-
-              // const result=response.result;
-              
-              // document.getElementById('hph-name').textContent=result[0].staff_name;
-              // document.getElementById('hph-org').textContent=result[0].organisation;
-              // document.getElementById('hph-hike').textContent=result[0].hike+"%";
-
-              // document.getElementById('lph-name').textContent=result[1].staff_name;
-              // document.getElementById('lph-org').textContent=result[1].organisation;
-              // document.getElementById('lph-hike').textContent=result[1].hike+"%";
-
-
-
-              // var response=await fetch('http://localhost:3000/dashboard/manpower/count',{
-              //   method:'GET',
-              //   headers:{
-              //     'Content-Type':'application/json',
-              //     'Authorization':'Bearer '+sessionStorage.getItem('token')
-              //   }
-              // }).then(response=>response.json());
-
-              var response=await axiosInstance.get('/dashboard/manpower/count');
-
-              // console.log(response);
-              document.getElementById('manpower-deployed').innerHTML=response.data.count;
-
-
-              // var response=await fetch('http://localhost:3000/dashboard/staffs/designation',{
-              //   method:'GET',
-              //   headers:{
-              //     'Content-Type':'application/json',
-              //     'Authorization':'Bearer '+sessionStorage.getItem('token')
-              //   }
-              // }).then(response=>response.json());
-
-
-              var response=await axiosInstance.get('/dashboard/staffs/designation');
-
-              const designationStaffsMap=response.data.result;
-              
-              
-              if(!designationStaffsMap){
-                  document.querySelector('#manPowerTable').innerHTML='<p class="text-danger">No Data Found</p>';
-                  
-              }else{
-                  designationStaffsMap.forEach(obj=>{
-                      $('#manPowerTable').append(`
-                          <tr>
-                              <td>${obj.designation}</td>
-                              <td>${obj.count}</td>
-                          </tr>
-                      `);
-
-                  });
-              }
-              
-              
-
-              // console.log(response.result);
-
-              
-            });
-
-            
-          </script>
-          
-        
-        
-        
-        <script>
-          // const elements=document.querySelectorAll('.chart-container');
-          // elements.forEach(el=>{
-          //     el.addEventListener('mouseover',function(){
-          //       document.querySelector('.legend-container').classList.remove('d-none');
-          //     });
-          //     el.addEventListener('mouseout',function(){
-          //       document.querySelector('.legend-container').classList.add('d-none');
-          //     });
-          // });
-          
-        </script>
-
-      <!-- <script>
-        function showErrorPopupFadeInDown(message) {
-            toastr.options = {
-                positionClass: "toast-top-right",
-                showMethod: "fadeIn",  
-                hideMethod: "fadeOut" ,
-                timeOut:1000
-            };
-            toastr.error(message);  
-        }
-        function showSucessPopupFadeInDownLong(message){
-
-          toastr.options = {
-              positionClass: "toast-top-right", 
-              showMethod: "fadeIn",  
-              hideMethod: "fadeOut" ,
-              timeOut:3000
-          };
-          toastr.success(message);
-
-          }
-          function showPopupFadeInDown(message) {
-            toastr.options = {
-                positionClass: "toast-top-right",
-                showMethod: "fadeIn",  
-                hideMethod: "fadeOut" ,
-                timeOut:1000
-            };
-            toastr.success(message);
-          }
-
-      </script> -->
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  </div>
+  <script src="assets/js/roleUtil copy.js"></script>
+  <!-- Required Jquery -->
+  <script type="text/javascript" src="assets/js/jquery/jquery.min.js "></script>
+  <script type="text/javascript" src="assets/js/jquery-ui/jquery-ui.min.js "></script>
+  <script type="text/javascript" src="assets/js/popper.js/popper.min.js"></script>
+  <script type="text/javascript" src="assets/js/bootstrap/js/bootstrap.min.js "></script>
+  <!-- waves js -->
+  <script src="assets/pages/waves/js/waves.min.js"></script>
+  <!-- jquery slimscroll js -->
+  <script type="text/javascript" src="assets/js/jquery-slimscroll/jquery.slimscroll.js"></script>
+  <!-- slimscroll js -->
+  <script src="assets/js/jquery.mCustomScrollbar.concat.min.js "></script>
+  <!-- menu js -->
+  <script src="assets/js/pcoded.min.js"></script>
+  <script src="assets/js/vertical/vertical-layout.min.js "></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="./assets/js/axiosInstance.js"></script>
+  <script src="./assets/js/api.js"></script>
+  <script src="./assets/js/apiRequests.js"></script>
+  <script src="./assets/js/Utils.js"></script>
+  <script src="./assets/js/index.js"></script>
+  <script type="text/javascript" src="assets/js/script.js "></script>
+  <script type="text/javascript" src="assets/js/popup.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

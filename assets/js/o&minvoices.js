@@ -193,56 +193,6 @@ async function getAllInvoiceLogs(){
 
 document.addEventListener('DOMContentLoaded',async ()=>{
 
-    roles = await axiosInstance.get('/roles/role/perms');
-    roles = roles.data.roles;
-    // console.log(roles);
-    window.roles = roles;
-    handlePermission('#username');
-
-
-    const sidebarContainer = document.getElementById('sidebar-container');
-    if (sidebarContainer) {
-        sidebarContainer.innerHTML = generateSidebar();
-        
-       
-        const currentPage = window.location.pathname.split('/').pop().split('.')[0];
-        const navLinks = document.querySelectorAll('.pcoded-item a');
-        
-        navLinks.forEach(link => {
-            if (link.getAttribute('href').includes(currentPage)) {
-                link.parentElement.classList.add('active');
-                
-            
-                const accordionContent = link.closest('.accordion-content');
-                if (accordionContent) {
-                    accordionContent.style.display = 'block';
-                    const header = accordionContent.previousElementSibling;
-                    const icon = header.querySelector('.accordion-icon');
-                    if (icon) {
-                        icon.classList.remove('fa-chevron-down');
-                        icon.classList.add('fa-chevron-up');
-                    }
-                }
-            }
-        });
-    }
-
-    // const user=JSON.parse(sessionStorage.getItem('user'));
-    // const token=sessionStorage.getItem('token');
-
-    // if(token===null||user===null){
-    //     window.location.href="login.html";
-    // }
-
-    // if(user.role===2){
-    //     window.location.href="user-details.html";
-    //     return;
-    // }
-
-    // document.getElementById('username').innerText=user.name;
-
-
-
     $('#year-title').text(date.getFullYear());
 
     if(date.getDate()>10){
@@ -392,15 +342,37 @@ async function updateMailSentStatus(status,id){
     }
 }
 
+    $(document).ready(function () {
+        const datatable = $('#monthlyStatusTable').DataTable({
+            "paging": true,
+            "pageLength": 25,
+            "lengthMenu": [5, 10, 25, 50, 100],
+            dom: '<"top"l>frtip',
+            buttons: ['excel', 'csv', 'pdf']
+        });
+        
+        
+        const invoiceTable = $('#invoiceLogTable').DataTable({
+            "paging": true,
+            "pageLength": 25,
+            "lengthMenu": [5, 10, 25, 50, 100],
+            dom: '<"top"l>frtip',
+            buttons: ['excel', 'csv', 'pdf']
+        });
 
-document.getElementById('logout-button').addEventListener('click',()=>{
-    sessionStorage.removeItem('token');
-    sessionStorage.removeItem('user');
-    window.location.href="login.html";
-});
+        $('#portFilter').on('change', function () {
+        const selectedPort = $(this).val();
+        invoiceTable.column(1).search(selectedPort ? '^' + selectedPort + '$' : '', true, false).draw();
+    });
 
-document.getElementsByClassName('logout')[0].addEventListener('click',()=>{
-    sessionStorage.removeItem('token');
-    sessionStorage.removeItem('user');
-    window.location.href="login.html";
-});
+    $('#yearFilter').on('change', function () {
+        const selectedYear = $(this).val();
+        invoiceTable.column(2).search(selectedYear ? '^' + selectedYear + '$' : '', true, false).draw();
+    });
+    $('#monthFilter').on('change', function () {
+        const selectedMonth = $(this).val();
+        invoiceTable.column(3).search(selectedMonth ? '^' + selectedMonth + '$' : '', true, false).draw();
+    });
+      
+       
+    });

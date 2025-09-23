@@ -37,6 +37,7 @@ async function addRow(data){
 }
 
 
+
 const addNewDesignationButton=document.getElementById('add_designation_btn');
 const updateDeisgnationButton=document.getElementById('update_designation_btn');
 
@@ -151,27 +152,6 @@ async function toggleStatus(element, id) {
 
 // dom loaded
 document.addEventListener('DOMContentLoaded',async()=>{
-    roles = await axiosInstance.get('/roles/role/perms');
-    roles = roles.data.roles;
-    // console.log(roles);
-    window.roles = roles;
-    handlePermission('#user-name-dsiplay');
-
-    // const user=JSON.parse(sessionStorage.getItem('user'));
-    // const token = sessionStorage.getItem('token');
-   
-    // // document.getElementById('more-details').innerHTML=user.name;
-    
-    
-    
-    // if (token === null || user === null) {
-    //     window.location.replace("login.html");
-    // } else if (user.role !== 2) {
-    //     window.location.replace("index.html");
-    //     return;
-    // }
-
-    // document.getElementById('user-name-dsiplay').innerHTML=user.name;
     
     await refreshTable();
 
@@ -189,3 +169,66 @@ async function refreshTable() {
     await getAllDesignations();
 }
 
+
+    $(document).ready(function () {
+        // Initialize DataTable
+        var table = $('#myTable').DataTable({
+            "paging": true,
+            "pageLength": 25,
+            "lengthMenu": [5, 10, 25, 50, 100],
+            dom: '<"top"l>frtip',
+            buttons: [
+        {
+            extend: 'excelHtml5',
+            text: 'Excel',
+            
+            exportOptions: {
+                columns: [0,1,2],
+                format: {
+                    body: function (data, row, column, node) {
+                        
+                        if ($(node).find('.toggle-btn').length) {
+                            return $(node).find('.toggle-btn').hasClass('active') ? 'True' : 'False';
+                        }
+                        return data;
+                    }
+                }
+            }
+        },
+        {
+            extend: 'csvHtml5',
+            text: 'CSV',
+            exportOptions: {
+                columns: [0,1,2],
+                format: {
+                    body: function (data, row, column, node) {
+                        if ($(node).find('.toggle-btn').length) {
+                            return $(node).find('.toggle-btn').hasClass('active') ? 'True' : 'False';
+                        }
+                        return data;
+                    }
+                }
+            }
+        },
+        {
+            extend: 'pdfHtml5',
+            text: 'PDF',
+            orientation: 'landscape',
+            exportOptions: {
+                columns: [0,1,2],
+                format: {
+                    body: function (data, row, column, node) {
+                        if ($(node).find('.toggle-btn').length) {
+                            return $(node).find('.toggle-btn').hasClass('active') ? 'True' : 'False';
+                        }
+                        return data;
+                    }
+                }
+            }
+        }
+    ]
+        });
+
+        
+        table.buttons().container().appendTo('#exportButtons');
+    });

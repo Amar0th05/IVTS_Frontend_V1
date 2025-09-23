@@ -44,18 +44,12 @@ function addRow(data){
         data-toggle="modal" 
         data-target="#updateModal"
        onclick=loadStageDetails('${JSON.stringify(procurement).replace(/'/g, "&apos;")}')>
-        <i class="ti-info mx-auto"></i>
-    </button>
+<i class="fa-solid fa-info"></i>   </button>
 
     `,
     ]).draw(false);
 
-
-
 };
-
-
-
 
 document.querySelector('#myTable').addEventListener('change', async function(event) {
     if (event.target.classList.contains('form-control')) {
@@ -91,9 +85,6 @@ document.querySelector('#myTable').addEventListener('change', async function(eve
     }
     
 });
-
-
-
 
 async function fetchAllData(){
     try{
@@ -164,78 +155,6 @@ async function fetchAllData(){
 }
 
 $(document).ready(async function() {
-    roles = await axiosInstance.get('/roles/role/perms');
-    roles = roles.data.roles;
-    // console.log(roles);
-    window.roles = roles;
-
-    handlePermission('#username');
-
-    const sidebarContainer = document.getElementById('sidebar-placeholer');
-    if (sidebarContainer) {
-        sidebarContainer.innerHTML = generateSidebar();
-        
-        // Set the current page as active
-        const currentPage = window.location.pathname.split('/').pop().split('.')[0];
-        const navLinks = document.querySelectorAll('.pcoded-item a');
-        
-        navLinks.forEach(link => {
-            if (link.getAttribute('href').includes(currentPage)) {
-                link.parentElement.classList.add('active');
-                
-                // Expand the parent accordion
-                const accordionContent = link.closest('.accordion-content');
-                if (accordionContent) {
-                    accordionContent.style.display = 'block';
-                    const header = accordionContent.previousElementSibling;
-                    const icon = header.querySelector('.accordion-icon');
-                    if (icon) {
-                        icon.classList.remove('fa-chevron-down');
-                        icon.classList.add('fa-chevron-up');
-                    }
-                }
-            }
-        });
-    }
-    
-    // const sidebarContainer = document.getElementById('sidebar-container');
-    // if (sidebarContainer) {
-    //     sidebarContainer.innerHTML = generateSidebar();
-        
-       
-    //     const currentPage = window.location.pathname.split('/').pop().split('.')[0];
-    //     const navLinks = document.querySelectorAll('.pcoded-item a');
-        
-    //     navLinks.forEach(link => {
-    //         if (link.getAttribute('href').includes(currentPage)) {
-    //             link.parentElement.classList.add('active');
-                
-            
-    //             const accordionContent = link.closest('.accordion-content');
-    //             if (accordionContent) {
-    //                 accordionContent.style.display = 'block';
-    //                 const header = accordionContent.previousElementSibling;
-    //                 const icon = header.querySelector('.accordion-icon');
-    //                 if (icon) {
-    //                     icon.classList.remove('fa-chevron-down');
-    //                     icon.classList.add('fa-chevron-up');
-    //                 }
-    //             }
-    //         }
-    //     });
-    // }
-    
-    // const user=JSON.parse(sessionStorage.getItem('user'));
-    // const token = sessionStorage.getItem('token');
-    // if (token === null || user === null) {
-    //     window.location.replace("login.html");
-    // } else if (user.role === 2) {
-    //     window.location.replace("user-details.html");
-    //     return;
-    // }
-
-    // document.getElementById('username').textContent=user.name;
-
     await loadOrganisationOptions("portName");
     await loadEquipmentCategoryOptions('equipmentCategory');
     
@@ -473,3 +392,171 @@ document.querySelector("#add_equipment_btn").addEventListener('click', async () 
     }
 });
 
+
+
+$(document).ready(async function () {
+    var table = $('#myTable').DataTable({
+        "paging": true,
+        "pageLength": 50,
+        "lengthMenu": [5, 10, 25, 50, 100],
+        dom: '<"top"l>frtip',
+        buttons: ['excel', 'csv', {
+            extend: 'pdf',
+            text: 'PDF',
+            orientation: 'landscape', 
+            exportOptions: {
+                columns: ':visible',
+                search: 'applied',
+                order: 'applied',
+                page: 'all',
+            }
+        },{
+            extend: 'colvis',
+            hidestart:[ 8],
+            // columns: [8],
+           
+            text: 'Column Visibility',
+        }],
+        
+        "columnDefs": [
+        { "targets": [8], "visible": false } 
+        ]
+    });
+
+
+    
+    table.buttons().container().appendTo($('#exportButtons'));
+
+
+    $('#currentStageFilter').on('change', function () {
+        const selectedStage = $(this).val();
+        table.column(7).search(selectedStage ? '^' + selectedStage + '$' : '', true, false).draw();
+    });
+
+
+    $('#portFilter').on('change', function () {
+        const selectedPort = $(this).val();
+        table.column(1).search(selectedPort ? '^' + selectedPort + '$' : '', true, false).draw();
+    });
+    $('#equipmentCategoryFilter').on('change', function () {
+        const selectedCategory = $(this).val();
+        table.column(2).search(selectedCategory ? '^' + selectedCategory + '$' : '', true, false).draw();
+    });
+
+
+
+
+});
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const assetsCountInput = document.getElementById('assetsCount');
+      const sparesCountInput = document.getElementById('sparesCount');
+      const assetsFieldsContainer = document.getElementById('assetsFields');
+      const sparesFieldsContainer = document.getElementById('sparesFields');
+      const totalCountDisplay = document.getElementById('totalCount');
+    
+      const createFields = (container, count, label) => {
+        
+        if(count<=0){
+            return;
+        }
+
+    container.innerHTML = '';
+
+    const tableWrapper = document.createElement('div');
+    tableWrapper.style.padding = '10px';
+    tableWrapper.style.border = '1px solid #ddd';
+    tableWrapper.style.borderRadius = '5px';
+    tableWrapper.style.margin = '10px auto'; 
+    tableWrapper.style.maxWidth = '100%'; 
+    // tableWrapper.style.backgroundColor = '#f9f9f9';
+
+    const table = document.createElement('table');
+    table.className = 'table table-bordered';
+    table.style.tableLayout = 'fixed';
+    table.style.width = '100%';
+    table.style.margin = '0 auto';
+
+    //header
+    const thead = document.createElement('thead');
+    thead.innerHTML = `
+        <tr style="text-align: center;">
+            <th style="width: 50%; padding: 8px;">${label}</th>
+            <th style="width: 50%; padding: 8px;">Serial No.</th>
+        </tr>
+    `;
+    thead.className='bg-primary text-white'
+    table.appendChild(thead);
+
+    
+    const tbody = document.createElement('tbody');
+    for (let i = 1; i <= count; i++) {
+        const row = document.createElement('tr');
+
+        const td1 = document.createElement('td');
+        td1.style.textAlign = 'center';
+        td1.style.padding = '5px';
+        td1.innerText = `${label} ${i}`;
+        row.appendChild(td1);
+
+        const td2 = document.createElement('td');
+        td2.style.textAlign = 'center';
+        td2.style.padding = '5px';
+
+        const input = document.createElement('input');
+        input.type = "text";
+        input.style.width = '100%';
+        input.style.height = '30px';
+        input.style.textAlign = 'center';
+        input.style.border = '1px solid #ccc';
+        input.placeholder = `Enter ${label} Serial No.`;
+        input.className = 'form-control';
+
+        td2.appendChild(input);
+        row.appendChild(td2);
+
+        tbody.appendChild(row);
+    }
+
+    table.appendChild(tbody);
+    tableWrapper.appendChild(table);
+    container.appendChild(tableWrapper);
+};
+
+
+     
+    
+      assetsCountInput.addEventListener('input', () => {
+        createFields(assetsFieldsContainer, parseInt(assetsCountInput.value) || 0, 'Asset');
+        updateTotal();
+      });
+    
+      sparesCountInput.addEventListener('input', () => {
+        createFields(sparesFieldsContainer, parseInt(sparesCountInput.value) || 0, 'Spare');
+        updateTotal();
+      });
+    
+      const updateTotal = () => {
+        const assetsCount = parseInt(assetsCountInput.value) || 0;
+        const sparesCount = parseInt(sparesCountInput.value) || 0;
+        totalCountDisplay.value = assetsCount + sparesCount;
+      };
+
+
+     const getSerialNumbers = () => {
+        
+        const assetInputs = assetsFieldsContainer.querySelectorAll('input');
+        const spareInputs = sparesFieldsContainer.querySelectorAll('input');
+
+        const assets = Array.from(assetInputs).map(input => input.value.trim()).filter(val => val !== "");
+        const spares = Array.from(spareInputs).map(input => input.value.trim()).filter(val => val !== "");
+
+        return { assets, spares };
+        
+    };
+
+    window.getSerialNumbers=getSerialNumbers;
+
+    });
+    
+    

@@ -192,14 +192,14 @@ document.addEventListener('DOMContentLoaded',async()=>{
     //     window.location.href = "index.html";
     // }
 
-    // document.getElementById('user-name-display').textContent=user.name;
+    // document.getElementById('username').textContent=user.name;
     // document.getElementById('more-details').textContent=user.name;
 
     roles = await axiosInstance.get('/roles/role/perms');
     roles = roles.data.roles;
     // console.log(roles);
     window.roles = roles;
-    handlePermission('#user-name-display');
+    handlePermission('#username');
 
     await fetchAllUsers();
     await fetchAllRoles('roleSelect');
@@ -323,3 +323,63 @@ async function loadUpdateUser(id){
     }
 }
 
+        $(document).ready(function () {
+            // Initialize DataTable
+            var table = $('#myTable').DataTable({
+                "paging": true,
+                "pageLength": 25,
+                "lengthMenu": [5, 10, 25, 50, 100],
+                dom: '<"top"l>frtip',
+                buttons: [
+                    {
+                        extend: 'excelHtml5',
+                        text: 'Excel',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3],
+                            format: {
+                                body: function (data, row, column, node) {
+
+                                    if ($(node).find('.toggle-btn').length) {
+                                        return $(node).find('.toggle-btn').hasClass('active') ? 'True' : 'False';
+                                    }
+                                    return data;
+                                }
+                            }
+                        }
+                    },
+                    {
+                        extend: 'csvHtml5',
+                        text: 'CSV',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3],
+                            format: {
+                                body: function (data, row, column, node) {
+                                    if ($(node).find('.toggle-btn').length) {
+                                        return $(node).find('.toggle-btn').hasClass('active') ? 'True' : 'False';
+                                    }
+                                    return data;
+                                }
+                            }
+                        }
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        text: 'PDF',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3],
+                            format: {
+                                body: function (data, row, column, node) {
+                                    if ($(node).find('.toggle-btn').length) {
+                                        return $(node).find('.toggle-btn').hasClass('active') ? 'True' : 'False';
+                                    }
+                                    return data;
+                                }
+                            }
+                        }
+                    }
+                ]
+            });
+
+            // Append buttons to the specified container
+            table.buttons().container().appendTo($('#exportButtons'));
+        });

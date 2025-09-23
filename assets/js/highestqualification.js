@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded',async ()=>{
     roles = roles.data.roles;
     // console.log(roles);
     window.roles = roles;
-    handlePermission('#user-name-dsiplay');
+    handlePermission('#username');
 
     // const user=JSON.parse(sessionStorage.getItem('user'));
     // const token = sessionStorage.getItem('token');
@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded',async ()=>{
     //     return;
     // }
 
-    // document.getElementById('user-name-dsiplay').innerHTML=user.name;
+    // document.getElementById('username').innerHTML=user.name;
     
     await refreshTable();
 
@@ -167,3 +167,63 @@ async function refreshTable() {
 
     await fetchAllQualifications();
 }
+    $(document).ready(function () {
+        // Initialize DataTable
+        var table = $('#myTable').DataTable({
+            "paging": true,
+            "pageLength": 25,
+            "lengthMenu": [5, 10, 25, 50, 100],
+            dom: '<"top"l>frtip',
+            buttons: [
+        {
+            extend: 'excelHtml5',
+            text: 'Excel',
+            exportOptions: {
+                columns: [0,1,2],
+                format: {
+                    body: function (data, row, column, node) {
+                        
+                        if ($(node).find('.toggle-btn').length) {
+                            return $(node).find('.toggle-btn').hasClass('active') ? 'True' : 'False';
+                        }
+                        return data;
+                    }
+                }
+            }
+        },
+        {
+            extend: 'csvHtml5',
+            text: 'CSV',
+            exportOptions: {
+                columns: [0,1,2],
+                format: {
+                    body: function (data, row, column, node) {
+                        if ($(node).find('.toggle-btn').length) {
+                            return $(node).find('.toggle-btn').hasClass('active') ? 'True' : 'False';
+                        }
+                        return data;
+                    }
+                }
+            }
+        },
+        {
+            extend: 'pdfHtml5',
+            text: 'PDF',
+            exportOptions: {
+                columns: [0,1,2],
+                format: {
+                    body: function (data, row, column, node) {
+                        if ($(node).find('.toggle-btn').length) {
+                            return $(node).find('.toggle-btn').hasClass('active') ? 'True' : 'False';
+                        }
+                        return data;
+                    }
+                }
+            }
+        }
+    ]
+        });
+
+        // Append buttons to the specified container
+        table.buttons().container().appendTo('#exportButtons');
+    });
