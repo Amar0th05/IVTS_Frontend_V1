@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>server Details</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <meta name="keywords"
+        content="bootstrap, bootstrap admin template, admin theme, admin Server, Server template, admin template, responsive" />
+    <meta name="author" content="Codedthemes" />
+    <!-- Favicon icon -->
+    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+    <!-- Google font-->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
+    <!-- waves.css -->
+    <link rel="stylesheet" href="assets/pages/waves/css/waves.min.css" type="text/css" media="all">
+    <!-- Required Fremwork -->
+    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap/css/bootstrap.min.css">
+    <!-- waves.css -->
+    <link rel="stylesheet" href="assets/pages/waves/css/waves.min.css" type="text/css" media="all">
+    <!-- themify icon -->
+    <link rel="stylesheet" type="text/css" href="assets/icon/themify-icons/themify-icons.css">
+    <script src="https://kit.fontawesome.com/1799ed0397.js" crossorigin="anonymous"></script>
+
+    <!-- font-awesome-n -->
+    <link rel="stylesheet" type="text/css" href="assets/css/font-awesome-n.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.min.css">
+    <!-- scrollbar.css -->
+    <link rel="stylesheet" type="text/css" href="assets/css/jquery.mCustomScrollbar.css">
+    <!-- Style.css -->
+    <link rel="stylesheet" type="text/css" href="assets/css/style copy.css">
+    <link rel="stylesheet" href="assets/css/custom.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <!-- Include SweetAlert2 CSS & JS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+
+
+
+    <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css"> -->
+    <style>
+        #policyTable {
+            border-radius: 5px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .addNewRecord {
+            all: unset;
+            color: white !important;
+            padding: 10px 10px !important;
+            background: linear-gradient(135deg, #4931d1, #7f86f3);
+        }
+
+        .dropdownPopup .list-group-item:hover,
+        .dropdownPopup .list-group-item.active {
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+        }
+
+
+        /* remove right border-radius from input */
+        .no-radius-end {
+            border-top-right-radius: 0 !important;
+            border-bottom-right-radius: 0 !important;
+        }
+
+        /* remove left border-radius from select */
+        .no-radius-start {
+            border-top-left-radius: 0 !important;
+            border-bottom-left-radius: 0 !important;
+        }
+
+        /* gray background for select */
+        .bg-light {
+            background-color: #f1f1f1 !important;
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- Pre-loader start -->
+    <div class="theme-loader">
+
+        <div class="loader-track">
+
+            <div class="preloader-wrapper">
+
+                <div class="spinner-layer spinner-blue">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+                <div class="spinner-layer spinner-red">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+
+                <div class="spinner-layer spinner-yellow">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+
+                <div class="spinner-layer spinner-green">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Pre-loader end -->
+    <div id="pcoded" class="pcoded">
+        <div class="pcoded-overlay-box"></div>
+        <div class="pcoded-container navbar-wrapper">
+            <nav class="navbar header-navbar pcoded-header">
+                <div class="navbar-wrapper">
+                    <div class="navbar-logo align-items-center">
+                        <a class="mobile-menu waves-effect waves-light" id="mobile-collapse" href="#!">
+                            <i class="ti-menu"></i>
+                        </a>
+                        <div>
+                            <a href="index.html">
+                                <img class="img-fluid"
+                                    src="assets/images/Gemini_Generated_Image_ode7ogode7ogode7-removebg-preview.png"
+                                    alt="Theme-Logo" style="height: 50px;" />
+                                <h4 class="d-inline"><span class="text-lowercase">WorkSphere</h4>
+                            </a>
+                        </div>
+                        <a class="mobile-options waves-effect waves-light">
+                            <i class="ti-more"></i>
+                        </a>
+                    </div>
+                    <div class="navbar-container container-fluid">
+                        <ul class="nav-left">
+                            <li>
+                                <div class="sidebar_toggle"><a href="javascript:void(0)"><i class="ti-menu"></i></a>
+                                </div>
+                            </li>
+                            <li>
+                                <a href="#!" onclick="javascript:toggleFullScreen()" class="waves-effect waves-light">
+                                    <i class="ti-fullscreen"></i>
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="nav-right">
+                            <li class="user-profile header-notification">
+                                <a href="#!" class="waves-effect waves-light">
+                                    <span id="username">John Doe</span>
+                                    <i class="ti-angle-down"></i>
+                                </a>
+                                <ul class="show-notification profile-notification">
+                                    <li class="waves-effect waves-light">
+                                        <a href="user-profile.html">
+                                            <i class="fa-solid fa-id-card"></i> Profile
+                                        </a>
+                                    </li>
+                                    <li class="waves-effect waves-light">
+                                        <a href="login.html" id="logout-button">
+
+                                            <i class="fa-solid fa-right-to-bracket fa-flip-horizontal"></i> Logout
+
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="pcoded-main-container">
+                <div class="pcoded-wrapper">
+                    <nav class="pcoded-navbar">
+                        <div class="sidebar_toggle"><a href="#"><i class="icon-close icons"></i></a></div>
+                        <div class="pcoded-inner-navbar main-menu">
+                            <div class="">
+                                <div class="main-menu-content">
+                                    <ul>
+                                        <li class="more-details">
+                                            <a href="user-profile.html"><i class="ti-user"></i>View Profile</a>
+                                            <!-- <a href="#!"><i class="ti-settings"></i>Settings</a> -->
+                                            <a href="login.html"><i class="ti-layout-sidebar-left"></i>Logout</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div id="sidebar-container">
+
+                            </div>
+
+                    </nav>
+
+
+
+                    <div class="pcoded-content">
+                        <!-- Page-header start -->
+                        <div class="page-header">
+                            <div class="page-header">
+                                <div class="page-block">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-8">
+                                            <div class="page-title">
+                                                <span class="page-title-icon bg-gradient-primary text-white mr-2">
+                                                    <i class="fa fa-chart-line"></i>
+                                                </span>
+                                                <h5>Server</h5>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <ul class="breadcrumb">
+                                                <li class="breadcrumb-item">
+                                                    <a href="index.html"> <i class="fa fa-home"></i> </a>
+                                                </li>
+                                                <li class="breadcrumb-item"><a href="#!">Server</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Page-header end -->
+                        <div class="pcoded-inner-content">
+                            <div class="main-body">
+                                <div class="page-wrapper">
+                                    <div class="page-body">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <h5>servers</h5>
+
+                                                        <!-- <div class="card-header-right">
+                                                            <ul class="list-unstyled card-option">
+                                                                <li><i class="fa fa fa-wrench open-card-option"></i>
+                                                                </li>
+                                                                <li><i class="fa fa-minus minimize-card"></i></li>
+                                                                <li><i class="fa fa-refresh reload-card"></i></li>
+                                                            </ul>
+                                                        </div> -->
+                                                    </div>
+
+                                                    <div class="card-block">
+
+                                                        <!-----------------------------------------------ADD-NEW-MODAl-START--------------------------------------------------------------------->
+
+                                                        <div>
+
+                                                            <div class="d-none" id="tab">
+                                                                <div class="nav nav-tabs md-tabs" id="myTab"
+                                                                    role="tablist">
+                                                                    <button class="nav-link active" data-bs-toggle="tab"
+                                                                        data-bs-target="#tab1" type="button">servers
+                                                                        Details</button>
+                                                                </div>
+                                                                <div class="tab-content mt-3">
+
+                                                                    <!-- server -->
+                                                                    <div class="tab-pane fade show active " id="tab1">
+                                                                        <!-- Modal Header -->
+
+
+                                                                        <!-- Modal Body -->
+                                                                        <div class="modal-body">
+                                                                            <form id="server_add_form">
+                                                                                <div class="row">
+                                                                                    <!-- User Name -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label for="userName1">User
+                                                                                                Name <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <select id="userName1"
+                                                                                                name="userName"
+                                                                                                class="form-control form-control-sm userName"
+                                                                                                style="width:100%;"
+                                                                                                required>
+                                                                                                <option value="">StaffId
+                                                                                                </option>
+                                                                                            </select>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <!-- Model No -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label for="modelNo">Model
+                                                                                                No <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <input type="text"
+                                                                                                name="Model_No"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="modelNo"
+                                                                                                placeholder="Enter Model No"
+                                                                                                required>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="row">
+                                                                                    <!-- Serial No -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label for="serialNo">Serial
+                                                                                                No <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <input type="text"
+                                                                                                name="Serial_No"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="serialNo"
+                                                                                                placeholder="Enter Serial No"
+                                                                                                required>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <!-- IP Address -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label for="ipAddress">IP
+                                                                                                Address <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <input type="text"
+                                                                                                name="IP_Address"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="ipAddress"
+                                                                                                placeholder="Enter IP Address"
+                                                                                                required>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="row">
+                                                                                    <!-- MAC Address -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label for="macAddress">MAC
+                                                                                                Address <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <input type="text"
+                                                                                                name="MAC_Address"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="macAddress"
+                                                                                                placeholder="Enter MAC Address"
+                                                                                                required>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <!-- Port -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label for="port">Port <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <input type="text"
+                                                                                                name="Port"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="port"
+                                                                                                placeholder="Enter Port"
+                                                                                                required>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="row">
+                                                                                    <!-- Remark Configuration -->
+                                                                                    <div class="col-md-12">
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="remarkConfig">Remark
+                                                                                                Configuration <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <textarea
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="remarkConfig"
+                                                                                                name="Remark_Config"
+                                                                                                rows="2"
+                                                                                                placeholder="Enter Remarks"
+                                                                                                required></textarea>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <hr>
+
+                                                                                <div class="row">
+                                                                                    <!-- Project No -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="projectNo">Project
+                                                                                                No <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <input type="text"
+                                                                                                name="Project_No"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="projectNo"
+                                                                                                placeholder="Enter Project No"
+                                                                                                required>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <!-- PO No -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label for="poNo">PO No
+                                                                                                <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <input type="text"
+                                                                                                name="PO_No"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="poNo"
+                                                                                                placeholder="Enter PO No"
+                                                                                                required>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="row">
+                                                                                    <!-- PO Date -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label for="poDate">PO Date
+                                                                                                <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <input type="date"
+                                                                                                name="PO_Date"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="poDate" required>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <!-- Vendor Name -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="vendorName">Vendor
+                                                                                                Name <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <input type="text"
+                                                                                                name="Vendor_Name"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="vendorName"
+                                                                                                placeholder="Enter Vendor Name"
+                                                                                                required>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="row">
+                                                                                    <!-- Invoice No -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="invoiceNo">Invoice
+                                                                                                No <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <input type="text"
+                                                                                                name="Invoice_No"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="invoiceNo"
+                                                                                                placeholder="Enter Invoice No"
+                                                                                                required>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <!-- Invoice Date -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="invoiceDate">Invoice
+                                                                                                Date <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <input type="date"
+                                                                                                name="Invoice_Date"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="invoiceDate"
+                                                                                                required>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="row">
+                                                                                    <!-- SRB -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label for="srb">SRB <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <input type="text"
+                                                                                                name="SRB"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="srb"
+                                                                                                placeholder="Enter SRB No"
+                                                                                                required>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <!-- Department -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label for="dept">Department
+                                                                                                <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <input type="text"
+                                                                                                name="Dept"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="dept"
+                                                                                                placeholder="Enter Department"
+                                                                                                required>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="row">
+                                                                                    <!-- Remarks -->
+                                                                                    <div class="col-md-12">
+                                                                                        <div class="form-group">
+                                                                                            <label for="remarks">Remarks
+                                                                                                <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <textarea
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="remarks"
+                                                                                                name="Remarks" rows="2"
+                                                                                                placeholder="Enter Remarks"
+                                                                                                required></textarea>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </form>
+
+
+
+                                                                        </div>
+
+                                                                        <!-- model Footer -->
+                                                                        <div class="modal-footer">
+                                                                            <button type="button" class="btn btn-danger"
+                                                                                data-dismiss="modal"
+                                                                                id="exitButton">Exit</button>
+                                                                            <button type="submit"
+                                                                                class="btn btn-success"
+                                                                                id="add_server_btn"
+                                                                                data-dismiss="modal">Submit
+                                                                                server</button>
+                                                                        </div>
+
+                                                                        <!-- Modal Footer -->
+
+                                                                    </div>
+
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <!---------------------------------------------------------------------------------------------ADD-NEW-MODAL-END---------------------------------------------------->
+                                                        <!-----------------------------------------------UPDATE-MODAl-START--------------------------------------------------------------------->
+
+                                                        <div>
+                                                            <div class="d-none" id="tabWrapper">
+                                                                <div class="nav nav-tabs md-tabs" id="myTab1"
+                                                                    role="tablist">
+                                                                    <button class="nav-link active" data-bs-toggle="tab"
+                                                                        data-bs-target="#tab4" type="button">Staffs
+                                                                        Details</button>
+
+                                                                </div>
+                                                                <div class="tab-content mt-3">
+                                                                    <div class="tab-pane fade show active " id="tab4">
+                                                                        <!-- Modal Body -->
+                                                                        <div class="modal-body">
+                                                                            <form id="update-asset-form">
+                                                                                <div class="row">
+                                                                                    <!-- Asset ID -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label for="assetId">Asset
+                                                                                                ID <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <input type="text"
+                                                                                                name="Asset_ID"
+                                                                                                maxlength="20"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="assetId"
+                                                                                                placeholder="Enter Asset ID"
+                                                                                                required readonly>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <!-- Category -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="category">Category
+                                                                                                <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <input type="text"
+                                                                                                name="Category"
+                                                                                                maxlength="50"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="category"
+                                                                                                placeholder="Enter Category"
+                                                                                                required readonly>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="row">
+                                                                                    <!-- User Name (Staff ID Select) -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label for="userName2">User
+                                                                                                Name <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <select id="userName2"
+                                                                                                name="userName"
+                                                                                                class="form-control form-control-sm userName"
+                                                                                                style="width:100%;"
+                                                                                                required>
+                                                                                                <option value="">StaffId
+                                                                                                </option>
+                                                                                            </select>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <!-- Model No -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label for="modelNo">Model
+                                                                                                No <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <input type="text"
+                                                                                                name="Model_No"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="modelNo"
+                                                                                                placeholder="Enter Model No"
+                                                                                                required>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="row">
+                                                                                    <!-- Serial No -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label for="serialNo">Serial
+                                                                                                No <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <input type="text"
+                                                                                                name="Serial_No"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="serialNo"
+                                                                                                placeholder="Enter Serial No"
+                                                                                                required>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <!-- IP Address -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label for="ipAddress">IP
+                                                                                                Address <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <input type="text"
+                                                                                                name="IP_Address"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="ipAddress"
+                                                                                                placeholder="Enter IP Address"
+                                                                                                required>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="row">
+                                                                                    <!-- MAC Address -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label for="macAddress">MAC
+                                                                                                Address <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <input type="text"
+                                                                                                name="MAC_Address"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="macAddress"
+                                                                                                placeholder="Enter MAC Address"
+                                                                                                required>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <!-- Port -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label for="port">Port <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <input type="text"
+                                                                                                name="Port"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="port"
+                                                                                                placeholder="Enter Port"
+                                                                                                required>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="row">
+                                                                                    <!-- Remark Configuration -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="remarkConfig">Remark
+                                                                                                Configuration <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <input type="text"
+                                                                                                name="Remark_Config"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="remarkConfig"
+                                                                                                placeholder="Enter Remark Configuration"
+                                                                                                required>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <hr>
+
+                                                                                <div class="row">
+                                                                                    <!-- Project No -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="projectNo">Project
+                                                                                                No <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <input type="text"
+                                                                                                name="Project_No"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="projectNo"
+                                                                                                placeholder="Enter Project No"
+                                                                                                required>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <!-- PO No -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label for="poNo">PO No
+                                                                                                <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <input type="text"
+                                                                                                name="PO_No"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="poNo"
+                                                                                                placeholder="Enter PO No"
+                                                                                                required>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="row">
+                                                                                    <!-- PO Date -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label for="poDate">PO Date
+                                                                                                <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <input type="date"
+                                                                                                name="PO_Date"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="poDate" required>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <!-- Vendor Name -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="vendorName">Vendor
+                                                                                                Name <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <input type="text"
+                                                                                                name="Vendor_Name"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="vendorName"
+                                                                                                placeholder="Enter Vendor Name"
+                                                                                                required>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="row">
+                                                                                    <!-- Invoice No -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="invoiceNo">Invoice
+                                                                                                No <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <input type="text"
+                                                                                                name="Invoice_No"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="invoiceNo"
+                                                                                                placeholder="Enter Invoice No"
+                                                                                                required>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <!-- Invoice Date -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="invoiceDate">Invoice
+                                                                                                Date <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <input type="date"
+                                                                                                name="Invoice_Date"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="invoiceDate"
+                                                                                                required>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="row">
+                                                                                    <!-- SRB -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label for="srb">SRB <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <input type="text"
+                                                                                                name="SRB"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="srb"
+                                                                                                placeholder="Enter SRB No"
+                                                                                                required>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <!-- Department -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label for="dept">Department
+                                                                                                <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <input type="text"
+                                                                                                name="Dept"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="dept"
+                                                                                                placeholder="Enter Department"
+                                                                                                required>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="row">
+                                                                                    <!-- Remarks -->
+                                                                                    <div class="col-md-12">
+                                                                                        <div class="form-group">
+                                                                                            <label for="remarks">Remarks
+                                                                                                <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <textarea
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="remarks"
+                                                                                                name="Remarks" rows="2"
+                                                                                                placeholder="Enter Remarks"
+                                                                                                required></textarea>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </form>
+
+                                                                        </div>
+                                                                    </div>
+
+
+                                                                </div>
+
+
+
+                                                                <!-- Modal Footer -->
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-danger btn-sm"
+                                                                        data-dismiss="modal"
+                                                                        id="exitButton2">Exit</button>
+                                                                    <button type="button" id="update_server_btn"
+                                                                        class="btn btn-success btn-sm writeElement">Update</button>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+
+
+                                                        <!---------------------------------------------------------------------------------------------UPDATE-MODAL-END---------------------------------------------------->
+
+
+                                                        <div id="tableCard">
+                                                            <div class="d-flex justify-content-end mb-5">
+                                                                <button id="addNew"
+                                                                    class="btn btn-primary addNewRecord writeElement d-flex align-items-center gap-2 px-sm-4 py-sm-2 rounded-pill shadow"
+                                                                    data-toggle="modal" data-target="#addNewModal">
+                                                                    <i class="ti-plus text-white fs-5"></i>
+                                                                    <span class="fw-bold">Add New servers</span>
+                                                                </button>
+                                                            </div>
+
+                                                            <div class="mb-3 p-3 rounded shadow shadow-sm filter">
+                                                                <div class="row g-3">
+                                                                    <div class="col-md-6">
+                                                                        <div class="d-flex flex-column">
+                                                                            <label for="designationFilter"
+                                                                                class="text-muted small mb-1">Designation</label>
+                                                                            <select id="designationFilter"
+                                                                                class="form-select form-select-sm border-secondary">
+                                                                                <option value="">Show all</option>
+                                                                                <option value="Full Stack Development">
+                                                                                    Full Stack Development</option>
+                                                                                <option value=""></option>
+
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-md-6">
+                                                                        <div class="d-flex flex-column">
+                                                                            <label for="locationFilter"
+                                                                                class="text-muted small mb-1">Location</label>
+                                                                            <select id="locationFilter"
+                                                                                class="form-select form-select-sm border-secondary">
+                                                                                <option value="">Show all</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <div id="exportButtons" class="mb-3">
+                                                                    <button onclick="fetchDataAndGenerateExcel()"
+                                                                        class="dt-button">
+                                                                        Download All Data
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="d-flex justify-content-center align-items-center">
+                                                                <div class="table-responsive">
+
+
+
+                                                                    <table id="myTable"
+                                                                        class="table table-striped rounded table-hover">
+                                                                        <thead
+                                                                            class="bg-primary text-white text-center">
+                                                                            <tr>
+                                                                                <th>Serial No</th>
+                                                                                <th>Asset ID</th>
+                                                                                <th>Category</th>
+                                                                                <th>Vendor Name</th>
+                                                                                <th>User Name</th>
+                                                                                <th>Department</th>
+                                                                                <th>Action</th>
+                                                                                <!-- <th>Actions</th> -->
+                                                                                <th>Update</th>
+
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+
+                                                    </div>
+                                                    <!-- card-block table staff details end -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- Warning Section Starts -->
+
+    <div id="pcoded-container" class="pcoded">
+        <div class="pcoded-innenr-content">
+
+        </div>
+    </div>
+
+
+
+
+    <!-- Required jQuery -->
+    <script type="text/javascript" src="assets/js/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="assets/js/jquery-ui/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="assets/js/popper.js/popper.min.js"></script>
+    <script type="text/javascript" src="assets/js/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
+    <!-- jQuery and DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+    <!-- DataTables Buttons Extension JS -->
+    <script src="https://cdn.datatables.net/buttons/2.1.0/js/dataTables.buttons.min.js"></script>
+
+    <!-- Buttons for Excel, CSV, and PDF -->
+    <script src="https://cdn.datatables.net/buttons/2.1.0/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js"></script>
+
+    <!-- Excel export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+
+    <!-- JSZip for Excel export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
+
+    <!-- pdfMake for PDF export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+
+    <!-- DataTables Buttons CSS -->
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.datatables.net/buttons/2.1.0/css/buttons.dataTables.min.css">
+
+    <!-- Toastr and other scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="assets/pages/waves/js/waves.min.js"></script>
+    <script type="text/javascript" src="assets/js/jquery-slimscroll/jquery.slimscroll.js"></script>
+    <script src="assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="assets/js/pcoded.min.js"></script>
+    <script src="assets/js/vertical/vertical-layout.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <!-- Custom scripts -->
+    <script type="module" src="./assets/js/axiosInstance.js"></script>
+    <script src="assets/js/popup.js"></script>
+    <script src="./assets/js/api.js"></script>
+    <script src="./assets/js/apiRequests.js"></script>
+    <script src="assets/js/server.js"></script>
+    <script type="text/javascript" src="assets/js/script.js"></script>
+    <script src="assets/js/roleUtil copy.js"></script>
+    <script src="assets/js/Utils.js"></script>
+
+
+    <!-- Initialize DataTable -->
+
+
+
+
+
+    <!-- Bootstrap + jQuery + Select2 -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <!-- Bootstrap + jQuery + Select2 -->
+
+
+
+
+    <script src="assets/js/sweetAlert.js"></script>
+</body>
+
+</html>

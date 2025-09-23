@@ -48,3 +48,11 @@ document.getElementById('logout-button').addEventListener('click',logout);
       }
 
     });
+
+    function toggleAccordion(button) {
+        const content = button.parentElement.nextElementSibling;
+        content.style.display = (content.style.display === "none" || content.style.display === "") ? "block" : "none";
+        const icon = button.querySelector("i");
+        icon.classList.toggle("fa-chevron-down");
+        icon.classList.toggle("fa-chevron-up");
+    }

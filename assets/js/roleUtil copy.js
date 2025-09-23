@@ -2,6 +2,7 @@ let roleId;
 
 
 let roles = window.roles;
+console.log('Roles loaded:', window);
 
 const moduleMaps = {
     'DASHBOARD': ['index'],
@@ -33,16 +34,23 @@ const moduleMaps = {
     'PO GENERATED': ['indents'],
     'SRB CREATED': ['indents'],
     'IC & SR SUBMISSION': ['indents'],
+    'ASSETS':['assetsDashboard','laptops','desktops','server']
+
     // 'USER ROLES': ['roles']
 };
 
-function getRoleKeyById(id) {
-    return Object.keys(roles).find(key => roles[key].id === id);
-}
+function getRoleKeyById(id){
+    console.log(Object.keys(roles));
+    return Object.keys(roles).find(key =>{
+        console.log(roles[key].id);
+        return roles[key].id===id});
+    } 
 
 function getAllowedPages(roleId) {
+    console.log('Getting allowed pages for role ID:', roleId);
     const roleKey = getRoleKeyById(roleId);
     const role = roles[roleKey];
+    console.log('Role details:', role);
     const permissions = {};
 
     if (role.writes) {
@@ -185,7 +193,9 @@ function generateSidebar() {
         ],
         "MASTER MANAGEMENT": [
             "MASTER MANAGEMENT"
-        ]
+        ],
+        "Assets":["ASSETS"]
+
     };
 
     let sidebarHTML = "";
@@ -200,7 +210,7 @@ function generateSidebar() {
             if (allowedModulesInCategory.length > 0) {
                 categoryHTML = `
                     <ul class="pcoded-item pcoded-left-item"${
-                        categoryName === "Employee Management" || categoryName === "User Management" || categoryName === "MASTER MANAGEMENT" ? "" : ' style="padding-left:25px;"'
+                        categoryName === "Employee Management" || categoryName === "Assets" || categoryName === "User Management" || categoryName === "MASTER MANAGEMENT" ? "" : ' style="padding-left:25px;"'
                     }>
                         ${generateModuleLinks(allowedModulesInCategory)}
                     </ul>
@@ -319,7 +329,12 @@ function getPageInfo(page) {
         'equipmentCategory': { title: 'Equipment Category', icon: 'fa-solid fa-layer-group' },
         'highestqualifications': { title: 'Qualifications', icon: 'fa-solid fa-graduation-cap' },
         'organisations': { title: 'Organisations', icon: 'fa-solid fa-sitemap' },
-        'stages': { title: 'Stages', icon: 'fa-solid fa-diagram-project' }
+        'stages': { title: 'Stages', icon: 'fa-solid fa-diagram-project' },
+        'assetsDashboard': { title: 'Assets Dashboard', icon: 'fa-solid fa-table-columns' }, // dashboard overview
+        'laptops': { title: 'Laptops', icon: 'fa-solid fa-laptop' }, // laptops
+        'desktops': { title: 'Desktops', icon: 'fa-solid fa-desktop' }, // desktops
+        'server': { title: 'Server', icon: 'fa-solid fa-server' }, // servers
+
     };
     return pageInfoMap[page];
 }

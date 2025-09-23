@@ -145,6 +145,30 @@ const api = {
     updatePerson: (data) => putData(API_ROUTES.talentpool, { data }),
     addTalent: (data) => postData(API_ROUTES.talentpool, { data }),
 
+// assets
+
+    // laptop
+    getAllLaptops: () => fetchData(API_ROUTES.getAllAssets+'/Laptops', "laptops"),
+    addLaptops:(data)=>postData(API_ROUTES.addLaptops,{data}),
+    toggleLaptopStatus: (id) => putData(API_ROUTES.toggleLaptopStatus+`${id}`),
+    updateLaptops: (data) => putData(API_ROUTES.updateLaptops, {data}),
+// desktop
+    getAllDesktops: () => fetchData(API_ROUTES.getAllAssets+'/Desktops', "desktops"),
+    addDesktops:(data)=>postData(API_ROUTES.addDesktops,{data}),
+    toggleDesktopsStatus: (id) => putData(API_ROUTES.toggleDesktopsStatus+`${id}`),
+    updateDesktops: (data) => putData(API_ROUTES.addDesktops, { data }),
+
+//server
+    getAllServer: () => fetchData(API_ROUTES.getAllAssets+'/Servers', "servers"),
+    addServer:(data)=>postData(API_ROUTES.addServer,{data}),
+    toggleServerStatus: (id) => putData(API_ROUTES.toggleServerStatus+`${id}`),
+    updateServers: (data) => putData(API_ROUTES.updateServers, {data}),
+
+
+    getAllAssets: () => fetchData(API_ROUTES.getAllAssets, "assets"),
+    getstaffid: () => fetchData(API_ROUTES.getstaffid, "staffid"),
+
+
 
 };
 
