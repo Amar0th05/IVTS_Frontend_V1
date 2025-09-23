@@ -7,6 +7,8 @@
     <title>Internship Registration Form</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Flatpickr CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <style>
         :root {
             --primary-color: #0d6efd;
@@ -245,29 +247,38 @@
             padding-bottom: 0.5rem;
             margin-bottom: 2rem;
         }
+
         /* --- NEW: Introduction Section Styling --- */
-.intro-section {
-    background-color: var(--body-bg) !important; /* Lighter background for intro area */
-    border-color: #e9ecef !important;
-}
+        .intro-section {
+            background-color: var(--body-bg) !important;
+            /* Lighter background for intro area */
+            border-color: #e9ecef !important;
+        }
 
-.intro-box {
-    background-color: var(--intro-bg); /* Light aqua background */
-    border: 1px solid var(--intro-border); /* Subtle border */
-    border-radius: 0.75rem; /* Rounded corners */
-    max-width: 1500px; /* Limit width for better readability */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* Soft shadow */
-    transition: transform 0.2s ease-in-out;
-}
+        .intro-box {
+            background-color: var(--intro-bg);
+            /* Light aqua background */
+            border: 1px solid var(--intro-border);
+            /* Subtle border */
+            border-radius: 0.75rem;
+            /* Rounded corners */
+            max-width: 1500px;
+            /* Limit width for better readability */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            /* Soft shadow */
+            transition: transform 0.2s ease-in-out;
+        }
 
-.intro-box:hover {
-    transform: translateY(-2px); /* Slight lift on hover */
-}
+        .intro-box:hover {
+            transform: translateY(-2px);
+            /* Slight lift on hover */
+        }
 
-.intro-box .lead {
-    color: var(--header-color); /* Darker color for the welcome message */
-    font-weight: 600;
-}
+        .intro-box .lead {
+            color: var(--header-color);
+            /* Darker color for the welcome message */
+            font-weight: 600;
+        }
 
         /* Responsive adjustments */
         @media (min-width: 576px) {
@@ -285,7 +296,7 @@
                 transform: translateY(0);
             }
         }
-      
+
 
         /* NEW: Responsive styles for header on small screens */
         @media (max-width: 767px) {
@@ -314,6 +325,27 @@
                 /* Smaller title on mobile */
             }
         }
+        
+        /* Custom styles to make Flatpickr blend better with Bootstrap */
+        .flatpickr-calendar {
+            border-radius: 8px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+            border: 1px solid #e9ecef;
+        }
+        .flatpickr-months .flatpickr-month {
+            background-color: var(--primary-color);
+            color: white;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+        .flatpickr-day.selected, .flatpickr-day.selected:hover, .flatpickr-day.startRange, .flatpickr-day.endRange, .flatpickr-day.startRange:hover, .flatpickr-day.endRange:hover {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
+        }
+        .flatpickr-day.today {
+            border-color: var(--primary-color);
+        }
     </style>
 </head>
 
@@ -321,36 +353,35 @@
     <div class="container-fluid py-5">
         <div class="container shadow-lg">
             <!-- Header -->
-        <div class="form-header">
-            <div><img src="assets/images/ntcpwc-logo.jpg" alt="Company Logo" class="header-logo"></div>
-            <div class="text-center header-text-block">
-                <h2><i class="fas fa-user-graduate me-2"></i>Internship Registration</h2>
-                <!-- <p class="mb-0 d-none d-md-block">Complete your application in simple steps</p> -->
+            <div class="form-header">
+                <div><img src="assets/images/ntcpwc-logo.jpg" alt="Company Logo" class="header-logo"></div>
+                <div class="text-center header-text-block">
+                    <h2><i class="fas fa-user-graduate me-2"></i>Internship Registration</h2>
+                    <!-- <p class="mb-0 d-none d-md-block">Complete your application in simple steps</p> -->
+                </div>
+                <div></div>
             </div>
-            <div></div>
-        </div>
-        
-         <!-- Enhanced Introduction Text -->
-        <div class="px-3 px-md-5 pt-4 pb-3 bg-white border-bottom intro-section">
-            <div class="intro-box text-center p-3 p-md-4 mb-3 mx-auto">
-                <p class="lead fw-normal mb-2">
-                    <i class="fas fa-info-circle me-2 text-primary"></i>Welcome to the NTCPWC Internship Application!
-                </p>
-                <p class="text-muted small mb-0">
-                    This registration form is for candidates applying for internship opportunities at **NTCPWC, IIT Madras**. The
-                    information collected will be used solely for evaluation and placement of interns in relevant research and
-                    project areas. Please ensure all details are accurate and complete.
-                </p>
+
+            <!-- Enhanced Introduction Text -->
+            <div class="px-3 px-md-5 pt-4 pb-3 bg-white border-bottom intro-section">
+                <div class="intro-box text-center p-3 p-md-4 mb-3 mx-auto">
+                    <p class="lead fw-normal mb-2">
+                        <i class="fas fa-info-circle me-2 text-primary"></i>Welcome to the NTCPWC Internship Application!
+                    </p>
+                    <p class="text-muted small mb-0">
+                        This registration form is for candidates applying for internship opportunities at **NTCPWC, IIT Madras**. The
+                        information collected will be used solely for evaluation and placement of interns in relevant research and
+                        project areas. Please ensure all details are accurate and complete.
+                    </p>
+                </div>
             </div>
-        </div>
-        
-        
-        <!-- Progress Bar -->
-        <div class="px-4 pt-4 mb-3">
-            <div class="progress" style="height: 8px;">
-                <div class="progress-bar bg-success" role="progressbar" style="width: 0%" id="progressBar"></div>
+
+            <!-- Progress Bar -->
+            <div class="px-4 pt-4 mb-3">
+                <div class="progress" style="height: 8px;">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: 0%" id="progressBar"></div>
+                </div>
             </div>
-        </div>
 
             <!-- Step Indicator -->
             <div class="step-indicator">
@@ -390,7 +421,7 @@
                         </div>
                         <div class="col-md-6 mb-4"><label for="dob" class="form-label required-field">Date of
                                 Birth</label>
-                            <div class="input-group"><span class="input-group-text"><i class="fas fa-calendar-alt"></i></span><input type="date" class="form-control" id="dob" name="dob" required=""></div>
+                            <div class="input-group"><span class="input-group-text"><i class="fas fa-calendar-alt"></i></span><input type="text" class="form-control" id="dob" name="dob" data-datepicker placeholder="Select your date of birth" required=""></div>
                             <div class="invalid-feedback"></div>
                         </div>
                         <div class="col-md-6 mb-4">
@@ -488,12 +519,12 @@
                     <div class="row">
                         <div class="col-md-4 mb-4"><label for="startDate" class="form-label required-field" readonly>Preferred
                                 Start Date</label>
-                            <div class="input-group"><span class="input-group-text"><i class="fas fa-calendar-plus"></i></span><input type="date" class="form-control" id="startDate" name="startDate" required=""></div>
+                            <div class="input-group"><span class="input-group-text"><i class="fas fa-calendar-plus"></i></span><input type="text" class="form-control" id="startDate" name="startDate" data-datepicker placeholder="Select start date" required=""></div>
                             <div class="invalid-feedback"></div>
                         </div>
                         <div class="col-md-4 mb-4"><label for="endDate" class="form-label required-field">Preferred End
                                 Date</label>
-                            <div class="input-group"><span class="input-group-text"><i class="fas fa-calendar-minus"></i></span><input type="date" class="form-control" id="endDate" name="endDate" required=""></div>
+                            <div class="input-group"><span class="input-group-text"><i class="fas fa-calendar-minus"></i></span><input type="text" class="form-control" id="endDate" name="endDate" data-datepicker placeholder="Select end date" required=""></div>
                             <div class="invalid-feedback"></div>
                         </div>
                         <div class="col-md-4 mb-4"><label for="mode" class="form-label required-field">Mode of
@@ -587,7 +618,39 @@
     <script src="assets/js/internApplication.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    <!-- Flatpickr JS -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        // Initialize Flatpickr for the desired date inputs
+        document.addEventListener('DOMContentLoaded', function() {
+            flatpickr("[data-datepicker]", {
+                dateFormat: "Y-m-d", // Matches the native input format
+                // You can add more options here to customize the calendar
+                // e.g., minDate, maxDate, disable, etc.
+                // For Date of Birth, you might want to enable year/month selection and set a max date
+                // flatpickr("#dob", {
+                //     dateFormat: "Y-m-d",
+                //     maxDate: "today",
+                //     changeYear: true,
+                //     changeMonth: true
+                // });
+            });
+        });
 
+        // The rest of your existing JavaScript for form steps and validation (from internApplication.js)
+        // should be placed here or remain in internApplication.js if it handles event delegation correctly.
+        // Make sure your validation logic works with the new Flatpickr inputs.
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    flatpickr("[data-datepicker]", {
+        dateFormat: "Y-m-d", // Matches the native input format
+        // Add other Flatpickr options here
+    });
+});
+    </script>
 
 </body>
+
 </html>
