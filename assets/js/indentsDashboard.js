@@ -34,68 +34,7 @@ async function addRow(data) {
 }
 
 
-function toggleAccordion(button) {
-    const content = button.parentElement.nextElementSibling;
-    content.style.display = (content.style.display === "none" || content.style.display === "") ? "block" : "none";
-  
-    const icon = button.querySelector("i");
-    icon.classList.toggle("fa-chevron-down");
-    icon.classList.toggle("fa-chevron-up");
-  }
-  
-  document.querySelector('#logout-button').addEventListener('click', () => {
-    sessionStorage.removeItem('user');
-    sessionStorage.removeItem('token');
-    window.location.href = 'login.html';
-  });
-  
-
   document.addEventListener('DOMContentLoaded',async ()=>{
-
-    roles = await axiosInstance.get('/roles/role/perms');
-    roles = roles.data.roles;
-    // console.log(roles);
-    window.roles = roles;
-    handlePermission('#username');
-
-
-    const sidebarContainer = document.getElementById('sidebar-container');
-    if (sidebarContainer) {
-        sidebarContainer.innerHTML = generateSidebar();
-        
-       
-        const currentPage = window.location.pathname.split('/').pop().split('.')[0];
-        const navLinks = document.querySelectorAll('.pcoded-item a');
-        
-        navLinks.forEach(link => {
-            if (link.getAttribute('href').includes(currentPage)) {
-                link.parentElement.classList.add('active');
-                
-            
-                const accordionContent = link.closest('.accordion-content');
-                if (accordionContent) {
-                    accordionContent.style.display = 'block';
-                    const header = accordionContent.previousElementSibling;
-                    const icon = header.querySelector('.accordion-icon');
-                    if (icon) {
-                        icon.classList.remove('fa-chevron-down');
-                        icon.classList.add('fa-chevron-up');
-                    }
-                }
-            }
-        });
-    }
-
-    // const token = sessionStorage.getItem('token');
-    // const user = JSON.parse(sessionStorage.getItem('user'));
-    // if (!token || !user) {
-    //     window.location.href = 'login.html';
-    // } else if (user.role === 2) {
-    //     window.location.href = 'user-details.html';
-    // }
-
-    // document.querySelector('#username').textContent = user.name;
-    
 
     const data = await getData();
   // console.log(data);
@@ -114,3 +53,47 @@ async function getData(){
         console.error(error);
     }
 }
+$(document).ready(function () {
+  const datatable = $('#indentsTable').DataTable({
+    dom: 'Bfrtip',
+    buttons: [
+      {
+        extend: 'csv',
+        text: '<i class="fa-solid fa-file-csv"></i> CSV',
+        className: 'btn-csv'
+      },
+      {
+        extend: 'excel',
+        text: '<i class="fa-solid fa-file-excel"></i> Excel',
+        className: 'btn-excel'
+      },
+      {
+        extend: 'pdf',
+        text: '<i class="fa-solid fa-file-pdf"></i> PDF',
+        className: 'btn-pdf'
+      },
+        {
+        extend: 'colvis',
+        text: '<i class="fa-solid fa-eye"></i> Columns',
+        className: 'btn-colvis'
+      }
+    ],
+    language: {
+      search: "",
+      searchPlaceholder: "Type to search..."
+    },
+    initComplete: function () {
+      // Remove default label text
+      $('#indentsTable_filter label').contents().filter(function () {
+        return this.nodeType === 3;
+      }).remove();
+
+      // Wrap search input & add icon
+      $('#indentsTable_filter input').wrap('<div class="search-wrapper"></div>');
+      $('.search-wrapper').prepend('<i class="fa-solid fa-magnifying-glass"></i>');
+    }
+  });
+});
+
+
+

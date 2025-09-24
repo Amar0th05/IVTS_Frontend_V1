@@ -1,7 +1,4 @@
-document.getElementById("logout-button").addEventListener("click", logout);
-function logout() {
-  sessionStorage.removeItem("token");
-}
+
 
 const addLaptopButton = document.getElementById("add_laptop_btn");
 const updateAssetsButton = document.getElementById("update_laptop_btn");
@@ -153,33 +150,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   roles = roles.data.roles;
   // console.log(roles);
   window.roles = roles;
-  handlePermission("#username");
-
-  const sidebarContainer = document.getElementById("sidebar-container");
-  if (sidebarContainer) {
-    sidebarContainer.innerHTML = generateSidebar();
-
-    const currentPage = window.location.pathname.split("/").pop().split(".")[0];
-    const navLinks = document.querySelectorAll(".pcoded-item a");
-
-    navLinks.forEach((link) => {
-      if (link.getAttribute("href").includes(currentPage)) {
-        link.parentElement.classList.add("active");
-
-        const accordionContent = link.closest(".accordion-content");
-        if (accordionContent) {
-          accordionContent.style.display = "block";
-          const header = accordionContent.previousElementSibling;
-          const icon = header.querySelector(".accordion-icon");
-          if (icon) {
-            icon.classList.remove("fa-chevron-down");
-            icon.classList.add("fa-chevron-up");
-          }
-        }
-      }
-    });
-  }
-
   await fetchAllData();
 
   handlePermission("#username");
@@ -201,7 +171,6 @@ async function toggleStatus(element, id) {
   } catch (error) {
     showErrorPopupFadeInDown(error);
   }
-  s;
 }
 
 // fetch all data
@@ -531,3 +500,91 @@ async function fetchDataAndGenerateExcel() {
     showErrorPopupFadeInDown("Can't download the staff details.");
   }
 }
+   $(document).ready(function () {
+       const datatable = $('#myTable').DataTable({
+           "paging": true,
+           "pageLength": 25,
+           "lengthMenu": [5, 10, 25, 50, 100],
+           dom: '<"top"l>frtip',
+           buttons: ['excel', 'csv', 'pdf']
+       });
+
+       datatable.buttons().container().appendTo($('#exportButtons'));
+
+
+
+ $('#designationFilter').on('change', function () {
+        const selectedDesignation = $(this).val();
+        datatable.column(0).search(selectedDesignation ? '^' + selectedDesignation + '$' : '', true, false).draw();
+    });
+
+    $('#locationFilter').on('change', function () {
+        const selectedLocation = $(this).val();
+        datatable.column(5).search(selectedLocation ? '^' + selectedLocation + '$' : '', true, false).draw(); 
+    });
+
+   });
+
+
+    
+    $('#filter').on('change', function () {
+        const selectedCategory = $(this).val();
+        if (selectedCategory) {
+            datatable.column(1).search(selectedCategory).draw();
+        } else {
+            datatable.column(1).search('').draw(); 
+        }
+    });
+
+    
+    document.querySelector('#addNew').addEventListener('click', function () {
+        document.querySelector('#tab').classList.remove('d-none');
+        document.querySelector('#tableCard').style.display = 'none';
+        document.querySelector('#exitButton').addEventListener('click',function(){
+            document.querySelector('#tab').classList.add('d-none');
+            document.querySelector('#tableCard').style.display = 'block';
+        });
+    });
+    // Show/Hide "Other" input dynamically
+    document.getElementById("category").addEventListener("change", function () {
+        let otherDiv = document.getElementById("otherCategoryDiv");
+        if (this.value === "Other") {
+            otherDiv.style.display = "block";
+        } else {
+            otherDiv.style.display = "none";
+            document.getElementById("otherCategory").value = "";
+        }
+    });
+$(document).ready(function () {
+    // Load staff and populate dropdown
+    api.getstaffid()
+        .then(staffList => {
+            staffList.forEach(staff => {
+                $('.userName').append(
+                    $('<option>', { value: `${staff.id} - ${staff.name}`, text: `${staff.id}-${staff.name}` })
+                );
+            });
+
+            // Initialize Select2
+            $('.userName').select2({
+                placeholder: 'Select Staff ID',
+                allowClear: true,
+                width: '100%'
+            });
+        })
+        .catch(error => {
+            console.error('Error loading staff:', error);
+        });
+
+    // Prevent Select2 dropdown clicks from bubbling
+    $('.userName').on('select2:open select2:closing', function(event) {
+        event.stopPropagation();
+    });
+
+    // Prevent regular click on the select from bubbling
+    $('.userName').on('click', function(e){
+        e.stopPropagation();
+    });
+
+
+});

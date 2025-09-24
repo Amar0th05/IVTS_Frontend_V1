@@ -3,13 +3,7 @@
 
 <head>
     <title>Laptop Details</title>
-    <!-- HTML5 Shim and Respond.js IE10 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 10]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-      <![endif]-->
-    <!-- Meta -->
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -29,13 +23,15 @@
     <link rel="stylesheet" href="assets/pages/waves/css/waves.min.css" type="text/css" media="all">
     <!-- themify icon -->
     <link rel="stylesheet" type="text/css" href="assets/icon/themify-icons/themify-icons.css">
+      <script src="https://kit.fontawesome.com/1799ed0397.js" crossorigin="anonymous"></script>
+
     <!-- font-awesome-n -->
     <link rel="stylesheet" type="text/css" href="assets/css/font-awesome-n.min.css">
     <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.min.css">
     <!-- scrollbar.css -->
     <link rel="stylesheet" type="text/css" href="assets/css/jquery.mCustomScrollbar.css">
     <!-- Style.css -->
-    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/style copy.css">
     <link rel="stylesheet" href="assets/css/custom.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
@@ -52,13 +48,9 @@
         #policyTable{
             border-radius: 5px;
         }
-    </style>
-<style>
     .hidden {
       display: none !important;
     }
-  </style>
-<style>
     .addNewRecord{
       all:unset;
       color: white !important;
@@ -66,8 +58,6 @@
       background: linear-gradient(135deg, #4931d1, #7f86f3);
     }
 
-  </style>
-  <style>
 .dropdownPopup .list-group-item:hover,
 .dropdownPopup .list-group-item.active {
   background-color: #007bff;
@@ -76,8 +66,6 @@
 }
 
 
-  </style>
-  <style>
   /* remove right border-radius from input */
   .no-radius-end {
     border-top-right-radius: 0 !important;
@@ -160,184 +148,109 @@
         <div class="pcoded-overlay-box"></div>
         <div class="pcoded-container navbar-wrapper">
             <nav class="navbar header-navbar pcoded-header">
-                <div class="navbar-wrapper">
-                    <div class="navbar-logo align-items-center">
-                        <a class="mobile-menu waves-effect waves-light" id="mobile-collapse" href="#!">
-                            <i class="ti-menu"></i>
-                        </a>
-                        <div class="mobile-search waves-effect waves-light">
-                            <div class="header-search">
-                                <div class="main-search morphsearch-search">
-                                    <div class="input-group">
-                                        <span class="input-group-prepend search-close"><i
-                                                class="ti-close input-group-text"></i></span>
-                                        <input type="text" class="form-control" placeholder="Enter Keyword">
-                                        <span class="input-group-append search-btn"><i
-                                                class="ti-search input-group-text"></i></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="index.html">
-                            <!-- <img class="img-fluid" src="https://ntcpwc.iitm.ac.in/New/images/ntcpwc-logo.jpg" alt="Theme-Logo" style="height: 50px;" /> -->
-                            <h4 class="d-inline"><span class="text-lowercase">i</span>VTS-FMS</h4>
-                        </a>
-                        <a class="mobile-options waves-effect waves-light">
-                            <i class="ti-more"></i>
-                        </a>
-                    </div>
-                    <div class="navbar-container container-fluid">
-                        <ul class="nav-left">
-                            <li>
-                                <div class="sidebar_toggle"><a href="javascript:void(0)"><i class="ti-menu"></i></a>
-                                </div>
-                            </li>
-                            <li>
-                                <a href="#!" onclick="javascript:toggleFullScreen()" class="waves-effect waves-light">
-                                    <i class="ti-fullscreen"></i>
-                                </a>
-                            </li>
-                        </ul>
-                        <ul class="nav-right">
-                            <!-- <li class="header-notification">
-                                <a href="#!" class="waves-effect waves-light">
-                                    <i class="ti-bell"></i>
-                                    <span class="badge bg-c-red"></span>
-                                </a>
-                                <ul class="show-notification">
-                                    <li>
-                                        <h6>Notifications</h6>
-                                        <label class="label label-danger">New</label>
-                                    </li>
-                                    <li class="waves-effect waves-light">
-                                        <div class="media">
-                                            <img class="d-flex align-self-center img-radius"
-                                                src="assets/images/avatar-2.jpg" alt="Generic placeholder image">
-                                            <div class="media-body">
-                                                <h5 class="notification-user">John Doe</h5>
-                                                <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer
-                                                    elit.</p>
-                                                <span class="notification-time">30 minutes ago</span>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="waves-effect waves-light">
-                                        <div class="media">
-                                            <img class="d-flex align-self-center img-radius"
-                                                src="assets/images/avatar-4.jpg" alt="Generic placeholder image">
-                                            <div class="media-body">
-                                                <h5 class="notification-user">Joseph William</h5>
-                                                <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer
-                                                    elit.</p>
-                                                <span class="notification-time">30 minutes ago</span>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="waves-effect waves-light">
-                                        <div class="media">
-                                            <img class="d-flex align-self-center img-radius"
-                                                src="assets/images/avatar-3.jpg" alt="Generic placeholder image">
-                                            <div class="media-body">
-                                                <h5 class="notification-user">Sara Soudein</h5>
-                                                <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer
-                                                    elit.</p>
-                                                <span class="notification-time">30 minutes ago</span>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </li> -->
-                            <li class="user-profile header-notification">
-                                <a href="#!" class="waves-effect waves-light">
-                                    <!-- <img src="assets/images/avatar-4.jpg" class="img-radius" alt="User-Profile-Image"> -->
-                                    <span id="username">John Doe</span>
-                                    <i class="ti-angle-down"></i>
-                                </a>
-                                <ul class="show-notification profile-notification">
-                                    <li class="waves-effect waves-light">
-                                        <a href="#!">
-                                            <i class="ti-settings"></i> Settings
-                                        </a>
-                                    </li>
-                                    <li class="waves-effect waves-light">
-                                        <a href="user-profile.html">
-                                            <i class="ti-user"></i> Profile
-                                        </a>
-                                    </li>
-                                    <li class="waves-effect waves-light">
-                                        <a href="index.html" id="logout-button">
-                                            <i class="ti-layout-sidebar-left"></i> Logout
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
+        <div class="navbar-wrapper">
+          <div class="navbar-logo align-items-center">
+            <a class="mobile-menu waves-effect waves-light" id="mobile-collapse" href="#!">
+              <i class="ti-menu"></i>
+            </a>
+            <div>
+              <a href="index.html">
+                <img class="img-fluid" src="assets/images/Gemini_Generated_Image_ode7ogode7ogode7-removebg-preview.png"
+                  alt="Theme-Logo" style="height: 50px;" />
+                <h4 class="d-inline"><span class="text-lowercase">WorkSphere</h4>
+              </a>
+            </div>
+            <a class="mobile-options waves-effect waves-light">
+              <i class="ti-more"></i>
+            </a>
+          </div>
+          <div class="navbar-container container-fluid">
+            <ul class="nav-left">
+              <li>
+                <div class="sidebar_toggle"><a href="javascript:void(0)"><i class="ti-menu"></i></a></div>
+              </li>
+              <li>
+                <a href="#!" onclick="javascript:toggleFullScreen()" class="waves-effect waves-light">
+                  <i class="ti-fullscreen"></i>
+                </a>
+              </li>
+            </ul>
+            <ul class="nav-right">
+              <li class="user-profile header-notification">
+                <a href="#!" class="waves-effect waves-light">
+                  <span id="username">John Doe</span>
+                  <i class="ti-angle-down"></i>
+                </a>
+                <ul class="show-notification profile-notification">
+                  <li class="waves-effect waves-light">
+                    <a href="user-profile.html">
+                      <i class="fa-solid fa-id-card"></i> Profile
+                    </a>
+                  </li>
+                  <li class="waves-effect waves-light">
+                    <a href="login.html" id="logout-button">
+
+                      <i class="fa-solid fa-right-to-bracket fa-flip-horizontal"></i> Logout
+
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
 
             <div class="pcoded-main-container">
                 <div class="pcoded-wrapper">
                     <nav class="pcoded-navbar">
-                        <div class="sidebar_toggle"><a href="#"><i class="icon-close icons"></i></a></div>
-                        <div class="pcoded-inner-navbar main-menu">
-                            <div class="">
-                                <div class="main-menu-header">
-                                    <!-- <img class="img-80 img-radius" src="assets/images/avatar-4.jpg" alt="User-Profile-Image">
-                                    <div class="user-details">
-                                        <span id="more-details">John Doe<i class="fa fa-caret-down"></i></span>
-                                    </div> -->
-                                    <img src="assets/images/ntcpwc-logo.jpg" alt="ntcpwc-logo">
-                                </div>
-                                <div class="main-menu-content">
-                                    <ul>
-                                        <li class="more-details">
-                                            <a href="user-profile.html"><i class="ti-user"></i>View Profile</a>
-                                            <a href="#!"><i class="ti-settings"></i>Settings</a>
-                                            <a href="auth-normal-sign-in.html"><i
-                                                    class="ti-layout-sidebar-left"></i>Logout</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="p-15 p-b-0">
-                                <form class="form-material">
-                                    <div class="form-group form-primary">
-                                        <input type="text" name="footer-email" class="form-control">
-                                        <span class="form-bar"></span>
-                                        <label class="float-label"><i class="fa fa-search m-r-10"></i>Search</label>
-                                    </div>
-                                </form>
-                            </div>
-                            <div id="sidebar-container"></div>
-         </nav>
+            <div class="sidebar_toggle"><a href="#"><i class="icon-close icons"></i></a></div>
+            <div class="pcoded-inner-navbar main-menu">
+              <div class="">
+                <div class="main-menu-content">
+                  <ul>
+                    <li class="more-details">
+                      <a href="user-profile.html"><i class="ti-user"></i>View Profile</a>
+                      <!-- <a href="#!"><i class="ti-settings"></i>Settings</a> -->
+                      <a href="login.html"><i class="ti-layout-sidebar-left"></i>Logout</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div id="sidebar-container">
+
+              </div>
+
+          </nav>
 
 
 
                     <div class="pcoded-content">
                         <!-- Page-header start -->
                         <div class="page-header">
-                            <div class="page-block">
-                                <div class="row align-items-center">
-                                    <div class="col-md-8">
-                                        <!-- <img src="assets/images/ntcpwc-logo.jpg" class="img-fluid w-25" -->
-                                            <!-- alt="NTCPWC LOGO"> -->
-                                        <div class="page-header-title">
-                                            <h5 class="m-b-10">Assets Details</h5>
-                                            <p class="m-b-0">Welcome to WorkSphere</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <ul class="breadcrumb">
-                                            <li class="breadcrumb-item">
-                                                <a href="index.html"> <i class="ti-home"></i> </a>
-                                            </li>
-                                            <li class="breadcrumb-item"><a href="#!">Laptops Details</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
+                             <div class="page-header">
+              <div class="page-block">
+                <div class="row align-items-center">
+                  <div class="col-md-8">
+                    <div class="page-title">
+                      <span class="page-title-icon bg-gradient-primary text-white mr-2">
+                        <i class="fa fa-chart-line"></i>
+                      </span>
+                      <h5>Laptops</h5>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <ul class="breadcrumb">
+                      <li class="breadcrumb-item">
+                        <a href="index.html"> <i class="fa fa-home"></i> </a>
+                      </li>
+                      <li class="breadcrumb-item"><a href="#!">Laptops</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
                         </div>
                         <!-- Page-header end -->
                         <div class="pcoded-inner-content">
@@ -384,20 +297,20 @@
         <!-- User Name -->
         <div class="col-md-6">
             <div class="form-group">
-                <label for="userName1">User Name</label>
-               <select id="userName1" name="userName" class="form-control form-control-sm userName" style="width:100%;">
-                <option value="">StaffId</option>
-               </select>
-
+                <label for="userName1">User Name <span class="text-danger">*</span></label>
+                <select id="userName1" name="userName"
+                    class="form-control form-control-sm userName" style="width:100%;" required>
+                    <option value="">StaffId</option>
+                </select>
             </div>
         </div>
 
         <!-- Model No -->
         <div class="col-md-6">
             <div class="form-group">
-                <label for="modelNo">Model No</label>
-                <input type="text" name="Model_No" class="form-control form-control-sm" id="modelNo"
-                    placeholder="Enter Model No">
+                <label for="modelNo">Model No <span class="text-danger">*</span></label>
+                <input type="text" name="Model_No" class="form-control form-control-sm"
+                    id="modelNo" placeholder="Enter Model No" required>
             </div>
         </div>
     </div>
@@ -406,18 +319,18 @@
         <!-- Serial No -->
         <div class="col-md-6">
             <div class="form-group">
-                <label for="serialNo">Serial No</label>
-                <input type="text" name="Serial_No" class="form-control form-control-sm" id="serialNo"
-                    placeholder="Enter Serial No">
+                <label for="serialNo">Serial No <span class="text-danger">*</span></label>
+                <input type="text" name="Serial_No" class="form-control form-control-sm"
+                    id="serialNo" placeholder="Enter Serial No" required>
             </div>
         </div>
 
         <!-- Processor Type -->
         <div class="col-md-6">
             <div class="form-group">
-                <label for="processorType">Processor Type</label>
-                <input type="text" name="Processor_Type" class="form-control form-control-sm" id="processorType"
-                    placeholder="Enter Processor Type">
+                <label for="processorType">Processor Type <span class="text-danger">*</span></label>
+                <input type="text" name="Processor_Type" class="form-control form-control-sm"
+                    id="processorType" placeholder="Enter Processor Type" required>
             </div>
         </div>
     </div>
@@ -426,54 +339,48 @@
         <!-- RAM (GB) -->
         <div class="col-md-6">
             <div class="form-group">
-                <label for="ramGb">RAM (GB)</label>
-                <input type="number" name="RAM_GB" class="form-control form-control-sm" id="ramGb"
-                    placeholder="Enter RAM in GB">
+                <label for="ramGb">RAM (GB) <span class="text-danger">*</span></label>
+                <input type="number" name="RAM_GB" class="form-control form-control-sm"
+                    id="ramGb" placeholder="Enter RAM in GB" min="1" step="1" required>
             </div>
         </div>
 
         <!-- HDD (GB/TB) -->
-         <div class="col-md-6">
-  <div class="form-group">
-    <label for="storage" class="form-label">HDD (GB/TB)</label>
-    <div class="d-flex">
-      <input type="number" 
-             name="HDD_GB_TB" 
-             class="form-control form-control-sm no-radius-end" 
-             id="storage" 
-             placeholder="Enter value" 
-             min="1" 
-             step="1" 
-             required>
-      <select name="storageUnit" class="form-select form-select-sm no-radius-start bg-light text-dark" style="max-width: 90px;">
-        <option value="GB">GB</option>
-        <option value="TB">TB</option>
-      </select>
-    </div>
-  </div>
-</div>
-
-
-
-
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="storage">HDD (GB/TB) <span class="text-danger">*</span></label>
+                <div class="d-flex">
+                    <input type="number" name="HDD_GB_TB"
+                        class="form-control form-control-sm no-radius-end"
+                        id="storage" placeholder="Enter value"
+                        min="1" step="1" required>
+                    <select name="storageUnit"
+                        class="form-select form-select-sm no-radius-start bg-light text-dark"
+                        style="max-width: 90px;" required>
+                        <option value="GB">GB</option>
+                        <option value="TB">TB</option>
+                    </select>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="row">
         <!-- Graphics -->
         <div class="col-md-6">
             <div class="form-group">
-                <label for="graphics">Graphics</label>
-                <input type="text" name="Graphics" class="form-control form-control-sm" id="graphics"
-                    placeholder="Enter Graphics Info">
+                <label for="graphics">Graphics <span class="text-danger">*</span></label>
+                <input type="text" name="Graphics" class="form-control form-control-sm"
+                    id="graphics" placeholder="Enter Graphics Info" required>
             </div>
         </div>
 
         <!-- OS Type -->
         <div class="col-md-6">
             <div class="form-group">
-                <label for="osType">OS Type</label>
-                <input type="text" name="OS_Type" class="form-control form-control-sm" id="osType"
-                    placeholder="Enter Operating System">
+                <label for="osType">OS Type <span class="text-danger">*</span></label>
+                <input type="text" name="OS_Type" class="form-control form-control-sm"
+                    id="osType" placeholder="Enter Operating System" required>
             </div>
         </div>
     </div>
@@ -484,18 +391,18 @@
         <!-- Host Name -->
         <div class="col-md-6">
             <div class="form-group">
-                <label for="hostName">Host Name</label>
-                <input type="text" name="Host_Name" class="form-control form-control-sm" id="hostName"
-                    placeholder="Enter Host Name">
+                <label for="hostName">Host Name <span class="text-danger">*</span></label>
+                <input type="text" name="Host_Name" class="form-control form-control-sm"
+                    id="hostName" placeholder="Enter Host Name" required>
             </div>
         </div>
 
         <!-- IP Address -->
         <div class="col-md-6">
             <div class="form-group">
-                <label for="ipAddress">IP Address</label>
-                <input type="text" name="IP_Address" class="form-control form-control-sm" id="ipAddress"
-                    placeholder="Enter IP Address">
+                <label for="ipAddress">IP Address <span class="text-danger">*</span></label>
+                <input type="text" name="IP_Address" class="form-control form-control-sm"
+                    id="ipAddress" placeholder="Enter IP Address" required>
             </div>
         </div>
     </div>
@@ -504,9 +411,9 @@
         <!-- MAC Address -->
         <div class="col-md-6">
             <div class="form-group">
-                <label for="macAddress">MAC Address</label>
-                <input type="text" name="MAC_Address" class="form-control form-control-sm" id="macAddress"
-                    placeholder="Enter MAC Address">
+                <label for="macAddress">MAC Address <span class="text-danger">*</span></label>
+                <input type="text" name="MAC_Address" class="form-control form-control-sm"
+                    id="macAddress" placeholder="Enter MAC Address" required>
             </div>
         </div>
     </div>
@@ -517,18 +424,18 @@
         <!-- Project No -->
         <div class="col-md-6">
             <div class="form-group">
-                <label for="projectNo">Project No</label>
-                <input type="text" name="Project_No" class="form-control form-control-sm" id="projectNo"
-                    placeholder="Enter Project No">
+                <label for="projectNo">Project No <span class="text-danger">*</span></label>
+                <input type="text" name="Project_No" class="form-control form-control-sm"
+                    id="projectNo" placeholder="Enter Project No" required>
             </div>
         </div>
 
         <!-- PO No -->
         <div class="col-md-6">
             <div class="form-group">
-                <label for="poNo">PO No</label>
-                <input type="text" name="PO_No" class="form-control form-control-sm" id="poNo"
-                    placeholder="Enter PO No">
+                <label for="poNo">PO No <span class="text-danger">*</span></label>
+                <input type="text" name="PO_No" class="form-control form-control-sm"
+                    id="poNo" placeholder="Enter PO No" required>
             </div>
         </div>
     </div>
@@ -537,17 +444,18 @@
         <!-- PO Date -->
         <div class="col-md-6">
             <div class="form-group">
-                <label for="poDate">PO Date</label>
-                <input type="date" name="PO_Date" class="form-control form-control-sm" id="poDate">
+                <label for="poDate">PO Date <span class="text-danger">*</span></label>
+                <input type="date" name="PO_Date" class="form-control form-control-sm"
+                    id="poDate" required>
             </div>
         </div>
 
         <!-- Vendor Name -->
         <div class="col-md-6">
             <div class="form-group">
-                <label for="vendorName">Vendor Name</label>
-                <input type="text" name="Vendor_Name" class="form-control form-control-sm" id="vendorName"
-                    placeholder="Enter Vendor Name">
+                <label for="vendorName">Vendor Name <span class="text-danger">*</span></label>
+                <input type="text" name="Vendor_Name" class="form-control form-control-sm"
+                    id="vendorName" placeholder="Enter Vendor Name" required>
             </div>
         </div>
     </div>
@@ -556,17 +464,18 @@
         <!-- Invoice No -->
         <div class="col-md-6">
             <div class="form-group">
-                <label for="invoiceNo">Invoice No</label>
-                <input type="text" name="Invoice_No" class="form-control form-control-sm" id="invoiceNo"
-                    placeholder="Enter Invoice No">
+                <label for="invoiceNo">Invoice No <span class="text-danger">*</span></label>
+                <input type="text" name="Invoice_No" class="form-control form-control-sm"
+                    id="invoiceNo" placeholder="Enter Invoice No" required>
             </div>
         </div>
 
         <!-- Invoice Date -->
         <div class="col-md-6">
             <div class="form-group">
-                <label for="invoiceDate">Invoice Date</label>
-                <input type="date" name="Invoice_Date" class="form-control form-control-sm" id="invoiceDate">
+                <label for="invoiceDate">Invoice Date <span class="text-danger">*</span></label>
+                <input type="date" name="Invoice_Date" class="form-control form-control-sm"
+                    id="invoiceDate" required>
             </div>
         </div>
     </div>
@@ -575,18 +484,18 @@
         <!-- SRB -->
         <div class="col-md-6">
             <div class="form-group">
-                <label for="srb">SRB</label>
-                <input type="text" name="SRB" class="form-control form-control-sm" id="srb"
-                    placeholder="Enter SRB No">
+                <label for="srb">SRB <span class="text-danger">*</span></label>
+                <input type="text" name="SRB" class="form-control form-control-sm"
+                    id="srb" placeholder="Enter SRB No" required>
             </div>
         </div>
 
         <!-- Department -->
         <div class="col-md-6">
             <div class="form-group">
-                <label for="dept">Department</label>
-                <input type="text" name="Dept" class="form-control form-control-sm" id="dept"
-                    placeholder="Enter Department">
+                <label for="dept">Department <span class="text-danger">*</span></label>
+                <input type="text" name="Dept" class="form-control form-control-sm"
+                    id="dept" placeholder="Enter Department" required>
             </div>
         </div>
     </div>
@@ -595,13 +504,14 @@
         <!-- Remarks -->
         <div class="col-md-12">
             <div class="form-group">
-                <label for="remarks">Remarks</label>
-                <textarea class="form-control form-control-sm" id="remarks" name="Remarks" rows="2"
-                    placeholder="Enter Remarks"></textarea>
+                <label for="remarks">Remarks <span class="text-danger">*</span></label>
+                <textarea class="form-control form-control-sm" id="remarks" name="Remarks"
+                    rows="2" placeholder="Enter Remarks" required></textarea>
             </div>
         </div>
     </div>
 </form>
+
 
 
 
@@ -640,8 +550,9 @@
     <!-- Asset ID -->
     <div class="col-md-6">
       <div class="form-group">
-        <label for="assetId">Asset ID<span class="text-danger">*</span></label>
-        <input type="text" name="Asset_ID" maxlength="20" class="form-control form-control-sm" id="assetId"
+        <label for="assetId">Asset ID <span class="text-danger">*</span></label>
+        <input type="text" name="Asset_ID" maxlength="20"
+               class="form-control form-control-sm" id="assetId"
                placeholder="Enter Asset ID" required readonly>
       </div>
     </div>
@@ -649,31 +560,34 @@
     <!-- Category -->
     <div class="col-md-6">
       <div class="form-group">
-        <label for="category">Category<span class="text-danger">*</span></label>
-        <input type="text" name="Category" maxlength="50" class="form-control form-control-sm" id="category"
-               placeholder="Enter Category" required>
+        <label for="category">Category <span class="text-danger">*</span></label>
+        <input type="text" name="Category" maxlength="50"
+               class="form-control form-control-sm" id="category"
+               placeholder="Enter Category" required readonly>
       </div>
     </div>
   </div>
 
   <div class="row">
     <!-- User Name (Staff ID Select) -->
-             <div class="col-md-6">
-            <div class="form-group">
-                <label for="userName2">User Name</label>
-               <select id="userName2" name="userName" class="form-control form-control-sm userName" style="width:100%;">
-                <option value="">StaffId</option>
-               </select>
-
-            </div>
-        </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="userName2">User Name <span class="text-danger">*</span></label>
+        <select id="userName2" name="userName"
+                class="form-control form-control-sm userName"
+                style="width:100%;" required>
+          <option value="">StaffId</option>
+        </select>
+      </div>
+    </div>
 
     <!-- Model No -->
     <div class="col-md-6">
       <div class="form-group">
-        <label for="modelNo">Model No</label>
-        <input type="text" name="Model_No" class="form-control form-control-sm" id="modelNo"
-               placeholder="Enter Model No">
+        <label for="modelNo">Model No <span class="text-danger">*</span></label>
+        <input type="text" name="Model_No"
+               class="form-control form-control-sm" id="modelNo"
+               placeholder="Enter Model No" required>
       </div>
     </div>
   </div>
@@ -682,18 +596,20 @@
     <!-- Serial No -->
     <div class="col-md-6">
       <div class="form-group">
-        <label for="serialNo">Serial No</label>
-        <input type="text" name="Serial_No" class="form-control form-control-sm" id="serialNo"
-               placeholder="Enter Serial No">
+        <label for="serialNo">Serial No <span class="text-danger">*</span></label>
+        <input type="text" name="Serial_No"
+               class="form-control form-control-sm" id="serialNo"
+               placeholder="Enter Serial No" required>
       </div>
     </div>
 
     <!-- Processor Type -->
     <div class="col-md-6">
       <div class="form-group">
-        <label for="processorType">Processor Type</label>
-        <input type="text" name="Processor_Type" class="form-control form-control-sm" id="processorType"
-               placeholder="Enter Processor Type">
+        <label for="processorType">Processor Type <span class="text-danger">*</span></label>
+        <input type="text" name="Processor_Type"
+               class="form-control form-control-sm" id="processorType"
+               placeholder="Enter Processor Type" required>
       </div>
     </div>
   </div>
@@ -702,25 +618,26 @@
     <!-- RAM -->
     <div class="col-md-6">
       <div class="form-group">
-        <label for="ramGb">RAM (GB)</label>
-        <input type="number" name="RAM_GB" class="form-control form-control-sm" id="ramGb"
-               placeholder="Enter RAM in GB">
+        <label for="ramGb">RAM (GB) <span class="text-danger">*</span></label>
+        <input type="number" name="RAM_GB"
+               class="form-control form-control-sm" id="ramGb"
+               placeholder="Enter RAM in GB" min="1" step="1" required>
       </div>
     </div>
 
     <!-- HDD / Storage -->
     <div class="col-md-6">
       <div class="form-group">
-        <label for="storage">HDD (GB/TB)</label>
+        <label for="storage">HDD (GB/TB) <span class="text-danger">*</span></label>
         <div class="d-flex">
-          <input type="number" 
-                 name="HDD_GB_TB" 
-                 class="form-control form-control-sm no-radius-end" 
-                 id="storage" 
-                 placeholder="Enter value" 
-                 min="1" 
-                 step="1">
-          <select name="storageUnit" class="form-select form-select-sm no-radius-start bg-light text-dark" style="max-width: 90px;">
+          <input type="number" name="HDD_GB_TB"
+                 class="form-control form-control-sm no-radius-end"
+                 id="storage" placeholder="Enter value"
+                 min="1" step="1" required>
+          <select name="storageUnit"
+                  class="form-select form-select-sm no-radius-start bg-light text-dark"
+                  style="max-width: 90px;" required>
+            <option value="">Unit</option>
             <option value="GB">GB</option>
             <option value="TB">TB</option>
           </select>
@@ -733,18 +650,20 @@
     <!-- Graphics -->
     <div class="col-md-6">
       <div class="form-group">
-        <label for="graphics">Graphics</label>
-        <input type="text" name="Graphics" class="form-control form-control-sm" id="graphics"
-               placeholder="Enter Graphics Info">
+        <label for="graphics">Graphics <span class="text-danger">*</span></label>
+        <input type="text" name="Graphics"
+               class="form-control form-control-sm" id="graphics"
+               placeholder="Enter Graphics Info" required>
       </div>
     </div>
 
     <!-- OS Type -->
     <div class="col-md-6">
       <div class="form-group">
-        <label for="osType">OS Type</label>
-        <input type="text" name="OS_Type" class="form-control form-control-sm" id="osType"
-               placeholder="Enter Operating System">
+        <label for="osType">OS Type <span class="text-danger">*</span></label>
+        <input type="text" name="OS_Type"
+               class="form-control form-control-sm" id="osType"
+               placeholder="Enter Operating System" required>
       </div>
     </div>
   </div>
@@ -755,17 +674,19 @@
     <!-- Host Name -->
     <div class="col-md-6">
       <div class="form-group">
-        <label for="hostName">Host Name</label>
-        <input type="text" name="Host_Name" class="form-control form-control-sm" id="hostName"
-               placeholder="Enter Host Name">
+        <label for="hostName">Host Name <span class="text-danger">*</span></label>
+        <input type="text" name="Host_Name"
+               class="form-control form-control-sm" id="hostName"
+               placeholder="Enter Host Name" required>
       </div>
     </div>
 
     <!-- IP Address -->
     <div class="col-md-6">
       <div class="form-group">
-        <label for="ipAddress">IP Address<span class="text-danger">*</span></label>
-        <input type="text" name="IP_Address" class="form-control form-control-sm" id="ipAddress"
+        <label for="ipAddress">IP Address <span class="text-danger">*</span></label>
+        <input type="text" name="IP_Address"
+               class="form-control form-control-sm" id="ipAddress"
                placeholder="Enter IP Address" required>
       </div>
     </div>
@@ -775,9 +696,10 @@
     <!-- MAC Address -->
     <div class="col-md-6">
       <div class="form-group">
-        <label for="macAddress">MAC Address</label>
-        <input type="text" name="MAC_Address" class="form-control form-control-sm" id="macAddress"
-               placeholder="Enter MAC Address">
+        <label for="macAddress">MAC Address <span class="text-danger">*</span></label>
+        <input type="text" name="MAC_Address"
+               class="form-control form-control-sm" id="macAddress"
+               placeholder="Enter MAC Address" required>
       </div>
     </div>
   </div>
@@ -788,18 +710,20 @@
     <!-- Project No -->
     <div class="col-md-6">
       <div class="form-group">
-        <label for="projectNo">Project No</label>
-        <input type="text" name="Project_No" class="form-control form-control-sm" id="projectNo"
-               placeholder="Enter Project No">
+        <label for="projectNo">Project No <span class="text-danger">*</span></label>
+        <input type="text" name="Project_No"
+               class="form-control form-control-sm" id="projectNo"
+               placeholder="Enter Project No" required>
       </div>
     </div>
 
     <!-- PO No -->
     <div class="col-md-6">
       <div class="form-group">
-        <label for="poNo">PO No</label>
-        <input type="text" name="PO_No" class="form-control form-control-sm" id="poNo"
-               placeholder="Enter PO No">
+        <label for="poNo">PO No <span class="text-danger">*</span></label>
+        <input type="text" name="PO_No"
+               class="form-control form-control-sm" id="poNo"
+               placeholder="Enter PO No" required>
       </div>
     </div>
   </div>
@@ -808,17 +732,19 @@
     <!-- PO Date -->
     <div class="col-md-6">
       <div class="form-group">
-        <label for="poDate">PO Date</label>
-        <input type="date" name="PO_Date" class="form-control form-control-sm" id="poDate">
+        <label for="poDate">PO Date <span class="text-danger">*</span></label>
+        <input type="date" name="PO_Date"
+               class="form-control form-control-sm" id="poDate" required>
       </div>
     </div>
 
     <!-- Vendor Name -->
     <div class="col-md-6">
       <div class="form-group">
-        <label for="vendorName">Vendor Name</label>
-        <input type="text" name="Vendor_Name" class="form-control form-control-sm" id="vendorName"
-               placeholder="Enter Vendor Name">
+        <label for="vendorName">Vendor Name <span class="text-danger">*</span></label>
+        <input type="text" name="Vendor_Name"
+               class="form-control form-control-sm" id="vendorName"
+               placeholder="Enter Vendor Name" required>
       </div>
     </div>
   </div>
@@ -827,17 +753,19 @@
     <!-- Invoice No -->
     <div class="col-md-6">
       <div class="form-group">
-        <label for="invoiceNo">Invoice No</label>
-        <input type="text" name="Invoice_No" class="form-control form-control-sm" id="invoiceNo"
-               placeholder="Enter Invoice No">
+        <label for="invoiceNo">Invoice No <span class="text-danger">*</span></label>
+        <input type="text" name="Invoice_No"
+               class="form-control form-control-sm" id="invoiceNo"
+               placeholder="Enter Invoice No" required>
       </div>
     </div>
 
     <!-- Invoice Date -->
     <div class="col-md-6">
       <div class="form-group">
-        <label for="invoiceDate">Invoice Date</label>
-        <input type="date" name="Invoice_Date" class="form-control form-control-sm" id="invoiceDate">
+        <label for="invoiceDate">Invoice Date <span class="text-danger">*</span></label>
+        <input type="date" name="Invoice_Date"
+               class="form-control form-control-sm" id="invoiceDate" required>
       </div>
     </div>
   </div>
@@ -846,18 +774,20 @@
     <!-- SRB -->
     <div class="col-md-6">
       <div class="form-group">
-        <label for="srb">SRB</label>
-        <input type="text" name="SRB" class="form-control form-control-sm" id="srb"
-               placeholder="Enter SRB No">
+        <label for="srb">SRB <span class="text-danger">*</span></label>
+        <input type="text" name="SRB"
+               class="form-control form-control-sm" id="srb"
+               placeholder="Enter SRB No" required>
       </div>
     </div>
 
     <!-- Department -->
     <div class="col-md-6">
       <div class="form-group">
-        <label for="dept">Department</label>
-        <input type="text" name="Dept" class="form-control form-control-sm" id="dept"
-               placeholder="Enter Department">
+        <label for="dept">Department <span class="text-danger">*</span></label>
+        <input type="text" name="Dept"
+               class="form-control form-control-sm" id="dept"
+               placeholder="Enter Department" required>
       </div>
     </div>
   </div>
@@ -866,13 +796,15 @@
     <!-- Remarks -->
     <div class="col-md-12">
       <div class="form-group">
-        <label for="remarks">Remarks</label>
-        <textarea class="form-control form-control-sm" id="remarks" name="Remarks" rows="2"
-                  placeholder="Enter Remarks"></textarea>
+        <label for="remarks">Remarks <span class="text-danger">*</span></label>
+        <textarea class="form-control form-control-sm"
+                  id="remarks" name="Remarks" rows="2"
+                  placeholder="Enter Remarks" required></textarea>
       </div>
     </div>
   </div>
 </form>
+
              </div>
         </div>
 
@@ -993,7 +925,6 @@
 
 
     
-    <script src="assets/js/roleUtil.js"></script>
 
   <!-- Required jQuery -->
 <script type="text/javascript" src="assets/js/jquery/jquery.min.js"></script>
@@ -1045,115 +976,12 @@
 <script src="./assets/js/apiRequests.js"></script>
 <script src="assets/js/laptops.js"></script>
 <script type="text/javascript" src="assets/js/script.js"></script>
+    <script src="assets/js/roleUtil.js"></script>
+<script src="assets/js/Utils.js"></script>
 
 
 <!-- Initialize DataTable -->
-<script>
-   $(document).ready(function () {
-       const datatable = $('#myTable').DataTable({
-           "paging": true,
-           "pageLength": 25,
-           "lengthMenu": [5, 10, 25, 50, 100],
-           dom: '<"top"l>frtip',
-           buttons: ['excel', 'csv', 'pdf']
-       });
 
-       datatable.buttons().container().appendTo($('#exportButtons'));
-
-
-
- $('#designationFilter').on('change', function () {
-        const selectedDesignation = $(this).val();
-        datatable.column(0).search(selectedDesignation ? '^' + selectedDesignation + '$' : '', true, false).draw();
-    });
-
-    $('#locationFilter').on('change', function () {
-        const selectedLocation = $(this).val();
-        datatable.column(5).search(selectedLocation ? '^' + selectedLocation + '$' : '', true, false).draw(); 
-    });
-
-   });
-
-
-    
-    $('#filter').on('change', function () {
-        const selectedCategory = $(this).val();
-        if (selectedCategory) {
-            datatable.column(1).search(selectedCategory).draw();
-        } else {
-            datatable.column(1).search('').draw(); 
-        }
-    });
-
-    function toggleAccordion(button) {
-        const content = button.parentElement.nextElementSibling;
-        content.style.display = (content.style.display === "none" || content.style.display === "") ? "block" : "none";
-        const icon = button.querySelector("i");
-        icon.classList.toggle("fa-chevron-down");
-        icon.classList.toggle("fa-chevron-up");
-    }
-</script>
-<script>
-    document.querySelector('#addNew').addEventListener('click', function () {
-        document.querySelector('#tab').classList.remove('d-none');
-        document.querySelector('#tableCard').style.display = 'none';
-        document.querySelector('#exitButton').addEventListener('click',function(){
-            document.querySelector('#tab').classList.add('d-none');
-            document.querySelector('#tableCard').style.display = 'block';
-        });
-    });
-
-</script>
-
-<script>
-    // Show/Hide "Other" input dynamically
-    document.getElementById("category").addEventListener("change", function () {
-        let otherDiv = document.getElementById("otherCategoryDiv");
-        if (this.value === "Other") {
-            otherDiv.style.display = "block";
-        } else {
-            otherDiv.style.display = "none";
-            document.getElementById("otherCategory").value = "";
-        }
-    });
-</script>
-
-<script>
-$(document).ready(function () {
-    // Load staff and populate dropdown
-    api.getstaffid()
-        .then(staffList => {
-            staffList.forEach(staff => {
-                $('.userName').append(
-                    $('<option>', { value: `${staff.id} - ${staff.name}`, text: `${staff.id}-${staff.name}` })
-                );
-            });
-
-            // Initialize Select2
-            $('.userName').select2({
-                placeholder: 'Select Staff ID',
-                allowClear: true,
-                width: '100%'
-            });
-        })
-        .catch(error => {
-            console.error('Error loading staff:', error);
-        });
-
-    // Prevent Select2 dropdown clicks from bubbling
-    $('.userName').on('select2:open select2:closing', function(event) {
-        event.stopPropagation();
-    });
-
-    // Prevent regular click on the select from bubbling
-    $('.userName').on('click', function(e){
-        e.stopPropagation();
-    });
-
-
-});
-
-</script>
 
 
 

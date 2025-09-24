@@ -3,17 +3,9 @@
 
 <head>
     <title>Telent Pool Details</title>
-    <!-- HTML5 Shim and Respond.js IE10 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 10]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-      <![endif]-->
-    <!-- Meta -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-
     <meta name="keywords"
         content="bootstrap, bootstrap admin template, admin theme, admin dashboard, dashboard template, admin template, responsive" />
     <meta name="author" content="Codedthemes" />
@@ -29,13 +21,16 @@
     <link rel="stylesheet" href="assets/pages/waves/css/waves.min.css" type="text/css" media="all">
     <!-- themify icon -->
     <link rel="stylesheet" type="text/css" href="assets/icon/themify-icons/themify-icons.css">
+    <script src="https://kit.fontawesome.com/1799ed0397.js" crossorigin="anonymous"></script>
+      <script src="https://kit.fontawesome.com/1799ed0397.js" crossorigin="anonymous"></script>
+
     <!-- font-awesome-n -->
     <link rel="stylesheet" type="text/css" href="assets/css/font-awesome-n.min.css">
     <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.min.css">
     <!-- scrollbar.css -->
     <link rel="stylesheet" type="text/css" href="assets/css/jquery.mCustomScrollbar.css">
     <!-- Style.css -->
-    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/style copy.css">
     <link rel="stylesheet" href="assets/css/custom.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
@@ -43,18 +38,13 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css"> -->
     <style>
         #policyTable{
             border-radius: 5px;
         }
-    </style>
-<style>
     .hidden {
       display: none !important;
     }
-  </style>
-<style>
     .addNewRecord{
       all:unset;
       color: white !important;
@@ -126,289 +116,109 @@
     <div id="pcoded" class="pcoded">
         <div class="pcoded-overlay-box"></div>
         <div class="pcoded-container navbar-wrapper">
-            <nav class="navbar header-navbar pcoded-header">
-                <div class="navbar-wrapper">
-                    <div class="navbar-logo align-items-center">
-                        <a class="mobile-menu waves-effect waves-light" id="mobile-collapse" href="#!">
-                            <i class="ti-menu"></i>
-                        </a>
-                        <div class="mobile-search waves-effect waves-light">
-                            <div class="header-search">
-                                <div class="main-search morphsearch-search">
-                                    <div class="input-group">
-                                        <span class="input-group-prepend search-close"><i
-                                                class="ti-close input-group-text"></i></span>
-                                        <input type="text" class="form-control" placeholder="Enter Keyword">
-                                        <span class="input-group-append search-btn"><i
-                                                class="ti-search input-group-text"></i></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="index.html">
-                            <!-- <img class="img-fluid" src="https://ntcpwc.iitm.ac.in/New/images/ntcpwc-logo.jpg" alt="Theme-Logo" style="height: 50px;" /> -->
-                            <h4 class="d-inline"><span class="text-lowercase">i</span>VTS-FMS</h4>
-                        </a>
-                        <a class="mobile-options waves-effect waves-light">
-                            <i class="ti-more"></i>
-                        </a>
-                    </div>
-                    <div class="navbar-container container-fluid">
-                        <ul class="nav-left">
-                            <li>
-                                <div class="sidebar_toggle"><a href="javascript:void(0)"><i class="ti-menu"></i></a>
-                                </div>
-                            </li>
-                            <li>
-                                <a href="#!" onclick="javascript:toggleFullScreen()" class="waves-effect waves-light">
-                                    <i class="ti-fullscreen"></i>
-                                </a>
-                            </li>
-                        </ul>
-                        <ul class="nav-right">
-                            <!-- <li class="header-notification">
-                                <a href="#!" class="waves-effect waves-light">
-                                    <i class="ti-bell"></i>
-                                    <span class="badge bg-c-red"></span>
-                                </a>
-                                <ul class="show-notification">
-                                    <li>
-                                        <h6>Notifications</h6>
-                                        <label class="label label-danger">New</label>
-                                    </li>
-                                    <li class="waves-effect waves-light">
-                                        <div class="media">
-                                            <img class="d-flex align-self-center img-radius"
-                                                src="assets/images/avatar-2.jpg" alt="Generic placeholder image">
-                                            <div class="media-body">
-                                                <h5 class="notification-user">John Doe</h5>
-                                                <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer
-                                                    elit.</p>
-                                                <span class="notification-time">30 minutes ago</span>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="waves-effect waves-light">
-                                        <div class="media">
-                                            <img class="d-flex align-self-center img-radius"
-                                                src="assets/images/avatar-4.jpg" alt="Generic placeholder image">
-                                            <div class="media-body">
-                                                <h5 class="notification-user">Joseph William</h5>
-                                                <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer
-                                                    elit.</p>
-                                                <span class="notification-time">30 minutes ago</span>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="waves-effect waves-light">
-                                        <div class="media">
-                                            <img class="d-flex align-self-center img-radius"
-                                                src="assets/images/avatar-3.jpg" alt="Generic placeholder image">
-                                            <div class="media-body">
-                                                <h5 class="notification-user">Sara Soudein</h5>
-                                                <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer
-                                                    elit.</p>
-                                                <span class="notification-time">30 minutes ago</span>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </li> -->
-                            <li class="user-profile header-notification">
-                                <a href="#!" class="waves-effect waves-light">
-                                    <!-- <img src="assets/images/avatar-4.jpg" class="img-radius" alt="User-Profile-Image"> -->
-                                    <span id="username">John Doe</span>
-                                    <i class="ti-angle-down"></i>
-                                </a>
-                                <ul class="show-notification profile-notification">
-                                    <li class="waves-effect waves-light">
-                                        <a href="#!">
-                                            <i class="ti-settings"></i> Settings
-                                        </a>
-                                    </li>
-                                    <li class="waves-effect waves-light">
-                                        <a href="user-profile.html">
-                                            <i class="ti-user"></i> Profile
-                                        </a>
-                                    </li>
-                                    <li class="waves-effect waves-light">
-                                        <a href="index.html" id="logout-button">
-                                            <i class="ti-layout-sidebar-left"></i> Logout
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
+               <nav class="navbar header-navbar pcoded-header">
+        <div class="navbar-wrapper">
+          <div class="navbar-logo align-items-center">
+            <a class="mobile-menu waves-effect waves-light" id="mobile-collapse" href="#!">
+              <i class="ti-menu"></i>
+            </a>
+            <div>
+              <a href="index.html">
+                <img class="img-fluid" src="assets/images/Gemini_Generated_Image_ode7ogode7ogode7-removebg-preview.png"
+                  alt="Theme-Logo" style="height: 50px;" />
+                <h4 class="d-inline"><span class="text-lowercase">WorkSphere</h4>
+              </a>
+            </div>
+            <a class="mobile-options waves-effect waves-light">
+              <i class="ti-more"></i>
+            </a>
+          </div>
+          <div class="navbar-container container-fluid">
+            <ul class="nav-left">
+              <li>
+                <div class="sidebar_toggle"><a href="javascript:void(0)"><i class="ti-menu"></i></a></div>
+              </li>
+              <li>
+                <a href="#!" onclick="javascript:toggleFullScreen()" class="waves-effect waves-light">
+                  <i class="ti-fullscreen"></i>
+                </a>
+              </li>
+            </ul>
+            <ul class="nav-right">
+              <li class="user-profile header-notification">
+                <a href="#!" class="waves-effect waves-light">
+                  <span id="username">John Doe</span>
+                  <i class="ti-angle-down"></i>
+                </a>
+                <ul class="show-notification profile-notification">
+                  <li class="waves-effect waves-light">
+                    <a href="user-profile.html">
+                      <i class="fa-solid fa-id-card"></i> Profile
+                    </a>
+                  </li>
+                  <li class="waves-effect waves-light">
+                    <a href="login.html" id="logout-button">
+
+                      <i class="fa-solid fa-right-to-bracket fa-flip-horizontal"></i> Logout
+
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
 
             <div class="pcoded-main-container">
                 <div class="pcoded-wrapper">
                     <nav class="pcoded-navbar">
-                        <div class="sidebar_toggle"><a href="#"><i class="icon-close icons"></i></a></div>
-                        <div class="pcoded-inner-navbar main-menu">
-                            <div class="">
-                                <div class="main-menu-header">
-                                    <!-- <img class="img-80 img-radius" src="assets/images/avatar-4.jpg" alt="User-Profile-Image">
-                                    <div class="user-details">
-                                        <span id="more-details">John Doe<i class="fa fa-caret-down"></i></span>
-                                    </div> -->
-                                    <img src="assets/images/ntcpwc-logo.jpg" alt="ntcpwc-logo">
-                                </div>
-                                <div class="main-menu-content">
-                                    <ul>
-                                        <li class="more-details">
-                                            <a href="user-profile.html"><i class="ti-user"></i>View Profile</a>
-                                            <a href="#!"><i class="ti-settings"></i>Settings</a>
-                                            <a href="auth-normal-sign-in.html"><i
-                                                    class="ti-layout-sidebar-left"></i>Logout</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="p-15 p-b-0">
-                                <form class="form-material">
-                                    <div class="form-group form-primary">
-                                        <input type="text" name="footer-email" class="form-control">
-                                        <span class="form-bar"></span>
-                                        <label class="float-label"><i class="fa fa-search m-r-10"></i>Search</label>
-                                    </div>
-                                </form>
-                            </div>
-                            <div id="sidebar-container"></div>
-                            <!-- <div class="accordion">
-                                <div class="accordion-header">
-                                  <div class="pcoded-navigation-label accordion-toggle waves-effect waves-dark" onclick="toggleAccordion(this)">Project Tracking<i class="fa fa-chevron-down ml-1" id="accordion-icon"></i></div>
-                                </div>
-                                <div class="accordion-content" style="display: none;">
-                                
-                                    <ul class="pcoded-item pcoded-left-item">
-                                        <li>
-                                            <a href="projectTracking.html" class="waves-effect waves-dark">
-                                                <span class="pcoded-micon"><i class="ti-folder"></i><b>D</b></span>
-                                                <span class="pcoded-mtext">Projects</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                </div>
-                            <div class="accordion">
-                                <div class="accordion-header">
-                                  <div class="pcoded-navigation-label accordion-toggle waves-effect waves-dark" onclick="toggleAccordion(this)">Invoices<i class="fa fa-chevron-down ml-1" id="accordion-icon"></i></div>
-                                </div>
-                                <div class="accordion-content" style="display: none;">
-                                
-                                    <ul class="pcoded-item pcoded-left-item">
-                                        <li>
-                                            <a href="o&mInvoices.html" class="waves-effect waves-dark">
-                                                <span class="pcoded-micon"><i class="ti-calendar"></i><b>D</b></span>
-                                                <span class="pcoded-mtext">O&M Invoices</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                          <a href="equipment-invoices.html" class="waves-effect waves-dark">
-                                              <span class="pcoded-micon"><i class="ti-settings"></i><b>D</b></span>
-                                              <span class="pcoded-mtext">Equipment Invoices</span>
-                                              <span class="pcoded-mcaret"></span>
-                                          </a>
-                                      </li>
-                                      <li>
-                                        <a href="invoices.html" class="waves-effect waves-dark">
-                                            <span class="pcoded-micon"><i class="ti-receipt"></i><b>D</b></span>
-                                            <span class="pcoded-mtext">C&H Invoices</span>
-                                            <span class="pcoded-mcaret"></span>
-                                        </a>
-                                    </li>
-                                    </ul>
-                                </div>
-                                </div>
-                                <div class="accordion">
-                                  <div class="accordion-header">
-                                    <div class="pcoded-navigation-label accordion-toggle waves-effect waves-dark" onclick="toggleAccordion(this)">Equipments<i class="fa fa-chevron-down ml-1" id="accordion-icon"></i></div>
-                                  </div>
-                                  <div class="accordion-content" style="display: none;">
-                                    
-                                    <ul class="pcoded-item pcoded-left-item">
-                                        <li>
-                                            <a href="procurementStagesDashboard.html" class="waves-effect waves-dark">
-                                                <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
-                                                <span class="pcoded-mtext">Equipments Dashboard</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="equipmentlist.html" class="waves-effect waves-dark">
-                                                <span class="pcoded-micon"><i class="ti-receipt"></i><b>D</b></span>
-                                                <span class="pcoded-mtext">Equipment List</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                    </div>
-                                    </div>
-                                    <div class="accordion">
-                                      <div class="accordion-header">
-                                        <div class="pcoded-navigation-label accordion-toggle waves-effect waves-dark" onclick="toggleAccordion(this)">Man Power Management<i class="fa fa-chevron-up ml-1" id="accordion-icon"></i></div>
-                                      </div>
-                                      <div class="accordion-content" style="display: block;">
-                                        <ul class="pcoded-item pcoded-left-item">
-                                          <li>
-                                              <a href="index.html" class="waves-effect waves-dark">
-                                                  <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
-                                                  <span class="pcoded-mtext">Dashboard</span>
-                                                  <span class="pcoded-mcaret"></span>
-                                              </a>
-                                          </li>
-                                          <li class="active">
-                                              <a href="person-details.html" class="waves-effect waves-dark">
-                                                  <span class="pcoded-micon"><i class="ti-user"></i><b>BC</b></span>
-                                                  <span class="pcoded-mtext">person Details</span>
-                                                  <span class="pcoded-mcaret"></span>
-                                              </a>
-                                          </li>
-                                          <li>
-                                              <a href="contract-logs.html" class="waves-effect waves-dark">
-                                                  <span class="pcoded-micon"><i class="ti-notepad"></i><b>BC</b></span>
-                                                  <span class="pcoded-mtext">Contract Logs</span>
-                                                  <span class="pcoded-mcaret"></span>
-                                              </a>
-                                          </li>
-                                      </ul>
-                                      
-                                        </div>
-                                        </div> -->
-                    </nav>
+            <div class="sidebar_toggle"><a href="#"><i class="icon-close icons"></i></a></div>
+            <div class="pcoded-inner-navbar main-menu">
+              <div class="">
+                <div class="main-menu-content">
+                  <ul>
+                    <li class="more-details">
+                      <a href="user-profile.html"><i class="ti-user"></i>View Profile</a>
+                      <!-- <a href="#!"><i class="ti-settings"></i>Settings</a> -->
+                      <a href="login.html"><i class="ti-layout-sidebar-left"></i>Logout</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div id="sidebar-container">
+
+              </div>
+
+          </nav>
 
 
 
                     <div class="pcoded-content">
                         <!-- Page-header start -->
                         <div class="page-header">
-                            <div class="page-block">
-                                <div class="row align-items-center">
-                                    <div class="col-md-8">
-                                        <!-- <img src="assets/images/ntcpwc-logo.jpg" class="img-fluid w-25" -->
-                                            <!-- alt="NTCPWC LOGO"> -->
-                                        <div class="page-header-title">
-                                            <h5 class="m-b-10">Talent Pool Details</h5>
-                                            <p class="m-b-0">Welcome to WorkSphere</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <ul class="breadcrumb">
-                                            <li class="breadcrumb-item">
-                                                <a href="index.html"> <i class="ti-home"></i> </a>
-                                            </li>
-                                            <li class="breadcrumb-item"><a href="#!">Talent Pool Details</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+              <div class="page-block">
+                <div class="row align-items-center">
+                  <div class="col-md-8">
+                    <div class="page-title">
+                      <span class="page-title-icon bg-gradient-primary text-white mr-2">
+                        <i class="fa-solid fa-user-group"></i>
+                      </span>
+                      <h5>Talentpool</h5>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <ul class="breadcrumb">
+                      <li class="breadcrumb-item">
+                        <a href="index.html"> <i class="fa fa-home"></i> </a>
+                      </li>
+                      <li class="breadcrumb-item"><a href="#!">Talentpool</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
                         <!-- Page-header end -->
                         <div class="pcoded-inner-content">
                             <div class="main-body">
@@ -419,17 +229,7 @@
                                                 <div class="card">
                                                     <div class="card-header">
                                                         <h5>Talent Pool Details</h5>
-                                                        
-                                                        <!-- <div class="card-header-right">
-                                                            <ul class="list-unstyled card-option">
-                                                                <li><i class="fa fa fa-wrench open-card-option"></i>
-                                                                </li>
-                                                                <li><i class="fa fa-minus minimize-card"></i></li>
-                                                                <li><i class="fa fa-refresh reload-card"></i></li>
-                                                            </ul>
-                                                        </div> -->
                                                     </div>
-
                                                     <div class="card-block">
                                                        
  <!-----------------------------------------------ADD-NEW-MODAl-START--------------------------------------------------------------------->
@@ -597,15 +397,6 @@
         </div>
     </div>
 </div>
-
-<script>
- document.querySelector('#exitButton1').addEventListener('click',function(){
-            document.querySelector('#tab').classList.add('d-none');
-            document.querySelector('#tableCard').style.display = 'block';
-        });
-</script>
-
-
 <!---------------------------------------------------------------------------------------------ADD-NEW-MODAL-END---------------------------------------------------->
  <!-----------------------------------------------UPDATE-MODAl-START--------------------------------------------------------------------->
                                                       
@@ -733,28 +524,6 @@
                                                                 <span class="fw-bold">Add New Person</span>
                                                             </button>
                                                         </div>
-<!-- 
-                                                        <div class="mb-3 p-3 rounded shadow shadow-sm filter">
-                                                            <div class="row g-3">
-                                                                <div class="col-md-6">
-                                                                    <div class="d-flex flex-column">
-                                                                        <label for="designationFilter" class="text-muted small mb-1">Designation</label>
-                                                                        <select id="designationFilter" class="form-select form-select-sm border-secondary">
-                                                                            <option value="">Show all</option>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                        
-                                                                <div class="col-md-6">
-                                                                    <div class="d-flex flex-column">
-                                                                        <label for="locationFilter" class="text-muted small mb-1">Location</label>
-                                                                        <select id="locationFilter" class="form-select form-select-sm border-secondary">
-                                                                            <option value="">Show all</option>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div> -->
 
                                                         <div class="row">
                                                             <div id="exportButtons" class="mb-3">
@@ -782,36 +551,11 @@
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody>
-                                                                        <!-- <tr class="align-items-center">
-                                                                            <td>1</td>
-                                                                            <td>Divyan</td>
-                                                                            <td>Sirkali</td>
-                                                                            <td>1/1/2025</td>
-                                                                            <td>
-                                                                                <div class="container">
-                                                                                    <div class="toggle-btn active" onclick="toggleSwitch(this)">
-                                                                                        <div class="slider"></div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </td>
-                                                                            <td>
-                                                                                <div class="row d-flex justify-content-center">
-                                                                                    <button class="btn btn-edit d-flex align-items-center justify-content-center p-0 " style="width: 40px; height: 40px;" data-toggle="modal" data-target="#updateModal">
-                                                                                        <i class="ti-pencil text-white" style="font-size: larger;"></i>
-                                                                                    </button>
-                                                                                    <button class="btn btn-danger d-flex align-items-center justify-content-center p-0" style="width: 40px; height: 40px;" data-toggle="modal" data-target="#updateModal">
-                                                                                        <i class="ti-trash text-white" style="font-size: larger;"></i>
-                                                                                    </button>
-                                                                                </div>
-                                                                            </td> 
-                                                                        </tr> -->
                                                                     </tbody>
                                                                 </table>
                                                             </div>
                                                         </div>
                                                        </div>
-
-
                                                     </div>
                                                     <!-- table person details end --> 
                                                 </div>
@@ -822,8 +566,6 @@
                             </div>
                         </div>
                     </div>
-
-
                 </div>
             </div>
         </div>
@@ -836,7 +578,6 @@
 
         </div>
     </div>
-    <script src="assets/js/roleUtil.js"></script>
 
   <!-- Required jQuery -->
 <script type="text/javascript" src="assets/js/jquery/jquery.min.js"></script>
@@ -888,165 +629,11 @@
 <script type="text/javascript" src="assets/js/script.js"></script>
 <script src="./assets/js/api.js"></script>
 <script src="./assets/js/apiRequests.js"></script>
+<script src="assets/js/roleUtil.js"></script>
+<script src="assets/js/Utils.js"> </script>
 
 <!-- Initialize DataTable -->
-<script>
-   $(document).ready(function () {
-       const datatable = $('#myTable').DataTable({
-           "paging": true,
-           "pageLength": 25,
-           "lengthMenu": [5, 10, 25, 50, 100],
-           dom: '<"top"l>frtip',
-           buttons: ['excel', 'csv', 'pdf']
-       });
 
-       datatable.buttons().container().appendTo($('#exportButtons'));
-
-        const selectedCategory = $(this).val();
-        if (selectedCategory) {
-            datatable.column(1).search(selectedCategory).draw();
-        } else {
-            datatable.column(1).search('').draw(); 
-        }
-    });
-
-    function toggleAccordion(button) {
-        const content = button.parentElement.nextElementSibling;
-        content.style.display = (content.style.display === "none" || content.style.display === "") ? "block" : "none";
-        const icon = button.querySelector("i");
-        icon.classList.toggle("fa-chevron-down");
-        icon.classList.toggle("fa-chevron-up");
-    }
-</script>
-<script>
-    document.querySelector('#addNew').addEventListener('click', function () {
-        document.querySelector('#tab').classList.remove('d-none');
-        document.querySelector('#tableCard').style.display = 'none';
-        document.querySelector('#exitButton').addEventListener('click',function(){
-            document.querySelector('#tab').classList.add('d-none');
-            document.querySelector('#tableCard').style.display = 'block';
-        });
-    });
-
-</script>
-<script>
- $(document).ready(async function () {
-    let table = $('#policyTable').DataTable();
-
-    
-    $('#addRowBtn').click(async function () {
-        const empID = $('#update-personID').val();
-
-        try {
-            const checkResponse = await axiosInstance.get(`/insurance/active/${empID}`);
-            if (checkResponse.data.hasActivePolicy) {
-                showErrorPopupFadeInDown('Employee already has an active policy.');
-                return;
-            }
-        } catch (error) {
-            console.error(error);
-            alert('Error checking active policy.');
-            return;
-        }
-
-        let rowNode = table.row.add([
-            `<input type="date" class="form-control policyStartDate editElement">`,
-            `<input type="text" class="form-control policyNumber editElement" placeholder="Policy Number">`,
-            `<input type="text" class="form-control provider editElement" placeholder="Provider">`,
-            `<input type="date" class="form-control policyStartDate editElement">`,
-            `<input type="date" class="form-control policyExpiryDate editElement" readonly>`,
-            `<input type="text" class="form-control updatedBy editElement" placeholder="Updated By">`,
-            `<button class="btn btn-danger btn-sm deleteRow writeElement">Delete</button>`
-        ]).draw(false).node();
-
-        
-        autoSaveInsurance(rowNode);
-    });
-
-   
-    $('#policyTable tbody').on('change', '.policyStartDate', function () {
-        let row = $(this).closest('tr');
-        let startDate = new Date($(this).val());
-        if (!isNaN(startDate)) {
-            startDate.setFullYear(startDate.getFullYear() + 1);
-            row.find('.policyExpiryDate').val(startDate.toISOString().split('T')[0]);
-        }
-    });
-
-  
-    $('#policyTable tbody').on('change', 'input', function () {
-        let row = $(this).closest('tr');
-        autoSaveInsurance(row);
-    });
-
-   
-    async function autoSaveInsurance(row) {
-        let empID = $('#update-personID').val();
-        let policyNumber = $(row).find('.policyNumber').val();
-        let provider = $(row).find('.provider').val();
-        let policyStartDate = $(row).find('.policyStartDate').val();
-        let policyExpiryDate = $(row).find('.policyExpiryDate').val();
-        let updatedBy = $(row).find('.updatedBy').val();
-
-        if (!policyNumber || !provider || !policyStartDate || !policyExpiryDate || !updatedBy) {
-            console.warn('Skipping auto-save: missing fields');
-            return;
-        }
-
-        let insuranceData = {
-            employeeId:empID,
-            policyNumber:policyNumber,
-             provider,
-            policyStartDate,
-            policyEndDate:policyExpiryDate,
-            updatedBy:updatedBy
-        };
-
-        try {
-        await axiosInstance.post('/insurance/', insuranceData);
-        showSucessPopupFadeInDownLong('Insurance record added successfully.');
-
-        
-        row.html(`
-            <td>${policyStartDate}</td>
-            <td>${policyNumber}</td>
-            <td>${provider}</td>
-            <td>${policyStartDate}</td>
-            <td>${policyExpiryDate}</td>
-            <td>${updatedBy}</td>
-        `);
-    } catch (error) {
-        showErrorPopupFadeInDown('Error saving insurance record.');
-        console.error('Error saving insurance record:', error);
-    }
-    }
-
-    
-    $('#policyTable tbody').on('click', '.deleteRow', function () {
-        table.row($(this).parents('tr')).remove().draw();
-    });
-
-
-    roles = await axiosInstance.get('/roles/role/perms');
-roles = roles.data.roles;
-// console.log(roles);
-window.roles = roles;
-    handlePermission('#username');
-
-});
-
-
-    </script>
-    <script>
-        document.getElementById('policyStartDate').addEventListener('change', function () {
-    let startDate = new Date(this.value);
-    if (!isNaN(startDate)) {
-        startDate.setFullYear(startDate.getFullYear() + 1); 
-        document.getElementById('policyExpiryDate').value = startDate.toISOString().split('T')[0]; 
-    }
-});
-
-    </script>
     <script src="assets/js/sweetAlert.js"></script>
 </body>
 

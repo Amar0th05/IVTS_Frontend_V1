@@ -3,13 +3,6 @@
 
 <head>
     <title>O&M Invoices</title>
-    <!-- HTML5 Shim and Respond.js IE10 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 10]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-      <![endif]-->
-    <!-- Meta -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -29,32 +22,33 @@
     <link rel="stylesheet" href="assets/pages/waves/css/waves.min.css" type="text/css" media="all">
     <!-- themify icon -->
     <link rel="stylesheet" type="text/css" href="assets/icon/themify-icons/themify-icons.css">
+    <script src="https://kit.fontawesome.com/1799ed0397.js" crossorigin="anonymous"></script>
     <!-- font-awesome-n -->
     <link rel="stylesheet" type="text/css" href="assets/css/font-awesome-n.min.css">
     <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.min.css">
     <!-- scrollbar.css -->
     <link rel="stylesheet" type="text/css" href="assets/css/jquery.mCustomScrollbar.css">
     <!-- Style.css -->
-    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
-
+    <link rel="stylesheet" type="text/css" href="assets/css/style copy.css">
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 
 
-<link rel="stylesheet" href="assets/css/custom.css">
+    <link rel="stylesheet" href="assets/css/custom.css">
 
     <!-- Toastr CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <style>
         .ColVis_collection {
-            position: absolute; /* Ensure it's positioned absolutely */
-            z-index: 1000; /* Ensure it appears above other content */
+            position: absolute;
+            /* Ensure it's positioned absolutely */
+            z-index: 1000;
+            /* Ensure it appears above other content */
         }
-        </style>
-        <style>
-            .hidden {
-              display: none !important;
-            }
-          </style>
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
 </head>
 
 <bo>
@@ -121,23 +115,14 @@
                         <a class="mobile-menu waves-effect waves-light" id="mobile-collapse" href="#!">
                             <i class="ti-menu"></i>
                         </a>
-                        <div class="mobile-search waves-effect waves-light">
-                            <div class="header-search">
-                                <div class="main-search morphsearch-search">
-                                    <div class="input-group">
-                                        <span class="input-group-prepend search-close"><i
-                                                class="ti-close input-group-text"></i></span>
-                                        <input type="text" class="form-control" placeholder="Enter Keyword">
-                                        <span class="input-group-append search-btn"><i
-                                                class="ti-search input-group-text"></i></span>
-                                    </div>
-                                </div>
-                            </div>
+                        <div>
+                            <a href="index.html">
+                                <img class="img-fluid"
+                                    src="assets/images/Gemini_Generated_Image_ode7ogode7ogode7-removebg-preview.png"
+                                    alt="Theme-Logo" style="height: 50px;" />
+                                <h4 class="d-inline"><span class="text-lowercase">WorkSphere</h4>
+                            </a>
                         </div>
-                        <a href="index.html">
-                            <!-- <img class="img-fluid" src="https://ntcpwc.iitm.ac.in/New/images/ntcpwc-logo.jpg" alt="Theme-Logo" style="height: 50px;" /> -->
-                            <h4 class="d-inline"><span class="text-lowercase">i</span>VTS-FMS</h4>
-                        </a>
                         <a class="mobile-options waves-effect waves-light">
                             <i class="ti-more"></i>
                         </a>
@@ -155,74 +140,22 @@
                             </li>
                         </ul>
                         <ul class="nav-right">
-                            <!-- <li class="header-notification">
-                                <a href="#!" class="waves-effect waves-light">
-                                    <i class="ti-bell"></i>
-                                    <span class="badge bg-c-red"></span>
-                                </a>
-                                <ul class="show-notification">
-                                    <li>
-                                        <h6>Notifications</h6>
-                                        <label class="label label-danger">New</label>
-                                    </li>
-                                    <li class="waves-effect waves-light">
-                                        <div class="media">
-                                            <img class="d-flex align-self-center img-radius"
-                                                src="assets/images/avatar-2.jpg" alt="Generic placeholder image">
-                                            <div class="media-body">
-                                                <h5 class="notification-user">John Doe</h5>
-                                                <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer
-                                                    elit.</p>
-                                                <span class="notification-time">30 minutes ago</span>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="waves-effect waves-light">
-                                        <div class="media">
-                                            <img class="d-flex align-self-center img-radius"
-                                                src="assets/images/avatar-4.jpg" alt="Generic placeholder image">
-                                            <div class="media-body">
-                                                <h5 class="notification-user">Joseph William</h5>
-                                                <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer
-                                                    elit.</p>
-                                                <span class="notification-time">30 minutes ago</span>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="waves-effect waves-light">
-                                        <div class="media">
-                                            <img class="d-flex align-self-center img-radius"
-                                                src="assets/images/avatar-3.jpg" alt="Generic placeholder image">
-                                            <div class="media-body">
-                                                <h5 class="notification-user">Sara Soudein</h5>
-                                                <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer
-                                                    elit.</p>
-                                                <span class="notification-time">30 minutes ago</span>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </li> -->
                             <li class="user-profile header-notification">
                                 <a href="#!" class="waves-effect waves-light">
-                                    <!-- <img src="assets/images/avatar-4.jpg" class="img-radius" alt="User-Profile-Image"> -->
                                     <span id="username">John Doe</span>
                                     <i class="ti-angle-down"></i>
                                 </a>
                                 <ul class="show-notification profile-notification">
                                     <li class="waves-effect waves-light">
-                                        <a href="#!">
-                                            <i class="ti-settings"></i> Settings
-                                        </a>
-                                    </li>
-                                    <li class="waves-effect waves-light">
                                         <a href="user-profile.html">
-                                            <i class="ti-user"></i> Profile
+                                            <i class="fa-solid fa-id-card"></i> Profile
                                         </a>
                                     </li>
                                     <li class="waves-effect waves-light">
-                                        <a href="index.html" id="logout-button">
-                                            <i class="ti-layout-sidebar-left"></i> Logout
+                                        <a href="login.html" id="logout-button">
+
+                                            <i class="fa-solid fa-right-to-bracket fa-flip-horizontal"></i> Logout
+
                                         </a>
                                     </li>
                                 </ul>
@@ -238,137 +171,20 @@
                         <div class="sidebar_toggle"><a href="#"><i class="icon-close icons"></i></a></div>
                         <div class="pcoded-inner-navbar main-menu">
                             <div class="">
-                                <div class="main-menu-header">
-                                    <!-- <img class="img-80 img-radius" src="assets/images/avatar-4.jpg" alt="User-Profile-Image">
-                                    <div class="user-details">
-                                        <span id="more-details">John Doe<i class="fa fa-caret-down"></i></span>
-                                    </div> -->
-                                    <img src="assets/images/ntcpwc-logo.jpg" alt="ntcpwc-logo">
-                                </div>
                                 <div class="main-menu-content">
                                     <ul>
                                         <li class="more-details">
                                             <a href="user-profile.html"><i class="ti-user"></i>View Profile</a>
-                                            <a href="#!"><i class="ti-settings"></i>Settings</a>
-                                            <a class="logout"><i
-                                                    class="ti-layout-sidebar-left"></i>Logout</a>
+                                            <!-- <a href="#!"><i class="ti-settings"></i>Settings</a> -->
+                                            <a href="login.html"><i class="ti-layout-sidebar-left"></i>Logout</a>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
-                            <div class="p-15 p-b-0">
-                                <form class="form-material">
-                                    <div class="form-group form-primary">
-                                        <input type="text" name="footer-email" class="form-control">
-                                        <span class="form-bar"></span>
-                                        <label class="float-label"><i class="fa fa-search m-r-10"></i>Search</label>
-                                    </div>
-                                </form>
+                            <div id="sidebar-container">
+
                             </div>
-                            <div id="sidebar-container"></div>
-                            <!-- <div class="accordion">
-                                <div class="accordion-header">
-                                  <div class="pcoded-navigation-label accordion-toggle waves-effect waves-dark" onclick="toggleAccordion(this)">Project Tracking<i class="fa fa-chevron-down ml-1" id="accordion-icon"></i></div>
-                                </div>
-                                <div class="accordion-content" style="display: none;">
-                                
-                                    <ul class="pcoded-item pcoded-left-item">
-                                        <li>
-                                            <a href="projectTracking.html" class="waves-effect waves-dark">
-                                                <span class="pcoded-micon"><i class="ti-folder"></i><b>D</b></span>
-                                                <span class="pcoded-mtext">Projects</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                </div>
-                            <div class="accordion">
-                                <div class="accordion-header">
-                                  <div class="pcoded-navigation-label accordion-toggle waves-effect waves-dark" onclick="toggleAccordion(this)">Invoices<i class="fa fa-chevron-up ml-1" id="accordion-icon"></i></div>
-                                </div>
-                                <div class="accordion-content" style="display: block;">
-                                
-                                    <ul class="pcoded-item pcoded-left-item">
-                                        <li class="active">
-                                            <a href="o&mInvoices.html" class="waves-effect waves-dark">
-                                                <span class="pcoded-micon"><i class="ti-calendar"></i><b>D</b></span>
-                                                <span class="pcoded-mtext">O&M Invoices</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                          <a href="equipment-invoices.html" class="waves-effect waves-dark">
-                                              <span class="pcoded-micon"><i class="ti-settings"></i><b>D</b></span>
-                                              <span class="pcoded-mtext">Equipment Invoices</span>
-                                              <span class="pcoded-mcaret"></span>
-                                          </a>
-                                      </li>
-                                      <li>
-                                        <a href="invoices.html" class="waves-effect waves-dark">
-                                            <span class="pcoded-micon"><i class="ti-receipt"></i><b>D</b></span>
-                                            <span class="pcoded-mtext">C&H Invoices</span>
-                                            <span class="pcoded-mcaret"></span>
-                                        </a>
-                                    </li>
-                                    </ul>
-                                </div>
-                                </div>
-                                <div class="accordion">
-                                  <div class="accordion-header">
-                                    <div class="pcoded-navigation-label accordion-toggle waves-effect waves-dark" onclick="toggleAccordion(this)">Equipments<i class="fa fa-chevron-down ml-1" id="accordion-icon"></i></div>
-                                  </div>
-                                  <div class="accordion-content" style="display: none;">
-                                    
-                                    <ul class="pcoded-item pcoded-left-item">
-                                        <li>
-                                            <a href="procurementStagesDashboard.html" class="waves-effect waves-dark">
-                                                <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
-                                                <span class="pcoded-mtext">Equipments Dashboard</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="equipmentlist.html" class="waves-effect waves-dark">
-                                                <span class="pcoded-micon"><i class="ti-receipt"></i><b>D</b></span>
-                                                <span class="pcoded-mtext">Equipment List</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                    </div>
-                                    </div>
-                                    <div class="accordion">
-                                      <div class="accordion-header">
-                                        <div class="pcoded-navigation-label accordion-toggle waves-effect waves-dark" onclick="toggleAccordion(this)">Man Power Management<i class="fa fa-chevron-down ml-1" id="accordion-icon"></i></div>
-                                      </div>
-                                      <div class="accordion-content" style="display: none;">
-                                        <ul class="pcoded-item pcoded-left-item">
-                                          <li>
-                                              <a href="index.html" class="waves-effect waves-dark">
-                                                  <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
-                                                  <span class="pcoded-mtext">Dashboard</span>
-                                                  <span class="pcoded-mcaret"></span>
-                                              </a>
-                                          </li>
-                                          <li>
-                                              <a href="staff-details.html" class="waves-effect waves-dark">
-                                                  <span class="pcoded-micon"><i class="ti-user"></i><b>BC</b></span>
-                                                  <span class="pcoded-mtext">Staff Details</span>
-                                                  <span class="pcoded-mcaret"></span>
-                                              </a>
-                                          </li>
-                                          <li>
-                                              <a href="contract-logs.html" class="waves-effect waves-dark">
-                                                  <span class="pcoded-micon"><i class="ti-notepad"></i><b>BC</b></span>
-                                                  <span class="pcoded-mtext">Contract Logs</span>
-                                                  <span class="pcoded-mcaret"></span>
-                                              </a>
-                                          </li>
-                                      </ul>
-                                      
-                                        </div>
-                                        </div> -->
+
                     </nav>
 
 
@@ -379,19 +195,19 @@
                             <div class="page-block">
                                 <div class="row align-items-center">
                                     <div class="col-md-8">
-                                        <!-- <img src="assets/images/ntcpwc-logo.jpg" class="img-fluid w-25"
-                                            alt="NTCPWC LOGO"> -->
-                                        <div class="page-header-title">
-                                            <h5 class="m-b-10">O&M Invoices</h5>
-                                            <p class="m-b-0">Welcome to WorkSphere</p>
+                                        <div class="page-title">
+                                            <span class="page-title-icon bg-gradient-primary text-white mr-2">
+                                                <i class="fa-solid fa-file-invoice-dollar"></i>
+                                            </span>
+                                            <h5>O&M</h5>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <ul class="breadcrumb">
                                             <li class="breadcrumb-item">
-                                                <a href="index.html"> <i class="ti-home"></i> </a>
+                                                <a href="index.html"> <i class="fa fa-home"></i> </a>
                                             </li>
-                                            <li class="breadcrumb-item"><a href="#!">O&M Invoices</a>
+                                            <li class="breadcrumb-item"><a href="#!">O&M</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -410,70 +226,98 @@
                                                         <h5>O&M Invoices</h5>
                                                     </div>
 
-                                                   <div class="card-block">
-                                                    <div class="nav nav-tabs md-tabs" id="myTab1" role="tablist">
-                                                        <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#monthlyStatus" type="button">Monthly Status</button>
-                                                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#invoiceLogs" type="button">Invoice Logs</button>
+                                                    <div class="card-block">
+                                                        <div class="nav nav-tabs md-tabs" id="myTab1" role="tablist">
+                                                            <button class="nav-link active" data-bs-toggle="tab"
+                                                                data-bs-target="#monthlyStatus" type="button">Monthly
+                                                                Status</button>
+                                                            <button class="nav-link" data-bs-toggle="tab"
+                                                                data-bs-target="#invoiceLogs" type="button">Invoice
+                                                                Logs</button>
+                                                        </div>
                                                     </div>
-                                                   </div>
-                                                   <div class="tab-content mt-3">
-                                                    <div class="tab-pane fade show active " id="monthlyStatus">
-                                                        <div class="card-block">
-                                                            <div class="row d-flex align-items-center gap-3 my-3 ml-1" >
-                                                                <div class="shadow shadow-lg text-center px-4 py-1  badge-pill border  d-flex flex-row align-items-center" id="date-pill"   >
-                                                                    <div class="p-1">
-                                                                        <!-- <div class="text-black  fw-semibold">Year</div> -->
-                                                                        <h5 class="text-primary fw-bold mb-0"><i class="fa fa-calendar mr-2"></i></h5>
-                                                                    </div>
-                                                                    <div class="p-1">
-                                                                        <!-- <div class="text-black  fw-semibold">Year</div> -->
-                                                                        <h5 class="text-primary fw-bold mb-0" id="month-title">March</h5>
-                                                                        
-                                                                    </div>
-                                                                    <div class="p-1">
-                                                                        <!-- <div class="text-black  fw-semibold">Month</div> -->
-                                                                        <h5 class="text-primary fw-bold mb-0" id="year-title">2025</h5>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            
-                                                            <div class="modal fade" id="pdfModal" tabindex="-1" aria-labelledby="pdfModalLabel" aria-hidden="true">
-                                                                <div class="modal-dialog modal-dialog-centered">
-                                                                    <div class="modal-content">
-                                                                        <div class="modal-header bg-primary text-white">
-                                                                            <h5 class="modal-title" id="pdfModalLabel">Upload Invoice</h5>
-                                                                           <i class="ti ti-close" data-bs-dismiss="modal"></i>
+                                                    <div class="tab-content mt-3">
+                                                        <div class="tab-pane fade show active " id="monthlyStatus">
+                                                            <div class="card-block">
+                                                                <div
+                                                                    class="row d-flex align-items-center gap-3 my-3 ml-1">
+                                                                    <div class="shadow shadow-lg text-center px-4 py-1  badge-pill border  d-flex flex-row align-items-center"
+                                                                        id="date-pill">
+                                                                        <div class="p-1">
+                                                                            <!-- <div class="text-black  fw-semibold">Year</div> -->
+                                                                            <h5 class="text-primary fw-bold mb-0"><i
+                                                                                    class="fa fa-calendar mr-2"></i>
+                                                                            </h5>
                                                                         </div>
-                                                                        <div class="modal-body">
-                                                                            <form id="pdfForm">
-                                                                                <div class="mb-3">
-                                                                                    <!-- <label for="pdfInput" class="form-label fw-bold">Choose a PDF file:</label> -->
-                                                                                    <small class="text-danger fw-bolder">Only PDF files are allowed.</small>
-                                                                                    <input type="file" class="form-control border border-secondary" id="pdfInput" accept="application/pdf" required>
-                                                                                </div>
-                                                                                <div class="d-flex justify-content-end">
-                                                                                    <button type="button" class="btn btn-danger m-1 btn-sm" data-bs-dismiss="modal">Cancel</button>
-                                                                                    <button type="submit" class="btn btn-success m-1 btn-sm">Upload</button>
-                                                                                   
-                                                                                </div>
-                                                                            </form>
+                                                                        <div class="p-1">
+                                                                            <!-- <div class="text-black  fw-semibold">Year</div> -->
+                                                                            <h5 class="text-primary fw-bold mb-0"
+                                                                                id="month-title">March</h5>
+
+                                                                        </div>
+                                                                        <div class="p-1">
+                                                                            <!-- <div class="text-black  fw-semibold">Month</div> -->
+                                                                            <h5 class="text-primary fw-bold mb-0"
+                                                                                id="year-title">2025</h5>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                            <div class="table-responsive">
-                                                            
-                                                                <table id="monthlyStatusTable" class="table table-striped rounded table-hover">
-                                                                    <thead class="bg-primary text-white text-center">
-                                                                        <tr>
-                                                                            <th>S.NO.</th>
-                                                                            <th>Port Name</th>
-                                                                            <th>Invoice Upload</th>
-                                                                            <th>Mail Sent to Organisation</th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody>
-                                                                        <!-- <tr>
+
+                                                                <div class="modal fade" id="pdfModal" tabindex="-1"
+                                                                    aria-labelledby="pdfModalLabel" aria-hidden="true">
+                                                                    <div class="modal-dialog modal-dialog-centered">
+                                                                        <div class="modal-content">
+                                                                            <div
+                                                                                class="modal-header bg-primary text-white">
+                                                                                <h5 class="modal-title"
+                                                                                    id="pdfModalLabel">Upload Invoice
+                                                                                </h5>
+                                                                                <i class="ti ti-close"
+                                                                                    data-bs-dismiss="modal"></i>
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                <form id="pdfForm">
+                                                                                    <div class="mb-3">
+                                                                                        <!-- <label for="pdfInput" class="form-label fw-bold">Choose a PDF file:</label> -->
+                                                                                        <small
+                                                                                            class="text-danger fw-bolder">Only
+                                                                                            PDF files are
+                                                                                            allowed.</small>
+                                                                                        <input type="file"
+                                                                                            class="form-control border border-secondary"
+                                                                                            id="pdfInput"
+                                                                                            accept="application/pdf"
+                                                                                            required>
+                                                                                    </div>
+                                                                                    <div
+                                                                                        class="d-flex justify-content-end">
+                                                                                        <button type="button"
+                                                                                            class="btn btn-danger m-1 btn-sm"
+                                                                                            data-bs-dismiss="modal">Cancel</button>
+                                                                                        <button type="submit"
+                                                                                            class="btn btn-success m-1 btn-sm">Upload</button>
+
+                                                                                    </div>
+                                                                                </form>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="table-responsive">
+
+                                                                    <table id="monthlyStatusTable"
+                                                                        class="table table-striped rounded table-hover">
+                                                                        <thead
+                                                                            class="bg-primary text-white text-center">
+                                                                            <tr>
+                                                                                <th>S.NO.</th>
+                                                                                <th>Port Name</th>
+                                                                                <th>Invoice Upload</th>
+                                                                                <th>Mail Sent to Organisation</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <!-- <tr>
                                                                             <td>1</td>
                                                                             <td>Chennai Port Authority</td>
                                                                             <td class="text-center">
@@ -486,63 +330,71 @@
 
                                                                             </td>
                                                                         </tr> -->
-                                                                      
-                                                                    </tbody>
-                                                                </table>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                <div class="tab-pane fade show" id="invoiceLogs">
-                                                    <div class="card-block">
-                                                        <div class="mb-3 p-3 rounded shadow shadow-sm filter">
-                                                            <div class="row g-3">
-                                                                <div class="col-md-4">
-                                                                    <div class="d-flex flex-column">
-                                                                        <label for="portFilter" class="text-black small mb-1">Port</label>
-                                                                        <select id="portFilter" class="form-select form-select-sm border-secondary">
-                                                                            <option value="">Show all</option>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                        
-                                                                <div class="col-md-4">
-                                                                    <div class="d-flex flex-column">
-                                                                        <label for="yearFilter" class="text-black small mb-1">Year</label>
-                                                                        <select id="yearFilter" class="form-select form-select-sm border-secondary">
-                                                                            <option value="">Show all</option>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-4">
-                                                                    <div class="d-flex flex-column">
-                                                                        <label for="monthFilter" class="text-black small mb-1">Month</label>
-                                                                        <select id="monthFilter" class="form-select form-select-sm border-secondary">
-                                                                            <option value="">Show all</option>
-                                                                        </select>
-                                                                    </div>
+
+                                                                        </tbody>
+                                                                    </table>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="table-responsive">
-                                                            
-                                                            <table id="invoiceLogTable" class="table table-striped rounded table-hover">
-                                                                <thead class="bg-primary text-white text-center">
-                                                                    <tr>
-                                                                        <th>S.NO.</th>
-                                                                        <th>Port Name</th>
-                                                                        <th>Year</th>
-                                                                        <th>Month</th>
-                                                                        <th>Download Invoice</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                     
-                                                                </tbody>
-                                                            </table>
+                                                        <div class="tab-pane fade show" id="invoiceLogs">
+                                                            <div class="card-block">
+                                                                <div class="mb-3 p-3 rounded shadow shadow-sm filter">
+                                                                    <div class="row g-3">
+                                                                        <div class="col-md-4">
+                                                                            <div class="d-flex flex-column">
+                                                                                <label for="portFilter"
+                                                                                    class="text-black small mb-1">Port</label>
+                                                                                <select id="portFilter"
+                                                                                    class="form-select form-select-sm border-secondary">
+                                                                                    <option value="">Show all</option>
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-md-4">
+                                                                            <div class="d-flex flex-column">
+                                                                                <label for="yearFilter"
+                                                                                    class="text-black small mb-1">Year</label>
+                                                                                <select id="yearFilter"
+                                                                                    class="form-select form-select-sm border-secondary">
+                                                                                    <option value="">Show all</option>
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <div class="d-flex flex-column">
+                                                                                <label for="monthFilter"
+                                                                                    class="text-black small mb-1">Month</label>
+                                                                                <select id="monthFilter"
+                                                                                    class="form-select form-select-sm border-secondary">
+                                                                                    <option value="">Show all</option>
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="table-responsive">
+
+                                                                    <table id="invoiceLogTable"
+                                                                        class="table table-striped rounded table-hover">
+                                                                        <thead
+                                                                            class="bg-primary text-white text-center">
+                                                                            <tr>
+                                                                                <th>S.NO.</th>
+                                                                                <th>Port Name</th>
+                                                                                <th>Year</th>
+                                                                                <th>Month</th>
+                                                                                <th>Download Invoice</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                </div>
                                                     <!-- table staff details end -->
                                                 </div>
                                             </div>
@@ -566,104 +418,56 @@
 
         </div>
     </div>
+
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+
+    <!-- bootstrap -->
+    <script src="assets/js/popper.js/popper.min.js"></script>
+    <script src="assets/js/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- data tables -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+
+    <script src="https://cdn.datatables.net/buttons/2.1.0/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.1.0/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.1.0/js/buttons.print.min.js"></script>
+    <link rel="stylesheet" type="text/css"href="https://cdn.datatables.net/buttons/2.1.0/css/buttons.dataTables.min.css">
+
+
+    <script src="assets/pages/waves/js/waves.min.js"></script>
+    <script src="assets/js/jquery-slimscroll/jquery.slimscroll.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="assets/js/pcoded.min.js"></script>
+    <script src="assets/js/vertical/vertical-layout.min.js"></script>
+
+    <!-- axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <!-- custom scripts -->
+    <script type="module" src="./assets/js/axiosInstance.js"></script>
+    <script src="./assets/js/apiRequests.js"></script>
+    <script src="./assets/js/api.js"></script>
+    <script src="assets/js/o&minvoices.js"></script>
+    <script src="assets/js/popup.js"></script>
+    <script src="assets/js/script.js"></script>
+    <script src="assets/js/Utils.js"></script>
     <script src="assets/js/roleUtil.js"></script>
 
-<!-- jquery -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-
-<!-- bootstrap -->
-<script src="assets/js/popper.js/popper.min.js"></script>
-<script src="assets/js/bootstrap/js/bootstrap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
-<!-- data tables -->
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
-<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-
-
-<script src="https://cdn.datatables.net/buttons/2.1.0/js/dataTables.buttons.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.1.0/js/buttons.html5.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.1.0/js/buttons.print.min.js"></script>
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.1.0/css/buttons.dataTables.min.css">
-
-
-<script src="assets/pages/waves/js/waves.min.js"></script>
-<script src="assets/js/jquery-slimscroll/jquery.slimscroll.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-<script src="assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
-<script src="assets/js/pcoded.min.js"></script>
-<script src="assets/js/vertical/vertical-layout.min.js"></script>
-
-<!-- axios -->
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
-<!-- custom scripts -->
-<script type="module" src="./assets/js/axiosInstance.js"></script>  
-<script src="./assets/js/apiRequests.js"></script>
-<script src="./assets/js/api.js"></script>
-<script src="assets/js/o&minvoices.js"></script>
-<script src="assets/js/popup.js"></script>
-<script src="assets/js/script.js"></script>
-<script>
-    $(document).ready(function () {
-        const datatable = $('#monthlyStatusTable').DataTable({
-            "paging": true,
-            "pageLength": 25,
-            "lengthMenu": [5, 10, 25, 50, 100],
-            dom: '<"top"l>frtip',
-            buttons: ['excel', 'csv', 'pdf']
-        });
-        
-        
-        const invoiceTable = $('#invoiceLogTable').DataTable({
-            "paging": true,
-            "pageLength": 25,
-            "lengthMenu": [5, 10, 25, 50, 100],
-            dom: '<"top"l>frtip',
-            buttons: ['excel', 'csv', 'pdf']
-        });
-
-        $('#portFilter').on('change', function () {
-        const selectedPort = $(this).val();
-        invoiceTable.column(1).search(selectedPort ? '^' + selectedPort + '$' : '', true, false).draw();
-    });
-
-    $('#yearFilter').on('change', function () {
-        const selectedYear = $(this).val();
-        invoiceTable.column(2).search(selectedYear ? '^' + selectedYear + '$' : '', true, false).draw();
-    });
-    $('#monthFilter').on('change', function () {
-        const selectedMonth = $(this).val();
-        invoiceTable.column(3).search(selectedMonth ? '^' + selectedMonth + '$' : '', true, false).draw();
-    });
-      
-       
-    });
-
-    function toggleAccordion(button) {
-        const content = button.parentElement.nextElementSibling;
-        content.style.display = (content.style.display === "none" || content.style.display === "") ? "block" : "none";
-
-        const icon = button.querySelector("i");
-        icon.classList.toggle("fa-chevron-down");
-        icon.classList.toggle("fa-chevron-up");
-    }
 
 
 
-</script>
-
-
-
-    
-</body>
+    </body>
 
 </html>
-

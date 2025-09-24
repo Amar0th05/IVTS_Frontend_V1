@@ -2,20 +2,14 @@
 <html lang="en">
 
 <head>
-    <title>Assets Details</title>
-    <!-- HTML5 Shim and Respond.js IE10 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 10]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-      <![endif]-->
-    <!-- Meta -->
+    <title>server Details</title>
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <meta name="keywords"
-        content="bootstrap, bootstrap admin template, admin theme, admin dashboard, dashboard template, admin template, responsive" />
+        content="bootstrap, bootstrap admin template, admin theme, admin Server, Server template, admin template, responsive" />
     <meta name="author" content="Codedthemes" />
     <!-- Favicon icon -->
     <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
@@ -29,19 +23,21 @@
     <link rel="stylesheet" href="assets/pages/waves/css/waves.min.css" type="text/css" media="all">
     <!-- themify icon -->
     <link rel="stylesheet" type="text/css" href="assets/icon/themify-icons/themify-icons.css">
+    <script src="https://kit.fontawesome.com/1799ed0397.js" crossorigin="anonymous"></script>
+
     <!-- font-awesome-n -->
     <link rel="stylesheet" type="text/css" href="assets/css/font-awesome-n.min.css">
     <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.min.css">
     <!-- scrollbar.css -->
     <link rel="stylesheet" type="text/css" href="assets/css/jquery.mCustomScrollbar.css">
     <!-- Style.css -->
-    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/style copy.css">
     <link rel="stylesheet" href="assets/css/custom.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-        <!-- Include SweetAlert2 CSS & JS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Include SweetAlert2 CSS & JS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
 
@@ -49,45 +45,57 @@
 
     <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css"> -->
     <style>
-        #policyTable{
+        #policyTable {
             border-radius: 5px;
         }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .addNewRecord {
+            all: unset;
+            color: white !important;
+            padding: 10px 10px !important;
+            background: linear-gradient(135deg, #4931d1, #7f86f3);
+        }
+
+        .dropdownPopup .list-group-item:hover,
+        .dropdownPopup .list-group-item.active {
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+        }
+
+
+        /* remove right border-radius from input */
+        .no-radius-end {
+            border-top-right-radius: 0 !important;
+            border-bottom-right-radius: 0 !important;
+        }
+
+        /* remove left border-radius from select */
+        .no-radius-start {
+            border-top-left-radius: 0 !important;
+            border-bottom-left-radius: 0 !important;
+        }
+
+        /* gray background for select */
+        .bg-light {
+            background-color: #f1f1f1 !important;
+        }
     </style>
-<style>
-    .hidden {
-      display: none !important;
-    }
-  </style>
-<style>
-    .addNewRecord{
-      all:unset;
-      color: white !important;
-      padding: 10px 10px !important;
-      background: linear-gradient(135deg, #4931d1, #7f86f3);
-    }
-
-  </style>
-  <style>
-.dropdownPopup .list-group-item:hover,
-.dropdownPopup .list-group-item.active {
-  background-color: #007bff;
-  color: #fff;
-  cursor: pointer;
-}
-
-
-  </style>
 
 </head>
 
 <body>
     <!-- Pre-loader start -->
     <div class="theme-loader">
-         
+
         <div class="loader-track">
-           
+
             <div class="preloader-wrapper">
-               
+
                 <div class="spinner-layer spinner-blue">
                     <div class="circle-clipper left">
                         <div class="circle"></div>
@@ -147,23 +155,14 @@
                         <a class="mobile-menu waves-effect waves-light" id="mobile-collapse" href="#!">
                             <i class="ti-menu"></i>
                         </a>
-                        <div class="mobile-search waves-effect waves-light">
-                            <div class="header-search">
-                                <div class="main-search morphsearch-search">
-                                    <div class="input-group">
-                                        <span class="input-group-prepend search-close"><i
-                                                class="ti-close input-group-text"></i></span>
-                                        <input type="text" class="form-control" placeholder="Enter Keyword">
-                                        <span class="input-group-append search-btn"><i
-                                                class="ti-search input-group-text"></i></span>
-                                    </div>
-                                </div>
-                            </div>
+                        <div>
+                            <a href="index.html">
+                                <img class="img-fluid"
+                                    src="assets/images/Gemini_Generated_Image_ode7ogode7ogode7-removebg-preview.png"
+                                    alt="Theme-Logo" style="height: 50px;" />
+                                <h4 class="d-inline"><span class="text-lowercase">WorkSphere</h4>
+                            </a>
                         </div>
-                        <a href="index.html">
-                            <!-- <img class="img-fluid" src="https://ntcpwc.iitm.ac.in/New/images/ntcpwc-logo.jpg" alt="Theme-Logo" style="height: 50px;" /> -->
-                            <h4 class="d-inline"><span class="text-lowercase">i</span>VTS-FMS</h4>
-                        </a>
                         <a class="mobile-options waves-effect waves-light">
                             <i class="ti-more"></i>
                         </a>
@@ -181,74 +180,22 @@
                             </li>
                         </ul>
                         <ul class="nav-right">
-                            <!-- <li class="header-notification">
-                                <a href="#!" class="waves-effect waves-light">
-                                    <i class="ti-bell"></i>
-                                    <span class="badge bg-c-red"></span>
-                                </a>
-                                <ul class="show-notification">
-                                    <li>
-                                        <h6>Notifications</h6>
-                                        <label class="label label-danger">New</label>
-                                    </li>
-                                    <li class="waves-effect waves-light">
-                                        <div class="media">
-                                            <img class="d-flex align-self-center img-radius"
-                                                src="assets/images/avatar-2.jpg" alt="Generic placeholder image">
-                                            <div class="media-body">
-                                                <h5 class="notification-user">John Doe</h5>
-                                                <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer
-                                                    elit.</p>
-                                                <span class="notification-time">30 minutes ago</span>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="waves-effect waves-light">
-                                        <div class="media">
-                                            <img class="d-flex align-self-center img-radius"
-                                                src="assets/images/avatar-4.jpg" alt="Generic placeholder image">
-                                            <div class="media-body">
-                                                <h5 class="notification-user">Joseph William</h5>
-                                                <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer
-                                                    elit.</p>
-                                                <span class="notification-time">30 minutes ago</span>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="waves-effect waves-light">
-                                        <div class="media">
-                                            <img class="d-flex align-self-center img-radius"
-                                                src="assets/images/avatar-3.jpg" alt="Generic placeholder image">
-                                            <div class="media-body">
-                                                <h5 class="notification-user">Sara Soudein</h5>
-                                                <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer
-                                                    elit.</p>
-                                                <span class="notification-time">30 minutes ago</span>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </li> -->
                             <li class="user-profile header-notification">
                                 <a href="#!" class="waves-effect waves-light">
-                                    <!-- <img src="assets/images/avatar-4.jpg" class="img-radius" alt="User-Profile-Image"> -->
                                     <span id="username">John Doe</span>
                                     <i class="ti-angle-down"></i>
                                 </a>
                                 <ul class="show-notification profile-notification">
                                     <li class="waves-effect waves-light">
-                                        <a href="#!">
-                                            <i class="ti-settings"></i> Settings
-                                        </a>
-                                    </li>
-                                    <li class="waves-effect waves-light">
                                         <a href="user-profile.html">
-                                            <i class="ti-user"></i> Profile
+                                            <i class="fa-solid fa-id-card"></i> Profile
                                         </a>
                                     </li>
                                     <li class="waves-effect waves-light">
-                                        <a href="index.html" id="logout-button">
-                                            <i class="ti-layout-sidebar-left"></i> Logout
+                                        <a href="login.html" id="logout-button">
+
+                                            <i class="fa-solid fa-right-to-bracket fa-flip-horizontal"></i> Logout
+
                                         </a>
                                     </li>
                                 </ul>
@@ -264,59 +211,47 @@
                         <div class="sidebar_toggle"><a href="#"><i class="icon-close icons"></i></a></div>
                         <div class="pcoded-inner-navbar main-menu">
                             <div class="">
-                                <div class="main-menu-header">
-                                    <!-- <img class="img-80 img-radius" src="assets/images/avatar-4.jpg" alt="User-Profile-Image">
-                                    <div class="user-details">
-                                        <span id="more-details">John Doe<i class="fa fa-caret-down"></i></span>
-                                    </div> -->
-                                    <img src="assets/images/ntcpwc-logo.jpg" alt="ntcpwc-logo">
-                                </div>
                                 <div class="main-menu-content">
                                     <ul>
                                         <li class="more-details">
                                             <a href="user-profile.html"><i class="ti-user"></i>View Profile</a>
-                                            <a href="#!"><i class="ti-settings"></i>Settings</a>
-                                            <a href="auth-normal-sign-in.html"><i
-                                                    class="ti-layout-sidebar-left"></i>Logout</a>
+                                            <!-- <a href="#!"><i class="ti-settings"></i>Settings</a> -->
+                                            <a href="login.html"><i class="ti-layout-sidebar-left"></i>Logout</a>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
-                            <div class="p-15 p-b-0">
-                                <form class="form-material">
-                                    <div class="form-group form-primary">
-                                        <input type="text" name="footer-email" class="form-control">
-                                        <span class="form-bar"></span>
-                                        <label class="float-label"><i class="fa fa-search m-r-10"></i>Search</label>
-                                    </div>
-                                </form>
+                            <div id="sidebar-container">
+
                             </div>
-                            <div id="sidebar-container"></div>
-         </nav>
+
+                    </nav>
 
 
 
                     <div class="pcoded-content">
                         <!-- Page-header start -->
                         <div class="page-header">
-                            <div class="page-block">
-                                <div class="row align-items-center">
-                                    <div class="col-md-8">
-                                        <!-- <img src="assets/images/ntcpwc-logo.jpg" class="img-fluid w-25" -->
-                                            <!-- alt="NTCPWC LOGO"> -->
-                                        <div class="page-header-title">
-                                            <h5 class="m-b-10">Assets Details</h5>
-                                            <p class="m-b-0">Welcome to WorkSphere</p>
+                            <div class="page-header">
+                                <div class="page-block">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-8">
+                                            <div class="page-title">
+                                                <span class="page-title-icon bg-gradient-primary text-white mr-2">
+                                                    <i class="fa fa-chart-line"></i>
+                                                </span>
+                                                <h5>Server</h5>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <ul class="breadcrumb">
-                                            <li class="breadcrumb-item">
-                                                <a href="index.html"> <i class="ti-home"></i> </a>
-                                            </li>
-                                            <li class="breadcrumb-item"><a href="#!">Server Details</a>
-                                            </li>
-                                        </ul>
+                                        <div class="col-md-4">
+                                            <ul class="breadcrumb">
+                                                <li class="breadcrumb-item">
+                                                    <a href="index.html"> <i class="fa fa-home"></i> </a>
+                                                </li>
+                                                <li class="breadcrumb-item"><a href="#!">Server</a>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -330,8 +265,8 @@
                                             <div class="col-sm-12">
                                                 <div class="card">
                                                     <div class="card-header">
-                                                        <h5>Server</h5>
-                                                        
+                                                        <h5>servers</h5>
+
                                                         <!-- <div class="card-header-right">
                                                             <ul class="list-unstyled card-option">
                                                                 <li><i class="fa fa fa-wrench open-card-option"></i>
@@ -343,557 +278,738 @@
                                                     </div>
 
                                                     <div class="card-block">
-                                                       
- <!-----------------------------------------------ADD-NEW-MODAl-START--------------------------------------------------------------------->
-                                                      
+
+                                                        <!-----------------------------------------------ADD-NEW-MODAl-START--------------------------------------------------------------------->
+
                                                         <div>
-                                                            
+
                                                             <div class="d-none" id="tab">
-                                                                <div class="nav nav-tabs md-tabs" id="myTab" role="tablist">
-                                                                    <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab1" type="button">Server And Storage Details</button>
+                                                                <div class="nav nav-tabs md-tabs" id="myTab"
+                                                                    role="tablist">
+                                                                    <button class="nav-link active" data-bs-toggle="tab"
+                                                                        data-bs-target="#tab1" type="button">servers
+                                                                        Details</button>
                                                                 </div>
-                                                               <div class="tab-content mt-3">
+                                                                <div class="tab-content mt-3">
 
-                                                                 <!-- Server And Storage -->
-                                                                  <div class="tab-pane fade show active" id="tab1">
-                                                                    <!-- Modal Header -->
-                                                                    <!-- Modal Body -->
-                                                                    <div class="modal-body">
-                                                                        <form id="server-asset-form">
-    <div class="row">
-        <!-- User Name (moved here instead of Sl No) -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="userName2">User Name</label>
-               <select id="userName2" class="form-control form-control-sm userName" style="width:100%;">
-                <option value="">StaffId</option>
-               </select>
+                                                                    <!-- server -->
+                                                                    <div class="tab-pane fade show active " id="tab1">
+                                                                        <!-- Modal Header -->
 
-            </div>
-        </div>
 
-        <!-- Model No -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="modelNo2">Model No</label>
-                <input type="text" name="Model_No" class="form-control form-control-sm" id="modelNo2"
-                    placeholder="Enter Model No">
-            </div>
-        </div>
-    </div>
+                                                                        <!-- Modal Body -->
+                                                                        <div class="modal-body">
+                                                                            <form id="server_add_form">
+                                                                                <div class="row">
+                                                                                    <!-- User Name -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label for="userName1">User
+                                                                                                Name <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <select id="userName1"
+                                                                                                name="userName"
+                                                                                                class="form-control form-control-sm userName"
+                                                                                                style="width:100%;"
+                                                                                                required>
+                                                                                                <option value="">StaffId
+                                                                                                </option>
+                                                                                            </select>
+                                                                                        </div>
+                                                                                    </div>
 
-    <div class="row">
-        <!-- Serial No -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="serialNo2">Serial No</label>
-                <input type="text" name="Serial_No" class="form-control form-control-sm" id="serialNo2"
-                    placeholder="Enter Serial No">
-            </div>
-        </div>
+                                                                                    <!-- Model No -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label for="modelNo">Model
+                                                                                                No <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <input type="text"
+                                                                                                name="Model_No"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="modelNo"
+                                                                                                placeholder="Enter Model No"
+                                                                                                required>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
 
-        <!-- IP Address -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="ipAddress2">IP Address</label>
-                <input type="text" name="IP_Address" class="form-control form-control-sm" id="ipAddress2"
-                    placeholder="Enter IP Address">
-            </div>
-        </div>
-    </div>
+                                                                                <div class="row">
+                                                                                    <!-- Serial No -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label for="serialNo">Serial
+                                                                                                No <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <input type="text"
+                                                                                                name="Serial_No"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="serialNo"
+                                                                                                placeholder="Enter Serial No"
+                                                                                                required>
+                                                                                        </div>
+                                                                                    </div>
 
-    <div class="row">
-        <!-- MAC Address -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="macAddress2">MAC Address</label>
-                <input type="text" name="MAC_Address" class="form-control form-control-sm" id="macAddress2"
-                    placeholder="Enter MAC Address">
-            </div>
-        </div>
+                                                                                    <!-- IP Address -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label for="ipAddress">IP
+                                                                                                Address <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <input type="text"
+                                                                                                name="IP_Address"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="ipAddress"
+                                                                                                placeholder="Enter IP Address"
+                                                                                                required>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
 
-        <!-- Port -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="port2">Port</label>
-                <input type="text" name="Port" class="form-control form-control-sm" id="port2"
-                    placeholder="Enter Port No">
-            </div>
-        </div>
-    </div>
+                                                                                <div class="row">
+                                                                                    <!-- MAC Address -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label for="macAddress">MAC
+                                                                                                Address <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <input type="text"
+                                                                                                name="MAC_Address"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="macAddress"
+                                                                                                placeholder="Enter MAC Address"
+                                                                                                required>
+                                                                                        </div>
+                                                                                    </div>
 
-    <div class="row">
-        <!-- Remark (Config) -->
-        <div class="col-md-12">
-            <div class="form-group">
-                <label for="remarkConfig2">Remark (Config)</label>
-                <textarea class="form-control form-control-sm" id="remarkConfig2" name="Remark_Config" rows="2"
-                    placeholder="Enter Config Remarks"></textarea>
-            </div>
-        </div>
-    </div>
+                                                                                    <!-- Port -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label for="port">Port <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <input type="text"
+                                                                                                name="Port"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="port"
+                                                                                                placeholder="Enter Port"
+                                                                                                required>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
 
-    <hr>
-    <!-- Purchase / Vendor Details -->
-    <div class="row">
-        <!-- Project No -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="projectNo2">Project No</label>
-                <input type="text" name="Project_No" class="form-control form-control-sm" id="projectNo2"
-                    placeholder="Enter Project No">
-            </div>
-        </div>
+                                                                                <div class="row">
+                                                                                    <!-- Remark Configuration -->
+                                                                                    <div class="col-md-12">
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="remarkConfig">Remark
+                                                                                                Configuration <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <textarea
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="remarkConfig"
+                                                                                                name="Remark_Config"
+                                                                                                rows="2"
+                                                                                                placeholder="Enter Remarks"
+                                                                                                required></textarea>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
 
-        <!-- PO No -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="poNo2">PO No</label>
-                <input type="text" name="PO_No" class="form-control form-control-sm" id="poNo2"
-                    placeholder="Enter PO No">
-            </div>
-        </div>
-    </div>
+                                                                                <hr>
 
-    <div class="row">
-        <!-- PO Date -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="poDate2">PO Date</label>
-                <input type="date" name="PO_Date" class="form-control form-control-sm" id="poDate2">
-            </div>
-        </div>
+                                                                                <div class="row">
+                                                                                    <!-- Project No -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="projectNo">Project
+                                                                                                No <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <input type="text"
+                                                                                                name="Project_No"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="projectNo"
+                                                                                                placeholder="Enter Project No"
+                                                                                                required>
+                                                                                        </div>
+                                                                                    </div>
 
-        <!-- Vendor Name -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="vendorName2">Vendor Name</label>
-                <input type="text" name="Vendor_Name" class="form-control form-control-sm" id="vendorName2"
-                    placeholder="Enter Vendor Name">
-            </div>
-        </div>
-    </div>
+                                                                                    <!-- PO No -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label for="poNo">PO No
+                                                                                                <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <input type="text"
+                                                                                                name="PO_No"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="poNo"
+                                                                                                placeholder="Enter PO No"
+                                                                                                required>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
 
-    <div class="row">
-        <!-- Invoice No -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="invoiceNo2">Invoice No</label>
-                <input type="text" name="Invoice_No" class="form-control form-control-sm" id="invoiceNo2"
-                    placeholder="Enter Invoice No">
-            </div>
-        </div>
+                                                                                <div class="row">
+                                                                                    <!-- PO Date -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label for="poDate">PO Date
+                                                                                                <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <input type="date"
+                                                                                                name="PO_Date"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="poDate" required>
+                                                                                        </div>
+                                                                                    </div>
 
-        <!-- Invoice Date -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="invoiceDate2">Invoice Date</label>
-                <input type="date" name="Invoice_Date" class="form-control form-control-sm" id="invoiceDate2">
-            </div>
-        </div>
-    </div>
+                                                                                    <!-- Vendor Name -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="vendorName">Vendor
+                                                                                                Name <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <input type="text"
+                                                                                                name="Vendor_Name"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="vendorName"
+                                                                                                placeholder="Enter Vendor Name"
+                                                                                                required>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
 
-    <div class="row">
-        <!-- SRB -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="srb2">SRB</label>
-                <input type="text" name="SRB" class="form-control form-control-sm" id="srb2"
-                    placeholder="Enter SRB No">
-            </div>
-        </div>
+                                                                                <div class="row">
+                                                                                    <!-- Invoice No -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="invoiceNo">Invoice
+                                                                                                No <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <input type="text"
+                                                                                                name="Invoice_No"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="invoiceNo"
+                                                                                                placeholder="Enter Invoice No"
+                                                                                                required>
+                                                                                        </div>
+                                                                                    </div>
 
-        <!-- Department -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="dept2">Department</label>
-                <input type="text" name="Dept" class="form-control form-control-sm" id="dept2"
-                    placeholder="Enter Department">
-            </div>
-        </div>
-    </div>
+                                                                                    <!-- Invoice Date -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="invoiceDate">Invoice
+                                                                                                Date <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <input type="date"
+                                                                                                name="Invoice_Date"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="invoiceDate"
+                                                                                                required>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
 
-    <div class="row">
-        <!-- Remarks -->
-        <div class="col-md-12">
-            <div class="form-group">
-                <label for="remarks2">Remarks</label>
-                <textarea class="form-control form-control-sm" id="remarks2" name="Remarks" rows="2"
-                    placeholder="Enter Remarks"></textarea>
-            </div>
-        </div>
-    </div>
-</form>
+                                                                                <div class="row">
+                                                                                    <!-- SRB -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label for="srb">SRB <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <input type="text"
+                                                                                                name="SRB"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="srb"
+                                                                                                placeholder="Enter SRB No"
+                                                                                                required>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <!-- Department -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label for="dept">Department
+                                                                                                <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <input type="text"
+                                                                                                name="Dept"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="dept"
+                                                                                                placeholder="Enter Department"
+                                                                                                required>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="row">
+                                                                                    <!-- Remarks -->
+                                                                                    <div class="col-md-12">
+                                                                                        <div class="form-group">
+                                                                                            <label for="remarks">Remarks
+                                                                                                <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <textarea
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="remarks"
+                                                                                                name="Remarks" rows="2"
+                                                                                                placeholder="Enter Remarks"
+                                                                                                required></textarea>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </form>
+
+
+
+                                                                        </div>
+
+                                                                        <!-- model Footer -->
+                                                                        <div class="modal-footer">
+                                                                            <button type="button" class="btn btn-danger"
+                                                                                data-dismiss="modal"
+                                                                                id="exitButton">Exit</button>
+                                                                            <button type="submit"
+                                                                                class="btn btn-success"
+                                                                                id="add_server_btn"
+                                                                                data-dismiss="modal">Submit
+                                                                                server</button>
+                                                                        </div>
+
+                                                                        <!-- Modal Footer -->
 
                                                                     </div>
-                                                                    <!-- model Footer -->
-                                                                    <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-danger" data-dismiss="modal" id="exitButton">Exit</button>
-                                                                    <button type="submit" class="btn btn-success" id="server_assets_btn" data-dismiss="modal">Submit Server Asset</button>
-                                                                    </div> 
-                                                                  </div> 
- 
- 
-                                                               </div>
-                                                            </div>
-                                                        </div>
-
-<!---------------------------------------------------------------------------------------------ADD-NEW-MODAL-END---------------------------------------------------->
- <!-----------------------------------------------UPDATE-MODAl-START--------------------------------------------------------------------->
-                                                      
- <div>
- <div class="d-none" id="tabWrapper">
-        <div class="nav nav-tabs md-tabs" id="myTab1" role="tablist">
-            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab4" type="button">Staffs Details</button>
-
-        </div>
-        <div class="tab-content mt-3">
-            <div class="tab-pane fade show active " id="tab4">
-             <!-- Modal Body -->
-             <div class="modal-body">
-                <form id="update-asset-form">
-    <div class="row">
-        <!-- Asset ID -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="assetId">Asset ID<span class="text-danger">*</span></label>
-                <input type="text" name="Asset_ID" maxlength="20" class="form-control form-control-sm" id="assetId"
-                    placeholder="Enter Asset ID" required readonly>
-            </div>
-        </div>
-
-        <!-- Category -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="category">Category<span class="text-danger">*</span></label>
-                <input type="text" name="Category" maxlength="50" class="form-control form-control-sm" id="category"
-                    placeholder="Enter Category" required>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <!-- Model No -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="modelNo">Model No</label>
-                <input type="text" name="Model_No" class="form-control form-control-sm" id="modelNo"
-                    placeholder="Enter Model No">
-            </div>
-        </div>
-
-        <!-- Serial No -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="serialNo">Serial No</label>
-                <input type="text" name="Serial_No" class="form-control form-control-sm" id="serialNo"
-                    placeholder="Enter Serial No">
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <!-- Processor Type -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="processorType">Processor Type</label>
-                <input type="text" name="Processor_Type" class="form-control form-control-sm" id="processorType"
-                    placeholder="Enter Processor Type">
-            </div>
-        </div>
-
-        <!-- RAM GB -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="ramGb">RAM (GB)</label>
-                <input type="number" name="RAM_GB" class="form-control form-control-sm" id="ramGb"
-                    placeholder="Enter RAM in GB">
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <!-- Storage -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="storage">Storage (GB/TB)</label>
-                <input type="text" name="Storage_GB_TB" class="form-control form-control-sm" id="storage"
-                    placeholder="Enter Storage Capacity">
-            </div>
-        </div>
-
-        <!-- Graphics -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="graphics">Graphics</label>
-                <input type="text" name="Graphics" class="form-control form-control-sm" id="graphics"
-                    placeholder="Enter Graphics Info">
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <!-- OS Type -->
-        <div class="col-md-12">
-            <div class="form-group">
-                <label for="osType">OS Type</label>
-                <input type="text" name="OS_Type" class="form-control form-control-sm" id="osType"
-                    placeholder="Enter Operating System">
-            </div>
-        </div>
-    </div>
-
-    <hr>
-    <!-- Networking Details -->
-    <div class="row">
-        <!-- Host Name -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="hostName">Host Name</label>
-                <input type="text" name="Host_Name" class="form-control form-control-sm" id="hostName"
-                    placeholder="Enter Host Name">
-            </div>
-        </div>
-
-        <!-- IP Address -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="ipAddress">IP Address<span class="text-danger">*</span></label>
-                <input type="text" name="IP_Address" class="form-control form-control-sm" id="ipAddress" required
-                    placeholder="Enter IP Address">
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <!-- MAC Address -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="macAddress">MAC Address</label>
-                <input type="text" name="MAC_Address" class="form-control form-control-sm" id="macAddress"
-                    placeholder="Enter MAC Address">
-            </div>
-        </div>
-
-        <!-- Port -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="port">Port</label>
-                <input type="text" name="Port" class="form-control form-control-sm" id="port"
-                    placeholder="Enter Port No">
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <!-- Remark Config -->
-        <div class="col-md-12">
-            <div class="form-group">
-                <label for="remarkConfig">Remark / Config</label>
-                <textarea class="form-control form-control-sm" id="remarkConfig" name="Remark_Config" rows="2"
-                    placeholder="Enter Config Remarks"></textarea>
-            </div>
-        </div>
-    </div>
-
-    <hr>
-    <!-- Purchase / Vendor Details -->
-    <div class="row">
-        <!-- Project No -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="projectNo">Project No</label>
-                <input type="text" name="Project_No" class="form-control form-control-sm" id="projectNo"
-                    placeholder="Enter Project No">
-            </div>
-        </div>
-
-        <!-- PO No -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="poNo">PO No</label>
-                <input type="text" name="PO_No" class="form-control form-control-sm" id="poNo"
-                    placeholder="Enter PO No">
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <!-- PO Date -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="poDate">PO Date</label>
-                <input type="date" name="PO_Date" class="form-control form-control-sm" id="poDate">
-            </div>
-        </div>
-
-        <!-- Vendor Name -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="vendorName">Vendor Name</label>
-                <input type="text" name="Vendor_Name" class="form-control form-control-sm" id="vendorName"
-                    placeholder="Enter Vendor Name">
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <!-- Invoice No -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="invoiceNo">Invoice No</label>
-                <input type="text" name="Invoice_No" class="form-control form-control-sm" id="invoiceNo"
-                    placeholder="Enter Invoice No">
-            </div>
-        </div>
-
-        <!-- Invoice Date -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="invoiceDate">Invoice Date</label>
-                <input type="date" name="Invoice_Date" class="form-control form-control-sm" id="invoiceDate">
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <!-- SRB No -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="srbNo">SRB No</label>
-                <input type="text" name="SRB_No" class="form-control form-control-sm" id="srbNo"
-                    placeholder="Enter SRB No">
-            </div>
-        </div>
-
-<!-- User Name -->
-<div class="col-md-6">
-  <div class="form-group">
-    <label for="staffIdSelect">Select Staff ID</label>
-    <select id="staffIdSelect" class="form-control form-control-sm" style="width:100%;"></select>
-  </div>
-</div>
 
 
-
-
-    </div>
-
-    <div class="row">
-        <!-- Dept -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="dept">Department</label>
-                <input type="text" name="Dept" class="form-control form-control-sm" id="dept"
-                    placeholder="Enter Department">
-            </div>
-        </div>
-
-        <!-- Remarks -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="remarks">Remarks</label>
-                <input type="text" name="Remarks" class="form-control form-control-sm" id="remarks"
-                    placeholder="Enter Remarks">
-            </div>
-        </div>
-    </div>
-                </form>
-             </div>
-        </div>
-
-
-        </div>
-        
-
-
-         <!-- Modal Footer -->
-         <div class="modal-footer">
-             <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal" id="exitButton2">Exit</button>
-             <button type="button" id="update_assets_btn" class="btn btn-success btn-sm writeElement">Update</button>
-         </div>
-     
- </div>
-</div>
-
-
-<!---------------------------------------------------------------------------------------------UPDATE-MODAL-END---------------------------------------------------->   
-
-
-                                                       <div id="tableCard">
-                                                        <div class="d-flex justify-content-end mb-5">
-                                                            <button id="addNew"
-                                                                class="btn btn-primary addNewRecord writeElement d-flex align-items-center gap-2 px-sm-4 py-sm-2 rounded-pill shadow"
-                                                                data-toggle="modal" data-target="#addNewModal">
-                                                                <i class="ti-plus text-white fs-5"></i>
-                                                                <span class="fw-bold">Add New Assets</span>
-                                                            </button>
-                                                        </div>
-
-                                                        <div class="mb-3 p-3 rounded shadow shadow-sm filter">
-                                                            <div class="row g-3">
-                                                                <div class="col-md-6">
-                                                                    <div class="d-flex flex-column">
-                                                                        <label for="designationFilter" class="text-muted small mb-1">Designation</label>
-                                                                        <select id="designationFilter" class="form-select form-select-sm border-secondary">
-                                                                            <option value="">Show all</option>
-                                                                            <option value="Full Stack Development">Full Stack Development</option>
-                                                                            <option value=""></option>
-                                                                            
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                        
-                                                                <div class="col-md-6">
-                                                                    <div class="d-flex flex-column">
-                                                                        <label for="locationFilter" class="text-muted small mb-1">Location</label>
-                                                                        <select id="locationFilter" class="form-select form-select-sm border-secondary">
-                                                                            <option value="">Show all</option>
-                                                                        </select>
-                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
 
-                                                        <div class="row">
-                                                            <div id="exportButtons" class="mb-3">
-                                                                <button onclick="fetchDataAndGenerateExcel()" class="dt-button">
-                                                                    Download All Data
+                                                        <!---------------------------------------------------------------------------------------------ADD-NEW-MODAL-END---------------------------------------------------->
+                                                        <!-----------------------------------------------UPDATE-MODAl-START--------------------------------------------------------------------->
+
+                                                        <div>
+                                                            <div class="d-none" id="tabWrapper">
+                                                                <div class="nav nav-tabs md-tabs" id="myTab1"
+                                                                    role="tablist">
+                                                                    <button class="nav-link active" data-bs-toggle="tab"
+                                                                        data-bs-target="#tab4" type="button">Staffs
+                                                                        Details</button>
+
+                                                                </div>
+                                                                <div class="tab-content mt-3">
+                                                                    <div class="tab-pane fade show active " id="tab4">
+                                                                        <!-- Modal Body -->
+                                                                        <div class="modal-body">
+                                                                            <form id="update-asset-form">
+                                                                                <div class="row">
+                                                                                    <!-- Asset ID -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label for="assetId">Asset
+                                                                                                ID <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <input type="text"
+                                                                                                name="Asset_ID"
+                                                                                                maxlength="20"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="assetId"
+                                                                                                placeholder="Enter Asset ID"
+                                                                                                required readonly>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <!-- Category -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="category">Category
+                                                                                                <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <input type="text"
+                                                                                                name="Category"
+                                                                                                maxlength="50"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="category"
+                                                                                                placeholder="Enter Category"
+                                                                                                required readonly>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="row">
+                                                                                    <!-- User Name (Staff ID Select) -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label for="userName2">User
+                                                                                                Name <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <select id="userName2"
+                                                                                                name="userName"
+                                                                                                class="form-control form-control-sm userName"
+                                                                                                style="width:100%;"
+                                                                                                required>
+                                                                                                <option value="">StaffId
+                                                                                                </option>
+                                                                                            </select>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <!-- Model No -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label for="modelNo">Model
+                                                                                                No <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <input type="text"
+                                                                                                name="Model_No"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="modelNo"
+                                                                                                placeholder="Enter Model No"
+                                                                                                required>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="row">
+                                                                                    <!-- Serial No -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label for="serialNo">Serial
+                                                                                                No <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <input type="text"
+                                                                                                name="Serial_No"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="serialNo"
+                                                                                                placeholder="Enter Serial No"
+                                                                                                required>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <!-- IP Address -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label for="ipAddress">IP
+                                                                                                Address <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <input type="text"
+                                                                                                name="IP_Address"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="ipAddress"
+                                                                                                placeholder="Enter IP Address"
+                                                                                                required>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="row">
+                                                                                    <!-- MAC Address -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label for="macAddress">MAC
+                                                                                                Address <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <input type="text"
+                                                                                                name="MAC_Address"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="macAddress"
+                                                                                                placeholder="Enter MAC Address"
+                                                                                                required>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <!-- Port -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label for="port">Port <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <input type="text"
+                                                                                                name="Port"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="port"
+                                                                                                placeholder="Enter Port"
+                                                                                                required>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="row">
+                                                                                    <!-- Remark Configuration -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="remarkConfig">Remark
+                                                                                                Configuration <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <input type="text"
+                                                                                                name="Remark_Config"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="remarkConfig"
+                                                                                                placeholder="Enter Remark Configuration"
+                                                                                                required>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <hr>
+
+                                                                                <div class="row">
+                                                                                    <!-- Project No -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="projectNo">Project
+                                                                                                No <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <input type="text"
+                                                                                                name="Project_No"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="projectNo"
+                                                                                                placeholder="Enter Project No"
+                                                                                                required>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <!-- PO No -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label for="poNo">PO No
+                                                                                                <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <input type="text"
+                                                                                                name="PO_No"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="poNo"
+                                                                                                placeholder="Enter PO No"
+                                                                                                required>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="row">
+                                                                                    <!-- PO Date -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label for="poDate">PO Date
+                                                                                                <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <input type="date"
+                                                                                                name="PO_Date"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="poDate" required>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <!-- Vendor Name -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="vendorName">Vendor
+                                                                                                Name <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <input type="text"
+                                                                                                name="Vendor_Name"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="vendorName"
+                                                                                                placeholder="Enter Vendor Name"
+                                                                                                required>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="row">
+                                                                                    <!-- Invoice No -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="invoiceNo">Invoice
+                                                                                                No <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <input type="text"
+                                                                                                name="Invoice_No"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="invoiceNo"
+                                                                                                placeholder="Enter Invoice No"
+                                                                                                required>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <!-- Invoice Date -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="invoiceDate">Invoice
+                                                                                                Date <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <input type="date"
+                                                                                                name="Invoice_Date"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="invoiceDate"
+                                                                                                required>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="row">
+                                                                                    <!-- SRB -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label for="srb">SRB <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <input type="text"
+                                                                                                name="SRB"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="srb"
+                                                                                                placeholder="Enter SRB No"
+                                                                                                required>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <!-- Department -->
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label for="dept">Department
+                                                                                                <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <input type="text"
+                                                                                                name="Dept"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="dept"
+                                                                                                placeholder="Enter Department"
+                                                                                                required>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="row">
+                                                                                    <!-- Remarks -->
+                                                                                    <div class="col-md-12">
+                                                                                        <div class="form-group">
+                                                                                            <label for="remarks">Remarks
+                                                                                                <span
+                                                                                                    class="text-danger">*</span></label>
+                                                                                            <textarea
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="remarks"
+                                                                                                name="Remarks" rows="2"
+                                                                                                placeholder="Enter Remarks"
+                                                                                                required></textarea>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </form>
+
+                                                                        </div>
+                                                                    </div>
+
+
+                                                                </div>
+
+
+
+                                                                <!-- Modal Footer -->
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-danger btn-sm"
+                                                                        data-dismiss="modal"
+                                                                        id="exitButton2">Exit</button>
+                                                                    <button type="button" id="update_server_btn"
+                                                                        class="btn btn-success btn-sm writeElement">Update</button>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+
+
+                                                        <!---------------------------------------------------------------------------------------------UPDATE-MODAL-END---------------------------------------------------->
+
+
+                                                        <div id="tableCard">
+                                                            <div class="d-flex justify-content-end mb-5">
+                                                                <button id="addNew"
+                                                                    class="btn btn-primary addNewRecord writeElement d-flex align-items-center gap-2 px-sm-4 py-sm-2 rounded-pill shadow"
+                                                                    data-toggle="modal" data-target="#addNewModal">
+                                                                    <i class="ti-plus text-white fs-5"></i>
+                                                                    <span class="fw-bold">Add New servers</span>
                                                                 </button>
                                                             </div>
-                                                        </div>
-                                                        <div class="d-flex justify-content-center align-items-center">
-                                                            <div class="table-responsive">
-                                                                
-                                                                
-                                                                
-                                                                <table id="myTable"
-                                                                    class="table table-striped rounded table-hover">
-                                                                    <thead class="bg-primary text-white text-center">
-                                                                        <tr>
-                                                                            <th>Serial No</th>
-                                                                            <th>Asset ID</th>
-                                                                            <th>Category</th>
-                                                                            <th>Vendor Name</th>
-                                                                            <th>User Name</th>
-                                                                            <th>Department</th>
-                                                                            <th>Action</th>
-                                                                            <!-- <th>Actions</th> -->
-                                                                             <th>Update</th>
-                                                                            
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody>
-                                                                
-                                                                    </tbody>
-                                                                </table>
+
+                                                            <div class="mb-3 p-3 rounded shadow shadow-sm filter">
+                                                                <div class="row g-3">
+                                                                    <div class="col-md-6">
+                                                                        <div class="d-flex flex-column">
+                                                                            <label for="designationFilter"
+                                                                                class="text-muted small mb-1">Designation</label>
+                                                                            <select id="designationFilter"
+                                                                                class="form-select form-select-sm border-secondary">
+                                                                                <option value="">Show all</option>
+                                                                                <option value="Full Stack Development">
+                                                                                    Full Stack Development</option>
+                                                                                <option value=""></option>
+
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-md-6">
+                                                                        <div class="d-flex flex-column">
+                                                                            <label for="locationFilter"
+                                                                                class="text-muted small mb-1">Location</label>
+                                                                            <select id="locationFilter"
+                                                                                class="form-select form-select-sm border-secondary">
+                                                                                <option value="">Show all</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <div id="exportButtons" class="mb-3">
+                                                                    <button onclick="fetchDataAndGenerateExcel()"
+                                                                        class="dt-button">
+                                                                        Download All Data
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="d-flex justify-content-center align-items-center">
+                                                                <div class="table-responsive">
+
+
+
+                                                                    <table id="myTable"
+                                                                        class="table table-striped rounded table-hover">
+                                                                        <thead
+                                                                            class="bg-primary text-white text-center">
+                                                                            <tr>
+                                                                                <th>Serial No</th>
+                                                                                <th>Asset ID</th>
+                                                                                <th>Category</th>
+                                                                                <th>Vendor Name</th>
+                                                                                <th>User Name</th>
+                                                                                <th>Department</th>
+                                                                                <th>Action</th>
+                                                                                <!-- <th>Actions</th> -->
+                                                                                <th>Update</th>
+
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                       </div>
 
 
                                                     </div>
-                                                    <!-- card-block table staff details end --> 
+                                                    <!-- card-block table staff details end -->
                                                 </div>
                                             </div>
                                         </div>
@@ -918,163 +1034,74 @@
     </div>
 
 
-    
+
+
+    <!-- Required jQuery -->
+    <script type="text/javascript" src="assets/js/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="assets/js/jquery-ui/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="assets/js/popper.js/popper.min.js"></script>
+    <script type="text/javascript" src="assets/js/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
+    <!-- jQuery and DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+    <!-- DataTables Buttons Extension JS -->
+    <script src="https://cdn.datatables.net/buttons/2.1.0/js/dataTables.buttons.min.js"></script>
+
+    <!-- Buttons for Excel, CSV, and PDF -->
+    <script src="https://cdn.datatables.net/buttons/2.1.0/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js"></script>
+
+    <!-- Excel export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+
+    <!-- JSZip for Excel export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
+
+    <!-- pdfMake for PDF export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+
+    <!-- DataTables Buttons CSS -->
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.datatables.net/buttons/2.1.0/css/buttons.dataTables.min.css">
+
+    <!-- Toastr and other scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="assets/pages/waves/js/waves.min.js"></script>
+    <script type="text/javascript" src="assets/js/jquery-slimscroll/jquery.slimscroll.js"></script>
+    <script src="assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="assets/js/pcoded.min.js"></script>
+    <script src="assets/js/vertical/vertical-layout.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <!-- Custom scripts -->
+    <script type="module" src="./assets/js/axiosInstance.js"></script>
+    <script src="assets/js/popup.js"></script>
+    <script src="./assets/js/api.js"></script>
+    <script src="./assets/js/apiRequests.js"></script>
+    <script src="assets/js/server.js"></script>
+    <script type="text/javascript" src="assets/js/script.js"></script>
     <script src="assets/js/roleUtil.js"></script>
-
-  <!-- Required jQuery -->
-<script type="text/javascript" src="assets/js/jquery/jquery.min.js"></script>
-<script type="text/javascript" src="assets/js/jquery-ui/jquery-ui.min.js"></script>
-<script type="text/javascript" src="assets/js/popper.js/popper.min.js"></script>
-<script type="text/javascript" src="assets/js/bootstrap/js/bootstrap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
-<!-- DataTables CSS -->
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
-
-<!-- jQuery and DataTables JS -->
-<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-
-<!-- DataTables Buttons Extension JS -->
-<script src="https://cdn.datatables.net/buttons/2.1.0/js/dataTables.buttons.min.js"></script>
-
-<!-- Buttons for Excel, CSV, and PDF -->
-<script src="https://cdn.datatables.net/buttons/2.1.0/js/buttons.html5.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js"></script>
-
-<!-- Excel export -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="assets/js/Utils.js"></script>
 
 
-<!-- JSZip for Excel export -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
-
-<!-- pdfMake for PDF export -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-
-<!-- DataTables Buttons CSS -->
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.1.0/css/buttons.dataTables.min.css">
-
-<!-- Toastr and other scripts -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-<script src="assets/pages/waves/js/waves.min.js"></script>
-<script type="text/javascript" src="assets/js/jquery-slimscroll/jquery.slimscroll.js"></script>
-<script src="assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
-<script src="assets/js/pcoded.min.js"></script>
-<script src="assets/js/vertical/vertical-layout.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
-<!-- Custom scripts -->
-<script type="module" src="./assets/js/axiosInstance.js"></script>
-<script src="assets/js/popup.js"></script>
-<script src="./assets/js/api.js"></script>
-<script src="./assets/js/apiRequests.js"></script>
-<script src="assets/js/server.js"></script>
-<script type="text/javascript" src="assets/js/script.js"></script>
-
-
-<!-- Initialize DataTable -->
-<script>
-   $(document).ready(function () {
-       const datatable = $('#myTable').DataTable({
-           "paging": true,
-           "pageLength": 25,
-           "lengthMenu": [5, 10, 25, 50, 100],
-           dom: '<"top"l>frtip',
-           buttons: ['excel', 'csv', 'pdf']
-       });
-
-       datatable.buttons().container().appendTo($('#exportButtons'));
-
-
-
- $('#designationFilter').on('change', function () {
-        const selectedDesignation = $(this).val();
-        datatable.column(0).search(selectedDesignation ? '^' + selectedDesignation + '$' : '', true, false).draw();
-    });
-
-    $('#locationFilter').on('change', function () {
-        const selectedLocation = $(this).val();
-        datatable.column(5).search(selectedLocation ? '^' + selectedLocation + '$' : '', true, false).draw(); 
-    });
-
-   });
-
-
-    
-    $('#filter').on('change', function () {
-        const selectedCategory = $(this).val();
-        if (selectedCategory) {
-            datatable.column(1).search(selectedCategory).draw();
-        } else {
-            datatable.column(1).search('').draw(); 
-        }
-    });
-
-    function toggleAccordion(button) {
-        const content = button.parentElement.nextElementSibling;
-        content.style.display = (content.style.display === "none" || content.style.display === "") ? "block" : "none";
-        const icon = button.querySelector("i");
-        icon.classList.toggle("fa-chevron-down");
-        icon.classList.toggle("fa-chevron-up");
-    }
-</script>
-<script>
-    document.querySelector('#addNew').addEventListener('click', function () {
-        document.querySelector('#tab').classList.remove('d-none');
-        document.querySelector('#tableCard').style.display = 'none';
-        document.querySelector('#exitButton').addEventListener('click',function(){
-            document.querySelector('#tab').classList.add('d-none');
-            document.querySelector('#tableCard').style.display = 'block';
-        });
-    });
-
-</script>
-
-<script>
-    // Show/Hide "Other" input dynamically
-    document.getElementById("category").addEventListener("change", function () {
-        let otherDiv = document.getElementById("otherCategoryDiv");
-        if (this.value === "Other") {
-            otherDiv.style.display = "block";
-        } else {
-            otherDiv.style.display = "none";
-            document.getElementById("otherCategory").value = "";
-        }
-    });
-</script>
-
-<script>
-$(document).ready(function () {
-  // Load all staff and populate dropdown
-  api.getstaffid()
-    .then(staffList => {
-      staffList.forEach(staff => {
-        $('.userName').append(
-          $('<option>', { value: staff.id, text: `${staff.id}-${staff.name} ` })
-        );
-      });
-
-      // Initialize Select2 after options are added
-      $('.userName').select2({
-        placeholder: 'Select Staff ID',
-        allowClear: true
-      });
-    })
-    .catch(error => {
-      console.error('Error loading staff:', error);
-    });
-});
-</script>
+    <!-- Initialize DataTable -->
 
 
 
 
-<!-- Bootstrap + jQuery + Select2 -->
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-<!-- Bootstrap + jQuery + Select2 -->
+
+    <!-- Bootstrap + jQuery + Select2 -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <!-- Bootstrap + jQuery + Select2 -->
 
 
 

@@ -7,6 +7,9 @@
     <title>Internship Registration Form</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Flatpickr CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pikaday/css/pikaday.css">
     <style>
         :root {
             --primary-color: #0d6efd;
@@ -245,29 +248,38 @@
             padding-bottom: 0.5rem;
             margin-bottom: 2rem;
         }
+
         /* --- NEW: Introduction Section Styling --- */
-.intro-section {
-    background-color: var(--body-bg) !important; /* Lighter background for intro area */
-    border-color: #e9ecef !important;
-}
+        .intro-section {
+            background-color: var(--body-bg) !important;
+            /* Lighter background for intro area */
+            border-color: #e9ecef !important;
+        }
 
-.intro-box {
-    background-color: var(--intro-bg); /* Light aqua background */
-    border: 1px solid var(--intro-border); /* Subtle border */
-    border-radius: 0.75rem; /* Rounded corners */
-    max-width: 1500px; /* Limit width for better readability */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* Soft shadow */
-    transition: transform 0.2s ease-in-out;
-}
+        .intro-box {
+            background-color: var(--intro-bg);
+            /* Light aqua background */
+            border: 1px solid var(--intro-border);
+            /* Subtle border */
+            border-radius: 0.75rem;
+            /* Rounded corners */
+            max-width: 1500px;
+            /* Limit width for better readability */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            /* Soft shadow */
+            transition: transform 0.2s ease-in-out;
+        }
 
-.intro-box:hover {
-    transform: translateY(-2px); /* Slight lift on hover */
-}
+        .intro-box:hover {
+            transform: translateY(-2px);
+            /* Slight lift on hover */
+        }
 
-.intro-box .lead {
-    color: var(--header-color); /* Darker color for the welcome message */
-    font-weight: 600;
-}
+        .intro-box .lead {
+            color: var(--header-color);
+            /* Darker color for the welcome message */
+            font-weight: 600;
+        }
 
         /* Responsive adjustments */
         @media (min-width: 576px) {
@@ -285,7 +297,7 @@
                 transform: translateY(0);
             }
         }
-      
+
 
         /* NEW: Responsive styles for header on small screens */
         @media (max-width: 767px) {
@@ -314,6 +326,133 @@
                 /* Smaller title on mobile */
             }
         }
+
+        /* Custom styles to make Flatpickr blend better with Bootstrap */
+        .flatpickr-calendar {
+            border-radius: 8px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e9ecef;
+        }
+
+        /* Enhanced month and year display */
+        .flatpickr-months {
+            display: flex;
+            /* Ensure controls are aligned */
+            justify-content: space-between;
+            /* Push arrows to ends */
+            align-items: center;
+            background-color: var(--header-color);
+            /* Use navy blue from your header */
+            color: white;
+            padding: 0.5rem 1rem;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+
+        .flatpickr-months .flatpickr-month {
+            flex: 1;
+            /* Allow month/year to take available space */
+            text-align: center;
+            padding: 0;
+            /* Remove default padding */
+        }
+
+        .flatpickr-months .flatpickr-prev-month,
+        .flatpickr-months .flatpickr-next-month {
+            color: white;
+            /* White arrows */
+            padding: 0.5rem;
+            /* Bigger click area */
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+
+        .flatpickr-months .flatpickr-prev-month:hover,
+        .flatpickr-months .flatpickr-next-month:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            /* Subtle hover effect */
+        }
+
+        .flatpickr-current-month .flatpickr-monthDropdown-months,
+        .flatpickr-current-month .numInputWrapper {
+            font-size: 1.1em;
+            /* Slightly larger font for month/year */
+            font-weight: bold;
+            color: white;
+            /* Ensure text is white */
+        }
+
+        /* Style for month and year dropdowns */
+        .flatpickr-current-month .flatpickr-monthDropdown-months,
+        .flatpickr-current-month .numInput.cur-year {
+            appearance: none;
+            /* Remove default select/number input styling */
+            background: transparent;
+            border: none;
+            padding: 0.2rem 0.4rem;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+            color: white;
+            /* Ensure text is white */
+        }
+
+        .flatpickr-current-month .flatpickr-monthDropdown-months:hover,
+        .flatpickr-current-month .numInput.cur-year:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Day names */
+        .flatpickr-weekdaycontainer {
+            background-color: #f8f9fa;
+            /* Light background for weekdays */
+            border-bottom: 1px solid #eee;
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+        }
+
+        .flatpickr-weekday {
+            color: var(--primary-color);
+            /* Primary color for weekday names */
+            font-weight: 600;
+        }
+
+
+        .flatpickr-day.selected,
+        .flatpickr-day.selected:hover,
+        .flatpickr-day.startRange,
+        .flatpickr-day.endRange,
+        .flatpickr-day.startRange:hover,
+        .flatpickr-day.endRange:hover {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
+        }
+
+        .flatpickr-day.today {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+            /* Make today's date also in primary color */
+            font-weight: bold;
+        }
+
+        .flatpickr-day.today:hover {
+            background: rgba(13, 110, 253, 0.1);
+        }
+
+        .flatpickr-day.selected.today {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .pika-title {
+            background-color: #0d6efd;
+        }
+
+        .pika-label {
+            background-color: #0d6efd;
+            color: white;
+        }
     </style>
 </head>
 
@@ -321,36 +460,38 @@
     <div class="container-fluid py-5">
         <div class="container shadow-lg">
             <!-- Header -->
-        <div class="form-header">
-            <div><img src="assets/images/ntcpwc-logo.jpg" alt="Company Logo" class="header-logo"></div>
-            <div class="text-center header-text-block">
-                <h2><i class="fas fa-user-graduate me-2"></i>Internship Registration</h2>
-                <!-- <p class="mb-0 d-none d-md-block">Complete your application in simple steps</p> -->
+            <div class="form-header">
+                <div><img src="assets/images/ntcpwc-logo.jpg" alt="Company Logo" class="header-logo"></div>
+                <div class="text-center header-text-block">
+                    <h2><i class="fas fa-user-graduate me-2"></i>Internship Registration</h2>
+                    <!-- <p class="mb-0 d-none d-md-block">Complete your application in simple steps</p> -->
+                </div>
+                <div></div>
             </div>
-            <div></div>
-        </div>
-        
-         <!-- Enhanced Introduction Text -->
-        <div class="px-3 px-md-5 pt-4 pb-3 bg-white border-bottom intro-section">
-            <div class="intro-box text-center p-3 p-md-4 mb-3 mx-auto">
-                <p class="lead fw-normal mb-2">
-                    <i class="fas fa-info-circle me-2 text-primary"></i>Welcome to the NTCPWC Internship Application!
-                </p>
-                <p class="text-muted small mb-0">
-                    This registration form is for candidates applying for internship opportunities at **NTCPWC, IIT Madras**. The
-                    information collected will be used solely for evaluation and placement of interns in relevant research and
-                    project areas. Please ensure all details are accurate and complete.
-                </p>
+
+            <!-- Enhanced Introduction Text -->
+            <div class="px-3 px-md-5 pt-4 pb-3 bg-white border-bottom intro-section">
+                <div class="intro-box text-center p-3 p-md-4 mb-3 mx-auto">
+                    <p class="lead fw-normal mb-2">
+                        <i class="fas fa-info-circle me-2 text-primary"></i>Welcome to the NTCPWC Internship
+                        Application!
+                    </p>
+                    <p class="text-muted small mb-0">
+                        This registration form is for candidates applying for internship opportunities at **NTCPWC, IIT
+                        Madras**. The
+                        information collected will be used solely for evaluation and placement of interns in relevant
+                        research and
+                        project areas. Please ensure all details are accurate and complete.
+                    </p>
+                </div>
             </div>
-        </div>
-        
-        
-        <!-- Progress Bar -->
-        <div class="px-4 pt-4 mb-3">
-            <div class="progress" style="height: 8px;">
-                <div class="progress-bar bg-success" role="progressbar" style="width: 0%" id="progressBar"></div>
+
+            <!-- Progress Bar -->
+            <div class="px-4 pt-4 mb-3">
+                <div class="progress" style="height: 8px;">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: 0%" id="progressBar"></div>
+                </div>
             </div>
-        </div>
 
             <!-- Step Indicator -->
             <div class="step-indicator">
@@ -384,14 +525,21 @@
                     <div class="row">
                         <div class="col-md-6 mb-4"><label for="fullName" class="form-label required-field">Full
                                 Name</label>
-                            <div class="input-group"><span class="input-group-text"><i class="fas fa-user"></i></span><input type="text" class="form-control" id="fullName" name="fullName" placeholder="Enter your full legal name" required="">
+                            <div class="input-group"><span class="input-group-text"><i
+                                        class="fas fa-user"></i></span><input type="text" class="form-control"
+                                    id="fullName" name="fullName" placeholder="Enter your full legal name" required="">
                             </div>
                             <div class="invalid-feedback"></div>
                         </div>
                         <div class="col-md-6 mb-4"><label for="dob" class="form-label required-field">Date of
                                 Birth</label>
-                            <div class="input-group"><span class="input-group-text"><i class="fas fa-calendar-alt"></i></span><input type="date" class="form-control" id="dob" name="dob" required=""></div>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                                <input type="text" class="form-control" id="dob" name="dob" data-datepicker
+                                    placeholder="Select your date of birth" required>
+                            </div>
                             <div class="invalid-feedback"></div>
+
                         </div>
                         <div class="col-md-6 mb-4">
                             <label for="gender" class="form-label required-field">Gender</label>
@@ -414,35 +562,53 @@
                         </div>
                         <div class="col-md-6 mb-4"><label for="mobile" class="form-label required-field">Mobile
                                 Number</label>
-                            <div class="input-group"><span class="input-group-text"><i class="fas fa-phone"></i></span><input type="tel" class="form-control" id="mobile" name="mobile" placeholder="e.g., 9876543210" required=""></div>
+                            <div class="input-group"><span class="input-group-text"><i
+                                        class="fas fa-phone"></i></span><input type="tel" class="form-control"
+                                    id="mobile" name="mobile" placeholder="e.g., 9876543210" required="" maxlength="10"></div>
                             <div class="invalid-feedback"></div>
                         </div>
                         <div class="col-md-6 mb-4"><label for="location" class="form-label required-field">Current
                                 Location</label>
-                            <div class="input-group"><span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span><input type="text" class="form-control" id="location" name="location" placeholder="City, State" required=""></div>
+                            <div class="input-group"><span class="input-group-text"><i
+                                        class="fas fa-map-marker-alt"></i></span><input type="text" class="form-control"
+                                    id="location" name="location" placeholder="City, State" required=""></div>
                             <div class="invalid-feedback"></div>
                         </div>
                         <div class="col-md-6 mb-4"><label for="email" class="form-label required-field">Personal Email
                                 ID</label>
-                            <div class="input-group"><span class="input-group-text"><i class="fas fa-envelope"></i></span><input type="email" class="form-control" id="email" name="email" placeholder="example@domain.com" required=""></div>
+                            <div class="input-group"><span class="input-group-text"><i
+                                        class="fas fa-envelope"></i></span><input type="email" class="form-control"
+                                    id="email" name="email" placeholder="example@domain.com" required=""></div>
                             <div class="invalid-feedback"></div>
                         </div>
                         <div class="col-12 mb-4"><label for="portfolio" class="form-label">LinkedIn / GitHub / Portfolio
                                 Link</label>
-                            <div class="input-group"><span class="input-group-text"><i class="fas fa-link"></i></span><input type="url" class="form-control" id="portfolio" name="portfolio" placeholder="https://..."></div>
+                            <div class="input-group"><span class="input-group-text"><i
+                                        class="fas fa-link"></i></span><input type="url" class="form-control"
+                                    id="portfolio" name="portfolio" placeholder="https://..."></div>
                             <div class="form-text">Optional: Share any professional profile or portfolio.</div>
                             <div class="invalid-feedback"></div>
                         </div>
-                        <div class="col-md-4 mb-4"><label for="emergencyName" class="form-label required-field">Emergency Contact Name</label>
-                            <div class="input-group"><span class="input-group-text"><i class="fas fa-user-shield"></i></span><input type="text" class="form-control" placeholder="Full name" id="emergencyName" name="emergencyName" required=""></div>
+                        <div class="col-md-4 mb-4"><label for="emergencyName"
+                                class="form-label required-field">Emergency Contact Name</label>
+                            <div class="input-group"><span class="input-group-text"><i
+                                        class="fas fa-user-shield"></i></span><input type="text" class="form-control"
+                                    placeholder="Full name" id="emergencyName" name="emergencyName" required=""></div>
                             <div class="invalid-feedback"></div>
                         </div>
-                        <div class="col-md-4 mb-4"><label for="relationship" class="form-label required-field">Relationship</label>
-                            <div class="input-group"><span class="input-group-text"><i class="fas fa-users"></i></span><input type="text" class="form-control" id="relationship" name="relationship" placeholder="e.g., Parent" required=""></div>
+                        <div class="col-md-4 mb-4"><label for="relationship"
+                                class="form-label required-field">Relationship</label>
+                            <div class="input-group"><span class="input-group-text"><i
+                                        class="fas fa-users"></i></span><input type="text" class="form-control"
+                                    id="relationship" name="relationship" placeholder="e.g., Parent" required=""></div>
                             <div class="invalid-feedback"></div>
                         </div>
-                        <div class="col-md-4 mb-4"><label for="emergencyNumber" class="form-label required-field">Emergency Contact Number</label>
-                            <div class="input-group"><span class="input-group-text"><i class="fas fa-phone-alt"></i></span><input type="tel" class="form-control" placeholder="Contact number" id="emergencyNumber" name="emergencyNumber" required="">
+                        <div class="col-md-4 mb-4"><label for="emergencyNumber"
+                                class="form-label required-field">Emergency Contact Number</label>
+                            <div class="input-group"><span class="input-group-text"><i
+                                        class="fas fa-phone-alt"></i></span><input type="tel" class="form-control"
+                                    placeholder="Contact number" id="emergencyNumber" name="emergencyNumber"
+                                    required="" maxlength="10">
                             </div>
                             <div class="invalid-feedback"></div>
                         </div>
@@ -455,17 +621,22 @@
                     <div class="row">
                         <div class="col-md-6 mb-4"><label for="college" class="form-label required-field">Name of
                                 College / University</label>
-                            <div class="input-group"><span class="input-group-text"><i class="fas fa-university"></i></span><input type="text" class="form-control" id="college" name="college" placeholder="Full official name" required=""></div>
+                            <div class="input-group"><span class="input-group-text"><i
+                                        class="fas fa-university"></i></span><input type="text" class="form-control"
+                                    id="college" name="college" placeholder="Full official name" required=""></div>
                             <div class="invalid-feedback"></div>
                         </div>
                         <div class="col-md-6 mb-4"><label for="degree" class="form-label required-field">Degree Program
                                 &amp; Department</label>
-                            <div class="input-group"><span class="input-group-text"><i class="fas fa-book-open"></i></span><input type="text" class="form-control" id="degree" name="degree" placeholder="e.g., B.Tech in CSE" required=""></div>
+                            <div class="input-group"><span class="input-group-text"><i
+                                        class="fas fa-book-open"></i></span><input type="text" class="form-control"
+                                    id="degree" name="degree" placeholder="e.g., B.Tech in CSE" required=""></div>
                             <div class="invalid-feedback"></div>
                         </div>
                         <div class="col-md-6 mb-4"><label for="curriculum" class="form-label required-field">Is this
                                 internship part of your curriculum?</label>
-                            <div class="input-group"><span class="input-group-text"><i class="fas fa-question-circle"></i></span>
+                            <div class="input-group"><span class="input-group-text"><i
+                                        class="fas fa-question-circle"></i></span>
                                 <select class="form-select" id="curriculum" name="curriculum" required="">
                                     <option value="" selected="" disabled="">Select Option</option>
                                     <option value="yes">Yes</option>
@@ -476,7 +647,10 @@
                         </div>
                         <div class="col-md-6 mb-4"><label for="supervisor" class="form-label">Faculty / Supervisor
                                 Name</label>
-                            <div class="input-group"><span class="input-group-text"><i class="fas fa-chalkboard-teacher"></i></span><input type="text" class="form-control" id="supervisor" name="supervisor" placeholder="Name of supervising faculty"></div>
+                            <div class="input-group"><span class="input-group-text"><i
+                                        class="fas fa-chalkboard-teacher"></i></span><input type="text"
+                                    class="form-control" id="supervisor" name="supervisor"
+                                    placeholder="Name of supervising faculty"></div>
                             <div class="form-text">Optional: Provide if this internship is supervised by faculty.</div>
                         </div>
                     </div>
@@ -486,19 +660,28 @@
                     <h4 class="section-title"><i class="fas fa-calendar-alt me-2"></i>Section 3: Internship Preferences
                     </h4>
                     <div class="row">
-                        <div class="col-md-4 mb-4"><label for="startDate" class="form-label required-field" readonly>Preferred
-                                Start Date</label>
-                            <div class="input-group"><span class="input-group-text"><i class="fas fa-calendar-plus"></i></span><input type="date" class="form-control" id="startDate" name="startDate" required=""></div>
+                        <div class="col-md-4 mb-4">
+                            <label for="startDate" class="form-label required-field">Preferred Start Date</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-calendar-plus"></i></span>
+                                <input type="text" class="form-control" id="startDate" name="startDate" placeholder="Select start date"
+                                    required>
+                            </div>
                             <div class="invalid-feedback"></div>
                         </div>
-                        <div class="col-md-4 mb-4"><label for="endDate" class="form-label required-field">Preferred End
-                                Date</label>
-                            <div class="input-group"><span class="input-group-text"><i class="fas fa-calendar-minus"></i></span><input type="date" class="form-control" id="endDate" name="endDate" required=""></div>
+                        
+                        <div class="col-md-4 mb-4">
+                            <label for="endDate" class="form-label required-field">Preferred End Date</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-calendar-minus"></i></span>
+                                <input type="text" class="form-control" id="endDate" name="endDate" placeholder="Select end date" required>
+                            </div>
                             <div class="invalid-feedback"></div>
                         </div>
                         <div class="col-md-4 mb-4"><label for="mode" class="form-label required-field">Mode of
                                 Internship</label>
-                            <div class="input-group"><span class="input-group-text"><i class="fas fa-laptop-house"></i></span>
+                            <div class="input-group"><span class="input-group-text"><i
+                                        class="fas fa-laptop-house"></i></span>
                                 <select class="form-select" id="mode" name="mode" required="">
                                     <option value="" selected="" disabled="">Select Mode</option>
                                     <option value="online">Online</option>
@@ -516,27 +699,35 @@
                     <div class="row">
                         <div class="col-md-6 mb-4"><label class="form-label required-field">Bonafide / NOC / Self
                                 Declaration</label>
-                            <div class="file-upload"><input type="file" id="bonafide" name="bonafide" accept=".pdf" required=""><label for="bonafide" class="file-upload-label"><i class="fas fa-cloud-upload-alt fa-2x mb-2 text-primary"></i>
+                            <div class="file-upload"><input type="file" id="bonafide" name="bonafide" accept=".pdf"
+                                    required=""><label for="bonafide" class="file-upload-label"><i
+                                        class="fas fa-cloud-upload-alt fa-2x mb-2 text-primary"></i>
                                     <div>Upload PDF (Max 10MB)</div>
                                 </label></div>
                             <div class="invalid-feedback"></div>
                         </div>
                         <div class="col-md-6 mb-4"><label class="form-label required-field">Updated Resume / CV</label>
-                            <div class="file-upload"><input type="file" id="resume" name="resume" accept=".pdf" required=""><label for="resume" class="file-upload-label"><i class="fas fa-cloud-upload-alt fa-2x mb-2 text-primary"></i>
+                            <div class="file-upload"><input type="file" id="resume" name="resume" accept=".pdf"
+                                    required=""><label for="resume" class="file-upload-label"><i
+                                        class="fas fa-cloud-upload-alt fa-2x mb-2 text-primary"></i>
                                     <div>Upload PDF (Max 10MB)</div>
                                 </label></div>
                             <div class="invalid-feedback"></div>
                         </div>
                         <div class="col-md-6 mb-4"><label class="form-label required-field">Recent Passport-size
                                 Photograph</label>
-                            <div class="file-upload"><input type="file" id="photo" name="photo" accept=".jpg,.jpeg,.png" required=""><label for="photo" class="file-upload-label"><i class="fas fa-image fa-2x mb-2 text-primary"></i>
+                            <div class="file-upload"><input type="file" id="photo" name="photo" accept=".jpg,.jpeg,.png"
+                                    required=""><label for="photo" class="file-upload-label"><i
+                                        class="fas fa-image fa-2x mb-2 text-primary"></i>
                                     <div>Upload JPG/PNG (Max 10MB)</div>
                                 </label></div>
                             <div class="invalid-feedback"></div>
                         </div>
                         <div class="col-md-6 mb-4"><label class="form-label required-field">Government-issued ID
                                 Proof</label>
-                            <div class="file-upload"><input type="file" id="idProof" name="idProof" accept=".pdf" required=""><label for="idProof" class="file-upload-label"><i class="fas fa-id-card fa-2x mb-2 text-primary"></i>
+                            <div class="file-upload"><input type="file" id="idProof" name="idProof" accept=".pdf"
+                                    required=""><label for="idProof" class="file-upload-label"><i
+                                        class="fas fa-id-card fa-2x mb-2 text-primary"></i>
                                     <div>Upload PDF (Max 10MB)</div>
                                 </label></div>
                             <div class="invalid-feedback"></div>
@@ -550,7 +741,8 @@
                     <div class="row">
                         <div class="col-12 mb-4"><label for="source" class="form-label required-field">How did you hear
                                 about us?</label>
-                            <div class="input-group"><span class="input-group-text"><i class="fas fa-bullhorn"></i></span>
+                            <div class="input-group"><span class="input-group-text"><i
+                                        class="fas fa-bullhorn"></i></span>
                                 <select class="form-select" id="source" name="source" required="">
                                     <option value="" selected="" disabled="">Select Source</option>
                                     <option value="college">College</option>
@@ -575,10 +767,13 @@
 
                 <!-- Navigation Buttons -->
                 <div class="form-navigation">
-                    <button type="button" class="btn btn-outline-primary" id="prevBtn" onclick="changeStep(-1)" style="display: none;"><i class="fas fa-arrow-left me-2"></i>Previous</button>
+                    <button type="button" class="btn btn-outline-primary" id="prevBtn" onclick="changeStep(-1)"
+                        style="display: none;"><i class="fas fa-arrow-left me-2"></i>Previous</button>
                     <div class="ms-auto">
-                        <button type="button" class="btn btn-primary" id="nextBtn" onclick="changeStep(1)">Next<i class="fas fa-arrow-right ms-2"></i></button>
-                        <button type="submit" class="btn btn-success" id="submitBtn" style="display: none;"><i class="fas fa-paper-plane me-2"></i>Submit Application</button>
+                        <button type="button" class="btn btn-primary" id="nextBtn" onclick="changeStep(1)">Next<i
+                                class="fas fa-arrow-right ms-2"></i></button>
+                        <button type="submit" class="btn btn-success" id="submitBtn" style="display: none;"><i
+                                class="fas fa-paper-plane me-2"></i>Submit Application</button>
                     </div>
                 </div>
             </form>
@@ -587,7 +782,100 @@
     <script src="assets/js/internApplication.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/plugins/monthSelect/monthSelect.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
+    <!-- You might also need its CSS if there's one, check Flatpickr documentation -->
+    <!-- Flatpickr JS -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    
+<!-- Pikaday JS (include once in your page) -->
+<script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
+
+    <script>
+        var picker = new Pikaday({
+            field: document.getElementById('dob'),
+            format: 'YYYY-MM-DD',
+            toString(date, format) {
+                const day = ("0" + date.getDate()).slice(-2);
+                const month = ("0" + (date.getMonth() + 1)).slice(-2);
+                const year = date.getFullYear();
+                return `${year}-${month}-${day}`;
+            },
+            minDate: new Date(1990, 0, 1),
+            maxDate: new Date(),
+            yearRange: [1990, new Date().getFullYear()]
+        });
+    </script>
+    <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Start Date picker
+    const startPicker = new Pikaday({
+      field: document.querySelector('#startDate'),
+      format: 'YYYY-MM-DD',
+      toString(date) {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        return date.toLocaleDateString(undefined, options);
+      },
+      minDate: new Date(), // today
+      maxDate: new Date(new Date().setFullYear(new Date().getFullYear() + 5)),
+      yearRange: [new Date().getFullYear(), new Date().getFullYear() + 5]
+    });
+
+    // End Date picker
+    const endPicker = new Pikaday({
+      field: document.querySelector('#endDate'),
+      format: 'YYYY-MM-DD',
+      toString(date) {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        return date.toLocaleDateString(undefined, options);
+      },
+      minDate: new Date(), // today
+      maxDate: new Date(new Date().setFullYear(new Date().getFullYear() + 5)),
+      yearRange: [new Date().getFullYear(), new Date().getFullYear() + 5]
+    });
+  });
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Start Date picker
+    const startPicker = new Pikaday({
+        field: document.querySelector('#startDate'),
+        format: 'YYYY-MM-DD',
+        toString(date) {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            return date.toLocaleDateString(undefined, options);
+        },
+        minDate: new Date(), // today
+        maxDate: new Date(new Date().setFullYear(new Date().getFullYear() + 5)),
+        yearRange: [new Date().getFullYear(), new Date().getFullYear() + 5],
+        onSelect: function(date) {
+            // When Start Date is selected, update End Date's minDate
+            endPicker.setMinDate(date);
+            // Optional: if End Date is before Start Date, clear End Date
+            if(endPicker.getDate() && endPicker.getDate() < date){
+                endPicker.setDate(null);
+            }
+        }
+    });
+
+    // End Date picker
+    const endPicker = new Pikaday({
+        field: document.querySelector('#endDate'),
+        format: 'YYYY-MM-DD',
+        toString(date) {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            return date.toLocaleDateString(undefined, options);
+        },
+        minDate: startPicker.getDate() || new Date(), // at least today or startDate
+        maxDate: new Date(new Date().setFullYear(new Date().getFullYear() + 5)),
+        yearRange: [new Date().getFullYear(), new Date().getFullYear() + 5]
+    });
+});
+</script>
+
 
 
 </body>
+
 </html>

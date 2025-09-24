@@ -3,13 +3,6 @@
 
 <head>
     <title>Equipment List</title>
-    <!-- HTML5 Shim and Respond.js IE10 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 10]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-      <![endif]-->
-    <!-- Meta -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -29,14 +22,15 @@
     <link rel="stylesheet" href="assets/pages/waves/css/waves.min.css" type="text/css" media="all">
     <!-- themify icon -->
     <link rel="stylesheet" type="text/css" href="assets/icon/themify-icons/themify-icons.css">
+    <link rel="stylesheet" type="text/css" href="assets/icon/themify-icons/themify-icons.css">
     <!-- font-awesome-n -->
     <link rel="stylesheet" type="text/css" href="assets/css/font-awesome-n.min.css">
     <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.min.css">
     <!-- scrollbar.css -->
     <link rel="stylesheet" type="text/css" href="assets/css/jquery.mCustomScrollbar.css">
     <!-- Style.css -->
-    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
-
+    <link rel="stylesheet" type="text/css" href="assets/css/style copy.css">
+<script src="https://kit.fontawesome.com/1799ed0397.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 
 
@@ -49,23 +43,19 @@
             position: absolute;
             z-index: 1000; 
         }
-    </style>
-    <style>
         .addNewRecord{
           all:unset;
           color: white !important;
           padding: 10px 10px !important;
           background: linear-gradient(135deg, #4931d1, #7f86f3);
         }
-      </style>
-      <style>
         .hidden {
           display: none !important;
         }
       </style>
 </head>
 
-<bo>
+<body>
     <!-- Pre-loader start -->
     <div class="theme-loader">
         <div class="loader-track">
@@ -123,242 +113,106 @@
     <div id="pcoded" class="pcoded">
         <div class="pcoded-overlay-box"></div>
         <div class="pcoded-container navbar-wrapper">
-            <nav class="navbar header-navbar pcoded-header">
-                <div class="navbar-wrapper">
-                    <div class="navbar-logo align-items-center">
-                        <a class="mobile-menu waves-effect waves-light" id="mobile-collapse" href="#!">
-                            <i class="ti-menu"></i>
-                        </a>
-                        <div class="mobile-search waves-effect waves-light">
-                            <div class="header-search">
-                                <div class="main-search morphsearch-search">
-                                    <div class="input-group">
-                                        <span class="input-group-prepend search-close"><i
-                                                class="ti-close input-group-text"></i></span>
-                                        <input type="text" class="form-control" placeholder="Enter Keyword">
-                                        <span class="input-group-append search-btn"><i
-                                                class="ti-search input-group-text"></i></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="index.html">
-                            <!-- <img class="img-fluid" src="https://ntcpwc.iitm.ac.in/New/images/ntcpwc-logo.jpg" alt="Theme-Logo" style="height: 50px;" /> -->
-                            <h4 class="d-inline"><span class="text-lowercase">i</span>VTS-FMS</h4>
-                        </a>
-                        <a class="mobile-options waves-effect waves-light">
-                            <i class="ti-more"></i>
-                        </a>
-                    </div>
-                    <div class="navbar-container container-fluid">
-                        <ul class="nav-left">
-                            <li>
-                                <div class="sidebar_toggle"><a href="javascript:void(0)"><i class="ti-menu"></i></a>
-                                </div>
-                            </li>
-                            <li>
-                                <a href="#!" onclick="javascript:toggleFullScreen()" class="waves-effect waves-light">
-                                    <i class="ti-fullscreen"></i>
-                                </a>
-                            </li>
-                        </ul>
-                        <ul class="nav-right">
-                           
-                            <li class="user-profile header-notification">
-                                <a href="#!" class="waves-effect waves-light">
-                                    <!-- <img src="assets/images/avatar-4.jpg" class="img-radius" alt="User-Profile-Image"> -->
-                                    <span id="username">John Doe</span>
-                                    <i class="ti-angle-down"></i>
-                                </a>
-                                <ul class="show-notification profile-notification">
-                                    <li class="waves-effect waves-light">
-                                        <a href="#!">
-                                            <i class="ti-settings"></i> Settings
-                                        </a>
-                                    </li>
-                                    <li class="waves-effect waves-light">
-                                        <a href="user-profile.html">
-                                            <i class="ti-user"></i> Profile
-                                        </a>
-                                    </li>
-                                    <li class="waves-effect waves-light">
-                                        <a href="index.html" id="logout-button">
-                                            <i class="ti-layout-sidebar-left"></i> Logout
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
+          <nav class="navbar header-navbar pcoded-header">
+        <div class="navbar-wrapper">
+          <div class="navbar-logo align-items-center">
+            <a class="mobile-menu waves-effect waves-light" id="mobile-collapse" href="#!">
+              <i class="ti-menu"></i>
+            </a>
+            <div>
+              <a href="index.html">
+                <img class="img-fluid" src="assets/images/Gemini_Generated_Image_ode7ogode7ogode7-removebg-preview.png"
+                  alt="Theme-Logo" style="height: 50px;" />
+                <h4 class="d-inline"><span class="text-lowercase">WorkSphere</h4>
+              </a>
+            </div>
+            <a class="mobile-options waves-effect waves-light">
+              <i class="ti-more"></i>
+            </a>
+          </div>
+          <div class="navbar-container container-fluid">
+            <ul class="nav-left">
+              <li>
+                <div class="sidebar_toggle"><a href="javascript:void(0)"><i class="ti-menu"></i></a></div>
+              </li>
+              <li>
+                <a href="#!" onclick="javascript:toggleFullScreen()" class="waves-effect waves-light">
+                  <i class="ti-fullscreen"></i>
+                </a>
+              </li>
+            </ul>
+            <ul class="nav-right">
+              <li class="user-profile header-notification">
+                <a href="#!" class="waves-effect waves-light">
+                  <span id="username">John Doe</span>
+                  <i class="ti-angle-down"></i>
+                </a>
+                <ul class="show-notification profile-notification">
+                  <li class="waves-effect waves-light">
+                    <a href="user-profile.html">
+                      <i class="fa-solid fa-id-card"></i> Profile
+                    </a>
+                  </li>
+                  <li class="waves-effect waves-light">
+                    <a href="login.html" id="logout-button">
+
+                      <i class="fa-solid fa-right-to-bracket fa-flip-horizontal"></i> Logout
+
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
 
             <div class="pcoded-main-container">
                 <div class="pcoded-wrapper">
-                    <nav class="pcoded-navbar">
-                        <div class="sidebar_toggle"><a href="#"><i class="icon-close icons"></i></a></div>
-                        <div class="pcoded-inner-navbar main-menu">
-                            <div class="">
-                                <div class="main-menu-header">
-                                    <!-- <img class="img-80 img-radius" src="assets/images/avatar-4.jpg" alt="User-Profile-Image">
-                                    <div class="user-details">
-                                        <span id="more-details">John Doe<i class="fa fa-caret-down"></i></span>
-                                    </div> -->
-                                    <img src="assets/images/ntcpwc-logo.jpg" alt="ntcpwc-logo">
-                                </div>
-                                <div class="main-menu-content">
-                                    <ul>
-                                        <li class="more-details">
-                                            <a href="user-profile.html"><i class="ti-user"></i>View Profile</a>
-                                            <a href="#!"><i class="ti-settings"></i>Settings</a>
-                                            <a href="auth-normal-sign-in.html" id="logout"><i
-                                                    class="ti-layout-sidebar-left"></i>Logout</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="p-15 p-b-0">
-                                <form class="form-material">
-                                    <div class="form-group form-primary">
-                                        <input type="text" name="footer-email" class="form-control">
-                                        <span class="form-bar"></span>
-                                        <label class="float-label"><i class="fa fa-search m-r-10"></i>Search</label>
-                                    </div>
-                                </form>
-                            </div>
-                            <div id="sidebar-placeholer"></div>
-                            <!-- <div class="accordion">
-                                <div class="accordion-header">
-                                  <div class="pcoded-navigation-label accordion-toggle waves-effect waves-dark" onclick="toggleAccordion(this)">Project Tracking<i class="fa fa-chevron-down ml-1" id="accordion-icon"></i></div>
-                                </div>
-                                <div class="accordion-content" style="display: none;">
-                                
-                                    <ul class="pcoded-item pcoded-left-item">
-                                        <li>
-                                            <a href="projectTracking.html" class="waves-effect waves-dark">
-                                                <span class="pcoded-micon"><i class="ti-folder"></i><b>D</b></span>
-                                                <span class="pcoded-mtext">Projects</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                </div>
-                            <div class="accordion">
-                                <div class="accordion-header">
-                                  <div class="pcoded-navigation-label accordion-toggle waves-effect waves-dark" onclick="toggleAccordion(this)">Invoices<i class="fa fa-chevron-down ml-1" id="accordion-icon"></i></div>
-                                </div>
-                                <div class="accordion-content" style="display: none;">
-                                
-                                    <ul class="pcoded-item pcoded-left-item">
-                                        <li>
-                                            <a href="o&mInvoices.html" class="waves-effect waves-dark">
-                                                <span class="pcoded-micon"><i class="ti-calendar"></i><b>D</b></span>
-                                                <span class="pcoded-mtext">O&M Invoices</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                          <a href="equipment-invoices.html" class="waves-effect waves-dark">
-                                              <span class="pcoded-micon"><i class="ti-settings"></i><b>D</b></span>
-                                              <span class="pcoded-mtext">Equipment Invoices</span>
-                                              <span class="pcoded-mcaret"></span>
-                                          </a>
-                                      </li>
-                                      <li>
-                                        <a href="invoices.html" class="waves-effect waves-dark">
-                                            <span class="pcoded-micon"><i class="ti-receipt"></i><b>D</b></span>
-                                            <span class="pcoded-mtext">C&H Invoices</span>
-                                            <span class="pcoded-mcaret"></span>
-                                        </a>
-                                    </li>
-                                    </ul>
-                                </div>
-                                </div>
-                                <div class="accordion">
-                                  <div class="accordion-header">
-                                    <div class="pcoded-navigation-label accordion-toggle waves-effect waves-dark" onclick="toggleAccordion(this)">Equipments<i class="fa fa-chevron-up ml-1" id="accordion-icon"></i></div>
-                                  </div>
-                                  <div class="accordion-content" style="display: block;">
-                                    
-                                    <ul class="pcoded-item pcoded-left-item">
-                                        <li>
-                                            <a href="procurementStagesDashboard.html" class="waves-effect waves-dark">
-                                                <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
-                                                <span class="pcoded-mtext">Equipments Dashboard</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                        <li class="active">
-                                            <a href="equipmentlist.html" class="waves-effect waves-dark">
-                                                <span class="pcoded-micon"><i class="ti-receipt"></i><b>D</b></span>
-                                                <span class="pcoded-mtext">Equipment List</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                    </div>
-                                    </div>
-                                    <div class="accordion">
-                                      <div class="accordion-header">
-                                        <div class="pcoded-navigation-label accordion-toggle waves-effect waves-dark" onclick="toggleAccordion(this)">Man Power Management<i class="fa fa-chevron-down ml-1" id="accordion-icon"></i></div>
-                                      </div>
-                                      <div class="accordion-content" style="display: none;">
-                                        <ul class="pcoded-item pcoded-left-item">
-                                          <li>
-                                              <a href="index.html" class="waves-effect waves-dark">
-                                                  <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
-                                                  <span class="pcoded-mtext">Dashboard</span>
-                                                  <span class="pcoded-mcaret"></span>
-                                              </a>
-                                          </li>
-                                          <li>
-                                              <a href="staff-details.html" class="waves-effect waves-dark">
-                                                  <span class="pcoded-micon"><i class="ti-user"></i><b>BC</b></span>
-                                                  <span class="pcoded-mtext">Staff Details</span>
-                                                  <span class="pcoded-mcaret"></span>
-                                              </a>
-                                          </li>
-                                          <li>
-                                              <a href="contract-logs.html" class="waves-effect waves-dark">
-                                                  <span class="pcoded-micon"><i class="ti-notepad"></i><b>BC</b></span>
-                                                  <span class="pcoded-mtext">Contract Logs</span>
-                                                  <span class="pcoded-mcaret"></span>
-                                              </a>
-                                          </li>
-                                      </ul>
-                                      
-                                        </div>
-                                        </div> -->
-                    </nav>
+                  <nav class="pcoded-navbar">
+            <div class="sidebar_toggle"><a href="#"><i class="icon-close icons"></i></a></div>
+            <div class="pcoded-inner-navbar main-menu">
+              <div class="">
+                <div class="main-menu-content">
+                  <ul>
+                    <li class="more-details">
+                      <a href="user-profile.html"><i class="ti-user"></i>View Profile</a>
+                      <!-- <a href="#!"><i class="ti-settings"></i>Settings</a> -->
+                      <a href="login.html"><i class="ti-layout-sidebar-left"></i>Logout</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div id="sidebar-container">
 
+              </div>
 
-
+          </nav>
                     <div class="pcoded-content">
                         <!-- Page-header start -->
-                        <div class="page-header">
-                            <div class="page-block">
-                                <div class="row align-items-center">
-                                    <div class="col-md-8">
-                                        <!-- <img src="assets/images/ntcpwc-logo.jpg" class="img-fluid w-25"
-                                            alt="NTCPWC LOGO"> -->
-                                        <div class="page-header-title">
-                                            <h5 class="m-b-10">Equipment List</h5>
-                                            <p class="m-b-0">Welcome to WorkSphere</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <ul class="breadcrumb">
-                                            <li class="breadcrumb-item">
-                                                <a href="index.html"> <i class="ti-home"></i> </a>
-                                            </li>
-                                            <li class="breadcrumb-item"><a href="#!">Equipment List</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                         <div class="page-header">
+              <div class="page-block">
+                <div class="row align-items-center">
+                  <div class="col-md-8">
+                    <div class="page-title">
+                      <span class="page-title-icon bg-gradient-primary text-white mr-2">
+                        <i class="fa fa-chart-line"></i>
+                      </span>
+                      <h5>Delivery Status</h5>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <ul class="breadcrumb">
+                      <li class="breadcrumb-item">
+                        <a href="index.html"> <i class="fa fa-home"></i> </a>
+                      </li>
+                      <li class="breadcrumb-item"><a href="#!">Delivery Status</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
                         <!-- Page-header end -->
                         <div class="pcoded-inner-content">
                             <div class="main-body">
@@ -368,7 +222,7 @@
                                             <div class="col-sm-12">
                                                 <div class="card">
                                                     <div class="card-header">
-                                                        <h5>Equipment List</h5>
+                                                        <h5>Delivery Status</h5>
                                                     </div>
 
                                                     <div class="card-block">
@@ -382,7 +236,7 @@
                                                                 <div class="modal-content">
                                                                     <!-- Modal Header -->
                                                                     <div class="modal-header">
-                                                                        <h5 class="modal-title" id="addNewModalLabel">
+                                                                        <h5 class="modal-title" id="addNewModalLabel">Equipment Details
                                                                             </h5>
                                                                         <button type="button" class="close"
                                                                             data-dismiss="modal" aria-label="Close">
@@ -392,6 +246,7 @@
 
                                                                     <!-- Modal Body -->
                                                                     <div class="modal-body">
+                                                                        
                                                                         <form id="dynamicForm">
                                                                             <div class="row">
                                                                                 <div class="col-md-6">
@@ -659,8 +514,6 @@
 
         </div>
     </div>
-    <script src="assets/js/roleUtil.js"></script>
-
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
@@ -703,197 +556,9 @@
 <script src="assets/js/equipmentlist.js"></script>
 <script src="assets/js/popup.js"></script>
 <script src="assets/js/script.js"></script>
+<script src="assets/js/roleUtil.js"></script>
+<script src="assets/js/Utils.js"></script>
 
-
-<script>
-$(document).ready(async function () {
-    var table = $('#myTable').DataTable({
-        "paging": true,
-        "pageLength": 50,
-        "lengthMenu": [5, 10, 25, 50, 100],
-        dom: '<"top"l>frtip',
-        buttons: ['excel', 'csv', {
-            extend: 'pdf',
-            text: 'PDF',
-            orientation: 'landscape', 
-            exportOptions: {
-                columns: ':visible',
-                search: 'applied',
-                order: 'applied',
-                page: 'all',
-            }
-        },{
-            extend: 'colvis',
-            hidestart:[ 8],
-            // columns: [8],
-           
-            text: 'Column Visibility',
-        }],
-        
-        "columnDefs": [
-        { "targets": [8], "visible": false } 
-        ]
-    });
-
-
-    
-    table.buttons().container().appendTo($('#exportButtons'));
-
-
-    $('#currentStageFilter').on('change', function () {
-        const selectedStage = $(this).val();
-        table.column(7).search(selectedStage ? '^' + selectedStage + '$' : '', true, false).draw();
-    });
-
-
-    $('#portFilter').on('change', function () {
-        const selectedPort = $(this).val();
-        table.column(1).search(selectedPort ? '^' + selectedPort + '$' : '', true, false).draw();
-    });
-    $('#equipmentCategoryFilter').on('change', function () {
-        const selectedCategory = $(this).val();
-        table.column(2).search(selectedCategory ? '^' + selectedCategory + '$' : '', true, false).draw();
-    });
-
-
-
-
-});
-
-
-
-
-
-function toggleAccordion(button) {
-        const content = button.parentElement.nextElementSibling;
-        content.style.display = (content.style.display === "none" || content.style.display === "") ? "block" : "none";
-
-        const icon = button.querySelector("i");
-        icon.classList.toggle("fa-chevron-down");
-        icon.classList.toggle("fa-chevron-up");
-}
-
-
-$('#logout-button').on('click', function () {
-    sessionStorage.removeItem('token');
-    sessionStorage.removeItem('user');
-    window.location.href = 'login.html';
-});
-</script>
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const assetsCountInput = document.getElementById('assetsCount');
-      const sparesCountInput = document.getElementById('sparesCount');
-      const assetsFieldsContainer = document.getElementById('assetsFields');
-      const sparesFieldsContainer = document.getElementById('sparesFields');
-      const totalCountDisplay = document.getElementById('totalCount');
-    
-      const createFields = (container, count, label) => {
-        
-        if(count<=0){
-            return;
-        }
-
-    container.innerHTML = '';
-
-    const tableWrapper = document.createElement('div');
-    tableWrapper.style.padding = '10px';
-    tableWrapper.style.border = '1px solid #ddd';
-    tableWrapper.style.borderRadius = '5px';
-    tableWrapper.style.margin = '10px auto'; 
-    tableWrapper.style.maxWidth = '100%'; 
-    // tableWrapper.style.backgroundColor = '#f9f9f9';
-
-    const table = document.createElement('table');
-    table.className = 'table table-bordered';
-    table.style.tableLayout = 'fixed';
-    table.style.width = '100%';
-    table.style.margin = '0 auto';
-
-    //header
-    const thead = document.createElement('thead');
-    thead.innerHTML = `
-        <tr style="text-align: center;">
-            <th style="width: 50%; padding: 8px;">${label}</th>
-            <th style="width: 50%; padding: 8px;">Serial No.</th>
-        </tr>
-    `;
-    thead.className='bg-primary text-white'
-    table.appendChild(thead);
-
-    
-    const tbody = document.createElement('tbody');
-    for (let i = 1; i <= count; i++) {
-        const row = document.createElement('tr');
-
-        const td1 = document.createElement('td');
-        td1.style.textAlign = 'center';
-        td1.style.padding = '5px';
-        td1.innerText = `${label} ${i}`;
-        row.appendChild(td1);
-
-        const td2 = document.createElement('td');
-        td2.style.textAlign = 'center';
-        td2.style.padding = '5px';
-
-        const input = document.createElement('input');
-        input.type = "text";
-        input.style.width = '100%';
-        input.style.height = '30px';
-        input.style.textAlign = 'center';
-        input.style.border = '1px solid #ccc';
-        input.placeholder = `Enter ${label} Serial No.`;
-        input.className = 'form-control';
-
-        td2.appendChild(input);
-        row.appendChild(td2);
-
-        tbody.appendChild(row);
-    }
-
-    table.appendChild(tbody);
-    tableWrapper.appendChild(table);
-    container.appendChild(tableWrapper);
-};
-
-
-     
-    
-      assetsCountInput.addEventListener('input', () => {
-        createFields(assetsFieldsContainer, parseInt(assetsCountInput.value) || 0, 'Asset');
-        updateTotal();
-      });
-    
-      sparesCountInput.addEventListener('input', () => {
-        createFields(sparesFieldsContainer, parseInt(sparesCountInput.value) || 0, 'Spare');
-        updateTotal();
-      });
-    
-      const updateTotal = () => {
-        const assetsCount = parseInt(assetsCountInput.value) || 0;
-        const sparesCount = parseInt(sparesCountInput.value) || 0;
-        totalCountDisplay.value = assetsCount + sparesCount;
-      };
-
-
-     const getSerialNumbers = () => {
-        
-        const assetInputs = assetsFieldsContainer.querySelectorAll('input');
-        const spareInputs = sparesFieldsContainer.querySelectorAll('input');
-
-        const assets = Array.from(assetInputs).map(input => input.value.trim()).filter(val => val !== "");
-        const spares = Array.from(spareInputs).map(input => input.value.trim()).filter(val => val !== "");
-
-        return { assets, spares };
-        
-    };
-
-    window.getSerialNumbers=getSerialNumbers;
-
-    });
-    
-    </script>
-    
 </body>
 
 </html>

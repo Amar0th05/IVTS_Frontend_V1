@@ -1,8 +1,3 @@
-document.querySelector('#logout-button').addEventListener('click', () => {
-  sessionStorage.removeItem('user');
-  sessionStorage.removeItem('token');
-  window.location.href = 'login.html';
-});
 
 //Item Details
 const quantityInput = document.getElementById('itemQty');
@@ -690,8 +685,8 @@ function renderData(data, index) {
             <label class="form-label text-dark">Support Document</label>
           <div class="p-2 border rounded bg-light">
               ${data.HasDocument ?
-        `<button class="btn btn-primary btn-sm download-po" onclick="downloadDocument('${'lpc'}')">
-                      <i class="fas fa-file-download me-2"></i> Download PO
+        `<button class="btn btn-primary btn-sm download-po" onclick="downloadDocument('${'lpc'}')" style="background-color:green;">
+                      <i class="fa-solid fa-download"</i> Download PO
                   </button>` :
         '-'}
           </div>
@@ -1019,15 +1014,26 @@ async function addRow(data) {
   }
 
   if (data.IsDocumentAvailable) {
-    data.IsDocumentAvailable = `<div class="bg-facebook rounded p-2" onclick="downloadFile(${data.IndentID})" style="cursor:pointer;"><i class="fa-solid fa-download text-white"></i></div>`;
+    data.IsDocumentAvailable = `<div class="download-btn d-flex justify-content-center align-items-center"
+     onclick="downloadFile(${data.IndentID})">
+  <i class="fa-solid fa-download text-white"></i>
+</div>
+
+`;
   } else {
     data.IsDocumentAvailable = `-`;
   }
 
   let currentStage = data.CurrentStage;
-  let lastRow = `<button class="btn btn-sm view-btn" data-stage="${data.CurrentStage}" data-id="${data.IndentID}" onclick="openFullscreenModal(this)" title="View Details">
-  <i class="ti-eye me-1"></i> View
+  let lastRow = `<button class="btn btn-sm view-btn d-flex align-items-center gap-2"
+        data-stage="${data.CurrentStage}" 
+        data-id="${data.IndentID}" 
+        onclick="openFullscreenModal(this)" 
+        title="View Details">
+  <i class="fa-solid fa-eye"></i>
+  <span>View</span>
 </button>
+
 `;
 
   if (currentStage === 'Reverted Back' && data.userID === user.id) {
@@ -1303,31 +1309,61 @@ $(document).ready(function () {
   const datatable = $('#indentsTable').DataTable({
     dom: 'Bfrtip',
     buttons: [
-      'csv', 'excel', 'pdf', 'colvis'
-    ]
+      {
+        extend: 'csv',
+        text: '<i class="fa-solid fa-file-csv"></i> CSV',
+        className: 'btn-csv'
+      },
+      {
+        extend: 'excel',
+        text: '<i class="fa-solid fa-file-excel"></i> Excel',
+        className: 'btn-excel'
+      },
+      {
+        extend: 'pdf',
+        text: '<i class="fa-solid fa-file-pdf"></i> PDF',
+        className: 'btn-pdf'
+      },
+      {
+        extend: 'colvis',
+        text: '<i class="fa-solid fa-eye"></i> Columns',
+        className: 'btn-colvis'
+      }
+    ],
+    language: {
+      search: "",
+      searchPlaceholder: "Type to search..."
+    },
+    initComplete: function () {
+      // Remove default "Search:" text
+      $('#indentsTable_filter label').contents().filter(function () {
+        return this.nodeType === 3;
+      }).remove();
+
+      // Wrap search input & add search icon
+      $('#indentsTable_filter input').wrap('<div class="search-wrapper"></div>');
+      $('.search-wrapper').prepend('<i class="fa-solid fa-magnifying-glass"></i>');
+    }
   });
 
+  // Move export buttons into custom div
   datatable.buttons().container().appendTo($('#exportButtons'));
 
-  $('#projectNOFilter').on('change', function () {
-    const selectedFilterProject = $(this).val();
-    datatable.column(1).search(selectedFilterProject ? '^' + selectedFilterProject + '$' : '', true, false).draw();
-  });
+  // Dropdown filters logic
+  function addColumnFilter(selectId, colIndex) {
+    $(`#${selectId}`).on('change', function () {
+      const value = $(this).val();
+      datatable.column(colIndex).search(value ? '^' + value + '$' : '', true, false).draw();
+    });
+  }
 
-
-
-  $('#vendorFilter').on('change', function () {
-    const selectedFilterVendor = $(this).val();
-    datatable.column(3).search(selectedFilterVendor ? '^' + selectedFilterVendor + '$' : '', true, false).draw();
-  });
-
-  $('#statusFilter').on('change', function () {
-    const selectedFilterStatus = $(this).val();
-    datatable.column(6).search(selectedFilterStatus ? '^' + selectedFilterStatus + '$' : '', true, false).draw();
-  });
-
-
+  // Hook up filters
+  addColumnFilter("projectNOFilter", 1);
+  addColumnFilter("vendorFilter", 3);
+  addColumnFilter("statusFilter", 6);
 });
+
+
 
 document.querySelector('#addNew').addEventListener('click', function () {
   document.querySelector('#projectIndentModal').classList.remove('d-none');
@@ -3486,75 +3522,6 @@ icsrSubmissionBtn.addEventListener('click', async (event) => {
 });
 
 
-document.addEventListener('DOMContentLoaded', async () => {
-
-  roles = await axiosInstance.get('/roles/role/perms');
-  roles = roles.data.roles;
-  // console.log(roles);
-  window.roles = roles;
-  handlePermission('#username');
-
-
-
-
-  const sidebarContainer = document.getElementById('sidebar-container');
-  if (sidebarContainer) {
-    sidebarContainer.innerHTML = generateSidebar();
-
-
-    const currentPage = window.location.pathname.split('/').pop();
-    // console.log(currentPage);
-    const navLinks = document.querySelectorAll('.pcoded-item a');
-    // console.log(navLinks[0].getAttribute('href')===currentPage);
-    navLinks.forEach(link => {
-      // console.log(link.getAttribute('href'));
-      if (link.getAttribute('href').includes(currentPage)) {
-        link.parentElement.classList.add('active');
-
-
-        const accordionContent = link.closest('.accordion-content');
-        if (accordionContent) {
-          accordionContent.style.display = 'block';
-          const header = accordionContent.previousElementSibling;
-          const icon = header.querySelector('.accordion-icon');
-          if (icon) {
-            icon.classList.remove('fa-chevron-down');
-            icon.classList.add('fa-chevron-up');
-          }
-        }
-      }
-    });
-  }
-
-  // const user=JSON.parse(sessionStorage.getItem('user'));
-  // const token=sessionStorage.getItem('token');
-
-  // if(token===null||user===null){
-  //     window.location.href="login.html";
-  // }
-
-  // if(user.role===2){
-  //     window.location.href="user-details.html";
-  //     return;
-  // }
-
-  // document.getElementById('username').innerText=user.name;
-
-
-
-
-
-
-});
-
-function toggleAccordion(button) {
-  const content = button.parentElement.nextElementSibling;
-  content.style.display = (content.style.display === "none" || content.style.display === "") ? "block" : "none";
-
-  const icon = button.querySelector("i");
-  icon.classList.toggle("fa-chevron-down");
-  icon.classList.toggle("fa-chevron-up");
-}
 
 
 

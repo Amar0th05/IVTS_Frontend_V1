@@ -1,10 +1,3 @@
-
-document.getElementById('logout-button').addEventListener('click',logout);
-function logout(){
-    sessionStorage.removeItem('token');
-}
-
-
 const addStaffButton = document.getElementById('add_staff_btn');
 const updateStaffButton = document.getElementById('update_staff_btn');
 
@@ -202,45 +195,13 @@ document.querySelector('#exitButton2').addEventListener('click', function () {
 // side bar 
 
 document.addEventListener('DOMContentLoaded',async ()=>{
-
-    roles = await axiosInstance.get('/roles/role/perms');
-    roles = roles.data.roles;
-    // console.log(roles);
-    window.roles = roles;
-    handlePermission('#username');
-
-
-    const sidebarContainer = document.getElementById('sidebar-container');
-    if (sidebarContainer) {
-        sidebarContainer.innerHTML = generateSidebar();
-        
-       
-        const currentPage = window.location.pathname.split('/').pop().split('.')[0];
-        const navLinks = document.querySelectorAll('.pcoded-item a');
-        
-        navLinks.forEach(link => {
-            if (link.getAttribute('href').includes(currentPage)) {
-                link.parentElement.classList.add('active');
-                
-            
-                const accordionContent = link.closest('.accordion-content');
-                if (accordionContent) {
-                    accordionContent.style.display = 'block';
-                    const header = accordionContent.previousElementSibling;
-                    const icon = header.querySelector('.accordion-icon');
-                    if (icon) {
-                        icon.classList.remove('fa-chevron-down');
-                        icon.classList.add('fa-chevron-up');
-                    }
-                }
-            }
-        });
-    }
-
-    
+  roles = await axiosInstance.get("/roles/role/perms");
+  roles = roles.data.roles;
+  // console.log(roles);
+  window.roles = roles;
     await fetchAllData();
-    
-    handlePermission('#username');
+
+  handlePermission("#username");
 });
 
 
@@ -248,6 +209,7 @@ document.addEventListener('DOMContentLoaded',async ()=>{
 
 async function toggleStatus(element, id) {
 
+    console.log('Toggle status for ID:', id);
     if(element.classList.contains('editElement')) return;
 
     if (!id) return;
@@ -260,7 +222,7 @@ async function toggleStatus(element, id) {
         }
     } catch (error) {
         showErrorPopupFadeInDown(error);
-    }s
+    }
 }
 
 // fetch all data
@@ -480,6 +442,50 @@ async function fetchDataAndGenerateExcel() {
     }
 }
 
+
+   $(document).ready(function () {
+       const datatable = $('#myTable').DataTable({
+           "paging": true,
+           "pageLength": 25,
+           "lengthMenu": [5, 10, 25, 50, 100],
+           dom: '<"top"l>frtip',
+           buttons: ['excel', 'csv', 'pdf']
+       });
+
+       datatable.buttons().container().appendTo($('#exportButtons'));
+
+
+
+ $('#designationFilter').on('change', function () {
+        const selectedDesignation = $(this).val();
+        datatable.column(0).search(selectedDesignation ? '^' + selectedDesignation + '$' : '', true, false).draw();
+    });
+
+    $('#locationFilter').on('change', function () {
+        const selectedLocation = $(this).val();
+        datatable.column(5).search(selectedLocation ? '^' + selectedLocation + '$' : '', true, false).draw(); 
+    });
+
+   });
+
+
+    
+    $('#filter').on('change', function () {
+        const selectedCategory = $(this).val();
+        if (selectedCategory) {
+            datatable.column(1).search(selectedCategory).draw();
+        } else {
+            datatable.column(1).search('').draw(); 
+        }
+    });
+    document.querySelector('#addNew').addEventListener('click', function () {
+        document.querySelector('#tab').classList.remove('d-none');
+        document.querySelector('#tableCard').style.display = 'none';
+        document.querySelector('#exitButton').addEventListener('click',function(){
+            document.querySelector('#tab').classList.add('d-none');
+            document.querySelector('#tableCard').style.display = 'block';
+        });
+    });
 
 
 
