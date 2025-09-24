@@ -145,7 +145,11 @@ document.querySelector("#exitButton2").addEventListener("click", function () {
 
 // side bar
 
-document.addEventListener("DOMContentLoaded", async () => {
+document.addEventListener("DOMContentLoaded", async () => { 
+  roles = await axiosInstance.get("/roles/role/perms");
+  roles = roles.data.roles;
+  // console.log(roles);
+  window.roles = roles; 
   await fetchAllData();
   handlePermission("#username");
 });

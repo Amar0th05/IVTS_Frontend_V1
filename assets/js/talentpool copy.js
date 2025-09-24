@@ -5,6 +5,10 @@ let decidedPermission = '';
 
 // ================== On DOM Load ==================
 document.addEventListener('DOMContentLoaded',async ()=>{
+    roles = await axiosInstance.get("/roles/role/perms");
+    roles = roles.data.roles;
+    // console.log(roles);
+    window.roles = roles;   
 await fetchAllData();
     handlePermission('#username');
 });
