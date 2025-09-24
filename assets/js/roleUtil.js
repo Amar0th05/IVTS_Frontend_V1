@@ -65,17 +65,20 @@ function getAllowedPages(roleId) {
     }
   }
 
-  const allowedPages = [];
-  for (const module in permissions) {
-    const pages = moduleMaps[module] || [];
-    for (const page of pages) {
-      allowedPages.push({
-        page,
-        permission: permissions[module].permission,
-        module: permissions[module].module,
-      });
+    const allowedPages = [];
+
+   
+    for (const module in permissions) {
+        const pages = moduleMaps[module] || [];
+        for (const page of pages) {
+            allowedPages.push({
+                page: "worksphere/" + page,
+                // page: page,
+                permission: permissions[module].permission,
+                module: permissions[module].module  
+            });
+        }
     }
-  }
 
   return allowedPages;
 }
