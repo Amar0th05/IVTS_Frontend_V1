@@ -1,17 +1,17 @@
 function getbaseurl() {
   const { hostname } = location;
   const environments = {
-    dev: { host: "localhost", baseUrl: "http://localhost:5000" },
-    prod: { host: "ntcpwcit.in", baseUrl: "https://ntcpwcit.in/ivts-fms/api" },
+    dev: { host: "localhost", baseUrl: "http://localhost:5500" },
+    prod: { host: "ntcpwcit.in", baseUrl: "https://ntcpwcit.in/worksphere/api" },
   };
 
   for (let env in environments) {
-    if (environments[env].host == hostname) {
+    if (environments[env].host === hostname) {
       return environments[env].baseUrl;
     }
   }
 
-  return "http://localhost:5000";
+  return "http://localhost:5500";
 }
 
 let currentStep = 1;
@@ -81,10 +81,17 @@ function validateStep(step) {
   return isValid;
 }
 
+let endDate=document.getElementById("endDate");
+
+document.getElementById("startDate").addEventListener("change",()=>{
+  endDate.setAttribute("min", startDate.value);
+})
+
 function validateInput(input) {
   let isValid = true;
   let message = "";
   input.classList.remove("is-invalid", "is-valid");
+
 
   if (input.required && input.value.trim() === "") {
     isValid = false;
