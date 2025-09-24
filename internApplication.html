@@ -564,7 +564,7 @@
                                 Number</label>
                             <div class="input-group"><span class="input-group-text"><i
                                         class="fas fa-phone"></i></span><input type="tel" class="form-control"
-                                    id="mobile" name="mobile" placeholder="e.g., 9876543210" required=""></div>
+                                    id="mobile" name="mobile" placeholder="e.g., 9876543210" required="" maxlength="10"></div>
                             <div class="invalid-feedback"></div>
                         </div>
                         <div class="col-md-6 mb-4"><label for="location" class="form-label required-field">Current
@@ -608,7 +608,7 @@
                             <div class="input-group"><span class="input-group-text"><i
                                         class="fas fa-phone-alt"></i></span><input type="tel" class="form-control"
                                     placeholder="Contact number" id="emergencyNumber" name="emergencyNumber"
-                                    required="">
+                                    required="" maxlength="10">
                             </div>
                             <div class="invalid-feedback"></div>
                         </div>
@@ -779,20 +779,17 @@
             </form>
         </div>
     </div>
-         <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
-
     <script src="assets/js/internApplication.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/plugins/monthSelect/monthSelect.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
-<!-- jQuery (already included above) -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-<!-- jQuery UI (this is missing right now) -->
-<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
-
+    <!-- You might also need its CSS if there's one, check Flatpickr documentation -->
+    <!-- Flatpickr JS -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    
+<!-- Pikaday JS (include once in your page) -->
+<script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
 
     <script>
         var picker = new Pikaday({
@@ -804,54 +801,79 @@
                 const year = date.getFullYear();
                 return `${year}-${month}-${day}`;
             },
-            minDate: new Date(1900, 0, 1),
+            minDate: new Date(1990, 0, 1),
             maxDate: new Date(),
-            yearRange: [1900, new Date().getFullYear()]
+            yearRange: [1990, new Date().getFullYear()]
         });
     </script>
     <script>
-//   document.addEventListener('DOMContentLoaded', function() {
-//     // Start Date picker
-//     const startPicker = new Pikaday({
-//       field: document.querySelector('#startDate'),
-//       format: 'YYYY-MM-DD',
-//       toString(date) {
-//         const options = { year: 'numeric', month: 'long', day: 'numeric' };
-//         return date.toLocaleDateString(undefined, options);
-//       },
-//       minDate: new Date(), // today
-//       maxDate: new Date(new Date().setFullYear(new Date().getFullYear() + 5)),
-//       yearRange: [new Date().getFullYear(), new Date().getFullYear() + 5]
-//     });
-//     console.log(startPicker,"new Date()", new Date());
-//     // End Date picker
-//     const endPicker = new Pikaday({
-//       field: document.querySelector('#endDate'),
-//       format: 'YYYY-MM-DD',
-//       toString(date) {
-//         const options = { year: 'numeric', month: 'long', day: 'numeric' };
-//         return date.toLocaleDateString(undefined, options);
-//       },
-//       minDate: document.getElementById("startDate").value, // today
-//       maxDate: new Date(new Date().setFullYear(new Date().getFullYear() + 5)),
-//       yearRange: [new Date().getFullYear(), new Date().getFullYear() + 5]
-//     });
-//   });
-$(function() {
-  $("#startDate").datepicker({
-    dateFormat: "yy-mm-dd",
-    "minDate": 0, // Disable past dates
-    onSelect: function(selectedDate) {
-      $("#endDate").datepicker("option", "minDate", selectedDate);
-    }
-  });
+  document.addEventListener('DOMContentLoaded', function() {
+    // Start Date picker
+    const startPicker = new Pikaday({
+      field: document.querySelector('#startDate'),
+      format: 'YYYY-MM-DD',
+      toString(date) {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        return date.toLocaleDateString(undefined, options);
+      },
+      minDate: new Date(), // today
+      maxDate: new Date(new Date().setFullYear(new Date().getFullYear() + 5)),
+      yearRange: [new Date().getFullYear(), new Date().getFullYear() + 5]
+    });
 
-  $("#endDate").datepicker({
-    dateFormat: "yy-mm-dd"
+    // End Date picker
+    const endPicker = new Pikaday({
+      field: document.querySelector('#endDate'),
+      format: 'YYYY-MM-DD',
+      toString(date) {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        return date.toLocaleDateString(undefined, options);
+      },
+      minDate: new Date(), // today
+      maxDate: new Date(new Date().setFullYear(new Date().getFullYear() + 5)),
+      yearRange: [new Date().getFullYear(), new Date().getFullYear() + 5]
+    });
   });
-});
-
 </script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Start Date picker
+    const startPicker = new Pikaday({
+        field: document.querySelector('#startDate'),
+        format: 'YYYY-MM-DD',
+        toString(date) {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            return date.toLocaleDateString(undefined, options);
+        },
+        minDate: new Date(), // today
+        maxDate: new Date(new Date().setFullYear(new Date().getFullYear() + 5)),
+        yearRange: [new Date().getFullYear(), new Date().getFullYear() + 5],
+        onSelect: function(date) {
+            // When Start Date is selected, update End Date's minDate
+            endPicker.setMinDate(date);
+            // Optional: if End Date is before Start Date, clear End Date
+            if(endPicker.getDate() && endPicker.getDate() < date){
+                endPicker.setDate(null);
+            }
+        }
+    });
+
+    // End Date picker
+    const endPicker = new Pikaday({
+        field: document.querySelector('#endDate'),
+        format: 'YYYY-MM-DD',
+        toString(date) {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            return date.toLocaleDateString(undefined, options);
+        },
+        minDate: startPicker.getDate() || new Date(), // at least today or startDate
+        maxDate: new Date(new Date().setFullYear(new Date().getFullYear() + 5)),
+        yearRange: [new Date().getFullYear(), new Date().getFullYear() + 5]
+    });
+});
+</script>
+
 
 
 </body>
