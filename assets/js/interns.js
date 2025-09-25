@@ -1,5 +1,15 @@
 
+document.getElementById('logout-button').addEventListener('click',logout);
+function logout(){
+    sessionStorage.removeItem('token');
+}
+
+
 const updateInternButton = document.getElementById('update_intern_btn');
+
+
+
+
 // add staff 
 
 let decidedPermission;
@@ -85,13 +95,46 @@ document.querySelector('#exitButton2').addEventListener('click', function () {
 // side bar 
 
 document.addEventListener('DOMContentLoaded',async ()=>{
-  roles = await axiosInstance.get("/roles/role/perms");
-  roles = roles.data.roles;
-  // console.log(roles);
-  window.roles = roles;
-    await fetchAllData();
 
-  handlePermission("#username");
+    roles = await axiosInstance.get('/roles/role/perms');
+    roles = roles.data.roles;
+    // console.log(roles);
+    window.roles = roles;
+    handlePermission('#username');
+
+
+    const sidebarContainer = document.getElementById('sidebar-container');
+    if (sidebarContainer) {
+        sidebarContainer.innerHTML = generateSidebar();
+        
+       
+        const currentPage = window.location.pathname.split('/').pop().split('.')[0];
+        const navLinks = document.querySelectorAll('.pcoded-item a');
+        
+        navLinks.forEach(link => {
+            if (link.getAttribute('href').includes(currentPage)) {
+                link.parentElement.classList.add('active');
+                
+            
+                const accordionContent = link.closest('.accordion-content');
+                if (accordionContent) {
+                    accordionContent.style.display = 'block';
+                    const header = accordionContent.previousElementSibling;
+                    const icon = header.querySelector('.accordion-icon');
+                    if (icon) {
+                        icon.classList.remove('fa-chevron-down');
+                        icon.classList.add('fa-chevron-up');
+                    }
+                }
+            }
+        });
+    }
+
+    
+
+    await fetchAllData();
+    
+    handlePermission('#username');
 });
 
 
@@ -231,6 +274,8 @@ async function loadInternUpdateDetails(Id) {
         document.getElementById('facultySupervisor1').value = data.FacultySupervisor || '';
         document.getElementById('preferredStartDate1').value = data.PreferredStartDate ? formatDate(data.PreferredStartDate) : '';
         document.getElementById('preferredEndDate1').value = data.PreferredEndDate ? formatDate(data.PreferredEndDate) : '';
+        document.getElementById('StartDate').value = data.StartDate ? formatDate(data.StartDate) : '';
+        document.getElementById('EndDate').value = data.EndDate? formatDate(data.StartDate) : '';
         document.getElementById('internshipMode1').value = data.InternshipMode || '';
         document.getElementById('howHeardAboutUs1').value = data.HowHeardAboutUs || '';
         document.getElementById('submissionDate1').value = data.SubmissionDate ? formatDate(data.SubmissionDate) : '';
@@ -431,7 +476,7 @@ updateInternButton.addEventListener('click', async (e) =>{
             table.clear();
             await fetchAllData();
             handlePermission('#username');
-            showSucessPopupFadeInDownLong(responseData.message );
+            showSucessPopupFadeInDownLong(responseData.message);
         } catch (error) {
             showErrorPopupFadeInDown(error.response?.data?.message || 'Failed to add staff. Please try again later.');
         }
@@ -445,81 +490,4 @@ updateInternButton.addEventListener('click', async (e) =>{
         }a
     });
 })
-
-
-    
-        $(document).ready(function () {
-            const datatable = $('#myTable1').DataTable({
-                "paging": true,
-                "pageLength": 25,
-                "lengthMenu": [5, 10, 25, 50, 100],
-                dom: '<"top"l>frtip',
-                buttons: ['excel', 'csv', 'pdf']
-            });
-
-            datatable.buttons().container().appendTo($('#exportButtons'));
-
-
-
-            $('#designationFilter').on('change', function () {
-                const selectedDesignation = $(this).val();
-                datatable.column(5).search(selectedDesignation ? '^' + selectedDesignation + '$' : '', true, false).draw();
-            });
-
-            $('#locationFilter').on('change', function () {
-                const selectedLocation = $(this).val();
-                datatable.column(2).search(selectedLocation ? '^' + selectedLocation + '$' : '', true, false).draw();
-            });
-
-        });
-
-
-
-        $('#filter').on('change', function () {
-            const selectedCategory = $(this).val();
-            if (selectedCategory) {
-                datatable.column(1).search(selectedCategory).draw();
-            } else {
-                datatable.column(1).search('').draw();
-            }
-        });
-
-        document.querySelector('#addNew').addEventListener('click', function () {
-            document.querySelector('#tab').classList.remove('d-none');
-            document.querySelector('#tableCard').style.display = 'none';
-            document.querySelector('#exitButton').addEventListener('click', function () {
-                document.querySelector('#tab').classList.add('d-none');
-                document.querySelector('#tableCard').style.display = 'block';
-            });
-        });
-
-        // JavaScript to show/hide "Other Gender" input
-        document.getElementById('gender1').addEventListener('change', function () {
-            var otherGenderField = document.getElementById('otherGenderField1');
-            if (this.value === 'other') {
-                otherGenderField.style.display = 'block';
-            } else {
-                otherGenderField.style.display = 'none';
-            }
-        });
-                document.getElementById('gender').addEventListener('change', function () {
-            var otherGenderField = document.getElementById('otherGenderField');
-            if (this.value === 'Other') {
-                otherGenderField.style.display = 'block';
-            } else {
-                otherGenderField.style.display = 'none';
-            }
-        });
-
-        // Set submission date to today's date automatically
-        document.addEventListener('DOMContentLoaded', function () {
-            var today = new Date();
-            var dd = String(today.getDate()).padStart(2, '0');
-            var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-            var yyyy = today.getFullYear();
-
-            today = yyyy + '-' + mm + '-' + dd;
-            document.getElementById('submissionDate').value = today;
-        });
-    
 
