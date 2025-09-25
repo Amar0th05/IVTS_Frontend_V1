@@ -816,7 +816,7 @@
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
         return date.toLocaleDateString(undefined, options);
       },
-      minDate: new Date(), // today
+      
       maxDate: new Date(new Date().setFullYear(new Date().getFullYear() + 5)),
       yearRange: [new Date().getFullYear(), new Date().getFullYear() + 5]
     });
@@ -829,7 +829,7 @@
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
         return date.toLocaleDateString(undefined, options);
       },
-      minDate: new Date(), // today
+     
       maxDate: new Date(new Date().setFullYear(new Date().getFullYear() + 5)),
       yearRange: [new Date().getFullYear(), new Date().getFullYear() + 5]
     });
@@ -846,7 +846,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const options = { year: 'numeric', month: 'long', day: 'numeric' };
             return date.toLocaleDateString(undefined, options);
         },
-        minDate: new Date(), // today
+      
         maxDate: new Date(new Date().setFullYear(new Date().getFullYear() + 5)),
         yearRange: [new Date().getFullYear(), new Date().getFullYear() + 5],
         onSelect: function(date) {
@@ -867,7 +867,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const options = { year: 'numeric', month: 'long', day: 'numeric' };
             return date.toLocaleDateString(undefined, options);
         },
-        minDate: startPicker.getDate() || new Date(), // at least today or startDate
+       
         maxDate: new Date(new Date().setFullYear(new Date().getFullYear() + 5)),
         yearRange: [new Date().getFullYear(), new Date().getFullYear() + 5]
     });
