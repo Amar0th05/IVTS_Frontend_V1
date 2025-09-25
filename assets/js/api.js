@@ -127,6 +127,7 @@ const API_ROUTES = {
   getstaffid: `/Assets/getstaff`,
   //desktop
   addDesktops: `/assets/Desktops/add`,
+ updateDesktops: `/assets/Desktops/update`,
   toggleDesktopsStatus: `/assets/Desktops/status/`,
   //server
   addServer: `/assets/Servers/add`,

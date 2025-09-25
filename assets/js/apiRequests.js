@@ -156,7 +156,7 @@ const api = {
     getAllDesktops: () => fetchData(API_ROUTES.getAllAssets+'/Desktops', "desktops"),
     addDesktops:(data)=>postData(API_ROUTES.addDesktops,{data}),
     toggleDesktopsStatus: (id) => putData(API_ROUTES.toggleDesktopsStatus+`${id}`),
-    updateDesktops: (data) => putData(API_ROUTES.addDesktops, { data }),
+    updateDesktops: (data) => putData(API_ROUTES.updateDesktops, { data }),
 
 //server
     getAllServer: () => fetchData(API_ROUTES.getAllAssets+'/Servers', "servers"),
