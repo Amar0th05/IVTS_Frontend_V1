@@ -33,7 +33,7 @@ const moduleMaps = {
   "PO GENERATED": ["indents"],
   "SRB CREATED": ["indents"],
   "IC & SR SUBMISSION": ["indents"],
-  ASSETS: ["assetsDashboard", "laptops", "desktops", "server"],
+  ASSETS: ["assetsDashboard", "laptops", "desktops", "server","printer"],
 
   // 'USER ROLES': ['roles']
 };
@@ -118,12 +118,26 @@ function getPagePermissions(roleId) {
   return pagePerms;
 }
 
+function getCurrentPage() {
+  const path = window.location.pathname;
+  const filename = path.substring(path.lastIndexOf("/") + 1); // e.g., "index.html"
+  const cleanName = filename.split("?")[0].split("#")[0];     // remove query/hash
+  return cleanName.split(".")[0];                            // "index"
+}
+
+
 function loginRedirect(role) {
   const pages = getAllowedPages(role);
   if (pages.length > 0) {
-    window.location.href = `${pages[0].page}.html`;
+    const firstPage = pages[0].page;
+    const currentPage = getCurrentPage();
+
+    if (currentPage !== firstPage) {
+      window.location.href = `${firstPage}.html`;
+    }
   }
 }
+
 
 function handlePermission(usernameDisplayId) {
   const token = sessionStorage.getItem("token");
@@ -136,18 +150,19 @@ function handlePermission(usernameDisplayId) {
 
   const pages = getAllowedPages(user.role);
   roleId = user.role;
-  const currentPage = window.location.pathname.substring(1).split(".")[0];
+  const currentPage = getCurrentPage();
   const pageObj = pages.find((p) => p.page === currentPage);
 
   if (!pageObj) {
-    window.location.href = `${pages[0].page}.html`;
+    // Redirect only if you're not already at the first allowed page
+    if (currentPage !== pages[0].page) {
+      window.location.href = `${pages[0].page}.html`;
+    }
     return;
   }
 
   if (pageObj.permission === "read") {
-    document
-      .querySelectorAll(".writeElement")
-      .forEach((el) => el.classList.add("hidden"));
+    document.querySelectorAll(".writeElement").forEach((el) => el.classList.add("hidden"));
     document.querySelectorAll(".editElement").forEach((el) => {
       el.disabled = true;
       el.style.backgroundColor = "white";
@@ -156,6 +171,7 @@ function handlePermission(usernameDisplayId) {
 
   document.querySelector(usernameDisplayId).textContent = user.name;
 }
+
 
 function generateSidebar() {
   const roleKey = getRoleKeyById(roleId);
@@ -365,6 +381,8 @@ talentPool: { title: "Talent Pool", icon: "fa-solid fa-user-group" },
     laptops: { title: "Laptops", icon: "fa-solid fa-laptop" }, // laptops
     desktops: { title: "Desktops", icon: "fa-solid fa-desktop" }, // desktops
     server: { title: "Server", icon: "fa-solid fa-server" }, // servers
+    printer: { title: "Printer and Scanners", icon: "fa-solid fa-server" }, // printer
+
   };
   return pageInfoMap[page];
 }
