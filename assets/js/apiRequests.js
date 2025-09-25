@@ -165,6 +165,14 @@ const api = {
     updateServers: (data) => putData(API_ROUTES.updateServers, {data}),
 
 
+// printer
+
+    getAllPrinter: () => fetchData(API_ROUTES.getAllAssets+'/Printer', "printer"),
+    addPrinter:(data)=>postData(API_ROUTES.addPrinter,{data}),
+    // toggleDesktopsStatus: (id) => putData(API_ROUTES.toggleDesktopsStatus+`${id}`),
+    updatePrinter: (data) => putData(API_ROUTES.updatePrinter, { data }),
+
+
     getAllAssets: () => fetchData(API_ROUTES.getAllAssets, "assets"),
     getstaffid: () => fetchData(API_ROUTES.getstaffid, "staffid"),
 

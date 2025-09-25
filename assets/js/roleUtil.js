@@ -355,10 +355,10 @@ talentPool: { title: "Talent Pool", icon: "fa-solid fa-user-group" },
     interns: { title: "Interns", icon: "fa-solid fa-user-graduate" },
     staffs: { title: "Staffs", icon: "fa-solid fa-user-tie" },
     roles: { title: "User Roles", icon: "fa-solid fa-user-tag" },
-    employeeDashboard: {
-      title: "Employee Dashboard",
-      icon: "fa-solid fa-users-rectangle",
-    },
+    // employeeDashboard: {
+    //   title: "Employee Dashboard",
+    //   icon: "fa-solid fa-users-rectangle",
+    // },
 
     // MASTER MANAGEMENT submodules
     clients: { title: "Clients", icon: "fa-solid fa-building" },
@@ -374,14 +374,14 @@ talentPool: { title: "Talent Pool", icon: "fa-solid fa-user-group" },
     },
     organisations: { title: "Organisations", icon: "fa-solid fa-sitemap" },
     stages: { title: "Stages", icon: "fa-solid fa-diagram-project" },
-    assetsDashboard: {
-      title: "Assets Dashboard",
-      icon: "fa-solid fa-table-columns",
-    }, // dashboard overview
+    // assetsDashboard: {
+    //   title: "Assets Dashboard",
+    //   icon: "fa-solid fa-table-columns",
+    // }, 
     laptops: { title: "Laptops", icon: "fa-solid fa-laptop" }, // laptops
-    desktops: { title: "Desktops", icon: "fa-solid fa-desktop" }, // desktops
-    server: { title: "Server", icon: "fa-solid fa-server" }, // servers
-    printer: { title: "Printer and Scanners", icon: "fa-solid fa-server" }, // printer
+    desktops: { title: "Desktops and Monitors", icon: "fa-solid fa-desktop" }, // desktops
+    server: { title: "Server And Storage", icon: "fa-solid fa-server" }, // servers
+    printer: { title: "Printer And Scanners", icon: "fa-solid fa-copy" }, // printer
 
   };
   return pageInfoMap[page];

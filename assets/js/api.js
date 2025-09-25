@@ -133,6 +133,11 @@ const API_ROUTES = {
   addServer: `/assets/Servers/add`,
   toggleServerStatus: `/assets/Servers/status/`,
   updateServers: `/assets/Servers/update`,
+
+    //desktop
+  addPrinter: `/assets/Printer/add`,
+ updatePrinter: `/assets/Printer/update`,
+  togglePrinterStatus: `/assets/Printer/status/`,
 };
 
 window.API_ROUTES = API_ROUTES;

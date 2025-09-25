@@ -28,10 +28,13 @@ addserverButton.addEventListener("click", async (e) => {
       form.reset();
       document.querySelector("#tab").classList.add("d-none");
       document.querySelector("#tableCard").style.display = "block";
+        setTimeout(()=>{
+        window.location.reload();
+      },2000)
     } catch (error) {
       showErrorPopupFadeInDown(
         error.response?.data?.message ||
-          "Failed to add staff. Please try again later."
+          "Failed to add Server. Please try again later."
       );
     }
   }
@@ -53,6 +56,9 @@ updateAssetsButton.addEventListener("click", async (e) => {
       await fetchAllData();
       handlePermission("#username");
       showSucessPopupFadeInDownLong(responseData.message);
+      setTimeout(()=>{
+        window.location.reload();
+      },2000)
     } catch (error) {
       showErrorPopupFadeInDown(
         error.response?.data?.message ||
