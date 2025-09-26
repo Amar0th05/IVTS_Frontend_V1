@@ -109,13 +109,13 @@ const API_ROUTES = {
   talentpool: `/talentpool`,
   getAllTalentpool: `/talentpool/all`,
   getPersonDocumentsMetadata: (id) => `/talentpool/${id}/documents/metadata`,
-  downloadDocument: (personId, docName) =>
+  downloadDocumentTalentPool: (personId, docName) =>
     `/talentpool/${personId}/documents/${docName}`,
-  deleteDocument: (personId, docName) =>
+  deleteDocumentTalentPool: (personId, docName) =>
     `/talentpool/${personId}/documents/${docName}`,
-  uploadDocument: (personId, docName) =>
+  uploadDocumentTalentPool: (personId, docName) =>
     `/talentpool/${personId}/documents/${docName}`,
-  checkID: (id) => `/talentpool/checkID/${id}`,
+  checkIDTalentPool: (id) => `/talentpool/checkID/${id}`,
 
   // Assets
   //laptop
