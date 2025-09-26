@@ -231,6 +231,8 @@ async function loadInternUpdateDetails(Id) {
         document.getElementById('facultySupervisor1').value = data.FacultySupervisor || '';
         document.getElementById('preferredStartDate1').value = data.PreferredStartDate ? formatDate(data.PreferredStartDate) : '';
         document.getElementById('preferredEndDate1').value = data.PreferredEndDate ? formatDate(data.PreferredEndDate) : '';
+        document.getElementById('StartDate').value = data.StartDate ? formatDate(data.StartDate) : '';
+        document.getElementById('EndDate').value = data.EndDate? formatDate(data.StartDate) : '';
         document.getElementById('internshipMode1').value = data.InternshipMode || '';
         document.getElementById('howHeardAboutUs1').value = data.HowHeardAboutUs || '';
         document.getElementById('submissionDate1').value = data.SubmissionDate ? formatDate(data.SubmissionDate) : '';
@@ -431,7 +433,7 @@ updateInternButton.addEventListener('click', async (e) =>{
             table.clear();
             await fetchAllData();
             handlePermission('#username');
-            showSucessPopupFadeInDownLong(responseData.message );
+            showSucessPopupFadeInDownLong(responseData.message);
         } catch (error) {
             showErrorPopupFadeInDown(error.response?.data?.message || 'Failed to add staff. Please try again later.');
         }

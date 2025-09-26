@@ -1,16 +1,16 @@
 
 
-const addLaptopButton = document.getElementById("add_laptop_btn");
-const updateAssetsButton = document.getElementById("update_laptop_btn");
+const addDesktopButton = document.getElementById("add_printer_btn");
+const updateAssetsButton = document.getElementById("update_printer_btn");
 
 
 
 // add staff
-addLaptopButton.addEventListener("click", async (e) => {
+addDesktopButton.addEventListener("click", async (e) => {
   e.preventDefault();
   console.log("Add Laptop Button Clicked");
 
-  let form = document.getElementById("laptop_add_form");
+  let form = document.getElementById("printer_add_form");
   let formData = new FormData(form);
 
   let Data = Object.fromEntries(formData.entries());
@@ -18,7 +18,7 @@ addLaptopButton.addEventListener("click", async (e) => {
   if (validateForm(formData)) {
     try {
       console.log("Submitting Payload...");
-      const response = await api.addLaptops(Data);
+      const response = await api.addPrinter(Data);
       console.log("response",response);
       showSucessPopupFadeInDownLong(response.message || "Updated successfully!");
 
@@ -28,9 +28,10 @@ addLaptopButton.addEventListener("click", async (e) => {
       form.reset();
       document.querySelector("#tab").classList.add("d-none");
       document.querySelector("#tableCard").style.display = "block";
-          setTimeout(()=>{
+    setTimeout(()=>{
         window.location.reload();
       },2000)
+
     } catch (error) {
       showErrorPopupFadeInDown(
         error.response?.data?.message ||
@@ -51,18 +52,18 @@ updateAssetsButton.addEventListener("click", async (e) => {
   if (validateForm(formData)) {
     console.log("enter", formData);
     try {
-      const responseData = await api.updateLaptops(Data);
+      const responseData = await api.updatePrinter(Data);
       table.clear();
       await fetchAllData();
       handlePermission("#username");
       showSucessPopupFadeInDownLong(responseData.message);
-          setTimeout(()=>{
+      setTimeout(()=>{
         window.location.reload();
       },2000)
     } catch (error) {
       showErrorPopupFadeInDown(
         error.response?.data?.message ||
-          "Failed to update staff. Please try again later."
+          "Failed to update Printer. Please try again later."
       );
     }
   }
@@ -112,7 +113,7 @@ function addRow(data) {
       data.category,
       data.vendorName,
       data.userName,
-      data.dept,
+      data.projectNo,
       `<div class="container">
             <div class="toggle-btn ${decidedPermission}  ${
         data.status === true ? "active" : ""
@@ -182,7 +183,7 @@ async function toggleStatus(element, id) {
 // fetch all data
 async function fetchAllData() {
   try {
-    const assets = await api.getAllLaptops();
+    const assets = await api.getAllPrinter();
     console.log("assetsDetails", assets);
 
     assets.forEach((assets) => {
@@ -203,18 +204,13 @@ function limitLength(str, length) {
 }
 
 function validateForm(formData) {
+    console.log("enter");
   let errors = [];
 
   const requiredFields = [
     "userName",
     "Model_No",
     "Serial_No",
-    "Processor_Type",
-    "RAM_GB",
-    "HDD_GB_TB",
-    "Graphics",
-    "OS_Type",
-    "Host_Name",
     "IP_Address",
     "MAC_Address",
     "Project_No",
@@ -224,7 +220,6 @@ function validateForm(formData) {
     "Invoice_No",
     "Invoice_Date",
     "SRB",
-    "Dept",
     "Remarks",
   ];
 
@@ -267,8 +262,9 @@ function validateForm(formData) {
 
 // update staff details
 async function loadUpdateDetails(id) {
+    console.log("id",id);
   try {
-    const response = await axiosInstance.get(API_ROUTES.getAssets(id));
+    const response = await await axiosInstance.get(API_ROUTES.getAssets(id));
     const data = response.data.assets;
 
     console.log("Fetched asset:", data);
@@ -283,24 +279,8 @@ async function loadUpdateDetails(id) {
 
     document.querySelectorAll("#modelNo")[1].value = data.modelNo;
     document.querySelectorAll("#serialNo")[1].value = data.serialNo;
-    document.querySelectorAll("#processorType")[1].value = data.processorType;
-    document.querySelectorAll("#ramGb")[1].value = Number(data.ramGb);
-
-    // Storage: split into value + unit
-    if (data.storage >= 1024) {
-      document.querySelectorAll("#storage")[1].value = data.storage / 1024;
-      document.querySelectorAll("[name='storageUnit']")[1].value = "TB";
-    } else {
-      document.querySelectorAll("#storage")[1].value = data.storage;
-      document.querySelectorAll("[name='storageUnit']")[1].value = "GB";
-    }
-
-    // Other Specs
-    document.querySelectorAll("#graphics")[1].value = data.graphics;
-    document.querySelectorAll("#osType")[1].value = data.osType;
 
     // Networking
-    document.querySelectorAll("#hostName")[1].value = data.hostName;
     document.querySelectorAll("#ipAddress")[1].value = data.ipAddress;
     document.querySelectorAll("#macAddress")[1].value = data.macAddress;
 
@@ -314,7 +294,6 @@ async function loadUpdateDetails(id) {
     document.querySelectorAll("#srb")[1].value = data.srbNo || data.srb;
 
     // Organization Info
-    document.querySelectorAll("#dept")[1].value = data.dept;
     document.querySelectorAll("#remarks")[1].value = data.remarks;
 
   } catch (error) {

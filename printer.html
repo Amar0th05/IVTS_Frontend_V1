@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>desktop Details</title>
+    <title>Printer and Scanners Details</title>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
@@ -236,7 +236,7 @@
                       <span class="page-title-icon bg-gradient-primary text-white mr-2">
                         <i class="fa fa-chart-line"></i>
                       </span>
-                      <h5>desktops</h5>
+                      <h5>Printer and Scanners</h5>
                     </div>
                   </div>
                   <div class="col-md-4">
@@ -244,7 +244,7 @@
                       <li class="breadcrumb-item">
                         <a href="index.html"> <i class="fa fa-home"></i> </a>
                       </li>
-                      <li class="breadcrumb-item"><a href="#!">desktops</a>
+                      <li class="breadcrumb-item"><a href="#!">Printer and Scanners</a>
                       </li>
                     </ul>
                   </div>
@@ -261,7 +261,7 @@
                                             <div class="col-sm-12">
                                                 <div class="card">
                                                     <div class="card-header">
-                                                        <h5>Desktops And Monitors</h5>
+                                                        <h5>Printer and Scanners</h5>
                                                         
                                                         <!-- <div class="card-header-right">
                                                             <ul class="list-unstyled card-option">
@@ -282,14 +282,14 @@
                                                             <div class="d-none" id="tab">
                                                                <div class="tab-content mt-3">
 
-                                                                <!-- desktop -->
+                                                                <!-- Printer and Scanners -->
                                                                 <div class="tab-pane fade show active " id="tab1">
                                                                     <!-- Modal Header -->
                                                                     
                                                         
                                                                     <!-- Modal Body -->
                                                                     <div class="modal-body">
-                                                                        <form id="desktop_add_form">
+                                                                        <form id="printer_add_form">
     <div class="row">
         <!-- User Name -->
         <div class="col-md-6">
@@ -312,67 +312,6 @@
         </div>
     </div>
 
-    <div class="row">
-        <!-- Serial No -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="serialNo">Serial No <span class="text-danger">*</span></label>
-                <input type="text" name="Serial_No" class="form-control form-control-sm"
-                    id="serialNo" placeholder="Enter Serial No" required>
-            </div>
-        </div>
-
-        <!-- Processor Type -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="processorType">Processor Type <span class="text-danger">*</span></label>
-                <input type="text" name="Processor_Type" class="form-control form-control-sm"
-                    id="processorType" placeholder="Enter Processor Type" required>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <!-- RAM (GB) -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="ramGb">RAM (GB) <span class="text-danger">*</span></label>
-                <input type="number" name="RAM_GB" class="form-control form-control-sm"
-                    id="ramGb" placeholder="Enter RAM in GB" min="1" step="1" required>
-            </div>
-        </div>
-
-        <!-- HDD (GB/TB) -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="storage">HDD (GB/TB) <span class="text-danger">*</span></label>
-                <div class="d-flex">
-                    <input type="number" name="HDD_GB_TB"
-                        class="form-control form-control-sm no-radius-end"
-                        id="storage" placeholder="Enter value"
-                        min="1" step="1" required>
-                    <select name="storageUnit"
-                        class="form-select form-select-sm no-radius-start bg-light text-dark"
-                        style="max-width: 90px;" required>
-                        <option value="GB">GB</option>
-                        <option value="TB">TB</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-
-        <!-- OS Type -->
-        <div class="col-md-12">
-            <div class="form-group">
-                <label for="osType">OS Type <span class="text-danger">*</span></label>
-                <input type="text" name="OS_Type" class="form-control form-control-sm"
-                    id="osType" placeholder="Enter Operating System" required>
-            </div>
-        </div>
-    </div>
 
     <hr>
     <!-- Networking Details -->
@@ -473,12 +412,12 @@
             </div>
         </div>
 
-        <!-- Department -->
+                <!-- Serial No -->
         <div class="col-md-6">
             <div class="form-group">
-                <label for="dept">Department <span class="text-danger">*</span></label>
-                <input type="text" name="Dept" class="form-control form-control-sm"
-                    id="dept" placeholder="Enter Department" required>
+                <label for="serialNo">Serial No <span class="text-danger">*</span></label>
+                <input type="text" name="Serial_No" class="form-control form-control-sm"
+                    id="serialNo" placeholder="Enter Serial No" required>
             </div>
         </div>
     </div>
@@ -503,7 +442,7 @@
                                                                     <!-- model Footer -->
                                                                     <div class="modal-footer">
                                                                     <button type="button" class="btn btn-danger" data-dismiss="modal" id="exitButton">Exit</button>
-                                                                    <button type="submit" class="btn btn-success" id="add_desktop_btn" data-dismiss="modal">Submit Desktop</button>
+                                                                    <button type="submit" class="btn btn-success" id="add_printer_btn" data-dismiss="modal">Submit Desktop</button>
                                                                     </div> 
                                                         
                                                                     <!-- Modal Footer -->
@@ -572,6 +511,7 @@
   </div>
 
   <div class="row">
+
     <!-- Serial No -->
     <div class="col-md-6">
       <div class="form-group">
@@ -581,61 +521,6 @@
                placeholder="Enter Serial No" required>
       </div>
     </div>
-
-    <!-- Processor Type -->
-    <div class="col-md-6">
-      <div class="form-group">
-        <label for="processorType">Processor Type <span class="text-danger">*</span></label>
-        <input type="text" name="Processor_Type"
-               class="form-control form-control-sm" id="processorType"
-               placeholder="Enter Processor Type" required>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <!-- RAM -->
-    <div class="col-md-6">
-      <div class="form-group">
-        <label for="ramGb">RAM (GB) <span class="text-danger">*</span></label>
-        <input type="number" name="RAM_GB"
-               class="form-control form-control-sm" id="ramGb"
-               placeholder="Enter RAM in GB" min="1" step="1" required>
-      </div>
-    </div>
-
-    <!-- HDD / Storage -->
-    <div class="col-md-6">
-      <div class="form-group">
-        <label for="storage">HDD (GB/TB) <span class="text-danger">*</span></label>
-        <div class="d-flex">
-          <input type="number" name="HDD_GB_TB"
-                 class="form-control form-control-sm no-radius-end"
-                 id="storage" placeholder="Enter value"
-                 min="1" step="1" required>
-          <select name="storageUnit"
-                  class="form-select form-select-sm no-radius-start bg-light text-dark"
-                  style="max-width: 90px;" required>
-            <option value="GB">GB</option>
-            <option value="TB">TB</option>
-          </select>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-
-    <!-- OS Type -->
-    <div class="col-md-6">
-      <div class="form-group">
-        <label for="osType">OS Type <span class="text-danger">*</span></label>
-        <input type="text" name="OS_Type"
-               class="form-control form-control-sm" id="osType"
-               placeholder="Enter Operating System" required>
-      </div>
-    </div>
-
         <!-- IP Address -->
     <div class="col-md-6">
       <div class="form-group">
@@ -728,7 +613,7 @@
 
   <div class="row">
     <!-- SRB -->
-    <div class="col-md-6">
+    <div class="col-md-12">
       <div class="form-group">
         <label for="srb">SRB <span class="text-danger">*</span></label>
         <input type="text" name="SRB"
@@ -737,15 +622,6 @@
       </div>
     </div>
 
-    <!-- Department -->
-    <div class="col-md-6">
-      <div class="form-group">
-        <label for="dept">Department <span class="text-danger">*</span></label>
-        <input type="text" name="Dept"
-               class="form-control form-control-sm" id="dept"
-               placeholder="Enter Department" required>
-      </div>
-    </div>
   </div>
 
   <div class="row">
@@ -772,7 +648,7 @@
          <!-- Modal Footer -->
          <div class="modal-footer">
              <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal" id="exitButton2">Exit</button>
-             <button type="button" id="update_desktop_btn" class="btn btn-success btn-sm writeElement">Update</button>
+             <button type="button" id="update_printer_btn" class="btn btn-success btn-sm writeElement">Update</button>
          </div>
      
  </div>
@@ -788,7 +664,7 @@
                                                                 class="btn btn-primary addNewRecord writeElement d-flex align-items-center gap-2 px-sm-4 py-sm-2 rounded-pill shadow"
                                                                 data-toggle="modal" data-target="#addNewModal">
                                                                 <i class="ti-plus text-white fs-5"></i>
-                                                                <span class="fw-bold">Add New desktops</span>
+                                                                <span class="fw-bold">Add New Printer and Scanners</span>
                                                             </button>
                                                         </div>
 
@@ -930,7 +806,7 @@
 <script src="assets/js/popup.js"></script>
 <script src="./assets/js/api.js"></script>
 <script src="./assets/js/apiRequests.js"></script>
-<script src="assets/js/desktops.js"></script>
+<script src="assets/js/printer.js"></script>
 <script type="text/javascript" src="assets/js/script.js"></script>
     <script src="assets/js/roleUtil.js"></script>
 <script src="assets/js/Utils.js"></script>

@@ -127,11 +127,17 @@ const API_ROUTES = {
   getstaffid: `/Assets/getstaff`,
   //desktop
   addDesktops: `/assets/Desktops/add`,
+ updateDesktops: `/assets/Desktops/update`,
   toggleDesktopsStatus: `/assets/Desktops/status/`,
   //server
   addServer: `/assets/Servers/add`,
   toggleServerStatus: `/assets/Servers/status/`,
   updateServers: `/assets/Servers/update`,
+
+    //desktop
+  addPrinter: `/assets/Printer/add`,
+ updatePrinter: `/assets/Printer/update`,
+  togglePrinterStatus: `/assets/Printer/status/`,
 };
 
 window.API_ROUTES = API_ROUTES;
