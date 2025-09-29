@@ -64,8 +64,8 @@ function addRow(data){
 `,
         
     ]).draw(false);
-};
 
+};
 // edit btn
 document.querySelector('#myTable1').addEventListener('click', function (event) {
     if (event.target.closest('.edit-btn')) {
@@ -110,29 +110,54 @@ async function toggleStatus(element, id) {
         if (element) {
             element.classList.toggle('active');
         }
+                    await refreshTable();
+
     } catch (error) {
         showErrorPopupFadeInDown(error);
     }
 }
 
+async function refreshTable() {
+    if ($.fn.dataTable.isDataTable('#myTable1')) {
+        table = $('#myTable1').DataTable();
+        table.clear();
+    }
+
+    await fetchAllData();
+}
+
+
 // fetch all data
 async function fetchAllData() {
     try {
-        const intern = await api.getAllIntern();
-        console.log('intern',intern);
+        const interns = await api.getAllIntern();
+        console.log('intern', interns);
 
+        // Clear and populate DataTable if needed
+        if ($.fn.dataTable.isDataTable('#myTable1')) {
+            const table = $('#myTable1').DataTable();
+            table.clear().draw();
+        }
 
-        intern.forEach(e=>{addRow(e)});
+        // Add each intern as a row
+        interns.forEach(e => addRow(e));
 
+        // ✅ Count interns correctly
+        const totalInterns = interns.length;
+        const currentInterns = interns.filter(i => Number(i.status) === 1).length;
+        const completedInterns = interns.filter(i => Number(i.status) === 0).length;
+
+        // ✅ Update the HTML cards
+        document.getElementById("totalInternCount").innerText = totalInterns;
+        document.getElementById("currentInternCount").innerText = currentInterns;
+        document.getElementById("completedInternCount").innerText = completedInterns;
 
         handlePermission('#username');
-        
 
     } catch (error) {
-        console.error("Error fetching staff details:", error);
+        console.error("Error fetching intern details:", error);
     }
 }
-
 
 function limitLength(str, length) {
     if (str.length > length) {

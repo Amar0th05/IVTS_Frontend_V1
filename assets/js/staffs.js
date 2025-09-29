@@ -220,6 +220,7 @@ async function toggleStatus(element, id) {
         if (element) {
             element.classList.toggle('active');
         }
+        await refreshTable();
     } catch (error) {
         showErrorPopupFadeInDown(error);
     }
@@ -229,16 +230,35 @@ async function toggleStatus(element, id) {
 async function fetchAllData() {
     try {
         const staffs = await api.getAllStaff();
-        console.log('staffDetails',staffs);
+        console.log('staffDetails', staffs);
 
-        staffs.forEach(staffs => {
-            addRow(staffs);
+        // clear DataTable before re-adding rows
+        if ($.fn.dataTable.isDataTable('#myTable')) {
+            table = $('#myTable').DataTable();
+            table.clear().draw();
+        }
 
+        // Add rows one by one
+        staffs.forEach(staff => {
+            addRow(staff);
         });
 
+        // ✅ Count staff types
+        const total = staffs.filter(i => Number(i.status) === 1).length;
+        const fullTime = staffs.filter(s => 
+            s.employmentType && s.employmentType.toLowerCase().includes("full-time")
+        ).filter(i => Number(i.status) === 1).length;
+        const partTime = staffs.filter(s => 
+            s.employmentType && s.employmentType.toLowerCase().includes("part-time")
+        ).filter(i => Number(i.status) === 1).length;
+
+
+        // ✅ Update the cards
+        document.getElementById("totalCount").innerText = total;
+        document.getElementById("fullTimeCount").innerText = fullTime;
+        document.getElementById("partTimeCount").innerText = partTime;
+
         handlePermission('#username');
-        
-                        
     } catch (error) {
         console.error("Error fetching staff details:", error);
     }
@@ -253,7 +273,14 @@ function limitLength(str, length) {
 };
 
 
+async function refreshTable() {
+    if ($.fn.dataTable.isDataTable('#myTable')) {
+        table = $('#myTable').DataTable();
+        table.clear();
+    }
 
+    await fetchAllData();
+}
 
 function validateForm(formData) {
     let errors = [];
