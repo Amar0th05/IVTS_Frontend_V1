@@ -149,30 +149,37 @@ function addRow(data){
     }else{
         data.status=false;
     }
+    let statusText = (data.status === true || data.status === "true" || data.status === 1)
+  ? "active"
+  : "inactive";
 
-    table.row.add([
-      data.employeeId,
-      data.staffName,
-      data.designation,
-      data.department,
-      data.contactNumber,
-      data.workLocation,
-        `<div class="container">
-            <div class="toggle-btn ${decidedPermission}  ${data.status===true?'active':''}" onclick="toggleStatus(this,'${data.employeeId}')">
-                <div class="slider"></div>
-            </div>
-        </div>`
-        ,
-        `<div class="row d-flex justify-content-center">
-    <div class="d-flex align-items-center justify-content-center p-0 edit-btn" 
-        style="width: 40px; height: 40px; cursor:pointer" 
-        data-staff-id="${data.employeeId}">
-        <i class="ti-pencil-alt text-inverse" style="font-size: larger;"></i>
+table.row.add([
+  data.employeeId,
+  data.staffName,
+  data.designation,
+  data.department,
+  data.contactNumber,
+  data.workLocation,
+  `
+    <span class="d-none">${statusText}</span> <!-- hidden filter text -->
+    <div class="container">
+      <div class="toggle-btn ${decidedPermission} ${data.status===true?'active':''}" 
+           onclick="toggleStatus(this,'${data.employeeId}')">
+        <div class="slider"></div>
+      </div>
     </div>
-</div>
-`,
-        
-    ]).draw(false);
+  `,
+  `
+    <div class="row d-flex justify-content-center">
+      <div class="d-flex align-items-center justify-content-center p-0 edit-btn" 
+           style="width: 40px; height: 40px; cursor:pointer" 
+           data-staff-id="${data.employeeId}">
+        <i class="ti-pencil-alt text-inverse" style="font-size: larger;"></i>
+      </div>
+    </div>
+  `,
+]).draw(false);
+
 };
 
 // edit btn
@@ -443,41 +450,86 @@ async function fetchDataAndGenerateExcel() {
 }
 
 
-   $(document).ready(function () {
-       const datatable = $('#myTable').DataTable({
-           "paging": true,
-           "pageLength": 25,
-           "lengthMenu": [5, 10, 25, 50, 100],
-           dom: '<"top"l>frtip',
-           buttons: ['excel', 'csv', 'pdf']
-       });
 
-       datatable.buttons().container().appendTo($('#exportButtons'));
+$(document).ready(function () {
+    const datatable = $('#myTable').DataTable({
+        paging: true,
+        pageLength: 25,
+        lengthMenu: [5, 10, 25, 50, 100],
+        dom: '<"top"l>frtip',
+        buttons: ['excel', 'csv', 'pdf'],
 
-
-
- $('#designationFilter').on('change', function () {
-        const selectedDesignation = $(this).val();
-        datatable.column(0).search(selectedDesignation ? '^' + selectedDesignation + '$' : '', true, false).draw();
+        columnDefs: [
+            {
+                targets: 6, // status column index
+                render: function (data, type, row) {
+                    if (type === 'filter' || type === 'search' || type === 'sort') {
+                        // Only return plain text ("active"/"inactive")
+                        return $(data).text().trim();
+                    }
+                    return data; // for display/export keep original HTML
+                }
+            }
+        ]
     });
 
+    // show raw column data (the HTML strings you added)
+console.log( datatable.column(6).data().toArray() );
+
+// show the actual table header indexes so you don't have the wrong column index
+$('#myTable thead th').each(function(i){ console.log(i, $(this).text().trim()); });
+
+    datatable.buttons().container().appendTo($('#exportButtons'));
+
+    // Status filter
+    $('#statusFilter').on('change', function () {
+        const selectedStatus = $(this).val();
+        datatable.column(6).search(
+            selectedStatus ? '^' + selectedStatus + '$' : '',
+            true,
+            false
+        ).draw();
+    });
+});
+
+
+    // Designation filter
+    $('#designationFilter').on('change', function () {
+        const selectedDesignation = $(this).val();
+        datatable.column(0).search(
+            selectedDesignation ? '^' + selectedDesignation + '$' : '',
+            true,
+            false
+        ).draw();
+    });
+
+    // Location filter
     $('#locationFilter').on('change', function () {
         const selectedLocation = $(this).val();
-        datatable.column(5).search(selectedLocation ? '^' + selectedLocation + '$' : '', true, false).draw(); 
+        datatable.column(5).search(
+            selectedLocation ? '^' + selectedLocation + '$' : '',
+            true,
+            false
+        ).draw();
     });
 
-   });
+    $('#statusFilter').on('change', function () {
+    const selectedStatus = $(this).val();
+    datatable.column(6).search(
+        selectedStatus ? '^' + selectedStatus + '$' : '',
+        true,
+        false
+    ).draw();
 
-
-    
+    // Category filter (this was outside, now inside)
     $('#filter').on('change', function () {
         const selectedCategory = $(this).val();
-        if (selectedCategory) {
-            datatable.column(1).search(selectedCategory).draw();
-        } else {
-            datatable.column(1).search('').draw(); 
-        }
+        datatable.column(1).search(
+            selectedCategory ? selectedCategory : ''
+        ).draw();
     });
+});
+
     document.querySelector('#addNew').addEventListener('click', function () {
         document.querySelector('#tab').classList.remove('d-none');
         document.querySelector('#tableCard').style.display = 'none';
