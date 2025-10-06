@@ -470,41 +470,66 @@ async function fetchDataAndGenerateExcel() {
 }
 
 
-   $(document).ready(function () {
-       const datatable = $('#myTable').DataTable({
-           "paging": true,
-           "pageLength": 25,
-           "lengthMenu": [5, 10, 25, 50, 100],
-           dom: '<"top"l>frtip',
-           buttons: ['excel', 'csv', 'pdf']
-       });
+$(document).ready(function () {
+  const datatable = $('#myTable').DataTable({
+    paging: true,
+  pageLength: 25,
+  lengthMenu: [5, 10, 25, 50, 100],
+  dom: '<"top"lBf>rt<"bottom"ip><"clear">',
+    // dom: 'Bfrtip',
+    buttons: [
+      {
+        extend: 'excel',
+        text: '<i class="fa-solid fa-file-excel"></i> Excel',
+        className: 'btn-excel'
+      },
+      {
+        extend: 'pdf',
+        text: '<i class="fa-solid fa-file-pdf"></i> PDF',
+        className: 'btn-pdf'
+      },
+      {
+        extend: 'colvis',
+        text: '<i class="fa-solid fa-eye"></i> Columns',
+        className: 'btn-colvis'
+      }
+    ],
+    language: {
+      search: "",
+      searchPlaceholder: "Type to search...",
+    paginate: { first: "«", last: "»", next: "›", previous: "‹" }
 
-       datatable.buttons().container().appendTo($('#exportButtons'));
+    },
+    initComplete: function () {
+      // Remove default "Search:" text
+      $('#myTable').contents().filter(function () {
+        return this.nodeType === 3;
+      }).remove();
 
+      // Wrap search input & add search icon
+      $('#myTable_filter input').wrap('<div class="search-wrapper"></div>');
+      $('.search-wrapper').prepend('<i class="fa-solid fa-magnifying-glass"></i>');
+    }
+  });
 
+  // Move export buttons into custom div
+  datatable.buttons().container().appendTo($('#exportButtons'));
 
- $('#designationFilter').on('change', function () {
-        const selectedDesignation = $(this).val();
-        datatable.column(0).search(selectedDesignation ? '^' + selectedDesignation + '$' : '', true, false).draw();
+  // Dropdown filters logic
+  function addColumnFilter(selectId, colIndex) {
+    $(`#${selectId}`).on('change', function () {
+      const value = $(this).val();
+      datatable.column(colIndex).search(value ? '^' + value + '$' : '', true, false).draw();
     });
+  }
 
-    $('#locationFilter').on('change', function () {
-        const selectedLocation = $(this).val();
-        datatable.column(5).search(selectedLocation ? '^' + selectedLocation + '$' : '', true, false).draw(); 
-    });
+  // Hook up filters
+  addColumnFilter("locationFilter",0);
+  addColumnFilter("designationFilter",6);
+  addColumnFilter("statusFilter",5);
+});
 
-   });
 
-
-    
-    $('#filter').on('change', function () {
-        const selectedCategory = $(this).val();
-        if (selectedCategory) {
-            datatable.column(1).search(selectedCategory).draw();
-        } else {
-            datatable.column(1).search('').draw(); 
-        }
-    });
     document.querySelector('#addNew').addEventListener('click', function () {
         document.querySelector('#tab').classList.remove('d-none');
         document.querySelector('#tableCard').style.display = 'none';

@@ -45,12 +45,60 @@
     .hidden {
       display: none !important;
     }
-    .addNewRecord{
+    .btn-excel {
+      background-color: #28a745 !important;
+    }
+
+    .btn-excel:hover {
+      background-color: #1e7e34 !important;
+    }
+
+    .btn-pdf {
+      background-color: #dc3545 !important;
+    }
+
+    .btn-pdf:hover {
+      background-color: #a71d2a !important;
+    }
+
+    .btn-green {
+      background: linear-gradient(to bottom right, #34D399, #059669);
+      border: none;
+      color: white;
+
+    }
+
+    .btn-red {
+      background: linear-gradient(to bottom right, #EF4444, #B91C1C);
+      border: none;
+      color: white;
+    }
+
+    .btn-red:hover {
+      background: linear-gradient(to bottom right, #dc3545, #a71d2a);
+    }
+
+    .btn-green:hover {
+      background: linear-gradient(to bottom right, #28a745, #1e7e34);
+
+    }
+
+    /* input[type="file"].form-control {
+  padding: 6px;
+} */
+    .row>[class*="col-"] {
+      margin-bottom: 15px;
+      /* space between rows */
+    }
+    .modal-header{
+        background:linear-gradient(to bottom right, #69A1FF, #1E3FA0);
+    }
+    /* .addNewRecord{
       all:unset;
       color: white !important;
       padding: 10px 10px !important;
       background: linear-gradient(135deg, #4931d1, #7f86f3);
-    }
+    } */
   </style>
 
 </head>
@@ -212,7 +260,7 @@
                       <li class="breadcrumb-item">
                         <a href="index.html"> <i class="fa fa-home"></i> </a>
                       </li>
-                      <li class="breadcrumb-item"><a href="#!">Talentpool</a>
+                      <li class="breadcrumb-item"><a href="talentPool.html">Talentpool</a>
                       </li>
                     </ul>
                   </div>
@@ -227,289 +275,320 @@
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <div class="card">
-                                                    <div class="card-header">
+                                                    <!-- <div class="card-header">
                                                         <h5>Talent Pool Details</h5>
-                                                    </div>
+                                                    </div> -->
                                                     <div class="card-block">
                                                        
  <!-----------------------------------------------ADD-NEW-MODAl-START--------------------------------------------------------------------->
                                                       
-                                                 <div>
-    <div class="d-none" id="tab">
-        <div class="nav nav-tabs md-tabs" id="myTab" role="tablist">
-            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab1" type="button">Basic Details</button>
-            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab3" type="button">Document Upload</button>
+                                                <div>
+    <!-- Tabs Header -->
+  <div class="d-none" id="tab">
+  <!-- Tabs Header -->
+  <div class="nav nav-tabs md-tabs border-bottom-0" id="myTab" role="tablist">
+    <button class="nav-link active fw-semibold px-4 py-2" data-bs-toggle="tab"
+      data-bs-target="#tab1" type="button">
+      <i class="fa-solid fa-user me-2"></i> Basic Details
+    </button>
+    <button class="nav-link fw-semibold px-4 py-2" data-bs-toggle="tab"
+      data-bs-target="#tab3" type="button">
+      <i class="fa-solid fa-file-arrow-up me-2"></i> Document Upload
+    </button>
+  </div>
+
+    <!-- Tab Content -->
+    <div class="tab-content mt-4">
+
+      <!-- TAB 1: Basic Details -->
+      <div class="tab-pane fade show active" id="tab1">
+        <div class="modal-body">
+          <form id="new-person-form">
+
+            <div class="card border-0 shadow-sm mb-3">
+              <div class="card-body">
+                <h6 class="text-secondary mb-3"><i class="fa-solid fa-id-card me-2"></i> Personal Information</h6>
+
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="personID" class="form-label fw-semibold">Person ID <span class="text-danger">*</span></label>
+                    <input type="text" name="personID" maxlength="20" class="form-control form-control-sm" id="personID"
+                      placeholder="Enter Person ID" required>
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="personName" class="form-label fw-semibold">Person Name <span class="text-danger">*</span></label>
+                    <input type="text" name="personName" maxlength="25" class="form-control form-control-sm" id="personName"
+                      placeholder="Enter Person Name" required>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="dateOfBirth" class="form-label fw-semibold">Date of Birth <span class="text-danger">*</span></label>
+                    <input type="date" name="dateOfBirth" class="form-control form-control-sm" id="dateOfBirth" required>
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="aadharNumber" class="form-label fw-semibold">Aadhaar Number <span class="text-danger">*</span></label>
+                    <input type="tel" name="aadharNumber" maxlength="12" class="form-control form-control-sm" id="aadharNumber"
+                      placeholder="Enter Aadhaar Number" required>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="contactNumber" class="form-label fw-semibold">Contact Number <span class="text-danger">*</span></label>
+                    <input type="tel" maxlength="10" name="contactNumber" class="form-control form-control-sm" id="contactNumber"
+                      placeholder="Enter Contact Number" required>
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="email" class="form-label fw-semibold">Email ID <span class="text-danger">*</span></label>
+                    <input type="email" name="mail" class="form-control form-control-sm" id="email" placeholder="Enter Email ID" required>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <label for="permanentAddress" class="form-label fw-semibold">Permanent Address</label>
+                    <textarea class="form-control form-control-sm" id="permanentAddress" maxlength="255"
+                      name="permanentAddress" rows="2" placeholder="Enter Permanent Address"></textarea>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </form>
         </div>
 
-        <div class="tab-content mt-3">
-
-            <!-- Tab 1: Basic Details -->
-            <div class="tab-pane fade show active" id="tab1">
-                <div class="modal-body">
-                    <form id="new-person-form">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="personID">Person ID<span class="text-danger">*</span></label>
-                                    <input type="text" name="personID" maxlength="20" class="form-control form-control-sm" id="personID"
-                                        placeholder="Enter person ID" required>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="personName">Person Name<span class="text-danger">*</span></label>
-                                    <input type="text" name="personName" maxlength="25" class="form-control form-control-sm" id="personName"
-                                        placeholder="Enter person Name" required>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="dateOfBirth">Date of Birth<span class="text-danger">*</span></label>
-                                    <input type="date" name="dateOfBirth" class="form-control form-control-sm" id="dateOfBirth" required>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="aadharNumber">Aadhaar Number<span class="text-danger">*</span></label>
-                                    <input type="tel" name="aadharNumber" class="form-control form-control-sm" id="aadharNumber"
-                                        placeholder="Aadhaar Number" maxlength="12" required>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="contactNumber">Contact Number<span class="text-danger">*</span></label>
-                                    <input type="tel" maxlength="10" name="contactNumber" class="form-control form-control-sm" id="contactNumber"
-                                        placeholder="Enter Contact Number" required>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="emailId">Email ID<span class="text-danger">*</span></label>
-                                    <input type="email" name="mail" class="form-control form-control-sm" id="email"
-                                        placeholder="Enter Email ID" required>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="permanentAddress">Permanent Address</label>
-                                    <textarea class="form-control form-control-sm" id="permanentAddress" maxlength="255"
-                                        name="permanentAddress" rows="2" placeholder="Enter Permanent Address"></textarea>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <!-- Footer for Basic Details -->
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal" id="exitButton">Exit</button>
-                    <button type="button" class="btn btn-success next-btn">Next</button>
-                </div>
-            </div>
-
-            <!-- Tab 2: Document Upload -->
-            <div class="tab-pane fade" id="tab3">
-                <div class="modal-body">
-                    <form id="new-Document-form" class="needs-validation" novalidate>
-                        <div class="row">
-                            <div class="col-md-6 mb-4">
-                                <label for="aadhaarFile" class="form-label fw-semibold">Aadhaar <span class="text-danger">*</span></label>
-                                <div class="d-flex align-items-center border border-secondary rounded overflow-hidden">
-                                    <input type="file" name="aadhaarFile" class="form-control border-0" id="aadhaarFile" required>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6 mb-4">
-                                <label for="resumeFile" class="form-label fw-semibold">Resume <span class="text-danger">*</span></label>
-                                <div class="d-flex align-items-center border border-secondary rounded overflow-hidden">
-                                    <input type="file" name="resumeFile" class="form-control border-0" id="resumeFile" required>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6 mb-4">
-                                <label for="panFile" class="form-label fw-semibold">PAN <span class="text-danger">*</span></label>
-                                <div class="d-flex align-items-center border border-secondary rounded overflow-hidden">
-                                    <input type="file" name="panFile" class="form-control border-0" id="panFile" required>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6 mb-4">
-                                <label for="certFile" class="form-label fw-semibold">Academic Certificate <span class="text-danger">*</span></label>
-                                <div class="d-flex align-items-center border border-secondary rounded overflow-hidden">
-                                    <input type="file" name="academicFile" class="form-control border-0" id="certFile" required>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6 mb-4">
-                                <label for="idCardFile" class="form-label fw-semibold">ID Card <span class="text-danger">*</span></label>
-                                <div class="d-flex align-items-center border border-secondary rounded overflow-hidden">
-                                    <input type="file" name="idCardFile" class="form-control border-0" id="idCardFile" required>
-                                </div>
-                            </div>
-
-                            <div class="col-md-12"><hr></div>
-
-                            <div class="col-md-6 mb-4">
-                                <label for="certFile10" class="form-label fw-semibold">10th Certificate</label>
-                                <div class="d-flex align-items-center border border-secondary rounded overflow-hidden">
-                                    <input type="file" name="certFile10" class="form-control border-0" id="certFile10">
-                                </div>
-                            </div>
-
-                            <div class="col-md-6 mb-4">
-                                <label for="certFile12" class="form-label fw-semibold">12th Certificate</label>
-                                <div class="d-flex align-items-center border border-secondary rounded overflow-hidden">
-                                    <input type="file" name="certFile12" class="form-control border-0" id="certFile12">
-                                </div>
-                            </div>
-
-                            <div class="col-md-6 mb-4">
-                                <label for="certFileGMDSS" class="form-label fw-semibold">GMDSS Certificate</label>
-                                <div class="d-flex align-items-center border border-secondary rounded overflow-hidden">
-                                    <input type="file" name="certFileGMDSS" class="form-control border-0" id="certFileGMDSS">
-                                </div>
-                            </div>
-
-                            <div class="col-md-6 mb-4">
-                                <label for="certFileIALA" class="form-label fw-semibold">IALA Certificate</label>
-                                <div class="d-flex align-items-center border border-secondary rounded overflow-hidden">
-                                    <input type="file" name="certFileIALA" class="form-control border-0" id="certFileIALA">
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <!-- Footer for Document Upload -->
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary prev-btn">Previous</button>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal" id="exitButton1">Exit</button>
-                    <button type="submit" class="btn btn-success sub-btn" id="add_person_btn">Submit</button>
-                </div>
-            </div>
+        <!-- Footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-red btn-sm" data-bs-dismiss="modal" id="exitButton">
+            <i class="fa-solid fa-xmark me-1"></i> Exit
+          </button>
+          <button type="button" class="btn btn-green btn-sm next-btn">
+            <i class="fa-solid fa-arrow-right me-1"></i> Next
+          </button>
         </div>
+      </div>
+
+      <!-- TAB 2: Document Upload -->
+      <div class="tab-pane fade" id="tab3">
+        <div class="modal-body">
+          <form id="new-Document-form" class="needs-validation" novalidate>
+            <div class="card border-0 shadow-sm mb-3">
+              <div class="card-body">
+                <h6 class="text-secondary mb-3"><i class="fa-solid fa-file-lines me-2"></i> Required Documents</h6>
+
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="aadhaarFile" class="form-label fw-semibold">Aadhaar <span class="text-danger">*</span></label>
+                    <input type="file" name="aadhaarFile" class="form-control form-control-sm" id="aadhaarFile" required>
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="resumeFile" class="form-label fw-semibold">Resume <span class="text-danger">*</span></label>
+                    <input type="file" name="resumeFile" class="form-control form-control-sm" id="resumeFile" required>
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="panFile" class="form-label fw-semibold">PAN <span class="text-danger">*</span></label>
+                    <input type="file" name="panFile" class="form-control form-control-sm" id="panFile" required>
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="certFile" class="form-label fw-semibold">Academic Certificate <span class="text-danger">*</span></label>
+                    <input type="file" name="academicFile" class="form-control form-control-sm" id="certFile" required>
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="idCardFile" class="form-label fw-semibold">ID Card <span class="text-danger">*</span></label>
+                    <input type="file" name="idCardFile" class="form-control form-control-sm" id="idCardFile" required>
+                  </div>
+                </div>
+
+                <hr>
+
+                <h6 class="text-secondary mb-3"><i class="fa-solid fa-graduation-cap me-2"></i> Additional Certificates</h6>
+
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="certFile10" class="form-label fw-semibold">10th Certificate</label>
+                    <input type="file" name="certFile10" class="form-control form-control-sm" id="certFile10">
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="certFile12" class="form-label fw-semibold">12th Certificate</label>
+                    <input type="file" name="certFile12" class="form-control form-control-sm" id="certFile12">
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="certFileGMDSS" class="form-label fw-semibold">GMDSS Certificate</label>
+                    <input type="file" name="certFileGMDSS" class="form-control form-control-sm" id="certFileGMDSS">
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="certFileIALA" class="form-label fw-semibold">IALA Certificate</label>
+                    <input type="file" name="certFileIALA" class="form-control form-control-sm" id="certFileIALA">
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <!-- Footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-sm prev-btn">
+            <i class="fa-solid fa-arrow-left me-1"></i> Previous
+          </button>
+          <button type="button" class="btn btn-red btn-sm" data-bs-dismiss="modal" id="exitButton1">
+            <i class="fa-solid fa-xmark me-1"></i> Exit
+          </button>
+          <button type="submit" class="btn btn-green btn-sm sub-btn" id="add_person_btn">
+            <i class="fa-solid fa-check me-1"></i> Submit
+          </button>
+        </div>
+      </div>
+
     </div>
+  </div>
 </div>
+
 <!---------------------------------------------------------------------------------------------ADD-NEW-MODAL-END---------------------------------------------------->
  <!-----------------------------------------------UPDATE-MODAl-START--------------------------------------------------------------------->
                                                       
  <div>
- <div class="d-none" id="tabWrapper">
-        <div class="nav nav-tabs md-tabs" id="myTab1" role="tablist">
-            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab4" type="button">Basic Details</button>
-            <!-- <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab5" type="button">Insurance Details</button> -->
-            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab6" type="button">Document Update</button>
+  <div class="d-none" id="tabWrapper">
 
-        </div>
-        <div class="tab-content mt-3">
-            <div class="tab-pane fade show active " id="tab4">
-             <!-- Modal Body -->
-             <div class="modal-body">
-                 <form id="update-person-form">
-                     <div class="row">
-                         <!-- Left Column -->
-                         <div class="col-md-6">
-                             <!-- person ID -->
-                             <div class="form-group">
-                                 <label for="update-personID">Person ID</label>
-                                 <input type="text" name="personID" class="form-control form-control-sm editElement" id="update-personID" maxlength="20"
-                                     placeholder="Enter person ID"readonly>
-                             </div>
-                         </div>
-                         <div class="col-md-6">
-                             <!-- person Name -->
-                             <div class="form-group">
-                                 <label for="update-personName">Person Name <span class="text-danger">*</span></label>
-                                 <input type="text" maxlength="25" class="form-control form-control-sm editElement" name="personName" id="update-personName"
-                                     placeholder="Enter person Name" required>
-                             </div>
-    
-                         </div>
-    
-                     </div>
-                     <div class="row">
-                         <div class="col-md-6">
-                             <div class="form-group">
-                                 <label for="update-dateOfBirth">Date of Birth <span class="text-danger">*</span></label>
-                                 <input type="date" name="dateOfBirth" class="form-control form-control-sm editElement" id="update-dateOfBirth" required>
-                             </div>
-                         </div>
-                         <div class="col-md-6">
-                             <!-- Aadhaar Number -->
-                             <div class="form-group">
-                                 <label for="update-aadharNumber" id="aadharLabel">Aadhaar Number <span class="text-danger">*</span></label>
-                                 <input type="tel" name="aadharNumber" class="form-control form-control-sm editElement" id="update-aadharNumber"
-                                     placeholder="Aadhaar Number" maxlength="12" required>
-                             </div>
-                         </div>
-                     </div>
-                     <div class="row">
-                         <div class="col-md-6">
-                             <!-- Contact Number -->
-                             <div class="form-group">
-                                 <label for="update-contactNumber">Contact Number <span class="text-danger">*</span></label>
-                                 <input type="tel" class="form-control form-control-sm editElement" maxlength="10" name="contactNumber" id="update-contactNumber"
-                                     placeholder="Enter Contact Number" required>
-                             </div>
-                         </div>
-                         <div class="col-md-6">
-                             <!-- Email ID -->
-                             <div class="form-group">
-                                 <label for="update-mail">Email ID <span class="text-danger">*</span></label>
-                                 <input type="email" name="mail" class="form-control form-control-sm editElement" id="update-mail"
-                                     placeholder="Enter Email ID" required>
-                             </div>
-    
-                         </div>
-                     </div>
-                     <div class="row">
-                         <div class="col-md-12">
-                             <!-- Permanent Address -->
-                             <div class="form-group">
-                                 <label for="update-permanentAddress">Permanent Address</label>
-                                 <textarea class="form-control form-control-sm editElement" id="update-permanentAddress" name="permanentAddress" rows="2" maxlength="255"
-                                     placeholder="Enter Permanent Address"></textarea>
-                             </div>
-                         </div>
-                     </div>                                                       
-                 </form>
-             </div>
-        </div>
-        <div class="tab-pane fade show" id="tab6">
-    <div class="mt-4">
-        <table id="documentTable" class="table">
-            <thead class="bg-primary text-white">
-                <tr>
-                    <th>Documents</th>
-                    <th>Edit</th>
-                </tr>
-            </thead>
-            <tbody id="documentTableBody">
-            </tbody>
-        </table>
+    <!-- Tabs Header -->
+    <div class="nav nav-tabs md-tabs border-bottom-0" id="myTab1" role="tablist">
+      <button class="nav-link active fw-semibold px-4 py-2" data-bs-toggle="tab"
+        data-bs-target="#tab4" type="button">
+        <i class="fa-solid fa-user-pen me-2"></i> Basic Details
+      </button>
+      <button class="nav-link fw-semibold px-4 py-2" data-bs-toggle="tab"
+        data-bs-target="#tab6" type="button">
+        <i class="fa-solid fa-file-pen me-2"></i> Document Update
+      </button>
     </div>
-</div>
 
+    <!-- Tabs Content -->
+    <div class="tab-content mt-4">
 
+      <!-- TAB 1: Basic Details -->
+      <div class="tab-pane fade show active" id="tab4">
+        <div class="modal-body">
+          <form id="update-person-form">
+
+            <!-- Card: Personal Information -->
+            <div class="card border-0 shadow-sm mb-3">
+              <div class="card-body">
+                <h6 class="text-secondary mb-3">
+                  <i class="fa-solid fa-id-card me-2"></i> Personal Information
+                </h6>
+
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="update-personID" class="form-label fw-semibold">Person ID</label>
+                    <input type="text" name="personID" class="form-control form-control-sm editElement"
+                      id="update-personID" maxlength="20" placeholder="Enter person ID" readonly>
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="update-personName" class="form-label fw-semibold">
+                      Person Name <span class="text-danger">*</span>
+                    </label>
+                    <input type="text" maxlength="25" class="form-control form-control-sm editElement"
+                      name="personName" id="update-personName" placeholder="Enter person name" required>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="update-dateOfBirth" class="form-label fw-semibold">
+                      Date of Birth <span class="text-danger">*</span>
+                    </label>
+                    <input type="date" name="dateOfBirth" class="form-control form-control-sm editElement"
+                      id="update-dateOfBirth" required>
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="update-aadharNumber" class="form-label fw-semibold">
+                      Aadhaar Number <span class="text-danger">*</span>
+                    </label>
+                    <input type="tel" name="aadharNumber" class="form-control form-control-sm editElement"
+                      id="update-aadharNumber" placeholder="Enter Aadhaar Number" maxlength="12" required>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="update-contactNumber" class="form-label fw-semibold">
+                      Contact Number <span class="text-danger">*</span>
+                    </label>
+                    <input type="tel" class="form-control form-control-sm editElement"
+                      maxlength="10" name="contactNumber" id="update-contactNumber"
+                      placeholder="Enter Contact Number" required>
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="update-mail" class="form-label fw-semibold">
+                      Email ID <span class="text-danger">*</span>
+                    </label>
+                    <input type="email" name="mail" class="form-control form-control-sm editElement"
+                      id="update-mail" placeholder="Enter Email ID" required>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12 mb-2">
+                    <label for="update-permanentAddress" class="form-label fw-semibold">Permanent Address</label>
+                    <textarea class="form-control form-control-sm editElement" id="update-permanentAddress"
+                      name="permanentAddress" rows="2" maxlength="255"
+                      placeholder="Enter Permanent Address"></textarea>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </form>
         </div>
-        
+      </div>
 
+      <!-- TAB 2: Document Update -->
+      <div class="tab-pane fade" id="tab6">
+        <div class="modal-body">
+          <div class="card border-0 shadow-sm">
+            <div class="card-body">
+              <h6 class="text-secondary mb-3">
+                <i class="fa-solid fa-file-pen me-2"></i> Uploaded Documents
+              </h6>
 
-         <!-- Modal Footer -->
-         <div class="modal-footer">
-             <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal" id="exitButton2">Exit</button>
-             <button type="button" id="update_person_btn" class="btn btn-success btn-sm writeElement">Update</button>
-         </div>
-     
- </div>
+              <div class="table-responsive">
+                <table id="documentTable" class="table table-sm align-middle border">
+                  <thead class="bg-primary text-white">
+                    <tr>
+                      <th scope="col">Document Name</th>
+                      <th scope="col" class="text-center">Edit</th>
+                    </tr>
+                  </thead>
+                  <tbody id="documentTableBody">
+                    <!-- Dynamic rows inserted via JS -->
+                  </tbody>
+                </table>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Modal Footer -->
+    <div class="modal-footer">
+      <button type="button" class="btn btn-red btn-sm" data-bs-dismiss="modal" id="exitButton2">
+        <i class="fa-solid fa-xmark me-1"></i> Exit
+      </button>
+      <button type="button" id="update_person_btn" class="btn btn-green btn-sm writeElement">
+        <i class="fa-solid fa-rotate me-1"></i> Update
+      </button>
+    </div>
+
+  </div>
 </div>
+
 
 
 <!---------------------------------------------------------------------------------------------UPDATE-MODAL-END---------------------------------------------------->   
@@ -524,14 +603,14 @@
                                                                 <span class="fw-bold">Add New Person</span>
                                                             </button>
                                                         </div>
-
+<!-- 
                                                         <div class="row">
                                                             <div id="exportButtons" class="mb-3">
                                                                 <button onclick="fetchDataAndGenerateExcel()" class="dt-button">
                                                                     Download All Data
                                                                 </button>
                                                             </div>
-                                                        </div>
+                                                        </div> -->
                                                         <div class="d-flex justify-content-center align-items-center">
                                                             <div class="table-responsive">
                                                                 

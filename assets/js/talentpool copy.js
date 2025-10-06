@@ -414,23 +414,51 @@ async function fetchDataAndGenerateExcel() {
 }
 // ================== Export Button Listeners ==================
 
-   $(document).ready(function () {
-       const datatable = $('#myTable').DataTable({
-           "paging": true,
-           "pageLength": 25,
-           "lengthMenu": [5, 10, 25, 50, 100],
-           dom: '<"top"l>frtip',
-           buttons: ['excel', 'csv', 'pdf']
-       });
-       datatable.buttons().container().appendTo($('#exportButtons'));
+  $(document).ready(function () {
+  const datatable = $('#myTable').DataTable({
+    paging: true,
+  pageLength: 25,
+  lengthMenu: [5, 10, 25, 50, 100],
+  dom: '<"top"lBf>rt<"bottom"ip><"clear">',
+    buttons: [
+      {
+        extend: 'excel',
+        text: '<i class="fa-solid fa-file-excel"></i> Excel',
+        className: 'btn-excel'
+      },
+      {
+        extend: 'pdf',
+        text: '<i class="fa-solid fa-file-pdf"></i> PDF',
+        className: 'btn-pdf'
+      },
+      {
+        extend: 'colvis',
+        text: '<i class="fa-solid fa-eye"></i> Columns',
+        className: 'btn-colvis'
+      }
+    ],
+    language: {
+      search: "",
+      searchPlaceholder: "Type to search...",
+    paginate: { first: "«", last: "»", next: "›", previous: "‹" }
 
-        const selectedCategory = $(this).val();
-        if (selectedCategory) {
-            datatable.column(1).search(selectedCategory).draw();
-        } else {
-            datatable.column(1).search('').draw(); 
-        }
-    });
+    },
+    initComplete: function () {
+      // Remove default "Search:" text
+      $('#myTable').contents().filter(function () {
+        return this.nodeType === 3;
+      }).remove();
+
+      // Wrap search input & add search icon
+      $('#myTable_filter input').wrap('<div class="search-wrapper"></div>');
+      $('.search-wrapper').prepend('<i class="fa-solid fa-magnifying-glass"></i>');
+    }
+  });
+
+  // Move export buttons into custom div
+  datatable.buttons().container().appendTo($('#exportButtons'));
+
+});
 // ================== Add New Person Button ==================
     document.querySelector('#addNew').addEventListener('click', function () {
         document.querySelector('#tab').classList.remove('d-none');

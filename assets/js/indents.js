@@ -1346,6 +1346,7 @@ $(document).ready(function () {
     }
   });
 
+  
   // Move export buttons into custom div
   datatable.buttons().container().appendTo($('#exportButtons'));
 
