@@ -407,24 +407,25 @@
     </div>
 
     <div class="row">
-        <!-- RAM (GB) -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="ramGb">RAM (GB)</label>
-                <input type="number" name="RAM_GB" class="form-control form-control-sm" id="ramGb"
-                    placeholder="Enter RAM in GB">
-            </div>
+    <div class="col-md-12">
+        <label>RAM (GB)</label>
+        <div id="ramContainer">
+            <!-- Existing RAM entries will appear here -->
         </div>
-
-        <!-- HDD (GB/TB) -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="hdd">HDD (GB/TB)</label>
-                <input type="text" name="HDD_GB_TB" class="form-control form-control-sm" id="hdd"
-                    placeholder="Enter Storage Capacity">
-            </div>
-        </div>
+        <button type="button" class="btn btn-sm btn-primary mt-2" id="addRamBtn">Add RAM</button>
     </div>
+</div>
+
+<div class="row mt-3">
+    <div class="col-md-12">
+        <label>Storage (HDD/SSD)</label>
+        <div id="storageContainer">
+            <!-- Existing Storage entries will appear here -->
+        </div>
+        <button type="button" class="btn btn-sm btn-primary mt-2" id="addStorageBtn">Add Storage</button>
+    </div>
+</div>
+a
 
     <div class="row">
         <!-- Graphics -->
@@ -589,193 +590,148 @@
                                                                   <div class="tab-pane fade show " id="tab2">
                                                                     <!-- Modal Header -->
                                                                     <!-- Modal Body -->
-                                                                    <div class="modal-body">
-                                                                        <form id="desktop-asset-form">
-    <div class="row">
-        <!-- User Name -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="userName1">User Name</label>
-               <select id="userName1" class="form-control form-control-sm userName" style="width:100%;">
-                <option value="">StaffId</option>
-               </select>
-                
+<div class="modal-body">
+    <form id="desktop-asset-form">
+        <div class="row">
+            <!-- User Name -->
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="userName1">User Name</label>
+                    <select id="userName1" class="form-control form-control-sm userName" style="width:100%;">
+                        <option value="">StaffId</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Model No -->
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="modelNo1">Model No</label>
+                    <input type="text" name="Model_No" class="form-control form-control-sm" id="modelNo1"
+                        placeholder="Enter Model No">
+                </div>
             </div>
         </div>
 
-
-        <!-- Model No -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="modelNo1">Model No</label>
-                <input type="text" name="Model_No" class="form-control form-control-sm" id="modelNo1"
-                    placeholder="Enter Model No">
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <!-- Serial No -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="serialNo1">Serial No</label>
-                <input type="text" name="Serial_No" class="form-control form-control-sm" id="serialNo1"
-                    placeholder="Enter Serial No">
-            </div>
-        </div>
-
-        <!-- Processor Type -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="processorType1">Processor Type</label>
-                <input type="text" name="Processor_Type" class="form-control form-control-sm" id="processorType1"
-                    placeholder="Enter Processor Type">
-            </div>
+        <!-- RAM Section -->
+<div class="row mt-3">
+    <!-- RAM Section -->
+    <div class="col-md-6">
+        <label>RAM (GB)</label>
+        <div id="ramList" class="mb-2"></div>
+        <div class="input-group">
+            <input type="text" id="ramInput" class="form-control form-control-sm" placeholder="Add RAM (e.g., 8GB)">
+            <button type="button" class="btn btn-primary" id="addRamBtn"><i class="fas fa-plus"></i></button>
         </div>
     </div>
 
-    <div class="row">
-        <!-- RAM (GB) -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="ramGb1">RAM (GB)</label>
-                <input type="number" name="RAM_GB" class="form-control form-control-sm" id="ramGb1"
-                    placeholder="Enter RAM in GB">
-            </div>
-        </div>
-
-        <!-- HDD/Storage (TB) -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="storage1">HDD/Storage (TB)</label>
-                <input type="text" name="HDD_Storage_TB" class="form-control form-control-sm" id="storage1"
-                    placeholder="Enter Storage Capacity">
-            </div>
+    <!-- HDD Section -->
+    <div class="col-md-6">
+        <label>HDD/Storage (TB)</label>
+        <div id="hddList" class="mb-2"></div>
+        <div class="input-group">
+            <input type="text" id="hddInput" class="form-control form-control-sm" placeholder="Add Storage (e.g., 1TB)">
+            <button type="button" class="btn btn-primary" id="addHddBtn"><i class="fas fa-plus"></i></button>
         </div>
     </div>
+</div>
 
-    <div class="row">
-        <!-- OS Type -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="osType1">OS Type</label>
-                <input type="text" name="OS_Type" class="form-control form-control-sm" id="osType1"
-                    placeholder="Enter Operating System">
+        <!-- Other fields -->
+        <div class="row mt-3">
+            <!-- Processor Type -->
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="processorType1">Processor Type</label>
+                    <input type="text" name="Processor_Type" class="form-control form-control-sm" id="processorType1"
+                        placeholder="Enter Processor Type">
+                </div>
+            </div>
+
+            <!-- OS Type -->
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="osType1">OS Type</label>
+                    <input type="text" name="OS_Type" class="form-control form-control-sm" id="osType1"
+                        placeholder="Enter Operating System">
+                </div>
             </div>
         </div>
 
-        <!-- IP Address -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="ipAddress1">IP Address</label>
-                <input type="text" name="IP_Address" class="form-control form-control-sm" id="ipAddress1"
-                    placeholder="Enter IP Address">
-            </div>
-        </div>
-    </div>
+        <!-- Add your remaining fields here -->
+    </form>
+</div>
 
-    <div class="row">
-        <!-- MAC Address -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="macAddress1">MAC Address</label>
-                <input type="text" name="MAC_Address" class="form-control form-control-sm" id="macAddress1"
-                    placeholder="Enter MAC Address">
-            </div>
-        </div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    // RAM
+    const ramInput = document.getElementById("ramInput");
+    const ramList = document.getElementById("ramList");
+    const addRamBtn = document.getElementById("addRamBtn");
 
-        <!-- Project No -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="projectNo1">Project No</label>
-                <input type="text" name="Project_No" class="form-control form-control-sm" id="projectNo1"
-                    placeholder="Enter Project No">
-            </div>
-        </div>
-    </div>
+    addRamBtn.addEventListener("click", function() {
+        const value = ramInput.value.trim();
+        if(value) {
+            addItem(ramList, value);
+            ramInput.value = "";
+        }
+    });
 
-    <div class="row">
-        <!-- PO No -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="poNo1">PO No</label>
-                <input type="text" name="PO_No" class="form-control form-control-sm" id="poNo1"
-                    placeholder="Enter PO No">
-            </div>
-        </div>
+    // HDD
+    const hddInput = document.getElementById("hddInput");
+    const hddList = document.getElementById("hddList");
+    const addHddBtn = document.getElementById("addHddBtn");
 
-        <!-- PO Date -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="poDate1">PO Date</label>
-                <input type="date" name="PO_Date" class="form-control form-control-sm" id="poDate1">
-            </div>
-        </div>
-    </div>
+    addHddBtn.addEventListener("click", function() {
+        const value = hddInput.value.trim();
+        if(value) {
+            addItem(hddList, value);
+            hddInput.value = "";
+        }
+    });
 
-    <div class="row">
-        <!-- Vendor Name -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="vendorName1">Vendor Name</label>
-                <input type="text" name="Vendor_Name" class="form-control form-control-sm" id="vendorName1"
-                    placeholder="Enter Vendor Name">
-            </div>
-        </div>
+    function addItem(listContainer, value) {
+        const wrapper = document.createElement("div");
+        wrapper.className = "input-group mb-2";
 
-        <!-- Invoice No -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="invoiceNo1">Invoice No</label>
-                <input type="text" name="Invoice_No" class="form-control form-control-sm" id="invoiceNo1"
-                    placeholder="Enter Invoice No">
-            </div>
-        </div>
-    </div>
+        const input = document.createElement("input");
+        input.type = "text";
+        input.value = value;
+        input.className = "form-control form-control-sm";
+        input.readOnly = true;
 
-    <div class="row">
-        <!-- Invoice Date -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="invoiceDate1">Invoice Date</label>
-                <input type="date" name="Invoice_Date" class="form-control form-control-sm" id="invoiceDate1">
-            </div>
-        </div>
+        const editBtn = document.createElement("button");
+        editBtn.type = "button";
+        editBtn.className = "btn btn-outline-secondary";
+        editBtn.textContent = "Edit";
 
-        <!-- SRB -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="srb1">SRB</label>
-                <input type="text" name="SRB" class="form-control form-control-sm" id="srb1"
-                    placeholder="Enter SRB No">
-            </div>
-        </div>
-    </div>
+        const deleteBtn = document.createElement("button");
+        deleteBtn.type = "button";
+        deleteBtn.className = "btn btn-outline-danger";
+        deleteBtn.textContent = "Delete";
 
-    <div class="row">
-        <!-- Department -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="dept1">Department</label>
-                <input type="text" name="Dept" class="form-control form-control-sm" id="dept1"
-                    placeholder="Enter Department">
-            </div>
-        </div>
-    </div>
+        editBtn.addEventListener("click", function() {
+            if(input.readOnly) {
+                input.readOnly = false;
+                input.focus();
+                editBtn.textContent = "Save";
+            } else {
+                input.readOnly = true;
+                editBtn.textContent = "Edit";
+            }
+        });
 
-    <div class="row">
-        <!-- Remarks -->
-        <div class="col-md-12">
-            <div class="form-group">
-                <label for="remarks1">Remarks</label>
-                <textarea class="form-control form-control-sm" id="remarks1" name="Remarks" rows="2"
-                    placeholder="Enter Remarks"></textarea>
-            </div>
-        </div>
-    </div>
-</form>
+        deleteBtn.addEventListener("click", function() {
+            wrapper.remove();
+        });
 
-                                                                    </div>
+        wrapper.appendChild(input);
+        wrapper.appendChild(editBtn);
+        wrapper.appendChild(deleteBtn);
+        listContainer.appendChild(wrapper);
+    }
+});
+</script>
+
                                                                     <!-- model Footer -->
                                                                     <div class="modal-footer">
                                                                     <button type="button" class="btn btn-danger" data-dismiss="modal" id="exitButton">Exit</button>

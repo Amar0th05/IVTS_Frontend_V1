@@ -593,36 +593,33 @@
     </div>
   </div>
 
-  <div class="row">
-    <!-- RAM -->
-    <div class="col-md-6">
-      <div class="form-group">
-        <label for="ramGb">RAM (GB) <span class="text-danger">*</span></label>
-        <input type="number" name="RAM_GB"
-               class="form-control form-control-sm" id="ramGb"
-               placeholder="Enter RAM in GB" min="1" step="1" required>
-      </div>
-    </div>
+   <!-- RAM & HDD Fields -->
+<div class="row">
 
-    <!-- HDD / Storage -->
+  <!-- RAM Field -->
+        <!-- RAM -->
     <div class="col-md-6">
       <div class="form-group">
-        <label for="storage">HDD (GB/TB) <span class="text-danger">*</span></label>
-        <div class="d-flex">
-          <input type="number" name="HDD_GB_TB"
-                 class="form-control form-control-sm no-radius-end"
-                 id="storage" placeholder="Enter value"
-                 min="1" step="1" required>
-          <select name="storageUnit"
-                  class="form-select form-select-sm no-radius-start bg-light text-dark"
-                  style="max-width: 90px;" required>
-            <option value="GB">GB</option>
-            <option value="TB">TB</option>
-          </select>
-        </div>
+        <label for="ramGb">RAM (GB)</label>
+        <input type="number" name="RAM_GB" class="form-control form-control-sm" id="ramGb"
+               placeholder="Enter RAM in GB">
       </div>
+      </div>
+
+        <div class="col-md-6">
+        <div class="form-group position-relative">
+            <label for="storage">HDD (GB/TB) <span class="text-danger">*</span></label>
+            <div class="input-group mb-3">
+                <input type="text" class="form-control form-control-sm storageHistoryBtn" id="storage" placeholder="Enter HDD value" min="1" step="1" readonly>
+                <!-- <select id="storageUnit" class="form-select form-select-sm" style="max-width: 90px;">
+                    <option value="GB">GB</option>
+                    <option value="TB">TB</option>
+                </select> -->
+                <!-- <button class="btn btn-outline-secondary" type="button" id="storageHistoryBtn" title="View HDD History"><i class="fas fa-history"></i></button> -->
+            </div>
+        </div>
     </div>
-  </div>
+</div>
 
   <div class="row">
 
@@ -880,7 +877,47 @@
     </div>
 
 
-    
+
+<!-- HDD History Modal -->
+<div class="modal fade" id="storageHistoryModal" tabindex="-1" aria-labelledby="storageHistoryModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title" id="storageHistoryModalLabel">HDD History</h5>
+        <button type="button" class="btn btn-light btn-sm rounded-circle d-flex align-items-center justify-content-center p-0"
+        style="width:32px; height:32px;" data-bs-dismiss="modal" aria-label="Close">
+  <i class="fas fa-times text-dark"></i>
+</button>
+
+      </div>
+      <div class="modal-body">
+        <table class="table table-sm table-hover" id="storageHistoryTable">
+          <thead>
+            <tr>
+              <th>Value</th>
+              <th>Unit</th>
+              <th>Type</th>
+              <th class="text-center">Actions</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        <div class="mt-3 d-flex">
+          <input type="number" class="form-control form-control-sm me-2" id="newStorageValue" placeholder="Add new value" min="1">
+          <select id="newStorageUnit" class="form-select form-select-sm me-2" style="max-width: 90px;">
+            <option value="GB">GB</option>
+            <option value="TB">TB</option>
+          </select>
+          <select id="newStorageType" class="form-select form-select-sm me-2" style="max-width: 90px;">
+            <option value="SDD">SDD</option>
+            <option value="HDD">HDD</option>
+          </select>
+          <button class="btn btn-success btn-sm" id="addStorageBtnModal">Add</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
   <!-- Required jQuery -->
 <script type="text/javascript" src="assets/js/jquery/jquery.min.js"></script>

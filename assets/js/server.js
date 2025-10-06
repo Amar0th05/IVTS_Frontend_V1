@@ -205,22 +205,22 @@ function validateForm(formData) {
   let errors = [];
 
   const requiredFields = [
-    "userName",
-    "Model_No",
-    "Serial_No",
-    "IP_Address",
-    "MAC_Address",
-    "Port",
-    "Remark_Config",
-    "Project_No",
-    "PO_No",
-    "PO_Date",
-    "Vendor_Name",
-    "Invoice_No",
-    "Invoice_Date",
-    "SRB",
-    "Dept",
-    "Remarks",
+    // "userName",
+    // "Model_No",
+    // "Serial_No",
+    // "IP_Address",
+    // "MAC_Address",
+    // "Port",
+    // "Remark_Config",
+    // "Project_No",
+    // "PO_No",
+    // "PO_Date",
+    // "Vendor_Name",
+    // "Invoice_No",
+    // "Invoice_Date",
+    // "SRB",
+    // "Dept",
+    // "Remarks",
   ];
 
   requiredFields.forEach((field) => {

@@ -4,6 +4,10 @@ const addLaptopButton = document.getElementById("add_laptop_btn");
 const updateAssetsButton = document.getElementById("update_laptop_btn");
 
 
+let storageHistory;
+
+
+
 
 // add staff
 addLaptopButton.addEventListener("click", async (e) => {
@@ -48,17 +52,22 @@ updateAssetsButton.addEventListener("click", async (e) => {
 
   let Data = Object.fromEntries(formData.entries());
 
+  // 👉 Convert storageHistory array into string for DB
+  if (Array.isArray(storageHistory)) {
+    Data.storage = storageHistory.map(item => `${item.value} ${item.unit} ${item.type}`).join(" , ");
+  }
+
   if (validateForm(formData)) {
-    console.log("enter", formData);
+    console.log("sending payload:", Data);
     try {
       const responseData = await api.updateLaptops(Data);
       table.clear();
       await fetchAllData();
       handlePermission("#username");
       showSucessPopupFadeInDownLong(responseData.message);
-          setTimeout(()=>{
+      setTimeout(() => {
         window.location.reload();
-      },2000)
+      }, 2000);
     } catch (error) {
       showErrorPopupFadeInDown(
         error.response?.data?.message ||
@@ -67,6 +76,7 @@ updateAssetsButton.addEventListener("click", async (e) => {
     }
   }
 });
+
 
 let decidedPermission;
 document.addEventListener("DOMContentLoaded", async () => {
@@ -211,7 +221,6 @@ function validateForm(formData) {
     "Serial_No",
     "Processor_Type",
     "RAM_GB",
-    "HDD_GB_TB",
     "Graphics",
     "OS_Type",
     "Host_Name",
@@ -264,6 +273,32 @@ function validateForm(formData) {
   return true;
 }
 
+// parase storage
+function parseStorage(storageStr) {
+  if (!storageStr) return [];
+
+  return storageStr.split(',')
+    .map(s => s.trim().replace(/\s+/g, ' ')) // normalize spaces
+    .filter(Boolean)                         // remove empty entries
+    .map(item => {
+      const parts = item.split(' '); // ["1", "TB"]
+      return {
+        value: parts[0],
+        unit: parts[1] || 'GB',
+        type: parts[2] // default unit = GB
+      };
+    });
+}
+// convert db string 
+
+function stringifyStorage(storageArr) {
+  if (!Array.isArray(storageArr)) return "";
+
+  return storageArr
+    .map(item => `${item.value} ${item.unit}`)
+    .join(' , ');
+}
+
 
 // update staff details
 async function loadUpdateDetails(id) {
@@ -284,16 +319,22 @@ async function loadUpdateDetails(id) {
     document.querySelectorAll("#modelNo")[1].value = data.modelNo;
     document.querySelectorAll("#serialNo")[1].value = data.serialNo;
     document.querySelectorAll("#processorType")[1].value = data.processorType;
-    document.querySelectorAll("#ramGb")[1].value = Number(data.ramGb);
+  const ramValue = Number(data.ramGb.replace(/\D/g, '')); // removes everything except digits
+document.querySelectorAll("#ramGb")[1].value = ramValue;
 
-    // Storage: split into value + unit
-    if (data.storage >= 1024) {
-      document.querySelectorAll("#storage")[1].value = data.storage / 1024;
-      document.querySelectorAll("[name='storageUnit']")[1].value = "TB";
-    } else {
-      document.querySelectorAll("#storage")[1].value = data.storage;
-      document.querySelectorAll("[name='storageUnit']")[1].value = "GB";
-    }
+
+storageHistory = parseStorage(data.storage);
+
+console.log(storageHistory);
+
+
+
+if (storageHistory.length > 0) {
+  const last = storageHistory[storageHistory.length - 1]; // last object
+  document.querySelectorAll("#storage")[1].value = `${last.value} ${last.unit} ${last.type}`;
+  // result: "1 TB"
+}
+
 
     // Other Specs
     document.querySelectorAll("#graphics")[1].value = data.graphics;
@@ -316,6 +357,91 @@ async function loadUpdateDetails(id) {
     // Organization Info
     document.querySelectorAll("#dept")[1].value = data.dept;
     document.querySelectorAll("#remarks")[1].value = data.remarks;
+
+
+
+        const storageHistoryBtn = document.querySelectorAll("#storage")[1];
+    const storageHistoryTable = document.querySelector('#storageHistoryTable tbody');
+    const newStorageValue = document.getElementById('newStorageValue');
+    const newStorageUnit = document.getElementById('newStorageUnit');
+
+    function renderStorageTable() {
+        storageHistoryTable.innerHTML = '';
+        storageHistory.forEach((item, idx) => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td class="storage-value">${item.value}</td>
+                <td class="storage-unit">${item.unit}</td>
+                <td class="storage-type">${item.type}</td>
+                <td class="text-center" style="padding: 5px 0px 0px !important;">
+                    <button class="btn btn-sm btn-primary edit-storage">Edit</button>
+                    <button class="btn btn-sm btn-danger delete-storage">Delete</button>
+                </td>
+            `;
+
+            const tdValue = tr.querySelector('.storage-value');
+            const tdUnit = tr.querySelector('.storage-unit');
+            const tdType = tr.querySelector('.storage-type');
+            const editBtn = tr.querySelector('.edit-storage');
+
+            // Edit button
+            editBtn.addEventListener('click', function editHandler() {
+                // Replace cells with input/select
+                tdValue.innerHTML = `<input type="number" class="form-control form-control-sm edit-value" value="${item.value}" min="1">`;
+                tdUnit.innerHTML = `<select class="form-select form-select-sm edit-unit">
+                    <option value="GB" ${item.unit==='GB'?'selected':''}>GB</option>
+                    <option value="TB" ${item.unit==='TB'?'selected':''}>TB</option>
+                </select>`;
+                tdType.innerHTML = `<select class="form-select form-select-sm edit-type">
+                    <option value="SDD" ${item.type==='SDD'?'selected':''}>SDD</option>
+                    <option value="HDD" ${item.type==='HDD'?'selected':''}>HDD</option>
+                </select>`;
+
+                // Change button to Save
+                editBtn.textContent = 'Save';
+                editBtn.classList.replace('btn-primary','btn-success');
+
+                // Save functionality
+                const saveHandler = () => {
+                    const newVal = tdValue.querySelector('.edit-value').value.trim();
+                    const newUnit = tdUnit.querySelector('.edit-unit').value;
+                    const newType = tdType.querySelector('.edit-type').value;
+                    if (!newVal || newVal < 1) { alert('Enter valid value!'); return; }
+                    storageHistory[idx] = { value: newVal, unit: newUnit , type: newType};
+                    renderStorageTable(); // Re-render table
+                };
+
+                editBtn.removeEventListener('click', editHandler);
+                editBtn.addEventListener('click', saveHandler);
+            });
+
+            // Delete button
+            tr.querySelector('.delete-storage').addEventListener('click', () => {
+                storageHistory.splice(idx, 1);
+                renderStorageTable();
+            });
+
+            storageHistoryTable.appendChild(tr);
+        });
+    }
+
+    // Open HDD modal
+    storageHistoryBtn.addEventListener('click', () => {
+        renderStorageTable();
+        new bootstrap.Modal(document.getElementById('storageHistoryModal')).show();
+    });
+
+    // Add new HDD
+    document.getElementById('addStorageBtnModal').addEventListener('click', () => {
+        const val = newStorageValue.value.trim();
+        const unit = newStorageUnit.value;
+        const type = newStorageType.value;
+
+        if (!val || val < 1) { alert('Enter valid value!'); return; }
+        storageHistory.push({ value: val, unit: unit, type: type });
+        newStorageValue.value = '';
+        renderStorageTable();
+    });
 
   } catch (error) {
     console.error("Error loading update details:", error);
@@ -594,3 +720,6 @@ $(document).ready(function () {
 
 
 });
+
+
+
