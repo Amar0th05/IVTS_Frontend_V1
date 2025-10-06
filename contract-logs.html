@@ -44,10 +44,6 @@
     <!-- Toastr CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <style>
-        .ColVis_collection {
-            position: absolute;
-            z-index: 1000;
-        }
         .hidden {
             display: none !important;
                 }
@@ -267,9 +263,9 @@
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <div class="card">
-                                                    <div class="card-header">
+                                                    <!-- <div class="card-header">
                                                         <h5>Contract Logs</h5>
-                                                    </div>
+                                                    </div> -->
                                                     <div class="card-block">
                                                         <!-----------------------------------------------ADD-NEW-LOG-MODAl-START--------------------------------------------------------------------->
 <div class="modal fade" id="addNewModal" tabindex="-1" role="dialog" aria-labelledby="addNewModalLabel" aria-hidden="true">
@@ -293,7 +289,7 @@
           <!-- Staff Info -->
           <div class="card mb-3 border-0 shadow-sm">
             <div class="card-body">
-              <h6 class="text-secondary mb-3"><i class="fa-solid fa-user me-2"></i> Staff Information</h6>
+              <h6 class="text-sub mb-3"><i class="fa-solid fa-user me-2"></i> Staff Information</h6>
               <div class="form-row">
                 <div class="form-group col-md-6">
                   <label for="staffId-select">Staff ID</label>
@@ -312,7 +308,7 @@
           <!-- Contract Period -->
           <div class="card mb-3 border-0 shadow-sm">
             <div class="card-body">
-              <h6 class="text-secondary mb-3"><i class="fa-solid fa-calendar-days me-2"></i> Contract Period</h6>
+              <h6 class="text-sub mb-3"><i class="fa-solid fa-calendar-days me-2"></i> Contract Period</h6>
               <div class="form-row">
                 <div class="form-group col-md-6">
                   <label for="contractStartDate">Start Date</label>
@@ -329,7 +325,7 @@
           <!-- Pay Details -->
           <div class="card mb-3 border-0 shadow-sm">
             <div class="card-body">
-              <h6 class="text-secondary mb-3"><i class="fa-solid fa-money-bill-wave me-2"></i> Salary Details</h6>
+              <h6 class="text-sub mb-3"><i class="fa-solid fa-money-bill-wave me-2"></i> Salary Details</h6>
               <div class="form-row">
                 <div class="form-group col-md-4">
                   <label for="basicPay">Basic Pay</label>
@@ -350,7 +346,7 @@
           <!-- Designation -->
           <div class="card mb-2 border-0 shadow-sm">
             <div class="card-body">
-              <h6 class="text-secondary mb-3"><i class="fa-solid fa-briefcase me-2"></i> Designation</h6>
+              <h6 class="text-sub mb-3"><i class="fa-solid fa-briefcase me-2"></i> Designation</h6>
               <div class="form-group">
                 <select class="form-control form-control-sm" id="designationSelect" name="designationSelect">
                   <option value="" disabled selected>Select Designation</option>
@@ -384,11 +380,11 @@
     <div class="modal-content shadow-lg rounded-3 border-0">
 
       <!-- Modal Header -->
-      <div class="modal-header bg-warning text-dark">
+      <div class="modal-header bg-warning text-white">
         <h5 class="modal-title" id="updateModalLabel">
           <i class="fa-solid fa-pen-to-square me-2"></i> Update Contract Log
         </h5>
-        <button type="button" class="close text-dark" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -400,7 +396,7 @@
           <!-- Staff Info -->
           <div class="card mb-3 border-0 shadow-sm">
             <div class="card-body">
-              <h6 class="text-secondary mb-3"><i class="fa-solid fa-user me-2"></i> Staff Information</h6>
+              <h6 class="text-sub mb-3"><i class="fa-solid fa-user me-2"></i> Staff Information</h6>
               <div class="form-row">
                 <div class="form-group col-md-6">
                   <label for="update-staffId">Staff ID</label>
@@ -417,7 +413,7 @@
           <!-- Pay Details -->
           <div class="card mb-3 border-0 shadow-sm">
             <div class="card-body">
-              <h6 class="text-secondary mb-3"><i class="fa-solid fa-money-bill-wave me-2"></i> Salary Details</h6>
+              <h6 class="text-sub mb-3"><i class="fa-solid fa-money-bill-wave me-2"></i> Salary Details</h6>
               <div class="form-row">
                 <div class="form-group col-md-4">
                   <label for="update-basicPay">Basic Pay</label>
@@ -438,7 +434,7 @@
           <!-- Designation -->
           <div class="card mb-2 border-0 shadow-sm">
             <div class="card-body">
-              <h6 class="text-secondary mb-3"><i class="fa-solid fa-briefcase me-2"></i> Designation</h6>
+              <h6 class="text-sub mb-3"><i class="fa-solid fa-briefcase me-2"></i> Designation</h6>
               <div class="form-group">
                 <select class="form-control form-control-sm editElement" name="designation" id="update-designation">
                   <option value="" disabled selected>Select Designation</option>
@@ -465,7 +461,7 @@
 </div>
 
                                                         <!---------------------------------------------------------------------------------------------UPDATE-LOG-MODAL-END---------------------------------------------------->
-                                                        <div class="d-flex justify-content-end mb-5">
+                                                        <div class="d-flex justify-content-end">
                                                             <button
                                                                 class="btn btn-primary writeElement addNewRecord d-flex align-items-center gap-2 px-sm-4 py-sm-2 rounded-pill shadow"
                                                                 data-toggle="modal" data-target="#addNewModal">
@@ -506,7 +502,7 @@
                                                                                       <div class="d-flex justify-content-center align-items-center">
                                 <div class="table-responsive">
                                   <table class="table-modern table-striped" id="myTable">
-                                    <thead class="bg-primary text-white text-center">
+                                    <thead class="bg-primary text-white text-start">
                                                                         <tr>
                                                                             <th>Staff ID</th>
                                                                             <th>Contract Start Date</th>

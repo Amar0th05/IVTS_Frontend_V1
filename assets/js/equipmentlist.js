@@ -394,59 +394,66 @@ document.querySelector("#add_equipment_btn").addEventListener('click', async () 
 
 
 
-$(document).ready(async function () {
-    var table = $('#myTable').DataTable({
-        "paging": true,
-        "pageLength": 50,
-        "lengthMenu": [5, 10, 25, 50, 100],
-        dom: '<"top"l>frtip',
-        buttons: ['excel', 'csv', {
-            extend: 'pdf',
-            text: 'PDF',
-            orientation: 'landscape', 
-            exportOptions: {
-                columns: ':visible',
-                search: 'applied',
-                order: 'applied',
-                page: 'all',
-            }
-        },{
-            extend: 'colvis',
-            hidestart:[ 8],
-            // columns: [8],
-           
-            text: 'Column Visibility',
-        }],
-        
-        "columnDefs": [
-        { "targets": [8], "visible": false } 
-        ]
+$(document).ready(function () {
+  const datatable = $('#myTable').DataTable({
+    paging: true,
+  pageLength: 25,
+  lengthMenu: [5, 10, 25, 50, 100],
+  dom: '<"top"lBf>rt<"bottom"ip><"clear">',
+    // dom: 'Bfrtip',
+    buttons: [
+      {
+        extend: 'excel',
+        text: '<i class="fa-solid fa-file-excel"></i> Excel',
+        className: 'btn-excel'
+      },
+      {
+        extend: 'pdf',
+        text: '<i class="fa-solid fa-file-pdf"></i> PDF',
+        className: 'btn-pdf'
+      },
+      {
+        extend: 'colvis',
+        text: '<i class="fa-solid fa-eye"></i> Columns',
+        className: 'btn-colvis'
+      }
+    ],
+    language: {
+      search: "",
+      searchPlaceholder: "Type to search...",
+    paginate: { first: "«", last: "»", next: "›", previous: "‹" }
+
+    },
+    initComplete: function () {
+      // Remove default "Search:" text
+      $('#myTable').contents().filter(function () {
+        return this.nodeType === 3;
+      }).remove();
+
+      // Wrap search input & add search icon
+      $('#myTable_filter input').wrap('<div class="search-wrapper"></div>');
+      $('.search-wrapper').prepend('<i class="fa-solid fa-magnifying-glass"></i>');
+    }
+  });
+
+  // Move export buttons into custom div
+  datatable.buttons().container().appendTo($('#exportButtons'));
+
+  // Dropdown filters logic
+  function addColumnFilter(selectId, colIndex) {
+    $(`#${selectId}`).on('change', function () {
+      const value = $(this).val();
+      datatable.column(colIndex).search(value ? '^' + value + '$' : '', true, false).draw();
     });
+  }
 
-
-    
-    table.buttons().container().appendTo($('#exportButtons'));
-
-
-    $('#currentStageFilter').on('change', function () {
-        const selectedStage = $(this).val();
-        table.column(7).search(selectedStage ? '^' + selectedStage + '$' : '', true, false).draw();
-    });
-
-
-    $('#portFilter').on('change', function () {
-        const selectedPort = $(this).val();
-        table.column(1).search(selectedPort ? '^' + selectedPort + '$' : '', true, false).draw();
-    });
-    $('#equipmentCategoryFilter').on('change', function () {
-        const selectedCategory = $(this).val();
-        table.column(2).search(selectedCategory ? '^' + selectedCategory + '$' : '', true, false).draw();
-    });
-
-
-
-
+  // Hook up filters
+  addColumnFilter("currentStageFilter",7);
+  addColumnFilter("portFilter",1);
+  addColumnFilter("equipmentCategoryFilter",2);
 });
+
+
 
     document.addEventListener('DOMContentLoaded', () => {
       const assetsCountInput = document.getElementById('assetsCount');

@@ -2970,9 +2970,9 @@ img.comment-img {
 	}
 }
 
-select.form-control:not([size]):not([multiple]) {
+/* select.form-control:not([size]):not([multiple]) {
 	height: 43px;
-}
+} */
 
 .tabledit-input:disabled {
 	display: none;
@@ -14637,4 +14637,6 @@ table.dataTable.dtr-inline.collapsed>tbody>tr>th:first-child:before {
     .dt-button i {
       margin-right: 6px;
     }
-   
+     .text-sub{
+        color: #2f3985 !important
+    }

@@ -807,7 +807,7 @@ document.getElementById("addMoreBtn").addEventListener("click", function () {
         </div>
         <div class="col-md-4 text-center">
         
-            <button type="button" class="btn btn-red rounded remove-other-cert">
+            <button type="button" class="btn-sm btn-red rounded remove-other-cert">
                 <i class="fa-solid fa-minus"></i> Remove
             </button>
         </div>
@@ -966,7 +966,7 @@ $(document).ready(async function () {
         `<input type="date" class="form-control policyStartDate editElement">`,
         `<input type="date" class="form-control policyExpiryDate editElement" readonly>`,
         `<input type="text" class="form-control updatedBy editElement" placeholder="Updated By">`,
-        `<button class="btn btn-danger btn-sm deleteRow writeElement">Delete</button>`,
+        `<button class="btn-danger btn-sm deleteRow writeElement">Delete</button>`,
       ])
       .draw(false)
       .node();

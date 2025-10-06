@@ -99,6 +99,9 @@
       padding: 10px 10px !important;
       background: linear-gradient(135deg, #4931d1, #7f86f3);
     } */
+     #documentTable{
+      text-align :justify !important
+      }
   </style>
 
 </head>
@@ -307,7 +310,7 @@
 
             <div class="card border-0 shadow-sm mb-3">
               <div class="card-body">
-                <h6 class="text-secondary mb-3"><i class="fa-solid fa-id-card me-2"></i> Personal Information</h6>
+                <h6 class="text-sub mb-3"><i class="fa-solid fa-id-card me-2"></i> Personal Information</h6>
 
                 <div class="row">
                   <div class="col-md-6 mb-3">
@@ -376,7 +379,7 @@
           <form id="new-Document-form" class="needs-validation" novalidate>
             <div class="card border-0 shadow-sm mb-3">
               <div class="card-body">
-                <h6 class="text-secondary mb-3"><i class="fa-solid fa-file-lines me-2"></i> Required Documents</h6>
+                <h6 class="text-sub mb-3"><i class="fa-solid fa-file-lines me-2"></i> Required Documents</h6>
 
                 <div class="row">
                   <div class="col-md-6 mb-3">
@@ -403,7 +406,7 @@
 
                 <hr>
 
-                <h6 class="text-secondary mb-3"><i class="fa-solid fa-graduation-cap me-2"></i> Additional Certificates</h6>
+                <h6 class="text-sub mb-3"><i class="fa-solid fa-graduation-cap me-2"></i> Additional Certificates</h6>
 
                 <div class="row">
                   <div class="col-md-6 mb-3">
@@ -476,7 +479,7 @@
             <!-- Card: Personal Information -->
             <div class="card border-0 shadow-sm mb-3">
               <div class="card-body">
-                <h6 class="text-secondary mb-3">
+                <h6 class="text-sub mb-3">
                   <i class="fa-solid fa-id-card me-2"></i> Personal Information
                 </h6>
 
@@ -551,13 +554,13 @@
         <div class="modal-body">
           <div class="card border-0 shadow-sm">
             <div class="card-body">
-              <h6 class="text-secondary mb-3">
+              <h6 class="text-sub mb-3">
                 <i class="fa-solid fa-file-pen me-2"></i> Uploaded Documents
               </h6>
 
               <div class="table-responsive">
-                <table id="documentTable" class="table table-sm align-middle border">
-                  <thead class="bg-primary text-white">
+                                  <table class="table-modern table-striped" id="documentTable">
+                    <thead class="bg-primary text-white text-justify">
                     <tr>
                       <th scope="col">Document Name</th>
                       <th scope="col" class="text-center">Edit</th>
@@ -616,9 +619,9 @@
                                                                 
                                                                 
                                                                 
-                                                                <table id="myTable"
-                                                                    class="table table-striped rounded table-hover">
-                                                                    <thead class="bg-primary text-white text-center">
+                                                               <div class="table-responsive">
+                                  <table class="table-modern table-striped" id="myTable">
+                                    <thead class="bg-primary text-white text-center">
                                                                         <tr>
                                                                             <th>Person ID</th>
                                                                             <th>Person Name</th>
