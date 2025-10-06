@@ -479,83 +479,64 @@ async function fetchDataAndGenerateExcel() {
 
 
 $(document).ready(function () {
-    const datatable = $('#myTable').DataTable({
-        paging: true,
-        pageLength: 25,
-        lengthMenu: [5, 10, 25, 50, 100],
-        dom: '<"top"l>frtip',
-        buttons: ['excel', 'csv', 'pdf'],
+  const datatable = $('#myTable').DataTable({
+    paging: true,
+  pageLength: 25,
+  lengthMenu: [5, 10, 25, 50, 100],
+  dom: '<"top"lBf>rt<"bottom"ip><"clear">',
+    // dom: 'Bfrtip',
+    buttons: [
+      {
+        extend: 'excel',
+        text: '<i class="fa-solid fa-file-excel"></i> Excel',
+        className: 'btn-excel'
+      },
+      {
+        extend: 'pdf',
+        text: '<i class="fa-solid fa-file-pdf"></i> PDF',
+        className: 'btn-pdf'
+      },
+      {
+        extend: 'colvis',
+        text: '<i class="fa-solid fa-eye"></i> Columns',
+        className: 'btn-colvis'
+      }
+    ],
+    language: {
+      search: "",
+      searchPlaceholder: "Type to search...",
+    paginate: { first: "«", last: "»", next: "›", previous: "‹" }
 
-        columnDefs: [
-            {
-                targets: 6, // status column index
-                render: function (data, type, row) {
-                    if (type === 'filter' || type === 'search' || type === 'sort') {
-                        // Only return plain text ("active"/"inactive")
-                        return $(data).text().trim();
-                    }
-                    return data; // for display/export keep original HTML
-                }
-            }
-        ]
+    },
+    initComplete: function () {
+      // Remove default "Search:" text
+      $('#myTable').contents().filter(function () {
+        return this.nodeType === 3;
+      }).remove();
+
+      // Wrap search input & add search icon
+      $('#myTable_filter input').wrap('<div class="search-wrapper"></div>');
+      $('.search-wrapper').prepend('<i class="fa-solid fa-magnifying-glass"></i>');
+    }
+  });
+
+  // Move export buttons into custom div
+  datatable.buttons().container().appendTo($('#exportButtons'));
+
+  // Dropdown filters logic
+  function addColumnFilter(selectId, colIndex) {
+    $(`#${selectId}`).on('change', function () {
+      const value = $(this).val();
+      datatable.column(colIndex).search(value ? '^' + value + '$' : '', true, false).draw();
     });
+  }
 
-    // show raw column data (the HTML strings you added)
-console.log( datatable.column(6).data().toArray() );
-
-// show the actual table header indexes so you don't have the wrong column index
-$('#myTable thead th').each(function(i){ console.log(i, $(this).text().trim()); });
-
-    datatable.buttons().container().appendTo($('#exportButtons'));
-
-    // Status filter
-    $('#statusFilter').on('change', function () {
-        const selectedStatus = $(this).val();
-        datatable.column(6).search(
-            selectedStatus ? '^' + selectedStatus + '$' : '',
-            true,
-            false
-        ).draw();
-    });
+  // Hook up filters
+  addColumnFilter("locationFilter",0);
+  addColumnFilter("designationFilter",6);
+  addColumnFilter("statusFilter",5);
 });
 
-
-    // Designation filter
-    $('#designationFilter').on('change', function () {
-        const selectedDesignation = $(this).val();
-        datatable.column(0).search(
-            selectedDesignation ? '^' + selectedDesignation + '$' : '',
-            true,
-            false
-        ).draw();
-    });
-
-    // Location filter
-    $('#locationFilter').on('change', function () {
-        const selectedLocation = $(this).val();
-        datatable.column(5).search(
-            selectedLocation ? '^' + selectedLocation + '$' : '',
-            true,
-            false
-        ).draw();
-    });
-
-    $('#statusFilter').on('change', function () {
-    const selectedStatus = $(this).val();
-    datatable.column(6).search(
-        selectedStatus ? '^' + selectedStatus + '$' : '',
-        true,
-        false
-    ).draw();
-
-    // Category filter (this was outside, now inside)
-    $('#filter').on('change', function () {
-        const selectedCategory = $(this).val();
-        datatable.column(1).search(
-            selectedCategory ? selectedCategory : ''
-        ).draw();
-    });
-});
 
     document.querySelector('#addNew').addEventListener('click', function () {
         document.querySelector('#tab').classList.remove('d-none');

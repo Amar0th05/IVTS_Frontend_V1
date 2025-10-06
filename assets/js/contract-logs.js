@@ -353,24 +353,62 @@ document.getElementById('update-staffId').addEventListener('change', (e) => {
     return errors.length === 0;
 }
 
-$(document).ready(async function () {
-    var table = $('#myTable').DataTable({
-        "paging": true,
-        "pageLength": 25,
-        "lengthMenu": [5, 10, 25, 50, 100],
-        dom: '<"top"l>frtip',
-        buttons: ['excel', 'csv', 'pdf']
-    });
+$(document).ready(function () {
+  const datatable = $('#myTable').DataTable({
+    paging: true,
+  pageLength: 25,
+  lengthMenu: [5, 10, 25, 50, 100],
+  dom: '<"top"lBf>rt<"bottom"ip><"clear">',
+    // dom: 'Bfrtip',
+    buttons: [
+      {
+        extend: 'excel',
+        text: '<i class="fa-solid fa-file-excel"></i> Excel',
+        className: 'btn-excel'
+      },
+      {
+        extend: 'pdf',
+        text: '<i class="fa-solid fa-file-pdf"></i> PDF',
+        className: 'btn-pdf'
+      },
+      {
+        extend: 'colvis',
+        text: '<i class="fa-solid fa-eye"></i> Columns',
+        className: 'btn-colvis'
+      }
+    ],
+    language: {
+      search: "",
+      searchPlaceholder: "Type to search...",
+    paginate: { first: "«", last: "»", next: "›", previous: "‹" }
 
-    table.buttons().container().appendTo($('#exportButtons'));
-    $('#designationFilter').on('change', function () {
-        const selectedDesignation = $(this).val();
-        table.column(6).search(selectedDesignation ? '^' + selectedDesignation + '$' : '', true, false).draw();
+    },
+    initComplete: function () {
+      // Remove default "Search:" text
+      $('#myTable').contents().filter(function () {
+        return this.nodeType === 3;
+      }).remove();
+
+      // Wrap search input & add search icon
+      $('#myTable_filter input').wrap('<div class="search-wrapper"></div>');
+      $('.search-wrapper').prepend('<i class="fa-solid fa-magnifying-glass"></i>');
+    }
+  });
+
+  // Move export buttons into custom div
+  datatable.buttons().container().appendTo($('#exportButtons'));
+
+  // Dropdown filters logic
+  function addColumnFilter(selectId, colIndex) {
+    $(`#${selectId}`).on('change', function () {
+      const value = $(this).val();
+      datatable.column(colIndex).search(value ? '^' + value + '$' : '', true, false).draw();
     });
-    $('#staffIdFilter').on('change', function () {
-        const selectedStaffId = $(this).val();
-        table.column(0).search(selectedStaffId ? '^' + selectedStaffId + '$' : '', true, false).draw();
-    });
+  }
+
+  // Hook up filters
+  addColumnFilter("staffIdFilter",0);
+  addColumnFilter("designationFilter",6);
 });
 document.getElementById('basicPay').addEventListener('input', updateGrossPay);
 document.getElementById('allowance').addEventListener('input', updateGrossPay);

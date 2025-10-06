@@ -270,6 +270,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   handlePermission("#username");
 });
 
+
 async function toggleStatus(element, id) {
   if (element.classList.contains("editElement")) return;
 
@@ -282,25 +283,46 @@ async function toggleStatus(element, id) {
     if (element) {
       element.classList.toggle("active");
     }
+    await refreshTable();
   } catch (error) {
     showErrorPopupFadeInDown(error);
   }
 }
+
 async function fetchAllData() {
   try {
     const staffDetails = await api.getAllStaffs();
     const designations = new Set();
     const locations = new Set();
+    const status = new Set();
 
+    // Clear existing rows first
+    if ($.fn.dataTable.isDataTable("#myTable")) {
+      table = $("#myTable").DataTable();
+      table.clear().draw();
+    }
+
+    // Clear existing filter options (avoid duplicates)
+    // $("#designationFilter").empty().append('<option value="">Show all</option>');
+    // $("#locationFilter").empty().append('<option value="">Show all</option>');
+    // $("#statusFilter").empty().append('<option value="">Show all</option>');
+
+    // Add rows + collect unique values
     staffDetails.forEach((staffDetail) => {
       addRow(staffDetail);
 
-      designations.add(staffDetail.currentDesignation);
-      locations.add(staffDetail.locationOfWork);
+      if (staffDetail.currentDesignation)
+        designations.add(staffDetail.currentDesignation);
+
+      if (staffDetail.locationOfWork)
+        locations.add(staffDetail.locationOfWork);
+
+      status.add(staffDetail.status ? "Active" : "Inactive");
     });
 
     handlePermission("#username");
 
+    // Populate designation filter
     designations.forEach((designation) => {
       if (!designation) return;
       $("#designationFilter").append(
@@ -308,10 +330,18 @@ async function fetchAllData() {
       );
     });
 
+    // Populate location filter
     locations.forEach((location) => {
       if (!location) return;
       $("#locationFilter").append(
         `<option value="${location}">${location}</option>`
+      );
+    });
+
+    // Populate status filter
+    statuses.forEach((label) => {
+      $("#statusFilter").append(
+        `<option value="${label}">${label}</option>`
       );
     });
   } catch (error) {
@@ -324,6 +354,16 @@ function limitLength(str, length) {
   }
   return str;
 }
+
+async function refreshTable() {
+    if ($.fn.dataTable.isDataTable('#myTable')) {
+        table = $('#myTable').DataTable();
+        table.clear();
+    }
+
+    await fetchAllData();
+}
+
 function validateForm(formData) {
   let errors = [];
 
@@ -593,19 +633,28 @@ async function loadDocumentTable(staffId) {
       let actionHTML = "";
 
       if (doc.exists) {
-        // Download + Delete
         actionHTML = `
-                    <button onclick="downloadDocument('${staffId}', '${doc.name}')" class="btn btn-sm btn-primary">Download</button>
-                    <button onclick="deleteDocument('${staffId}', '${doc.name}')" class="btn btn-sm btn-danger">Delete</button>
-                `;
+            <button onclick="handleAction(this, () => downloadDocument('${staffId}', '${doc.name}'))" 
+                    class="btn btn-sm text-white" 
+                    style="background:linear-gradient(to bottom right, #69A1FF, #1E3FA0); border:none;">
+              <i class="fa-solid fa-download me-1"></i> Download
+            </button>
+            <button onclick="handleAction(this, () => deleteDocument('${staffId}', '${doc.name}'))" 
+                    class="btn btn-sm text-white" 
+                    style="background:linear-gradient(to bottom right, #EF4444, #B91C1C); border:none;">
+              <i class="fa-solid fa-trash me-1"></i> Delete
+            </button>
+        `;
       } else {
-        // Upload
-        actionHTML = `        <label class="btn btn-sm btn-success mb-0">
-            Upload
+        // ✅ Upload with gradient
+        actionHTML = `
+          <label class="btn btn-sm text-white mb-0" 
+                 style="background:linear-gradient(to bottom right, #34D399, #059669); border:none; cursor:pointer;">
+            <i class="fa-solid fa-upload me-1"></i> Upload
             <input type="file" style="display:none" 
-                   onchange="uploadDocument('${staffId}', '${doc.name}', this.files[0])">
-        </label>
-    `;
+                   onchange="handleAction(this.parentElement, () => uploadDocument('${staffId}', '${doc.name}', this.files[0]))">
+          </label>
+        `;
       }
 
       rowsHTML += `
@@ -621,6 +670,26 @@ async function loadDocumentTable(staffId) {
     console.error("Error loading documents:", error);
   }
 }
+function handleAction(btn, actionFn) {
+  let originalHTML = btn.innerHTML;
+  btn.disabled = true;
+  btn.innerHTML = `<span class="spinner-border spinner-border-sm me-1" role="status"></span> Processing...`;
+
+  // Run the async action
+  Promise.resolve(actionFn())
+    .then(() => {
+      // ✅ Success: restore button
+      btn.disabled = false;
+      btn.innerHTML = originalHTML;
+    })
+    .catch(err => {
+      console.error("Action failed:", err);
+      btn.disabled = false;
+      btn.innerHTML = originalHTML;
+      alert("Something went wrong, please try again.");
+    });
+}
+
 // Download document (binary to blob)
 async function downloadDocument(staffId, docName) {
   try {
@@ -733,13 +802,13 @@ document.getElementById("addMoreBtn").addEventListener("click", function () {
         <div class="col-md-4">
             <input type="text" class="form-control" name="otherCertName[]" placeholder="Certification Name">
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
             <input type="file" class="form-control" name="otherCertFile" required>
         </div>
-        <div class="col-md-2 text-center">
+        <div class="col-md-4 text-center">
         
-            <button type="button" class="btn btn-danger rounded remove-other-cert">
-                <i class="ti-minus"></i> Remove
+            <button type="button" class="btn-sm btn-red rounded remove-other-cert">
+                <i class="fa-solid fa-minus"></i> Remove
             </button>
         </div>
     `;
@@ -762,37 +831,83 @@ document
       e.target.closest(".other-cert-row").remove();
     }
   });
-$(document).ready(function () {
-  const datatable = $("#myTable").DataTable({
-    paging: true,
-    pageLength: 25,
-    lengthMenu: [5, 10, 25, 50, 100],
-    dom: '<"top"l>frtip',
-    buttons: ["excel", "csv", "pdf"],
-  });
-
-  datatable.buttons().container().appendTo($("#exportButtons"));
-
-  $("#designationFilter").on("change", function () {
-    const selectedDesignation = $(this).val();
-    datatable
-      .column(5)
-      .search(
-        selectedDesignation ? "^" + selectedDesignation + "$" : "",
-        true,
-        false
-      )
-      .draw();
-  });
-
-  $("#locationFilter").on("change", function () {
-    const selectedLocation = $(this).val();
-    datatable
-      .column(2)
-      .search(selectedLocation ? "^" + selectedLocation + "$" : "", true, false)
-      .draw();
-  });
+// Staff table (myTable)
+const staffTable = $("#myTable").DataTable({
+  paging: true,
+  pageLength: 25,
+  lengthMenu: [5, 10, 25, 50, 100],
+  dom: '<"top"lBf>rt<"bottom"ip><"clear">',
+  buttons: [
+    { extend: "excel", text: '<i class="fa-solid fa-file-excel"></i> Excel', className: "btn-excel" },
+    { extend: "pdf", text: '<i class="fa-solid fa-file-pdf"></i> PDF', className: "btn-pdf" },
+    { extend: "colvis", text: '<i class="fa-solid fa-eye"></i> Columns', className: "btn-colvis" }
+  ],
+  language: {
+    search: "",
+    searchPlaceholder: "Type to search...",
+    paginate: { first: "«", last: "»", next: "›", previous: "‹" }
+  },
+  columnDefs: [
+    {
+      targets: 6, // status column
+      render: function (data, type, row) {
+        if (type === "filter" || type === "sort") {
+          return $(data).filter(".status-text").text().trim();
+        }
+        return data;
+      }
+    }
+  ],
+  initComplete: function () {
+    const $input = $("#myTable_filter input");
+    $input.wrap('<div class="search-wrapper"></div>');
+    $input.before('<i class="fa-solid fa-magnifying-glass"></i>');
+  }
 });
+$("#designationFilter").on("change", function () {
+  const selectedDesignation = $(this).val();
+  staffTable
+    .column(5)
+    .search(selectedDesignation ? "^" + selectedDesignation + "$" : "", true, false)
+    .draw();
+});
+
+$("#locationFilter").on("change", function () {
+  const selectedLocation = $(this).val();
+  staffTable
+    .column(2)
+    .search(selectedLocation ? "^" + selectedLocation + "$" : "", true, false)
+    .draw();
+});
+
+// ✅ Toggle buttons for Status filter
+$("#statusFilter").on("click", function () {
+  // Remove active class from all and add to clicked
+  $("#statusFilter").removeClass("active");
+  $(this).addClass("active");
+
+  const selectedStatus = $(this).data("status"); // from button data-status
+  staffTable
+    .column(6)
+    .search(selectedStatus ? "^" + selectedStatus + "$" : "", true, false)
+    .draw();
+});
+// Insurance table (policyTable)
+const policyTable = $("#policyTable").DataTable({
+  paging: true,
+  pageLength: 10,
+  dom: '<"top"l>frtip',
+  language: {
+    search: "",
+    searchPlaceholder: "Type to search..."
+  },
+  initComplete: function () {
+    const $input = $("#policyTable_filter input");
+    $input.wrap('<div class="search-wrapper"></div>');
+    $input.before('<i class="fa-solid fa-magnifying-glass"></i>');
+  }
+});
+staffTable.buttons().container().appendTo($("#exportButtons"));
 
 $("#filter").on("change", function () {
   const selectedCategory = $(this).val();
@@ -851,7 +966,7 @@ $(document).ready(async function () {
         `<input type="date" class="form-control policyStartDate editElement">`,
         `<input type="date" class="form-control policyExpiryDate editElement" readonly>`,
         `<input type="text" class="form-control updatedBy editElement" placeholder="Updated By">`,
-        `<button class="btn btn-danger btn-sm deleteRow writeElement">Delete</button>`,
+        `<button class="btn-danger btn-sm deleteRow writeElement">Delete</button>`,
       ])
       .draw(false)
       .node();

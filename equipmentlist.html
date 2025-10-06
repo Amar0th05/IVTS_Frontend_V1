@@ -39,19 +39,54 @@
     <!-- Toastr CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <style>
-        .ColVis_collection {
-            position: absolute;
-            z-index: 1000; 
-        }
-        .addNewRecord{
-          all:unset;
-          color: white !important;
-          padding: 10px 10px !important;
-          background: linear-gradient(135deg, #4931d1, #7f86f3);
-        }
         .hidden {
           display: none !important;
         }
+        .btn-excel {
+      background-color: #28a745 !important;
+    }
+
+    .btn-excel:hover {
+      background-color: #1e7e34 !important;
+    }
+
+    .btn-pdf {
+      background-color: #dc3545 !important;
+    }
+
+    .btn-pdf:hover {
+      background-color: #a71d2a !important;
+    }
+
+    .btn-green {
+      background: linear-gradient(to bottom right, #34D399, #059669);
+      border: none;
+      color: white;
+
+    }
+
+    .btn-red {
+      background: linear-gradient(to bottom right, #EF4444, #B91C1C);
+      border: none;
+      color: white;
+    }
+
+    .btn-red:hover {
+      background: linear-gradient(to bottom right, #dc3545, #a71d2a);
+    }
+
+    .btn-green:hover {
+      background: linear-gradient(to bottom right, #28a745, #1e7e34);
+
+    }
+
+    /* input[type="file"].form-control {
+  padding: 6px;
+} */
+    /* .row>[class*="col-"] {
+      margin-bottom: 15px; */
+      /* space between rows */
+    /* } */
       </style>
 </head>
 
@@ -221,110 +256,137 @@
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <div class="card">
-                                                    <div class="card-header">
+                                                    <!-- <div class="card-header">
                                                         <h5>Delivery Status</h5>
-                                                    </div>
+                                                    </div> -->
 
                                                     <div class="card-block">
 
 <!-----------------------------------------------ADD-NEW-LOG-MODAl-START--------------------------------------------------------------------->
+<div>
+  <div class="modal fade" id="addNewModal" tabindex="-1" role="dialog" aria-labelledby="addNewModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content border-0 shadow-lg rounded-4">
 
-                                                        <div class="modal fade" id="addNewModal" tabindex="-1"
-                                                            role="dialog" aria-labelledby="addNewModalLabel"
-                                                            aria-hidden="true">
-                                                            <div class="modal-dialog modal-lg" role="document">
-                                                                <div class="modal-content">
-                                                                    <!-- Modal Header -->
-                                                                    <div class="modal-header">
-                                                                        <h5 class="modal-title" id="addNewModalLabel">Equipment Details
-                                                                            </h5>
-                                                                        <button type="button" class="close"
+        <!-- Modal Header -->
+        <div class="modal-header border-0 bg-primary text-white rounded-top-4">
+          <h5 class="modal-title fw-semibold" id="addNewModalLabel">
+            <i class="fa-solid fa-gears me-2"></i> Equipment Details
+          </h5>
+  <button type="button" class="close text-white "
                                                                             data-dismiss="modal" aria-label="Close">
-                                                                            <span aria-hidden="true">&times;</span>
-                                                                        </button>
-                                                                    </div>
+                                                                            <span aria-hidden="true" style="font-size: 26px;">&times;</span>
+                                                                        </button>        </div>
 
-                                                                    <!-- Modal Body -->
-                                                                    <div class="modal-body">
-                                                                        
-                                                                        <form id="dynamicForm">
-                                                                            <div class="row">
-                                                                                <div class="col-md-6">
-                                                                                    <div class="form-group">
-                                                                                        <label for="portName">Port Name</label>
-                                                                                        <select id="portName" class="form-control form-control-sm">
-                                                                                          
-                                                                                        </select>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col-md-6">
-                                                                                    <div class="form-group">
-                                                                                        <label for="equipmentCategory">Equipment Category</label>
-                                                                                        <select id="equipmentCategory" class="form-control form-control-sm">
-                                                                                           
-                                                                                        </select>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="row">
-                                                                              <div class="col-md-12">
-                                                                                <div class="form-group">
-                                                                                    <label for="equipmentName">Equipment Name</label>
-                                                                                    <input type="text" id="equipmentName" class="form-control form-control-sm" placeholder="Enter equipment name">
-                                                                                </div>
-                                                                              </div>
-                                                                            </div>
-                                                                            <div class="row">
-                                                                                <div class="col-md-12">
-                                                                                    <div class="form-group">
-                                                                                        <label for="assetsCount">Assets Count</label>
-                                                                                        <input type="number" id="assetsCount" class="form-control form-control-sm" min="0" placeholder="Enter number of assets">
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            
-                                                                            <div id="assetsFields" class="row"></div> 
-                                                                        
-                                                                            <div class="row">
-                                                                                <div class="col-md-12">
-                                                                                    <div class="form-group">
-                                                                                        <label for="sparesCount">Spares Count</label>
-                                                                                        <input type="number" id="sparesCount" class="form-control form-control-sm" min="0" placeholder="Enter number of spares">
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        
-                                                                            <div id="sparesFields" class="row"></div>
-                                                                        
-                                                                            <div class="row">
-                                                                                <div class="col-md-12">
-                                                                                    <div class="form-group">
-                                                                                        <label>Total</label>
-                                                                                        <input type="text" id="totalCount" class="form-control form-control-sm" value="0" readonly>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        
-                                                                        </form>
-                                                                        
-                                                                        
-                                                                    </div>
+        <!-- Modal Body -->
+        <div class="modal-body bg-light rounded-bottom-3">
+          <form id="dynamicForm" class="p-2">
+
+            <!-- Section 1: Equipment Info -->
+            <div class="card border-0 shadow-sm mb-3">
+              <div class="card-body">
+                <h6 class="fw-semibold text-sub mb-3">
+                  <i class="fa-solid fa-ship me-2"></i> Equipment Information
+                </h6>
+
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <label for="portName" class="form-label fw-semibold">Port Name</label>
+                    <select id="portName" class="form-control form-control-sm">
+                      <option value="" disabled selected>Select Port</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="equipmentCategory" class="form-label fw-semibold">Equipment Category</label>
+                    <select id="equipmentCategory" class="form-control form-control-sm">
+                      <option value="" disabled selected>Select Category</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="row mt-3">
+                  <div class="col-md-12">
+                    <label for="equipmentName" class="form-label fw-semibold">Equipment Name</label>
+                    <input type="text" id="equipmentName" class="form-control form-control-sm"
+                      placeholder="Enter equipment name">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Section 2: Assets -->
+            <div class="card border-0 shadow-sm mb-3">
+              <div class="card-body">
+                <h6 class="fw-semibold text-sub mb-3">
+                  <i class="fa-solid fa-boxes-stacked me-2"></i> Assets Details
+                </h6>
+
+                <div class="row g-3">
+                  <div class="col-md-12">
+                    <label for="assetsCount" class="form-label fw-semibold">Assets Count</label>
+                    <input type="number" id="assetsCount" class="form-control form-control-sm" min="0"
+                      placeholder="Enter number of assets">
+                  </div>
+                </div>
+
+                <div id="assetsFields" class="row mt-3"></div>
+              </div>
+            </div>
+
+            <!-- Section 3: Spares -->
+            <div class="card border-0 shadow-sm mb-3">
+              <div class="card-body">
+                <h6 class="fw-semibold text-sub mb-3">
+                  <i class="fa-solid fa-screwdriver-wrench me-2"></i> Spares Details
+                </h6>
+
+                <div class="row g-3">
+                  <div class="col-md-12">
+                    <label for="sparesCount" class="form-label fw-semibold">Spares Count</label>
+                    <input type="number" id="sparesCount" class="form-control form-control-sm" min="0"
+                      placeholder="Enter number of spares">
+                  </div>
+                </div>
+
+                <div id="sparesFields" class="row mt-3"></div>
+              </div>
+            </div>
+
+            <!-- Section 4: Total -->
+            <div class="card border-0 shadow-sm">
+              <div class="card-body">
+                <h6 class="fw-semibold text-sub mb-3">
+                  <i class="fa-solid fa-calculator me-2"></i> Total
+                </h6>
+
+                <div class="row g-3">
+                  <div class="col-md-12">
+                    <input type="text" id="totalCount" class="form-control form-control-sm fw-semibold text-center"
+                      value="0" readonly>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </form>
+        </div>
 
                                                                     <!-- Modal Footer -->
                                                                     <div class="modal-footer">
                                                                         <button type="button"
-                                                                            class="btn btn-danger btn-sm"
-                                                                            data-dismiss="modal">Exit</button>
+                                                                            class="btn btn-red btn-sm"
+                                                                            data-dismiss="modal"> <i class="fa-solid fa-xmark me-1"></i>Exit</button>
                                                                         <button type="button"
-                                                                            class="btn btn-success btn-sm" id="add_equipment_btn" data-dismiss="modal">Submit</button>
+                                                                            class="btn btn-green btn-sm" id="add_equipment_btn" data-dismiss="modal"><i class="fa-solid fa-check me-1"></i>Submit</button>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-
+</div>
  <!---------------------------------------------------------------------------------------------ADD-NEW-LOG-MODAL-END---------------------------------------------------->
  <!-----------------------------------------------UPDATE-LOG-MODAl-START--------------------------------------------------------------------->
- 
+ <div>
 <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
@@ -415,10 +477,10 @@
         </div>
     </div>
 </div>
-
+</div>
 <!---------------------------------------------------------------------------------------------UPDATE-LOG-MODAL-END---------------------------------------------------->
 
-                                                        <div class="d-flex justify-content-end mb-5">
+                                                        <div class="d-flex justify-content-end">
                                                             <button
                                                                 class="btn btn-primary addNewRecord d-flex writeElement align-items-center gap-2 px-sm-4 py-sm-2 rounded-pill shadow"
                                                                 data-toggle="modal" data-target="#addNewModal">
@@ -467,9 +529,9 @@
                                                         <div class="d-flex justify-content-center align-items-center">
                                                             
                                                             <div class="table-responsive">
-                                                                <table id="myTable"
-                                                                    class="table table-striped rounded table-hover">
-                                                                    <thead class="bg-primary text-white">
+                                                                                                 <table class="table-modern table-striped" id="myTable">
+
+                                    <thead class="bg-primary text-white text-center">
                                                                         <tr>
                                                                             <th>S.NO.</th>
                                                                             <th>Port</th>

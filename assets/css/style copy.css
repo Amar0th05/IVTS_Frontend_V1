@@ -2970,9 +2970,9 @@ img.comment-img {
 	}
 }
 
-select.form-control:not([size]):not([multiple]) {
+/* select.form-control:not([size]):not([multiple]) {
 	height: 43px;
-}
+} */
 
 .tabledit-input:disabled {
 	display: none;
@@ -14510,3 +14510,133 @@ table.dataTable.dtr-inline.collapsed>tbody>tr>th:first-child:before {
 	color:#031602 !important; 
 }
 
+
+
+/* new style  */
+
+.addNewRecord {
+            all: unset;
+            color: white !important;
+            padding: 10px 16px !important;
+            background: linear-gradient(to bottom right, #69A1FF, #1E3FA0);
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease;
+            display: inline-block;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .addNewRecord:hover {
+            background: linear-gradient(to bottom right, #4a84e0, #162e75);
+            transform: translateY(-2px);
+        }
+
+        .addNewRecord:active {
+            transform: translateY(0);
+        }
+
+
+		 .table-container {
+      /* padding: 1.5rem; */
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+      overflow-x: auto;
+      font-family: 'Inter', sans-serif;
+	border-color: #b0b8c2;
+
+    }
+
+    .table-modern {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      font-size: 15px;
+      color: #1f2937;
+      background: #fff;
+    }
+
+    .table-modern thead {
+      background: linear-gradient(to bottom right, #69A1FF, #1E3FA0);
+      color: #fff;
+      text-transform: uppercase;
+      font-size: 13px;
+      letter-spacing: 0.5px;
+    }
+
+    .table-modern th,
+    .table-modern td {
+      padding: 14px 16px;
+      text-align: center;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .table-modern tbody tr {
+      transition: background 0.2s ease;
+    }
+
+    .table-modern tbody tr:hover {
+      background-color: #92c4fa8c;
+    }
+
+    /* Status Badge */
+    .delayed {
+      background-color: #ffe0e0;
+      color: #b91c1c;
+      padding: 6px 12px;
+      border-radius: 8px;
+      display: inline-block;
+      font-weight: 600;
+      font-size: 13px;
+    }
+
+    /* Search Box inside wrapper */
+    .search-wrapper {
+      position: relative;
+      display: inline-block;
+    }
+
+    .search-wrapper i {
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #5C90EE;
+      pointer-events: none;
+    }
+
+    .search-wrapper input {
+      padding-left: 34px !important;
+      border-radius: 8px;
+      border: 1px solid #d1d5db;
+      height: 38px;
+      font-size: 14px;
+      transition: all 0.2s ease;
+    }
+
+    .search-wrapper input:focus {
+      border-color: #69A1FF;
+      box-shadow: 0 0 0 3px rgba(105, 161, 255, 0.35);
+    }
+
+    /* Export Buttons */
+    .dt-button {
+      border-radius: 8px !important;
+      padding: 8px 16px !important;
+      margin: 4px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff !important;
+      border: none !important;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+    .dt-button i {
+      margin-right: 6px;
+    }
+     .text-sub{
+        color: #2f3985 !important
+    }

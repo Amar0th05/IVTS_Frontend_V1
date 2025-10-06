@@ -33,7 +33,7 @@ const moduleMaps = {
   "PO GENERATED": ["indents"],
   "SRB CREATED": ["indents"],
   "IC & SR SUBMISSION": ["indents"],
-  ASSETS: ["assetsDashboard", "laptops", "desktops", "server","printer"],
+  "ASSETS": ["assetsDashboard", "laptops", "desktops", "server","printer"],
 
   // 'USER ROLES': ['roles']
 };
@@ -211,7 +211,10 @@ function generateSidebar() {
       "USER MANAGEMENT",
     ],
     "MASTER MANAGEMENT": ["MASTER MANAGEMENT"],
-    Assets: ["ASSETS"],
+    "Assests Mangemnet":{
+      "Asset Master":["ASSETS"],
+      "Assest Verification":["ASSETS"]
+    } ,
   };
 
   let sidebarHTML = "";
@@ -269,7 +272,7 @@ function generateSidebar() {
       sidebarHTML += `
                 <div class="category-section">
                     <div class="category-header">
-                        <div class="pcoded-navigation-label text-dark waves-effect waves-dark" style="color: #727272 !important;">
+                        <div class="pcoded-navigation-label text-dark waves-effect waves-dark" style="color: #2f3985 !important;">
                             ${categoryName}
                         </div>
                     </div>

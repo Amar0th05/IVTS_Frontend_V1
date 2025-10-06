@@ -249,15 +249,44 @@ let equipments = [];
                 });
             });
             var table = $('#equipmentsOverviewTable').DataTable({
-                "paging": true,
-                "pageLength": 25,
-                order: [],
-                "lengthMenu": [5, 10, 25, 50, 100],
-                dom: '<"top"l>frtip',
-                buttons: ['excel', 'csv', 'pdf'],
-            });
-            table.buttons().container().appendTo('#exportButtons');
+  paging: true,
+  pageLength: 25,
+  lengthMenu: [5, 10, 25, 50, 100],
+  dom: '<"top"lBf>rt<"bottom"ip><"clear">',
+  buttons: [
+    {
+      extend: 'excel',
+      text: '<i class="fa-solid fa-file-excel"></i> Excel',
+      className: 'btn-excel'
+    },
+    {
+      extend: 'pdf',
+      text: '<i class="fa-solid fa-file-pdf"></i> PDF',
+      className: 'btn-pdf'
+    },
+    {
+      extend: 'colvis',
+      text: '<i class="fa-solid fa-eye"></i> Columns',
+      className: 'btn-colvis'
+    }
+  ],
+  language: {
+    search: "",
+    searchPlaceholder: "Type to search...",
+    paginate: { first: "«", last: "»", next: "›", previous: "‹" }
+  },
+  initComplete: function () {
+    const $input = $('#equipmentsOverviewTable_filter input');
+    $input.wrap('<div class="search-wrapper position-relative"></div>');
+    $input.before('<i class="fa-solid fa-magnifying-glass search-icon"></i>');
+  }
+});
+
+// Append export buttons to a custom container
+table.buttons().container().appendTo('#exportButtons');
+
         });
+
         async function getAllEquipmentsForPort(portId) {
             try {
                 const response = await axiosInstance.get(`/equipmentsDelivery/port/${portId}`, {
