@@ -184,6 +184,7 @@ async function toggleStatus(element, id) {
     if (element) {
       element.classList.toggle("active");
     }
+    await refreshTable();
   } catch (error) {
     showErrorPopupFadeInDown(error);
   }
@@ -210,6 +211,14 @@ function limitLength(str, length) {
     return str.substring(0, length);
   }
   return str;
+}
+async function refreshTable() {
+    if ($.fn.dataTable.isDataTable('#myTable')) {
+        table = $('#myTable').DataTable();
+        table.clear();
+    }
+
+    await fetchAllData();
 }
 
 function validateForm(formData) {
@@ -365,65 +374,93 @@ if (storageHistory.length > 0) {
     const newStorageValue = document.getElementById('newStorageValue');
     const newStorageUnit = document.getElementById('newStorageUnit');
 
-    function renderStorageTable() {
-        storageHistoryTable.innerHTML = '';
-        storageHistory.forEach((item, idx) => {
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
-                <td class="storage-value">${item.value}</td>
-                <td class="storage-unit">${item.unit}</td>
-                <td class="storage-type">${item.type}</td>
-                <td class="text-center" style="padding: 5px 0px 0px !important;">
-                    <button class="btn btn-sm btn-primary edit-storage">Edit</button>
-                    <button class="btn btn-sm btn-danger delete-storage">Delete</button>
-                </td>
+function renderStorageTable() {
+    storageHistoryTable.innerHTML = '';
+
+    storageHistory.forEach((item, idx) => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td class="storage-value text-center align-middle fw-semibold fs-6">${item.value}</td>
+            <td class="storage-unit text-center align-middle fs-6">
+                <span class="badge bg-light text-dark px-3 py-2 border rounded">${item.unit}</span>
+            </td>
+            <td class="storage-type text-center align-middle fs-6">
+                <span class="badge ${item.type === 'HDD' ? 'bg-primary' : 'bg-success'} text-white px-3 py-2 rounded">
+                    ${item.type}
+                </span>
+            </td>
+            <td class="text-center align-middle" style="padding: 10px 0 !important;">
+                <div class="btn-group">
+                    <button class="btn btn-outline-primary btn-md px-3 py-2 edit-storage" title="Edit Storage">
+                        <i class="fa-solid fa-pen-to-square fs-6"></i> Edit
+                    </button>
+                    <button class="btn btn-outline-danger btn-md px-3 py-2 delete-storage" title="Delete Storage">
+                        <i class="fa-solid fa-trash fs-6"></i> Delete
+                    </button>
+                </div>
+            </td>
+        `;
+
+        const tdValue = tr.querySelector('.storage-value');
+        const tdUnit = tr.querySelector('.storage-unit');
+        const tdType = tr.querySelector('.storage-type');
+        const editBtn = tr.querySelector('.edit-storage');
+
+        // ✏️ Edit button
+        editBtn.addEventListener('click', function editHandler() {
+            tdValue.innerHTML = `
+                <input type="number" 
+                       class="form-control form-control-lg edit-value text-center fw-semibold" 
+                       value="${item.value}" 
+                       min="1" 
+                       style="width: 120px; margin: auto;">
             `;
 
-            const tdValue = tr.querySelector('.storage-value');
-            const tdUnit = tr.querySelector('.storage-unit');
-            const tdType = tr.querySelector('.storage-type');
-            const editBtn = tr.querySelector('.edit-storage');
-
-            // Edit button
-            editBtn.addEventListener('click', function editHandler() {
-                // Replace cells with input/select
-                tdValue.innerHTML = `<input type="number" class="form-control form-control-sm edit-value" value="${item.value}" min="1">`;
-                tdUnit.innerHTML = `<select class="form-select form-select-sm edit-unit">
-                    <option value="GB" ${item.unit==='GB'?'selected':''}>GB</option>
-                    <option value="TB" ${item.unit==='TB'?'selected':''}>TB</option>
-                </select>`;
-                tdType.innerHTML = `<select class="form-select form-select-sm edit-type">
-                    <option value="SDD" ${item.type==='SDD'?'selected':''}>SDD</option>
-                    <option value="HDD" ${item.type==='HDD'?'selected':''}>HDD</option>
+            tdUnit.innerHTML = `
+                <select class="form-select form-select-lg edit-unit text-center fw-semibold" 
+                        style="width: 100px; margin: auto;">
+                    <option value="GB" ${item.unit === 'GB' ? 'selected' : ''}>GB</option>
+                    <option value="TB" ${item.unit === 'TB' ? 'selected' : ''}>TB</option>
                 </select>`;
 
-                // Change button to Save
-                editBtn.textContent = 'Save';
-                editBtn.classList.replace('btn-primary','btn-success');
+            tdType.innerHTML = `
+                <select class="form-select form-select-lg edit-type text-center fw-semibold" 
+                        style="width: 120px; margin: auto;">
+                    <option value="SDD" ${item.type === 'SDD' ? 'selected' : ''}>SDD</option>
+                    <option value="HDD" ${item.type === 'HDD' ? 'selected' : ''}>HDD</option>
+                </select>`;
 
-                // Save functionality
-                const saveHandler = () => {
-                    const newVal = tdValue.querySelector('.edit-value').value.trim();
-                    const newUnit = tdUnit.querySelector('.edit-unit').value;
-                    const newType = tdType.querySelector('.edit-type').value;
-                    if (!newVal || newVal < 1) { alert('Enter valid value!'); return; }
-                    storageHistory[idx] = { value: newVal, unit: newUnit , type: newType};
-                    renderStorageTable(); // Re-render table
-                };
+            // Change button to Save
+            editBtn.innerHTML = `<i class="fa-solid fa-floppy-disk fs-6"></i> Save`;
+            editBtn.classList.replace('btn-outline-primary', 'btn-success');
+            editBtn.setAttribute('title', 'Save Changes');
 
-                editBtn.removeEventListener('click', editHandler);
-                editBtn.addEventListener('click', saveHandler);
-            });
-
-            // Delete button
-            tr.querySelector('.delete-storage').addEventListener('click', () => {
-                storageHistory.splice(idx, 1);
+            const saveHandler = () => {
+                const newVal = tdValue.querySelector('.edit-value').value.trim();
+                const newUnit = tdUnit.querySelector('.edit-unit').value;
+                const newType = tdType.querySelector('.edit-type').value;
+                if (!newVal || newVal < 1) {
+                    alert('Enter valid value!');
+                    return;
+                }
+                storageHistory[idx] = { value: newVal, unit: newUnit, type: newType };
                 renderStorageTable();
-            });
+            };
 
-            storageHistoryTable.appendChild(tr);
+            editBtn.removeEventListener('click', editHandler);
+            editBtn.addEventListener('click', saveHandler);
         });
-    }
+
+        // 🗑️ Delete button
+        tr.querySelector('.delete-storage').addEventListener('click', () => {
+            storageHistory.splice(idx, 1);
+            renderStorageTable();
+        });
+
+        storageHistoryTable.appendChild(tr);
+    });
+}
+
 
     // Open HDD modal
     storageHistoryBtn.addEventListener('click', () => {
@@ -632,41 +669,65 @@ async function fetchDataAndGenerateExcel() {
     showErrorPopupFadeInDown("Can't download the staff details.");
   }
 }
-   $(document).ready(function () {
-       const datatable = $('#myTable').DataTable({
-           "paging": true,
-           "pageLength": 25,
-           "lengthMenu": [5, 10, 25, 50, 100],
-           dom: '<"top"l>frtip',
-           buttons: ['excel', 'csv', 'pdf']
-       });
+$(document).ready(function () {
+  const datatable = $('#myTable').DataTable({
+    paging: true,
+  pageLength: 25,
+  lengthMenu: [5, 10, 25, 50, 100],
+  dom: '<"top"lBf>rt<"bottom"ip><"clear">',
+    // dom: 'Bfrtip',
+    buttons: [
+      {
+        extend: 'excel',
+        text: '<i class="fa-solid fa-file-excel"></i> Excel',
+        className: 'btn-excel'
+      },
+      {
+        extend: 'pdf',
+        text: '<i class="fa-solid fa-file-pdf"></i> PDF',
+        className: 'btn-pdf'
+      },
+      {
+        extend: 'colvis',
+        text: '<i class="fa-solid fa-eye"></i> Columns',
+        className: 'btn-colvis'
+      }
+    ],
+    language: {
+      search: "",
+      searchPlaceholder: "Type to search...",
+    paginate: { first: "«", last: "»", next: "›", previous: "‹" }
 
-       datatable.buttons().container().appendTo($('#exportButtons'));
+    },
+    initComplete: function () {
+      // Remove default "Search:" text
+      $('#myTable').contents().filter(function () {
+        return this.nodeType === 3;
+      }).remove();
 
+      // Wrap search input & add search icon
+      $('#myTable_filter input').wrap('<div class="search-wrapper"></div>');
+      $('.search-wrapper').prepend('<i class="fa-solid fa-magnifying-glass"></i>');
+    }
+  });
 
+  // Move export buttons into custom div
+  datatable.buttons().container().appendTo($('#exportButtons'));
 
- $('#designationFilter').on('change', function () {
-        const selectedDesignation = $(this).val();
-        datatable.column(0).search(selectedDesignation ? '^' + selectedDesignation + '$' : '', true, false).draw();
+  // Dropdown filters logic
+  function addColumnFilter(selectId, colIndex) {
+    $(`#${selectId}`).on('change', function () {
+      const value = $(this).val();
+      datatable.column(colIndex).search(value ? '^' + value + '$' : '', true, false).draw();
     });
+  }
 
-    $('#locationFilter').on('change', function () {
-        const selectedLocation = $(this).val();
-        datatable.column(5).search(selectedLocation ? '^' + selectedLocation + '$' : '', true, false).draw(); 
-    });
+  // Hook up filters
+  addColumnFilter("locationFilter",0);
+  addColumnFilter("designationFilter",6);
+  addColumnFilter("statusFilter",5);
+});
 
-   });
-
-
-    
-    $('#filter').on('change', function () {
-        const selectedCategory = $(this).val();
-        if (selectedCategory) {
-            datatable.column(1).search(selectedCategory).draw();
-        } else {
-            datatable.column(1).search('').draw(); 
-        }
-    });
 
     
     document.querySelector('#addNew').addEventListener('click', function () {
