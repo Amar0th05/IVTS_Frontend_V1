@@ -329,32 +329,92 @@ async function updateInvoice(id, column, value) {
     
     
 }
-    $(document).ready(function () {
-        const datatable=$('#equipmentInvoiceTable').DataTable({
-            "paging": true,
-            "pageLength": 25,
-            "lengthMenu": [5, 10, 25, 50, 100],
-            dom: '<"top"l>frtip',
-            buttons: ['excel', 'csv', 'pdf']
-        });
-        const equipmentInvoiceModalTable=$('#equipmentInvoiceModalTable').DataTable({
-            "paging": true,
-            "pageLength": 25,
-            "lengthMenu": [5, 10, 25, 50, 100],
-            dom: '<"top"l>frtip',
-            buttons: ['excel', 'csv', 'pdf']
-        });
-        
+$(document).ready(function () {
 
-          
-       
-        datatable.buttons().container().appendTo($('#exportButtons'));
-        equipmentInvoiceModalTable.buttons().container().appendTo($('#equipmentInvoiceModalExportButtons'));
-    });
-    $('#invoiceAmount, #gst').on('input', function () {
-        let invoiceAmount = Math.max(parseFloat($('#invoiceAmount').val()) || 0, 0);
-        let gst = Math.max(parseFloat($('#gst').val()) || 0, 0);
-        $('#invoiceAmount').val(invoiceAmount);
-        $('#gst').val(gst);
-        $('#totalInvoiceAmount').val(invoiceAmount + gst);
-    });
+  // ===== Equipment Invoice Table =====
+  const datatable = $('#equipmentInvoiceTable').DataTable({
+    paging: true,
+    pageLength: 25,
+    lengthMenu: [5, 10, 25, 50, 100],
+    dom: '<"top"lBf>rt<"bottom"ip><"clear">',
+    buttons: [
+      {
+        extend: 'excel',
+        text: '<i class="fa-solid fa-file-excel me-1"></i> Excel',
+        className: 'btn-excel'
+      },
+
+      {
+        extend: 'pdf',
+        text: '<i class="fa-solid fa-file-pdf me-1"></i> PDF',
+        className: 'btn-pdf'
+      },
+          { extend: "colvis", text: '<i class="fa-solid fa-eye"></i> Columns', className: "btn-colvis" }
+
+    ],
+    language: {
+    search: "",
+    searchPlaceholder: "Type to search...",
+    paginate: { first: "«", last: "»", next: "›", previous: "‹" }
+  },
+     initComplete: function () {
+      // Style search input
+      $('#equipmentInvoiceTable_filter input')
+        .wrap('<div class="search-wrapper"></div>');
+      $('.search-wrapper')
+        .prepend('<i class="fa-solid fa-magnifying-glass me-2"></i>');
+    }
+
+  });
+
+  // ===== Equipment Invoice Modal Table =====
+  const equipmentInvoiceModalTable = $('#equipmentInvoiceModalTable').DataTable({
+    paging: true,
+    pageLength: 25,
+    lengthMenu: [5, 10, 25, 50, 100],
+    dom: '<"top"lBf>rt<"bottom"ip><"clear">',
+    buttons: [
+      {
+        extend: 'excel',
+        text: '<i class="fa-solid fa-file-excel me-1"></i> Excel',
+        className: 'btn-excel'
+      },
+      {
+        extend: 'pdf',
+        text: '<i class="fa-solid fa-file-pdf me-1"></i> PDF',
+        className: 'btn-pdf'
+      },
+          { extend: "colvis", text: '<i class="fa-solid fa-eye"></i> Columns', className: "btn-colvis" }
+
+    ],
+   language: {
+    search: "",
+    searchPlaceholder: "Type to search...",
+    paginate: { first: "«", last: "»", next: "›", previous: "‹" }
+  },
+     initComplete: function () {
+      // Style search input
+      $('#equipmentInvoiceModalTable_filter input')
+        .wrap('<div class="search-wrapper"></div>');
+      $('.search-wrapper')
+        .prepend('<i class="fa-solid fa-magnifying-glass me-2"></i>');
+    }
+  });
+
+  // ===== Move Export Buttons to Custom Divs =====
+  datatable.buttons().container().appendTo($('#exportButtons'));
+  equipmentInvoiceModalTable.buttons().container().appendTo($('#equipmentInvoiceModalExportButtons'));
+
+  // ===== Invoice Calculation Logic =====
+  $('#invoiceAmount, #gst').on('input', function () {
+    const invoiceAmount = Math.max(parseFloat($('#invoiceAmount').val()) || 0, 0);
+    const gst = Math.max(parseFloat($('#gst').val()) || 0, 0);
+    const total = invoiceAmount + gst;
+
+    $('#invoiceAmount').val(invoiceAmount.toFixed(2));
+    $('#gst').val(gst.toFixed(2));
+    $('#totalInvoiceAmount').val(total.toFixed(2));
+  });
+
+});
+

@@ -80,6 +80,10 @@
 
     }
 
+    .modal-header{
+      background:  linear-gradient(135deg, #69A1FF, #1E3FA0);
+
+    }
     /* input[type="file"].form-control {
   padding: 6px;
 } */
@@ -274,10 +278,13 @@
           <h5 class="modal-title fw-semibold" id="addNewModalLabel">
             <i class="fa-solid fa-gears me-2"></i> Equipment Details
           </h5>
-  <button type="button" class="close text-white "
-                                                                            data-dismiss="modal" aria-label="Close">
-                                                                            <span aria-hidden="true" style="font-size: 26px;">&times;</span>
-                                                                        </button>        </div>
+  <button type="button" class="d-flex align-items-center justify-content-center p-0"
+        style="width:32px; height:32px;background-color: transparent !important;
+    border: transparent;
+    cursor: pointer; " data-dismiss="modal" aria-label="Close">
+  <i class="fa-solid fa-xmark text-white"></i>
+</button>
+</div>
 
         <!-- Modal Body -->
         <div class="modal-body bg-light rounded-bottom-3">
@@ -386,98 +393,144 @@
 </div>
  <!---------------------------------------------------------------------------------------------ADD-NEW-LOG-MODAL-END---------------------------------------------------->
  <!-----------------------------------------------UPDATE-LOG-MODAl-START--------------------------------------------------------------------->
- <div>
-<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel"
+<div>
+  <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h5 class="modal-title" id="updateModalLabel">
-                    Stage Details</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
+      <div class="modal-content border-0 shadow-lg rounded-4">
 
-            <!-- Modal Body -->
-            <div class="modal-body equipment-list-table" >
-                <form id="procurementForm" class="form-control">
-                    <table class="table" id="procurentTable">
-                        <tbody >
-                            <tr>
-                                <td>Vendor Finalized/Tender Finalized Date</td>
-                                <td><input type="date" name="vendorFinalised" id="vendorFinalised" class="form-control editElement"></td>
-                            </tr>
-                            <tr>
-                                <td>Vendor Received Quotation Date</td>
-                                <td><input type="date"  name="vendorReceivedQuotation" id="vendorReceivedQuotation" class="form-control editElement"></td>
-                            </tr>
-                            <tr>
-                                <td>Intend Raised Date</td>
-                                <td><input type="date" name="intendRaised" id="intendRaised" class="form-control editElement"></td>
-                            </tr>
-                            <tr>
-                                <td>Admin Approved Date</td>
-                                <td><input type="date" name="adminApproved" id="adminApproved" class="form-control editElement"></td>
-                            </tr>
-                            <tr>
-                                <td>PO Released Date</td>
-                                <td><input type="date" name="poReleased" id="poReleased" class="form-control editElement"></td>
-                            </tr>
-                            <tr>
-                                <td>Equipment Delivered to NTCPWC Date</td>
-                                <td><input type="date" name="equipmentDeliveredAtNtcpwc" id="equipmentDeliveredAtNtcpwc" class="form-control editElement"></td>
-                            </tr>
-                            <tr>
-                                <td>Payment Settled to Vendor by NTCPWC Date</td>
-                                <td><input type="date" editElementname="paymentSettledToVendorByNtcpwc" id="paymentSettledToVendorByNtcpwc" class="form-control "></td>
-                            </tr>
-                            
-                            <tr>
-                                <td>Amount Paid (Excl. GST)</td>
-                                <td><input type="number" name="amountPaid" id="amountPaid" class="form-control editElement"></td>
-                            </tr>
-                            <tr>
-                                <td>GST</td>
-                                <td><input type="number" name="gst" id="gst" class="form-control editElement"></td>
-                            </tr>
-                            <tr>
-                                <td style="color:darkblue !important; font-weight: bolder;">Total Amount Paid</td>
-                                <td><input type="number" name="totalAmountPaid" id="totalAmountPaid" class="form-control" readonly></td>
-                            </tr>
-                            
-                            <tr>
-                                <td>Date at Which Supplied at Port</td>
-                                <td><input type="date" name="suppliedAtPort" id="suppliedAtPort" class="form-control editElement"></td>
-                            </tr>
-                            <tr>
-                                <td>Installed at Port Date</td>
-                                <td><input type="date" name="installedAtPort" id="installedAtPort" class="form-control editElement"></td>
-                            </tr>
-                            <tr>
-                                <td>Invoice Submitted by NTCPWC</td>
-                                <td><input type="date" name="invoiceSubmittedByNtcpwc" id="invoiceSubmittedByNtcpwc" class="form-control editElement"></td>
-                            </tr>
-                            <tr>
-                                <td style="color:darkblue !important; font-weight: bolder;">Amount Received</td>
-                                <td><input type="number" name="amountReceived" id="amountReceived" class="form-control editElement"></td>
-                            </tr>
-                        </tbody>
-                        
-                    </table>
-                </form>
-            </div>
-
-            <!-- Modal Footer -->
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Exit</button>
-                <button type="button" class="btn btn-success btn-sm writeElement" id="submit_procurement_btn">Submit</button>
-            </div>
+        <!-- Modal Header -->
+        <div class="modal-header border-0 text-white rounded-top-4">
+          <h5 class="modal-title fw-semibold" id="updateModalLabel">
+            <i class="fa-solid fa-clipboard-list me-2"></i> Stage Details
+          </h5>
+         <button type="button" class="d-flex align-items-center justify-content-center p-0"
+        style="width:32px; height:32px;background-color: transparent !important;
+    border: transparent;
+    cursor: pointer; " data-dismiss="modal" aria-label="Close">
+  <i class="fa-solid fa-xmark text-white"></i>
+</button>
         </div>
+
+        <!-- Modal Body -->
+        <div class="modal-body bg-light rounded-bottom-3">
+          <form id="procurementForm" class="p-2">
+
+            <!-- 🧾 Procurement Stage Details -->
+            <div class="card border-0 shadow-sm mb-3">
+              <div class="card-body">
+                <h6 class="fw-semibold text-sub mb-3">
+                  <i class="fa-solid fa-calendar-days me-2"></i> Procurement Timeline
+                </h6>
+
+                <table class="table table-sm align-middle mb-0">
+                  <tbody>
+                    <tr>
+                      <td>Vendor Finalized / Tender Finalized Date</td>
+                      <td><input type="date" name="vendorFinalised" id="vendorFinalised" class="form-control form-control-sm editElement"></td>
+                    </tr>
+                    <tr>
+                      <td>Vendor Received Quotation Date</td>
+                      <td><input type="date" name="vendorReceivedQuotation" id="vendorReceivedQuotation" class="form-control form-control-sm editElement"></td>
+                    </tr>
+                    <tr>
+                      <td>Intend Raised Date</td>
+                      <td><input type="date" name="intendRaised" id="intendRaised" class="form-control form-control-sm editElement"></td>
+                    </tr>
+                    <tr>
+                      <td>Admin Approved Date</td>
+                      <td><input type="date" name="adminApproved" id="adminApproved" class="form-control form-control-sm editElement"></td>
+                    </tr>
+                    <tr>
+                      <td>PO Released Date</td>
+                      <td><input type="date" name="poReleased" id="poReleased" class="form-control form-control-sm editElement"></td>
+                    </tr>
+                    <tr>
+                      <td>Equipment Delivered to NTCPWC Date</td>
+                      <td><input type="date" name="equipmentDeliveredAtNtcpwc" id="equipmentDeliveredAtNtcpwc" class="form-control form-control-sm editElement"></td>
+                    </tr>
+                    <tr>
+                      <td>Payment Settled to Vendor by NTCPWC Date</td>
+                      <td><input type="date" name="paymentSettledToVendorByNtcpwc" id="paymentSettledToVendorByNtcpwc" class="form-control form-control-sm editElement"></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- 💰 Payment Details -->
+            <div class="card border-0 shadow-sm mb-3">
+              <div class="card-body">
+                <h6 class="fw-semibold text-sub mb-3">
+                  <i class="fa-solid fa-sack-dollar me-2"></i> Payment Information
+                </h6>
+
+                <table class="table table-sm align-middle mb-0">
+                  <tbody>
+                    <tr>
+                      <td>Amount Paid (Excl. GST)</td>
+                      <td><input type="number" name="amountPaid" id="amountPaid" class="form-control form-control-sm editElement"></td>
+                    </tr>
+                    <tr>
+                      <td>GST</td>
+                      <td><input type="number" name="gst" id="gst" class="form-control form-control-sm editElement"></td>
+                    </tr>
+                    <tr>
+                      <td class="text-sub fw-bol">Total Amount Paid</td>
+                      <td><input type="number" name="totalAmountPaid" id="totalAmountPaid" class="form-control form-control-sm text-center" readonly></td>
+                    </tr>
+                    <tr>
+                      <td>Amount Received</td>
+                      <td><input type="number" name="amountReceived" id="amountReceived" class="form-control form-control-sm editElement"></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- ⚙️ Installation & Delivery -->
+            <div class="card border-0 shadow-sm">
+              <div class="card-body">
+                <h6 class="fw-semibold text-sub mb-3">
+                  <i class="fa-solid fa-truck-ramp-box me-2"></i> Installation & Delivery
+                </h6>
+
+                <table class="table table-sm align-middle mb-0">
+                  <tbody>
+                    <tr>
+                      <td>Date at Which Supplied at Port</td>
+                      <td><input type="date" name="suppliedAtPort" id="suppliedAtPort" class="form-control form-control-sm editElement"></td>
+                    </tr>
+                    <tr>
+                      <td>Installed at Port Date</td>
+                      <td><input type="date" name="installedAtPort" id="installedAtPort" class="form-control form-control-sm editElement"></td>
+                    </tr>
+                    <tr>
+                      <td>Invoice Submitted by NTCPWC</td>
+                      <td><input type="date" name="invoiceSubmittedByNtcpwc" id="invoiceSubmittedByNtcpwc" class="form-control form-control-sm editElement"></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+          </form>
+        </div>
+
+        <!-- Modal Footer -->
+        <div class="modal-footer border-0 bg-white rounded-bottom-4">
+          <button type="button" class="btn btn-red btn-sm" data-dismiss="modal">
+            <i class="fa-solid fa-xmark me-1"></i> Exit
+          </button>
+          <button type="button" class="btn btn-green btn-sm writeElement" id="submit_procurement_btn">
+            <i class="fa-solid fa-circle-check me-1"></i> Submit
+          </button>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
-</div>
+
 <!---------------------------------------------------------------------------------------------UPDATE-LOG-MODAL-END---------------------------------------------------->
 
                                                         <div class="d-flex justify-content-end">

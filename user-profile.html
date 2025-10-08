@@ -1,63 +1,328 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <style>
-            .gradient-custom {
-/* fallback for old browsers */
-background: #f6d365;
+<html lang="en">
+<head>
+  <title>User Profile</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
 
-/* Chrome 10-25, Safari 5.1-6 */
-background: -webkit-linear-gradient(to right bottom, rgba(246, 211, 101, 1), rgba(253, 160, 133, 1));
+  <!-- Framework + Theme -->
+  <link rel="stylesheet" type="text/css" href="assets/css/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/icon/themify-icons/themify-icons.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/jquery.mCustomScrollbar.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/style copy.css">
+  <link rel="stylesheet" href="assets/css/custom.css">
+  <script src="https://kit.fontawesome.com/1799ed0397.js" crossorigin="anonymous"></script>
 
-/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-background: linear-gradient(to right bottom, rgba(246, 211, 101, 1), rgba(253, 160, 133, 1))
-}
-        </style>
-    </head>
-    <body>
-        <section class="vh-100" style="background-color: #f4f5f7;">
-  <div class="container py-5 h-100">
-    <div class="row d-flex justify-content-center align-items-center h-100">
-      <div class="col col-lg-6 mb-4 mb-lg-0">
-        <div class="card mb-3" style="border-radius: .5rem;">
-          <div class="row g-0">
-            <div class="col-md-4 gradient-custom text-center text-white"
-              style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
-              <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
-                alt="Avatar" class="img-fluid my-5" style="width: 80px;" />
-              <h5>Marie Horwitz</h5>
-              <p>Web Designer</p>
-              <i class="far fa-edit mb-5"></i>
+  <style>
+    .gradient-custom {
+      background: linear-gradient(135deg, #4931d1, #7f86f3);
+      border-top-left-radius: .5rem;
+      border-bottom-left-radius: .5rem;
+    }
+    .card {
+      border-radius: .5rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    .btn-change {
+      background: linear-gradient(135deg, #4931d1, #7f86f3);
+      color: white;
+      border: none;
+      border-radius: 25px;
+      padding: 8px 18px;
+      transition: 0.3s;
+    }
+    .btn-change:hover { opacity: 0.9; }
+    .editable-input {
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 4px 6px;
+      width: 100%;
+    }
+    .profile-label {
+      font-weight: 600;
+      color: #333;
+    }
+    #editToggleBtn {
+      background-color: #7f86f3;
+      color: white;
+      border-radius: 25px;
+      padding: 5px 15px;
+      border: none;
+      transition: 0.3s;
+    }
+    #editToggleBtn:hover {
+      background-color: #4931d1;
+    }
+  </style>
+</head>
+
+<body>
+   <div class="theme-loader">
+        <div class="loader-track">
+            <div class="preloader-wrapper">
+                <div class="spinner-layer spinner-blue">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+                <div class="spinner-layer spinner-red">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+
+                <div class="spinner-layer spinner-yellow">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+
+                <div class="spinner-layer spinner-green">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-8">
-              <div class="card-body p-4">
-                <h6>Information</h6>
-                <hr class="mt-0 mb-4">
-                <div class="row pt-1">
-                  <div class="col-6 mb-3">
-                    <h6>Email</h6>
-                    <p class="text-muted">info@example.com</p>
-                  </div>
-                  <div class="col-6 mb-3">
-                    <h6>Phone</h6>
-                    <p class="text-muted">123 456 789</p>
-                  </div>
-                </div>                
+        </div>
+    </div>
+  <div id="pcoded" class="pcoded">
+    <div class="pcoded-overlay-box"></div>
+    <div class="pcoded-container navbar-wrapper">
+
+      <!-- HEADER -->
+         <nav class="navbar header-navbar pcoded-header">
+        <div class="navbar-wrapper">
+          <div class="navbar-logo align-items-center">
+            <a class="mobile-menu waves-effect waves-light" id="mobile-collapse" href="#!">
+              <i class="ti-menu"></i>
+            </a>
+            <div>
+              <a href="index.html">
+                <img class="img-fluid" src="assets/images/Gemini_Generated_Image_ode7ogode7ogode7-removebg-preview.png"
+                  alt="Theme-Logo" style="height: 50px;" />
+                <h4 class="d-inline"><span class="text-lowercase">WorkSphere</h4>
+              </a>
             </div>
-                <div class="d-flex justify-content-start">
-                  <a href="#!"><i class="fab fa-facebook-f fa-lg me-3"></i></a>
-                  <a href="#!"><i class="fab fa-twitter fa-lg me-3"></i></a>
-                  <a href="#!"><i class="fab fa-instagram fa-lg"></i></a>
+            <a class="mobile-options waves-effect waves-light">
+              <i class="ti-more"></i>
+            </a>
+          </div>
+          <div class="navbar-container container-fluid">
+            <ul class="nav-left">
+              <li>
+                <div class="sidebar_toggle"><a href="javascript:void(0)"><i class="ti-menu"></i></a></div>
+              </li>
+              <li>
+                <a href="#!" onclick="javascript:toggleFullScreen()" class="waves-effect waves-light">
+                  <i class="ti-fullscreen"></i>
+                </a>
+              </li>
+            </ul>
+            <ul class="nav-right">
+              <li class="user-profile header-notification">
+                <a href="#!" class="waves-effect waves-light">
+                  <span id="username">John Doe</span>
+                  <i class="ti-angle-down"></i>
+                </a>
+                <ul class="show-notification profile-notification">
+                  <li class="waves-effect waves-light">
+                    <a href="user-profile.html">
+                      <i class="fa-solid fa-id-card"></i> Profile
+                    </a>
+                  </li>
+                  <li class="waves-effect waves-light">
+                    <a href="login.html" id="logout-button">
+
+                      <i class="fa-solid fa-right-to-bracket fa-flip-horizontal"></i> Logout
+
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <div class="pcoded-main-container">
+        <div class="pcoded-wrapper">
+
+          <!-- SIDEBAR -->
+         <nav class="pcoded-navbar">
+            <div class="sidebar_toggle"><a href="#"><i class="icon-close icons"></i></a></div>
+            <div class="pcoded-inner-navbar main-menu">
+              <div class="">
+                <div class="main-menu-content">
+                  <ul>
+                    <li class="more-details">
+                      <a href="user-profile.html"><i class="ti-user"></i>View Profile</a>
+                      <!-- <a href="#!"><i class="ti-settings"></i>Settings</a> -->
+                      <a href="login.html"><i class="ti-layout-sidebar-left"></i>Logout</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div id="sidebar-container">
+
+              </div>
+
+          </nav>
+
+          <!-- PAGE CONTENT -->
+          <div class="pcoded-content">
+            <div class="page-header">
+              <div class="page-block">
+                <div class="row align-items-center">
+                  <div class="col-md-8">
+                    <div class="page-title">
+                      <h5><i class="fa-solid fa-user me-2"></i>Profile Details</h5>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+
+            <div class="pcoded-inner-content">
+              <div class="main-body">
+                <div class="page-wrapper">
+                  <div class="page-body">
+                    <div class="row justify-content-center">
+                      <div class="col-md-8">
+                        <div class="card">
+                          <div class="row g-0">
+                            <!-- LEFT SECTION -->
+                            <div class="col-md-4 gradient-custom text-center text-white d-flex flex-column align-items-center justify-content-center">
+                              <img id="profileImage" src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
+                                alt="Avatar" class="img-fluid rounded-circle mb-3" style="width: 100px;">
+                              <h5 id="profileName" class="fw-bold">Kowshik M</h5>
+                              <p id="profileRole" class="mb-0">Web Developer</p>
+                            </div>
+
+                            <!-- RIGHT SECTION -->
+                            <div class="col-md-8">
+                              <div class="card-body p-4">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                  <h5 class="mb-0">Profile Details</h5>
+                                  <button id="editToggleBtn"><i class="fa-solid fa-pen me-1"></i>Edit</button>
+                                </div>
+
+                                <hr class="mt-0 mb-4">
+
+                                <div class="row pt-1">
+                                  <div class="col-6 mb-3">
+                                    <p class="profile-label">Firstname</p>
+                                    <p id="firstName" class="text-muted">Kowshik</p>
+                                  </div>
+                                  <div class="col-6 mb-3">
+                                    <p class="profile-label">Lastname</p>
+                                    <p id="lastName" class="text-muted">M</p>
+                                  </div>
+                                </div>
+
+                                <div class="row pt-1">
+                                  <div class="col-6 mb-3">
+                                    <p class="profile-label">Email ID</p>
+                                    <p id="emailId" class="text-muted">kowshikm0802@gmail.com</p>
+                                  </div>
+                                  <div class="col-6 mb-3">
+                                    <p class="profile-label">Phone No</p>
+                                    <p id="phoneNo" class="text-muted">9080020874</p>
+                                  </div>
+                                </div>
+
+                                <div class="text-start mt-3">
+                                  <button id="changePasswordBtn" class="btn-change" data-bs-toggle="modal" data-bs-target="#changePasswordModal">
+                                    <i class="fa-solid fa-key me-2"></i>Change Password
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- CHANGE PASSWORD MODAL -->
+            <div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="changePasswordLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="changePasswordLabel">Change Password</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                  </div>
+                  <div class="modal-body">
+                    <form id="passwordForm">
+                      <div class="mb-3">
+                        <label for="oldPassword" class="form-label">Old Password</label>
+                        <input type="password" class="form-control" id="oldPassword" required>
+                      </div>
+                      <div class="mb-3">
+                        <label for="newPassword" class="form-label">New Password</label>
+                        <input type="password" class="form-control" id="newPassword" required>
+                      </div>
+                      <div class="mb-3">
+                        <label for="confirmPassword" class="form-label">Confirm Password</label>
+                        <input type="password" class="form-control" id="confirmPassword" required>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
+                    <button class="btn btn-success btn-sm" type="submit" form="passwordForm">Save</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div> <!-- pcoded-content end -->
         </div>
       </div>
     </div>
-</section>
-    </body>
+  </div>
+<script>
+        let user=JSON.parse(sessionStorage.getItem('user'));
+      console.log("this session",user)
+  </script>
+  <!-- JS -->
+  <!-- <script src="assets/js/jquery/jquery.min.js"></script>
+  <script src="assets/js/bootstrap/js/bootstrap.min.js"></script>
+  <script src="assets/js/pcoded.min.js"></script>
+  <script src="assets/js/vertical/vertical-layout.min.js"></script> -->
+
+  <!-- Axios + Utils -->
+  <!-- <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> -->
+  <script src="assets/js/Utils.js"></script>
+      <!-- <script src="assets/js/roleUtil.js"></script> -->
+</body>
 </html>
-
-
-

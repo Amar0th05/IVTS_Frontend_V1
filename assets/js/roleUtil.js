@@ -4,6 +4,7 @@ let roles = window.roles;
 console.log("Roles loaded:", window);
 
 const moduleMaps = {
+  
   DASHBOARD: ["index"],
   "PROJECT TRACKING": ["projectsDashboard", "projectTracking"],
   "O&M INVOICES": ["o&mInvoices"],
@@ -24,7 +25,7 @@ const moduleMaps = {
     "organisations",
     "stages",
   ],
-  "INDENTS DASHBOARD": ["indentsDashboard"],
+  "INDENTS DASHBOARD": ["indentDashboard"],
   "INDENT CREATION": ["indents"],
   "FUND CHECK": ["indents"],
   "LPC COMPLETED": ["indents"],
@@ -352,7 +353,7 @@ function getPageInfo(page) {
     },
     "user-details": { title: "User Details", icon: "fa-solid fa-users-gear" },
     indents: { title: "FMS Process", icon: "fa-solid fa-clipboard-list" },
-    indentsDashboard: { title: "Dashboard", icon: "fa-solid fa-chart-bar" },
+    indentDashboard: { title: "Dashboard", icon: "fa-solid fa-chart-bar" },
 
 talentPool: { title: "Talent Pool", icon: "fa-solid fa-user-group" },
     interns: { title: "Interns", icon: "fa-solid fa-user-graduate" },

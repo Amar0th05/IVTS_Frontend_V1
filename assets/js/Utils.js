@@ -9,13 +9,14 @@ document.getElementById('logout-button').addEventListener('click',logout);
 
       let user=JSON.parse(sessionStorage.getItem('user'));
       let token=sessionStorage.getItem('token');
+    //   console.log("this session",user)
       if(token===null||user===null){
         window.location.href="login.html";
       }else{
             
     roles=await axiosInstance.get('/roles/role/perms');
     roles=roles.data.roles;
-    // console.log(roles); 
+    console.log(roles); 
     window.roles=roles;
         handlePermission('#username');
        

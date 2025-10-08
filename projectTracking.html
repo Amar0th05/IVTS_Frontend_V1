@@ -37,26 +37,179 @@
 
     <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css"> -->
     <style>
-        #policyTable {
-            border-radius: 5px;
-        }
 
         .hidden {
             display: none !important;
         }
+.btn-excel {
+      background-color: #28a745 !important;
+    }
 
-        .hidden {
-            display: none !important;
-        }
+    .btn-excel:hover {
+      background-color: #1e7e34 !important;
+    }
 
-        .addNewRecord {
-            all: unset;
-            color: white !important;
-            padding: 10px 10px !important;
-            background: linear-gradient(135deg, #4931d1, #7f86f3);
-        }
+    .btn-pdf {
+      background-color: #dc3545 !important;
+    }
+
+    .btn-pdf:hover {
+      background-color: #a71d2a !important;
+    }
+
+    .btn-green {
+      background: linear-gradient(to bottom right, #34D399, #059669);
+      border: none;
+      color: white;
+
+    }
+
+    .btn-red {
+      background: linear-gradient(to bottom right, #EF4444, #B91C1C);
+      border: none;
+      color: white;
+    }
+
+    .btn-red:hover {
+      background: linear-gradient(to bottom right, #dc3545, #a71d2a);
+    }
+
+    .btn-green:hover {
+      background: linear-gradient(to bottom right, #28a745, #1e7e34);
+
+    }
+
+    /* input[type="file"].form-control {
+  padding: 6px;
+} */
+    .row>[class*="col-"] {
+      margin-bottom: 15px;
+    }
     </style>
+<style>
+/* 🔹 General Badge Style */
+.status-badge {
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  transition: all 0.3s ease-in-out;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2rem;
+  padding: 0.45rem 1rem;
+  text-transform: capitalize;
+}
 
+.status-badge:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* ✅ Completed Animation */
+.complete-icon {
+  animation: flipIn 0.8s ease-in-out;
+  transform-origin: center;
+  color: #fff;
+}
+
+.status-text {
+  display: inline-block;
+  animation: fadeInText 1s ease-in-out;
+  opacity: 0;
+  animation-fill-mode: forwards;
+  animation-delay: 0.2s;
+}
+
+/* 🔄 Ongoing Spin */
+.spin-icon {
+  animation: spin 2s linear infinite;
+}
+
+/* ❌ Withdrawn Flip */
+.flip-icon {
+  animation: flip 2.5s ease-in-out infinite;
+}
+
+/* 🌀 Animations */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes flipIn {
+  0% {
+    transform: rotateY(0deg) scale(0.8);
+    opacity: 0;
+  }
+  50% {
+    transform: rotateY(180deg) scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: rotateY(360deg) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes flip {
+  0%, 100% { transform: rotateY(0deg); }
+  50% { transform: rotateY(180deg); }
+}
+
+@keyframes fadeInText {
+  0% {
+    transform: translateX(-6px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* 🔹 Gradients */
+.bg-warning {
+  background: linear-gradient(135deg, #ffe066, #fab005) !important;
+  color: #212529 !important;
+}
+
+.bg-success {
+  background: linear-gradient(135deg, #51cf66, #2f9e44) !important;
+  color: #fff !important;
+}
+
+.bg-danger {
+  background: linear-gradient(135deg, #ff8787, #fa5252) !important;
+  color: #fff !important;
+}
+
+/* 🔹 Icon styling */
+.status-badge i {
+  margin-right: 0.5rem; /* using mr-2 style */
+  font-size: 1rem;
+  opacity: 0.9;
+  transition: opacity 0.3s;
+}
+
+.status-badge:hover i {
+  opacity: 1;
+}
+
+/* 🔹 Responsive */
+@media (max-width: 576px) {
+  .status-badge {
+    font-size: 0.8rem;
+    padding: 0.3rem 0.8rem;
+  }
+
+  .status-badge i {
+    margin-right: 0.4rem;
+    font-size: 0.9rem;
+  }
+}
+
+</style>
 </head>
 
 <body>
@@ -215,7 +368,7 @@
                                             <li class="breadcrumb-item">
                                                 <a href="index.html"> <i class="fa fa-home"></i> </a>
                                             </li>
-                                            <li class="breadcrumb-item"><a href="#!">Projects</a>
+                                            <li class="breadcrumb-item"><a href="projectTracking.html">Projects</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -230,709 +383,472 @@
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <div class="card">
-                                                    <div class="card-header">
+                                                    <!-- <div class="card-header">
                                                         <h5>Projects</h5>
-                                                    </div>
+                                                    </div> -->
 
                                                     <div class="card-block">
 
                                                         <!-----------------------------------------------ADD-NEW-MODAl-START--------------------------------------------------------------------->
 
-                                                        <div>
+                                                       <div>
+  <div class="d-none" id="tab">
+    <!-- Tabs Header -->
+    <div class="nav nav-tabs md-tabs border-bottom-0" id="myTab" role="tablist">
+      <button class="nav-link active fw-semibold px-4 py-2" data-bs-toggle="tab" data-bs-target="#tab1" type="button">
+        <i class="fa-solid fa-diagram-project me-2"></i> Basic Details
+      </button>
+      <button class="nav-link fw-semibold px-4 py-2" data-bs-toggle="tab" data-bs-target="#tab2" type="button">
+        <i class="fa-solid fa-boxes-stacked me-2"></i> Deliverables
+      </button>
+      <button class="nav-link fw-semibold px-4 py-2" data-bs-toggle="tab" data-bs-target="#tab6" type="button">
+        <i class="fa-solid fa-money-check-dollar me-2"></i> Payment Details
+      </button>
+    </div>
 
-                                                            <div class="d-none" id="tab">
-                                                                <div class="nav nav-tabs md-tabs" id="myTab"
-                                                                    role="tablist">
-                                                                    <button class="nav-link active" data-bs-toggle="tab"
-                                                                        data-bs-target="#tab1" type="button">Basic
-                                                                        Details</button>
-                                                                    <button class="nav-link" data-bs-toggle="tab"
-                                                                        data-bs-target="#tab2"
-                                                                        type="button">Deliverables Details</button>
-                                                                    <button class="nav-link" data-bs-toggle="tab"
-                                                                        data-bs-target="#tab6" type="button">Payment
-                                                                        Details</button>
-                                                                </div>
-                                                                <div class="tab-content mt-3">
-                                                                    <div class="tab-pane fade show active " id="tab1">
-                                                                        <!-- Modal Header -->
+    <div class="tab-content mt-4">
 
+      <!-- 🧩 Tab 1: Basic Details -->
+      <div class="tab-pane fade show active" id="tab1">
+        <div class="modal-body bg-light rounded-3 shadow-sm p-3">
+          <form id="new-project-form">
 
-                                                                        <!-- Modal Body -->
-                                                                        <div class="modal-body">
-                                                                            <form id="new-project-form">
-                                                                                <div class="row mb-3">
-                                                                                    <!-- Left Column -->
-                                                                                    <div class="col-md-6">
-                                                                                        <!-- Staff ID -->
-                                                                                        <div class="form-group">
-                                                                                            <label
-                                                                                                for="ProjectID">Project
-                                                                                                ID<span
-                                                                                                    class="text-danger m-1">*</span></label>
-                                                                                            <input type="text"
-                                                                                                name="ProjectID"
-                                                                                                maxlength="20"
-                                                                                                class="form-control form-control-sm"
-                                                                                                id="ProjectID"
-                                                                                                placeholder="Enter Project ID"
-                                                                                                required>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="col-md-6">
-                                                                                        <!-- Staff Name -->
-                                                                                        <div class="form-group">
-                                                                                            <label
-                                                                                                for="ProjectName">Project
-                                                                                                Name<span
-                                                                                                    class="text-danger m-1">*</span></label>
-                                                                                            <input type="text"
-                                                                                                name="ProjectName"
-                                                                                                maxlength="25"
-                                                                                                class="form-control form-control-sm"
-                                                                                                id="ProjectName"
-                                                                                                placeholder="Enter Project Name">
-                                                                                        </div>
+            <!-- 🧾 Project Information -->
+            <div class="card border-0 shadow-sm mb-4">
+              <div class="card-body py-3 px-4">
+                <h6 class="text-sub fw-semibold mb-3">
+                  <i class="fa-solid fa-circle-info me-2"></i> Project Information
+                </h6>
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold">Project ID <span class="text-danger">*</span></label>
+                    <input type="text" name="ProjectID" maxlength="20" class="form-control form-control-sm"
+                      id="ProjectID" placeholder="Enter Project ID" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold">Project Name <span class="text-danger">*</span></label>
+                    <input type="text" name="ProjectName" maxlength="25" class="form-control form-control-sm"
+                      id="ProjectName" placeholder="Enter Project Name">
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold">Client <span class="text-danger">*</span></label>
+                    <input type="text" id="ClientName" name="ClientName" class="form-control form-control-sm"
+                      placeholder="Enter Client Name" list="create-clients" autocomplete="off" required>
+                    <datalist id="create-clients"></datalist>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold">Project Incharge <span class="text-danger">*</span></label>
+                    <input type="text" name="ProjectIncharge" class="form-control form-control-sm" id="ProjectIncharge"
+                      placeholder="Enter Project Incharge">
+                  </div>
+                </div>
+              </div>
+            </div>
 
-                                                                                    </div>
+            <!-- 📅 Project Duration -->
+            <div class="card border-0 shadow-sm mb-4">
+              <div class="card-body py-3 px-4">
+                <h6 class="text-sub fw-semibold mb-3">
+                  <i class="fa-solid fa-calendar-days me-2"></i> Project Duration
+                </h6>
+                <div class="row g-3">
+                  <div class="col-md-4">
+                    <label class="form-label fw-semibold">Start Date <span class="text-danger">*</span></label>
+                    <input type="date" name="StartDate" class="form-control form-control-sm" id="StartDate">
+                  </div>
+                  <div class="col-md-4">
+                    <label class="form-label fw-semibold">Estimated End Date</label>
+                    <input type="date" name="EstEndDate" class="form-control form-control-sm" id="EstEndDate">
+                  </div>
+                  <div class="col-md-4">
+                    <label class="form-label fw-semibold">Actual End Date <span class="text-danger">*</span></label>
+                    <input type="date" name="ActualEndDate" class="form-control form-control-sm" id="ActualEndDate">
+                  </div>
+                </div>
+              </div>
+            </div>
 
-                                                                                </div>
-                                                                                <div class="row mb-3">
-                                                                                    <div class="col-md-6">
-                                                                                        <div class="form-group">
-                                                                                            <label
-                                                                                                for="ClientName">Client
-                                                                                                <span
-                                                                                                    class="text-danger">*</span></label>
-                                                                                            <div class="input-group">
-                                                                                                <input type="text"
-                                                                                                    id="ClientName"
-                                                                                                    name="ClientName"
-                                                                                                    class="form-control"
-                                                                                                    placeholder="Enter client name"
-                                                                                                    list="clients"
-                                                                                                    autocomplete="off"
-                                                                                                    required>
-                                                                                            </div>
-                                                                                            <datalist
-                                                                                                id="create-clients">
-                                                                                                <!-- api.getAllCleints -->
-                                                                                            </datalist>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="col-md-6">
+            <!-- 💰 Financial Overview -->
+            <div class="card border-0 shadow-sm mb-3">
+              <div class="card-body py-3 px-4">
+                <h6 class="text-sub fw-semibold mb-3">
+                  <i class="fa-solid fa-indian-rupee-sign me-2"></i> Financial Overview
+                </h6>
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold">Project Cost (Excl. GST) <span class="text-danger">*</span></label>
+                    <input type="number" min="0" step="any" class="form-control form-control-sm" name="ProjectCost"
+                      id="ProjectCost" value="0" placeholder="Enter Project Cost">
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold">GST (%) <span class="text-danger">*</span></label>
+                    <input type="number" name="GST" id="GST" min="0" step="any" value="0"
+                      class="form-control form-control-sm" placeholder="Enter GST Percentage">
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold">Total Project Cost</label>
+                    <input type="number" name="TotalProjectCost" id="TotalProjectCost" min="0" step="any"
+                      class="form-control form-control-sm fw-bold text-success text-center" value="0" readonly>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold">Project Status <span class="text-danger">*</span></label>
+                    <select name="ProjectStatus" id="ProjectStatus" class="form-control form-control-sm">
+                      <option value="Ongoing" selected>Ongoing</option>
+                      <option value="Completed">Completed</option>
+                      <option value="Withdrawn">Withdrawn</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-                                                                                        <div class="form-group">
-                                                                                            <label
-                                                                                                for="ProjectIncharge">Project
-                                                                                                Incharge<span
-                                                                                                    class="text-danger m-1">*</span></label>
-                                                                                            <input type="text"
-                                                                                                name="ProjectIncharge"
-                                                                                                class="form-control form-control-sm"
-                                                                                                id="ProjectIncharge"
-                                                                                                placeholder="Enter Project Incharge">
-                                                                                        </div>
-                                                                                    </div>
+          </form>
+        </div>
+      </div>
 
-                                                                                </div>
-                                                                                <hr>
-                                                                                <div class="row mb-3">
-                                                                                    <div class="col-md-4">
+      <!-- 📦 Tab 2: Deliverables -->
+      <div class="tab-pane fade" id="tab2">
+        <div class="modal-body bg-light rounded-3 shadow-sm p-3">
+          <div class="card border-0 shadow-sm mb-3">
+            <div class="card-body py-3 px-4">
+              <h6 class="text-sub fw-semibold mb-3">
+                <i class="fa-solid fa-box-open me-2"></i> Deliverables Details
+              </h6>
 
-                                                                                        <div class="form-group">
-                                                                                            <label for="StartDate">Start
-                                                                                                Date<span
-                                                                                                    class="text-danger m-1">*</span></label>
-                                                                                            <input type="date"
-                                                                                                name="StartDate"
-                                                                                                class="form-control form-control-sm"
-                                                                                                id="StartDate">
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="col-md-4">
+              <div class="d-flex justify-content-end align-items-center mb-3">
+                <input type="number" min="1" step="1" style="width: 60px;" value="1"
+                  class="form-control form-control-sm text-center me-2" id="deliverablesCountInput" readonly>
+                <button class="btn btn-green btn-sm px-3" id="deliverablesIncrementBtn">
+                  <i class="fa-solid fa-plus"></i>
+                </button>
+              </div>
+                   <div
+                                                                class="d-flex justify-content-center align-items-center">
+                                                                <div class="table-responsive">
+                                  <table class="table-modern table-striped" id="deliverablesDynamicContainer">
+                                    <thead class="bg-primary text-white text-center">
+                                                                            <tr>
+                                                                                <th>Deliverable Name</th>
+                                                                                <th>Estimated Delivery Date</th>
+                                                                                <th>Remarks</th>
+                                                                                <th>Designation</th>
+                                                                                <th>Total Cost</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
 
-                                                                                        <div class="form-group">
-                                                                                            <label
-                                                                                                for="EstEndDate">Estimated
-                                                                                                End Date</label>
-                                                                                            <input type="date"
-                                                                                                name="EstEndDate"
-                                                                                                class="form-control form-control-sm"
-                                                                                                id="EstEndDate">
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="col-md-4">
-
-                                                                                        <div class="form-group">
-                                                                                            <label
-                                                                                                for="ActualEndDate">End
-                                                                                                Date<span
-                                                                                                    class="text-danger m-1">*</span></label>
-                                                                                            <input type="date"
-                                                                                                name="ActualEndDate"
-                                                                                                class="form-control form-control-sm"
-                                                                                                id="ActualEndDate">
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <hr>
-                                                                                <div class="row mb-3 ">
-                                                                                    <div class="col-md-6">
-
-                                                                                        <div class="form-group">
-                                                                                            <label
-                                                                                                for="ProjectCost">Project
-                                                                                                Cost <span>( Exc. GST.
-                                                                                                    )</span><span
-                                                                                                    class="text-danger m-1">*</span></label>
-                                                                                            <input type="number" min="0"
-                                                                                                step="any"
-                                                                                                class="form-control"
-                                                                                                name="ProjectCost"
-                                                                                                id="ProjectCost"
-                                                                                                value="0"
-                                                                                                placeholder="Enter Project Cost (Exc. GST.)">
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="col-md-6">
-
-                                                                                        <div class="form-group">
-                                                                                            <label for="GST">GST<span
-                                                                                                    class="text-danger m-1">*</span></label>
-                                                                                            <input type="number"
-                                                                                                name="GST" id="GST"
-                                                                                                min="0" step="any"
-                                                                                                value="0"
-                                                                                                class="form-control"
-                                                                                                placeholder="Enter GST">
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="row mb-3">
-                                                                                    <div class="col-md-6">
-                                                                                        <div class="form-group">
-                                                                                            <label
-                                                                                                for="TotalProjectCost">Total
-                                                                                                Project Cost<span
-                                                                                                    class="text-danger m-1">*</span></label>
-                                                                                            <input type="number"
-                                                                                                name="TotalProjectCost"
-                                                                                                id="TotalProjectCost"
-                                                                                                min="0" step="any"
-                                                                                                class="form-control"
-                                                                                                placeholder="" value="0"
-                                                                                                readonly>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="col-md-6">
-                                                                                        <div class="form-group">
-                                                                                            <label
-                                                                                                for="ProjectStatus">Project
-                                                                                                Status<span
-                                                                                                    class="text-danger m-1">*</span></label>
-                                                                                            <select name="ProjectStatus"
-                                                                                                id="ProjectStatus"
-                                                                                                class="form-control form-select client">
-                                                                                                <option value="Ongoing"
-                                                                                                    selected>Ongoing
-                                                                                                </option>
-                                                                                                <option
-                                                                                                    value="Completed">
-                                                                                                    Completed</option>
-                                                                                                <option
-                                                                                                    value="Withdrawn">
-                                                                                                    Withdrawn</option>
-
-                                                                                            </select>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <hr>
-                                                                                <div class="row">
-                                                                                </div>
-                                                                            </form>
-                                                                        </div>
-
-                                                                        <!-- Modal Footer -->
-
-                                                                    </div>
-                                                                    <div class="tab-pane fade" id="tab2"
-                                                                        style="max-height: 1000px !important; overflow-y: auto !important;">
-                                                                        <div class="modal-body">
-                                                                            <div class="row align-items-center">
-                                                                                <div
-                                                                                    class="col-md-12 d-flex justify-content-end">
-                                                                                    <input type="number" min="1"
-                                                                                        step="1"
-                                                                                        style="width: 60px !important; padding-left: 10px;"
-                                                                                        value="1" class="m-1"
-                                                                                        id="deliverablesCountInput"
-                                                                                        readonly>
-                                                                                    <button
-                                                                                        class="btn btn-primary p-2 m-1"
-                                                                                        id="deliverablesIncrementBtn"><i
-                                                                                            class="ti ti-plus"></i></button>
-                                                                                </div>
-
-                                                                            </div>
-                                                                            <div class="col-md-12 d-flex align-items-center bg-primary text-white p-2 mb-1"
-                                                                                style="font-size: 20px !important;">
-                                                                                <p class="col-md-3 p-0 text-center">
-                                                                                    Deliverable Name</p>
-                                                                                <p class="col-md-3 p-0 text-center">
-                                                                                    Estimated Delivery Date</p>
-                                                                                <p class="col-md-3 p-0 text-center">
-                                                                                    Remarks</p>
-                                                                                <p class="col-md-3 p-0 text-center">
-                                                                                    Total Cost</p>
-
-                                                                            </div>
-                                                                            <div class="col-md-12 border"
-                                                                                id="deliverablesDynamicContainer">
-
-                                                                            </div>
-
-
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="tab-pane fade" id="tab6"
-                                                                        style="max-height: 1000px !important; overflow-y: auto !important;">
-                                                                        <div class="modal-body">
-                                                                            <div class="p-2 border rounded">
-                                                                                <div class="row">
-                                                                                    <div class="col-md-12">
-                                                                                        <div class="form-group">
-                                                                                            <label
-                                                                                                for="paymentTerms">Payment
-                                                                                                Terms<span
-                                                                                                    class="text-danger m-1">*</span></label>
-                                                                                            <textarea
-                                                                                                name="paymentTerms"
-                                                                                                class="form-control"
-                                                                                                id="paymentTerms"
-                                                                                                rows="2"></textarea>
-
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="row">
-                                                                                    <div class="col-md-4">
-                                                                                        <div class="form-group">
-                                                                                            <label for="costExcGST">Cost
-                                                                                                ( Exc. GST )<span
-                                                                                                    class="text-danger m-1">*</span></label>
-                                                                                            <input name="ExcGST"
-                                                                                                type="number" min="0"
-                                                                                                step="any" value="0"
-                                                                                                class="form-control"
-                                                                                                placeholder="Enter Cost"
-                                                                                                id="costExcGST">
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="col-md-4">
-                                                                                        <div class="form-group">
-                                                                                            <label for="-GST">GST<span
-                                                                                                    class="text-danger m-1">*</span></label>
-                                                                                            <input name="ExcGST"
-                                                                                                type="number" min="0"
-                                                                                                step="any" value="0"
-                                                                                                placeholder="Enter GST"
-                                                                                                class="form-control"
-                                                                                                id="-GST">
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="col-md-4">
-                                                                                        <div class="form-group">
-                                                                                            <label
-                                                                                                for="-totalCost">Total
-                                                                                                Cost<span
-                                                                                                    class="text-danger m-1">*</span></label>
-                                                                                            <input name="totalCost"
-                                                                                                type="number" min="0"
-                                                                                                step="any" value="0"
-                                                                                                readonly
-                                                                                                class="form-control" pla
-                                                                                                id="-totalCost">
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="row">
-                                                                                    <div class="col-md-4">
-                                                                                        <div class="form-group">
-                                                                                            <label
-                                                                                                for="paymentReceived">Payment
-                                                                                                Received<span
-                                                                                                    class="text-danger m-1">*</span></label>
-                                                                                            <input name="payment"
-                                                                                                type="number" min="0"
-                                                                                                value="0"
-                                                                                                class="form-control"
-                                                                                                id="paymentReceived">
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="col-md-4">
-                                                                                        <div class="form-group">
-                                                                                            <label
-                                                                                                for="paymentDate">Payment
-                                                                                                Received Date<span
-                                                                                                    class="text-danger m-1">*</span></label>
-                                                                                            <input name="paymentDate"
-                                                                                                type="date"
-                                                                                                class="form-control"
-                                                                                                id="paymentDate">
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="col-md-4">
-                                                                                        <div class="form-group">
-                                                                                            <label for="invoice">Upload
-                                                                                                Invoice<span
-                                                                                                    class="text-danger m-1">*</span></label>
-                                                                                            <input name="invoice"
-                                                                                                type="file"
-                                                                                                class="form-control"
-                                                                                                placeholder="upload invoice"
-                                                                                                id="invoice">
-                                                                                        </div>
-                                                                                    </div>
-
-                                                                                </div>
-                                                                                <div class="row">
-                                                                                    <div
-                                                                                        class="col-md-12 d-flex justify-content-end">
-                                                                                        <button
-                                                                                            class="btn btn-primary btn-sm"
-                                                                                            id="addPRBtn"><i
-                                                                                                class="ti ti-plus"></i>Add</button>
-                                                                                    </div>
-
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="table-responsive mt-2">
-                                                                                <table
-                                                                                    class="table table-borderless table-striped table-hover"
-                                                                                    id="paymentsTable">
-                                                                                    <thead
-                                                                                        class="bg-primary text-white">
-
-                                                                                        <th>Payment Terms</th>
-                                                                                        <th>Cost ( Exc. GST )</th>
-                                                                                        <th>GST</th>
-                                                                                        <th>Total Cost</th>
-                                                                                        <th>Payment Received</th>
-                                                                                        <th>Payment Received Date</th>
-                                                                                        <th>Invoice</th>
-                                                                                        <th>Action</th>
-
-                                                                                    </thead>
-                                                                                    <tbody>
-
-                                                                                    </tbody>
-                                                                                </table>
-                                                                            </div>
-
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="modal-footer">
-                                                                        <button type="button" class="btn btn-danger"
-                                                                            data-dismiss="modal"
-                                                                            id="exitButton">Exit</button>
-                                                                        <button type="submit" class="btn btn-success"
-                                                                            id="add_project_btn"
-                                                                            data-dismiss="modal">Submit</button>
-                                                                    </div>
+                                                                        </tbody>
+                                                                    </table>
                                                                 </div>
                                                             </div>
-                                                        </div>
+
+              <!-- <div class="row bg-primary text-white py-2 rounded-top text-center fw-semibold">
+                <div class="col-md-3">Deliverable Name</div>
+                <div class="col-md-3">Estimated Delivery Date</div>
+                <div class="col-md-3">Remarks</div>
+                <div class="col-md-3">Total Cost</div>
+              </div>
+
+              <div class="border rounded-bottom p-2 bg-white" id="deliverablesDynamicContainer"></div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 💰 Tab 3: Payment Details -->
+      <div class="tab-pane fade" id="tab6">
+        <div class="modal-body bg-light rounded-3 shadow-sm p-3">
+          <div class="card border-0 shadow-sm mb-3">
+            <div class="card-body py-3 px-4">
+              <h6 class="text-sub fw-semibold mb-3">
+                <i class="fa-solid fa-sack-dollar me-2"></i> Payment Details
+              </h6>
+
+              <div class="p-3 border rounded bg-white mb-3">
+                <div class="row g-3 mb-3">
+                  <div class="col-md-12">
+                    <label class="form-label fw-semibold">Payment Terms <span class="text-danger">*</span></label>
+                    <textarea name="paymentTerms" class="form-control form-control-sm" id="paymentTerms" rows="2"
+                      placeholder="Enter Payment Terms"></textarea>
+                  </div>
+                </div>
+
+                <div class="row g-3 mb-3">
+                  <div class="col-md-4">
+                    <label class="form-label fw-semibold">Cost (Excl. GST) <span class="text-danger">*</span></label>
+                    <input name="ExcGST" type="number" min="0" step="any" value="0" class="form-control form-control-sm"
+                      id="costExcGST" placeholder="Enter Cost">
+                  </div>
+                  <div class="col-md-4">
+                    <label class="form-label fw-semibold">GST (%) <span class="text-danger">*</span></label>
+                    <input name="ExcGST" type="number" min="0" step="any" value="0" class="form-control form-control-sm"
+                      id="-GST" placeholder="Enter GST">
+                  </div>
+                  <div class="col-md-4">
+                    <label class="form-label fw-semibold">Total Cost <span class="text-danger">*</span></label>
+                    <input name="totalCost" type="number" min="0" step="any" value="0" readonly
+                      class="form-control form-control-sm fw-bold text-success text-center" id="-totalCost">
+                  </div>
+                </div>
+
+                <div class="row g-3">
+                  <div class="col-md-4">
+                    <label class="form-label fw-semibold">Payment Received <span class="text-danger">*</span></label>
+                    <input name="payment" type="number" min="0" value="0" class="form-control form-control-sm"
+                      id="paymentReceived">
+                  </div>
+                  <div class="col-md-4">
+                    <label class="form-label fw-semibold">Payment Date <span class="text-danger">*</span></label>
+                    <input name="paymentDate" type="date" class="form-control form-control-sm" id="paymentDate">
+                  </div>
+                  <div class="col-md-4">
+                    <label class="form-label fw-semibold">Upload Invoice <span class="text-danger">*</span></label>
+                    <input name="invoice" type="file" class="form-control form-control-sm" id="invoice">
+                  </div>
+                </div>
+
+                <div class="text-end mt-3">
+                  <button class="btn btn-green btn-sm px-3" id="addPRBtn">
+                    <i class="fa-solid fa-plus me-1"></i> Add
+                  </button>
+                </div>
+              </div>
+  <div class="d-flex justify-content-center align-items-center">
+                                                                <div class="table-responsive">
+                                  <table class="table-modern table-striped" id="paymentsTable">
+                                    <thead class="bg-primary text-white text-center">
+                    <tr>
+                      <th>Payment Terms</th>
+                      <th>Cost (Excl. GST)</th>
+                      <th>GST</th>
+                      <th>Total Cost</th>
+                      <th>Payment Received</th>
+                      <th>Payment Date</th>
+                      <th>Invoice</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="modal-footer bg-white border-top mt-3">
+      <button type="button" class="btn btn-red btn-sm text-white" id="exitButton">
+        <i class="fa-solid fa-xmark me-1"></i> Exit
+      </button>
+      <button type="submit" class="btn btn-green btn-sm text-white" id="add_project_btn">
+        <i class="fa-solid fa-circle-check me-1"></i> Submit
+      </button>
+    </div>
+  </div>
+</div>
+
+
+
 
                                                         <!---------------------------------------------------------------------------------------------ADD-NEW-MODAL-END---------------------------------------------------->
                                                         <!-----------------------------------------------UPDATE-MODAl-START--------------------------------------------------------------------->
 
-                                                        <div>
-                                                            <div class="d-none" id="tabWrapper">
-                                                                <div class="nav nav-tabs md-tabs" id="myTab1"
-                                                                    role="tablist">
-                                                                    <button class="nav-link active" data-bs-toggle="tab"
-                                                                        data-bs-target="#tab3" type="button">Basic
-                                                                        Details</button>
-                                                                    <button class="nav-link" data-bs-toggle="tab"
-                                                                        data-bs-target="#tab4"
-                                                                        type="button">Deliverables Details</button>
-                                                                    <button class="nav-link" data-bs-toggle="tab"
-                                                                        data-bs-target="#tab5" type="button">Payment
-                                                                        Details</button>
-                                                                </div>
-                                                                <div class="tab-content mt-3">
-                                                                    <div class="tab-pane fade show active " id="tab3">
-                                                                        <!-- Modal Body -->
-                                                                        <div class="modal-body">
-                                                                            <form id="update-project-form">
-                                                                                <div class="row mb-3">
-                                                                                    <!-- Left Column -->
-                                                                                    <div class="col-md-6">
-                                                                                        <!-- Staff ID -->
-                                                                                        <div class="form-group">
-                                                                                            <label
-                                                                                                for="update-ProjectID">Project
-                                                                                                ID<span
-                                                                                                    class="text-danger">*</span></label>
-                                                                                            <input type="text"
-                                                                                                name="ProjectID"
-                                                                                                maxlength="20"
-                                                                                                class="form-control form-control-sm"
-                                                                                                id="update-ProjectID"
-                                                                                                placeholder="Enter Project ID"
-                                                                                                required>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="col-md-6">
-                                                                                        <!-- Staff Name -->
-                                                                                        <div class="form-group">
-                                                                                            <label
-                                                                                                for="update-ProjectName">Project
-                                                                                                Name<span
-                                                                                                    class="text-danger">*</span></label>
-                                                                                            <input type="text"
-                                                                                                name="ProjectName"
-                                                                                                maxlength="25"
-                                                                                                class="form-control form-control-sm"
-                                                                                                id="update-ProjectName"
-                                                                                                placeholder="Enter Project Name">
-                                                                                        </div>
+                                                    <div>
+  <div class="d-none" id="tabWrapper">
+    <!-- Tabs Header -->
+    <div class="nav nav-tabs md-tabs border-bottom-0" id="myTab1" role="tablist">
+      <button class="nav-link active fw-semibold px-4 py-2" data-bs-toggle="tab" data-bs-target="#tab3" type="button">
+        <i class="fa-solid fa-diagram-project me-2 text-primary"></i> Basic Details
+      </button>
+      <button class="nav-link fw-semibold px-4 py-2" data-bs-toggle="tab" data-bs-target="#tab4" type="button">
+        <i class="fa-solid fa-boxes-stacked me-2 text-success"></i> Deliverables
+      </button>
+      <button class="nav-link fw-semibold px-4 py-2" data-bs-toggle="tab" data-bs-target="#tab5" type="button">
+        <i class="fa-solid fa-money-check-dollar me-2 text-warning"></i> Payment Details
+      </button>
+    </div>
 
-                                                                                    </div>
+    <!-- Tabs Content -->
+    <div class="tab-content mt-3">
+      
+      <!-- 🧾 Basic Details -->
+      <div class="tab-pane fade show active" id="tab3">
+        <div class="modal-body bg-light rounded-3 shadow-sm">
+          <form id="update-project-form">
+            
+            <!-- Project Info -->
+            <div class="card border-0 shadow-sm mb-3">
+              <div class="card-body">
+                <h6 class="text-sub fw-semibold mb-3">
+                  <i class="fa-solid fa-circle-info me-2 text-primary"></i> Project Information
+                </h6>
+                
+                <div class="row g-3 mb-2">
+                  <div class="col-md-6">
+                    <label for="update-ProjectID" class="form-label fw-semibold">Project ID <span class="text-danger">*</span></label>
+                    <input type="text" name="ProjectID" maxlength="20" class="form-control form-control-sm"
+                      id="update-ProjectID" placeholder="Enter Project ID" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="update-ProjectName" class="form-label fw-semibold">Project Name <span class="text-danger">*</span></label>
+                    <input type="text" name="ProjectName" maxlength="25" class="form-control form-control-sm"
+                      id="update-ProjectName" placeholder="Enter Project Name">
+                  </div>
+                  <div class="col-md-6">
+                    <label for="update-ClientName" class="form-label fw-semibold">Client <span class="text-danger">*</span></label>
+                    <input type="text" id="update-ClientName" name="ClientName" class="form-control form-control-sm"
+                      placeholder="Enter Client Name" list="clients" autocomplete="off" required>
+                    <datalist id="clients"></datalist>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="update-ProjectIncharge" class="form-label fw-semibold">Project Incharge <span class="text-danger">*</span></label>
+                    <input type="text" name="ProjectIncharge" class="form-control form-control-sm"
+                      id="update-ProjectIncharge" placeholder="Enter Project Incharge">
+                  </div>
+                </div>
+              </div>
+            </div>
 
-                                                                                </div>
-                                                                                <div class="row mb-3">
-                                                                                    <div class="col-md-6">
-                                                                                        <div class="form-group">
-                                                                                            <label
-                                                                                                for="update-ClientName">Client
-                                                                                                <span
-                                                                                                    class="text-danger">*</span></label>
-                                                                                            <div class="input-group">
-                                                                                                <input type="text"
-                                                                                                    id="update-ClientName"
-                                                                                                    name="ClientName"
-                                                                                                    class="form-control"
-                                                                                                    placeholder="Enter client name"
-                                                                                                    list="clients"
-                                                                                                    autocomplete="off"
-                                                                                                    required>
-                                                                                            </div>
-                                                                                            <datalist id="clients">
-                                                                                                <!-- api.getAllCleints -->
-                                                                                            </datalist>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="col-md-6">
+            <!-- 📅 Duration -->
+            <div class="card border-0 shadow-sm mb-3">
+              <div class="card-body">
+                <h6 class="text-sub fw-semibold mb-3">
+                  <i class="fa-solid fa-calendar-days me-2 text-secondary"></i> Project Duration
+                </h6>
 
-                                                                                        <div class="form-group">
-                                                                                            <label
-                                                                                                for="update-ProjectIncharge">Project
-                                                                                                Incharge<span
-                                                                                                    class="text-danger">*</span></label>
-                                                                                            <input type="mail"
-                                                                                                name="ProjectIncharge"
-                                                                                                class="form-control form-control-sm"
-                                                                                                id="update-ProjectIncharge"
-                                                                                                placeholder="Enter Project Incharge">
-                                                                                        </div>
-                                                                                    </div>
+                <div class="row g-3 mb-2">
+                  <div class="col-md-4">
+                    <label for="update-StartDate" class="form-label fw-semibold">Start Date <span class="text-danger">*</span></label>
+                    <input type="date" name="StartDate" class="form-control form-control-sm" id="update-StartDate">
+                  </div>
+                  <div class="col-md-4">
+                    <label for="update-EstEndDate" class="form-label fw-semibold">Estimated End Date</label>
+                    <input type="date" name="EstEndDate" class="form-control form-control-sm" id="update-EstEndDate">
+                  </div>
+                  <div class="col-md-4">
+                    <label for="update-ActualEndDate" class="form-label fw-semibold">Actual End Date <span class="text-danger">*</span></label>
+                    <input type="date" name="ActualEndDate" class="form-control form-control-sm" id="update-ActualEndDate">
+                  </div>
+                </div>
+              </div>
+            </div>
 
-                                                                                </div>
-                                                                                <hr>
-                                                                                <div class="row mb-3">
-                                                                                    <div class="col-md-4">
+            <!-- 💰 Financial Info -->
+            <div class="card border-0 shadow-sm mb-3">
+              <div class="card-body">
+                <h6 class="text-sub fw-semibold mb-3">
+                  <i class="fa-solid fa-indian-rupee-sign me-2 text-success"></i> Financial Overview
+                </h6>
 
-                                                                                        <div class="form-group">
-                                                                                            <label
-                                                                                                for="update-StartDate">Start
-                                                                                                Date<span
-                                                                                                    class="text-danger">*</span></label>
-                                                                                            <input type="date"
-                                                                                                name="StartDate"
-                                                                                                class="form-control form-control-sm"
-                                                                                                id="update-StartDate">
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="col-md-4">
+                <div class="row g-3 mb-3">
+                  <div class="col-md-6">
+                    <label for="update-ProjectCost" class="form-label fw-semibold">Project Cost (Excl. GST)</label>
+                    <input type="number" min="0" step="any" class="form-control form-control-sm"
+                      name="ProjectCost" id="update-ProjectCost" placeholder="Enter Project Cost">
+                  </div>
+                  <div class="col-md-6">
+                    <label for="update-GST" class="form-label fw-semibold">GST (%)</label>
+                    <input type="number" name="GST" id="update-GST" min="0" step="any"
+                      class="form-control form-control-sm" placeholder="Enter GST">
+                  </div>
+                  <div class="col-md-6">
+                    <label for="update-TotalProjectCost" class="form-label fw-semibold">Total Project Cost</label>
+                    <input type="number" min="0" step="any" class="form-control form-control-sm fw-bold text-success text-center"
+                      name="TotalProjectCost" id="update-TotalProjectCost" value="0" readonly>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="update-NoOfDeliverables" class="form-label fw-semibold">No. of Deliverables</label>
+                    <input type="number" min="1" step="1" name="NoOfDeliverables"
+                      id="update-NoOfDeliverables" value="1" class="form-control form-control-sm">
+                  </div>
+                </div>
 
-                                                                                        <div class="form-group">
-                                                                                            <label
-                                                                                                for="update-EstEndDate">Estimated
-                                                                                                End Date</label>
-                                                                                            <input type="date"
-                                                                                                name="EstEndDate"
-                                                                                                class="form-control form-control-sm"
-                                                                                                id="update-EstEndDate">
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="col-md-4">
+                <div class="row g-3">
+                  <div class="col-md-12">
+                    <label for="update-ProjectStatus" class="form-label fw-semibold">Project Status</label>
+                    <select name="ProjectStatus" id="update-ProjectStatus" class="form-select form-select-sm">
+                      <option value="Ongoing" selected>Ongoing</option>
+                      <option value="Completed">Completed</option>
+                      <option value="Withdrawn">Withdrawn</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
 
-                                                                                        <div class="form-group">
-                                                                                            <label
-                                                                                                for="ipdate-ActualEndDate">End
-                                                                                                Date<span
-                                                                                                    class="text-danger">*</span></label>
-                                                                                            <input type="date"
-                                                                                                name="ActualEndDate"
-                                                                                                class="form-control form-control-sm"
-                                                                                                id="update-ActualEndDate">
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <hr>
-                                                                                <div class="row mb-3 ">
-                                                                                    <div class="col-md-6">
-                                                                                        <!-- Permanent Address -->
-                                                                                        <div class="form-group">
-                                                                                            <label
-                                                                                                for="update-ProjectCost">Project
-                                                                                                Cost<span
-                                                                                                    class="text-danger">*</span></label>
-                                                                                            <input type="number" min="0"
-                                                                                                step="any"
-                                                                                                class="form-control"
-                                                                                                name="ProjectCost"
-                                                                                                id="update-ProjectCost"
-                                                                                                placeholder="Enter Project Cost (Exc. GST.)">
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="col-md-6">
-                                                                                        <!-- Permanent Address -->
-                                                                                        <div class="form-group">
-                                                                                            <label for="GST">GST<span
-                                                                                                    class="text-danger">*</span></label>
-                                                                                            <input type="number"
-                                                                                                name="GST"
-                                                                                                id="update-GST" min="0"
-                                                                                                step="any"
-                                                                                                class="form-control"
-                                                                                                placeholder="Enter GST">
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="row mb-3">
-                                                                                    <div class="col-md-12">
-                                                                                        <div class="form-group">
-                                                                                            <label
-                                                                                                for="update-TotalProjectCost">Total
-                                                                                                Project Cost<span
-                                                                                                    class="text-danger">*</span></label>
-                                                                                            <input type="number" min="0"
-                                                                                                step="any"
-                                                                                                class="form-control"
-                                                                                                name="TotalProjectCost"
-                                                                                                id="update-TotalProjectCost"
-                                                                                                placeholder="" value="0"
-                                                                                                readonly>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <hr>
-                                                                                <div class="row">
-                                                                                    <div class="col-md-6">
-                                                                                        <div class="form-group">
-                                                                                            <label
-                                                                                                for="update-NoOfDeliverables">No.
-                                                                                                of Deliverables<span
-                                                                                                    class="text-danger">*</span></label>
-                                                                                            <input type="number" min="1"
-                                                                                                step="1"
-                                                                                                name="NoOfDeliverables"
-                                                                                                id="update-NoOfDeliverables"
-                                                                                                value="1"
-                                                                                                class="form-control"
-                                                                                                placeholder="Enter number of deliverables">
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="col-md-6">
-                                                                                        <div class="form-group">
-                                                                                            <label
-                                                                                                for="update-ProjectStatus">Project
-                                                                                                Status<span
-                                                                                                    class="text-danger">*</span></label>
-                                                                                            <select name="ProjectStatus"
-                                                                                                id="update-ProjectStatus"
-                                                                                                class="form-control form-select client">
-                                                                                                <option value="Ongoing"
-                                                                                                    selected>Ongoing
-                                                                                                </option>
-                                                                                                <option
-                                                                                                    value="Completed">
-                                                                                                    Completed</option>
-                                                                                                <option
-                                                                                                    value="Withdrawn">
-                                                                                                    Withdrawn</option>
-                                                                                            </select>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </form>
-                                                                        </div>
-                                                                        <div class="modal-footer">
-                                                                            <button type="button"
-                                                                                class="btn btn-danger btn-sm"
-                                                                                data-dismiss="modal"
-                                                                                id="exitButton2">Exit</button>
-                                                                            <button type="button"
-                                                                                id="update_project_btn"
-                                                                                class="btn btn-success btn-sm">Update</button>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="tab-pane fade show" id="tab4">
+        <!-- Footer -->
+        <div class="modal-footer bg-white border-top">
+          <button type="button" class="btn btn-red btn-sm text-white" id="exitButton2">
+            <i class="fa-solid fa-xmark me-1"></i> Exit
+          </button>
+          <button type="button" id="update_project_btn" class="btn btn-green btn-sm text-white">
+            <i class="fa-solid fa-rotate me-1"></i> Update
+          </button>
+        </div>
+      </div>
 
+      <!-- 📦 Deliverables -->
+      <div class="tab-pane fade" id="tab4">
+        <div class="modal-body bg-light rounded-3 shadow-sm">
+          <div class="card border-0 shadow-sm">
+            <div class="card-body">
+              <h6 class="text-sub fw-semibold mb-3">
+                <i class="fa-solid fa-box-open me-2 text-success"></i> Deliverables
+              </h6>
 
-                                                                        <div class="row mb-2">
-                                                                            <div id="deliverablesTableExportButtons"
-                                                                                class="mb-3">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <div id="deliverablesTableExportButtons"></div>
+                <button class="btn btn-primary btn-sm px-3" id="addRowBtn">
+                  <i class="fa-solid fa-plus me-1"></i> Add Row
+                </button>
+              </div>
 
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="table-responsive">
-                                                                            <table id="deliverablesTable"
-                                                                                class="table  table-striped  rounded table-hover h-100"
-                                                                                style="overflow-y: auto !important;">
-                                                                                <thead class="bg-primary text-white">
-                                                                                    <tr>
-                                                                                        <th>Deliverable Name</th>
-                                                                                        <th>Estimated Delivery Date</th>
-                                                                                        <th>Total Cost</th>
-                                                                                        <th>Remarks</th>
+              <div class="table-responsive">
+                <table id="deliverablesTable" class="table table-striped table-hover align-middle rounded">
+                  <thead class="bg-primary text-white text-center">
+                    <tr>
+                      <th>Deliverable Name</th>
+                      <th>Estimated Delivery Date</th>
+                      <th>Total Cost</th>
+                      <th>Remarks</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-                                                                                    </tr>
-                                                                                </thead>
-                                                                                <tbody>
+      <!-- 💳 Payment -->
+      <div class="tab-pane fade" id="tab5">
+        <div class="modal-body bg-light rounded-3 shadow-sm">
+          <div class="card border-0 shadow-sm">
+            <div class="card-body">
+              <h6 class="text-sub fw-semibold mb-3">
+                <i class="fa-solid fa-sack-dollar me-2 text-sub"></i> Payment Details
+              </h6>
+              <p class="text-muted small mb-0">This section can later be expanded to handle payment tracking, uploaded invoices, and status updates.</p>
+            </div>
+          </div>
+        </div>
+      </div>
 
-                                                                                </tbody>
-                                                                            </table>
-                                                                        </div>
-                                                                        <div class="text-end mt-2">
-                                                                            <button class="btn btn-success btn-sm"
-                                                                                id="addRowBtn">
-                                                                                <i class="ti-plus"></i> Add Row
-                                                                            </button>
-                                                                        </div>
-
-
-                                                                    </div>
-
-                                                                </div>
-
-
-
-                                                                <!-- Modal Footer -->
-
-
-                                                            </div>
-                                                        </div>
+    </div>
+  </div>
+</div>
 
                                                         <!---------------------------------------------------------------------------------------------UPDATE-MODAL-END---------------------------------------------------->
 
 
                                                         <div id="tableCard">
-                                                            <div class="d-flex justify-content-end mb-5">
+                                                            <div class="d-flex justify-content-end">
                                                                 <button id="addNew"
                                                                     class="btn btn-primary addNewRecord d-flex align-items-center gap-2 px-sm-4 py-sm-2 rounded-pill shadow writeElement"
                                                                     data-toggle="modal" data-target="#addNewModal">
@@ -986,12 +902,12 @@
                                                                 </button> -->
                                                                 </div>
                                                             </div>
-                                                            <div class="container-fluid">
+                                                            <!-- <div class="container-fluid"> -->
                                                                 <div
                                                                     class="d-flex justify-content-center align-items-center">
                                                                     <div class="table-responsive w-100">
                                                                         <table id="projectsTable"
-                                                                            class="table table-striped rounded table-hover w-100">
+                                                                            class="table-modern table-striped rounded table-hover w-100">
                                                                             <thead
                                                                                 class="bg-primary text-white text-center">
                                                                                 <tr>
@@ -1015,7 +931,7 @@
                                                                                 <!-- Table data goes here -->
                                                                             </tbody>
                                                                         </table>
-                                                                    </div>
+                                                                    <!-- </div> -->
                                                                 </div>
                                                             </div>
 

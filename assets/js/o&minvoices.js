@@ -46,9 +46,13 @@ function addRow(data,i){
       data.port,
       data.year,
       months[data.month],
-      ` <button class="btn btn-facebook mx-auto rounded-1" onclick="downloadInvoice(${data.id})">
-                                                                                <i class="fa fa-download "></i>
-                                                                            </button> `,
+      ` <button class="btn-up border-0 mx-auto rounded-1"
+        onclick="downloadInvoice(${data.id})"
+        style="color: #264AAA !important;">
+  <i class="fa-solid fa-cloud-arrow-down fs-6"></i>
+</button>
+`,
+                                                                            
         
     ]).draw(false);
 };
@@ -260,7 +264,7 @@ function addOrganisationsRow(data,i){
 
 
 
-    let mailSentRow=`<input type="checkbox"  class="form-check-input editElement "  style="width: 30px; height: 30px; accent-color: blue; border-radius: 5px;" onchange="updateMailSentStatus(this.checked,'${data.org_id}')">`;
+    let mailSentRow=`<input type="checkbox"  class="form-control-input editElement "  style="width: 30px; height: 30px; accent-color: blue; border-radius: 5px;" onchange="updateMailSentStatus(this.checked,'${data.org_id}')">`;
     if ( $.fn.dataTable.isDataTable( '#monthlyStatusTable' ) ) {
         table = $('#monthlyStatusTable').DataTable();
     }
@@ -275,9 +279,9 @@ function addOrganisationsRow(data,i){
 
     let msrow=statuses.find(status=>status.org_id===data.org_id);
     if(msrow){
-       mailSentRow=`<input type="checkbox" checked class="form-check-input editElement"  style="width: 30px; height: 30px; accent-color: blue; border-radius: 5px;" onchange="updateMailSentStatus(this.checked,'${data.org_id}')">`
+       mailSentRow=`<input type="checkbox" checked class="form-control-input editElement"  style="width: 30px; height: 30px; accent-color: blue; border-radius: 5px;" onchange="updateMailSentStatus(this.checked,'${data.org_id}')">`
     }else{
-        mailSentRow=`<input type="checkbox" class="form-check-input editElement"  style="width: 30px; height: 30px; accent-color: blue; border-radius: 5px;" onchange="updateMailSentStatus(this.checked,'${data.org_id}')">`
+        mailSentRow=`<input type="checkbox" class="form-control-input editElement"  style="width: 30px; height: 30px; accent-color: blue; border-radius: 5px;" onchange="updateMailSentStatus(this.checked,'${data.org_id}')">`
     }
    }
   
@@ -288,9 +292,9 @@ function addOrganisationsRow(data,i){
       data.organisation_name,
       
      `
-        <button class="btn btn-success mx-auto rounded-1 editElement" data-bs-toggle="modal" data-bs-target="#pdfModal" data-port-id="${data.org_id}">
-                                                                                    <i class="fa fa-upload "></i>
-                                                                                </button>  
+         <button class="btn btn-up mx-auto rounded-1 editElement" data-bs-toggle="modal" data-bs-target="#pdfModal" data-port-id="${data.org_id}">
+        <i class="fa-solid fa-cloud-arrow-up "></i>
+      </button>  
      `,
       mailSentRow,
         
@@ -342,37 +346,112 @@ async function updateMailSentStatus(status,id){
     }
 }
 
-    $(document).ready(function () {
-        const datatable = $('#monthlyStatusTable').DataTable({
-            "paging": true,
-            "pageLength": 25,
-            "lengthMenu": [5, 10, 25, 50, 100],
-            dom: '<"top"l>frtip',
-            buttons: ['excel', 'csv', 'pdf']
-        });
-        
-        
-        const invoiceTable = $('#invoiceLogTable').DataTable({
-            "paging": true,
-            "pageLength": 25,
-            "lengthMenu": [5, 10, 25, 50, 100],
-            dom: '<"top"l>frtip',
-            buttons: ['excel', 'csv', 'pdf']
-        });
+$(document).ready(function () {
 
-        $('#portFilter').on('change', function () {
-        const selectedPort = $(this).val();
-        invoiceTable.column(1).search(selectedPort ? '^' + selectedPort + '$' : '', true, false).draw();
-    });
+  // ===== Monthly Status Table =====
+  const datatable = $('#monthlyStatusTable').DataTable({
+    paging: true,
+    pageLength: 25,
+    lengthMenu: [5, 10, 25, 50, 100],
+    dom: '<"top"lBf>rt<"bottom"ip><"clear">',
+    buttons: [
+      {
+        extend: 'excel',
+        text: '<i class="fa-solid fa-file-excel me-1"></i> Excel',
+        className: 'btn-excel'
+      },
+      {
+        extend: 'pdf',
+        text: '<i class="fa-solid fa-file-pdf me-1"></i> PDF',
+        className: 'btn-pdf'
+      },
+      {
+        extend: 'colvis',
+        text: '<i class="fa-solid fa-eye me-1"></i> Columns',
+        className: 'btn-colvis'
+      }
+    ],
+    language: {
+      search: "",
+      searchPlaceholder: "Type to search...",
+      paginate: {
+        first: "«",
+        last: "»",
+        next: "›",
+        previous: "‹"
+      }
+    },
+    initComplete: function () {
+      // Style search input
+      $('#monthlyStatusTable_filter input')
+        .wrap('<div class="search-wrapper"></div>');
+      $('.search-wrapper')
+        .prepend('<i class="fa-solid fa-magnifying-glass me-2"></i>');
+    }
+  });
 
-    $('#yearFilter').on('change', function () {
-        const selectedYear = $(this).val();
-        invoiceTable.column(2).search(selectedYear ? '^' + selectedYear + '$' : '', true, false).draw();
-    });
-    $('#monthFilter').on('change', function () {
-        const selectedMonth = $(this).val();
-        invoiceTable.column(3).search(selectedMonth ? '^' + selectedMonth + '$' : '', true, false).draw();
-    });
-      
-       
-    });
+  // Move export buttons to custom div
+  datatable.buttons().container().appendTo($('#exportButtons'));
+
+
+  // ===== Invoice Log Table =====
+  const invoiceTable = $('#invoiceLogTable').DataTable({
+    paging: true,
+    pageLength: 25,
+    lengthMenu: [5, 10, 25, 50, 100],
+    dom: '<"top"lBf>rt<"bottom"ip><"clear">',
+    buttons: [
+      {
+        extend: 'excel',
+        text: '<i class="fa-solid fa-file-excel me-1"></i> Excel',
+        className: 'btn-excel'
+      },
+      {
+        extend: 'pdf',
+        text: '<i class="fa-solid fa-file-pdf me-1"></i> PDF',
+        className: 'btn-pdf'
+      },
+      {
+        extend: 'colvis',
+        text: '<i class="fa-solid fa-eye me-1"></i> Columns',
+        className: 'btn-colvis'
+      }
+    ],
+       language: {
+      search: "",
+      searchPlaceholder: "Type to search...",
+      paginate: {
+        first: "«",
+        last: "»",
+        next: "›",
+        previous: "‹"
+      }
+    },
+     initComplete: function () {
+      // Style search input
+      $('#invoiceLogTable_filter input')
+        .wrap('<div class="search-wrapper"></div>');
+      $('.search-wrapper')
+        .prepend('<i class="fa-solid fa-magnifying-glass me-2"></i>');
+    }
+  });
+
+
+  // ===== Dropdown Filters =====
+  $('#portFilter').on('change', function () {
+    const selectedPort = $(this).val();
+    invoiceTable.column(1).search(selectedPort ? '^' + selectedPort + '$' : '', true, false).draw();
+  });
+
+  $('#yearFilter').on('change', function () {
+    const selectedYear = $(this).val();
+    invoiceTable.column(2).search(selectedYear ? '^' + selectedYear + '$' : '', true, false).draw();
+  });
+
+  $('#monthFilter').on('change', function () {
+    const selectedMonth = $(this).val();
+    invoiceTable.column(3).search(selectedMonth ? '^' + selectedMonth + '$' : '', true, false).draw();
+  });
+
+});
+

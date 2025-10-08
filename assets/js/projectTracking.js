@@ -7,22 +7,46 @@ deliverablesTable = $("#deliverablesTable").DataTable({
   paging: true,
   pageLength: 25,
   lengthMenu: [5, 10, 25, 50, 100],
-  dom: '<"top"l>frtip',
-  buttons: ["excel", "csv", "pdf"],
-  columnDefs: [
-    {
-      targets: "_all",
-      className: "editable-cell",
+  dom: '<"top"lBf>rt<"bottom"ip><"clear">',
+    // dom: 'Bfrtip',
+    buttons: [
+      {
+        extend: 'excel',
+        text: '<i class="fa-solid fa-file-excel"></i> Excel',
+        className: 'btn-excel'
+      },
+      {
+        extend: 'pdf',
+        text: '<i class="fa-solid fa-file-pdf"></i> PDF',
+        className: 'btn-pdf'
+      },
+      {
+        extend: 'colvis',
+        text: '<i class="fa-solid fa-eye"></i> Columns',
+        className: 'btn-colvis'
+      }
+    ],
+    language: {
+      search: "",
+      searchPlaceholder: "Type to search...",
+    paginate: { first: "«", last: "»", next: "›", previous: "‹" }
+
     },
-  ],
-});
+    initComplete: function () {
+      // Remove default "Search:" text
+      $('#deliverablesTable').contents().filter(function () {
+        return this.nodeType === 3;
+      }).remove();
 
-deliverablesTable
-  .buttons()
-  .container()
-  .appendTo($("#deliverablesTableExportButtons"));
+      // Wrap search input & add search icon
+      $('#deliverablesTable_filter input').wrap('<div class="search-wrapper"></div>');
+      $('.search-wrapper').prepend('<i class="fa-solid fa-magnifying-glass"></i>');
+    }
+  });
 
-document.getElementById("logout-button").addEventListener("click", logout);
+  // Move export buttons into custom div
+  deliverablesTable.buttons().container().appendTo($('#deliverablesTableExportButtons'));
+
 
 let updateProjectCostField = document.querySelector("#update-ProjectCost");
 let updateGstField = document.querySelector("#update-GST");
@@ -103,20 +127,29 @@ function addRow(data) {
     StatusRow = "-";
   } else {
     let bg;
+if (data.ProjectStatus === "Ongoing") {
+  bg = "bg-warning text-dark";
+  icon = '<i class="fa-solid fa-spinner spin-icon mr-2"></i>';
+} else if (data.ProjectStatus === "Completed") {
+  bg = "bg-success text-white";
+  icon = '<i class="fa-solid fa-circle-check complete-icon mr-2"></i>';
+} else if (data.ProjectStatus === "Withdrawn") {
+  bg = "bg-danger text-white";
+  icon = '<i class="fa-solid fa-circle-xmark flip-icon mr-2"></i>';
+} else {
+  bg = "bg-secondary text-white";
+  icon = '<i class="fa-solid fa-question-circle mr-2"></i>';
+}
 
-    if (data.ProjectStatus === "Ongoing") {
-      bg = "bg-warning";
-    } else if (data.ProjectStatus === "Completed") {
-      bg = "bg-success";
-    } else if (data.ProjectStatus === "Withdrawn") {
-      bg = "bg-danger";
-    }
+StatusRow = `
+  <div class="text-center">
+    <span class="status-badge ${bg}">
+      ${icon}<span class="status-text">${data.ProjectStatus}</span>
+    </span>
+  </div>
+`;
 
-    StatusRow = `
-                <div>
-                    <p class="${bg} text-white text-center rounded mx-auto px-3 py-2 h-auto status-btn">${data.ProjectStatus}</p>
-                </div>
-    `;
+
   }
 
   table.row
@@ -594,20 +627,18 @@ document
       });
   });
 
-document
-  .querySelector("#deliverablesIncrementBtn")
-  .addEventListener("click", () => {
+document.querySelector("#deliverablesIncrementBtn").addEventListener("click", () => {
     NoOfDeliverables++;
     document.getElementById("deliverablesCountInput").value = NoOfDeliverables;
 
-    const container = document.querySelector("#deliverablesDynamicContainer");
-    const existingCount = container.children.length;
+  // Get table body instead of full container
+  const tbody = document.querySelector("#deliverablesDynamicContainer tbody");
+  const existingCount = tbody.children.length;
 
-    addDeliverableFields(
-      "deliverablesDynamicContainer",
-      NoOfDeliverables - existingCount
-    );
-  });
+  // Add missing rows if needed
+    addDeliverableFields("deliverablesDynamicContainer", NoOfDeliverables - existingCount);
+});
+
 
 var columnTypes = {
   0: "text",
@@ -1012,128 +1043,217 @@ function deletePaymentRow(index) {
 document.getElementById("addPRBtn").addEventListener("click", addPaymentsRow);
 
 window.NoOfDeliverables = NoOfDeliverables;
-
 $(document).ready(function () {
-  console.log("1057");
+  // console.log("✅ Project Table Initialized");
+
+  // ===== DataTable Initialization =====
   const datatable = $("#projectsTable").DataTable({
     paging: true,
     pageLength: 25,
     lengthMenu: [5, 10, 25, 50, 100],
-    dom: '<"top"l>frtip',
+    dom: '<"top"lBf>rt<"bottom"ip><"clear">',
     buttons: [
       {
         extend: "excelHtml5",
-        text: "Excel",
+        text: '<i class="fa-solid fa-file-excel me-1"></i> Excel',
+        className: "btn-excel",
         exportOptions: {
           columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-          format: {
-            body: function (data, row, column, node) {
-              if ($(node).find(".status-btn").length) {
-                let btn = $(node).find(".status-btn");
-                let text = "-";
-                if (btn.hasClass("bg-success")) {
-                  text = "Completed";
-                } else if (btn.hasClass("bg-warning")) {
-                  text = "Ongoing";
-                } else if (btn.hasClass("bg-danger")) {
-                  text = "Withdrawn";
-                }
-                return text;
-              }
-
-              return data;
-            },
-          },
-        },
-      },
-      {
-        extend: "csvHtml5",
-        text: "CSV",
-        exportOptions: {
-          columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-          format: {
-            body: function (data, row, column, node) {
-              if ($(node).find(".status-btn").length) {
-                let btn = $(node).find(".status-btn");
-                let text = "-";
-                if (btn.hasClass("bg-success")) {
-                  text = "Completed";
-                } else if (btn.hasClass("bg-warning")) {
-                  text = "Ongoing";
-                } else if (btn.hasClass("bg-danger")) {
-                  text = "Withdrawn";
-                }
-                return text;
-              }
-              return data;
-            },
-          },
-        },
+        }
       },
       {
         extend: "pdfHtml5",
-        text: "PDF",
+        text: '<i class="fa-solid fa-file-pdf me-1"></i> PDF',
+        className: "btn-pdf",
         orientation: "landscape",
         exportOptions: {
           columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-          format: {
-            body: function (data, row, column, node) {
-              if ($(node).find(".status-btn").length) {
-                let btn = $(node).find(".status-btn");
-                let text = "-";
-                if (btn.hasClass("bg-success")) {
-                  text = "Completed";
-                } else if (btn.hasClass("bg-warning")) {
-                  text = "Ongoing";
-                } else if (btn.hasClass("bg-danger")) {
-                  text = "Withdrawn";
-                }
-                return text;
-              }
-              return data;
-            },
-          },
-        },
+        }
       },
-      "colvis",
+      {
+        extend: "colvis",
+        text: '<i class="fa-solid fa-eye me-1"></i> Columns',
+        className: "btn-colvis"
+      }
     ],
-    columnDefs: [{ targets: [5, 6, 7, 8, 9, 10, 11], visible: false }],
+    language: {
+  search: "", // removes the 'Search:' label text
+  searchPlaceholder: "Type to search...",
+  paginate: {
+    first: "«",
+    last: "»",
+    next: "›",
+    previous: "‹"
+  }
+},
+initComplete: function () {
+ $('#projectsTable').contents().filter(function () {
+        return this.nodeType === 3;
+      }).remove();
+
+      // Wrap search input & add search icon
+      $('#projectsTable_filter input').wrap('<div class="search-wrapper"></div>');
+      $('.search-wrapper').prepend('<i class="fa-solid fa-magnifying-glass"></i>');
+},
+    columnDefs: [
+      { targets: [5, 6, 7, 8, 9, 10, 11], visible: false }
+    ]
   });
+
+  // Append export buttons to custom div
   datatable.buttons().container().appendTo($("#exportButtons"));
+
+  // ===== Dropdown Filters =====
   $("#clientFilter").on("change", function () {
-    const selectedClient = $(this).val();
-    datatable
-      .column(4)
-      .search(selectedClient ? "^" + selectedClient + "$" : "", true, false)
-      .draw();
+    const value = $(this).val();
+    datatable.column(4).search(value ? "^" + value + "$" : "", true, false).draw();
   });
+
   $("#inchargeFilter").on("change", function () {
-    const selectedIncharge = $(this).val();
-    datatable
-      .column(3)
-      .search(selectedIncharge ? "^" + selectedIncharge + "$" : "", true, false)
-      .draw();
+    const value = $(this).val();
+    datatable.column(3).search(value ? "^" + value + "$" : "", true, false).draw();
   });
+
   $("#statusFilter").on("change", function () {
     const selectedStatus = $(this).val();
     $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
-      if (selectedStatus === "") return true;
-      const cellData = datatable.cell(dataIndex, 12).nodes().to$();
-      const statusText = cellData.find(".status-btn").text().trim();
+      if (!selectedStatus) return true;
+      const cell = datatable.cell(dataIndex, 12).nodes().to$();
+      const statusText = cell.find(".status-btn").text().trim();
       return statusText === selectedStatus;
     });
     datatable.draw();
     $.fn.dataTable.ext.search.pop();
   });
+
+  // ===== Optional Category Filter =====
+  $("#filter").on("change", function () {
+    const value = $(this).val();
+    datatable.column(1).search(value || "", true, false).draw();
+  });
 });
-$("#filter").on("change", function () {
-  const selectedCategory = $(this).val();
-  if (selectedCategory) {
-    datatable.column(1).search(selectedCategory).draw();
-  } else {
-    datatable.column(1).search("").draw();
-  }
-});
+
+// $(document).ready(function () {
+//   console.log("1057");
+//   const datatable = $("#projectsTable").DataTable({
+//     paging: true,
+//     pageLength: 25,
+//     lengthMenu: [5, 10, 25, 50, 100],
+//     dom: '<"top"l>frtip',
+//     buttons: [
+//       {
+//         extend: "excelHtml5",
+//         text: "Excel",
+//         exportOptions: {
+//           columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+//           format: {
+//             body: function (data, row, column, node) {
+//               if ($(node).find(".status-btn").length) {
+//                 let btn = $(node).find(".status-btn");
+//                 let text = "-";
+//                 if (btn.hasClass("bg-success")) {
+//                   text = "Completed";
+//                 } else if (btn.hasClass("bg-warning")) {
+//                   text = "Ongoing";
+//                 } else if (btn.hasClass("bg-danger")) {
+//                   text = "Withdrawn";
+//                 }
+//                 return text;
+//               }
+
+//               return data;
+//             },
+//           },
+//         },
+//       },
+//       {
+//         extend: "csvHtml5",
+//         text: "CSV",
+//         exportOptions: {
+//           columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+//           format: {
+//             body: function (data, row, column, node) {
+//               if ($(node).find(".status-btn").length) {
+//                 let btn = $(node).find(".status-btn");
+//                 let text = "-";
+//                 if (btn.hasClass("bg-success")) {
+//                   text = "Completed";
+//                 } else if (btn.hasClass("bg-warning")) {
+//                   text = "Ongoing";
+//                 } else if (btn.hasClass("bg-danger")) {
+//                   text = "Withdrawn";
+//                 }
+//                 return text;
+//               }
+//               return data;
+//             },
+//           },
+//         },
+//       },
+//       {
+//         extend: "pdfHtml5",
+//         text: "PDF",
+//         orientation: "landscape",
+//         exportOptions: {
+//           columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+//           format: {
+//             body: function (data, row, column, node) {
+//               if ($(node).find(".status-btn").length) {
+//                 let btn = $(node).find(".status-btn");
+//                 let text = "-";
+//                 if (btn.hasClass("bg-success")) {
+//                   text = "Completed";
+//                 } else if (btn.hasClass("bg-warning")) {
+//                   text = "Ongoing";
+//                 } else if (btn.hasClass("bg-danger")) {
+//                   text = "Withdrawn";
+//                 }
+//                 return text;
+//               }
+//               return data;
+//             },
+//           },
+//         },
+//       },
+//       "colvis",
+//     ],
+//     columnDefs: [{ targets: [5, 6, 7, 8, 9, 10, 11], visible: false }],
+//   });
+//   datatable.buttons().container().appendTo($("#exportButtons"));
+//   $("#clientFilter").on("change", function () {
+//     const selectedClient = $(this).val();
+//     datatable
+//       .column(4)
+//       .search(selectedClient ? "^" + selectedClient + "$" : "", true, false)
+//       .draw();
+//   });
+//   $("#inchargeFilter").on("change", function () {
+//     const selectedIncharge = $(this).val();
+//     datatable
+//       .column(3)
+//       .search(selectedIncharge ? "^" + selectedIncharge + "$" : "", true, false)
+//       .draw();
+//   });
+//   $("#statusFilter").on("change", function () {
+//     const selectedStatus = $(this).val();
+//     $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+//       if (selectedStatus === "") return true;
+//       const cellData = datatable.cell(dataIndex, 12).nodes().to$();
+//       const statusText = cellData.find(".status-btn").text().trim();
+//       return statusText === selectedStatus;
+//     });
+//     datatable.draw();
+//     $.fn.dataTable.ext.search.pop();
+//   });
+// });
+// $("#filter").on("change", function () {
+//   const selectedCategory = $(this).val();
+//   if (selectedCategory) {
+//     datatable.column(1).search(selectedCategory).draw();
+//   } else {
+//     datatable.column(1).search("").draw();
+//   }
+// });
 document.querySelector("#addNew").addEventListener("click", function () {
   document.querySelector("#tab").classList.remove("d-none");
   document.querySelector("#tableCard").style.display = "none";
@@ -1169,7 +1289,7 @@ function adjustDeliverableFields(inputElement) {
   }
 
   document.querySelector("#deliverablesCountInput").value = value;
-  document.querySelector("#deliverablesCountInput1").value = value;
+  // document.querySelector("#deliverablesCountInput1").value = value;
 
   const container = document.querySelector("#deliverablesDynamicContainer");
   const existingCount = container.children.length;
@@ -1177,52 +1297,47 @@ function adjustDeliverableFields(inputElement) {
   if (value > existingCount) {
     addDeliverableFields("deliverablesDynamicContainer", value - existingCount);
   } else {
-    while (container.children.length > value) {
-      container.removeChild(container.lastChild);
+    while (tbody.children.length > value) {
+      tbody.removeChild(tbody.lastChild);
     }
   }
 }
-function addDeliverableFields(containerId, count) {
-  const container = document.getElementById(containerId);
-  for (let i = 0; i < count; i++) {
-    const div = document.createElement("div");
-    div.classList.add("deliverable-item");
 
-    div.innerHTML = `
-            <div class="row  d-flex align-items-center border border-bottom">
-                <div class="col-md-3 ">
-                    <div class="form-group">
-                        <!--<label>Deliverable Name<span class="m-1 text-danger">*</span></label>-->
-                        <input type="text" class="form-control deliverable-name" placeholder="Enter deliverable name">
-                    </div>
-                </div>
-                <div class="col-md-3 ">
-                    <div class="form-group">
-                        <!--<label>Estimated Delivery Date<span class="m-1 text-danger">*</span></label>-->
-                        <input type="date" class="form-control deliverable-date">
-                    </div>
-                </div>
-                <div class="col-md-3 ">
-                    <div class="form-group">
-                      <!--  <label>Remarks</label>-->
-                        <input type="text" class="form-control deliverable-remarks" placeholder="Enter Remarks">
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="form-group ">
-                       <!-- <label>Total Cost<span class="m-1 text-danger">*</span></label>-->
-                        <input type="number" class="form-control deliverable-cost" placeholder="Enter Total Cost">
-                    </div>
-                </div>
-                <div class="col-md-1 d-flex align-items-end p-0">
-                    <button type="button" class="btn btn-danger remove-deliverable"><i class='ti ti-trash'></i></button>
-                </div>
-            </div>
-            
-        `;
-    div.querySelector(".remove-deliverable").addEventListener("click", () => {
-      if (container.children.length > 1) {
-        div.remove();
+function addDeliverableFields(tableId, count) {
+  const table = document.getElementById(tableId);
+  const tbody = table.querySelector("tbody");
+
+  for (let i = 0; i < count; i++) {
+    const row = document.createElement("tr");
+    row.classList.add("deliverable-item", "align-middle");
+
+    row.innerHTML = `
+      <td>
+        <input type="text" class="form-control form-control-sm deliverable-name" placeholder="Enter Deliverable Name">
+      </td>
+      <td>
+        <input type="date" class="form-control form-control-sm deliverable-date">
+      </td>
+      <td>
+        <input type="text" class="form-control form-control-sm deliverable-remarks" placeholder="Enter Remarks">
+      </td>
+      <td>
+        <input type="text" class="form-control form-control-sm deliverable-designation" placeholder="Enter Designation">
+      </td>
+      <td>
+        <div class="d-flex align-items-center justify-content-between">
+          <input type="number" class="form-control form-control-sm deliverable-cost me-2" placeholder="Enter Total Cost">
+          <button type="button" class="btn btn-red btn-sm remove-deliverable">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+        </div>
+      </td>
+    `;
+
+    row.querySelector(".remove-deliverable").addEventListener("click", () => {
+      const rowCount = tbody.children.length;
+      if (rowCount > 1) {
+        row.remove();
         NoOfDeliverables--;
         document.getElementById("deliverablesCountInput").value =
           NoOfDeliverables;
@@ -1231,7 +1346,7 @@ function addDeliverableFields(containerId, count) {
       }
     });
 
-    container.appendChild(div);
+    tbody.appendChild(row);
   }
 }
 document.addEventListener("DOMContentLoaded", async function () {

@@ -391,10 +391,10 @@ function renderStorageTable() {
             </td>
             <td class="text-center align-middle" style="padding: 10px 0 !important;">
                 <div class="btn-group">
-                    <button class="btn btn-outline-primary btn-md px-3 py-2 edit-storage" title="Edit Storage">
+                    <button class="btn btn-primary btn-md px-3 py-2 edit-storage" title="Edit Storage">
                         <i class="fa-solid fa-pen-to-square fs-6"></i> Edit
                     </button>
-                    <button class="btn btn-outline-danger btn-md px-3 py-2 delete-storage" title="Delete Storage">
+                    <button class="btn btn-red btn-md px-3 py-2 delete-storage" title="Delete Storage">
                         <i class="fa-solid fa-trash fs-6"></i> Delete
                     </button>
                 </div>
@@ -432,7 +432,7 @@ function renderStorageTable() {
 
             // Change button to Save
             editBtn.innerHTML = `<i class="fa-solid fa-floppy-disk fs-6"></i> Save`;
-            editBtn.classList.replace('btn-outline-primary', 'btn-success');
+            editBtn.classList.replace('btn-green');
             editBtn.setAttribute('title', 'Save Changes');
 
             const saveHandler = () => {
@@ -474,7 +474,7 @@ function renderStorageTable() {
         const unit = newStorageUnit.value;
         const type = newStorageType.value;
 
-        if (!val || val < 1) { alert('Enter valid value!'); return; }
+        if (!val || val < 1) { showErrorPopupFadeInDown('Enter value!'); return; }
         storageHistory.push({ value: val, unit: unit, type: type });
         newStorageValue.value = '';
         renderStorageTable();
