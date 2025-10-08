@@ -109,6 +109,7 @@ function addRow(data) {
   table.row
     .add([
       data.slNo,
+      data.serialNo,
       data.assetId,
       data.category,
       data.vendorName,

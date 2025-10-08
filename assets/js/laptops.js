@@ -118,6 +118,7 @@ function addRow(data) {
   table.row
     .add([
       data.slNo,
+      data.serialNo,
       data.assetId,
       data.category,
       data.vendorName,
@@ -459,13 +460,13 @@ function renderStorageTable() {
             tdType.innerHTML = `
                 <select class="form-select form-select-lg edit-type text-center fw-semibold" 
                         style="width: 120px; margin: auto;">
-                    <option value="SDD" ${item.type === 'SDD' ? 'selected' : ''}>SDD</option>
+                    <option value="SSD" ${item.type === 'SSD' ? 'selected' : ''}>SSD</option>
                     <option value="HDD" ${item.type === 'HDD' ? 'selected' : ''}>HDD</option>
                 </select>`;
 
             // Change button to Save
             editBtn.innerHTML = `<i class="fa-solid fa-floppy-disk fs-6"></i> Save`;
-            editBtn.classList.replace('btn-green');
+            editBtn.classList.replace('btn-outline-primary', 'btn-green');
             editBtn.setAttribute('title', 'Save Changes');
 
             const saveHandler = () => {
