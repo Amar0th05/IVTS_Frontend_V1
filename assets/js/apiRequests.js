@@ -176,6 +176,10 @@ const api = {
     getAllAssets: () => fetchData(API_ROUTES.getAllAssets, "assets"),
     getstaffid: () => fetchData(API_ROUTES.getstaffid, "staffid"),
 
+    // Leave
+
+    getAllLeave:() => fetchData(API_ROUTES.getAllLeave,"leave"),
+
 
 
 };

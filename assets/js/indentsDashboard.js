@@ -58,11 +58,6 @@ $(document).ready(function () {
     dom: 'Bfrtip',
     buttons: [
       {
-        extend: 'csv',
-        text: '<i class="fa-solid fa-file-csv"></i> CSV',
-        className: 'btn-csv'
-      },
-      {
         extend: 'excel',
         text: '<i class="fa-solid fa-file-excel"></i> Excel',
         className: 'btn-excel'

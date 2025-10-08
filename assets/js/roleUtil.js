@@ -35,6 +35,8 @@ const moduleMaps = {
   "SRB CREATED": ["indents"],
   "IC & SR SUBMISSION": ["indents"],
   "ASSETS": ["assetsDashboard", "laptops", "desktops", "server","printer"],
+  "ASSETS VERIFICATION":["LeaveManagement"],
+  "LEAVE":["LeaveManagement"]
 
   // 'USER ROLES': ['roles']
 };
@@ -214,8 +216,9 @@ function generateSidebar() {
     "MASTER MANAGEMENT": ["MASTER MANAGEMENT"],
     "Assests Mangemnet":{
       "Asset Master":["ASSETS"],
-      "Assest Verification":["ASSETS"]
+      "Assest Verification":["ASSETS VERIFICATION"]
     } ,
+    "LEAVE TRACKING":["LEAVE"]
   };
 
   let sidebarHTML = "";
@@ -386,6 +389,8 @@ talentPool: { title: "Talent Pool", icon: "fa-solid fa-user-group" },
     desktops: { title: "Desktops and Monitors", icon: "fa-solid fa-desktop" }, // desktops
     server: { title: "Server And Storage", icon: "fa-solid fa-server" }, // servers
     printer: { title: "Printer And Scanners", icon: "fa-solid fa-copy" }, // printer
+    assetsVerficationDashboard: { title: "Dashboard", icon: "fa-solid fa-copy" }, // assets verfication dashboard
+    LeaveManagement: { title: "Dashboard", icon: "fa-solid fa-copy" }, // leave tracking dashboard
 
   };
   return pageInfoMap[page];

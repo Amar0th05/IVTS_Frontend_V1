@@ -142,6 +142,9 @@ const API_ROUTES = {
   //download bar code
   downloadBarCode: (id) => `/assets/barcode/${id}`,
 
+  // leave
+  getAllLeave:`/leavesummary`,
+
 };
 
 window.API_ROUTES = API_ROUTES;
