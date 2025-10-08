@@ -138,6 +138,10 @@ const API_ROUTES = {
   addPrinter: `/assets/Printer/add`,
  updatePrinter: `/assets/Printer/update`,
   togglePrinterStatus: `/assets/Printer/status/`,
+
+  //download bar code
+  downloadBarCode: (id) => `/assets/barcode/${id}`,
+
 };
 
 window.API_ROUTES = API_ROUTES;

@@ -130,6 +130,14 @@ function addRow(data) {
                 <div class="slider"></div>
             </div>
         </div>`,
+            `<div class="row d-flex justify-content-center">
+      <div class="d-flex align-items-center justify-content-center p-0 download-btn"
+          style="width: 40px; height: 40px; cursor:pointer"
+          data-assets-id="${data.assetId}"
+          onclick="downloadBarcode('${data.assetId}')">
+        <i class="ti-download text-primary" style="font-size: larger;"></i>
+      </div>
+    </div>`,
       `<div class="row d-flex justify-content-center">
     <div class="d-flex align-items-center justify-content-center p-0 edit-btn" 
         style="width: 40px; height: 40px; cursor:pointer" 
@@ -141,6 +149,31 @@ function addRow(data) {
     ])
     .draw(false);
 }
+
+// download bar code
+
+// Download barcode using axiosInstance
+async function downloadBarcode(assetId) {
+  try {
+    const response = await axiosInstance.get(API_ROUTES.downloadBarCode(assetId), {
+      responseType: 'blob', // important to get binary image data
+    });
+
+    // Create blob URL for the barcode image
+    const url = window.URL.createObjectURL(new Blob([response.data]));
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `${assetId}.png`; // name of the downloaded file
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    window.URL.revokeObjectURL(url); // free up memory
+
+  } catch (error) {
+    console.error("Error downloading barcode:", error);
+  }
+}
+
 
 // edit btn
 document.querySelector("#myTable").addEventListener("click", function (event) {

@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interns Leave Form</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #0d6efd;
+            --primary-dark: #0b5ed7;
+            --header-color: #0a2351;
+            /* Navy Blue */
+            --background-color: #ffffff;
+        }
+
+        body {
+            background-image: url('');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .form-container {
+            background: var(--background-color);
+            border-radius: 15px;
+            overflow: hidden;
+            margin: auto;
+            max-width: max-content;
+            position: relative;
+            z-index: 10;
+        }
+
+        .form-header {
+            background-color: var(--header-color);
+            color: white;
+            padding: 1.5rem 2rem;
+            /* Adjusted padding for logos */
+            /* Flexbox for logo alignment */
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        /* NEW: Style for the header logos */
+        .header-logo {
+            height: 60px;
+            /* Adjust height as needed */
+            width: auto;
+            object-fit: contain;
+        }
+
+        .form-header h2 {
+            font-size: 1.75rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .step-indicator {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 2rem 0;
+            padding: 0 1rem;
+        }
+
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            color: #6c757d;
+            font-weight: 500;
+        }
+
+        .step.active {
+            color: var(--primary-color);
+        }
+
+        .step.completed {
+            color: #198754;
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid #6c757d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .step span {
+            font-size: 0.85rem;
+        }
+
+        .step.active .step-number {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
+        }
+
+        .step.completed .step-number {
+            background-color: #198754;
+            border-color: #198754;
+            color: white;
+        }
+
+        .step-line {
+            flex: 1;
+            height: 2px;
+            background-color: #dee2e6;
+            margin: 0 1rem;
+            transform: translateY(-1.25rem);
+        }
+
+        .step.completed+.step-line {
+            background-color: #198754;
+        }
+
+        .form-step {
+            display: none;
+            padding: 2rem;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .form-step.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .required-field::after {
+            content: " *";
+            color: #dc3545;
+        }
+
+        /* Other styles remain the same... */
+        .input-group-text {
+            background-color: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-right: 0;
+            color: var(--primary-color);
+        }
+
+        .form-control,
+        .form-select {
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 0.75rem;
+            transition: all 0.3s ease;
+        }
+
+        .input-group .form-control,
+        .input-group .form-select {
+            border-radius: 0 8px 8px 0;
+        }
+
+        .input-group .input-group-text {
+            border-radius: 8px 0 0 8px;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            border-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .form-navigation {
+            padding: 2rem;
+            border-top: 1px solid #e9ecef;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .file-upload {
+            position: relative;
+        }
+
+        .file-upload input[type=file] {
+            position: absolute;
+            opacity: 0;
+            width: 1px;
+            height: 1px;
+        }
+
+        .file-upload-label {
+            display: block;
+            padding: 1rem;
+            border: 2px dashed #dee2e6;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background-color: #f8f9fa;
+        }
+
+        .file-upload-label:hover {
+            border-color: var(--primary-color);
+            background-color: rgba(13, 110, 253, 0.05);
+        }
+
+        .section-title {
+            color: var(--primary-color);
+            font-weight: bold;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Responsive adjustments */
+        @media (min-width: 576px) {
+            .step {
+                flex-direction: row;
+                text-align: left;
+            }
+
+            .step-number {
+                margin-bottom: 0;
+                margin-right: 0.5rem;
+            }
+
+            .step-line {
+                transform: translateY(0);
+            }
+        }
+
+        /* NEW: Responsive styles for header on small screens */
+        @media (max-width: 767px) {
+            .form-header {
+                padding: 1rem;
+                flex-wrap: wrap;
+                /* Allow wrapping if needed */
+                justify-content: center;
+                /* Center items on small screens */
+            }
+
+            .header-logo {
+                height: 45px;
+                /* Smaller logos on mobile */
+            }
+
+            .form-header .header-text-block {
+                order: -1;
+                /* Move text block to the top on mobile */
+                width: 100%;
+                margin-bottom: 0.5rem;
+            }
+
+            .form-header h2 {
+                font-size: 1.5rem;
+                /* Smaller title on mobile */
+            }
+        }
+
+        .half-day-options .btn {
+            margin-right: 10px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+
+        .half-day-options .btn {
+            border-radius: 8px;
+            /* less pill, more wide buttons */
+            padding: 1rem;
+            font-size: 1.1rem;
+        }
+
+
+        .half-day-options .btn.active-toggle {
+            background-color: #0d6efd;
+            color: #fff;
+        }
+
+        .half-day-options .btn.active-toggle:hover {
+            background-color: #0b5ed7;
+            border-color: #0b5ed7;
+            transform: translateY(-1px);
+        }
+
+        .section-gap {
+            margin-bottom: 1px;
+            /* reduce the default gap */
+        }
+
+        .error-popup {
+            position: absolute;
+            background: #fff5f5;
+            /* Softer red background to match form aesthetics */
+            color: #dc3545;
+            /* Bootstrap danger red */
+            padding: 0.65rem 1rem;
+            border: 1px solid #f5c2c7;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            white-space: nowrap;
+            z-index: 1000;
+            top: 100%;
+            /* appear just below the input */
+            left: 0;
+            margin-top: 6px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            display: none;
+            animation: fadeSlideDown 0.25s ease;
+            /* smooth entry */
+        }
+
+        .error-popup::before {
+            content: "";
+            position: absolute;
+            top: -6px;
+            left: 20px;
+            border-width: 6px;
+            border-style: solid;
+            border-color: transparent transparent #fff5f5 transparent;
+        }
+
+        /* Small fade + slide animation */
+        @keyframes fadeSlideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-6px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Ensure Select2 container fills the input group */
+        .input-group .select2-container {
+            flex: 1 1 auto;
+            width: 1% !important;
+        }
+
+        /* Make Select2 field look like form-control */
+        .input-group .select2-container--default .select2-selection--single {
+            height: calc(2.5rem + 2px);
+            /* same as .form-control */
+            border: 2px solid #e9ecef;
+            border-left: 0;
+            /* merge with icon */
+            border-radius: 0 8px 8px 0;
+            /* match Manager Name rounding */
+            padding: 0.75rem;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        /* Align the dropdown arrow */
+        .input-group .select2-container--default .select2-selection__arrow {
+            height: 100%;
+            right: 10px;
+        }
+
+        /* Placeholder styling to match */
+        .input-group .select2-container--default .select2-selection__placeholder {
+
+
+            border-right: 0;
+            color: var(--primary-color);
+
+        }
+
+        /* Make Select2 single select look like Bootstrap .form-control */
+        .select2-container--default .select2-selection--single {
+            height: calc(2.5rem + 2px);
+            /* same as form-control */
+            border: 2px solid #e9ecef;
+            border-radius: 0.375rem;
+            /* default Bootstrap radius */
+            padding: 0.375rem 0.75rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            background-color: #fff;
+            transition: all 0.2s ease-in-out;
+        }
+
+        /* Focus state like .form-control */
+        .select2-container--default .select2-selection--single:focus,
+        .select2-container--default.select2-container--focus .select2-selection--single {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+            outline: 0;
+        }
+
+        /* Disabled state like .form-control:disabled */
+        .select2-container--default.select2-container--disabled .select2-selection--single {
+            background-color: #e9ecef;
+            opacity: 1;
+            cursor: not-allowed;
+        }
+
+
+
+        /* Align the arrow */
+        .select2-container--default .select2-selection__arrow {
+            height: 100%;
+            right: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid py-5">
+        <div class="status-container mb-3">
+
+            <div class="container shadow-lg form-container">
+                <div class="form-header text-white d-flex align-items-center justify-content-between py-4 px-4">
+                    <img src="assets/images/ntcpwc-logo.jpg" alt="Company Logo" class="header-logo">
+                    <div class="text-center flex-grow-1">
+                        <h2 class="mb-0 fw-bold"><i class="fas fa-user-graduate me-2"></i>NTCPWC Leave Application Form
+                        </h2>
+                        <p class="mb-0">Complete your Leave request in simple steps</p>
+                    </div>
+                </div>
+
+                <div class="form-body p-4">
+                    <div class="intro-message text-center mb-3 section-gap">
+                        <h4 class="fw-bold">Welcome to the <span class="text-primary">NTCPWC, IIT Madras</span>
+                            Leave Application Form!</h4>
+                        <p class="text-muted mb-0">
+                            This form is used to formally record leave requests within NTCPWC. Employees are expected to
+                            provide accurate and truthful information regarding their leave.
+                            The details submitted help managers review requests efficiently and allow HR to maintain
+                            proper
+                            leave records.
+                            Misuse of this form may result in administrative action.
+                        </p>
+                    </div>
+
+
+                </div>
+
+                <form id="internshipForm" novalidate autocomplete="off">
+                    <!-- Step 1: Personal Information -->
+                    <div class="form-step active section-gap" id="form-step-0">
+                        <h5 class="section-title"><i class="fas fa-user-circle me-2"></i>Employee Details
+                        </h5>
+                        <div class="row">
+                            <div class="col-md-6 mb-2">
+                                <label for="fullName" class="form-label required-field">Employee Name</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                    <select class="form-control userName" id="fullName" name="fullName" required>
+                                        <option></option> <!-- empty option for Select2 placeholder -->
+                                    </select>
+                                </div>
+                                <div class="invalid-feedback">Please select an employee name.</div>
+                            </div>
+
+
+                            <div class="col-md-6 mb-2">
+                                <label for="ManagerName" class="form-label required-field">Manager Name</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
+                                    <input type="text" class="form-control" id="ManagerName" name="ManagerName"
+                                        placeholder="Manager Name will auto-populate" readonly>
+                                </div>
+                                <div class="invalid-feedback">Manager Name is required and must contain only letters.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-step active section-gap" id="form-step-1">
+                        <h5 class="section-title"><i class="fas fa-user-circle me-2"></i>Leave Details
+                        </h5>
+                        <div class="row">
+
+                            <div class="col-md-6 mb-4">
+                                <label for="leaveType" class="form-label required-field">Leave Type</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                                    <select class="form-select" id="leaveType" name="leaveType" required>
+                                        <option value="" selected disabled>Select Leave Type</option>
+                                        <option value="CL">Casual Leave (CL)</option>
+                                        <option value="SL">Sick Leave (SL)</option>
+                                        <option value="EL">Earned Leave (EL)</option>
+                                        <option value="Comp-off">Compensatory Off (Comp-off)</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                                <div class="invalid-feedback">Leave Type is required.</div>
+                            </div>
+
+                            <div class="col-md-6 mb-4" id="otherReasonContainer" style="display: none;">
+                                <label for="otherReason" class="form-label">Please specify</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-pencil-alt"></i></span>
+                                    <input type="text" id="otherReason" name="otherReason" class="form-control"
+                                        placeholder="Enter other reason for leave">
+                                </div>
+                                <div class="invalid-feedback">Please specify the reason.</div>
+                            </div>
+
+                            <div class="col-md-6 mb-4">
+                                <label for="startDate" class="form-label required-field">Leave Start Date</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                                    <input type="date" class="form-control" id="startDate" name="startDate" required>
+                                </div>
+                                <div class="invalid-feedback">Leave Start Date is required.</div>
+                            </div>
+
+                            <div class="col-md-6 mb-4 position-relative">
+                                <label for="endDate" class="form-label required-field">Leave End Date</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                                    <input type="date" class="form-control" id="endDate" name="endDate" required>
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-md-6 mb-4">
+                                <label for="totalDays" class="form-label">Total Days</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-calculator"></i></span>
+                                    <input type="text" class="form-control" id="totalDays" name="totalDays" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3" id="halfDayCheckboxContainer" style="display:none;">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="requestHalfDay">
+                                    <label class="form-check-label" for="requestHalfDay">
+                                        I want to apply for a half-day leave
+                                    </label>
+                                </div>
+                            </div>
+
+
+                            <div class="row" id="halfDayOptionContainer" style="display: none;">
+                                <div class="col-md-12 mb-4">
+                                    <label class="form-label required-field">Half-Day Option</label>
+                                    <div class="half-day-options d-flex">
+                                        <button type="button" class="btn btn-outline-primary flex-fill me-2"
+                                            id="firstHalfBtn" data-value="First Half">
+                                            <i class="fas fa-sun me-2"></i> First Half
+                                        </button>
+                                        <button type="button" class="btn btn-outline-primary flex-fill"
+                                            id="secondHalfBtn" data-value="Second Half">
+                                            <i class="fas fa-moon me-2"></i> Second Half
+                                        </button>
+                                        <input type="hidden" id="halfDayOption" name="halfDayOption" required>
+                                    </div>
+                                    <div class="invalid-feedback">Please select a half-day option.</div>
+                                </div>
+                            </div>
+
+                            <div class="form-group mb-4">
+                                <label for="reason" class="form-label required-field">Reason for Leave</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-edit"></i></span>
+                                    <textarea class="form-control" id="reason" name="reason" rows="3"
+                                        placeholder="Please provide a reason for your leave" required></textarea>
+                                </div>
+                                <div class="invalid-feedback">
+                                    Reason for leave is a required field.
+                                </div>
+                            </div>
+
+                            <div class="form-group mb-4">
+                                <label for="documentUpload" class="form-label">Supporting Document (optional)</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-file-upload"></i></span>
+                                    <input type="file" class="form-control" id="documentUpload" name="documentUpload">
+                                </div>
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col-md-12 text-center">
+                                    <button type="submit" id="submitBtn" class="btn btn-primary">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- //EMP ID, Name -->
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="assets/js/InternLeave.js"></script>
+    <!-- <script src="assets/js/script.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- Bootstrap + jQuery + Select2 -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <!-- Bootstrap + jQuery + Select2 -->
+
+
+</body>
+
+</html>
