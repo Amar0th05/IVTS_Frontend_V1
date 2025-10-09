@@ -38,13 +38,46 @@
         .hidden {
             display: none !important;
         }
+.btn-excel {
+      background-color: #28a745 !important;
+    }
 
-        .addNewRecord {
-            all: unset;
-            color: white !important;
-            padding: 10px 10px !important;
-            background: linear-gradient(135deg, #4931d1, #7f86f3);
-        }
+    .btn-excel:hover {
+      background-color: #1e7e34 !important;
+    }
+
+    .btn-pdf {
+      background-color: #dc3545 !important;
+    }
+
+    .btn-pdf:hover {
+      background-color: #a71d2a !important;
+    }
+
+    .btn-green {
+      background: linear-gradient(to bottom right, #34D399, #059669);
+      border: none;
+      color: white;
+
+    }
+
+    .btn-red {
+      background: linear-gradient(to bottom right, #EF4444, #B91C1C);
+      border: none;
+      color: white;
+    }
+
+    .btn-red:hover {
+      background: linear-gradient(to bottom right, #dc3545, #a71d2a);
+    }
+
+    .btn-green:hover {
+      background: linear-gradient(to bottom right, #28a745, #1e7e34);
+
+    }
+ .modal-header{
+      background:  linear-gradient(135deg, #69A1FF, #1E3FA0);
+    }
     </style>
 </head>
 <body>
@@ -196,7 +229,7 @@
                                             <li class="breadcrumb-item">
                                                 <a href="user-details.html"> <i class="fa fa-home"></i> </a>
                                             </li>
-                                            <li class="breadcrumb-item"><a href="#!">User Detalis</a>
+                                            <li class="breadcrumb-item"><a href="user-details.html">User Detalis</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -213,7 +246,7 @@
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <div class="card">
-                                                    <div class="card-header">
+                                                    <!-- <div class="card-header">
                                                         <h5>User Details</h5>
 
                                                         <div class="card-header-right">
@@ -225,89 +258,100 @@
                                                                 <li><i class="fa fa-refresh reload-card"></i></li>
                                                             </ul>
                                                         </div>
-                                                    </div>
+                                                    </div> -->
                                                     <div class="card-block">
                                                         <!-----------------------------------------------ADD-NEW-USER-MODAl-START--------------------------------------------------------------------->
-                                                        <div class="modal fade" id="addNewModal" tabindex="-1"
-                                                            role="dialog" aria-labelledby="addNewModalLabel"
-                                                            aria-hidden="true">
-                                                            <div class="modal-dialog modal-lg" role="document">
-                                                                <div class="modal-content">
-                                                                    <!-- Modal Header -->
-                                                                    <div class="modal-header">
-                                                                        <h5 class="modal-title" id="addNewModalLabel">
-                                                                            Add New User</h5>
-                                                                        <button type="button" class="close"
-                                                                            data-dismiss="modal" aria-label="Close">
-                                                                            <span aria-hidden="true">&times;</span>
-                                                                        </button>
-                                                                    </div>
-                                                                    <!-- Modal Body -->
-                                                                    <div class="modal-body">
-                                                                        <form id="addNewUserForm">
-                                                                            <div class="row">
-                                                                                <div class="col-md-6">
-                                                                                    <div class="form-group">
-                                                                                        <label for="userName">User
-                                                                                            Name</label>
-                                                                                        <input type="text" name="name"
-                                                                                            maxlength="25"
-                                                                                            class="form-control form-control-sm"
-                                                                                            id="userName"
-                                                                                            placeholder="Enter Name">
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col-md-6">
-                                                                                    <div class="form-group">
-                                                                                        <label
-                                                                                            for="userEmail">Email</label>
-                                                                                        <input type="email" name="mail"
-                                                                                            class="form-control form-control-sm"
-                                                                                            id="userEmail"
-                                                                                            placeholder="Enter user Email">
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="row d-flex align-items-center">
-                                                                                <div class="col-md-6">
-                                                                                    <div class="form-group">
-                                                                                        <label
-                                                                                            for="password">Password</label>
-                                                                                        <input type="password"
-                                                                                            class="form-control form-control-sm"
-                                                                                            id="password"
-                                                                                            name="password">
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col-md-6">
-                                                                                    <div class="form-group">
-                                                                                        <label for="role">Role</label>
-                                                                                        <select
-                                                                                            class="form-control form-control-sm"
-                                                                                            id="roleSelect" name="role">
+                                                     <div>
+  <div class="modal fade" id="addNewModal" tabindex="-1" role="dialog" aria-labelledby="addNewModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+      <div class="modal-content shadow-lg border-0 rounded-3">
+        
+        <!-- 🧩 Modal Header -->
+        <div class="modal-header bg-light border-0">
+          <h5 class="modal-title fw-semibold text-white" id="addNewModalLabel">
+            <i class="fa-solid fa-user-plus me-2 text-white"></i> Add New User
+          </h5>
+          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+        </div>
 
-                                                                                        </select>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
+        <!-- 📋 Modal Body -->
+        <div class="modal-body bg-light rounded-bottom">
+          <form id="addNewUserForm" class="p-2">
 
-                                                                        </form>
-                                                                    </div>
-                                                                    <!-- Modal Footer -->
-                                                                    <div class="modal-footer">
-                                                                        <button type="button"
-                                                                            class="btn btn-danger btn-sm"
-                                                                            data-dismiss="modal">Exit</button>
-                                                                        <button type="button"
-                                                                            class="btn btn-success btn-sm"
-                                                                            id="add_user_btn"
-                                                                            data-dismiss="modal">Submit</button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+            <!-- 👤 User Details -->
+            <div class="card border-0 shadow-sm mb-3">
+              <div class="card-body">
+                <h6 class="text-sub fw-semibold mb-3">
+                  <i class="fa-solid fa-id-card me-2 text-sub"></i> User Information
+                </h6>
+
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="userName" class="form-label fw-semibold">User Name <span class="text-danger">*</span></label>
+                      <input type="text" name="name" maxlength="25" class="form-control form-control-sm" id="userName" placeholder="Enter Name">
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="userEmail" class="form-label fw-semibold">Email <span class="text-danger">*</span></label>
+                      <input type="email" name="mail" class="form-control form-control-sm" id="userEmail" placeholder="Enter User Email">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 🔐 Access Details -->
+            <div class="card border-0 shadow-sm">
+              <div class="card-body">
+                <h6 class="text-sub fw-semibold mb-3">
+                  <i class="fa-solid fa-lock me-2 text-sub"></i> Access Details
+                </h6>
+
+                <div class="row g-3 d-flex align-items-center">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="password" class="form-label fw-semibold">Password <span class="text-danger">*</span></label>
+                      <input type="password" class="form-control form-control-sm" id="password" name="password" placeholder="Enter Password">
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="roleSelect" class="form-label fw-semibold">Role <span class="text-danger">*</span></label>
+                      <select class="form-control form-control-sm" id="roleSelect" name="role">
+                        <!-- Populated dynamically -->
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </form>
+        </div>
+
+        <!-- ⚙️ Modal Footer -->
+        <div class="modal-footer bg-white border-top rounded-bottom">
+          <button type="button" class="btn btn-red btn-sm text-white" data-dismiss="modal">
+            <i class="fa-solid fa-xmark me-1"></i> Exit
+          </button>
+          <button type="button" class="btn btn-green btn-sm text-white" id="add_user_btn" data-dismiss="modal">
+            <i class="fa-solid fa-circle-check me-1"></i> Submit
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
                                                         <!---------------------------------------------------------------------------------------------ADD-NEW-USER-MODAL-END---------------------------------------------------->
                                                         <!-----------------------------------------------UPDATE-USER-MODAl-START--------------------------------------------------------------------->
+                                                    <div>
                                                         <div class="modal fade" id="updateModal" tabindex="-1"
                                                             role="dialog" aria-labelledby="updateModalLabel"
                                                             aria-hidden="true">
@@ -390,8 +434,10 @@
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                        </div>
                                                         <!---------------------------------------------------------------------------------------------UPDATE-USER-MODAL-END---------------------------------------------------->
                                                         <!-----------------------------------------------UPDATE-PASSWORD-MODAl-START--------------------------------------------------------------------->
+                                                       <div>
                                                         <div class="modal fade" id="updatePasswordModal" tabindex="-1"
                                                             role="dialog" aria-labelledby="updateModalLabel"
                                                             aria-hidden="true">
@@ -449,12 +495,13 @@
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                    </div>
                                                         <!---------------------------------------------------------------------------------------------UPDATE-PASSWORD-MODAL-END---------------------------------------------------->
-                                                        <div class="d-flex justify-content-end mb-5">
+                                                        <div class="d-flex justify-content-end">
                                                             <button
                                                                 class="btn btn-primary addNewRecord d-flex align-items-center gap-2 px-sm-4 py-sm-2 rounded-pill shadow"
                                                                 data-toggle="modal" data-target="#addNewModal">
-                                                                <i class="ti-plus text-white fs-5"></i>
+                                                                <i class="fa-solid fa-plus text-white fs-5"></i>
                                                                 <span class="fw-bold">Add New User</span>
                                                             </button>
                                                         </div>
@@ -462,11 +509,11 @@
                                                             <div id="exportButtons" class="mb-3">
                                                             </div>
                                                         </div>
-                                                        <div class="d-flex justify-content-center align-items-center">
-                                                            <div class="table-responsive">
-                                                                <table id="myTable"
-                                                                    class="table table-striped rounded table-hover">
-                                                                    <thead class="bg-primary text-white">
+                                                        <div
+                                                                class="d-flex justify-content-center align-items-center">
+                                                                <div class="table-responsive">
+                                  <table class="table-modern table-striped" id="myTable">
+                                    <thead class="bg-primary text-white text-center">
                                                                         <tr>
                                                                             <th>User ID</th>
                                                                             <th>Name</th>

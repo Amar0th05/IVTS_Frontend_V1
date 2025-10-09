@@ -136,14 +136,19 @@ function addRow(data) {
           style="width: 40px; height: 40px; cursor:pointer"
           data-assets-id="${data.assetId}"
           onclick="downloadBarcode('${data.assetId}')">
-        <i class="ti-download text-primary" style="font-size: larger;"></i>
-      </div>
-    </div>`,
+  
+    <i class="fa-solid fa-qrcode qr-icon"></i>
+
+    <!-- Download icon (hidden until hover) -->
+    <i class="fa-solid fa-download download-icon"></i>
+  </div>
+</div>
+`,
       `<div class="row d-flex justify-content-center">
     <div class="d-flex align-items-center justify-content-center p-0 edit-btn" 
         style="width: 40px; height: 40px; cursor:pointer" 
         data-assets-id="${data.assetId}">
-        <i class="ti-pencil-alt text-inverse" style="font-size: larger;"></i>
+      <i class="fa-solid fa-pen-to-square" style="font-size: larger;"></i>
     </div>
 </div>
 `,

@@ -323,63 +323,77 @@ async function loadUpdateUser(id){
     }
 }
 
-        $(document).ready(function () {
-            // Initialize DataTable
-            var table = $('#myTable').DataTable({
-                "paging": true,
-                "pageLength": 25,
-                "lengthMenu": [5, 10, 25, 50, 100],
-                dom: '<"top"l>frtip',
-                buttons: [
-                    {
-                        extend: 'excelHtml5',
-                        text: 'Excel',
-                        exportOptions: {
-                            columns: [0, 1, 2, 3],
-                            format: {
-                                body: function (data, row, column, node) {
+      $(document).ready(function () {
+  // Initialize DataTable
+  const table = $('#myTable').DataTable({
+    paging: true,
+    pageLength: 25,
+    lengthMenu: [5, 10, 25, 50, 100],
+    dom: '<"top"lBf>rt<"bottom"ip><"clear">',
+    buttons: [
+      {
+        extend: 'excelHtml5',
+        text: '<i class="fa-solid fa-file-excel me-1"></i> Excel',
+        className: 'btn-excel',
+        exportOptions: {
+          columns: [0, 1, 2, 3],
+          format: {
+            body: function (data, row, column, node) {
+              const $node = $(node);
+              if ($node.find('.toggle-btn').length) {
+                return $node.find('.toggle-btn').hasClass('active') ? 'True' : 'False';
+              }
+              return data;
+            }
+          }
+        }
+      },
+      {
+        extend: 'pdfHtml5',
+        text: '<i class="fa-solid fa-file-pdf me-1"></i> PDF',
+        className: 'btn-pdf',
+        exportOptions: {
+          columns: [0, 1, 2, 3],
+          format: {
+            body: function (data, row, column, node) {
+              const $node = $(node);
+              if ($node.find('.toggle-btn').length) {
+                return $node.find('.toggle-btn').hasClass('active') ? 'True' : 'False';
+              }
+              return data;
+            }
+          }
+        }
+      },
+      {
+        extend: 'colvis',
+        text: '<i class="fa-solid fa-eye me-1"></i> Columns',
+        className: 'btn-colvis'
+      }
+    ],
+    language: {
+      search: "",
+      searchPlaceholder: "Type to search...",
+      paginate: {
+        first: "«",
+        last: "»",
+        next: "›",
+        previous: "‹"
+      }
+    },
+    initComplete: function () {
+      // Remove default "Search:" text
+      $('#myTable').contents().filter(function () {
+        return this.nodeType === 3;
+      }).remove();
 
-                                    if ($(node).find('.toggle-btn').length) {
-                                        return $(node).find('.toggle-btn').hasClass('active') ? 'True' : 'False';
-                                    }
-                                    return data;
-                                }
-                            }
-                        }
-                    },
-                    {
-                        extend: 'csvHtml5',
-                        text: 'CSV',
-                        exportOptions: {
-                            columns: [0, 1, 2, 3],
-                            format: {
-                                body: function (data, row, column, node) {
-                                    if ($(node).find('.toggle-btn').length) {
-                                        return $(node).find('.toggle-btn').hasClass('active') ? 'True' : 'False';
-                                    }
-                                    return data;
-                                }
-                            }
-                        }
-                    },
-                    {
-                        extend: 'pdfHtml5',
-                        text: 'PDF',
-                        exportOptions: {
-                            columns: [0, 1, 2, 3],
-                            format: {
-                                body: function (data, row, column, node) {
-                                    if ($(node).find('.toggle-btn').length) {
-                                        return $(node).find('.toggle-btn').hasClass('active') ? 'True' : 'False';
-                                    }
-                                    return data;
-                                }
-                            }
-                        }
-                    }
-                ]
-            });
+      // Wrap search input & add search icon
+      $('#myTable_filter input').wrap('<div class="search-wrapper"></div>');
+      $('.search-wrapper').prepend('<i class="fa-solid fa-magnifying-glass"></i>');
+    }
+  });
 
-            // Append buttons to the specified container
-            table.buttons().container().appendTo($('#exportButtons'));
-        });
+  // Append export buttons to custom container
+  table.buttons().container().appendTo($('#exportButtons'));
+});
+

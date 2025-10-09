@@ -166,6 +166,82 @@
 
 
 </style>
+<style>
+.download-btn {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+}
+
+/* Shared icon styles */
+.download-btn i {
+  position: absolute;
+  font-size: 25px;
+  color: #264AAA;
+  transition: all 0.3s ease;
+}
+
+/* Show QR by default */
+.qr-icon {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Hide download icon initially */
+.download-icon {
+  opacity: 0;
+  transform: scale(0);
+}
+
+/* Hover effect — QR fades out, download fades in */
+.download-btn:hover .qr-icon {
+  opacity: 0;
+  transform: scale(0);
+}
+
+.download-btn:hover .download-icon {
+  opacity: 1;
+  transform: scale(1);
+    color: #26aa47;
+
+}
+</style>
+<style>
+/* Base button */
+.edit-btn {
+  border-radius: 50%;
+  transition: background 0.3s ease, transform 0.25s ease;
+}
+
+/* Default icon */
+.edit-btn i {
+  color: #264AAA;
+  transition: transform 0.25s ease;
+}
+
+/* Hover: soft glow + tilt + zoom */
+.edit-btn:hover {
+  background: rgba(38, 74, 170, 0.12); /* Light tint of #264AAA */
+  transform: scale(1.1);
+  box-shadow: 0 0 8px rgba(38, 74, 170, 0.2);
+}
+
+.edit-btn:hover i {
+  transform: rotate(-10deg) scale(1.15);
+}
+
+/* Click (press) effect */
+.edit-btn:active {
+  transform: scale(0.9);
+  background: rgba(38, 74, 170, 0.25);
+  box-shadow: inset 0 0 6px rgba(38, 74, 170, 0.3);
+}
+
+.edit-btn:active i {
+  transform: scale(0.9);
+}
+</style>
 
 </head>
 
@@ -915,6 +991,8 @@
 
                                                                             <!-- <th>Actions</th> -->
                                                                              <th>Update</th>
+
+
 
                                                                             
                                                                         </tr>

@@ -35,7 +35,7 @@ const moduleMaps = {
   "SRB CREATED": ["indents"],
   "IC & SR SUBMISSION": ["indents"],
   "ASSETS": ["assetsDashboard", "laptops", "desktops", "server","printer"],
-  "ASSETS VERIFICATION":["LeaveManagement"],
+  "ASSETS VERIFICATION":["assetsVerficationDashboard"],
   "LEAVE":["LeaveManagement"]
 
   // 'USER ROLES': ['roles']
@@ -214,11 +214,11 @@ function generateSidebar() {
       "USER MANAGEMENT",
     ],
     "MASTER MANAGEMENT": ["MASTER MANAGEMENT"],
-    "Assests Mangemnet":{
+    "Assests management":{
       "Asset Master":["ASSETS"],
       "Assest Verification":["ASSETS VERIFICATION"]
     } ,
-    "LEAVE TRACKING":["LEAVE"]
+    "Leave Tracking":["LEAVE"]
   };
 
   let sidebarHTML = "";
@@ -234,9 +234,9 @@ function generateSidebar() {
         categoryHTML = `
                     <ul class="pcoded-item pcoded-left-item"${
                       categoryName === "Employee Management" ||
-                      categoryName === "Assets" ||
                       categoryName === "User Management" ||
-                      categoryName === "MASTER MANAGEMENT"
+                      categoryName === "MASTER MANAGEMENT"||
+                      categoryName ==="Leave Tracking"
                         ? ""
                         : ' style="padding-left:25px;"'
                     }>
