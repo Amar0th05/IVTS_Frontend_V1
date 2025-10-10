@@ -139,6 +139,8 @@ const api = {
     getInterById:(id) => fetchData(API_ROUTES.getAllIntern+`/${id}`, "intern"),
     updateIntern: (id,data) => putData(API_ROUTES.getAllIntern+`/${id}`, { data }),
     toggleInternStatus: (id) => putData(`/intern/status/${id}`),
+    //reporting manager
+    getReportingManger: () => fetchData(API_ROUTES.getReportingManager, "staffid"),
 
 // talent Pool
     getAllPersons:()=>fetchData(API_ROUTES.getAllTalentpool,"talent"),
@@ -167,7 +169,6 @@ const api = {
 
     getAllAssets: () => fetchData(API_ROUTES.getAllAssets, "assets"),
     getstaffid: () => fetchData(API_ROUTES.getstaffid, "staffid"),
-
 
 
 };

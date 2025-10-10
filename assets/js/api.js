@@ -102,6 +102,8 @@ const API_ROUTES = {
   uploadInternDocument: (staffId, docName) =>
     `/intern/${staffId}/documents/${docName}`,
   getActiveintern: `/activeIntern/all`,
+  getReportingManager: `/intern/getReportingManager`,
+
 
   // talent Pool
 
@@ -125,6 +127,7 @@ const API_ROUTES = {
   getAllAssets: `/Assets`,
   getAssets: (id) => `/Assets/${id}`,
   getstaffid: `/Assets/getstaff`,
+
   //desktop
   addDesktops: `/assets/Desktops/add`,
   toggleDesktopsStatus: `/assets/Desktops/status/`,

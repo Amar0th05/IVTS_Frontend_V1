@@ -155,7 +155,6 @@ function validateForm(formData) {
         const value=formData.get(field)?.trim();
 
 
-
         if(!value){
             errors.push(`${field} is Required`);
             showErrorPopupFadeInDown(`${field} is Required`);
@@ -232,16 +231,19 @@ async function loadInternUpdateDetails(Id) {
         document.getElementById('preferredStartDate1').value = data.PreferredStartDate ? formatDate(data.PreferredStartDate) : '';
         document.getElementById('preferredEndDate1').value = data.PreferredEndDate ? formatDate(data.PreferredEndDate) : '';
         document.getElementById('StartDate').value = data.StartDate ? formatDate(data.StartDate) : '';
-        document.getElementById('EndDate').value = data.EndDate? formatDate(data.StartDate) : '';
+        document.getElementById('EndDate').value = data.EndDate? formatDate(data.EndDate) : '';
         document.getElementById('internshipMode1').value = data.InternshipMode || '';
         document.getElementById('howHeardAboutUs1').value = data.HowHeardAboutUs || '';
         document.getElementById('submissionDate1').value = data.SubmissionDate ? formatDate(data.SubmissionDate) : '';
+        document.getElementById('reportingManager').value = data.Reporting_Manager || '';
+
         // Store ID = 1
         document.getElementById('id1').value=Id || '';
 
 
        
         updateInternDocumentButtons(Id); // Call a function to update document-related buttons/links
+        updateInternCertificateButtons(data);
 
      
 
@@ -249,6 +251,150 @@ async function loadInternUpdateDetails(Id) {
         console.error("Error loading intern details:", error);
        
     }
+}
+function formatDate(dateStr) {
+  if (!dateStr) return "";
+  const date = new Date(dateStr);
+  const day = String(date.getDate()).padStart(2, "0");
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const year = date.getFullYear();
+  return `${day}-${month}-${year}`;
+}
+
+function downloadCertificate(FullName,StartDate,EndDate) {
+  
+
+  if (!FullName && !StartDate && !EndDate) {
+    console.error("❌ No data provided to downloadCertificate()");
+    return;
+  }
+const  refNo = "NTCPWC/INT/009"
+  // ✅ Safely format issueDate
+  const issueDate = new Date()
+    .toLocaleDateString("en-GB")
+    ?.replace(/\//g, "-") || "";
+
+  const htmlContent = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Internship Certificate</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body style="font-family:'Times New Roman', Times, serif; line-height:1.6; color:#333; margin:0; padding:0; background-color:#f8f8f8; display:flex; justify-content:center; align-items:center; min-height:100vh;">
+  <div style="width:210mm; min-height:240mm; background-color:#fff; border:1px solid #eee; box-shadow:0 0 10px rgba(0,0,0,0.1); padding:20mm 15mm 10mm 15mm; box-sizing:border-box; position:relative;">
+
+    <!-- Header -->
+    <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:20px;">
+      <div style="flex-grow:1;">
+        <p style="margin:0; font-size:12px; font-weight:bold; margin-bottom:5px; color:#3f51b5;">
+          National Technology Centre for Ports, Waterways and Coasts<br>(NTCPWC)
+        </p>
+        <p style="margin:0; font-size:12px; color:#555;">
+          Indian Institute of Technology Madras, Chennai, India
+        </p>
+        <p style="font-size:12px;margin-top:15px;font-weight:normal;">
+          <strong>M.J. Muthukumar, Principal Project Officer</strong>
+        </p>
+      </div>
+      <div style="display:flex; gap:10px; align-items:flex-start;">
+        <img src="./All Logo.png" alt="Sagar Mala Logo" style="height:50px; width:auto; object-fit:contain;" />
+      </div>
+    </div>
+
+    <!-- Ref No & Date -->
+    <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-top:15px; margin-bottom:40px; font-size:12px;">
+      <div style="font-weight:bold;">${refNo}</div>
+      <div style="white-space:nowrap;">${issueDate}</div>
+    </div>
+
+    <!-- Title -->
+    <div style="text-align:center; font-size:12px; font-weight:bold; margin-bottom:20px;">
+      TO WHOM IT MAY CONCERN
+    </div>
+
+    <!-- Content -->
+    <div>
+      <p style="margin-bottom:1em; text-align:justify; font-size:12px;">
+        This is to certify that <span style="font-weight:bold; color:#000;">${FullName}</span> has successfully completed
+        his/her internship at NTCPWC, IIT Madras from <b>${formatDate(StartDate)}</b> to <b>${formatDate(EndDate)}</b>.
+      </p>
+
+      <p style="margin-bottom:1em; text-align:justify; font-size:12px;">
+        During his/her internship, he/she demonstrated exceptional enthusiasm and professionalism in all assigned tasks and a proactive approach to problem-solving.
+      </p>
+
+      <p style="margin-bottom:1em; text-align:justify; font-size:12px;">
+        His/Her ability to adapt quickly, collaborate effectively with the team, and maintain a consistent work ethic was commendable. He/She delivered high-quality work within timelines and showed a keen interest in learning and contributing beyond the assigned scope.
+      </p>
+
+      <p style="margin-bottom:1em; text-align:justify; font-size:12px;">
+        We wish him/her the very best for his/her future academic and professional endeavors.
+      </p>
+    </div>
+
+    <!-- Signature -->
+    <div style="margin-top:40px; display:flex; flex-direction:column; align-items:flex-start; font-size:12px;">
+      <p style="margin:0 0 20px 0;">Sincerely,</p>
+      <p style="margin:0;">For National Technology Centre for Ports Waterways and Coasts</p>
+      <p style="margin:10px 0 0 0; font-weight:bold;">M.J.Muthukumar</p>
+      <p style="margin:0; font-size:12px; font-weight:normal;">(Principal Project Officer)</p>
+    </div>
+
+    <!-- Footer -->
+    <div style="position:absolute;bottom:20mm;left:20mm;right:20mm;padding-top:6px;font-size:12px;text-align:left;">
+      <p style="margin:0;line-height:1.4;text-align:center;">
+        <strong>Tel: 091-44-22578918; Mobile: +91-9080056974</strong>
+      </p>
+      <p style="margin:0;line-height:1.4;text-align:center;">
+        <strong>
+          E-mail: <a href="mailto:jmutu86@ntcpwc.iitm.ac.in">jmutu86@ntcpwc.iitm.ac.in</a>; 
+          Web: <a href="http://www.ntcpwc.iitm.ac.in">www.ntcpwc.iitm.ac.in</a>
+        </strong>
+      </p>
+    </div>
+  </div>
+</body>
+</html>`;
+
+  // 🧾 Convert to Blob and trigger download
+  const blob = new Blob([htmlContent], { type: "text/html" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = `${FullName || "Intern"}_Certificate.html`;
+  link.click();
+  URL.revokeObjectURL(url);
+}
+
+// intern completion certificate
+async function updateInternCertificateButtons(data) {
+  try {
+    const documentTableBody = document.getElementById("Certificatebody");
+    let rowsHTML = "";
+
+    // ✅ Pass data.FullName safely as a string
+ let actionHTML = `
+  <button onclick="downloadCertificate('${data.FullName}', '${data.StartDate}', '${data.EndDate}')" 
+          class="btn btn-sm btn-primary me-2">
+    Download
+  </button>
+`;
+
+
+    rowsHTML += `
+      <tr>
+        <td>Certificate</td>
+        <td>${actionHTML}</td>
+      </tr>
+    `;
+
+    documentTableBody.innerHTML = rowsHTML;
+  } catch (error) {
+    console.error("Error loading documents:", error);
+  }
 }
 
 
@@ -351,7 +497,6 @@ async function downloadDocument(internId, docName) {
     }
 }
 
-
 // Delete document
 async function deleteDocument(internId, docName) {
     if (!(await showDeleteMessage(`Delete ${docName}?`))) return;
@@ -373,6 +518,7 @@ async function deleteDocument(internId, docName) {
         console.error("Error deleting document:", error);
     }
 }
+
 // Upload document
 async function uploadDocument(internId, docName, file) {
     console.log("Uploading document:", docName);
@@ -404,32 +550,27 @@ async function uploadDocument(internId, docName, file) {
     }
 }
 
-
-
-
-
-
-
-
-
-
-updateInternButton.addEventListener('click', async (e) =>{
+updateInternButton.addEventListener('click', async (e) => {
     console.log("enter");
     e.preventDefault();
+
     let form = document.getElementById('update-intern-form');
-
-
-
     let formData = new FormData(form);
-   
 
     let Data = Object.fromEntries(formData.entries());
 
-    console.log("intern",Data);
+    // ✅ Fix: convert empty strings to null for SQL Date columns
+    ["StartDate", "EndDate"].forEach(field => {
+        if (Data[field] === "") {
+            Data[field] = null;
+        }
+    });
+
+    console.log("intern", Data);
 
     if (validateForm(formData)) {
         try {
-            const responseData=await api.updateIntern(Data.id,Data);
+            const responseData = await api.updateIntern(Data.id, Data);
             table.clear();
             await fetchAllData();
             handlePermission('#username');
@@ -438,18 +579,15 @@ updateInternButton.addEventListener('click', async (e) =>{
             showErrorPopupFadeInDown(error.response?.data?.message || 'Failed to add staff. Please try again later.');
         }
     }
-    
+
     const payload = new FormData();
-    
-     documentFormData.forEach((value, key) => {
+    documentFormData.forEach((value, key) => {
         if (value instanceof File && value.name !== '') {
             payload.append(key, value);
-        }a
+        }
     });
-})
+});
 
-
-    
         $(document).ready(function () {
             const datatable = $('#myTable1').DataTable({
                 "paging": true,
@@ -486,15 +624,7 @@ updateInternButton.addEventListener('click', async (e) =>{
             }
         });
 
-        document.querySelector('#addNew').addEventListener('click', function () {
-            document.querySelector('#tab').classList.remove('d-none');
-            document.querySelector('#tableCard').style.display = 'none';
-            document.querySelector('#exitButton').addEventListener('click', function () {
-                document.querySelector('#tab').classList.add('d-none');
-                document.querySelector('#tableCard').style.display = 'block';
-            });
-        });
-
+    
         // JavaScript to show/hide "Other Gender" input
         document.getElementById('gender1').addEventListener('change', function () {
             var otherGenderField = document.getElementById('otherGenderField1');
@@ -523,5 +653,95 @@ updateInternButton.addEventListener('click', async (e) =>{
             today = yyyy + '-' + mm + '-' + dd;
             document.getElementById('submissionDate').value = today;
         });
-    
 
+
+$(document).ready(function () {
+    console.log("enter");
+  // Load all staff and populate dropdown
+  api.getReportingManger()
+    // api.getstaffid()
+    // api.getReportingid()
+    .then(staffList => {
+      staffList.forEach(staff => {
+        $('.userName').append(
+          $('<option>', { value: `${staff.id} - ${staff.name}`, text: `${staff.id}-${staff.name} ` })
+        );
+      });
+
+      // Initialize Select2 after options are added
+      $('.userName').select2({
+        placeholder: 'Select Reporting Manager',
+        allowClear: true
+      });
+    })
+    .catch(error => {
+        console.log("error")
+      console.error('Error loading staff:', error);
+    });
+});
+
+
+
+require('dotenv').config(); // Load environment variables from .env file
+const express = require('express');
+const sql = require('mssql');
+const cors = require('cors'); // Import cors
+
+const app = express();
+const port = 3000;
+
+// Middleware
+app.use(express.json()); // For parsing application/json
+app.use(cors()); // Enable CORS for all routes (important for front-end access)
+
+// Database configuration
+const dbConfig = {
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    server: process.env.DB_SERVER, // e.g., 'localhost', 'YOUR_SERVER_NAME\SQLEXPRESS'
+    database: process.env.DB_DATABASE,
+    options: {
+        encrypt: process.env.DB_ENCRYPT === 'true', // Use true for Azure SQL Database, false for local dev
+        trustServerCertificate: process.env.DB_TRUST_SERVER_CERTIFICATE === 'true' // Change to true for local dev / self-signed certs
+    }
+};
+
+// Connect to the database
+sql.connect(dbConfig)
+    .then(pool => {
+        if (pool.connected) {
+            console.log('Connected to SQL Server');
+        }
+        return pool;
+    })
+    .catch(err => console.error('Database Connection Failed:', err));
+
+// API Endpoint to get intern applicants
+app.get('/api/interns-ending-soon', async (req, res) => {
+    try {
+        const pool = await sql.connect(dbConfig); // Ensure pool is connected
+        const result = await pool.request().query(`
+            SELECT id, FullName, Email, EndDate, StartDate, DegreeProgram, Reporting_Manager
+            FROM dbo.internApplicants
+            WHERE EndDate IS NOT NULL
+              AND DATEDIFF(day, GETDATE(), EndDate) = 10;
+        `);
+        res.json(result.recordset);
+    } catch (err) {
+        console.error('Error fetching intern applicants:', err);
+        res.status(500).send('Error fetching intern applicants');
+    }
+});
+
+
+app.post('/api/submit-and-refresh', async (req, res) => {
+    console.log('Submit button clicked on frontend, triggering data refresh.');
+   
+    res.status(200).json({ message: 'Submission received, please refresh data.' });
+});
+
+
+// Start the server
+app.listen(port, () => {
+    console.log(`Server running at http://localhost:${port}`);
+});
