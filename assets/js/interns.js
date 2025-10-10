@@ -11,6 +11,9 @@ window.roles = roles;
     decidedPermission=handlePermission('#username');
 });
 
+const storedUser = JSON.parse(sessionStorage.getItem('user'));
+document.getElementById("username").textContent = storedUser.name;
+
 if(decidedPermission!==''){
     decidedPermission='editElement';
     // alert(decidedPermission)

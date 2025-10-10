@@ -127,6 +127,14 @@ function addRow(data) {
                 <div class="slider"></div>
             </div>
         </div>`,
+        `<div class="row d-flex justify-content-center">
+      <div class="d-flex align-items-center justify-content-center p-0 download-btn"
+          style="width: 40px; height: 40px; cursor:pointer"
+          data-assets-id="${data.assetId}"
+          onclick="downloadBarcode('${data.assetId}')">
+        <i class="ti-download text-primary" style="font-size: larger;"></i>
+      </div>
+    </div>`,
       `<div class="row d-flex justify-content-center">
     <div class="d-flex align-items-center justify-content-center p-0 edit-btn" 
         style="width: 40px; height: 40px; cursor:pointer" 
