@@ -29,16 +29,27 @@ async function addRow(data){
             </div>
         </div>`
         ,
+   
         `<div class="row d-flex justify-content-center">
-            <span class="d-flex align-items-center justify-content-center p-0 " style="cursor:pointer;" data-toggle="modal" data-target="#updateModal" onclick="loadUpdateUser(${data.userID})">
-                <i class="ti-pencil-alt text-inverse" style="font-size: larger;"></i>
+            <span class="d-flex align-items-center justify-content-center p-0 edit-btn" style="cursor:pointer;" data-toggle="modal" data-target="#updateModal" onclick="loadUpdateUser(${data.userID})">
+      <i class="fa-solid fa-pen-to-square" style="font-size: larger;"></i>
             </span>
         </div>`,
         `<div class="row d-flex justify-content-center">
-            <div class="d-flex align-items-center rounded justify-content-center p-1 " style="cursor:pointer;background-color:#f7694f" data-toggle="modal" data-target="#updatePasswordModal" onclick="updatePassword('${data.userID}')">
-                <i class="ti-reload text-white" style="font-size: large;"></i>
-            </div>
-        </div>`,
+  <div class="d-flex align-items-center justify-content-center p-1 reset-btn"
+      style="width: 40px; height: 40px; cursor:pointer;"
+      data-toggle="modal"
+      data-target="#updatePasswordModal"
+      onclick="updatePassword('${data.userID}')">
+      
+      <!-- Default icon -->
+      <i class="fa-solid fa-key key-icon" style="font-size: 22px;"></i>
+      
+      <!-- Hover icon -->
+      <i class="fa-solid fa-rotate rotate-icon" style="font-size: 22px;"></i>
+  </div>
+</div>
+`,
     ]).draw(false);
 
 }
@@ -133,6 +144,7 @@ function updatePassword(id){
         }
         if(valid){
             try {
+                
                 updateUserData(data);
                 form.reset();
                 return;

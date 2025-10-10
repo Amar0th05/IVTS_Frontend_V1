@@ -14640,3 +14640,114 @@ table.dataTable.dtr-inline.collapsed>tbody>tr>th:first-child:before {
      .text-sub{
         color: #2f3985 !important
     }
+/* Base button */
+.edit-btn {
+  border-radius: 50%;
+  transition: background 0.3s ease, transform 0.25s ease;
+}
+
+/* Default icon */
+.edit-btn i {
+  color: #264AAA;
+  transition: transform 0.25s ease;
+}
+
+/* Hover: soft glow + tilt + zoom */
+.edit-btn:hover {
+  background: rgba(38, 74, 170, 0.12); /* Light tint of #264AAA */
+  transform: scale(1.1);
+  box-shadow: 0 0 8px rgba(38, 74, 170, 0.2);
+}
+
+.edit-btn:hover i {
+  transform: rotate(-10deg) scale(1.15);
+}
+
+/* Click (press) effect */
+.edit-btn:active {
+  transform: scale(0.9);
+  background: rgba(38, 74, 170, 0.25);
+  box-shadow: inset 0 0 6px rgba(38, 74, 170, 0.3);
+}
+
+.edit-btn:active i {
+  transform: scale(0.9);
+}
+
+/* profile */
+
+.gradient-custom {
+background:  linear-gradient(135deg, #69A1FF, #1E3FA0);      
+color: #fff;
+      border-radius: .5rem;
+      transition: all 0.6s ease;
+    }
+
+    .profile-label {
+      font-weight: 600;
+      color: #444;
+    }
+
+    .editable {
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .editable:hover {
+      background-color: #f8f9fa;
+      border-radius: 5px;
+      padding: 2px 4px;
+    }
+
+    .btn-change {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 8px 18px;
+      transition: 0.3s;
+    }
+
+    .btn-change:hover {
+      background-color: #0056b3;
+    }
+   .modal-header {
+      background: linear-gradient(135deg, #69A1FF, #1E3FA0);
+    }
+    .slide-container {
+      display: flex;
+      flex-wrap: nowrap;
+      overflow: hidden;
+      transition: all 0.6s ease-in-out;
+    }
+
+    .profile-left {
+      order: 0;
+    }
+
+    .profile-right {
+      order: 1;
+    }
+
+    .reversed {
+      flex-direction: row-reverse;
+    }
+
+    .slide-section {
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    .hidden-section {
+      opacity: 0;
+      transform: translateX(40px);
+      pointer-events: none;
+      position: absolute;
+      width: 100%;
+    }
+
+    .visible-section {
+      opacity: 1;
+      transform: translateX(0);
+      position: relative;
+      width: 100%;
+    }

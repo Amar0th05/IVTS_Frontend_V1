@@ -57,3 +57,150 @@ document.getElementById('logout-button').addEventListener('click',logout);
         icon.classList.toggle("fa-chevron-down");
         icon.classList.toggle("fa-chevron-up");
     }
+
+
+    
+async function updateUserData(userData){
+    try{
+        // const response=await axiosInstance.put(API_ROUTES.user,{
+        //     userData
+        // });
+        const data=await api.updateUser(userData);
+        // if(data.message){
+        //     showSucessPopupFadeInDownLong(data.message);
+        // }
+    }catch(err){
+        console.error('Error updating user:', err);
+        showErrorPopupFadeInDown(err.response?.data?.message || 'Failed to update user. Please try again later.');
+    }
+}
+   // =============================
+// 🔹 DOM ELEMENTS
+// =============================
+const slideContainer = document.getElementById('slideContainer');
+const profileSection = document.getElementById('profileSection');
+const passwordSection = document.getElementById('passwordSection');
+const modalTitle = document.getElementById('modalTitle');
+const profileModal = document.getElementById('profileDetailsModal');
+
+// =============================
+// 🔹 SLIDE: Show Change Password
+// =============================
+document.getElementById('changePasswordBtn')?.addEventListener('click', () => {
+  profileSection.classList.replace('visible-section', 'hidden-section');
+  passwordSection.classList.replace('hidden-section', 'visible-section');
+  slideContainer.classList.add('reversed');
+  modalTitle.textContent = 'Change Password';
+});
+
+// =============================
+// 🔹 SLIDE: Back to Profile
+// =============================
+document.getElementById('backToProfile')?.addEventListener('click', () => {
+  passwordSection.classList.replace('visible-section', 'hidden-section');
+  profileSection.classList.replace('hidden-section', 'visible-section');
+  slideContainer.classList.remove('reversed');
+  modalTitle.textContent = 'Profile Details';
+});
+
+// =============================
+// 🔹 LOAD USER DATA INTO PROFILE MODAL
+// =============================
+profileModal?.addEventListener('shown.bs.modal', () => {
+  const storedUser = JSON.parse(sessionStorage.getItem('user'));
+  console.log("Loaded User Data:", storedUser);
+
+  if (storedUser) {
+    document.getElementById('profileName').textContent =
+      storedUser.name ||
+      `${storedUser.firstName || ''} ${storedUser.lastName || ''}`.trim() ||
+      'Unknown';
+
+    document.getElementById('profileRole').textContent =
+      storedUser.Role_Name || 'N/A';
+
+    document.getElementById('firstName').textContent =
+      storedUser.name || storedUser.firstName || '—';
+
+    document.getElementById('empId').textContent =
+      storedUser.Employee_ID || '—';
+
+    document.getElementById('emailId').textContent =
+      storedUser.mail || '—';
+
+    document.getElementById('Designation').textContent =
+      storedUser.Designation || '—';
+
+    if (storedUser.Gender === "Female") {
+      document.getElementById('profileImage').src = "assets/images/female.png";
+    }
+    else{
+            document.getElementById('profileImage').src = "assets/images/male.png";
+    }
+  } else {
+    console.warn("No user data found in sessionStorage");
+  }
+});
+
+document.getElementById("savePassword")?.addEventListener('click',()=>{
+  const userData = JSON.parse(sessionStorage.getItem('user'));
+  const userId = userData.id;
+
+  if (!userId) {
+    showErrorPopupFadeInDown("User data not found. Please re-login.");
+    return;
+  }
+
+  const newPasswordField = document.getElementById('newPassword');
+  const confirmPasswordField = document.getElementById('confirmPassword');
+  const confirmLabel = document.querySelector('label[for="confirmPassword"]');
+  const passwordForm = document.getElementById('passwordForm');
+
+  const newPassword = newPasswordField.value.trim();
+  const confirmPassword = confirmPasswordField.value.trim();
+
+  // 🧩 Validate input
+  if (!newPassword || !confirmPassword) {
+    showErrorPopupFadeInDown("Please fill in all password fields.");
+    return;
+  }
+
+  if (newPassword !== confirmPassword) {
+    confirmLabel.style.color = 'red';
+    confirmLabel.textContent = 'Passwords do not match';
+    showErrorPopupFadeInDown("Passwords do not match.");
+    return;
+  } else {
+    confirmLabel.style.color = '';
+    confirmLabel.textContent = 'Confirm Password';
+  }
+
+  // Prepare data
+  const data = {
+    userID: parseInt(userId),
+    password: newPassword
+  };
+
+  // ✅ Try to update password
+  try {
+    console.log("elrbkgbljkb",data)
+    updateUserData(data); // Your async backend function
+    passwordForm.reset();
+    showPopupFadeInDown('Password updated successfully!');
+    
+  passwordSection.classList.replace('visible-section', 'hidden-section');
+  profileSection.classList.replace('hidden-section', 'visible-section');
+  slideContainer.classList.remove('reversed');
+  modalTitle.textContent = 'Profile Details';
+  } catch (err) {
+    console.error('Error updating password:', err);
+    showErrorPopupFadeInDown(
+      err.response?.data?.message || 'Failed to update password. Please try again later.'
+    );
+  }
+
+});
+
+
+
+
