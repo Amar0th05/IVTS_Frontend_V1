@@ -1,16 +1,16 @@
 
 
-const addserverButton = document.getElementById("add_server_btn");
-const updateAssetsButton = document.getElementById("update_server_btn");
+const addDesktopButton = document.getElementById("add_printer_btn");
+const updateAssetsButton = document.getElementById("update_printer_btn");
 
 
 
 // add staff
-addserverButton.addEventListener("click", async (e) => {
+addDesktopButton.addEventListener("click", async (e) => {
   e.preventDefault();
-  console.log("Add server Button Clicked");
+  console.log("Add Laptop Button Clicked");
 
-  let form = document.getElementById("server_add_form");
+  let form = document.getElementById("printer_add_form");
   let formData = new FormData(form);
 
   let Data = Object.fromEntries(formData.entries());
@@ -18,7 +18,7 @@ addserverButton.addEventListener("click", async (e) => {
   if (validateForm(formData)) {
     try {
       console.log("Submitting Payload...");
-      const response = await api.addServer(Data);
+      const response = await api.addPrinter(Data);
       console.log("response",response);
       showSucessPopupFadeInDownLong(response.message || "Updated successfully!");
 
@@ -28,13 +28,14 @@ addserverButton.addEventListener("click", async (e) => {
       form.reset();
       document.querySelector("#tab").classList.add("d-none");
       document.querySelector("#tableCard").style.display = "block";
-        setTimeout(()=>{
+    setTimeout(()=>{
         window.location.reload();
       },2000)
+
     } catch (error) {
       showErrorPopupFadeInDown(
         error.response?.data?.message ||
-          "Failed to add Server. Please try again later."
+          "Failed to add staff. Please try again later."
       );
     }
   }
@@ -51,7 +52,7 @@ updateAssetsButton.addEventListener("click", async (e) => {
   if (validateForm(formData)) {
     console.log("enter", formData);
     try {
-      const responseData = await api.updateServers(Data);
+      const responseData = await api.updatePrinter(Data);
       table.clear();
       await fetchAllData();
       handlePermission("#username");
@@ -62,7 +63,7 @@ updateAssetsButton.addEventListener("click", async (e) => {
     } catch (error) {
       showErrorPopupFadeInDown(
         error.response?.data?.message ||
-          "Failed to update staff. Please try again later."
+          "Failed to update Printer. Please try again later."
       );
     }
   }
@@ -113,7 +114,7 @@ function addRow(data) {
       data.category,
       data.vendorName,
       data.userName,
-      data.dept,
+      data.projectNo,
       `<div class="container">
             <div class="toggle-btn ${decidedPermission}  ${
         data.status === true ? "active" : ""
@@ -152,12 +153,13 @@ document.querySelector("#exitButton2").addEventListener("click", function () {
 
 // side bar
 
-document.addEventListener("DOMContentLoaded", async () => { 
+document.addEventListener("DOMContentLoaded", async () => {
   roles = await axiosInstance.get("/roles/role/perms");
   roles = roles.data.roles;
   // console.log(roles);
-  window.roles = roles; 
+  window.roles = roles;
   await fetchAllData();
+
   handlePermission("#username");
 });
 
@@ -169,7 +171,7 @@ async function toggleStatus(element, id) {
   if (!id) return;
 
   try {
-    const data = await api.toggleServerStatus(id);
+    const data = await api.toggleLaptopStatus(id);
     showSucessPopupFadeInDownLong(data.message);
     if (element) {
       element.classList.toggle("active");
@@ -182,7 +184,7 @@ async function toggleStatus(element, id) {
 // fetch all data
 async function fetchAllData() {
   try {
-    const assets = await api.getAllServer();
+    const assets = await api.getAllPrinter();
     console.log("assetsDetails", assets);
 
     assets.forEach((assets) => {
@@ -203,6 +205,7 @@ function limitLength(str, length) {
 }
 
 function validateForm(formData) {
+    console.log("enter");
   let errors = [];
 
   const requiredFields = [
@@ -211,8 +214,6 @@ function validateForm(formData) {
     // "Serial_No",
     // "IP_Address",
     // "MAC_Address",
-    // "Port",
-    // "Remark_Config",
     // "Project_No",
     // "PO_No",
     // "PO_Date",
@@ -220,7 +221,6 @@ function validateForm(formData) {
     // "Invoice_No",
     // "Invoice_Date",
     // "SRB",
-    // "Dept",
     // "Remarks",
   ];
 
@@ -263,8 +263,9 @@ function validateForm(formData) {
 
 // update staff details
 async function loadUpdateDetails(id) {
+    console.log("id",id);
   try {
-    const response = await axiosInstance.get(API_ROUTES.getAssets(id));
+    const response = await await axiosInstance.get(API_ROUTES.getAssets(id));
     const data = response.data.assets;
 
     console.log("Fetched asset:", data);
@@ -279,11 +280,10 @@ async function loadUpdateDetails(id) {
 
     document.querySelectorAll("#modelNo")[1].value = data.modelNo;
     document.querySelectorAll("#serialNo")[1].value = data.serialNo;
+
     // Networking
     document.querySelectorAll("#ipAddress")[1].value = data.ipAddress;
     document.querySelectorAll("#macAddress")[1].value = data.macAddress;
-    document.querySelectorAll("#port")[1].value = data.port;
-    document.querySelectorAll("#remarkConfig")[1].value = data.remarkConfig;
 
     // Purchase / Vendor
     document.querySelectorAll("#projectNo")[1].value = data.projectNo;
@@ -295,7 +295,6 @@ async function loadUpdateDetails(id) {
     document.querySelectorAll("#srb")[1].value = data.srbNo || data.srb;
 
     // Organization Info
-    document.querySelectorAll("#dept")[1].value = data.dept;
     document.querySelectorAll("#remarks")[1].value = data.remarks;
 
   } catch (error) {
@@ -311,6 +310,11 @@ function formatDate(dateString) {
 }
 
 
+function formatDate(dateStr) {
+  if (!dateStr) return "";
+  let date = new Date(dateStr);
+  return date.toISOString().split("T")[0];
+}
 
 // edit btn
 // $(document).on('click', '.edit-btn', function () {
@@ -321,8 +325,167 @@ function formatDate(dateString) {
 
 //generate pdf
 
+async function fetchDataAndGeneratePDF() {
+  try {
+    const res = await api.downloadStaffData();
+    if (!Array.isArray(res) || res.length === 0)
+      throw new Error("No staff data available");
+
+    const tableBody = [
+      [
+        "ID",
+        "Name",
+        "Date Of Birth",
+        "Aadhar Number",
+        "Contact Number",
+        "Mail",
+        "Permanent Address",
+        "Salary At Joining",
+        "Qualifications",
+        "Highest Qualification",
+        "Location Of Work",
+        "Date of Joining",
+        "Certifications",
+        "Courses",
+        "Current Salary",
+        "Current Designation",
+        "Status",
+      ],
+      ...res.map((staff) => [
+        staff.staffID || "N/A",
+        staff.staffName || "N/A",
+        staff.dateOfBirth || "N/A",
+        staff.aadharNumber || "N/A",
+        staff.contactNumber || "N/A",
+        staff.mail || "N/A",
+        staff.permanentAddress || "N/A",
+        staff.salaryAtJoining || "N/A",
+        staff.qualifications || "N/A",
+        staff.highestQualification || "N/A",
+        staff.locationOfWork || "N/A",
+        staff.dateOfJoining || "N/A",
+        staff.certifications || "N/A",
+        staff.courses || "N/A",
+        staff.currentSalary || "N/A",
+        staff.currentDesignation || "N/A",
+        staff.status || "N/A",
+      ]),
+    ];
+
+    const docDefinition = {
+      pageOrientation: "landscape",
+      content: [
+        { text: "Staff Details", style: "header" },
+        {
+          table: {
+            headerRows: 1,
+            widths: [
+              "5%",
+              "5%",
+              "10%",
+              "10%",
+              "10%",
+              "5%",
+              "5%",
+              "10%",
+              "10%",
+              "10%",
+              "10%",
+              "10%",
+              "10%",
+              "10%",
+              "10%",
+              "15%",
+              "10%",
+            ],
+            body: tableBody,
+          },
+        },
+      ],
+      styles: {
+        header: { fontSize: 18, bold: true, margin: [0, 0, 0, 10] },
+      },
+      defaultStyle: {
+        fontSize: 6,
+      },
+    };
+
+    pdfMake.createPdf(docDefinition).download("Staff_List.html");
+  } catch (err) {
+    console.error("Error fetching or generating PDF:", err);
+    showErrorPopupFadeInDown(
+      err.message || "Can't download the staff details."
+    );
+  }
+}
 
 // generate excel
+async function fetchDataAndGenerateExcel() {
+  try {
+    const res = await api.downloadIITStaffData();
+
+    const headers = [
+      "Employee ID",
+      "Staff Name",
+      "Date of Birth",
+      "Gender",
+      "Contact Number",
+      "Personal Email",
+      "Emergency Contact Name",
+      "Emergency Contact Number",
+      "Permanent Address",
+      "Date of Joining",
+      "Work Location",
+      "Department",
+      "Designation",
+      "Employment Type",
+      "Reporting Manager",
+      "Highest Educational Qualification",
+      "Specialization",
+      "Previous Company",
+      "Total Years of Experience",
+      "LinkedIn / GitHub / Portfolio Link",
+      "Office Assets",
+      "Official Email Address",
+    ];
+
+    const data = res.map((staff) => [
+      staff.employeeId,
+      staff.staffName,
+      new Date(staff.dob).toLocaleDateString("eng-GB"),
+      staff.gender,
+      staff.contactNumber,
+      staff.personalEmail,
+      staff.address,
+      new Date(staff.dateOfJoining).toLocaleDateString("eng-GB"),
+      staff.department,
+      staff.designation,
+      staff.employmentType,
+      ,
+      staff.reportingManager,
+      staff.workLocation,
+      staff.education,
+      staff.specialization,
+      staff.previousCompany,
+      staff.experience,
+      staff.linkedin,
+      staff.assets,
+      staff.officialEmail,
+      staff.emergencyContactName,
+      staff.emergencyContactNumber,
+      staff.status,
+    ]);
+
+    const ws = XLSX.utils.aoa_to_sheet([headers, ...data]);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Staff Details");
+
+    XLSX.writeFile(wb, "Staff_List.xlsx");
+  } catch (err) {
+    console.error("Error fetching or generating Excel:", err);
+    showErrorPopupFadeInDown("Can't download the staff details.");
+  }
+}
    $(document).ready(function () {
        const datatable = $('#myTable').DataTable({
            "paging": true,

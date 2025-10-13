@@ -64,8 +64,8 @@ function addRow(data){
 `,
         
     ]).draw(false);
-};
 
+};
 // edit btn
 document.querySelector('#myTable1').addEventListener('click', function (event) {
     if (event.target.closest('.edit-btn')) {
@@ -110,29 +110,54 @@ async function toggleStatus(element, id) {
         if (element) {
             element.classList.toggle('active');
         }
+                    await refreshTable();
+
     } catch (error) {
         showErrorPopupFadeInDown(error);
     }
 }
 
+async function refreshTable() {
+    if ($.fn.dataTable.isDataTable('#myTable1')) {
+        table = $('#myTable1').DataTable();
+        table.clear();
+    }
+
+    await fetchAllData();
+}
+
+
 // fetch all data
 async function fetchAllData() {
     try {
-        const intern = await api.getAllIntern();
-        console.log('intern',intern);
+        const interns = await api.getAllIntern();
+        console.log('intern', interns);
 
+        // Clear and populate DataTable if needed
+        if ($.fn.dataTable.isDataTable('#myTable1')) {
+            const table = $('#myTable1').DataTable();
+            table.clear().draw();
+        }
 
-        intern.forEach(e=>{addRow(e)});
+        // Add each intern as a row
+        interns.forEach(e => addRow(e));
 
+        // ✅ Count interns correctly
+        const totalInterns = interns.length;
+        const currentInterns = interns.filter(i => Number(i.status) === 1).length;
+        const completedInterns = interns.filter(i => Number(i.status) === 0).length;
+
+        // ✅ Update the HTML cards
+        document.getElementById("totalInternCount").innerText = totalInterns;
+        document.getElementById("currentInternCount").innerText = currentInterns;
+        document.getElementById("completedInternCount").innerText = completedInterns;
 
         handlePermission('#username');
-        
 
     } catch (error) {
-        console.error("Error fetching staff details:", error);
+        console.error("Error fetching intern details:", error);
     }
 }
-
 
 function limitLength(str, length) {
     if (str.length > length) {
@@ -140,7 +165,6 @@ function limitLength(str, length) {
     }
     return str;
 };
-
 
 
 
@@ -420,23 +444,29 @@ async function updateInternDocumentButtons(internId) {
             let actionHTML = "";
 
             if (doc.exists) {
-                // Download + Delete buttons
-                actionHTML = `
-                    <button onclick="downloadDocument('${internId}', '${doc.name}')" 
-                            class="btn btn-sm btn-primary me-2">Download</button>
-                    <button onclick="deleteDocument('${internId}', '${doc.name}')" 
-                            class="btn btn-sm btn-danger">Delete</button>
-                `;
-            } else {
-                // Upload button
-                actionHTML = `
-                    <label class="btn btn-sm btn-success mb-0">
-                        Upload
-                        <input type="file" style="display:none" 
-                               onchange="uploadDocument('${internId}', '${doc.name}', this.files[0])">
-                    </label>
-                `;
-            }
+          actionHTML = `
+            <button onclick="handleAction(this, () => downloadDocument('${internId}', '${doc.name}'))" 
+                    class="btn btn-sm text-white" 
+                    style="background:linear-gradient(to bottom right, #69A1FF, #1E3FA0); border:none;">
+              <i class="fa-solid fa-download me-1"></i> Download
+            </button>
+            <button onclick="handleAction(this, () => deleteDocument('${internId}', '${doc.name}'))" 
+                    class="btn btn-sm text-white" 
+                    style="background:linear-gradient(to bottom right, #EF4444, #B91C1C); border:none;">
+              <i class="fa-solid fa-trash me-1"></i> Delete
+            </button>
+        `;
+      } else {
+        // ✅ Upload with gradient
+        actionHTML = `
+          <label class="btn btn-sm text-white mb-0" 
+                 style="background:linear-gradient(to bottom right, #34D399, #059669); border:none; cursor:pointer; color:white !important; fontsize:0px !important;">
+            <i class="fa-solid fa-upload me-1"></i> Upload
+            <input type="file" style="display:none" 
+                   onchange="handleAction(this.parentElement, () => uploadDocument('${internId}', '${doc.name}', this.files[0]))">
+          </label>
+        `;
+      }
 
             // Build row
             rowsHTML += `
@@ -454,7 +484,25 @@ async function updateInternDocumentButtons(internId) {
         console.error("Error loading documents:", error);
     }
 }
+function handleAction(btn, actionFn) {
+  let originalHTML = btn.innerHTML;
+  btn.disabled = true;
+  btn.innerHTML = `<span class="spinner-border spinner-border-sm me-1" role="status"></span> Processing...`;
 
+  // Run the async action
+  Promise.resolve(actionFn())
+    .then(() => {
+      // ✅ Success: restore button
+      btn.disabled = false;
+      btn.innerHTML = originalHTML;
+    })
+    .catch(err => {
+      console.error("Action failed:", err);
+      btn.disabled = false;
+      btn.innerHTML = originalHTML;
+      alert("Something went wrong, please try again.");
+    });
+}
 
 // Download document (binary to blob)
 async function downloadDocument(internId, docName) {
@@ -609,7 +657,7 @@ updateInternButton.addEventListener('click', async (e) => {
             $('#locationFilter').on('change', function () {
                 const selectedLocation = $(this).val();
                 datatable.column(2).search(selectedLocation ? '^' + selectedLocation + '$' : '', true, false).draw();
-            });
+    });
 
         });
 
@@ -622,7 +670,7 @@ updateInternButton.addEventListener('click', async (e) => {
             } else {
                 datatable.column(1).search('').draw();
             }
-        });
+});
 
     
         // JavaScript to show/hide "Other Gender" input

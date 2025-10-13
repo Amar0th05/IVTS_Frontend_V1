@@ -4,6 +4,10 @@ const addLaptopButton = document.getElementById("add_laptop_btn");
 const updateAssetsButton = document.getElementById("update_laptop_btn");
 
 
+let storageHistory;
+
+
+
 
 // add staff
 addLaptopButton.addEventListener("click", async (e) => {
@@ -28,6 +32,9 @@ addLaptopButton.addEventListener("click", async (e) => {
       form.reset();
       document.querySelector("#tab").classList.add("d-none");
       document.querySelector("#tableCard").style.display = "block";
+          setTimeout(()=>{
+        window.location.reload();
+      },2000)
     } catch (error) {
       showErrorPopupFadeInDown(
         error.response?.data?.message ||
@@ -45,14 +52,22 @@ updateAssetsButton.addEventListener("click", async (e) => {
 
   let Data = Object.fromEntries(formData.entries());
 
+  // 👉 Convert storageHistory array into string for DB
+  if (Array.isArray(storageHistory)) {
+    Data.storage = storageHistory.map(item => `${item.value} ${item.unit} ${item.type}`).join(" , ");
+  }
+
   if (validateForm(formData)) {
-    console.log("enter", formData);
+    console.log("sending payload:", Data);
     try {
       const responseData = await api.updateLaptops(Data);
       table.clear();
       await fetchAllData();
       handlePermission("#username");
       showSucessPopupFadeInDownLong(responseData.message);
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
     } catch (error) {
       showErrorPopupFadeInDown(
         error.response?.data?.message ||
@@ -61,6 +76,7 @@ updateAssetsButton.addEventListener("click", async (e) => {
     }
   }
 });
+
 
 let decidedPermission;
 document.addEventListener("DOMContentLoaded", async () => {
@@ -102,6 +118,7 @@ function addRow(data) {
   table.row
     .add([
       data.slNo,
+      data.serialNo,
       data.assetId,
       data.category,
       data.vendorName,
@@ -114,17 +131,55 @@ function addRow(data) {
                 <div class="slider"></div>
             </div>
         </div>`,
+            `<div class="row d-flex justify-content-center">
+      <div class="d-flex align-items-center justify-content-center p-0 download-btn"
+          style="width: 40px; height: 40px; cursor:pointer"
+          data-assets-id="${data.assetId}"
+          onclick="downloadBarcode('${data.assetId}')">
+  
+    <i class="fa-solid fa-qrcode qr-icon"></i>
+
+    <!-- Download icon (hidden until hover) -->
+    <i class="fa-solid fa-download download-icon"></i>
+  </div>
+</div>
+`,
       `<div class="row d-flex justify-content-center">
     <div class="d-flex align-items-center justify-content-center p-0 edit-btn" 
         style="width: 40px; height: 40px; cursor:pointer" 
         data-assets-id="${data.assetId}">
-        <i class="ti-pencil-alt text-inverse" style="font-size: larger;"></i>
+      <i class="fa-solid fa-pen-to-square" style="font-size: larger;"></i>
     </div>
 </div>
 `,
     ])
     .draw(false);
 }
+
+// download bar code
+
+// Download barcode using axiosInstance
+async function downloadBarcode(assetId) {
+  try {
+    const response = await axiosInstance.get(API_ROUTES.downloadBarCode(assetId), {
+      responseType: 'blob', // important to get binary image data
+    });
+
+    // Create blob URL for the barcode image
+    const url = window.URL.createObjectURL(new Blob([response.data]));
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `${assetId}.png`; // name of the downloaded file
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    window.URL.revokeObjectURL(url); // free up memory
+
+  } catch (error) {
+    console.error("Error downloading barcode:", error);
+  }
+}
+
 
 // edit btn
 document.querySelector("#myTable").addEventListener("click", function (event) {
@@ -168,6 +223,7 @@ async function toggleStatus(element, id) {
     if (element) {
       element.classList.toggle("active");
     }
+    await refreshTable();
   } catch (error) {
     showErrorPopupFadeInDown(error);
   }
@@ -195,6 +251,14 @@ function limitLength(str, length) {
   }
   return str;
 }
+async function refreshTable() {
+    if ($.fn.dataTable.isDataTable('#myTable')) {
+        table = $('#myTable').DataTable();
+        table.clear();
+    }
+
+    await fetchAllData();
+}
 
 function validateForm(formData) {
   let errors = [];
@@ -205,7 +269,6 @@ function validateForm(formData) {
     "Serial_No",
     "Processor_Type",
     "RAM_GB",
-    "HDD_GB_TB",
     "Graphics",
     "OS_Type",
     "Host_Name",
@@ -258,6 +321,32 @@ function validateForm(formData) {
   return true;
 }
 
+// parase storage
+function parseStorage(storageStr) {
+  if (!storageStr) return [];
+
+  return storageStr.split(',')
+    .map(s => s.trim().replace(/\s+/g, ' ')) // normalize spaces
+    .filter(Boolean)                         // remove empty entries
+    .map(item => {
+      const parts = item.split(' '); // ["1", "TB"]
+      return {
+        value: parts[0],
+        unit: parts[1] || 'GB',
+        type: parts[2] // default unit = GB
+      };
+    });
+}
+// convert db string 
+
+function stringifyStorage(storageArr) {
+  if (!Array.isArray(storageArr)) return "";
+
+  return storageArr
+    .map(item => `${item.value} ${item.unit}`)
+    .join(' , ');
+}
+
 
 // update staff details
 async function loadUpdateDetails(id) {
@@ -278,16 +367,22 @@ async function loadUpdateDetails(id) {
     document.querySelectorAll("#modelNo")[1].value = data.modelNo;
     document.querySelectorAll("#serialNo")[1].value = data.serialNo;
     document.querySelectorAll("#processorType")[1].value = data.processorType;
-    document.querySelectorAll("#ramGb")[1].value = Number(data.ramGb);
+  const ramValue = Number(data.ramGb.replace(/\D/g, '')); // removes everything except digits
+document.querySelectorAll("#ramGb")[1].value = ramValue;
 
-    // Storage: split into value + unit
-    if (data.storage >= 1024) {
-      document.querySelectorAll("#storage")[1].value = data.storage / 1024;
-      document.querySelectorAll("[name='storageUnit']")[1].value = "TB";
-    } else {
-      document.querySelectorAll("#storage")[1].value = data.storage;
-      document.querySelectorAll("[name='storageUnit']")[1].value = "GB";
-    }
+
+storageHistory = parseStorage(data.storage);
+
+console.log(storageHistory);
+
+
+
+if (storageHistory.length > 0) {
+  const last = storageHistory[storageHistory.length - 1]; // last object
+  document.querySelectorAll("#storage")[1].value = `${last.value} ${last.unit} ${last.type}`;
+  // result: "1 TB"
+}
+
 
     // Other Specs
     document.querySelectorAll("#graphics")[1].value = data.graphics;
@@ -310,6 +405,119 @@ async function loadUpdateDetails(id) {
     // Organization Info
     document.querySelectorAll("#dept")[1].value = data.dept;
     document.querySelectorAll("#remarks")[1].value = data.remarks;
+
+
+
+        const storageHistoryBtn = document.querySelectorAll("#storage")[1];
+    const storageHistoryTable = document.querySelector('#storageHistoryTable tbody');
+    const newStorageValue = document.getElementById('newStorageValue');
+    const newStorageUnit = document.getElementById('newStorageUnit');
+
+function renderStorageTable() {
+    storageHistoryTable.innerHTML = '';
+
+    storageHistory.forEach((item, idx) => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td class="storage-value text-center align-middle fw-semibold fs-6">${item.value}</td>
+            <td class="storage-unit text-center align-middle fs-6">
+                <span class="badge bg-light text-dark px-3 py-2 border rounded">${item.unit}</span>
+            </td>
+            <td class="storage-type text-center align-middle fs-6">
+                <span class="badge ${item.type === 'HDD' ? 'bg-primary' : 'bg-success'} text-white px-3 py-2 rounded">
+                    ${item.type}
+                </span>
+            </td>
+            <td class="text-center align-middle" style="padding: 10px 0 !important;">
+                <div class="btn-group">
+                    <button class="btn btn-primary btn-md px-3 py-2 edit-storage" title="Edit Storage">
+                        <i class="fa-solid fa-pen-to-square fs-6"></i> Edit
+                    </button>
+                    <button class="btn btn-red btn-md px-3 py-2 delete-storage" title="Delete Storage">
+                        <i class="fa-solid fa-trash fs-6"></i> Delete
+                    </button>
+                </div>
+            </td>
+        `;
+
+        const tdValue = tr.querySelector('.storage-value');
+        const tdUnit = tr.querySelector('.storage-unit');
+        const tdType = tr.querySelector('.storage-type');
+        const editBtn = tr.querySelector('.edit-storage');
+
+        // ✏️ Edit button
+        editBtn.addEventListener('click', function editHandler() {
+            tdValue.innerHTML = `
+                <input type="number" 
+                       class="form-control form-control-lg edit-value text-center fw-semibold" 
+                       value="${item.value}" 
+                       min="1" 
+                       style="width: 120px; margin: auto;">
+            `;
+
+            tdUnit.innerHTML = `
+                <select class="form-select form-select-lg edit-unit text-center fw-semibold" 
+                        style="width: 100px; margin: auto;">
+                    <option value="GB" ${item.unit === 'GB' ? 'selected' : ''}>GB</option>
+                    <option value="TB" ${item.unit === 'TB' ? 'selected' : ''}>TB</option>
+                </select>`;
+
+            tdType.innerHTML = `
+                <select class="form-select form-select-lg edit-type text-center fw-semibold" 
+                        style="width: 120px; margin: auto;">
+                    <option value="SSD" ${item.type === 'SSD' ? 'selected' : ''}>SSD</option>
+                    <option value="HDD" ${item.type === 'HDD' ? 'selected' : ''}>HDD</option>
+                </select>`;
+
+            // Change button to Save
+            editBtn.innerHTML = `<i class="fa-solid fa-floppy-disk fs-6"></i> Save`;
+            editBtn.classList.replace('btn-outline-primary', 'btn-green');
+            editBtn.setAttribute('title', 'Save Changes');
+
+            const saveHandler = () => {
+                const newVal = tdValue.querySelector('.edit-value').value.trim();
+                const newUnit = tdUnit.querySelector('.edit-unit').value;
+                const newType = tdType.querySelector('.edit-type').value;
+                if (!newVal || newVal < 1) {
+                    alert('Enter valid value!');
+                    return;
+                }
+                storageHistory[idx] = { value: newVal, unit: newUnit, type: newType };
+                renderStorageTable();
+            };
+
+            editBtn.removeEventListener('click', editHandler);
+            editBtn.addEventListener('click', saveHandler);
+        });
+
+        // 🗑️ Delete button
+        tr.querySelector('.delete-storage').addEventListener('click', () => {
+            storageHistory.splice(idx, 1);
+            renderStorageTable();
+        });
+
+        storageHistoryTable.appendChild(tr);
+    });
+}
+
+
+    // Open HDD modal
+    storageHistoryBtn.addEventListener('click', () => {
+        renderStorageTable();
+        new bootstrap.Modal(document.getElementById('storageHistoryModal')).show();
+    });
+
+    // Add new HDD
+    document.getElementById('addStorageBtnModal').addEventListener('click', () => {
+        const val = newStorageValue.value.trim();
+        const unit = newStorageUnit.value;
+        const type = newStorageType.value;
+
+        if (!val || val < 1) { showErrorPopupFadeInDown('Enter value!'); return; }
+        storageHistory.push({ value: val, unit: unit, type: type });
+        newStorageValue.value = '';
+        renderStorageTable();
+    });
 
   } catch (error) {
     console.error("Error loading update details:", error);
@@ -500,41 +708,65 @@ async function fetchDataAndGenerateExcel() {
     showErrorPopupFadeInDown("Can't download the staff details.");
   }
 }
-   $(document).ready(function () {
-       const datatable = $('#myTable').DataTable({
-           "paging": true,
-           "pageLength": 25,
-           "lengthMenu": [5, 10, 25, 50, 100],
-           dom: '<"top"l>frtip',
-           buttons: ['excel', 'csv', 'pdf']
-       });
+$(document).ready(function () {
+  const datatable = $('#myTable').DataTable({
+    paging: true,
+  pageLength: 25,
+  lengthMenu: [5, 10, 25, 50, 100],
+  dom: '<"top"lBf>rt<"bottom"ip><"clear">',
+    // dom: 'Bfrtip',
+    buttons: [
+      {
+        extend: 'excel',
+        text: '<i class="fa-solid fa-file-excel"></i> Excel',
+        className: 'btn-excel'
+      },
+      {
+        extend: 'pdf',
+        text: '<i class="fa-solid fa-file-pdf"></i> PDF',
+        className: 'btn-pdf'
+      },
+      {
+        extend: 'colvis',
+        text: '<i class="fa-solid fa-eye"></i> Columns',
+        className: 'btn-colvis'
+      }
+    ],
+    language: {
+      search: "",
+      searchPlaceholder: "Type to search...",
+    paginate: { first: "«", last: "»", next: "›", previous: "‹" }
 
-       datatable.buttons().container().appendTo($('#exportButtons'));
+    },
+    initComplete: function () {
+      // Remove default "Search:" text
+      $('#myTable').contents().filter(function () {
+        return this.nodeType === 3;
+      }).remove();
 
+      // Wrap search input & add search icon
+      $('#myTable_filter input').wrap('<div class="search-wrapper"></div>');
+      $('.search-wrapper').prepend('<i class="fa-solid fa-magnifying-glass"></i>');
+    }
+  });
 
+  // Move export buttons into custom div
+  datatable.buttons().container().appendTo($('#exportButtons'));
 
- $('#designationFilter').on('change', function () {
-        const selectedDesignation = $(this).val();
-        datatable.column(0).search(selectedDesignation ? '^' + selectedDesignation + '$' : '', true, false).draw();
+  // Dropdown filters logic
+  function addColumnFilter(selectId, colIndex) {
+    $(`#${selectId}`).on('change', function () {
+      const value = $(this).val();
+      datatable.column(colIndex).search(value ? '^' + value + '$' : '', true, false).draw();
     });
+  }
 
-    $('#locationFilter').on('change', function () {
-        const selectedLocation = $(this).val();
-        datatable.column(5).search(selectedLocation ? '^' + selectedLocation + '$' : '', true, false).draw(); 
-    });
+  // Hook up filters
+  addColumnFilter("locationFilter",0);
+  addColumnFilter("designationFilter",6);
+  addColumnFilter("statusFilter",5);
+});
 
-   });
-
-
-    
-    $('#filter').on('change', function () {
-        const selectedCategory = $(this).val();
-        if (selectedCategory) {
-            datatable.column(1).search(selectedCategory).draw();
-        } else {
-            datatable.column(1).search('').draw(); 
-        }
-    });
 
     
     document.querySelector('#addNew').addEventListener('click', function () {
@@ -588,3 +820,6 @@ $(document).ready(function () {
 
 
 });
+
+
+

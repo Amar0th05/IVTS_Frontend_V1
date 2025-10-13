@@ -17,12 +17,14 @@ await fetchAllData();
 function validateForm(formData) {
     const errors = [];
     const personID = formData.get('personID')?.trim();
+    const personName = formData.get('personName')?.trim();
     const dateOfBirth = formData.get('dateOfBirth')?.trim();
     const contactNumber = formData.get('contactNumber')?.trim();
     const aadharNumber = formData.get('aadharNumber')?.trim();
     const mail = formData.get('mail')?.trim();
 
     if (!personID) errors.push('Person ID is required.');
+    if (!personName) errors.push('Person Name is required.');
     if(!contactNumber) errors.push('Contact Number is required.');
     if(!aadharNumber) errors.push('Aadhar Number is required.');
     if(!mail) errors.push('Email is required.');
@@ -70,18 +72,30 @@ function checkRequiredFields() {
     const documentForm = document.getElementById('new-Document-form');
     const formData = new FormData(form);
 
+    // ✅ required text fields must be filled
     const requiredFields = ["personID","personName","dateOfBirth","aadharNumber","contactNumber","mail"];
+    const requiredTextValid = requiredFields.every(f => formData.get(f)?.trim());
+
+    // ✅ required files must be present and valid
     const requiredFiles = ["aadhaarFile","resumeFile","panFile","academicFile","idCardFile"];
-
-    let allValid = requiredFields.every(f => formData.get(f)?.trim());
-
-    allValid = allValid && requiredFiles.every(f => {
+    const requiredFilesValid = requiredFiles.every(f => {
         const fileInput = documentForm.querySelector(`[name="${f}"]`);
-        return validateFileInput(fileInput);
+        return fileInput && fileInput.files.length > 0 && validateFileInput(fileInput);
     });
+
+    // ✅ optional files (only if provided) must also be valid
+    const allFileInputs = documentForm.querySelectorAll('input[type="file"]');
+    const optionalFilesValid = Array.from(allFileInputs).every(fileInput => {
+        return fileInput.files.length === 0 || validateFileInput(fileInput);
+    });
+
+    // 👉 Final check (separate + combine)
+    const allValid = requiredTextValid && requiredFilesValid;
 
     document.getElementById('add_person_btn').disabled = !allValid;
 }
+
+
 
 // ================== Attach listeners ==================
 function attachValidationListeners() {
@@ -256,24 +270,54 @@ async function loadDocumentTable(personId) {
         const res = await axiosInstance.get(API_ROUTES.getPersonDocumentsMetadata(personId));
         const documentTableBody = document.getElementById("documentTableBody");
         documentTableBody.innerHTML = res.data.map(doc => `
-            <tr>
-                <td>${doc.name}</td>
-                <td>
-                    ${doc.exists ? `
-                        <button onclick="downloadDocument('${personId}','${doc.name}')" class="btn btn-sm btn-primary">Download</button>
-                        <button onclick="deleteDocument('${personId}','${doc.name}')" class="btn btn-sm btn-danger">Delete</button>
-                    ` : `
-                        <label class="btn btn-sm btn-success mb-0">
-                            Upload
-                            <input type="file" style="display:none" onchange="uploadDocument('${personId}','${doc.name}', this.files[0])">
-                        </label>
-                    `}
-                </td>
-            </tr>
+           <tr>
+  <td>${doc.name}</td>
+  <td>
+    ${doc.exists ? `
+  <button onclick="handleAction(this, () => downloadDocument('${personId}','${doc.name}'))" 
+          class="btn btn-sm text-white" 
+          style="background:linear-gradient(to bottom right, #69A1FF, #1E3FA0); border:none;">
+    <i class="fa-solid fa-download me-1"></i> Download
+  </button>
+  <button onclick="handleAction(this, () => deleteDocument('${personId}','${doc.name}'))" 
+          class="btn btn-sm text-white ms-3" 
+          style="background:linear-gradient(to bottom right, #EF4444, #B91C1C); border:none;">
+    <i class="fa-solid fa-trash me-1"></i> Delete
+  </button>
+    ` : `
+      <label class="btn btn-sm text-white mb-0" 
+             style="background:linear-gradient(to bottom right, #34D399, #059669); border:none; cursor:pointer;">
+        <i class="fa-solid fa-upload me-1"></i> Upload
+        <input type="file" style="display:none" onchange="handleAction(this.parentElement, () => uploadDocument('${personId}','${doc.name}', this.files[0]))">
+      </label>
+    `}
+  </td>
+</tr>
+
+
         `).join('');
     } catch(err) {
         console.error(err);
     }
+}
+function handleAction(btn, actionFn) {
+  let originalHTML = btn.innerHTML;
+  btn.disabled = true;
+  btn.innerHTML = `<span class="spinner-border spinner-border-sm me-1" role="status"></span> Processing...`;
+
+  // Run the async action
+  Promise.resolve(actionFn())
+    .then(() => {
+      // ✅ Success: restore button
+      btn.disabled = false;
+      btn.innerHTML = originalHTML;
+    })
+    .catch(err => {
+      console.error("Action failed:", err);
+      btn.disabled = false;
+      btn.innerHTML = originalHTML;
+      alert("Something went wrong, please try again.");
+    });
 }
 
 async function uploadDocument(personId, docName, file) {
@@ -286,7 +330,7 @@ async function uploadDocument(personId, docName, file) {
     formData.append("file", file);
 
     try {
-        await axiosInstance.post(API_ROUTES.uploadDocument(personId, docName), formData);
+        await axiosInstance.post(API_ROUTES.uploadDocumentTalentPool(personId, docName), formData);
         Swal.fire({
             icon: 'success',
             title: 'Uploaded!',
@@ -307,7 +351,7 @@ async function uploadDocument(personId, docName, file) {
 
 async function downloadDocument(personId, docName) {
     try {
-        const res = await axiosInstance.get(API_ROUTES.downloadDocument(personId, docName), { responseType:'blob' });
+        const res = await axiosInstance.get(API_ROUTES.downloadDocumentTalentPool(personId, docName), { responseType:'blob' });
         const url = URL.createObjectURL(new Blob([res.data], { type:'application/pdf' }));
         const a = document.createElement('a');
         a.href = url;
@@ -325,7 +369,7 @@ async function downloadDocument(personId, docName) {
 async function deleteDocument(personId, docName) {
     if (!(await showDeleteMessage(`Delete ${docName}?`))) return;
     try {
-        await axiosInstance.delete(API_ROUTES.deleteDocument(personId, docName));
+        await axiosInstance.delete(API_ROUTES.deleteDocumentTalentPool(personId, docName));
         Swal.fire({icon:'success', title:'Deleted!', text:`${docName} deleted successfully`, timer:2000, showConfirmButton:false});
         loadDocumentTable(personId);
     } catch {
@@ -370,23 +414,51 @@ async function fetchDataAndGenerateExcel() {
 }
 // ================== Export Button Listeners ==================
 
-   $(document).ready(function () {
-       const datatable = $('#myTable').DataTable({
-           "paging": true,
-           "pageLength": 25,
-           "lengthMenu": [5, 10, 25, 50, 100],
-           dom: '<"top"l>frtip',
-           buttons: ['excel', 'csv', 'pdf']
-       });
-       datatable.buttons().container().appendTo($('#exportButtons'));
+  $(document).ready(function () {
+  const datatable = $('#myTable').DataTable({
+    paging: true,
+  pageLength: 25,
+  lengthMenu: [5, 10, 25, 50, 100],
+  dom: '<"top"lBf>rt<"bottom"ip><"clear">',
+    buttons: [
+      {
+        extend: 'excel',
+        text: '<i class="fa-solid fa-file-excel"></i> Excel',
+        className: 'btn-excel'
+      },
+      {
+        extend: 'pdf',
+        text: '<i class="fa-solid fa-file-pdf"></i> PDF',
+        className: 'btn-pdf'
+      },
+      {
+        extend: 'colvis',
+        text: '<i class="fa-solid fa-eye"></i> Columns',
+        className: 'btn-colvis'
+      }
+    ],
+    language: {
+      search: "",
+      searchPlaceholder: "Type to search...",
+    paginate: { first: "«", last: "»", next: "›", previous: "‹" }
 
-        const selectedCategory = $(this).val();
-        if (selectedCategory) {
-            datatable.column(1).search(selectedCategory).draw();
-        } else {
-            datatable.column(1).search('').draw(); 
-        }
-    });
+    },
+    initComplete: function () {
+      // Remove default "Search:" text
+      $('#myTable').contents().filter(function () {
+        return this.nodeType === 3;
+      }).remove();
+
+      // Wrap search input & add search icon
+      $('#myTable_filter input').wrap('<div class="search-wrapper"></div>');
+      $('.search-wrapper').prepend('<i class="fa-solid fa-magnifying-glass"></i>');
+    }
+  });
+
+  // Move export buttons into custom div
+  datatable.buttons().container().appendTo($('#exportButtons'));
+
+});
 // ================== Add New Person Button ==================
     document.querySelector('#addNew').addEventListener('click', function () {
         document.querySelector('#tab').classList.remove('d-none');

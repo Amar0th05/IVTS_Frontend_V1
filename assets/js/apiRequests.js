@@ -158,7 +158,7 @@ const api = {
     getAllDesktops: () => fetchData(API_ROUTES.getAllAssets+'/Desktops', "desktops"),
     addDesktops:(data)=>postData(API_ROUTES.addDesktops,{data}),
     toggleDesktopsStatus: (id) => putData(API_ROUTES.toggleDesktopsStatus+`${id}`),
-    updateDesktops: (data) => putData(API_ROUTES.addDesktops, { data }),
+    updateDesktops: (data) => putData(API_ROUTES.updateDesktops, { data }),
 
 //server
     getAllServer: () => fetchData(API_ROUTES.getAllAssets+'/Servers', "servers"),
@@ -167,8 +167,20 @@ const api = {
     updateServers: (data) => putData(API_ROUTES.updateServers, {data}),
 
 
+// printer
+
+    getAllPrinter: () => fetchData(API_ROUTES.getAllAssets+'/Printer', "printer"),
+    addPrinter:(data)=>postData(API_ROUTES.addPrinter,{data}),
+    // toggleDesktopsStatus: (id) => putData(API_ROUTES.toggleDesktopsStatus+`${id}`),
+    updatePrinter: (data) => putData(API_ROUTES.updatePrinter, { data }),
+
+
     getAllAssets: () => fetchData(API_ROUTES.getAllAssets, "assets"),
     getstaffid: () => fetchData(API_ROUTES.getstaffid, "staffid"),
+
+    // Leave
+
+    getAllLeave:() => fetchData(API_ROUTES.getAllLeave,"leave"),
 
 
 };

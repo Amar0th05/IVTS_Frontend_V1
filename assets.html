@@ -242,7 +242,7 @@
                                         </a>
                                     </li>
                                     <li class="waves-effect waves-light">
-                                        <a href="user-profile.html">
+                                                            <a href="#!" data-bs-toggle="modal" data-bs-target="#profileDetailsModal">
                                             <i class="ti-user"></i> Profile
                                         </a>
                                     </li>
@@ -274,7 +274,7 @@
                                 <div class="main-menu-content">
                                     <ul>
                                         <li class="more-details">
-                                            <a href="user-profile.html"><i class="ti-user"></i>View Profile</a>
+                                                                <a href="#!" data-bs-toggle="modal" data-bs-target="#profileDetailsModal"><i class="ti-user"></i>View Profile</a>
                                             <a href="#!"><i class="ti-settings"></i>Settings</a>
                                             <a href="auth-normal-sign-in.html"><i
                                                     class="ti-layout-sidebar-left"></i>Logout</a>
@@ -407,24 +407,25 @@
     </div>
 
     <div class="row">
-        <!-- RAM (GB) -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="ramGb">RAM (GB)</label>
-                <input type="number" name="RAM_GB" class="form-control form-control-sm" id="ramGb"
-                    placeholder="Enter RAM in GB">
-            </div>
+    <div class="col-md-12">
+        <label>RAM (GB)</label>
+        <div id="ramContainer">
+            <!-- Existing RAM entries will appear here -->
         </div>
-
-        <!-- HDD (GB/TB) -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="hdd">HDD (GB/TB)</label>
-                <input type="text" name="HDD_GB_TB" class="form-control form-control-sm" id="hdd"
-                    placeholder="Enter Storage Capacity">
-            </div>
-        </div>
+        <button type="button" class="btn btn-sm btn-primary mt-2" id="addRamBtn">Add RAM</button>
     </div>
+</div>
+
+<div class="row mt-3">
+    <div class="col-md-12">
+        <label>Storage (HDD/SSD)</label>
+        <div id="storageContainer">
+            <!-- Existing Storage entries will appear here -->
+        </div>
+        <button type="button" class="btn btn-sm btn-primary mt-2" id="addStorageBtn">Add Storage</button>
+    </div>
+</div>
+a
 
     <div class="row">
         <!-- Graphics -->
@@ -589,193 +590,148 @@
                                                                   <div class="tab-pane fade show " id="tab2">
                                                                     <!-- Modal Header -->
                                                                     <!-- Modal Body -->
-                                                                    <div class="modal-body">
-                                                                        <form id="desktop-asset-form">
-    <div class="row">
-        <!-- User Name -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="userName1">User Name</label>
-               <select id="userName1" class="form-control form-control-sm userName" style="width:100%;">
-                <option value="">StaffId</option>
-               </select>
-                
+<div class="modal-body">
+    <form id="desktop-asset-form">
+        <div class="row">
+            <!-- User Name -->
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="userName1">User Name</label>
+                    <select id="userName1" class="form-control form-control-sm userName" style="width:100%;">
+                        <option value="">StaffId</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Model No -->
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="modelNo1">Model No</label>
+                    <input type="text" name="Model_No" class="form-control form-control-sm" id="modelNo1"
+                        placeholder="Enter Model No">
+                </div>
             </div>
         </div>
 
-
-        <!-- Model No -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="modelNo1">Model No</label>
-                <input type="text" name="Model_No" class="form-control form-control-sm" id="modelNo1"
-                    placeholder="Enter Model No">
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <!-- Serial No -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="serialNo1">Serial No</label>
-                <input type="text" name="Serial_No" class="form-control form-control-sm" id="serialNo1"
-                    placeholder="Enter Serial No">
-            </div>
-        </div>
-
-        <!-- Processor Type -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="processorType1">Processor Type</label>
-                <input type="text" name="Processor_Type" class="form-control form-control-sm" id="processorType1"
-                    placeholder="Enter Processor Type">
-            </div>
+        <!-- RAM Section -->
+<div class="row mt-3">
+    <!-- RAM Section -->
+    <div class="col-md-6">
+        <label>RAM (GB)</label>
+        <div id="ramList" class="mb-2"></div>
+        <div class="input-group">
+            <input type="text" id="ramInput" class="form-control form-control-sm" placeholder="Add RAM (e.g., 8GB)">
+            <button type="button" class="btn btn-primary" id="addRamBtn"><i class="fas fa-plus"></i></button>
         </div>
     </div>
 
-    <div class="row">
-        <!-- RAM (GB) -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="ramGb1">RAM (GB)</label>
-                <input type="number" name="RAM_GB" class="form-control form-control-sm" id="ramGb1"
-                    placeholder="Enter RAM in GB">
-            </div>
-        </div>
-
-        <!-- HDD/Storage (TB) -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="storage1">HDD/Storage (TB)</label>
-                <input type="text" name="HDD_Storage_TB" class="form-control form-control-sm" id="storage1"
-                    placeholder="Enter Storage Capacity">
-            </div>
+    <!-- HDD Section -->
+    <div class="col-md-6">
+        <label>HDD/Storage (TB)</label>
+        <div id="hddList" class="mb-2"></div>
+        <div class="input-group">
+            <input type="text" id="hddInput" class="form-control form-control-sm" placeholder="Add Storage (e.g., 1TB)">
+            <button type="button" class="btn btn-primary" id="addHddBtn"><i class="fas fa-plus"></i></button>
         </div>
     </div>
+</div>
 
-    <div class="row">
-        <!-- OS Type -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="osType1">OS Type</label>
-                <input type="text" name="OS_Type" class="form-control form-control-sm" id="osType1"
-                    placeholder="Enter Operating System">
+        <!-- Other fields -->
+        <div class="row mt-3">
+            <!-- Processor Type -->
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="processorType1">Processor Type</label>
+                    <input type="text" name="Processor_Type" class="form-control form-control-sm" id="processorType1"
+                        placeholder="Enter Processor Type">
+                </div>
+            </div>
+
+            <!-- OS Type -->
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="osType1">OS Type</label>
+                    <input type="text" name="OS_Type" class="form-control form-control-sm" id="osType1"
+                        placeholder="Enter Operating System">
+                </div>
             </div>
         </div>
 
-        <!-- IP Address -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="ipAddress1">IP Address</label>
-                <input type="text" name="IP_Address" class="form-control form-control-sm" id="ipAddress1"
-                    placeholder="Enter IP Address">
-            </div>
-        </div>
-    </div>
+        <!-- Add your remaining fields here -->
+    </form>
+</div>
 
-    <div class="row">
-        <!-- MAC Address -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="macAddress1">MAC Address</label>
-                <input type="text" name="MAC_Address" class="form-control form-control-sm" id="macAddress1"
-                    placeholder="Enter MAC Address">
-            </div>
-        </div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    // RAM
+    const ramInput = document.getElementById("ramInput");
+    const ramList = document.getElementById("ramList");
+    const addRamBtn = document.getElementById("addRamBtn");
 
-        <!-- Project No -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="projectNo1">Project No</label>
-                <input type="text" name="Project_No" class="form-control form-control-sm" id="projectNo1"
-                    placeholder="Enter Project No">
-            </div>
-        </div>
-    </div>
+    addRamBtn.addEventListener("click", function() {
+        const value = ramInput.value.trim();
+        if(value) {
+            addItem(ramList, value);
+            ramInput.value = "";
+        }
+    });
 
-    <div class="row">
-        <!-- PO No -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="poNo1">PO No</label>
-                <input type="text" name="PO_No" class="form-control form-control-sm" id="poNo1"
-                    placeholder="Enter PO No">
-            </div>
-        </div>
+    // HDD
+    const hddInput = document.getElementById("hddInput");
+    const hddList = document.getElementById("hddList");
+    const addHddBtn = document.getElementById("addHddBtn");
 
-        <!-- PO Date -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="poDate1">PO Date</label>
-                <input type="date" name="PO_Date" class="form-control form-control-sm" id="poDate1">
-            </div>
-        </div>
-    </div>
+    addHddBtn.addEventListener("click", function() {
+        const value = hddInput.value.trim();
+        if(value) {
+            addItem(hddList, value);
+            hddInput.value = "";
+        }
+    });
 
-    <div class="row">
-        <!-- Vendor Name -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="vendorName1">Vendor Name</label>
-                <input type="text" name="Vendor_Name" class="form-control form-control-sm" id="vendorName1"
-                    placeholder="Enter Vendor Name">
-            </div>
-        </div>
+    function addItem(listContainer, value) {
+        const wrapper = document.createElement("div");
+        wrapper.className = "input-group mb-2";
 
-        <!-- Invoice No -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="invoiceNo1">Invoice No</label>
-                <input type="text" name="Invoice_No" class="form-control form-control-sm" id="invoiceNo1"
-                    placeholder="Enter Invoice No">
-            </div>
-        </div>
-    </div>
+        const input = document.createElement("input");
+        input.type = "text";
+        input.value = value;
+        input.className = "form-control form-control-sm";
+        input.readOnly = true;
 
-    <div class="row">
-        <!-- Invoice Date -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="invoiceDate1">Invoice Date</label>
-                <input type="date" name="Invoice_Date" class="form-control form-control-sm" id="invoiceDate1">
-            </div>
-        </div>
+        const editBtn = document.createElement("button");
+        editBtn.type = "button";
+        editBtn.className = "btn btn-outline-secondary";
+        editBtn.textContent = "Edit";
 
-        <!-- SRB -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="srb1">SRB</label>
-                <input type="text" name="SRB" class="form-control form-control-sm" id="srb1"
-                    placeholder="Enter SRB No">
-            </div>
-        </div>
-    </div>
+        const deleteBtn = document.createElement("button");
+        deleteBtn.type = "button";
+        deleteBtn.className = "btn btn-outline-danger";
+        deleteBtn.textContent = "Delete";
 
-    <div class="row">
-        <!-- Department -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="dept1">Department</label>
-                <input type="text" name="Dept" class="form-control form-control-sm" id="dept1"
-                    placeholder="Enter Department">
-            </div>
-        </div>
-    </div>
+        editBtn.addEventListener("click", function() {
+            if(input.readOnly) {
+                input.readOnly = false;
+                input.focus();
+                editBtn.textContent = "Save";
+            } else {
+                input.readOnly = true;
+                editBtn.textContent = "Edit";
+            }
+        });
 
-    <div class="row">
-        <!-- Remarks -->
-        <div class="col-md-12">
-            <div class="form-group">
-                <label for="remarks1">Remarks</label>
-                <textarea class="form-control form-control-sm" id="remarks1" name="Remarks" rows="2"
-                    placeholder="Enter Remarks"></textarea>
-            </div>
-        </div>
-    </div>
-</form>
+        deleteBtn.addEventListener("click", function() {
+            wrapper.remove();
+        });
 
-                                                                    </div>
+        wrapper.appendChild(input);
+        wrapper.appendChild(editBtn);
+        wrapper.appendChild(deleteBtn);
+        listContainer.appendChild(wrapper);
+    }
+});
+</script>
+
                                                                     <!-- model Footer -->
                                                                     <div class="modal-footer">
                                                                     <button type="button" class="btn btn-danger" data-dismiss="modal" id="exitButton">Exit</button>
@@ -1328,6 +1284,107 @@
                                         </div>
                                     </div>
                                 </div>
+                                   <!-- PROFILE MODAL -->
+                  <div class="modal fade" id="profileDetailsModal" tabindex="-1" aria-labelledby="profileDetailsLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+
+      <!-- HEADER -->
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title">
+          <i class="fa-solid fa-user me-2"></i>
+          <span id="modalTitle">Profile Details</span>
+        </h5>
+        <button type="button"
+          class="d-flex align-items-center btn-close justify-content-center p-0"
+          style="width:32px; height:32px;background-color: transparent !important; border: transparent; cursor: pointer;"
+          data-bs-dismiss="modal" aria-label="Close">
+          <i class="fa-solid fa-xmark text-white"></i>
+        </button>
+      </div>
+
+      <!-- BODY -->
+      <div class="modal-body">
+        <div class="card border-0">
+          <div id="slideContainer" class="slide-container">
+
+            <!-- Left Profile Panel -->
+            <div id="profilePanel" class="col-md-4 gradient-custom text-center d-flex flex-column align-items-center justify-content-center p-4 profile-left">
+              <img id="profileImage"
+                   alt="Avatar" class="img-fluid rounded-circle mb-3" style="width: 100px;">
+              <h5 id="profileName" class="fw-bold mb-1">John</h5>
+              <p id="profileRole" class="mb-2">Web Developer</p>
+            </div>
+
+            <!-- Right Panel -->
+            <div class="col-md-8 position-relative p-4">
+
+              <!-- Profile Section -->
+              <div id="profileSection" class="slide-section visible-section">
+                <h6 class="fw-bold text-sub mb-3">Personal Information</h6>
+                <hr class="mt-0 mb-3">
+
+                <div class="row">
+                  <div class="col-6 mb-3">
+                    <p class="profile-label text-sub">Name</p>
+                    <p id="firstName" class="readonly-text">john</p>
+                  </div>
+                  <div class="col-6 mb-3">
+                    <p class="profile-label text-sub">Employee ID</p>
+                    <p id="empId" class="readonly-text">98t5</p>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-6 mb-3">
+                    <p class="profile-label text-sub">Email ID</p>
+                    <p id="emailId" class="readonly-text">john008@gmail.com</p>
+                  </div>
+                  <div class="col-6 mb-3">
+                    <p class="profile-label text-sub">Designation</p>
+                    <p id="Designation" class="readonly-text">Developer</p>
+                  </div>
+                </div>
+
+                <div class="text-start mt-3">
+                  <button id="changePasswordBtn" class="btn-change">
+                    <i class="fa-solid fa-key mr-2"></i>Change Password
+                  </button>
+                </div>
+              </div>
+
+              <!-- Password Section -->
+              <div id="passwordSection" class="slide-section hidden-section">
+                <h6 class="fw-bold mb-3 text-sub"><i class="fa-solid fa-key mr-2"></i>Change Password</h6>
+                <hr>
+                <form id="passwordForm" class="mt-3">
+                  <div class="mb-3">
+                    <label for="newPassword" class="form-label">New Password</label>
+                    <input type="password" class="form-control" id="newPassword" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="confirmPassword" class="form-label">Confirm Password</label>
+                    <input type="password" class="form-control" id="confirmPassword" required>
+                  </div>
+
+                  <div class="text-start mt-3">
+                    <button type="button" class="btn-change" id="backToProfile">
+                      <i class="fa-solid fa-arrow-left mr-2"></i>Back
+                    </button>
+                      <button  type="button"  class="btn-green btn-change"  id="savePassword"><i class="fa-solid fa-key mr-2"></i>Save Password</button>
+                  </div>
+                </form>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- !profile Model end  -->
                             </div>
                         </div>
                     </div>
@@ -1361,6 +1418,8 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
 
 <!-- jQuery and DataTables JS -->
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 
 <!-- DataTables Buttons Extension JS -->

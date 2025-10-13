@@ -149,30 +149,37 @@ function addRow(data){
     }else{
         data.status=false;
     }
+    let statusText = (data.status === true || data.status === "true" || data.status === 1)
+  ? "active"
+  : "inactive";
 
-    table.row.add([
-      data.employeeId,
-      data.staffName,
-      data.designation,
-      data.department,
-      data.contactNumber,
-      data.workLocation,
-        `<div class="container">
-            <div class="toggle-btn ${decidedPermission}  ${data.status===true?'active':''}" onclick="toggleStatus(this,'${data.employeeId}')">
-                <div class="slider"></div>
-            </div>
-        </div>`
-        ,
-        `<div class="row d-flex justify-content-center">
-    <div class="d-flex align-items-center justify-content-center p-0 edit-btn" 
-        style="width: 40px; height: 40px; cursor:pointer" 
-        data-staff-id="${data.employeeId}">
-        <i class="ti-pencil-alt text-inverse" style="font-size: larger;"></i>
+table.row.add([
+  data.employeeId,
+  data.staffName,
+  data.designation,
+  data.department,
+  data.contactNumber,
+  data.workLocation,
+  `
+    <span class="d-none">${statusText}</span> <!-- hidden filter text -->
+    <div class="container">
+      <div class="toggle-btn ${decidedPermission} ${data.status===true?'active':''}" 
+           onclick="toggleStatus(this,'${data.employeeId}')">
+        <div class="slider"></div>
+      </div>
     </div>
-</div>
-`,
-        
-    ]).draw(false);
+  `,
+  `
+    <div class="row d-flex justify-content-center">
+      <div class="d-flex align-items-center justify-content-center p-0 edit-btn" 
+           style="width: 40px; height: 40px; cursor:pointer" 
+           data-staff-id="${data.employeeId}">
+        <i class="ti-pencil-alt text-inverse" style="font-size: larger;"></i>
+      </div>
+    </div>
+  `,
+]).draw(false);
+
 };
 
 // edit btn
@@ -220,6 +227,7 @@ async function toggleStatus(element, id) {
         if (element) {
             element.classList.toggle('active');
         }
+        await refreshTable();
     } catch (error) {
         showErrorPopupFadeInDown(error);
     }
@@ -229,16 +237,35 @@ async function toggleStatus(element, id) {
 async function fetchAllData() {
     try {
         const staffs = await api.getAllStaff();
-        console.log('staffDetails',staffs);
+        console.log('staffDetails', staffs);
 
-        staffs.forEach(staffs => {
-            addRow(staffs);
+        // clear DataTable before re-adding rows
+        if ($.fn.dataTable.isDataTable('#myTable')) {
+            table = $('#myTable').DataTable();
+            table.clear().draw();
+        }
 
+        // Add rows one by one
+        staffs.forEach(staff => {
+            addRow(staff);
         });
 
+        // ✅ Count staff types
+        const total = staffs.filter(i => Number(i.status) === 1).length;
+        const fullTime = staffs.filter(s => 
+            s.employmentType && s.employmentType.toLowerCase().includes("full-time")
+        ).filter(i => Number(i.status) === 1).length;
+        const partTime = staffs.filter(s => 
+            s.employmentType && s.employmentType.toLowerCase().includes("part-time")
+        ).filter(i => Number(i.status) === 1).length;
+
+
+        // ✅ Update the cards
+        document.getElementById("totalCount").innerText = total;
+        document.getElementById("fullTimeCount").innerText = fullTime;
+        document.getElementById("partTimeCount").innerText = partTime;
+
         handlePermission('#username');
-        
-                        
     } catch (error) {
         console.error("Error fetching staff details:", error);
     }
@@ -253,7 +280,14 @@ function limitLength(str, length) {
 };
 
 
+async function refreshTable() {
+    if ($.fn.dataTable.isDataTable('#myTable')) {
+        table = $('#myTable').DataTable();
+        table.clear();
+    }
 
+    await fetchAllData();
+}
 
 function validateForm(formData) {
     let errors = [];
@@ -443,41 +477,68 @@ async function fetchDataAndGenerateExcel() {
 }
 
 
-   $(document).ready(function () {
-       const datatable = $('#myTable').DataTable({
-           "paging": true,
-           "pageLength": 25,
-           "lengthMenu": [5, 10, 25, 50, 100],
-           dom: '<"top"l>frtip',
-           buttons: ['excel', 'csv', 'pdf']
-       });
 
-       datatable.buttons().container().appendTo($('#exportButtons'));
+$(document).ready(function () {
+  const datatable = $('#myTable').DataTable({
+    paging: true,
+  pageLength: 25,
+  lengthMenu: [5, 10, 25, 50, 100],
+  dom: '<"top"lBf>rt<"bottom"ip><"clear">',
+    // dom: 'Bfrtip',
+    buttons: [
+      {
+        extend: 'excel',
+        text: '<i class="fa-solid fa-file-excel"></i> Excel',
+        className: 'btn-excel'
+      },
+      {
+        extend: 'pdf',
+        text: '<i class="fa-solid fa-file-pdf"></i> PDF',
+        className: 'btn-pdf'
+      },
+      {
+        extend: 'colvis',
+        text: '<i class="fa-solid fa-eye"></i> Columns',
+        className: 'btn-colvis'
+      }
+    ],
+    language: {
+      search: "",
+      searchPlaceholder: "Type to search...",
+    paginate: { first: "«", last: "»", next: "›", previous: "‹" }
 
+    },
+    initComplete: function () {
+      // Remove default "Search:" text
+      $('#myTable').contents().filter(function () {
+        return this.nodeType === 3;
+      }).remove();
 
+      // Wrap search input & add search icon
+      $('#myTable_filter input').wrap('<div class="search-wrapper"></div>');
+      $('.search-wrapper').prepend('<i class="fa-solid fa-magnifying-glass"></i>');
+    }
+  });
 
- $('#designationFilter').on('change', function () {
-        const selectedDesignation = $(this).val();
-        datatable.column(0).search(selectedDesignation ? '^' + selectedDesignation + '$' : '', true, false).draw();
+  // Move export buttons into custom div
+  datatable.buttons().container().appendTo($('#exportButtons'));
+
+  // Dropdown filters logic
+  function addColumnFilter(selectId, colIndex) {
+    $(`#${selectId}`).on('change', function () {
+      const value = $(this).val();
+      datatable.column(colIndex).search(value ? '^' + value + '$' : '', true, false).draw();
     });
+  }
 
-    $('#locationFilter').on('change', function () {
-        const selectedLocation = $(this).val();
-        datatable.column(5).search(selectedLocation ? '^' + selectedLocation + '$' : '', true, false).draw(); 
-    });
+  // Hook up filters
+  addColumnFilter("locationFilter",0);
+  addColumnFilter("designationFilter",6);
+  addColumnFilter("statusFilter",5);
+});
 
-   });
 
 
-    
-    $('#filter').on('change', function () {
-        const selectedCategory = $(this).val();
-        if (selectedCategory) {
-            datatable.column(1).search(selectedCategory).draw();
-        } else {
-            datatable.column(1).search('').draw(); 
-        }
-    });
     document.querySelector('#addNew').addEventListener('click', function () {
         document.querySelector('#tab').classList.remove('d-none');
         document.querySelector('#tableCard').style.display = 'none';

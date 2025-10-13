@@ -21,7 +21,8 @@ const modules = [
     'IIT STAFF',
     'INTERNS',
     'TALENT POOL',
-    'ASSETS'
+    'ASSETS',
+    'LEAVE'
 ];
 
 
@@ -57,6 +58,7 @@ const moduleMaps={
     'IC & SR SUBMISSION': ['indents'],
     'IIT STAFF': ['employeeDashboard','staffs'],
     'INTERNS':['interns'],
+    'LEAVE':['leave'],
     'TALENT POOL':['talentPool'],
     'ASSETS':['assetsDashboard','laptops','desktops','server']
 }
@@ -241,7 +243,7 @@ function generateSidebar() {
             'INDENT APPROVAL', 'PO APPROVAL', 'PO GENERATED',
             'SRB CREATED', 'IC & SR SUBMISSION',
         ],
-        'Employee Management':['IIT STAFF','INTERNS'],
+        'Employee Management':['IIT STAFF','INTERNS','LEAVE'],
         'Assets':['ASSETS']
     };
     // console.log(categories);
@@ -331,6 +333,7 @@ function getPageInfo(page) {
         'indentsDashboard': { title: 'Indents Dashboard', icon: 'ti-bar-chart' },
         'staffs': { title: 'Staffs', icon: 'ti-bar-chart' },
         'interns':{ title: 'Interns', icon: 'ti-bar-chart' },
+        'leave':{title: 'Leave Dashboard', icon: 'ti-bar-chart'},
         'employeeDashboard':{ title: 'Employee Dashboard', icon: 'ti-bar-chart' },
         'assetsDashboard':{ title: 'Assets Dashboard', icon: 'ti-bar-chart' },
         'laptops':{ title: 'Laptops', icon: 'ti-bar-chart' },

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Asset Details</title>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+  <style>
+    body {
+      background: #f5f7fa;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    h1 {
+      font-weight: 700;
+      margin: 2rem 0 1rem;
+      text-align: center;
+      color: #4e54c8;
+    }
+
+    .card {
+      border-radius: 15px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+      margin-bottom: 2rem;
+      border: none;
+    }
+
+    .card-header {
+      background: linear-gradient(90deg, #4e54c8, #8f94fb);
+      color: white;
+      font-weight: 600;
+      font-size: 1rem;
+      border-bottom: none;
+      border-top-left-radius: 15px;
+      border-top-right-radius: 15px;
+    }
+
+    .form-label {
+      font-weight: 600;
+      color: #555;
+    }
+
+    .form-value {
+      background: #f9f9ff;
+      border: 1px solid #e4e6f1;
+      border-radius: 6px;
+      padding: 8px 12px;
+      color: #222;
+      font-weight: 500;
+      min-height: 38px;
+      display: flex;
+      align-items: center;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .card-body {
+      padding: 1.5rem;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .text-sub {
+      color: #4e54c8;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Asset Details</h1>
+
+    <!-- Laptop Details -->
+    <div id="laptopForm" class="hidden p-3 bg-white rounded-3 shadow-sm">
+      <div class="card mb-3">
+        <div class="card-header"><i class="fa-solid fa-laptop me-2"></i> Laptop Details</div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6 form-group">
+              <label class="form-label">Asset ID</label>
+              <div id="laptopAssetId" class="form-value"></div>
+            </div>
+            <div class="col-md-6 form-group">
+              <label class="form-label">Category</label>
+              <div id="laptopCategory" class="form-value"></div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 form-group">
+              <label class="form-label">User Name</label>
+              <div id="laptopUser" class="form-value"></div>
+            </div>
+            <div class="col-md-6 form-group">
+              <label class="form-label">Model No</label>
+              <div id="laptopModel" class="form-value"></div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 form-group">
+              <label class="form-label">Serial No</label>
+              <div id="laptopSerial" class="form-value"></div>
+            </div>
+            <div class="col-md-6 form-group">
+              <label class="form-label">Processor Type</label>
+              <div id="laptopProcessor" class="form-value"></div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 form-group">
+              <label class="form-label">RAM (GB)</label>
+              <div id="laptopRam" class="form-value"></div>
+            </div>
+            <div class="col-md-6 form-group">
+              <label class="form-label">Storage</label>
+              <div id="laptopStorage" class="form-value"></div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 form-group">
+              <label class="form-label">Graphics</label>
+              <div id="laptopGraphics" class="form-value"></div>
+            </div>
+            <div class="col-md-6 form-group">
+              <label class="form-label">OS Type</label>
+              <div id="laptopOS" class="form-value"></div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 form-group">
+              <label class="form-label">Host Name</label>
+              <div id="laptopHost" class="form-value"></div>
+            </div>
+            <div class="col-md-6 form-group">
+              <label class="form-label">IP Address</label>
+              <div id="laptopIP" class="form-value"></div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 form-group">
+              <label class="form-label">MAC Address</label>
+              <div id="laptopMAC" class="form-value"></div>
+            </div>
+            <div class="col-md-6 form-group">
+              <label class="form-label">Department</label>
+              <div id="laptopDept" class="form-value"></div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12 form-group">
+              <label class="form-label">Remarks</label>
+              <div id="laptopRemarks" class="form-value"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Purchase Information -->
+      <div class="card border-0 shadow-sm mb-3">
+        <div class="card-body">
+          <h6 class="fw-semibold text-sub mb-3">
+            <i class="fa-solid fa-file-invoice-dollar me-2"></i> Purchase Information
+          </h6>
+
+          <div class="row">
+            <div class="col-md-6 form-group">
+              <label class="form-label">Project No</label>
+              <div id="projectNo" class="form-value"></div>
+            </div>
+            <div class="col-md-6 form-group">
+              <label class="form-label">PO No</label>
+              <div id="poNo" class="form-value"></div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 form-group">
+              <label class="form-label">PO Date</label>
+              <div id="poDate" class="form-value"></div>
+            </div>
+            <div class="col-md-6 form-group">
+              <label class="form-label">Vendor Name</label>
+              <div id="vendorName" class="form-value"></div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 form-group">
+              <label class="form-label">Invoice No</label>
+              <div id="invoiceNo" class="form-value"></div>
+            </div>
+            <div class="col-md-6 form-group">
+              <label class="form-label">Invoice Date</label>
+              <div id="invoiceDate" class="form-value"></div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 form-group">
+              <label class="form-label">SRB</label>
+              <div id="srb" class="form-value"></div>
+            </div>
+            <div class="col-md-6 form-group">
+              <label class="form-label">Department</label>
+              <div id="dept" class="form-value"></div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12 form-group">
+              <label class="form-label">Remarks</label>
+              <div id="remarks" class="form-value"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/assetDetails.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

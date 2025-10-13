@@ -45,18 +45,18 @@
 
     <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css"> -->
     <style>
-        #policyTable{
+        /* #policyTable{
             border-radius: 5px;
-        }
+        } */
     .hidden {
       display: none !important;
     }
-    .addNewRecord{
+    /* .addNewRecord{
       all:unset;
       color: white !important;
       padding: 10px 10px !important;
       background: linear-gradient(135deg, #4931d1, #7f86f3);
-    }
+    } */
 
 .dropdownPopup .list-group-item:hover,
 .dropdownPopup .list-group-item.active {
@@ -78,10 +78,134 @@
     border-bottom-left-radius: 0 !important;
   }
 
-  /* gray background for select */
-  .bg-light {
-    background-color: #f1f1f1 !important;
-  }
+
+  .btn-excel {
+      background-color: #28a745 !important;
+    }
+
+    .btn-excel:hover {
+      background-color: #1e7e34 !important;
+    }
+
+    .btn-pdf {
+      background-color: #dc3545 !important;
+    }
+
+    .btn-pdf:hover {
+      background-color: #a71d2a !important;
+    }
+
+    .btn-green {
+      background: linear-gradient(to bottom right, #34D399, #059669);
+      border: none;
+      color: white;
+
+    }
+
+    .btn-red {
+      background: linear-gradient(to bottom right, #EF4444, #B91C1C);
+      border: none;
+      color: white;
+    }
+
+    .btn-red:hover {
+      background: linear-gradient(to bottom right, #dc3545, #a71d2a);
+    }
+
+    .btn-green:hover {
+      background: linear-gradient(to bottom right, #28a745, #1e7e34);
+
+    }
+#storageHistoryModal .modal-content {
+  border-radius: 12px;
+  background-color: #f8f9fa;
+}
+
+#storageHistoryModal .modal-header {
+  background: linear-gradient(135deg, #69A1FF, #1E3FA0) !important;
+  border-bottom: 1px solid #e0e0e0;
+  color: #fff;
+}
+
+#storageHistoryModal .modal-title {
+  font-size: 1.1rem;
+  letter-spacing: 0.3px;
+}
+
+#storageHistoryModal .card {
+  border-radius: 10px;
+  background-color: #fff;
+}
+
+#storageHistoryModal table th,
+#storageHistoryModal table td {
+  text-align: center;
+  vertical-align: middle;
+  padding: 12px 8px;
+}
+
+#storageHistoryModal table tbody tr:hover {
+  background-color: #f5f8ff;
+  transition: background 0.2s ease-in-out;
+}
+
+#storageHistoryModal input,
+#storageHistoryModal select {
+  /* border-radius: 6px; */
+  font-size: 0.9rem;
+
+}
+
+#storageHistoryModal .btn {
+  font-size: 0.9rem;
+  /* border-radius: 6px; */
+}
+
+
+
+
+
+</style>
+<style>
+.download-btn {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+}
+
+/* Shared icon styles */
+.download-btn i {
+  position: absolute;
+  font-size: 25px;
+  color: #264AAA;
+  transition: all 0.3s ease;
+}
+
+/* Show QR by default */
+.qr-icon {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Hide download icon initially */
+.download-icon {
+  opacity: 0;
+  transform: scale(0);
+}
+
+/* Hover effect — QR fades out, download fades in */
+.download-btn:hover .qr-icon {
+  opacity: 0;
+  transform: scale(0);
+}
+
+.download-btn:hover .download-icon {
+  opacity: 1;
+  transform: scale(1);
+    color: #26aa47;
+
+}
 </style>
 
 </head>
@@ -183,7 +307,7 @@
                 </a>
                 <ul class="show-notification profile-notification">
                   <li class="waves-effect waves-light">
-                    <a href="user-profile.html">
+                                        <a href="#!" data-bs-toggle="modal" data-bs-target="#profileDetailsModal">
                       <i class="fa-solid fa-id-card"></i> Profile
                     </a>
                   </li>
@@ -210,7 +334,7 @@
                 <div class="main-menu-content">
                   <ul>
                     <li class="more-details">
-                      <a href="user-profile.html"><i class="ti-user"></i>View Profile</a>
+                                          <a href="#!" data-bs-toggle="modal" data-bs-target="#profileDetailsModal"><i class="ti-user"></i>View Profile</a>
                       <!-- <a href="#!"><i class="ti-settings"></i>Settings</a> -->
                       <a href="login.html"><i class="ti-layout-sidebar-left"></i>Logout</a>
                     </li>
@@ -244,7 +368,7 @@
                       <li class="breadcrumb-item">
                         <a href="index.html"> <i class="fa fa-home"></i> </a>
                       </li>
-                      <li class="breadcrumb-item"><a href="#!">Laptops</a>
+                      <li class="breadcrumb-item"><a href="laptops.html">Laptops</a>
                       </li>
                     </ul>
                   </div>
@@ -260,566 +384,505 @@
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <div class="card">
-                                                    <div class="card-header">
+                                                    <!-- <div class="card-header">
                                                         <h5>Laptops</h5>
-                                                        
-                                                        <!-- <div class="card-header-right">
-                                                            <ul class="list-unstyled card-option">
-                                                                <li><i class="fa fa fa-wrench open-card-option"></i>
-                                                                </li>
-                                                                <li><i class="fa fa-minus minimize-card"></i></li>
-                                                                <li><i class="fa fa-refresh reload-card"></i></li>
-                                                            </ul>
-                                                        </div> -->
-                                                    </div>
+                                                    </div> -->
 
                                                     <div class="card-block">
                                                        
  <!-----------------------------------------------ADD-NEW-MODAl-START--------------------------------------------------------------------->
-                                                      
-                                                        <div>
-                                                            
-                                                            <div class="d-none" id="tab">
-                                                                <div class="nav nav-tabs md-tabs" id="myTab" role="tablist">
-                                                                    <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab1" type="button">Laptops Details</button>
-                                                                </div>
-                                                               <div class="tab-content mt-3">
+                                                  <div>
+  <div class="d-none" id="tab">
+    <div class="tab-content mt-3">
 
-                                                                <!-- laptop -->
-                                                                <div class="tab-pane fade show active " id="tab1">
-                                                                    <!-- Modal Header -->
-                                                                    
-                                                        
-                                                                    <!-- Modal Body -->
-                                                                    <div class="modal-body">
-                                                                        <form id="laptop_add_form">
-    <div class="row">
-        <!-- User Name -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="userName1">User Name <span class="text-danger">*</span></label>
-                <select id="userName1" name="userName"
-                    class="form-control form-control-sm userName" style="width:100%;" required>
-                    <option value="">StaffId</option>
-                </select>
-            </div>
-        </div>
+      <!-- Laptop Details -->
+      <div class="tab-pane fade show active" id="tab1">
+        <!-- Modal Body -->
+        <div class="modal-bodyrounded-3 bg-light shadow-sm">
+          <form id="laptop_add_form" class="p-2">
 
-        <!-- Model No -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="modelNo">Model No <span class="text-danger">*</span></label>
-                <input type="text" name="Model_No" class="form-control form-control-sm"
-                    id="modelNo" placeholder="Enter Model No" required>
-            </div>
-        </div>
-    </div>
+            <!--Laptop Specifications -->
+            <div class="card border-0 shadow-sm mb-3">
+              <div class="card-body">
+                <h6 class="fw-semibold text-sub mb-3">
+                  <i class="fa-solid fa-laptop me-2"></i> Laptop Specifications
+                </h6>
 
-    <div class="row">
-        <!-- Serial No -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="serialNo">Serial No <span class="text-danger">*</span></label>
-                <input type="text" name="Serial_No" class="form-control form-control-sm"
-                    id="serialNo" placeholder="Enter Serial No" required>
-            </div>
-        </div>
+                <div class="row">
+                  <!-- User Name -->
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="userName1">User Name <span class="text-danger">*</span></label>
+                      <select id="userName1" name="userName" class="form-control form-control-sm userName" style="width:100%;" required>
+                        <option value="">StaffId</option>
+                      </select>
+                    </div>
+                  </div>
 
-        <!-- Processor Type -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="processorType">Processor Type <span class="text-danger">*</span></label>
-                <input type="text" name="Processor_Type" class="form-control form-control-sm"
-                    id="processorType" placeholder="Enter Processor Type" required>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <!-- RAM (GB) -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="ramGb">RAM (GB) <span class="text-danger">*</span></label>
-                <input type="number" name="RAM_GB" class="form-control form-control-sm"
-                    id="ramGb" placeholder="Enter RAM in GB" min="1" step="1" required>
-            </div>
-        </div>
-
-        <!-- HDD (GB/TB) -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="storage">HDD (GB/TB) <span class="text-danger">*</span></label>
-                <div class="d-flex">
-                    <input type="number" name="HDD_GB_TB"
-                        class="form-control form-control-sm no-radius-end"
-                        id="storage" placeholder="Enter value"
-                        min="1" step="1" required>
-                    <select name="storageUnit"
-                        class="form-select form-select-sm no-radius-start bg-light text-dark"
-                        style="max-width: 90px;" required>
-                        <option value="GB">GB</option>
-                        <option value="TB">TB</option>
-                    </select>
+                  <!-- Model No -->
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="modelNo">Model No <span class="text-danger">*</span></label>
+                      <input type="text" name="Model_No" class="form-control form-control-sm" id="modelNo" placeholder="Enter Model No" required>
+                    </div>
+                  </div>
                 </div>
+
+                <div class="row">
+                  <!-- Serial No -->
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="serialNo">Serial No <span class="text-danger">*</span></label>
+                      <input type="text" name="Serial_No" class="form-control form-control-sm" id="serialNo" placeholder="Enter Serial No" required>
+                    </div>
+                  </div>
+
+                  <!-- Processor Type -->
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="processorType">Processor Type <span class="text-danger">*</span></label>
+                      <input type="text" name="Processor_Type" class="form-control form-control-sm" id="processorType" placeholder="Enter Processor Type" required>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <!-- RAM (GB) -->
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="ramGb">RAM (GB) <span class="text-danger">*</span></label>
+                      <input type="number" name="RAM_GB" class="form-control form-control-sm" id="ramGb" placeholder="Enter RAM in GB" min="1" step="1" required>
+                    </div>
+                  </div>
+
+                  <!-- HDD (GB/TB) -->
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="storage">HDD (GB/TB) <span class="text-danger">*</span></label>
+                      <div class="d-flex">
+                        <input type="number" name="HDD_GB_TB" class="form-control form-control-sm no-radius-end" id="storage" placeholder="Enter value" min="1" step="1" required>
+                        <select name="storageUnit" class="form-control form-control-md no-radius-start bg-light text-dark" style="max-width: 90px;" required>
+                          <option value="GB">GB</option>
+                          <option value="TB">TB</option>
+                        </select>
+                        <select name="storageType" class="form-control form-control-md no-radius-start bg-light text-dark" style="max-width: 90px;" required>
+                          <option value="SSD">SSD</option>
+                          <option value="HDD">HDD</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <!-- Graphics -->
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="graphics">Graphics <span class="text-danger">*</span></label>
+                      <input type="text" name="Graphics" class="form-control form-control-sm" id="graphics" placeholder="Enter Graphics Info" required>
+                    </div>
+                  </div>
+
+                  <!-- OS Type -->
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="osType">OS Type <span class="text-danger">*</span></label>
+                      <input type="text" name="OS_Type" class="form-control form-control-sm" id="osType" placeholder="Enter Operating System" required>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
+
+            <!-- Network Details -->
+            <div class="card border-0 shadow-sm mb-3">
+              <div class="card-body">
+                <h6 class="fw-semibold text-sub mb-3">
+                  <i class="fa-solid fa-network-wired me-2"></i> Network Details
+                </h6>
+
+                <div class="row">
+                  <!-- Host Name -->
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="hostName">Host Name <span class="text-danger">*</span></label>
+                      <input type="text" name="Host_Name" class="form-control form-control-sm" id="hostName" placeholder="Enter Host Name" required>
+                    </div>
+                  </div>
+
+                  <!-- IP Address -->
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="ipAddress">IP Address <span class="text-danger">*</span></label>
+                      <input type="text" name="IP_Address" class="form-control form-control-sm" id="ipAddress" placeholder="Enter IP Address" required>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <!-- MAC Address -->
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="macAddress">MAC Address <span class="text-danger">*</span></label>
+                      <input type="text" name="MAC_Address" class="form-control form-control-sm" id="macAddress" placeholder="Enter MAC Address" required>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Purchase Details -->
+            <div class="card border-0 shadow-sm mb-3">
+              <div class="card-body">
+                <h6 class="fw-semibold text-sub mb-3">
+                  <i class="fa-solid fa-file-invoice-dollar me-2"></i> Purchase Information
+                </h6>
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="projectNo">Project No <span class="text-danger">*</span></label>
+                      <input type="text" name="Project_No" class="form-control form-control-sm" id="projectNo" placeholder="Enter Project No" required>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="poNo">PO No <span class="text-danger">*</span></label>
+                      <input type="text" name="PO_No" class="form-control form-control-sm" id="poNo" placeholder="Enter PO No" required>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="poDate">PO Date <span class="text-danger">*</span></label>
+                      <input type="date" name="PO_Date" class="form-control form-control-sm" id="poDate" required>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="vendorName">Vendor Name <span class="text-danger">*</span></label>
+                      <input type="text" name="Vendor_Name" class="form-control form-control-sm" id="vendorName" placeholder="Enter Vendor Name" required>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="invoiceNo">Invoice No <span class="text-danger">*</span></label>
+                      <input type="text" name="Invoice_No" class="form-control form-control-sm" id="invoiceNo" placeholder="Enter Invoice No" required>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="invoiceDate">Invoice Date <span class="text-danger">*</span></label>
+                      <input type="date" name="Invoice_Date" class="form-control form-control-sm" id="invoiceDate" required>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="srb">SRB <span class="text-danger">*</span></label>
+                      <input type="text" name="SRB" class="form-control form-control-sm" id="srb" placeholder="Enter SRB No" required>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="dept">Department <span class="text-danger">*</span></label>
+                      <input type="text" name="Dept" class="form-control form-control-sm" id="dept" placeholder="Enter Department" required>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="remarks">Remarks <span class="text-danger">*</span></label>
+                      <textarea class="form-control form-control-sm" id="remarks" name="Remarks" rows="2" placeholder="Enter Remarks" required></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </form>
         </div>
+
+        <!-- Modal Footer -->
+        <div class="modal-footer border-0 bg-white rounded-bottom-3">
+          <button type="button" class="btn btn-red btn-sm" data-dismiss="modal" id="exitButton">
+            <i class="fa-solid fa-xmark me-1"></i> Exit
+          </button>
+          <button type="submit" class="btn btn-green btn-sm" id="add_laptop_btn" data-dismiss="modal">
+            <i class="fa-solid fa-circle-check me-1"></i> Submit Laptop
+          </button>
+        </div>
+      </div>
     </div>
-
-    <div class="row">
-        <!-- Graphics -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="graphics">Graphics <span class="text-danger">*</span></label>
-                <input type="text" name="Graphics" class="form-control form-control-sm"
-                    id="graphics" placeholder="Enter Graphics Info" required>
-            </div>
-        </div>
-
-        <!-- OS Type -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="osType">OS Type <span class="text-danger">*</span></label>
-                <input type="text" name="OS_Type" class="form-control form-control-sm"
-                    id="osType" placeholder="Enter Operating System" required>
-            </div>
-        </div>
-    </div>
-
-    <hr>
-    <!-- Networking Details -->
-    <div class="row">
-        <!-- Host Name -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="hostName">Host Name <span class="text-danger">*</span></label>
-                <input type="text" name="Host_Name" class="form-control form-control-sm"
-                    id="hostName" placeholder="Enter Host Name" required>
-            </div>
-        </div>
-
-        <!-- IP Address -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="ipAddress">IP Address <span class="text-danger">*</span></label>
-                <input type="text" name="IP_Address" class="form-control form-control-sm"
-                    id="ipAddress" placeholder="Enter IP Address" required>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <!-- MAC Address -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="macAddress">MAC Address <span class="text-danger">*</span></label>
-                <input type="text" name="MAC_Address" class="form-control form-control-sm"
-                    id="macAddress" placeholder="Enter MAC Address" required>
-            </div>
-        </div>
-    </div>
-
-    <hr>
-    <!-- Purchase / Vendor Details -->
-    <div class="row">
-        <!-- Project No -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="projectNo">Project No <span class="text-danger">*</span></label>
-                <input type="text" name="Project_No" class="form-control form-control-sm"
-                    id="projectNo" placeholder="Enter Project No" required>
-            </div>
-        </div>
-
-        <!-- PO No -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="poNo">PO No <span class="text-danger">*</span></label>
-                <input type="text" name="PO_No" class="form-control form-control-sm"
-                    id="poNo" placeholder="Enter PO No" required>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <!-- PO Date -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="poDate">PO Date <span class="text-danger">*</span></label>
-                <input type="date" name="PO_Date" class="form-control form-control-sm"
-                    id="poDate" required>
-            </div>
-        </div>
-
-        <!-- Vendor Name -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="vendorName">Vendor Name <span class="text-danger">*</span></label>
-                <input type="text" name="Vendor_Name" class="form-control form-control-sm"
-                    id="vendorName" placeholder="Enter Vendor Name" required>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <!-- Invoice No -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="invoiceNo">Invoice No <span class="text-danger">*</span></label>
-                <input type="text" name="Invoice_No" class="form-control form-control-sm"
-                    id="invoiceNo" placeholder="Enter Invoice No" required>
-            </div>
-        </div>
-
-        <!-- Invoice Date -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="invoiceDate">Invoice Date <span class="text-danger">*</span></label>
-                <input type="date" name="Invoice_Date" class="form-control form-control-sm"
-                    id="invoiceDate" required>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <!-- SRB -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="srb">SRB <span class="text-danger">*</span></label>
-                <input type="text" name="SRB" class="form-control form-control-sm"
-                    id="srb" placeholder="Enter SRB No" required>
-            </div>
-        </div>
-
-        <!-- Department -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="dept">Department <span class="text-danger">*</span></label>
-                <input type="text" name="Dept" class="form-control form-control-sm"
-                    id="dept" placeholder="Enter Department" required>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <!-- Remarks -->
-        <div class="col-md-12">
-            <div class="form-group">
-                <label for="remarks">Remarks <span class="text-danger">*</span></label>
-                <textarea class="form-control form-control-sm" id="remarks" name="Remarks"
-                    rows="2" placeholder="Enter Remarks" required></textarea>
-            </div>
-        </div>
-    </div>
-</form>
+  </div>
+</div>
 
 
-
-
-                                                                    </div>
-
-                                                                    <!-- model Footer -->
-                                                                    <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-danger" data-dismiss="modal" id="exitButton">Exit</button>
-                                                                    <button type="submit" class="btn btn-success" id="add_laptop_btn" data-dismiss="modal">Submit Laptop</button>
-                                                                    </div> 
-                                                        
-                                                                    <!-- Modal Footer -->
-                                                                    
-                                                                </div>
- 
- 
-                                                               </div>
-                                                            </div>
-                                                        </div>
 
 <!---------------------------------------------------------------------------------------------ADD-NEW-MODAL-END---------------------------------------------------->
  <!-----------------------------------------------UPDATE-MODAl-START--------------------------------------------------------------------->
                                                       
  <div>
- <div class="d-none" id="tabWrapper">
-        <div class="nav nav-tabs md-tabs" id="myTab1" role="tablist">
-            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab4" type="button">Staffs Details</button>
+  <div class="d-none" id="tabWrapper">
+    <div class="tab-content mt-3">
 
+      <!-- Update Asset -->
+      <div class="tab-pane fade show active" id="tab4">
+        <!-- Modal Body -->
+        <div class="modal-body rounded-3 bg-light shadow-sm">
+          <form id="update-asset-form" class="p-2">
+
+            <!-- 🧾 Asset Information -->
+            <div class="card border-0 shadow-sm mb-3">
+              <div class="card-body">
+                <h6 class="fw-semibold text-sub mb-3">
+                  <i class="fa-solid fa-barcode me-2"></i> Asset Information
+                </h6>
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="assetId">Asset ID <span class="text-danger">*</span></label>
+                      <input type="text" name="Asset_ID" class="form-control form-control-sm" id="assetId" required readonly>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="category">Category <span class="text-danger">*</span></label>
+                      <input type="text" name="Category" class="form-control form-control-sm" id="category" required readonly>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 💻 Hardware Specifications -->
+            <div class="card border-0 shadow-sm mb-3">
+              <div class="card-body">
+                <h6 class="fw-semibold text-sub mb-3">
+                  <i class="fa-solid fa-laptop me-2"></i> Hardware Specifications
+                </h6>
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="userName2">User Name <span class="text-danger">*</span></label>
+                      <select id="userName2" name="userName" class="form-control form-control-sm userName" required>
+                        <option value="">StaffId</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="modelNo">Model No <span class="text-danger">*</span></label>
+                      <input type="text" name="Model_No" class="form-control form-control-sm" id="modelNo" required>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="serialNo">Serial No <span class="text-danger">*</span></label>
+                      <input type="text" name="Serial_No" class="form-control form-control-sm" id="serialNo" required>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="processorType">Processor Type <span class="text-danger">*</span></label>
+                      <input type="text" name="Processor_Type" class="form-control form-control-sm" id="processorType" required>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="ramGb">RAM (GB) <span class="text-danger">*</span></label>
+                      <input type="number" name="RAM_GB" class="form-control form-control-sm" id="ramGb" placeholder="Enter RAM in GB" min="1" step="1" required>
+                    </div>
+                  </div>
+
+        <div class="col-md-6">
+        <div class="form-group position-relative">
+            <label for="storage">HDD (GB/TB) <span class="text-danger">*</span></label>
+            <div class="input-group mb-3">
+                <input type="text" class="form-control form-control-sm storageHistoryBtn" id="storage" placeholder="Enter HDD value" min="1" step="1" readonly>
+                <!-- <select id="storageUnit" class="form-select form-select-sm" style="max-width: 90px;">
+                    <option value="GB">GB</option>
+                    <option value="TB">TB</option>
+                </select> -->
+                <!-- <button class="btn btn-outline-secondary" type="button" id="storageHistoryBtn" title="View HDD History"><i class="fas fa-history"></i></button> -->
+            </div>
         </div>
-        <div class="tab-content mt-3">
-            <div class="tab-pane fade show active " id="tab4">
-             <!-- Modal Body -->
-             <div class="modal-body">
-        <form id="update-asset-form">
-  <div class="row">
-    <!-- Asset ID -->
-    <div class="col-md-6">
-      <div class="form-group">
-        <label for="assetId">Asset ID <span class="text-danger">*</span></label>
-        <input type="text" name="Asset_ID" maxlength="20"
-               class="form-control form-control-sm" id="assetId"
-               placeholder="Enter Asset ID" required readonly>
-      </div>
     </div>
+</div>
 
-    <!-- Category -->
-    <div class="col-md-6">
-      <div class="form-group">
-        <label for="category">Category <span class="text-danger">*</span></label>
-        <input type="text" name="Category" maxlength="50"
-               class="form-control form-control-sm" id="category"
-               placeholder="Enter Category" required readonly>
-      </div>
-    </div>
-  </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="graphics">Graphics <span class="text-danger">*</span></label>
+                      <input type="text" name="Graphics" class="form-control form-control-sm" id="graphics" required>
+                    </div>
+                  </div>
 
-  <div class="row">
-    <!-- User Name (Staff ID Select) -->
-    <div class="col-md-6">
-      <div class="form-group">
-        <label for="userName2">User Name <span class="text-danger">*</span></label>
-        <select id="userName2" name="userName"
-                class="form-control form-control-sm userName"
-                style="width:100%;" required>
-          <option value="">StaffId</option>
-        </select>
-      </div>
-    </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="osType">OS Type <span class="text-danger">*</span></label>
+                      <input type="text" name="OS_Type" class="form-control form-control-sm" id="osType" required>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-    <!-- Model No -->
-    <div class="col-md-6">
-      <div class="form-group">
-        <label for="modelNo">Model No <span class="text-danger">*</span></label>
-        <input type="text" name="Model_No"
-               class="form-control form-control-sm" id="modelNo"
-               placeholder="Enter Model No" required>
-      </div>
-    </div>
-  </div>
+            <!-- 🌐 Networking Details -->
+            <div class="card border-0 shadow-sm mb-3">
+              <div class="card-body">
+                <h6 class="fw-semibold text-sub mb-3">
+                  <i class="fa-solid fa-network-wired me-2"></i> Network Details
+                </h6>
 
-  <div class="row">
-    <!-- Serial No -->
-    <div class="col-md-6">
-      <div class="form-group">
-        <label for="serialNo">Serial No <span class="text-danger">*</span></label>
-        <input type="text" name="Serial_No"
-               class="form-control form-control-sm" id="serialNo"
-               placeholder="Enter Serial No" required>
-      </div>
-    </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="hostName">Host Name <span class="text-danger">*</span></label>
+                      <input type="text" name="Host_Name" class="form-control form-control-sm" id="hostName" required>
+                    </div>
+                  </div>
 
-    <!-- Processor Type -->
-    <div class="col-md-6">
-      <div class="form-group">
-        <label for="processorType">Processor Type <span class="text-danger">*</span></label>
-        <input type="text" name="Processor_Type"
-               class="form-control form-control-sm" id="processorType"
-               placeholder="Enter Processor Type" required>
-      </div>
-    </div>
-  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="ipAddress">IP Address <span class="text-danger">*</span></label>
+                      <input type="text" name="IP_Address" class="form-control form-control-sm" id="ipAddress" required>
+                    </div>
+                  </div>
+                </div>
 
-  <div class="row">
-    <!-- RAM -->
-    <div class="col-md-6">
-      <div class="form-group">
-        <label for="ramGb">RAM (GB) <span class="text-danger">*</span></label>
-        <input type="number" name="RAM_GB"
-               class="form-control form-control-sm" id="ramGb"
-               placeholder="Enter RAM in GB" min="1" step="1" required>
-      </div>
-    </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="macAddress">MAC Address <span class="text-danger">*</span></label>
+                      <input type="text" name="MAC_Address" class="form-control form-control-sm" id="macAddress" required>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-    <!-- HDD / Storage -->
-    <div class="col-md-6">
-      <div class="form-group">
-        <label for="storage">HDD (GB/TB) <span class="text-danger">*</span></label>
-        <div class="d-flex">
-          <input type="number" name="HDD_GB_TB"
-                 class="form-control form-control-sm no-radius-end"
-                 id="storage" placeholder="Enter value"
-                 min="1" step="1" required>
-          <select name="storageUnit"
-                  class="form-select form-select-sm no-radius-start bg-light text-dark"
-                  style="max-width: 90px;" required>
-            <option value="">Unit</option>
-            <option value="GB">GB</option>
-            <option value="TB">TB</option>
-          </select>
-        </div>
-      </div>
-    </div>
-  </div>
+            <!-- 🧾 Purchase Information -->
+            <div class="card border-0 shadow-sm mb-3">
+              <div class="card-body">
+                <h6 class="fw-semibold text-sub mb-3">
+                  <i class="fa-solid fa-file-invoice-dollar me-2"></i> Purchase Information
+                </h6>
 
-  <div class="row">
-    <!-- Graphics -->
-    <div class="col-md-6">
-      <div class="form-group">
-        <label for="graphics">Graphics <span class="text-danger">*</span></label>
-        <input type="text" name="Graphics"
-               class="form-control form-control-sm" id="graphics"
-               placeholder="Enter Graphics Info" required>
-      </div>
-    </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="projectNo">Project No <span class="text-danger">*</span></label>
+                      <input type="text" name="Project_No" class="form-control form-control-sm" id="projectNo" required>
+                    </div>
+                  </div>
 
-    <!-- OS Type -->
-    <div class="col-md-6">
-      <div class="form-group">
-        <label for="osType">OS Type <span class="text-danger">*</span></label>
-        <input type="text" name="OS_Type"
-               class="form-control form-control-sm" id="osType"
-               placeholder="Enter Operating System" required>
-      </div>
-    </div>
-  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="poNo">PO No <span class="text-danger">*</span></label>
+                      <input type="text" name="PO_No" class="form-control form-control-sm" id="poNo" required>
+                    </div>
+                  </div>
+                </div>
 
-  <hr>
-  <!-- Networking Details -->
-  <div class="row">
-    <!-- Host Name -->
-    <div class="col-md-6">
-      <div class="form-group">
-        <label for="hostName">Host Name <span class="text-danger">*</span></label>
-        <input type="text" name="Host_Name"
-               class="form-control form-control-sm" id="hostName"
-               placeholder="Enter Host Name" required>
-      </div>
-    </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="poDate">PO Date <span class="text-danger">*</span></label>
+                      <input type="date" name="PO_Date" class="form-control form-control-sm" id="poDate" required>
+                    </div>
+                  </div>
 
-    <!-- IP Address -->
-    <div class="col-md-6">
-      <div class="form-group">
-        <label for="ipAddress">IP Address <span class="text-danger">*</span></label>
-        <input type="text" name="IP_Address"
-               class="form-control form-control-sm" id="ipAddress"
-               placeholder="Enter IP Address" required>
-      </div>
-    </div>
-  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="vendorName">Vendor Name <span class="text-danger">*</span></label>
+                      <input type="text" name="Vendor_Name" class="form-control form-control-sm" id="vendorName" required>
+                    </div>
+                  </div>
+                </div>
 
-  <div class="row">
-    <!-- MAC Address -->
-    <div class="col-md-6">
-      <div class="form-group">
-        <label for="macAddress">MAC Address <span class="text-danger">*</span></label>
-        <input type="text" name="MAC_Address"
-               class="form-control form-control-sm" id="macAddress"
-               placeholder="Enter MAC Address" required>
-      </div>
-    </div>
-  </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="invoiceNo">Invoice No <span class="text-danger">*</span></label>
+                      <input type="text" name="Invoice_No" class="form-control form-control-sm" id="invoiceNo" required>
+                    </div>
+                  </div>
 
-  <hr>
-  <!-- Purchase / Vendor Details -->
-  <div class="row">
-    <!-- Project No -->
-    <div class="col-md-6">
-      <div class="form-group">
-        <label for="projectNo">Project No <span class="text-danger">*</span></label>
-        <input type="text" name="Project_No"
-               class="form-control form-control-sm" id="projectNo"
-               placeholder="Enter Project No" required>
-      </div>
-    </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="invoiceDate">Invoice Date <span class="text-danger">*</span></label>
+                      <input type="date" name="Invoice_Date" class="form-control form-control-sm" id="invoiceDate" required>
+                    </div>
+                  </div>
+                </div>
 
-    <!-- PO No -->
-    <div class="col-md-6">
-      <div class="form-group">
-        <label for="poNo">PO No <span class="text-danger">*</span></label>
-        <input type="text" name="PO_No"
-               class="form-control form-control-sm" id="poNo"
-               placeholder="Enter PO No" required>
-      </div>
-    </div>
-  </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="srb">SRB <span class="text-danger">*</span></label>
+                      <input type="text" name="SRB" class="form-control form-control-sm" id="srb" required>
+                    </div>
+                  </div>
 
-  <div class="row">
-    <!-- PO Date -->
-    <div class="col-md-6">
-      <div class="form-group">
-        <label for="poDate">PO Date <span class="text-danger">*</span></label>
-        <input type="date" name="PO_Date"
-               class="form-control form-control-sm" id="poDate" required>
-      </div>
-    </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="dept">Department <span class="text-danger">*</span></label>
+                      <input type="text" name="Dept" class="form-control form-control-sm" id="dept" required>
+                    </div>
+                  </div>
+                </div>
 
-    <!-- Vendor Name -->
-    <div class="col-md-6">
-      <div class="form-group">
-        <label for="vendorName">Vendor Name <span class="text-danger">*</span></label>
-        <input type="text" name="Vendor_Name"
-               class="form-control form-control-sm" id="vendorName"
-               placeholder="Enter Vendor Name" required>
-      </div>
-    </div>
-  </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="remarks">Remarks <span class="text-danger">*</span></label>
+                      <textarea class="form-control form-control-sm" id="remarks" name="Remarks" rows="2" required></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-  <div class="row">
-    <!-- Invoice No -->
-    <div class="col-md-6">
-      <div class="form-group">
-        <label for="invoiceNo">Invoice No <span class="text-danger">*</span></label>
-        <input type="text" name="Invoice_No"
-               class="form-control form-control-sm" id="invoiceNo"
-               placeholder="Enter Invoice No" required>
-      </div>
-    </div>
-
-    <!-- Invoice Date -->
-    <div class="col-md-6">
-      <div class="form-group">
-        <label for="invoiceDate">Invoice Date <span class="text-danger">*</span></label>
-        <input type="date" name="Invoice_Date"
-               class="form-control form-control-sm" id="invoiceDate" required>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <!-- SRB -->
-    <div class="col-md-6">
-      <div class="form-group">
-        <label for="srb">SRB <span class="text-danger">*</span></label>
-        <input type="text" name="SRB"
-               class="form-control form-control-sm" id="srb"
-               placeholder="Enter SRB No" required>
-      </div>
-    </div>
-
-    <!-- Department -->
-    <div class="col-md-6">
-      <div class="form-group">
-        <label for="dept">Department <span class="text-danger">*</span></label>
-        <input type="text" name="Dept"
-               class="form-control form-control-sm" id="dept"
-               placeholder="Enter Department" required>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <!-- Remarks -->
-    <div class="col-md-12">
-      <div class="form-group">
-        <label for="remarks">Remarks <span class="text-danger">*</span></label>
-        <textarea class="form-control form-control-sm"
-                  id="remarks" name="Remarks" rows="2"
-                  placeholder="Enter Remarks" required></textarea>
-      </div>
-    </div>
-  </div>
-</form>
-
-             </div>
+          </form>
         </div>
 
-
+        <!-- Modal Footer -->
+        <div class="modal-footer border-0 bg-white rounded-bottom-3">
+          <button type="button" class="btn btn-red btn-sm" data-dismiss="modal" id="exitButton2">
+            <i class="fa-solid fa-xmark me-1"></i> Exit
+          </button>
+          <button type="button" id="update_laptop_btn" class="btn btn-green btn-sm writeElement">
+            <i class="fa-solid fa-circle-check me-1"></i> Update Asset
+          </button>
         </div>
-        
-
-
-         <!-- Modal Footer -->
-         <div class="modal-footer">
-             <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal" id="exitButton2">Exit</button>
-             <button type="button" id="update_laptop_btn" class="btn btn-success btn-sm writeElement">Update</button>
-         </div>
-     
- </div>
+      </div>
+    </div>
+</div>
 </div>
 
 
@@ -827,7 +890,7 @@
 
 
                                                        <div id="tableCard">
-                                                        <div class="d-flex justify-content-end mb-5">
+                                                        <div class="d-flex justify-content-end">
                                                             <button id="addNew"
                                                                 class="btn btn-primary addNewRecord writeElement d-flex align-items-center gap-2 px-sm-4 py-sm-2 rounded-pill shadow"
                                                                 data-toggle="modal" data-target="#addNewModal">
@@ -838,7 +901,7 @@
 
                                                         <div class="mb-3 p-3 rounded shadow shadow-sm filter">
                                                             <div class="row g-3">
-                                                                <div class="col-md-6">
+                                                                <div class="col-md-4">
                                                                     <div class="d-flex flex-column">
                                                                         <label for="designationFilter" class="text-muted small mb-1">Designation</label>
                                                                         <select id="designationFilter" class="form-select form-select-sm border-secondary">
@@ -850,7 +913,7 @@
                                                                     </div>
                                                                 </div>
                                                         
-                                                                <div class="col-md-6">
+                                                                <div class="col-md-4">
                                                                     <div class="d-flex flex-column">
                                                                         <label for="locationFilter" class="text-muted small mb-1">Location</label>
                                                                         <select id="locationFilter" class="form-select form-select-sm border-secondary">
@@ -858,34 +921,44 @@
                                                                         </select>
                                                                     </div>
                                                                 </div>
+                                                                <div class="col-md-4">
+                                                                    <div class="d-flex flex-column">
+                                                                        <label for="statusFilter" class="text-muted small mb-1">Status</label>
+                                                                        <select id="statusFilter" class="form-select form-select-sm border-secondary">
+                                                                            <option value="">Show all</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
 
-                                                        <div class="row">
+                                                        <!-- <div class="row">
                                                             <div id="exportButtons" class="mb-3">
                                                                 <button onclick="fetchDataAndGenerateExcel()" class="dt-button">
                                                                     Download All Data
                                                                 </button>
                                                             </div>
-                                                        </div>
+                                                        </div> -->
                                                         <div class="d-flex justify-content-center align-items-center">
-                                                            <div class="table-responsive">
-                                                                
-                                                                
-                                                                
-                                                                <table id="myTable"
-                                                                    class="table table-striped rounded table-hover">
-                                                                    <thead class="bg-primary text-white text-center">
+                                <div class="table-responsive">
+                                  <table class="table-modern table-striped" id="myTable">
+                                    <thead class="bg-primary text-white text-center">
                                                                         <tr>
+                                                                            <th>S.No</th>
                                                                             <th>Serial No</th>
                                                                             <th>Asset ID</th>
                                                                             <th>Category</th>
                                                                             <th>Vendor Name</th>
                                                                             <th>User Name</th>
                                                                             <th>Department</th>
-                                                                            <th>Action</th>
+                                                                            <th>Status</th>
+                                                                            <th>Bar Code</th>
+
                                                                             <!-- <th>Actions</th> -->
                                                                              <th>Update</th>
+
+
+
                                                                             
                                                                         </tr>
                                                                     </thead>
@@ -903,6 +976,107 @@
                                                 </div>
                                             </div>
                                         </div>
+                                                           <!-- PROFILE MODAL -->
+                  <div class="modal fade" id="profileDetailsModal" tabindex="-1" aria-labelledby="profileDetailsLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+
+      <!-- HEADER -->
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title">
+          <i class="fa-solid fa-user me-2"></i>
+          <span id="modalTitle">Profile Details</span>
+        </h5>
+        <button type="button"
+          class="d-flex align-items-center btn-close justify-content-center p-0"
+          style="width:32px; height:32px;background-color: transparent !important; border: transparent; cursor: pointer;"
+          data-bs-dismiss="modal" aria-label="Close">
+          <i class="fa-solid fa-xmark text-white"></i>
+        </button>
+      </div>
+
+      <!-- BODY -->
+      <div class="modal-body">
+        <div class="card border-0">
+          <div id="slideContainer" class="slide-container">
+
+            <!-- Left Profile Panel -->
+            <div id="profilePanel" class="col-md-4 gradient-custom text-center d-flex flex-column align-items-center justify-content-center p-4 profile-left">
+              <img id="profileImage"
+                   alt="Avatar" class="img-fluid rounded-circle mb-3" style="width: 100px;">
+              <h5 id="profileName" class="fw-bold mb-1">John</h5>
+              <p id="profileRole" class="mb-2">Web Developer</p>
+            </div>
+
+            <!-- Right Panel -->
+            <div class="col-md-8 position-relative p-4">
+
+              <!-- Profile Section -->
+              <div id="profileSection" class="slide-section visible-section">
+                <h6 class="fw-bold text-sub mb-3">Personal Information</h6>
+                <hr class="mt-0 mb-3">
+
+                <div class="row">
+                  <div class="col-6 mb-3">
+                    <p class="profile-label text-sub">Name</p>
+                    <p id="firstName" class="readonly-text">john</p>
+                  </div>
+                  <div class="col-6 mb-3">
+                    <p class="profile-label text-sub">Employee ID</p>
+                    <p id="empId" class="readonly-text">98t5</p>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-6 mb-3">
+                    <p class="profile-label text-sub">Email ID</p>
+                    <p id="emailId" class="readonly-text">john008@gmail.com</p>
+                  </div>
+                  <div class="col-6 mb-3">
+                    <p class="profile-label text-sub">Designation</p>
+                    <p id="Designation" class="readonly-text">Developer</p>
+                  </div>
+                </div>
+
+                <div class="text-start mt-3">
+                  <button id="changePasswordBtn" class="btn-change">
+                    <i class="fa-solid fa-key mr-2"></i>Change Password
+                  </button>
+                </div>
+              </div>
+
+              <!-- Password Section -->
+              <div id="passwordSection" class="slide-section hidden-section">
+                <h6 class="fw-bold mb-3 text-sub"><i class="fa-solid fa-key mr-2"></i>Change Password</h6>
+                <hr>
+                <form id="passwordForm" class="mt-3">
+                  <div class="mb-3">
+                    <label for="newPassword" class="form-label">New Password</label>
+                    <input type="password" class="form-control" id="newPassword" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="confirmPassword" class="form-label">Confirm Password</label>
+                    <input type="password" class="form-control" id="confirmPassword" required>
+                  </div>
+
+                  <div class="text-start mt-3">
+                    <button type="button" class="btn-change" id="backToProfile">
+                      <i class="fa-solid fa-arrow-left mr-2"></i>Back
+                    </button>
+                      <button  type="button"  class="btn-green btn-change"  id="savePassword"><i class="fa-solid fa-key mr-2"></i>Save Password</button>
+                  </div>
+                </form>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- !profile Model end  -->
                                     </div>
                                 </div>
                             </div>
@@ -924,7 +1098,104 @@
     </div>
 
 
-    
+
+
+
+<!-- HDD History Modal -->
+<div class="modal fade" id="storageHistoryModal" tabindex="-1" aria-labelledby="storageHistoryModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content border-0 shadow-sm rounded-3 overflow-hidden">
+
+      <!-- Header -->
+      <div class="modal-header border-bottom py-3 px-4">
+        <h5 class="modal-title fw-bold text-white d-flex align-items-center m-0" id="storageHistoryModalLabel">
+          <i class="fa-solid fa-database me-2 text-white"></i> HDD History
+        </h5>
+         <button type="button" class="d-flex align-items-center justify-content-center p-0"
+        style="width:32px; height:32px;background-color: transparent !important;
+    border: transparent;
+    cursor: pointer; " data-bs-dismiss="modal" aria-label="Close">
+  <i class="fa-solid fa-xmark text-white"></i>
+</button>
+      </div>
+
+      <!-- Body -->
+      <div class="modal-body bg-light p-4">
+
+        <!-- Table Section -->
+         
+        <div class="card border-0 shadow-sm mb-4">
+          <div class="card-body p-3">
+            <table class="table table-borderless table-hover align-middle mb-0" id="storageHistoryTable">
+              <thead class="bg-light border-bottom fw-semibold">
+                <tr class="text-center text-secondary">
+                  <th style="width: 25%;">Value</th>
+                  <th style="width: 15%;">Unit</th>
+                  <th style="width: 20%;">Type</th>
+                  <th style="width: 25%;">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Rows dynamically added here -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Add New Storage Entry -->
+        <div class="card border-0 shadow-sm">
+          <div class="card-body p-3">
+            <h6 class="fw-semibold text-dark mb-3 d-flex align-items-center">
+              <i class="fa-solid fa-plus-circle text-success me-2"></i> Add New HDD Entry
+            </h6>
+
+            <div class="row g-2 align-items-center">
+              <div class="col-md-3">
+                <input type="number" class="form-control form-control-sm" id="newStorageValue"
+                       placeholder="Enter value" min="1">
+              </div>
+
+              <div class="col-md-3">
+                <select id="newStorageUnit" class="form-control form-control-sm">
+                  <option value="GB">GB</option>
+                  <option value="TB">TB</option>
+                </select>
+              </div>
+
+              <div class="col-md-3">
+                <select id="newStorageType" class="form-control form-control-sm">
+                  <option value="SSD">SSD</option>
+                  <option value="HDD">HDD</option>
+                </select>
+              </div>
+
+              <div class="col-md-3">
+                <button class="btn btn-green btn-sm w-100 d-flex align-items-center justify-content-center gap-1"
+                        id="addStorageBtnModal">
+                  <i class="fa-solid fa-plus"></i> Add Entry
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div> <!-- /modal-body -->
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  
 
   <!-- Required jQuery -->
 <script type="text/javascript" src="assets/js/jquery/jquery.min.js"></script>
@@ -937,6 +1208,8 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
 
 <!-- jQuery and DataTables JS -->
+       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 
 <!-- DataTables Buttons Extension JS -->

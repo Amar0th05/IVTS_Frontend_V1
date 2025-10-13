@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Leave Management Module</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <meta name="keywords"
+        content="bootstrap, bootstrap admin template, admin theme, admin dashboard, dashboard template, admin template, responsive" />
+    <meta name="author" content="Codedthemes" />
+      <!-- Favicon icon -->
+    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+    <!-- Google font-->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
+    <!-- waves.css -->
+    <link rel="stylesheet" href="assets/pages/waves/css/waves.min.css" type="text/css" media="all">
+    <!-- Required Fremwork -->
+    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap/css/bootstrap.min.css">
+    <!-- waves.css -->
+    <link rel="stylesheet" href="assets/pages/waves/css/waves.min.css" type="text/css" media="all">
+    <!-- themify icon -->
+    <link rel="stylesheet" type="text/css" href="assets/icon/themify-icons/themify-icons.css">
+      <script src="https://kit.fontawesome.com/1799ed0397.js" crossorigin="anonymous"></script>
+
+    <!-- font-awesome-n -->
+    <link rel="stylesheet" type="text/css" href="assets/css/font-awesome-n.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.min.css">
+    <!-- scrollbar.css -->
+    <link rel="stylesheet" type="text/css" href="assets/css/jquery.mCustomScrollbar.css">
+    <!-- Style.css -->
+    <link rel="stylesheet" type="text/css" href="assets/css/style copy.css">
+    <link rel="stylesheet" href="assets/css/custom.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+        <!-- Include SweetAlert2 CSS & JS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+
+
+
+    <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css"> -->
+    <style>
+        /* #policyTable{
+            border-radius: 5px;
+        } */
+    .hidden {
+      display: none !important;
+    }
+    /* .addNewRecord{
+      all:unset;
+      color: white !important;
+      padding: 10px 10px !important;
+      background: linear-gradient(135deg, #4931d1, #7f86f3);
+    } */
+
+.dropdownPopup .list-group-item:hover,
+.dropdownPopup .list-group-item.active {
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+}
+
+
+  /* remove right border-radius from input */
+  .no-radius-end {
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+  }
+
+  /* remove left border-radius from select */
+  .no-radius-start {
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+  }
+
+
+  .btn-excel {
+      background-color: #28a745 !important;
+    }
+
+    .btn-excel:hover {
+      background-color: #1e7e34 !important;
+    }
+
+    .btn-pdf {
+      background-color: #dc3545 !important;
+    }
+
+    .btn-pdf:hover {
+      background-color: #a71d2a !important;
+    }
+
+    .btn-green {
+      background: linear-gradient(to bottom right, #34D399, #059669);
+      border: none;
+      color: white;
+
+    }
+
+    .btn-red {
+      background: linear-gradient(to bottom right, #EF4444, #B91C1C);
+      border: none;
+      color: white;
+    }
+
+    .btn-red:hover {
+      background: linear-gradient(to bottom right, #dc3545, #a71d2a);
+    }
+
+    .btn-green:hover {
+      background: linear-gradient(to bottom right, #28a745, #1e7e34);
+
+    }
+#storageHistoryModal .modal-content {
+  border-radius: 12px;
+  background-color: #f8f9fa;
+}
+
+#storageHistoryModal .modal-header {
+  background: linear-gradient(135deg, #69A1FF, #1E3FA0) !important;
+  border-bottom: 1px solid #e0e0e0;
+  color: #fff;
+}
+
+#storageHistoryModal .modal-title {
+  font-size: 1.1rem;
+  letter-spacing: 0.3px;
+}
+
+#storageHistoryModal .card {
+  border-radius: 10px;
+  background-color: #fff;
+}
+
+#storageHistoryModal table th,
+#storageHistoryModal table td {
+  text-align: center;
+  vertical-align: middle;
+  padding: 12px 8px;
+}
+
+#storageHistoryModal table tbody tr:hover {
+  background-color: #f5f8ff;
+  transition: background 0.2s ease-in-out;
+}
+
+#storageHistoryModal input,
+#storageHistoryModal select {
+  /* border-radius: 6px; */
+  font-size: 0.9rem;
+
+}
+
+#storageHistoryModal .btn {
+  font-size: 0.9rem;
+  /* border-radius: 6px; */
+}
+
+
+
+
+
+</style>
+
+
+</head>
+
+<body>
+        <!-- Pre-loader start -->
+    <div class="theme-loader">
+         
+        <div class="loader-track">
+           
+            <div class="preloader-wrapper">
+               
+                <div class="spinner-layer spinner-blue">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+                <div class="spinner-layer spinner-red">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+
+                <div class="spinner-layer spinner-yellow">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+
+                <div class="spinner-layer spinner-green">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Pre-loader end -->
+    <div id="pcoded" class="pcoded">
+        <div class="pcoded-overlay-box"></div>
+        <div class="pcoded-container navbar-wrapper">
+            <nav class="navbar header-navbar pcoded-header">
+        <div class="navbar-wrapper">
+          <div class="navbar-logo align-items-center">
+            <a class="mobile-menu waves-effect waves-light" id="mobile-collapse" href="#!">
+              <i class="ti-menu"></i>
+            </a>
+            <div>
+              <a href="index.html">
+                <img class="img-fluid" src="assets/images/Gemini_Generated_Image_ode7ogode7ogode7-removebg-preview.png"
+                  alt="Theme-Logo" style="height: 50px;" />
+                <h4 class="d-inline"><span class="text-lowercase">WorkSphere</h4>
+              </a>
+            </div>
+            <a class="mobile-options waves-effect waves-light">
+              <i class="ti-more"></i>
+            </a>
+          </div>
+          <div class="navbar-container container-fluid">
+            <ul class="nav-left">
+              <li>
+                <div class="sidebar_toggle"><a href="javascript:void(0)"><i class="ti-menu"></i></a></div>
+              </li>
+              <li>
+                <a href="#!" onclick="javascript:toggleFullScreen()" class="waves-effect waves-light">
+                  <i class="ti-fullscreen"></i>
+                </a>
+              </li>
+            </ul>
+            <ul class="nav-right">
+              <li class="user-profile header-notification">
+                <a href="#!" class="waves-effect waves-light">
+                  <span id="username">John Doe</span>
+                  <i class="ti-angle-down"></i>
+                </a>
+                <ul class="show-notification profile-notification">
+                  <li class="waves-effect waves-light">
+                                        <a href="#!" data-bs-toggle="modal" data-bs-target="#profileDetailsModal">
+                      <i class="fa-solid fa-id-card"></i> Profile
+                    </a>
+                  </li>
+                  <li class="waves-effect waves-light">
+                    <a href="login.html" id="logout-button">
+
+                      <i class="fa-solid fa-right-to-bracket fa-flip-horizontal"></i> Logout
+
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+            <div class="pcoded-main-container">
+                <div class="pcoded-wrapper">
+                    <nav class="pcoded-navbar">
+            <div class="sidebar_toggle"><a href="#"><i class="icon-close icons"></i></a></div>
+            <div class="pcoded-inner-navbar main-menu">
+              <div class="">
+                <div class="main-menu-content">
+                  <ul>
+                    <li class="more-details">
+                                          <a href="#!" data-bs-toggle="modal" data-bs-target="#profileDetailsModal"><i class="ti-user"></i>View Profile</a>
+                      <!-- <a href="#!"><i class="ti-settings"></i>Settings</a> -->
+                      <a href="login.html"><i class="ti-layout-sidebar-left"></i>Logout</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div id="sidebar-container">
+
+              </div>
+
+          </nav>
+
+
+
+                    <div class="pcoded-content">
+                        <!-- Page-header start -->
+                        <div class="page-header">
+                             <div class="page-header">
+              <div class="page-block">
+                <div class="row align-items-center">
+                  <div class="col-md-8">
+                    <div class="page-title">
+                      <span class="page-title-icon bg-gradient-primary text-white mr-2">
+                        <i class="fa fa-chart-line"></i>
+                      </span>
+                      <h5>Dashboard</h5>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <ul class="breadcrumb">
+                      <li class="breadcrumb-item">
+                        <a href="index.html"> <i class="fa fa-home"></i> </a>
+                      </li>
+                      <li class="breadcrumb-item"><a href="laptops.html">Leave Tracking</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+                        </div>
+                        <!-- Page-header end -->
+                        <div class="pcoded-inner-content">
+                            <div class="main-body">
+                                <div class="page-wrapper">
+                                    <div class="page-body">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="card">
+                                                    <!-- <div class="card-header">
+                                                        <h5>Laptops</h5>
+                                                    </div> -->
+
+                                                    <div class="card-block">
+                                                                                                            <div class="card-block">
+                                                        <div id="tableCard">
+                                                            <div class="mb-3 p-3 rounded shadow shadow-sm filter">
+                                                                <div class="row g-3">
+                                                                    <!-- Month Filter -->
+                                                                    <div class="col-md-3">
+                                                                        <div class="d-flex flex-column">
+                                                                            <label for="monthFilter"
+                                                                                class="text-muted small mb-1">Month</label>
+                                                                            <select id="monthFilter"
+                                                                                class="form-select form-select-sm border-secondary">
+                                                                                <option value="">Show all</option>
+                                                                                <option>January</option>
+                                                                                <option>February</option>
+                                                                                <option>March</option>
+                                                                                <option>April</option>
+                                                                                <option>May</option>
+                                                                                <option>June</option>
+                                                                                <option>July</option>
+                                                                                <option>August</option>
+                                                                                <option>September</option>
+                                                                                <option>October</option>
+                                                                                <option>November</option>
+                                                                                <option>December</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <!-- Leave Type Filter -->
+                                                                    <div class="col-md-3">
+                                                                        <div class="d-flex flex-column">
+                                                                            <label for="leaveTypeFilter"
+                                                                                class="text-muted small mb-1">Leave
+                                                                                Type</label>
+                                                                            <select id="leaveTypeFilter"
+                                                                                class="form-select form-select-sm border-secondary">
+                                                                                <option value="">Show all</option>
+                                                                                <option>Casual</option>
+                                                                                <option>Sick</option>
+                                                                                <option>Earned</option>
+                                                                                <option>Compensatory Off (Comp-off)
+                                                                                </option>
+                                                                                <option>Other</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <!-- Status Filter -->
+                                                                    <div class="col-md-3">
+                                                                        <div class="d-flex flex-column">
+                                                                            <label for="statusFilter"
+                                                                                class="text-muted small mb-1">Status</label>
+                                                                            <select id="statusFilter"
+                                                                                class="form-select form-select-sm border-secondary">
+                                                                                <option value="">Show all</option>
+                                                                                <option>Approved</option>
+                                                                                <option>Pending</option>
+                                                                                <option>Rejected</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <!-- Employee Filter -->
+                                                                    <div class="col-md-3">
+                                                                        <div class="d-flex flex-column">
+                                                                            <label for="employeeFilter"
+                                                                                class="text-muted small mb-1">Employee</label>
+                                                                            <input type="text" id="employeeFilter"
+                                                                                class="form-control form-control-sm border-secondary"
+                                                                                placeholder="Enter name or ID">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+
+
+                                                            <div class="row">
+                                                                <div id="exportButtons" class="mb-3">
+                                                                    <button id="exportExcel"
+                                                                        class="dt-button">Excel</button>
+                                                                </div>
+                                                                <div id="exportButtons" class="mb-3">
+                                                                    <button id="exportPDF"
+                                                                        class="dt-button">PDF</button>
+                                                                </div>
+
+                                                            </div>
+                                                                                            <div class="table-responsive">
+                                  <table class="table-modern table-striped" id="myTable">
+                                    <thead class="bg-primary text-white text-center">
+                                                                                                                                                   <tr>
+                                                                                <th>Leave ID</th>
+                                                                                <th>Employee ID</th>
+                                                                                <th>Employee Name</th>
+                                                                                <th>Month</th>
+                                                                                <th>Leave Type</th>
+                                                                                <th>Status</th>
+                                                                            </tr>
+
+                                                                    </thead>
+                                                                    <tbody>
+                                                                
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+
+
+                                                    </div>
+
+                                                    </div>
+                                                    <!-- card-block table staff details end --> 
+                                                </div>
+                                            </div>
+                                        </div>
+                                                           <!-- PROFILE MODAL -->
+                  <div class="modal fade" id="profileDetailsModal" tabindex="-1" aria-labelledby="profileDetailsLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+
+      <!-- HEADER -->
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title">
+          <i class="fa-solid fa-user me-2"></i>
+          <span id="modalTitle">Profile Details</span>
+        </h5>
+        <button type="button"
+          class="d-flex align-items-center btn-close justify-content-center p-0"
+          style="width:32px; height:32px;background-color: transparent !important; border: transparent; cursor: pointer;"
+          data-bs-dismiss="modal" aria-label="Close">
+          <i class="fa-solid fa-xmark text-white"></i>
+        </button>
+      </div>
+
+      <!-- BODY -->
+      <div class="modal-body">
+        <div class="card border-0">
+          <div id="slideContainer" class="slide-container">
+
+            <!-- Left Profile Panel -->
+            <div id="profilePanel" class="col-md-4 gradient-custom text-center d-flex flex-column align-items-center justify-content-center p-4 profile-left">
+              <img id="profileImage"
+                   alt="Avatar" class="img-fluid rounded-circle mb-3" style="width: 100px;">
+              <h5 id="profileName" class="fw-bold mb-1">John</h5>
+              <p id="profileRole" class="mb-2">Web Developer</p>
+            </div>
+
+            <!-- Right Panel -->
+            <div class="col-md-8 position-relative p-4">
+
+              <!-- Profile Section -->
+              <div id="profileSection" class="slide-section visible-section">
+                <h6 class="fw-bold text-sub mb-3">Personal Information</h6>
+                <hr class="mt-0 mb-3">
+
+                <div class="row">
+                  <div class="col-6 mb-3">
+                    <p class="profile-label text-sub">Name</p>
+                    <p id="firstName" class="readonly-text">john</p>
+                  </div>
+                  <div class="col-6 mb-3">
+                    <p class="profile-label text-sub">Employee ID</p>
+                    <p id="empId" class="readonly-text">98t5</p>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-6 mb-3">
+                    <p class="profile-label text-sub">Email ID</p>
+                    <p id="emailId" class="readonly-text">john008@gmail.com</p>
+                  </div>
+                  <div class="col-6 mb-3">
+                    <p class="profile-label text-sub">Designation</p>
+                    <p id="Designation" class="readonly-text">Developer</p>
+                  </div>
+                </div>
+
+                <div class="text-start mt-3">
+                  <button id="changePasswordBtn" class="btn-change">
+                    <i class="fa-solid fa-key mr-2"></i>Change Password
+                  </button>
+                </div>
+              </div>
+
+              <!-- Password Section -->
+              <div id="passwordSection" class="slide-section hidden-section">
+                <h6 class="fw-bold mb-3 text-sub"><i class="fa-solid fa-key mr-2"></i>Change Password</h6>
+                <hr>
+                <form id="passwordForm" class="mt-3">
+                  <div class="mb-3">
+                    <label for="newPassword" class="form-label">New Password</label>
+                    <input type="password" class="form-control" id="newPassword" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="confirmPassword" class="form-label">Confirm Password</label>
+                    <input type="password" class="form-control" id="confirmPassword" required>
+                  </div>
+
+                  <div class="text-start mt-3">
+                    <button type="button" class="btn-change" id="backToProfile">
+                      <i class="fa-solid fa-arrow-left mr-2"></i>Back
+                    </button>
+                      <button  type="button"  class="btn-green btn-change"  id="savePassword"><i class="fa-solid fa-key mr-2"></i>Save Password</button>
+                  </div>
+                </form>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- !profile Model end  -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- Warning Section Starts -->
+
+    <div id="pcoded-container" class="pcoded">
+        <div class="pcoded-innenr-content">
+
+        </div>
+    </div>
+    <script src="assets/js/roleUtil.js"></script>
+
+    <!-- Required jQuery -->
+    <script type="text/javascript" src="assets/js/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="assets/js/jquery-ui/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="assets/js/popper.js/popper.min.js"></script>
+    <script type="text/javascript" src="assets/js/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
+    <!-- jQuery and DataTables JS -->
+           <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+    <!-- DataTables Buttons Extension JS -->
+    <script src="https://cdn.datatables.net/buttons/2.1.0/js/dataTables.buttons.min.js"></script>
+
+    Buttons for Excel, CSV, and PDF
+    <script src="https://cdn.datatables.net/buttons/2.1.0/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js"></script>
+
+    <!-- Excel export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+
+    <!-- JSZip for Excel export -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script> -->
+
+    <!-- pdfMake for PDF export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+
+    <!-- DataTables Buttons CSS -->
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.datatables.net/buttons/2.1.0/css/buttons.dataTables.min.css"> -->
+
+    <!-- Toastr and other scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="assets/pages/waves/js/waves.min.js"></script>
+    <script type="text/javascript" src="assets/js/jquery-slimscroll/jquery.slimscroll.js"></script>
+    <script src="assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="assets/js/pcoded.min.js"></script>
+    <script src="assets/js/vertical/vertical-layout.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <!-- Custom scripts -->
+    <script type="module" src="./assets/js/axiosInstance.js"></script>
+    <script src="assets/js/popup.js"></script>
+
+    <script src="assets/js/LeaveManage.js"></script>
+    <script type="text/javascript" src="assets/js/script.js"></script>
+    <script src="assets/js/api.js"></script>
+    <script src="assets/js/apiRequests.js"></script>
+
+
+
+</body>
+
+</html>
