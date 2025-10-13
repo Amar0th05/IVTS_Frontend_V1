@@ -44,19 +44,19 @@
 
 
     <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css"> -->
-    <style>
-        #policyTable{
+       <style>
+        /* #policyTable{
             border-radius: 5px;
-        }
+        } */
     .hidden {
       display: none !important;
     }
-    .addNewRecord{
+    /* .addNewRecord{
       all:unset;
       color: white !important;
       padding: 10px 10px !important;
       background: linear-gradient(135deg, #4931d1, #7f86f3);
-    }
+    } */
 
 .dropdownPopup .list-group-item:hover,
 .dropdownPopup .list-group-item.active {
@@ -78,10 +78,86 @@
     border-bottom-left-radius: 0 !important;
   }
 
-  /* gray background for select */
-  .bg-light {
-    background-color: #f1f1f1 !important;
-  }
+
+  .btn-excel {
+      background-color: #28a745 !important;
+    }
+
+    .btn-excel:hover {
+      background-color: #1e7e34 !important;
+    }
+
+    .btn-pdf {
+      background-color: #dc3545 !important;
+    }
+
+    .btn-pdf:hover {
+      background-color: #a71d2a !important;
+    }
+
+    .btn-green {
+      background: linear-gradient(to bottom right, #34D399, #059669);
+      border: none;
+      color: white;
+
+    }
+
+    .btn-red {
+      background: linear-gradient(to bottom right, #EF4444, #B91C1C);
+      border: none;
+      color: white;
+    }
+
+    .btn-red:hover {
+      background: linear-gradient(to bottom right, #dc3545, #a71d2a);
+    }
+
+    .btn-green:hover {
+      background: linear-gradient(to bottom right, #28a745, #1e7e34);
+
+    }
+
+</style>
+<style>
+.download-btn {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+}
+
+/* Shared icon styles */
+.download-btn i {
+  position: absolute;
+  font-size: 25px;
+  color: #264AAA;
+  transition: all 0.3s ease;
+}
+
+/* Show QR by default */
+.qr-icon {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Hide download icon initially */
+.download-icon {
+  opacity: 0;
+  transform: scale(0);
+}
+
+/* Hover effect — QR fades out, download fades in */
+.download-btn:hover .qr-icon {
+  opacity: 0;
+  transform: scale(0);
+}
+
+.download-btn:hover .download-icon {
+  opacity: 1;
+  transform: scale(1);
+    color: #26aa47;
+
+}
 </style>
 
 </head>
@@ -183,7 +259,7 @@
                 </a>
                 <ul class="show-notification profile-notification">
                   <li class="waves-effect waves-light">
-                    <a href="user-profile.html">
+                                        <a href="#!" data-bs-toggle="modal" data-bs-target="#profileDetailsModal">
                       <i class="fa-solid fa-id-card"></i> Profile
                     </a>
                   </li>
@@ -210,7 +286,7 @@
                 <div class="main-menu-content">
                   <ul>
                     <li class="more-details">
-                      <a href="user-profile.html"><i class="ti-user"></i>View Profile</a>
+                                          <a href="#!" data-bs-toggle="modal" data-bs-target="#profileDetailsModal"><i class="ti-user"></i>View Profile</a>
                       <!-- <a href="#!"><i class="ti-settings"></i>Settings</a> -->
                       <a href="login.html"><i class="ti-layout-sidebar-left"></i>Logout</a>
                     </li>
@@ -668,9 +744,9 @@
                                                             </button>
                                                         </div>
 
-                                                        <!-- <div class="mb-3 p-3 rounded shadow shadow-sm filter">
+                                                        <div class="mb-3 p-3 rounded shadow shadow-sm filter">
                                                             <div class="row g-3">
-                                                                <div class="col-md-6">
+                                                                <div class="col-md-4">
                                                                     <div class="d-flex flex-column">
                                                                         <label for="designationFilter" class="text-muted small mb-1">Designation</label>
                                                                         <select id="designationFilter" class="form-select form-select-sm border-secondary">
@@ -682,7 +758,7 @@
                                                                     </div>
                                                                 </div>
                                                         
-                                                                <div class="col-md-6">
+                                                                <div class="col-md-4">
                                                                     <div class="d-flex flex-column">
                                                                         <label for="locationFilter" class="text-muted small mb-1">Location</label>
                                                                         <select id="locationFilter" class="form-select form-select-sm border-secondary">
@@ -690,14 +766,22 @@
                                                                         </select>
                                                                     </div>
                                                                 </div>
+                                                                <div class="col-md-4">
+                                                                    <div class="d-flex flex-column">
+                                                                        <label for="statusFilter" class="text-muted small mb-1">Status</label>
+                                                                        <select id="statusFilter" class="form-select form-select-sm border-secondary">
+                                                                            <option value="">Show all</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
                                                             </div>
-                                                        </div> -->
+                                                        </div>
 
                                                         <div class="row">
                                                             <div id="exportButtons" class="mb-3">
-                                                                <button onclick="fetchDataAndGenerateExcel()" class="dt-button">
+                                                                <!-- <button onclick="fetchDataAndGenerateExcel()" class="dt-button">
                                                                     Download All Data
-                                                                </button>
+                                                                </button> -->
                                                             </div>
                                                         </div>
                                                         <div class="d-flex justify-content-center align-items-center">
@@ -706,10 +790,10 @@
                                                                 
                                                                 
                                                                 <table id="myTable"
-                                                                    class="table table-striped rounded table-hover">
+                                                                    class="table-modern table-striped rounded table-hover">
                                                                     <thead class="bg-primary text-white text-center">
                                                                         <tr>
-                                                                            <th>S.No</th>
+                                                                          <th>S.No</th>
                                                                             <th>Serial No</th>
                                                                             <th>Asset ID</th>
                                                                             <th>Category</th>
@@ -717,8 +801,9 @@
                                                                             <th>User Name</th>
                                                                             <th>Department</th>
                                                                             <th>Status</th>
-                                                                            <!-- <th>Actions</th> -->
+                                                                            <th>Bar Code</th>
                                                                              <th>Update</th>
+
                                                                             
                                                                         </tr>
                                                                     </thead>
@@ -736,6 +821,107 @@
                                                 </div>
                                             </div>
                                         </div>
+                                                           <!-- PROFILE MODAL -->
+                  <div class="modal fade" id="profileDetailsModal" tabindex="-1" aria-labelledby="profileDetailsLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+
+      <!-- HEADER -->
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title">
+          <i class="fa-solid fa-user me-2"></i>
+          <span id="modalTitle">Profile Details</span>
+        </h5>
+        <button type="button"
+          class="d-flex align-items-center btn-close justify-content-center p-0"
+          style="width:32px; height:32px;background-color: transparent !important; border: transparent; cursor: pointer;"
+          data-bs-dismiss="modal" aria-label="Close">
+          <i class="fa-solid fa-xmark text-white"></i>
+        </button>
+      </div>
+
+      <!-- BODY -->
+      <div class="modal-body">
+        <div class="card border-0">
+          <div id="slideContainer" class="slide-container">
+
+            <!-- Left Profile Panel -->
+            <div id="profilePanel" class="col-md-4 gradient-custom text-center d-flex flex-column align-items-center justify-content-center p-4 profile-left">
+              <img id="profileImage"
+                   alt="Avatar" class="img-fluid rounded-circle mb-3" style="width: 100px;">
+              <h5 id="profileName" class="fw-bold mb-1">John</h5>
+              <p id="profileRole" class="mb-2">Web Developer</p>
+            </div>
+
+            <!-- Right Panel -->
+            <div class="col-md-8 position-relative p-4">
+
+              <!-- Profile Section -->
+              <div id="profileSection" class="slide-section visible-section">
+                <h6 class="fw-bold text-sub mb-3">Personal Information</h6>
+                <hr class="mt-0 mb-3">
+
+                <div class="row">
+                  <div class="col-6 mb-3">
+                    <p class="profile-label text-sub">Name</p>
+                    <p id="firstName" class="readonly-text">john</p>
+                  </div>
+                  <div class="col-6 mb-3">
+                    <p class="profile-label text-sub">Employee ID</p>
+                    <p id="empId" class="readonly-text">98t5</p>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-6 mb-3">
+                    <p class="profile-label text-sub">Email ID</p>
+                    <p id="emailId" class="readonly-text">john008@gmail.com</p>
+                  </div>
+                  <div class="col-6 mb-3">
+                    <p class="profile-label text-sub">Designation</p>
+                    <p id="Designation" class="readonly-text">Developer</p>
+                  </div>
+                </div>
+
+                <div class="text-start mt-3">
+                  <button id="changePasswordBtn" class="btn-change">
+                    <i class="fa-solid fa-key mr-2"></i>Change Password
+                  </button>
+                </div>
+              </div>
+
+              <!-- Password Section -->
+              <div id="passwordSection" class="slide-section hidden-section">
+                <h6 class="fw-bold mb-3 text-sub"><i class="fa-solid fa-key mr-2"></i>Change Password</h6>
+                <hr>
+                <form id="passwordForm" class="mt-3">
+                  <div class="mb-3">
+                    <label for="newPassword" class="form-label">New Password</label>
+                    <input type="password" class="form-control" id="newPassword" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="confirmPassword" class="form-label">Confirm Password</label>
+                    <input type="password" class="form-control" id="confirmPassword" required>
+                  </div>
+
+                  <div class="text-start mt-3">
+                    <button type="button" class="btn-change" id="backToProfile">
+                      <i class="fa-solid fa-arrow-left mr-2"></i>Back
+                    </button>
+                      <button  type="button"  class="btn-green btn-change"  id="savePassword"><i class="fa-solid fa-key mr-2"></i>Save Password</button>
+                  </div>
+                </form>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- !profile Model end  -->
                                     </div>
                                 </div>
                             </div>
@@ -770,6 +956,8 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
 
 <!-- jQuery and DataTables JS -->
+       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 
 <!-- DataTables Buttons Extension JS -->
