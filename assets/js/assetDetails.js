@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       case "desktop & monitor":
         formId = "desktopForm";
         break;
-      case "server & storage":
+      case "Server & Storage":
         formId = "serverForm";
         break;
       case "printer & scanner":

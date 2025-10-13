@@ -44,47 +44,120 @@
 
 
     <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css"> -->
-    <style>
-        #policyTable {
+        <style>
+        /* #policyTable{
             border-radius: 5px;
-        }
+        } */
+    .hidden {
+      display: none !important;
+    }
+    /* .addNewRecord{
+      all:unset;
+      color: white !important;
+      padding: 10px 10px !important;
+      background: linear-gradient(135deg, #4931d1, #7f86f3);
+    } */
 
-        .hidden {
-            display: none !important;
-        }
-
-        .addNewRecord {
-            all: unset;
-            color: white !important;
-            padding: 10px 10px !important;
-            background: linear-gradient(135deg, #4931d1, #7f86f3);
-        }
-
-        .dropdownPopup .list-group-item:hover,
-        .dropdownPopup .list-group-item.active {
-            background-color: #007bff;
-            color: #fff;
-            cursor: pointer;
-        }
+.dropdownPopup .list-group-item:hover,
+.dropdownPopup .list-group-item.active {
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+}
 
 
-        /* remove right border-radius from input */
-        .no-radius-end {
-            border-top-right-radius: 0 !important;
-            border-bottom-right-radius: 0 !important;
-        }
+  /* remove right border-radius from input */
+  .no-radius-end {
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+  }
 
-        /* remove left border-radius from select */
-        .no-radius-start {
-            border-top-left-radius: 0 !important;
-            border-bottom-left-radius: 0 !important;
-        }
+  /* remove left border-radius from select */
+  .no-radius-start {
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+  }
 
-        /* gray background for select */
-        .bg-light {
-            background-color: #f1f1f1 !important;
-        }
-    </style>
+
+  .btn-excel {
+      background-color: #28a745 !important;
+    }
+
+    .btn-excel:hover {
+      background-color: #1e7e34 !important;
+    }
+
+    .btn-pdf {
+      background-color: #dc3545 !important;
+    }
+
+    .btn-pdf:hover {
+      background-color: #a71d2a !important;
+    }
+
+    .btn-green {
+      background: linear-gradient(to bottom right, #34D399, #059669);
+      border: none;
+      color: white;
+
+    }
+
+    .btn-red {
+      background: linear-gradient(to bottom right, #EF4444, #B91C1C);
+      border: none;
+      color: white;
+    }
+
+    .btn-red:hover {
+      background: linear-gradient(to bottom right, #dc3545, #a71d2a);
+    }
+
+    .btn-green:hover {
+      background: linear-gradient(to bottom right, #28a745, #1e7e34);
+
+    }
+</style>
+<style>
+.download-btn {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+}
+
+/* Shared icon styles */
+.download-btn i {
+  position: absolute;
+  font-size: 25px;
+  color: #264AAA;
+  transition: all 0.3s ease;
+}
+
+/* Show QR by default */
+.qr-icon {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Hide download icon initially */
+.download-icon {
+  opacity: 0;
+  transform: scale(0);
+}
+
+/* Hover effect — QR fades out, download fades in */
+.download-btn:hover .qr-icon {
+  opacity: 0;
+  transform: scale(0);
+}
+
+.download-btn:hover .download-icon {
+  opacity: 1;
+  transform: scale(1);
+    color: #26aa47;
+
+}
+</style>
 
 </head>
 
@@ -933,42 +1006,44 @@
                                                                 </button>
                                                             </div>
 
-                                                            <!-- <div class="mb-3 p-3 rounded shadow shadow-sm filter">
-                                                                <div class="row g-3">
-                                                                    <div class="col-md-6">
-                                                                        <div class="d-flex flex-column">
-                                                                            <label for="designationFilter"
-                                                                                class="text-muted small mb-1">Designation</label>
-                                                                            <select id="designationFilter"
-                                                                                class="form-select form-select-sm border-secondary">
-                                                                                <option value="">Show all</option>
-                                                                                <option value="Full Stack Development">
-                                                                                    Full Stack Development</option>
-                                                                                <option value=""></option>
-
-                                                                            </select>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="col-md-6">
-                                                                        <div class="d-flex flex-column">
-                                                                            <label for="locationFilter"
-                                                                                class="text-muted small mb-1">Location</label>
-                                                                            <select id="locationFilter"
-                                                                                class="form-select form-select-sm border-secondary">
-                                                                                <option value="">Show all</option>
-                                                                            </select>
-                                                                        </div>
+                                                                <div class="mb-3 p-3 rounded shadow shadow-sm filter">
+                                                            <div class="row g-3">
+                                                                <div class="col-md-4">
+                                                                    <div class="d-flex flex-column">
+                                                                        <label for="designationFilter" class="text-muted small mb-1">Designation</label>
+                                                                        <select id="designationFilter" class="form-select form-select-sm border-secondary">
+                                                                            <option value="">Show all</option>
+                                                                            <option value="Full Stack Development">Full Stack Development</option>
+                                                                            <option value=""></option>
+                                                                            
+                                                                        </select>
                                                                     </div>
                                                                 </div>
-                                                            </div> -->
-
+                                                        
+                                                                <div class="col-md-4">
+                                                                    <div class="d-flex flex-column">
+                                                                        <label for="locationFilter" class="text-muted small mb-1">Location</label>
+                                                                        <select id="locationFilter" class="form-select form-select-sm border-secondary">
+                                                                            <option value="">Show all</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <div class="d-flex flex-column">
+                                                                        <label for="statusFilter" class="text-muted small mb-1">Status</label>
+                                                                        <select id="statusFilter" class="form-select form-select-sm border-secondary">
+                                                                            <option value="">Show all</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                             <div class="row">
                                                                 <div id="exportButtons" class="mb-3">
-                                                                    <button onclick="fetchDataAndGenerateExcel()"
+                                                                    <!-- <button onclick="fetchDataAndGenerateExcel()"
                                                                         class="dt-button">
                                                                         Download All Data
-                                                                    </button>
+                                                                    </button> -->
                                                                 </div>
                                                             </div>
                                                             <div
@@ -978,22 +1053,25 @@
 
 
                                                                     <table id="myTable"
-                                                                        class="table table-striped rounded table-hover">
+                                                                        class="table-modern table-striped rounded table-hover">
                                                                         <thead
                                                                             class="bg-primary text-white text-center">
                                                                             <tr>
-                                                                                <th>S.No</th>
-                                                                                <th>Serial No</th>
-                                                                                <th>Asset ID</th>
-                                                                                <th>Category</th>
-                                                                                <th>Vendor Name</th>
-                                                                                <th>User Name</th>
-                                                                                <th>Department</th>
-                                                                                <th>Status</th>
-                                                                                <!-- <th>Actions</th> -->
-                                                                                <th>Update</th>
+                                                                          <th>S.No</th>
+                                                                            <th>Serial No</th>
+                                                                            <th>Asset ID</th>
+                                                                            <th>Category</th>
+                                                                            <th>Vendor Name</th>
+                                                                            <th>User Name</th>
+                                                                            <th>Department</th>
+                                                                            <th>Status</th>
+                                                                            <th>Bar Code</th>
 
-                                                                            </tr>
+                                                                            <!-- <th>Actions</th> -->
+                                                                             <th>Update</th>
+
+                                                                            
+                                                                        </tr>
                                                                         </thead>
                                                                         <tbody>
 

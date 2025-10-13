@@ -137,6 +137,7 @@ function addRow(data) {
           data-assets-id="${data.assetId}"
           onclick="downloadBarcode('${data.assetId}')">
   
+          
     <i class="fa-solid fa-qrcode qr-icon"></i>
 
     <!-- Download icon (hidden until hover) -->

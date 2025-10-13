@@ -74,14 +74,8 @@ addLogButton.addEventListener('click', async (e) => {
     
     data['currentDesignation'] = parseInt(data['designationSelect'], 10);
     if (validateForm(formData)) {
-        try {
-            // const response = await axiosInstance.post(API_ROUTES.contractLogs, {
-            //     data: data
-            // });
-            
-            
+        try {    
             await api.addContractLog(data);
-            // console.log(data);
             table.clear();
             await fetchAllData();
             showPopupFadeInDown("contract log added successfully!");
@@ -235,9 +229,10 @@ function validateForm(formData) {
     const basicPay = formData.get('basicPay')?.trim();
     const allowance = formData.get('allowance')?.trim();
     const grossPay=formData.get('grossPay')?.trim();
-   
- 
 
+    if(!staffID){
+        showErrorPopupFadeInDown('add Staff id')
+    }
     
     if (contractStartDate && contractEndDate) {
         if (new Date(contractStartDate) >= new Date(contractEndDate)) {
