@@ -341,96 +341,6 @@
 
           </nav>
 <!-- 🔹 Reset Password Modal -->
-<div class="modal fade" id="updatePasswordModal" tabindex="-1"
-     role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      <!-- Modal Header -->
-      <div class="modal-header">
-        <h5 class="modal-title" id="updateModalLabel">Reset Password</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-
-      <!-- Modal Body -->
-      <div class="modal-body">
-        <form id="updatePasswordForm">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="form-group">
-                <label for="update-password">New Password</label>
-                <input type="password" class="form-control form-control-sm"
-                       id="update-password" name="password" placeholder="Password" required>
-              </div>
-            </div>
-            <div class="col-md-12">
-              <div class="form-group">
-                <label for="update-confirmPassword">Confirm Password</label>
-                <input type="password" class="form-control form-control-sm"
-                       id="update-confirmPassword" name="confirmPassword" placeholder="Confirm Password" required>
-              </div>
-            </div>
-          </div>
-        </form>
-      </div>
-
-      <!-- Modal Footer -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Exit</button>
-        <button type="button" class="btn btn-success btn-sm" id="reset_password_btn">Submit</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- 🔹 Script -->
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const resetPasswordButton = document.getElementById("reset_password_btn");
-
-    resetPasswordButton.addEventListener("click", async () => {
-      const password = document.getElementById("update-password").value.trim();
-      const confirmPassword = document.getElementById("update-confirmPassword").value.trim();
-
-      // Validation
-      if (!password || !confirmPassword) {
-        toastr.error("Please fill in all password fields");
-        return;
-      }
-
-      if (password !== confirmPassword) {
-        toastr.error("Passwords do not match");
-        return;
-      }
-
-      // 🔹 Fetch email ID from navbar span
-      const email = document.getElementById("mail")?.innerText?.trim();
-
-      if (!email) {
-        toastr.error("Email not found. Please re-login.");
-        return;
-      }
-
-      const data = {
-        email: email,
-        password: password
-      };
-
-      try {
-        // 🔹 API call (adjust endpoint to match backend)
-        const response = await axiosInstance.put("/user/updatePassword", data);
-
-        toastr.success(response.data?.message || "Password updated successfully");
-        document.getElementById("updatePasswordForm").reset();
-        $("#updatePasswordModal").modal("hide");
-      } catch (err) {
-        console.error("Error updating password:", err);
-        toastr.error(err.response?.data?.message || "Failed to update password. Please try again later.");
-      }
-    });
-  });
-</script>
 
 
           <div class="pcoded-content">
@@ -451,7 +361,7 @@
                       <li class="breadcrumb-item">
                         <a href="index.html"> <i class="fa fa-home"></i> </a>
                       </li>
-                      <li class="breadcrumb-item"><a href="#!">Dashboard</a>
+                      <li class="breadcrumb-item"><a href="index.html">Dashboard</a>
                       </li>
                     </ul>
                   </div>

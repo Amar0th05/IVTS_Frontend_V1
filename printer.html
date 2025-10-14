@@ -42,7 +42,6 @@
 
 
 
-
     <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css"> -->
        <style>
         /* #policyTable{
@@ -66,6 +65,9 @@
 }
 
 
+  .row>[class*="col-"] {
+      margin-bottom: 15px;
+    }
   /* remove right border-radius from input */
   .no-radius-end {
     border-top-right-radius: 0 !important;
@@ -345,381 +347,299 @@
                                                        
  <!-----------------------------------------------ADD-NEW-MODAl-START--------------------------------------------------------------------->
                                                       
-                                                        <div>
-                                                            
-                                                            <div class="d-none" id="tab">
-                                                               <div class="tab-content mt-3">
+                                                       <div>
+  <div class="d-none" id="tab">
+    <div class="tab-content mt-3">
 
-                                                                <!-- Printer and Scanners -->
-                                                                <div class="tab-pane fade show active " id="tab1">
-                                                                    <!-- Modal Header -->
-                                                                    
-                                                        
-                                                                    <!-- Modal Body -->
-                                                                    <div class="modal-body">
-                                                                        <form id="printer_add_form">
-    <div class="row">
-        <!-- User Name -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="userName1">User Name <span class="text-danger">*</span></label>
-                <select id="userName1" name="userName"
-                    class="form-control form-control-sm userName" style="width:100%;" required>
-                    <option value="">StaffId</option>
-                </select>
+      <!-- 🖨️ Printer and Scanner -->
+      <div class="tab-pane fade show active" id="tab1">
+        <div class="modal-body bg-light rounded-3 shadow-sm p-3">
+          <form id="printer_add_form">
+
+            <!-- 👤 User & Device Details -->
+            <div class="card border-0 shadow-sm mb-3 rounded-3">
+              <div class="card-body">
+                <h6 class="text-sub fw-semibold mb-3">
+                  <i class="fa-solid fa-print mr-2 "></i> Printer / Scanner Information
+                </h6>
+
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <label for="userName1" class="form-label fw-semibold">User Name <span class="text-danger">*</span></label>
+                    <select id="userName1" name="userName"
+                      class="form-control form-control-sm userName" style="width:100%;" required>
+                      <option value="">StaffId</option>
+                    </select>
+                  </div>
+
+                  <div class="col-md-6">
+                    <label for="modelNo" class="form-label fw-semibold">Model No <span class="text-danger">*</span></label>
+                    <input type="text" name="Model_No" class="form-control form-control-sm" id="modelNo"
+                      placeholder="Enter Model No" required>
+                  </div>
+
+                  <div class="col-md-6">
+                    <label for="serialNo" class="form-label fw-semibold">Serial No <span class="text-danger">*</span></label>
+                    <input type="text" name="Serial_No" class="form-control form-control-sm" id="serialNo"
+                      placeholder="Enter Serial No" required>
+                  </div>
+                </div>
+              </div>
             </div>
+
+            <!-- 🌐 Network Configuration -->
+            <div class="card border-0 shadow-sm mb-3 rounded-3">
+              <div class="card-body">
+                <h6 class="text-sub fw-semibold mb-3">
+                  <i class="fa-solid fa-network-wired mr-2"></i> Network Configuration
+                </h6>
+
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <label for="ipAddress" class="form-label fw-semibold">IP Address <span class="text-danger">*</span></label>
+                    <input type="text" name="IP_Address" class="form-control form-control-sm" id="ipAddress"
+                      placeholder="Enter IP Address" required>
+                  </div>
+
+                  <div class="col-md-6">
+                    <label for="macAddress" class="form-label fw-semibold">MAC Address <span class="text-danger">*</span></label>
+                    <input type="text" name="MAC_Address" class="form-control form-control-sm" id="macAddress"
+                      placeholder="Enter MAC Address" required>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 💰 Purchase / Vendor Details -->
+            <div class="card border-0 shadow-sm mb-3 rounded-3">
+              <div class="card-body">
+                <h6 class="text-sub fw-semibold mb-3">
+                  <i class="fa-solid fa-file-invoice-dollar mr-2 text-warning"></i> Purchase & Vendor Details
+                </h6>
+
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <label for="projectNo" class="form-label fw-semibold">Project No <span class="text-danger">*</span></label>
+                    <input type="text" name="Project_No" class="form-control form-control-sm" id="projectNo"
+                      placeholder="Enter Project No" required>
+                  </div>
+
+                  <div class="col-md-6">
+                    <label for="poNo" class="form-label fw-semibold">PO No <span class="text-danger">*</span></label>
+                    <input type="text" name="PO_No" class="form-control form-control-sm" id="poNo"
+                      placeholder="Enter PO No" required>
+                  </div>
+
+                  <div class="col-md-6">
+                    <label for="poDate" class="form-label fw-semibold">PO Date <span class="text-danger">*</span></label>
+                    <input type="date" name="PO_Date" class="form-control form-control-sm" id="poDate" required>
+                  </div>
+
+                  <div class="col-md-6">
+                    <label for="vendorName" class="form-label fw-semibold">Vendor Name <span class="text-danger">*</span></label>
+                    <input type="text" name="Vendor_Name" class="form-control form-control-sm" id="vendorName"
+                      placeholder="Enter Vendor Name" required>
+                  </div>
+
+                  <div class="col-md-6">
+                    <label for="invoiceNo" class="form-label fw-semibold">Invoice No <span class="text-danger">*</span></label>
+                    <input type="text" name="Invoice_No" class="form-control form-control-sm" id="invoiceNo"
+                      placeholder="Enter Invoice No" required>
+                  </div>
+
+                  <div class="col-md-6">
+                    <label for="invoiceDate" class="form-label fw-semibold">Invoice Date <span class="text-danger">*</span></label>
+                    <input type="date" name="Invoice_Date" class="form-control form-control-sm" id="invoiceDate" required>
+                  </div>
+
+                  <div class="col-md-6">
+                    <label for="srb" class="form-label fw-semibold">SRB <span class="text-danger">*</span></label>
+                    <input type="text" name="SRB" class="form-control form-control-sm" id="srb"
+                      placeholder="Enter SRB No" required>
+                  </div>
+
+                  <div class="col-md-12">
+                    <label for="remarks" class="form-label fw-semibold">Remarks <span class="text-danger">*</span></label>
+                    <textarea class="form-control form-control-sm" id="remarks" name="Remarks" rows="2"
+                      placeholder="Enter Remarks" required></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </form>
         </div>
 
-        <!-- Model No -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="modelNo">Model No <span class="text-danger">*</span></label>
-                <input type="text" name="Model_No" class="form-control form-control-sm"
-                    id="modelNo" placeholder="Enter Model No" required>
-            </div>
+        <!-- Modal Footer -->
+        <div class="modal-footer bg-white border-top rounded-bottom">
+          <button type="button" class="btn btn-red btn-sm text-white" data-dismiss="modal" id="exitButton">
+            <i class="fa-solid fa-xmark me-1"></i> Exit
+          </button>
+          <button type="submit" class="btn btn-green btn-sm text-white" id="add_printer_btn" data-dismiss="modal">
+            <i class="fa-solid fa-circle-check me-1"></i> Submit Printer
+          </button>
         </div>
+      </div>
+
     </div>
-
-
-    <hr>
-    <!-- Networking Details -->
-    <div class="row">
-
-
-        <!-- IP Address -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="ipAddress">IP Address <span class="text-danger">*</span></label>
-                <input type="text" name="IP_Address" class="form-control form-control-sm"
-                    id="ipAddress" placeholder="Enter IP Address" required>
-            </div>
-        </div>
-
-        
-        <!-- MAC Address -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="macAddress">MAC Address <span class="text-danger">*</span></label>
-                <input type="text" name="MAC_Address" class="form-control form-control-sm"
-                    id="macAddress" placeholder="Enter MAC Address" required>
-            </div>
-        </div>
-    </div>
-
-
-
-    <hr>
-    <!-- Purchase / Vendor Details -->
-    <div class="row">
-        <!-- Project No -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="projectNo">Project No <span class="text-danger">*</span></label>
-                <input type="text" name="Project_No" class="form-control form-control-sm"
-                    id="projectNo" placeholder="Enter Project No" required>
-            </div>
-        </div>
-
-        <!-- PO No -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="poNo">PO No <span class="text-danger">*</span></label>
-                <input type="text" name="PO_No" class="form-control form-control-sm"
-                    id="poNo" placeholder="Enter PO No" required>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <!-- PO Date -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="poDate">PO Date <span class="text-danger">*</span></label>
-                <input type="date" name="PO_Date" class="form-control form-control-sm"
-                    id="poDate" required>
-            </div>
-        </div>
-
-        <!-- Vendor Name -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="vendorName">Vendor Name <span class="text-danger">*</span></label>
-                <input type="text" name="Vendor_Name" class="form-control form-control-sm"
-                    id="vendorName" placeholder="Enter Vendor Name" required>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <!-- Invoice No -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="invoiceNo">Invoice No <span class="text-danger">*</span></label>
-                <input type="text" name="Invoice_No" class="form-control form-control-sm"
-                    id="invoiceNo" placeholder="Enter Invoice No" required>
-            </div>
-        </div>
-
-        <!-- Invoice Date -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="invoiceDate">Invoice Date <span class="text-danger">*</span></label>
-                <input type="date" name="Invoice_Date" class="form-control form-control-sm"
-                    id="invoiceDate" required>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <!-- SRB -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="srb">SRB <span class="text-danger">*</span></label>
-                <input type="text" name="SRB" class="form-control form-control-sm"
-                    id="srb" placeholder="Enter SRB No" required>
-            </div>
-        </div>
-
-                <!-- Serial No -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="serialNo">Serial No <span class="text-danger">*</span></label>
-                <input type="text" name="Serial_No" class="form-control form-control-sm"
-                    id="serialNo" placeholder="Enter Serial No" required>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <!-- Remarks -->
-        <div class="col-md-12">
-            <div class="form-group">
-                <label for="remarks">Remarks <span class="text-danger">*</span></label>
-                <textarea class="form-control form-control-sm" id="remarks" name="Remarks"
-                    rows="2" placeholder="Enter Remarks" required></textarea>
-            </div>
-        </div>
-    </div>
-</form>
-
-
-
-
-                                                                    </div>
-
-                                                                    <!-- model Footer -->
-                                                                    <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-danger" data-dismiss="modal" id="exitButton">Exit</button>
-                                                                    <button type="submit" class="btn btn-success" id="add_printer_btn" data-dismiss="modal">Submit Desktop</button>
-                                                                    </div> 
-                                                        
-                                                                    <!-- Modal Footer -->
-                                                                    
-                                                                </div>
- 
- 
-                                                               </div>
-                                                            </div>
-                                                        </div>
+  </div>
+</div>
 
 <!---------------------------------------------------------------------------------------------ADD-NEW-MODAL-END---------------------------------------------------->
  <!-----------------------------------------------UPDATE-MODAl-START--------------------------------------------------------------------->
                                                       
  <div>
- <div class="d-none" id="tabWrapper">
-        <div class="tab-content mt-3">
-            <div class="tab-pane fade show active " id="tab4">
-             <!-- Modal Body -->
-             <div class="modal-body">
-        <form id="update-asset-form">
-  <div class="row">
-    <!-- Asset ID -->
-    <div class="col-md-6">
-      <div class="form-group">
-        <label for="assetId">Asset ID <span class="text-danger">*</span></label>
-        <input type="text" name="Asset_ID" maxlength="20"
-               class="form-control form-control-sm" id="assetId"
-               placeholder="Enter Asset ID" required readonly>
-      </div>
-    </div>
+  <div class="d-none" id="tabWrapper">
+    <div class="tab-content mt-3">
+      <div class="tab-pane fade show active" id="tab4">
 
-    <!-- Category -->
-    <div class="col-md-6">
-      <div class="form-group">
-        <label for="category">Category <span class="text-danger">*</span></label>
-        <input type="text" name="Category" maxlength="50"
-               class="form-control form-control-sm" id="category"
-               placeholder="Enter Category" required readonly>
-      </div>
-    </div>
-  </div>
+        <!-- Modal Body -->
+        <div class="modal-body bg-light rounded-3 shadow-sm p-3">
+          <form id="update-asset-form">
 
-  <div class="row">
-    <!-- User Name (Staff ID Select) -->
-    <div class="col-md-6">
-      <div class="form-group">
-        <label for="userName2">User Name <span class="text-danger">*</span></label>
-        <select id="userName2" name="userName"
-                class="form-control form-control-sm userName"
-                style="width:100%;" required>
-          <option value="">StaffId</option>
-        </select>
-      </div>
-    </div>
+            <!-- 🧾 Basic Info -->
+            <div class="card border-0 shadow-sm mb-3 rounded-3">
+              <div class="card-body">
+                <h6 class="text-sub fw-semibold mb-3">
+                  <i class="fa-solid fa-print mr-2"></i> Printer / Scanner Information
+                </h6>
 
-    <!-- Model No -->
-    <div class="col-md-6">
-      <div class="form-group">
-        <label for="modelNo">Model No <span class="text-danger">*</span></label>
-        <input type="text" name="Model_No"
-               class="form-control form-control-sm" id="modelNo"
-               placeholder="Enter Model No" required>
-      </div>
-    </div>
-  </div>
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <label for="assetId" class="form-label fw-semibold">Asset ID <span class="text-danger">*</span></label>
+                    <input type="text" name="Asset_ID" maxlength="20"
+                      class="form-control form-control-sm" id="assetId"
+                      placeholder="Enter Asset ID" required readonly>
+                  </div>
 
-  <div class="row">
+                  <div class="col-md-6">
+                    <label for="category" class="form-label fw-semibold">Category <span class="text-danger">*</span></label>
+                    <input type="text" name="Category" maxlength="50"
+                      class="form-control form-control-sm" id="category"
+                      placeholder="Enter Category" required readonly>
+                  </div>
 
-    <!-- Serial No -->
-    <div class="col-md-6">
-      <div class="form-group">
-        <label for="serialNo">Serial No <span class="text-danger">*</span></label>
-        <input type="text" name="Serial_No"
-               class="form-control form-control-sm" id="serialNo"
-               placeholder="Enter Serial No" required>
-      </div>
-    </div>
-        <!-- IP Address -->
-    <div class="col-md-6">
-      <div class="form-group">
-        <label for="ipAddress">IP Address <span class="text-danger">*</span></label>
-        <input type="text" name="IP_Address"
-               class="form-control form-control-sm" id="ipAddress"
-               placeholder="Enter IP Address" required>
-      </div>
-    </div>
-  </div>
+                  <div class="col-md-6">
+                    <label for="userName2" class="form-label fw-semibold">User Name <span class="text-danger">*</span></label>
+                    <select id="userName2" name="userName"
+                      class="form-control form-control-sm userName" style="width:100%;" required>
+                      <option value="">StaffId</option>
+                    </select>
+                  </div>
 
-  <hr>
-  <div class="row">
-    <!-- MAC Address -->
-    <div class="col-md-12">
-      <div class="form-group">
-        <label for="macAddress">MAC Address <span class="text-danger">*</span></label>
-        <input type="text" name="MAC_Address"
-               class="form-control form-control-sm" id="macAddress"
-               placeholder="Enter MAC Address" required>
-      </div>
-    </div>
-  </div>
+                  <div class="col-md-6">
+                    <label for="modelNo" class="form-label fw-semibold">Model No <span class="text-danger">*</span></label>
+                    <input type="text" name="Model_No" class="form-control form-control-sm"
+                      id="modelNo" placeholder="Enter Model No" required>
+                  </div>
 
-  <hr>
-  <!-- Purchase / Vendor Details -->
-  <div class="row">
-    <!-- Project No -->
-    <div class="col-md-6">
-      <div class="form-group">
-        <label for="projectNo">Project No <span class="text-danger">*</span></label>
-        <input type="text" name="Project_No"
-               class="form-control form-control-sm" id="projectNo"
-               placeholder="Enter Project No" required>
-      </div>
-    </div>
+                  <div class="col-md-6">
+                    <label for="serialNo" class="form-label fw-semibold">Serial No <span class="text-danger">*</span></label>
+                    <input type="text" name="Serial_No" class="form-control form-control-sm"
+                      id="serialNo" placeholder="Enter Serial No" required>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-    <!-- PO No -->
-    <div class="col-md-6">
-      <div class="form-group">
-        <label for="poNo">PO No <span class="text-danger">*</span></label>
-        <input type="text" name="PO_No"
-               class="form-control form-control-sm" id="poNo"
-               placeholder="Enter PO No" required>
-      </div>
-    </div>
-  </div>
+            <!-- 🌐 Network Info -->
+            <div class="card border-0 shadow-sm mb-3 rounded-3">
+              <div class="card-body">
+                <h6 class="text-sub fw-semibold mb-3">
+                  <i class="fa-solid fa-network-wired mr-2"></i> Network Configuration
+                </h6>
 
-  <div class="row">
-    <!-- PO Date -->
-    <div class="col-md-6">
-      <div class="form-group">
-        <label for="poDate">PO Date <span class="text-danger">*</span></label>
-        <input type="date" name="PO_Date"
-               class="form-control form-control-sm" id="poDate" required>
-      </div>
-    </div>
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <label for="ipAddress" class="form-label fw-semibold">IP Address <span class="text-danger">*</span></label>
+                    <input type="text" name="IP_Address" class="form-control form-control-sm"
+                      id="ipAddress" placeholder="Enter IP Address" required>
+                  </div>
 
-    <!-- Vendor Name -->
-    <div class="col-md-6">
-      <div class="form-group">
-        <label for="vendorName">Vendor Name <span class="text-danger">*</span></label>
-        <input type="text" name="Vendor_Name"
-               class="form-control form-control-sm" id="vendorName"
-               placeholder="Enter Vendor Name" required>
-      </div>
-    </div>
-  </div>
+                  <div class="col-md-6">
+                    <label for="macAddress" class="form-label fw-semibold">MAC Address <span class="text-danger">*</span></label>
+                    <input type="text" name="MAC_Address" class="form-control form-control-sm"
+                      id="macAddress" placeholder="Enter MAC Address" required>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-  <div class="row">
-    <!-- Invoice No -->
-    <div class="col-md-6">
-      <div class="form-group">
-        <label for="invoiceNo">Invoice No <span class="text-danger">*</span></label>
-        <input type="text" name="Invoice_No"
-               class="form-control form-control-sm" id="invoiceNo"
-               placeholder="Enter Invoice No" required>
-      </div>
-    </div>
+            <!-- 💰 Purchase / Vendor Info -->
+            <div class="card border-0 shadow-sm mb-3 rounded-3">
+              <div class="card-body">
+                <h6 class="text-sub fw-semibold mb-3">
+                  <i class="fa-solid fa-file-invoice-dollar mr-2"></i> Purchase & Vendor Details
+                </h6>
 
-    <!-- Invoice Date -->
-    <div class="col-md-6">
-      <div class="form-group">
-        <label for="invoiceDate">Invoice Date <span class="text-danger">*</span></label>
-        <input type="date" name="Invoice_Date"
-               class="form-control form-control-sm" id="invoiceDate" required>
-      </div>
-    </div>
-  </div>
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <label for="projectNo" class="form-label fw-semibold">Project No <span class="text-danger">*</span></label>
+                    <input type="text" name="Project_No" class="form-control form-control-sm"
+                      id="projectNo" placeholder="Enter Project No" required>
+                  </div>
 
-  <div class="row">
-    <!-- SRB -->
-    <div class="col-md-12">
-      <div class="form-group">
-        <label for="srb">SRB <span class="text-danger">*</span></label>
-        <input type="text" name="SRB"
-               class="form-control form-control-sm" id="srb"
-               placeholder="Enter SRB No" required>
-      </div>
-    </div>
+                  <div class="col-md-6">
+                    <label for="poNo" class="form-label fw-semibold">PO No <span class="text-danger">*</span></label>
+                    <input type="text" name="PO_No" class="form-control form-control-sm"
+                      id="poNo" placeholder="Enter PO No" required>
+                  </div>
 
-  </div>
+                  <div class="col-md-6">
+                    <label for="poDate" class="form-label fw-semibold">PO Date <span class="text-danger">*</span></label>
+                    <input type="date" name="PO_Date" class="form-control form-control-sm"
+                      id="poDate" required>
+                  </div>
 
-  <div class="row">
-    <!-- Remarks -->
-    <div class="col-md-12">
-      <div class="form-group">
-        <label for="remarks">Remarks <span class="text-danger">*</span></label>
-        <textarea class="form-control form-control-sm"
-                  id="remarks" name="Remarks" rows="2"
-                  placeholder="Enter Remarks" required></textarea>
-      </div>
-    </div>
-  </div>
-</form>
+                  <div class="col-md-6">
+                    <label for="vendorName" class="form-label fw-semibold">Vendor Name <span class="text-danger">*</span></label>
+                    <input type="text" name="Vendor_Name" class="form-control form-control-sm"
+                      id="vendorName" placeholder="Enter Vendor Name" required>
+                  </div>
 
-             </div>
+                  <div class="col-md-6">
+                    <label for="invoiceNo" class="form-label fw-semibold">Invoice No <span class="text-danger">*</span></label>
+                    <input type="text" name="Invoice_No" class="form-control form-control-sm"
+                      id="invoiceNo" placeholder="Enter Invoice No" required>
+                  </div>
+
+                  <div class="col-md-6">
+                    <label for="invoiceDate" class="form-label fw-semibold">Invoice Date <span class="text-danger">*</span></label>
+                    <input type="date" name="Invoice_Date" class="form-control form-control-sm"
+                      id="invoiceDate" required>
+                  </div>
+
+                  <div class="col-md-6">
+                    <label for="srb" class="form-label fw-semibold">SRB <span class="text-danger">*</span></label>
+                    <input type="text" name="SRB" class="form-control form-control-sm"
+                      id="srb" placeholder="Enter SRB No" required>
+                  </div>
+
+                  <div class="col-md-12">
+                    <label for="remarks" class="form-label fw-semibold">Remarks <span class="text-danger">*</span></label>
+                    <textarea class="form-control form-control-sm" id="remarks" name="Remarks"
+                      rows="2" placeholder="Enter Remarks" required></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </form>
         </div>
 
-
+        <!-- Modal Footer -->
+        <div class="modal-footer bg-white border-top rounded-bottom">
+          <button type="button" class="btn btn-red btn-sm text-white" data-dismiss="modal" id="exitButton2">
+            <i class="fa-solid fa-xmark me-1"></i> Exit
+          </button>
+          <button type="button" id="update_printer_btn" class="btn btn-green btn-sm text-white writeElement">
+            <i class="fa-solid fa-floppy-disk me-1"></i> Update
+          </button>
         </div>
-        
 
-
-         <!-- Modal Footer -->
-         <div class="modal-footer">
-             <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal" id="exitButton2">Exit</button>
-             <button type="button" id="update_printer_btn" class="btn btn-success btn-sm writeElement">Update</button>
-         </div>
-     
- </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 
@@ -822,7 +742,7 @@
       <!-- HEADER -->
       <div class="modal-header bg-primary text-white">
         <h5 class="modal-title">
-          <i class="fa-solid fa-user me-2"></i>
+          <i class="fa-solid fa-user mr-2"></i>
           <span id="modalTitle">Profile Details</span>
         </h5>
         <button type="button"
