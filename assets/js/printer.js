@@ -114,7 +114,7 @@ function addRow(data) {
       data.category,
       data.vendorName,
       data.userName,
-      data.dept,
+      data.projectNo,
       `<div class="container">
             <div class="toggle-btn ${decidedPermission}  ${
         data.status === true ? "active" : ""

@@ -309,32 +309,33 @@ async function loadUpdateDetails(id) {
     console.log(document.querySelectorAll("#assetId"));
 
     // Asset Info
-    document.querySelectorAll("#assetId")[0].value = data.assetId;
-    document.querySelectorAll("#category")[0].value = data.category;
+    document.querySelectorAll("#assetId")[0].value = data.assetId || "";
+    document.querySelectorAll("#category")[0].value = data.category || "";
     // document.querySelectorAll("#userName2")[0].value = data.userName || "";
     // Suppose data.userName = "123 - John Doe"
-    $('#userName2').val(data.userName).trigger('change'); 
+    $('#userName2').val(data.userName).trigger('change') || ""; 
 
-    document.querySelectorAll("#modelNo")[1].value = data.modelNo;
-    document.querySelectorAll("#serialNo")[1].value = data.serialNo;
+    document.querySelectorAll("#modelNo")[1].value = data.modelNo || "";
+    document.querySelectorAll("#serialNo")[1].value = data.serialNo || "";
     // Networking
-    document.querySelectorAll("#ipAddress")[1].value = data.ipAddress;
-    document.querySelectorAll("#macAddress")[1].value = data.macAddress;
-    document.querySelectorAll("#port")[1].value = data.port;
-    document.querySelectorAll("#remarkConfig")[1].value = data.remarkConfig;
+    document.querySelectorAll("#ipAddress")[1].value = data.ipAddress || "";
+    document.querySelectorAll("#macAddress")[1].value = data.macAddress || "";
+    document.querySelectorAll("#port")[1].value = data.port || "";
 
     // Purchase / Vendor
-    document.querySelectorAll("#projectNo")[1].value = data.projectNo;
-    document.querySelectorAll("#poNo")[1].value = data.poNo;
-    document.querySelectorAll("#poDate")[1].value = formatDate(data.poDate);
-    document.querySelectorAll("#vendorName")[1].value = data.vendorName;
-    document.querySelectorAll("#invoiceNo")[1].value = data.invoiceNo;
-    document.querySelectorAll("#invoiceDate")[1].value = formatDate(data.invoiceDate);
-    document.querySelectorAll("#srb")[1].value = data.srbNo || data.srb;
+    document.querySelectorAll("#projectNo")[1].value = data.projectNo || "";
+    document.querySelectorAll("#poNo")[1].value = data.poNo || "";
+    document.querySelectorAll("#poDate")[1].value = formatDate(data.poDate) || "";
+    document.querySelectorAll("#vendorName")[1].value = data.vendorName || "";
+    document.querySelectorAll("#invoiceNo")[1].value = data.invoiceNo || "";
+    document.querySelectorAll("#invoiceDate")[1].value = formatDate(data.invoiceDate) || "";
+    document.querySelectorAll("#srb")[1].value = data.srbNo || data.srb || "";
 
     // Organization Info
     document.querySelectorAll("#dept")[1].value = data.dept;
     document.querySelectorAll("#remarks")[1].value = data.remarks;
+    document.querySelectorAll("#remarkConfig")[0].value = data.remarkConfig|| "";
+
 
   } catch (error) {
     console.error("Error loading update details:", error);
@@ -346,6 +347,13 @@ function formatDate(dateString) {
   if (!dateString) return "";
   const d = new Date(dateString);
   return d.toISOString().split("T")[0];
+}
+
+
+function formatDate(dateStr) {
+  if (!dateStr) return "";
+  let date = new Date(dateStr);
+  return date.toISOString().split("T")[0];
 }
 
 
