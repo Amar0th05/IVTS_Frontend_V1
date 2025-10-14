@@ -65,7 +65,7 @@ async function updateUserData(userData){
         // const response=await axiosInstance.put(API_ROUTES.user,{
         //     userData
         // });
-        const data=await api.updateUser(userData);
+        const data=await api.changePassword(userData);
         // if(data.message){
         //     showSucessPopupFadeInDownLong(data.message);
         // }

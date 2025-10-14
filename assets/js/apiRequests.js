@@ -39,6 +39,8 @@ const api = {
     updateContractLog: (data) => putData(API_ROUTES.contractLogs,  {data} ),
 
     resetPassword: (mail) => postData(API_ROUTES.resetPassword, { mail }),
+    changePassword: (userData) => putData(API_ROUTES.changePassword, {userData}),
+
 
     register: (userData) => postData(API_ROUTES.register, {userData}),
 
