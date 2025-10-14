@@ -32,13 +32,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     const asset = data.assets;
     const category = asset.category?.toLowerCase();
 
-    // Hide all forms first
+    // Hide all forms
     ["laptopForm", "desktopForm", "serverForm", "printerForm"].forEach((f) => {
       const el = document.getElementById(f);
       if (el) el.classList.add("hidden");
     });
 
-    // Identify form based on category
+    // Identify correct form
     let formId = "";
     switch (category) {
       case "laptop":
@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const form = document.getElementById(formId);
     if (form) form.classList.remove("hidden");
 
-    // ✅ Mapping for asset details
+    // ✅ Field mappings
     const mapping = {
       laptopForm: {
         laptopAssetId: "assetId",
@@ -116,7 +116,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       },
     };
 
-    // ✅ Mapping for purchase info fields
+    // ✅ Purchase info mapping
     const purchaseMapping = {
       projectNo: "projectNo",
       poNo: "poNo",
@@ -129,21 +129,34 @@ document.addEventListener("DOMContentLoaded", async () => {
       remarks: "remarks",
     };
 
-    // Fill asset fields
+    // ✅ Fill asset fields dynamically
     const fieldMap = mapping[formId];
     for (const inputId in fieldMap) {
       const key = fieldMap[inputId];
       const value = asset[key] ?? "";
       const el = document.getElementById(inputId);
-      if (el) el.textContent = value;
+      if (!el) continue;
+
+      // Handle input/textarea vs div
+      if (el.tagName === "INPUT" || el.tagName === "TEXTAREA") {
+        el.value = value;
+      } else {
+        el.textContent = value;
+      }
     }
 
-    // ✅ Fill Purchase Details section
+    // ✅ Fill Purchase Details (only if elements exist)
     for (const inputId in purchaseMapping) {
       const key = purchaseMapping[inputId];
       const value = asset[key] ?? "";
       const el = document.getElementById(inputId);
-      if (el) el.textContent = value;
+      if (!el) continue;
+
+      if (el.tagName === "INPUT" || el.tagName === "TEXTAREA") {
+        el.value = value;
+      } else {
+        el.textContent = value;
+      }
     }
   } catch (err) {
     console.error(err);

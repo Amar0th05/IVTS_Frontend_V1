@@ -1,14 +1,14 @@
 
+const addLogButton = document.getElementById('add_log_btn');
+const updateLogButton = document.getElementById('update_log_btn');
+
+let table;
 
 document.getElementById('staffId-select').addEventListener('change', (e) => {
     const text = e.target.options[e.target.selectedIndex].text;
     const match = text.match(/\((.*?)\)/);
     document.getElementById('staffName').value = match ? match[1] : '';
  });
-
-const addLogButton = document.getElementById('add_log_btn');
-const updateLogButton = document.getElementById('update_log_btn');
-
 
 async function loadStaffOptions(id) {
     try {
@@ -74,15 +74,8 @@ addLogButton.addEventListener('click', async (e) => {
     
     data['currentDesignation'] = parseInt(data['designationSelect'], 10);
     if (validateForm(formData)) {
-        try {
-            // const response = await axiosInstance.post(API_ROUTES.contractLogs, {
-            //     data: data
-            // });
-            
-            
+        try {    
             await api.addContractLog(data);
-            // console.log(data);
-            table.clear();
             await fetchAllData();
             showPopupFadeInDown("contract log added successfully!");
             form.reset();
@@ -151,7 +144,6 @@ updateLogButton.addEventListener('click', async (e) => {
     }
 }
 );
-let table;
 function addRow(data){
     if ( $.fn.dataTable.isDataTable( '#myTable' ) ) {
         table = $('#myTable').DataTable();
@@ -235,9 +227,10 @@ function validateForm(formData) {
     const basicPay = formData.get('basicPay')?.trim();
     const allowance = formData.get('allowance')?.trim();
     const grossPay=formData.get('grossPay')?.trim();
-   
- 
 
+    if(!staffID){
+        showErrorPopupFadeInDown('add Staff id')
+    }
     
     if (contractStartDate && contractEndDate) {
         if (new Date(contractStartDate) >= new Date(contractEndDate)) {

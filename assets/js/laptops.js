@@ -137,6 +137,7 @@ function addRow(data) {
           data-assets-id="${data.assetId}"
           onclick="downloadBarcode('${data.assetId}')">
   
+          
     <i class="fa-solid fa-qrcode qr-icon"></i>
 
     <!-- Download icon (hidden until hover) -->
@@ -264,25 +265,25 @@ function validateForm(formData) {
   let errors = [];
 
   const requiredFields = [
-    "userName",
-    "Model_No",
-    "Serial_No",
-    "Processor_Type",
-    "RAM_GB",
-    "Graphics",
-    "OS_Type",
-    "Host_Name",
-    "IP_Address",
-    "MAC_Address",
-    "Project_No",
-    "PO_No",
-    "PO_Date",
-    "Vendor_Name",
-    "Invoice_No",
-    "Invoice_Date",
-    "SRB",
-    "Dept",
-    "Remarks",
+    // "userName",
+    // "Model_No",
+    // "Serial_No",
+    // "Processor_Type",
+    // "RAM_GB",
+    // "Graphics",
+    // "OS_Type",
+    // "Host_Name",
+    // "IP_Address",
+    // "MAC_Address",
+    // "Project_No",
+    // "PO_No",
+    // "PO_Date",
+    // "Vendor_Name",
+    // "Invoice_No",
+    // "Invoice_Date",
+    // "SRB",
+    // "Dept",
+    // "Remarks",
   ];
 
   requiredFields.forEach((field) => {

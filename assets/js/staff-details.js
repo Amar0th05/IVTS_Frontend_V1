@@ -119,8 +119,6 @@ addStaffButton.addEventListener("click", async (e) => {
       const response = await axiosInstance.post(API_ROUTES.staff, payload, {
         headers: { "Content-Type": "multipart/form-data" },
       });
-
-      table.clear();
       await fetchAllData();
       handlePermission("#username");
       showSucessPopupFadeInDownLong(response.data.message);
@@ -129,10 +127,16 @@ addStaffButton.addEventListener("click", async (e) => {
       document.querySelector("#tab").classList.add("d-none");
       document.querySelector("#tableCard").style.display = "block";
     } catch (error) {
-      showErrorPopupFadeInDown(
-        error.response?.data?.message ||
-          "Failed to add staff. Please try again later."
-      );
+      if (error.response) {
+    // Server responded with status code != 2xx
+    showErrorPopupFadeInDown(error.response.data?.message);
+  } else if (error.request) {
+    // No response (likely network or CORS issue)
+    showErrorPopupFadeInDown("Network error. Please check your connection.");
+  } else {
+    // Something else
+    showErrorPopupFadeInDown(error.message);
+  }
     }
   }
 });

@@ -4,7 +4,6 @@ let roles = window.roles;
 console.log("Roles loaded:", window);
 
 const moduleMaps = {
-  
   DASHBOARD: ["index"],
   "PROJECT TRACKING": ["projectsDashboard", "projectTracking"],
   "O&M INVOICES": ["o&mInvoices"],
@@ -14,7 +13,7 @@ const moduleMaps = {
   "IIT STAFF": ["employeeDashboard", "staffs"],
   INTERNS: ["interns"],
   "CONTRACT LOGS": ["contract-logs"],
-"TALENT POOL": ["talentPool"],
+  "TALENT POOL": ["talentPool"],
   "USER MANAGEMENT": ["user-details", "roles"],
   "MASTER MANAGEMENT": [
     "clients",
@@ -68,20 +67,19 @@ function getAllowedPages(roleId) {
     }
   }
 
-    const allowedPages = [];
+  const allowedPages = [];
 
-   
-    for (const module in permissions) {
-        const pages = moduleMaps[module] || [];
-        for (const page of pages) {
-            allowedPages.push({
-                // page: "worksphere/" + page,
-                page: page,
-                permission: permissions[module].permission,
-                module: permissions[module].module  
-            });
-        }
+  for (const module in permissions) {
+    const pages = moduleMaps[module] || [];
+    for (const page of pages) {
+      allowedPages.push({
+        // page: "worksphere/" + page,
+        page: page,
+        permission: permissions[module].permission,
+        module: permissions[module].module,
+      });
     }
+  }
 
   return allowedPages;
 }
@@ -124,10 +122,9 @@ function getPagePermissions(roleId) {
 function getCurrentPage() {
   const path = window.location.pathname;
   const filename = path.substring(path.lastIndexOf("/") + 1); // e.g., "index.html"
-  const cleanName = filename.split("?")[0].split("#")[0];     // remove query/hash
-  return cleanName.split(".")[0];                            // "index"
+  const cleanName = filename.split("?")[0].split("#")[0]; // remove query/hash
+  return cleanName.split(".")[0]; // "index"
 }
-
 
 function loginRedirect(role) {
   const pages = getAllowedPages(role);
@@ -140,7 +137,6 @@ function loginRedirect(role) {
     }
   }
 }
-
 
 function handlePermission(usernameDisplayId) {
   const token = sessionStorage.getItem("token");
@@ -165,7 +161,9 @@ function handlePermission(usernameDisplayId) {
   }
 
   if (pageObj.permission === "read") {
-    document.querySelectorAll(".writeElement").forEach((el) => el.classList.add("hidden"));
+    document
+      .querySelectorAll(".writeElement")
+      .forEach((el) => el.classList.add("hidden"));
     document.querySelectorAll(".editElement").forEach((el) => {
       el.disabled = true;
       el.style.backgroundColor = "white";
@@ -174,7 +172,6 @@ function handlePermission(usernameDisplayId) {
 
   document.querySelector(usernameDisplayId).textContent = user.name;
 }
-
 
 function generateSidebar() {
   const roleKey = getRoleKeyById(roleId);
@@ -205,7 +202,7 @@ function generateSidebar() {
         "DASHBOARD",
         "STAFF DETAILS",
         "CONTRACT LOGS",
-  "TALENT POOL",
+        "TALENT POOL",
       ],
     },
     "Employee Management": ["IIT STAFF", "INTERNS"],
@@ -358,7 +355,7 @@ function getPageInfo(page) {
     indents: { title: "FMS Process", icon: "fa-solid fa-clipboard-list" },
     indentDashboard: { title: "Dashboard", icon: "fa-solid fa-chart-bar" },
 
-talentPool: { title: "Talent Pool", icon: "fa-solid fa-user-group" },
+    talentPool: { title: "Talent Pool", icon: "fa-solid fa-user-group" },
     interns: { title: "Interns", icon: "fa-solid fa-user-graduate" },
     staffs: { title: "Staffs", icon: "fa-solid fa-user-tie" },
     roles: { title: "User Roles", icon: "fa-solid fa-user-tag" },
@@ -384,14 +381,16 @@ talentPool: { title: "Talent Pool", icon: "fa-solid fa-user-group" },
     // assetsDashboard: {
     //   title: "Assets Dashboard",
     //   icon: "fa-solid fa-table-columns",
-    // }, 
+    // },
     laptops: { title: "Laptops", icon: "fa-solid fa-laptop" }, // laptops
     desktops: { title: "Desktops and Monitors", icon: "fa-solid fa-desktop" }, // desktops
     server: { title: "Server And Storage", icon: "fa-solid fa-server" }, // servers
     printer: { title: "Printer And Scanners", icon: "fa-solid fa-copy" }, // printer
-    assetsVerficationDashboard: { title: "Dashboard", icon: "fa-solid fa-copy" }, // assets verfication dashboard
+    assetsVerficationDashboard: {
+      title: "Dashboard",
+      icon: "fa-solid fa-copy",
+    }, // assets verfication dashboard
     LeaveManagement: { title: "Dashboard", icon: "fa-solid fa-copy" }, // leave tracking dashboard
-
   };
   return pageInfoMap[page];
 }
