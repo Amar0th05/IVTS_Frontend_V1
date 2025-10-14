@@ -171,7 +171,7 @@ function limitLength(str, length) {
 function validateForm(formData) {
     let errors = [];
 
-    const data = ["fullName","dateOfBirth","gender","mobileNumber","currentLocation","email","portfolioLink","emergencyContactName","emergencyContactRelationship","emergencyContactNumber","collegeName","degreeProgram","isPartOfCurriculum","facultySupervisor","preferredStartDate","preferredEndDate","internshipMode","howHeardAboutUs","submissionDate",];
+    const data = ["fullName","dateOfBirth","gender","mobileNumber","currentLocation","email","portfolioLink","emergencyContactName","emergencyContactRelationship","emergencyContactNumber","collegeName","degreeProgram","isPartOfCurriculum","facultySupervisor","preferredStartDate","preferredEndDate","internshipMode","howHeardAboutUs","submissionDate1",];
 
     console.log(formData.get("fullName")?.trim());
     data.forEach(field =>{
@@ -234,7 +234,7 @@ async function loadInternUpdateDetails(Id) {
         const response = await api.getInterById(Id);
         const data = response; // Assuming the intern details are directly in response.data
 
-        console.log("data",data);
+        console.log("datanew",data);
         
      
         // Populate the form fields based on the intern data and your HTML IDs
@@ -277,14 +277,10 @@ async function loadInternUpdateDetails(Id) {
     }
 }
 function formatDate(dateStr) {
-  if (!dateStr) return "";
-  const date = new Date(dateStr);
-  const day = String(date.getDate()).padStart(2, "0");
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const year = date.getFullYear();
-  return `${day}-${month}-${year}`;
+    if (!dateStr) return '';
+    let date = new Date(dateStr);
+    return date.toISOString().split('T')[0];
 }
-
 function downloadCertificate(FullName,StartDate,EndDate) {
   
 
@@ -623,6 +619,9 @@ updateInternButton.addEventListener('click', async (e) => {
             await fetchAllData();
             handlePermission('#username');
             showSucessPopupFadeInDownLong(responseData.message);
+            setTimeout(()=>{
+              location.reload();
+            },1000);
         } catch (error) {
             showErrorPopupFadeInDown(error.response?.data?.message || 'Failed to add staff. Please try again later.');
         }
@@ -697,10 +696,11 @@ updateInternButton.addEventListener('click', async (e) => {
             var dd = String(today.getDate()).padStart(2, '0');
             var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
             var yyyy = today.getFullYear();
-
+ 
             today = yyyy + '-' + mm + '-' + dd;
             document.getElementById('submissionDate').value = today;
         });
+
 
 
 $(document).ready(function () {
