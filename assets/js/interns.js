@@ -279,12 +279,8 @@ async function loadInternUpdateDetails(Id) {
        
     }
 }
-function formatDate(dateStr) {
-    if (!dateStr) return '';
-    let date = new Date(dateStr);
-    return date.toISOString().split('T')[0];
-}
-function downloadCertificate(FullName,StartDate,EndDate) {
+
+function downloadCertificate(FullName,EndDate) {
   
 
   if (!FullName && !StartDate && !EndDate) {
@@ -399,7 +395,13 @@ async function updateInternCertificateButtons(data) {
     let rowsHTML = "";
 
     // ✅ Pass data.FullName safely as a string
- let actionHTML = `
+ let actionHTML1 = `
+  <button onclick="downloadCertificate('${data.FullName}', '${data.StartDate}', '${data.EndDate}')" 
+          class="btn btn-sm btn-primary me-2 bg-warning text-dark">
+    <i class="fa-solid fa-spinner fa-spin-pulse mr-2"></i>Ongoing
+  </button>
+`;
+let actionHTML2 = `
   <button onclick="downloadCertificate('${data.FullName}', '${data.StartDate}', '${data.EndDate}')" 
           class="btn btn-sm btn-primary me-2">
     Download
@@ -407,12 +409,22 @@ async function updateInternCertificateButtons(data) {
 `;
 
 
-    rowsHTML += `
+    if(!data.StartDate || !data.EndDate){
+      rowsHTML += `
       <tr>
         <td>Certificate</td>
-        <td>${actionHTML}</td>
+        <td>${actionHTML1}</td>
       </tr>
     `;
+    }
+    else{
+      rowsHTML += `
+      <tr>
+        <td>Certificate</td>
+        <td>${actionHTML2}</td>
+      </tr>
+    `;
+    }
 
     documentTableBody.innerHTML = rowsHTML;
   } catch (error) {
@@ -796,3 +808,6 @@ app.post('/api/submit-and-refresh', async (req, res) => {
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
 });
+
+
+
