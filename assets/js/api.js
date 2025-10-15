@@ -43,6 +43,7 @@ const API_ROUTES = {
   getAllRoles: "/roles/all",
   rolesBase: `/roles`,
   user: "/user",
+  changePassword: "/password/changePassword",
   getAllUsers: "/user/all",
   courses: "/courses/active",
   getAllCourses: "/courses/all",
