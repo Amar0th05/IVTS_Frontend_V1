@@ -46,9 +46,8 @@ function addRow(data,i){
       data.port,
       data.year,
       months[data.month],
-      ` <button class="btn-up border-0 mx-auto rounded-1"
-        onclick="downloadInvoice(${data.id})"
-        style="color: #264AAA !important;">
+      ` <button class="btn btn-up border-0 mx-auto rounded-1"
+        onclick="downloadInvoice(${data.id})">
   <i class="fa-solid fa-cloud-arrow-down fs-6"></i>
 </button>
 `,
@@ -264,7 +263,7 @@ function addOrganisationsRow(data,i){
 
 
 
-    let mailSentRow=`<input type="checkbox"  class="form-control-input editElement "  style="width: 30px; height: 30px; accent-color: blue; border-radius: 5px;" onchange="updateMailSentStatus(this.checked,'${data.org_id}')">`;
+    let mailSentRow=`<input type="checkbox"  class="form-control-input editElement "  style="width: 30px; height: 30px; accent-color: #059669; border-radius: 5px;" onchange="updateMailSentStatus(this.checked,'${data.org_id}')">`;
     if ( $.fn.dataTable.isDataTable( '#monthlyStatusTable' ) ) {
         table = $('#monthlyStatusTable').DataTable();
     }
@@ -279,9 +278,9 @@ function addOrganisationsRow(data,i){
 
     let msrow=statuses.find(status=>status.org_id===data.org_id);
     if(msrow){
-       mailSentRow=`<input type="checkbox" checked class="form-control-input editElement"  style="width: 30px; height: 30px; accent-color: blue; border-radius: 5px;" onchange="updateMailSentStatus(this.checked,'${data.org_id}')">`
+       mailSentRow=`<input type="checkbox" checked class="form-control-input editElement"  style="width: 30px; height: 30px; accent-color: #059669; border-radius: 5px;" onchange="updateMailSentStatus(this.checked,'${data.org_id}')">`
     }else{
-        mailSentRow=`<input type="checkbox" class="form-control-input editElement"  style="width: 30px; height: 30px; accent-color: blue; border-radius: 5px;" onchange="updateMailSentStatus(this.checked,'${data.org_id}')">`
+        mailSentRow=`<input type="checkbox" class="form-control-input editElement"  style="width: 30px; height: 30px; accent-color: #059669; border-radius: 5px;" onchange="updateMailSentStatus(this.checked,'${data.org_id}')">`
     }
    }
   
@@ -292,7 +291,7 @@ function addOrganisationsRow(data,i){
       data.organisation_name,
       
      `
-         <button class="btn btn-up mx-auto rounded-1 editElement" data-bs-toggle="modal" data-bs-target="#pdfModal" data-port-id="${data.org_id}">
+         <button class="btn btn-up boder-0 mx-auto rounded-1 editElement" data-bs-toggle="modal" data-bs-target="#pdfModal" data-port-id="${data.org_id}">
         <i class="fa-solid fa-cloud-arrow-up "></i>
       </button>  
      `,
@@ -357,18 +356,30 @@ $(document).ready(function () {
     buttons: [
       {
         extend: 'excel',
-        text: '<i class="fa-solid fa-file-excel me-1"></i> Excel',
-        className: 'btn-excel'
+         text: `
+      <span class="icon-default"><i class="fa-solid fa-file-excel"></i></span>
+      <span class="icon-extra"><i class="fa-solid fa-download"></i></span>
+      Excel
+    `,
+    className: "btn-excel"
       },
       {
         extend: 'pdf',
-        text: '<i class="fa-solid fa-file-pdf me-1"></i> PDF',
-        className: 'btn-pdf'
+         text: `
+      <span class="icon-default"><i class="fa-solid fa-file-pdf"></i></span>
+      <span class="icon-extra"><i class="fa-solid fa-download"></i></span>
+      PDF
+    `,
+    className: "btn-pdf"
       },
       {
         extend: 'colvis',
-        text: '<i class="fa-solid fa-eye me-1"></i> Columns',
-        className: 'btn-colvis'
+        text: `
+      <span class="icon-default"><i class="fa-solid fa-eye"></i></span>
+      <span class="icon-extra"><i class="fa-solid fa-gear"></i></span>
+      Columns
+    `,
+    className: 'btn-colvis'
       }
     ],
     language: {
@@ -403,18 +414,30 @@ $(document).ready(function () {
     buttons: [
       {
         extend: 'excel',
-        text: '<i class="fa-solid fa-file-excel me-1"></i> Excel',
-        className: 'btn-excel'
+         text: `
+      <span class="icon-default"><i class="fa-solid fa-file-excel"></i></span>
+      <span class="icon-extra"><i class="fa-solid fa-download"></i></span>
+      Excel
+    `,
+    className: "btn-excel"
       },
       {
         extend: 'pdf',
-        text: '<i class="fa-solid fa-file-pdf me-1"></i> PDF',
-        className: 'btn-pdf'
+         text: `
+      <span class="icon-default"><i class="fa-solid fa-file-pdf"></i></span>
+      <span class="icon-extra"><i class="fa-solid fa-download"></i></span>
+      PDF
+    `,
+    className: "btn-pdf"
       },
       {
         extend: 'colvis',
-        text: '<i class="fa-solid fa-eye me-1"></i> Columns',
-        className: 'btn-colvis'
+        text: `
+      <span class="icon-default"><i class="fa-solid fa-eye"></i></span>
+      <span class="icon-extra"><i class="fa-solid fa-gear"></i></span>
+      Columns
+    `,
+    className: 'btn-colvis'
       }
     ],
        language: {

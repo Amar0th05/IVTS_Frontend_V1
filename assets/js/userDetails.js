@@ -345,8 +345,12 @@ async function loadUpdateUser(id){
     buttons: [
       {
         extend: 'excelHtml5',
-        text: '<i class="fa-solid fa-file-excel me-1"></i> Excel',
-        className: 'btn-excel',
+         text: `
+      <span class="icon-default"><i class="fa-solid fa-file-excel"></i></span>
+      <span class="icon-extra"><i class="fa-solid fa-download"></i></span>
+      Excel
+    `,
+    className: "btn-excel",
         exportOptions: {
           columns: [0, 1, 2, 3],
           format: {
@@ -362,8 +366,12 @@ async function loadUpdateUser(id){
       },
       {
         extend: 'pdfHtml5',
-        text: '<i class="fa-solid fa-file-pdf me-1"></i> PDF',
-        className: 'btn-pdf',
+         text: `
+      <span class="icon-default"><i class="fa-solid fa-file-pdf"></i></span>
+      <span class="icon-extra"><i class="fa-solid fa-download"></i></span>
+      PDF
+    `,
+    className: "btn-pdf",
         exportOptions: {
           columns: [0, 1, 2, 3],
           format: {
@@ -379,8 +387,12 @@ async function loadUpdateUser(id){
       },
       {
         extend: 'colvis',
-        text: '<i class="fa-solid fa-eye me-1"></i> Columns',
-        className: 'btn-colvis'
+        text: `
+      <span class="icon-default"><i class="fa-solid fa-eye"></i></span>
+      <span class="icon-extra"><i class="fa-solid fa-gear"></i></span>
+      Columns
+    `,
+    className: "btn-colvis"
       }
     ],
     language: {

@@ -340,16 +340,29 @@ $(document).ready(function () {
     buttons: [
       {
         extend: 'excel',
-        text: '<i class="fa-solid fa-file-excel me-1"></i> Excel',
-        className: 'btn-excel'
+        text: `
+      <span class="icon-default"><i class="fa-solid fa-file-excel"></i></span>
+      <span class="icon-extra"><i class="fa-solid fa-download"></i></span>
+      Excel
+    `,
+    className: "btn-excel"
       },
 
       {
         extend: 'pdf',
-        text: '<i class="fa-solid fa-file-pdf me-1"></i> PDF',
-        className: 'btn-pdf'
+        text: `
+      <span class="icon-default"><i class="fa-solid fa-file-pdf"></i></span>
+      <span class="icon-extra"><i class="fa-solid fa-download"></i></span>
+      PDF
+    `,
+    className: "btn-pdf"
       },
-          { extend: "colvis", text: '<i class="fa-solid fa-eye"></i> Columns', className: "btn-colvis" }
+          { extend: "colvis", text: `
+      <span class="icon-default"><i class="fa-solid fa-eye"></i></span>
+      <span class="icon-extra"><i class="fa-solid fa-gear"></i></span>
+      Columns
+    `,
+    className: "btn-colvis" }
 
     ],
     language: {

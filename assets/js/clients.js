@@ -30,7 +30,7 @@ async function addRow(data){
         ,
         `<div class="row d-flex justify-content-center">
             <span class="d-flex align-items-center justify-content-center p-0 " style="cursor:pointer;" data-toggle="modal" data-target="#updateclientModal" onclick="loadUpdateClient(${data.ID})">
-                <i class="ti-pencil-alt text-inverse" style="font-size: larger;"></i>
+                <i class="fa-solid fa-pen-to-square" style="font-size: larger;"></i>
             </span>
         </div>`,
         
@@ -188,8 +188,13 @@ async function refreshTable() {
             buttons: [
         {
             extend: 'excelHtml5',
-            text: 'Excel',
-            exportOptions: {
+ text: `
+      <span class="icon-default"><i class="fa-solid fa-file-excel"></i></span>
+      <span class="icon-extra"><i class="fa-solid fa-download"></i></span>
+      Excel
+    `,
+    className: "btn-excel",            
+    exportOptions: {
                 columns: [0,1,2],
                 format: {
                     body: function (data, row, column, node) {
@@ -203,24 +208,14 @@ async function refreshTable() {
             }
         },
         {
-            extend: 'csvHtml5',
-            text: 'CSV',
-            exportOptions: {
-                columns: [0,1,2],
-                format: {
-                    body: function (data, row, column, node) {
-                        if ($(node).find('.toggle-btn').length) {
-                            return $(node).find('.toggle-btn').hasClass('active') ? 'True' : 'False';
-                        }
-                        return data;
-                    }
-                }
-            }
-        },
-        {
             extend: 'pdfHtml5',
-            text: 'PDF',
-            exportOptions: {
+ text: `
+      <span class="icon-default"><i class="fa-solid fa-file-pdf"></i></span>
+      <span class="icon-extra"><i class="fa-solid fa-download"></i></span>
+      PDF
+    `,
+    className: "btn-pdf"   ,         
+    exportOptions: {
                 columns: [0,1,2],
                 format: {
                     body: function (data, row, column, node) {
