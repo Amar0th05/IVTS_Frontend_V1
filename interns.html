@@ -277,15 +277,6 @@
                                                 <div class="card">
                                                     <div class="card-header">
                                                         <h5>interns</h5>
-
-                                                        <!-- <div class="card-header-right">
-                                                            <ul class="list-unstyled card-option">
-                                                                <li><i class="fa fa fa-wrench open-card-option"></i>
-                                                                </li>
-                                                                <li><i class="fa fa-minus minimize-card"></i></li>
-                                                                <li><i class="fa fa-refresh reload-card"></i></li>
-                                                            </ul>
-                                                        </div> -->
                                                     </div>
 
                                                     <div class="card-block">
@@ -1300,10 +1291,12 @@
                                 <div class="row g-3">
                                   <div class="col-md-4">
                                     <div class="d-flex flex-column">
-                                      <label for="designationFilter" class="text-muted small mb-1">Designation</label>
+                                      <label for="designationFilter" class="text-muted small mb-1">Mode of Internship</label>
                                       <select id="designationFilter"
                                         class="form-select form-select-sm border-secondary">
                                         <option value="">Show all</option>
+                                        <option value="online">Online</option>
+                                        <option value="offline">Offline</option>
                                       </select>
                                     </div>
                                   </div>
@@ -1319,9 +1312,14 @@
                                   <div class="col-md-4">
                                     <div class="d-flex flex-column">
                                       <label for="statusFilter" class="text-muted small mb-1">Status</label>
-                                      <select id="statusFilter" class="form-select form-select-sm border-secondary">
-                                        <option value="">Show all</option>
-                                      </select>
+                                      <select id="statusFilter"
+                                                                                class="form-select form-select-sm border-secondary">
+                                                                                <option value="">Show all</option>
+                                                                                <option value="active">Active Interns
+                                                                                </option>
+                                                                                <option value="inactive">inactive
+                                                                                    Interns</option>
+                                                                            </select>
                                     </div>
                                   </div>
                                 </div>
@@ -1547,6 +1545,51 @@
   <script src="assets/js/roleUtil.js"></script>
   <script src="assets/js/Utils.js"></script>
   <script src="assets/js/sweetAlert.js"></script>
+   <!-- Initialize DataTable -->
+    <script>
+document.addEventListener('DOMContentLoaded', async function () {
+
+    // ✅ Custom Status Filter Logic (works with numeric 0/1)
+    // ✅ Custom DataTables filter for status dropdown
+$.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+    if (settings.nTable.id !== 'myTable1') return true; // Apply only to intern table
+
+    const selectedStatus = $('#statusFilter').val(); // '', 'current', or 'completed'
+    const row = $('#myTable1').DataTable().row(dataIndex).node();
+    const isActive = $(row).find('.toggle-btn').hasClass('active'); // Check toggle button
+
+    if (selectedStatus === '') return true; // Show all
+    if (selectedStatus === 'active' && isActive) return true; // Show only active rows
+    if (selectedStatus === 'inactive' && !isActive) return true; // Show only inactive rows
+
+    return false; // Hide others
+});
+
+// ✅ Redraw table whenever dropdown changes
+$('#statusFilter').on('change', function () {
+    $('#myTable1').DataTable().draw();
+});
+
+    // ✅ Designation Filter
+    $('#designationFilter').on('change', function () {
+        const selectedDesignation = $(this).val();
+        datatable.column(5).search(selectedDesignation ? '^' + selectedDesignation + '$' : '', true, false).draw();
+    });
+
+    // ✅ Location Filter
+    $('#locationFilter').on('change', function () {
+        const selectedLocation = $(this).val();
+        datatable.column(2).search(selectedLocation ? '^' + selectedLocation + '$' : '', true, false).draw();
+    });
+
+    // ✅ Optional Category Filter
+    $('#filter').on('change', function () {
+        const selectedCategory = $(this).val();
+        datatable.column(1).search(selectedCategory || '').draw();
+    });
+
+});
+</script>
 </body>
 
 </html>

@@ -300,18 +300,20 @@ async function fetchAllData() {
     const locations = new Set();
     const status = new Set();
 
-    // Clear existing rows first
+    let table;
     if ($.fn.dataTable.isDataTable("#myTable")) {
       table = $("#myTable").DataTable();
       table.clear().draw();
+    } else {
+      table = $("#myTable").DataTable();
     }
 
-    // Clear existing filter options (avoid duplicates)
-    // $("#designationFilter").empty().append('<option value="">Show all</option>');
-    // $("#locationFilter").empty().append('<option value="">Show all</option>');
-    // $("#statusFilter").empty().append('<option value="">Show all</option>');
+    // Clear existing filters
+    $("#designationFilter").empty().append('<option value="">Show all</option>');
+    $("#locationFilter").empty().append('<option value="">Show all</option>');
+    $("#statusFilter").empty().append('<option value="">Show all</option>');
 
-    // Add rows + collect unique values
+    // Add rows and collect unique filter values
     staffDetails.forEach((staffDetail) => {
       addRow(staffDetail);
 
@@ -324,34 +326,32 @@ async function fetchAllData() {
       status.add(staffDetail.status ? "Active" : "Inactive");
     });
 
-    handlePermission("#username");
-
-    // Populate designation filter
+    // Populate filters
     designations.forEach((designation) => {
-      if (!designation) return;
       $("#designationFilter").append(
         `<option value="${designation}">${designation}</option>`
       );
     });
 
-    // Populate location filter
     locations.forEach((location) => {
-      if (!location) return;
       $("#locationFilter").append(
         `<option value="${location}">${location}</option>`
       );
     });
 
-    // Populate status filter
-    statuses.forEach((label) => {
+    status.forEach((label) => {
       $("#statusFilter").append(
         `<option value="${label}">${label}</option>`
       );
     });
+
+    // Permissions
+    handlePermission("#username");
   } catch (error) {
     console.error("Error fetching staff details:", error);
   }
 }
+
 function limitLength(str, length) {
   if (str.length > length) {
     return str.substring(0, length);
@@ -942,121 +942,3 @@ document.querySelector("#addNew").addEventListener("click", function () {
   });
 });
 
-$(document).ready(async function () {
-  let table = $("#policyTable").DataTable();
-
-  $("#addRowBtn").click(async function () {
-    const empID = $("#update-staffId").val();
-
-    try {
-      const checkResponse = await axiosInstance.get(
-        `/insurance/active/${empID}`
-      );
-      if (checkResponse.data.hasActivePolicy) {
-        showErrorPopupFadeInDown("Employee already has an active policy.");
-        return;
-      }
-    } catch (error) {
-      console.error(error);
-      alert("Error checking active policy.");
-      return;
-    }
-
-    let rowNode = table.row
-      .add([
-        `<input type="date" class="form-control policyStartDate editElement">`,
-        `<input type="text" class="form-control policyNumber editElement" placeholder="Policy Number">`,
-        `<input type="text" class="form-control provider editElement" placeholder="Provider">`,
-        `<input type="date" class="form-control policyStartDate editElement">`,
-        `<input type="date" class="form-control policyExpiryDate editElement" readonly>`,
-        `<input type="text" class="form-control updatedBy editElement" placeholder="Updated By">`,
-        `<button class="btn-danger btn-sm deleteRow writeElement">Delete</button>`,
-      ])
-      .draw(false)
-      .node();
-
-    autoSaveInsurance(rowNode);
-  });
-
-  $("#policyTable tbody").on("change", ".policyStartDate", function () {
-    let row = $(this).closest("tr");
-    let startDate = new Date($(this).val());
-    if (!isNaN(startDate)) {
-      startDate.setFullYear(startDate.getFullYear() + 1);
-      row.find(".policyExpiryDate").val(startDate.toISOString().split("T")[0]);
-    }
-  });
-
-  $("#policyTable tbody").on("change", "input", function () {
-    let row = $(this).closest("tr");
-    autoSaveInsurance(row);
-  });
-
-  async function autoSaveInsurance(row) {
-    let empID = $("#update-staffId").val();
-    let policyNumber = $(row).find(".policyNumber").val();
-    let provider = $(row).find(".provider").val();
-    let policyStartDate = $(row).find(".policyStartDate").val();
-    let policyExpiryDate = $(row).find(".policyExpiryDate").val();
-    let updatedBy = $(row).find(".updatedBy").val();
-
-    if (
-      !policyNumber ||
-      !provider ||
-      !policyStartDate ||
-      !policyExpiryDate ||
-      !updatedBy
-    ) {
-      console.warn("Skipping auto-save: missing fields");
-      return;
-    }
-
-    let insuranceData = {
-      employeeId: empID,
-      policyNumber: policyNumber,
-      provider,
-      policyStartDate,
-      policyEndDate: policyExpiryDate,
-      updatedBy: updatedBy,
-    };
-
-    try {
-      await axiosInstance.post("/insurance/", insuranceData);
-      showSucessPopupFadeInDownLong("Insurance record added successfully.");
-
-      row.html(`
-            <td>${policyStartDate}</td>
-            <td>${policyNumber}</td>
-            <td>${provider}</td>
-            <td>${policyStartDate}</td>
-            <td>${policyExpiryDate}</td>
-            <td>${updatedBy}</td>
-        `);
-    } catch (error) {
-      showErrorPopupFadeInDown("Error saving insurance record.");
-      console.error("Error saving insurance record:", error);
-    }
-  }
-
-  $("#policyTable tbody").on("click", ".deleteRow", function () {
-    table.row($(this).parents("tr")).remove().draw();
-  });
-
-  roles = await axiosInstance.get("/roles/role/perms");
-  roles = roles.data.roles;
-  // console.log(roles);
-  window.roles = roles;
-  handlePermission("#username");
-});
-
-document
-  .getElementById("policyStartDate")
-  .addEventListener("change", function () {
-    let startDate = new Date(this.value);
-    if (!isNaN(startDate)) {
-      startDate.setFullYear(startDate.getFullYear() + 1);
-      document.getElementById("policyExpiryDate").value = startDate
-        .toISOString()
-        .split("T")[0];
-    }
-  });
