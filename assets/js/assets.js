@@ -176,7 +176,7 @@ function addRow(data){
     <div class="d-flex align-items-center justify-content-center p-0 edit-btn" 
         style="width: 40px; height: 40px; cursor:pointer" 
         data-assets-id="${data.assetId}">
-        <i class="ti-pencil-alt text-inverse" style="font-size: larger;"></i>
+        <i class="fa-solid fa-pen-to-square" style="font-size: larger;"></i>
     </div>
 </div>
 `,

@@ -14751,3 +14751,144 @@ color: #fff;
       position: relative;
       width: 100%;
     }
+
+
+/* ==========================
+   Base Button Styles
+   ========================== */
+    .btn-excel {
+      background-color: #28a745 !important;
+    }
+
+    .btn-excel:hover {
+      background-color: #1e7e34 !important;
+    }
+
+    .btn-pdf {
+      background-color: #dc3545 !important;
+    }
+
+    .btn-pdf:hover {
+      background-color: #a71d2a !important;
+    }
+.dt-button {
+  border-radius: 0.25rem !important;
+  /* border: none !important; */
+  color: #fff !important;
+  /* font-weight: 500;
+  font-size: 14px !important;
+  padding: 8px 14px !important; */
+  display: inline-flex !important;
+  /* align-items: center;
+  justify-content: center;
+  position: relative; */
+  /* overflow: hidden; */
+  transition: all 0.3s ease !important; /* smooth hover lift */
+}
+
+/* Lift on hover */
+.dt-button:hover {
+  transform: translateY(-2px);
+  transition: transform 0.3s ease;
+}
+
+/* ==========================
+   Gradient Color Styles
+   ========================== */
+    /* 🟩 Excel Button */
+.btn-excel {
+  background: linear-gradient(135deg, #28a745, #1e7e34) !important;
+  transition: all 0.4s ease;
+}
+.btn-excel:hover {
+  background: linear-gradient(135deg, #1e7e34, #28a745) !important;
+  transform: translateY(-2px);
+}
+
+/* 🟥 PDF Button */
+.btn-pdf {
+  background: linear-gradient(135deg, #dc3545, #a71d2a) !important;
+  transition: all 0.4s ease;
+}
+.btn-pdf:hover {
+  background: linear-gradient(135deg, #a71d2a, #dc3545) !important;
+  transform: translateY(-2px);
+}
+
+/* 🔵 Columns Button */
+.btn-colvis {
+  background: linear-gradient(135deg, #264AAA, #1E3A8A) !important;
+  transition: all 0.4s ease;
+}
+.btn-colvis:hover {
+  background: linear-gradient(135deg, #1E3A8A, #264AAA) !important;
+  transform: translateY(-2px);
+}
+.btn-excel:hover,
+.btn-pdf:hover,
+.btn-colvis:hover {
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* ==========================
+   Icon Layouts
+   ========================== */
+.dt-button .icon-default {
+  display: inline-block;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.dt-button .icon-extra {
+  display: none;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.10s ease, transform 0.14s ease;
+  /* right: 10px; */
+  /* font-size: 16px; */
+}
+
+/* On hover → reveal secondary icon smoothly */
+.dt-button:hover .icon-extra {
+  display: inline-block;
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.dt-button:hover .icon-default {
+  display: none;
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+
+
+    .btn-green {
+      background: linear-gradient(to bottom right, #34D399, #059669);
+      border: none;
+      color: white;
+
+    }
+
+    .btn-red {
+      background: linear-gradient(to bottom right, #EF4444, #B91C1C);
+      border: none;
+      color: white;
+    }
+
+    .btn-red:hover {
+      background: linear-gradient(to bottom right, #dc3545, #a71d2a);
+    }
+
+    .btn-green:hover {
+      background: linear-gradient(to bottom right, #28a745, #1e7e34);
+
+    }
+
+ button:focus,
+button:active {
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important;
+}

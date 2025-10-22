@@ -241,7 +241,7 @@ function addRow(data) {
     <div class="d-flex align-items-center justify-content-center p-0 edit-btn" 
         style="width: 40px; height: 40px; cursor:pointer" 
         data-staff-id="${data.staffID}">
-        <i class="ti-pencil-alt text-inverse" style="font-size: larger;"></i>
+        <i class="fa-solid fa-pen-to-square" style="font-size: larger;"></i>
     </div>
 </div>
 `,
@@ -343,7 +343,7 @@ async function fetchAllData() {
     });
 
     // Populate status filter
-    statuses.forEach((label) => {
+    status.forEach((label) => {
       $("#statusFilter").append(
         `<option value="${label}">${label}</option>`
       );
@@ -841,11 +841,38 @@ const staffTable = $("#myTable").DataTable({
   pageLength: 25,
   lengthMenu: [5, 10, 25, 50, 100],
   dom: '<"top"lBf>rt<"bottom"ip><"clear">',
-  buttons: [
-    { extend: "excel", text: '<i class="fa-solid fa-file-excel"></i> Excel', className: "btn-excel" },
-    { extend: "pdf", text: '<i class="fa-solid fa-file-pdf"></i> PDF', className: "btn-pdf" },
-    { extend: "colvis", text: '<i class="fa-solid fa-eye"></i> Columns', className: "btn-colvis" }
-  ],
+ buttons: [
+  {
+    extend: "excel",
+    text: `
+      <span class="icon-default"><i class="fa-solid fa-file-excel"></i></span>
+      <span class="icon-extra"><i class="fa-solid fa-download"></i></span>
+      Excel
+    `,
+    className: "btn-excel"
+  },
+  {
+    extend: "pdf",
+    text: `
+      <span class="icon-default"><i class="fa-solid fa-file-pdf"></i></span>
+      <span class="icon-extra"><i class="fa-solid fa-download"></i></span>
+      PDF
+    `,
+    className: "btn-pdf"
+  },
+  {
+    extend: "colvis",
+    text: `
+      <span class="icon-default"><i class="fa-solid fa-eye"></i></span>
+      <span class="icon-extra"><i class="fa-solid fa-gear"></i></span>
+      Columns
+    `,
+    className: "btn-colvis"
+  }
+],
+
+
+
   language: {
     search: "",
     searchPlaceholder: "Type to search...",

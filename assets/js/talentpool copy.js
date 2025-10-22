@@ -230,7 +230,7 @@ function addRow(data) {
             <div class="d-flex align-items-center justify-content-center p-0 edit-btn"
                 style="width: 40px; height: 40px; cursor:pointer"
                 data-person-id="${data.personID}">
-                <i class="ti-pencil-alt text-inverse" style="font-size: larger;"></i>
+                <i class="fa-solid fa-pen-to-square" style="font-size: larger;"></i>
             </div>
         </div>`
     ]);
@@ -423,18 +423,30 @@ async function fetchDataAndGenerateExcel() {
     buttons: [
       {
         extend: 'excel',
-        text: '<i class="fa-solid fa-file-excel"></i> Excel',
-        className: 'btn-excel'
+         text: `
+      <span class="icon-default"><i class="fa-solid fa-file-excel"></i></span>
+      <span class="icon-extra"><i class="fa-solid fa-download"></i></span>
+      Excel
+    `,
+    className: "btn-excel"
       },
       {
         extend: 'pdf',
-        text: '<i class="fa-solid fa-file-pdf"></i> PDF',
-        className: 'btn-pdf'
+        text: `
+      <span class="icon-default"><i class="fa-solid fa-file-pdf"></i></span>
+      <span class="icon-extra"><i class="fa-solid fa-download"></i></span>
+      PDF
+    `,
+    className: "btn-pdf"
       },
       {
         extend: 'colvis',
-        text: '<i class="fa-solid fa-eye"></i> Columns',
-        className: 'btn-colvis'
+        text: `
+      <span class="icon-default"><i class="fa-solid fa-eye"></i></span>
+      <span class="icon-extra"><i class="fa-solid fa-gear"></i></span>
+      Columns
+    `,
+    className: "btn-colvis"
       }
     ],
     language: {

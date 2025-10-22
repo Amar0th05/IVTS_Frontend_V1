@@ -1310,24 +1310,31 @@ $(document).ready(function () {
     dom: 'Bfrtip',
     buttons: [
       {
-        extend: 'csv',
-        text: '<i class="fa-solid fa-file-csv"></i> CSV',
-        className: 'btn-csv'
-      },
-      {
         extend: 'excel',
-        text: '<i class="fa-solid fa-file-excel"></i> Excel',
-        className: 'btn-excel'
+         text: `
+      <span class="icon-default"><i class="fa-solid fa-file-excel"></i></span>
+      <span class="icon-extra"><i class="fa-solid fa-download"></i></span>
+      Excel
+    `,
+    className: "btn-excel"
       },
       {
         extend: 'pdf',
-        text: '<i class="fa-solid fa-file-pdf"></i> PDF',
-        className: 'btn-pdf'
+        text: `
+      <span class="icon-default"><i class="fa-solid fa-file-pdf"></i></span>
+      <span class="icon-extra"><i class="fa-solid fa-download"></i></span>
+      PDF
+    `,
+    className: "btn-pdf"
       },
       {
         extend: 'colvis',
-        text: '<i class="fa-solid fa-eye"></i> Columns',
-        className: 'btn-colvis'
+        text: `
+      <span class="icon-default"><i class="fa-solid fa-eye"></i></span>
+      <span class="icon-extra"><i class="fa-solid fa-gear"></i></span>
+      Columns
+    `,
+    className: "btn-colvis"
       }
     ],
     language: {

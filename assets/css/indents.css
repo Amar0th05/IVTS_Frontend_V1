@@ -468,27 +468,7 @@
       margin-right: 6px;
     }
 
-    .btn-csv {
-      background-color: #007bff !important;
-    }
-    .btn-csv:hover {
-      background-color: #0056b3 !important;
-    }
-
-    .btn-excel {
-      background-color: #28a745 !important;
-    }
-    .btn-excel:hover {
-      background-color: #1e7e34 !important;
-    }
-
-    .btn-pdf {
-      background-color: #dc3545 !important;
-    }
-    .btn-pdf:hover {
-      background-color: #a71d2a !important;
-    }
-.card .card-block {
+   .card .card-block {
 	padding: 20px;
 }
 .download-btn {
