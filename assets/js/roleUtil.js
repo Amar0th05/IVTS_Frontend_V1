@@ -211,9 +211,9 @@ function generateSidebar() {
       "USER MANAGEMENT",
     ],
     "MASTER MANAGEMENT": ["MASTER MANAGEMENT"],
-    "Assests management":{
+    "Assets management":{
       "Asset Master":["ASSETS"],
-      "Assest Verification":["ASSETS VERIFICATION"]
+      "Asset Verification":["ASSETS VERIFICATION"]
     } ,
     "Leave Tracking":["LEAVE"]
   };

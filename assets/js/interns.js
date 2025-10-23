@@ -46,7 +46,7 @@ function addRow(data){
     table.row.add([
       data.Id,
       data.FullName,
-      data.DateOfBirth,
+      formatDate(data.DateOfBirth),
       data.MobileNumber,
       data.Email,
       data.CollegeName,
@@ -280,7 +280,7 @@ async function loadInternUpdateDetails(Id) {
     }
 }
 
-function downloadCertificate(FullName,EndDate) {
+function downloadCertificate(FullName,StartDate,EndDate) {
   
 
   if (!FullName && !StartDate && !EndDate) {
@@ -293,17 +293,10 @@ const  refNo = "NTCPWC/INT/009"
     .toLocaleDateString("en-GB")
     ?.replace(/\//g, "-") || "";
 
-  const htmlContent = `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Internship Certificate</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-</head>
-<body style="font-family:'Times New Roman', Times, serif; line-height:1.6; color:#333; margin:0; padding:0; background-color:#f8f8f8; display:flex; justify-content:center; align-items:center; min-height:100vh;">
-  <div style="width:210mm; min-height:240mm; background-color:#fff; border:1px solid #eee; box-shadow:0 0 10px rgba(0,0,0,0.1); padding:20mm 15mm 10mm 15mm; box-sizing:border-box; position:relative;">
+ // Create a container div and inject the HTML
+  const container = document.createElement("div");
+  container.innerHTML = `
+    <div style="width:210mm; min-height:240mm; background-color:#fff; border:1px solid #eee; box-shadow:0 0 10px rgba(0,0,0,0.1); padding:20mm 15mm 10mm 15mm; box-sizing:border-box; position:relative;">
 
     <!-- Header -->
     <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:20px;">
@@ -375,17 +368,27 @@ const  refNo = "NTCPWC/INT/009"
       </p>
     </div>
   </div>
-</body>
-</html>`;
+  `;
 
-  // 🧾 Convert to Blob and trigger download
-  const blob = new Blob([htmlContent], { type: "text/html" });
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement("a");
-  link.href = url;
-  link.download = `${FullName || "Intern"}_Certificate.html`;
-  link.click();
-  URL.revokeObjectURL(url);
+  const filename = `${FullName.replace(/\s+/g, "_") || "Intern"}_Certificate.pdf`;
+  // Options for html2pdf
+  const opt = {
+    margin:       10,      // mm
+    filename:     filename,
+    image:        { type: "jpeg", quality: 0.98 },
+    html2canvas:  { scale: 2 },
+    jsPDF:        { unit: "mm", format: "a4", orientation: "portrait" }
+  };
+
+  html2pdf().set(opt).from(container).save()
+    .then(() => {
+      // cleanup
+      document.body.removeChild(container);
+    })
+    .catch(err => {
+      console.error("❌ Error generating PDF:", err);
+      document.body.removeChild(container);
+    });
 }
 
 // intern completion certificate
@@ -396,10 +399,11 @@ async function updateInternCertificateButtons(data) {
 
     // ✅ Pass data.FullName safely as a string
  let actionHTML1 = `
-  <button onclick="downloadCertificate('${data.FullName}', '${data.StartDate}', '${data.EndDate}')" 
-          class="btn btn-sm btn-primary me-2 bg-warning text-dark">
-    <i class="fa-solid fa-spinner fa-spin-pulse mr-2"></i>Ongoing
-  </button>
+   <div class="text-center">
+    <span class="status-badge bg-warning text-dark">
+      <i class="fa-solid fa-spinner  fa-spin spin-icon me-2"></i> <span class="status-text">Ongoing</span>
+    </span>
+  </div>
 `;
 let actionHTML2 = `
   <button onclick="downloadCertificate('${data.FullName}', '${data.StartDate}', '${data.EndDate}')" 
@@ -649,42 +653,98 @@ updateInternButton.addEventListener('click', async (e) => {
         }
     });
 });
+$(document).ready(function () {
+  const table1 = $('#myTable1').DataTable({
+    paging: true,
+    pageLength: 25,
+    lengthMenu: [5, 10, 25, 50, 100],
+    dom: '<"top"lBf>rt<"bottom"ip><"clear">',
+    buttons: [
+      {
+        extend: 'excel',
+        text: `
+          <span class="icon-default"><i class="fa-solid fa-file-excel"></i></span>
+          <span class="icon-extra"><i class="fa-solid fa-download"></i></span>
+          Excel
+        `,
+        className: 'btn-excel'
+      },
+      {
+        extend: 'pdf',
+        text: `
+          <span class="icon-default"><i class="fa-solid fa-file-pdf"></i></span>
+          <span class="icon-extra"><i class="fa-solid fa-download"></i></span>
+          PDF
+        `,
+        className: 'btn-pdf'
+      },
+      {
+        extend: 'colvis',
+        text: `
+          <span class="icon-default"><i class="fa-solid fa-eye"></i></span>
+          <span class="icon-extra"><i class="fa-solid fa-gear"></i></span>
+          Columns
+        `,
+        className: 'btn-colvis'
+      }
+    ],
+    language: {
+      search: "",
+      searchPlaceholder: "Type to search...",
+      paginate: { first: "«", last: "»", next: "›", previous: "‹" }
+    },
+        initComplete: function () {
+      // Remove default "Search:" text
+      $('#myTable1').contents().filter(function () {
+        return this.nodeType === 3;
+      }).remove();
 
-        $(document).ready(function () {
-            const datatable = $('#myTable1').DataTable({
-                "paging": true,
-                "pageLength": 25,
-                "lengthMenu": [5, 10, 25, 50, 100],
-                dom: '<"top"l>frtip',
-                buttons: ['excel', 'csv', 'pdf']
-            });
+      // Wrap search input & add search icon
+      $('#myTable1_filter input').wrap('<div class="search-wrapper"></div>');
+      $('.search-wrapper').prepend('<i class="fa-solid fa-magnifying-glass"></i>');
+    }
+  });
 
-            datatable.buttons().container().appendTo($('#exportButtons'));
+  // Move export buttons into custom div
+  table1.buttons().container().appendTo($('#exportButtons'));
 
+  $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+    if (settings.nTable.id !== 'myTable1') return true; // Apply only to second table
 
+    const selectedStatus = $('#statusFilter').val(); // '', 'active', 'inactive'
+    const row = $('#myTable1').DataTable().row(dataIndex).node();
+    const isActive = $(row).find('.toggle-btn').hasClass('active');
 
-            $('#designationFilter').on('change', function () {
-                const selectedDesignation = $(this).val();
-                datatable.column(5).search(selectedDesignation ? '^' + selectedDesignation + '$' : '', true, false).draw();
-            });
+    if (selectedStatus === '') return true; // Show all
+    if (selectedStatus === 'active' && isActive) return true;
+    if (selectedStatus === 'inactive' && !isActive) return true;
+    return false;
+  });
 
-            $('#locationFilter').on('change', function () {
-                const selectedLocation = $(this).val();
-                datatable.column(2).search(selectedLocation ? '^' + selectedLocation + '$' : '', true, false).draw();
-    });
+  // Redraw when filters change
+  $('#statusFilter').on('change', function () {
+    table1.draw();
+  });
 
-        });
+  // ---------------------------
+  // 🔹 OTHER FILTERS (Table 2)
+  // ---------------------------
+  $('#designationFilter').on('change', function () {
+    const val = $(this).val();
+    table1.column(5).search(val ? '^' + val + '$' : '', true, false).draw();
+  });
 
+  $('#locationFilter').on('change', function () {
+    const val = $(this).val();
+    table1.column(2).search(val ? '^' + val + '$' : '', true, false).draw();
+  });
 
-
-        $('#filter').on('change', function () {
-            const selectedCategory = $(this).val();
-            if (selectedCategory) {
-                datatable.column(1).search(selectedCategory).draw();
-            } else {
-                datatable.column(1).search('').draw();
-            }
+  $('#filter').on('change', function () {
+    const val = $(this).val();
+    table1.column(1).search(val || '').draw();
+  });
 });
+
 
     
         // JavaScript to show/hide "Other Gender" input
