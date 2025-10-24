@@ -3,6 +3,9 @@
 /**  =====================
       Custom css start
 ==========================  **/
+table.dataTable thead th, table.dataTable thead td, table.dataTable tfoot th, table.dataTable tfoot td {
+    text-align: center !important;
+}
 
 body {
 	background-color: #f3f3f3;

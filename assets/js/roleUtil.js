@@ -370,14 +370,14 @@ function getPageInfo(page) {
     designations: { title: "Designations", icon: "fa-solid fa-user-tie" },
     equipmentCategory: {
       title: "Equipment Category",
-      icon: "fa-solid fa-layer-group",
+      icon: "fa-solid fa-truck-ramp-box",
     },
     highestqualifications: {
       title: "Qualifications",
       icon: "fa-solid fa-graduation-cap",
     },
     organisations: { title: "Organisations", icon: "fa-solid fa-sitemap" },
-    stages: { title: "Stages", icon: "fa-solid fa-diagram-project" },
+    stages: { title: "Stages", icon: "fa-solid fa-layer-group" },
     // assetsDashboard: {
     //   title: "Assets Dashboard",
     //   icon: "fa-solid fa-table-columns",

@@ -129,16 +129,16 @@ function addRow(data) {
     let bg;
 if (data.ProjectStatus === "Ongoing") {
   bg = "bg-warning text-dark";
-  icon = '<i class="fa-solid fa-spinner spin-icon mr-2"></i>';
+  icon = '<i class="fa-solid fa-spinner spin-icon me-2"></i>';
 } else if (data.ProjectStatus === "Completed") {
   bg = "bg-success text-white";
-  icon = '<i class="fa-solid fa-circle-check complete-icon mr-2"></i>';
+  icon = '<i class="fa-solid fa-circle-check complete-icon me-2"></i>';
 } else if (data.ProjectStatus === "Withdrawn") {
   bg = "bg-danger text-white";
-  icon = '<i class="fa-solid fa-circle-xmark flip-icon mr-2"></i>';
+  icon = '<i class="fa-solid fa-circle-xmark flip-icon me-2"></i>';
 } else {
   bg = "bg-secondary text-white";
-  icon = '<i class="fa-solid fa-question-circle mr-2"></i>';
+  icon = '<i class="fa-solid fa-question-circle me-2"></i>';
 }
 
 StatusRow = `
@@ -170,7 +170,7 @@ StatusRow = `
       `
      <div class="d-flex align-items-center justify-content-center p-0 edit-btn ${decidedPermission} writeElement" 
       style="width: 40px; height: 40px; cursor:pointer">
-       <i class="ti-pencil-alt text-inverse" data-id='${data.ID}' onclick="loadUpdateData(${data.ID})"  style="font-size: 20px;"></i>
+       <i class="fa-solid fa-pen-to-square" data-id='${data.ID}' onclick="loadUpdateData(${data.ID})"  style="font-size: 20px;"></i>
     </div>
 
     `,
@@ -703,8 +703,8 @@ function enableEditMode($row) {
             <input type="text" class="form-control" value="${
               originalRowData[$row.index()].remarks
             }" style="flex:1">
-            <button class="btn btn-success btn-sm save-row ml-2">Save</button>
-            <button class="btn btn-danger btn-sm cancel-row ml-1">Cancel</button>
+            <button class="btn btn-green btn-sm save-row ml-2">Save</button>
+            <button class="btn btn-red btn-sm cancel-row ml-1">Cancel</button>
         </div>
     `);
 }
@@ -867,8 +867,8 @@ function addDeliverablesRow(data, isNew = false) {
       '<input type="number" class="form-control deliverable-cost" placeholder="Cost" min="0" step="0.01" required>',
       '<div class="d-flex align-items-center">' +
         '<input type="text" class="form-control deliverable-remarks" placeholder="Remarks" style="flex:1">' +
-        '<button class="btn btn-success btn-sm save-row ml-2">Save</button>' +
-        '<button class="btn btn-danger btn-sm cancel-row ml-1">Cancel</button>' +
+        '<button class="btn btn-green btn-sm save-row ml-2">Save</button>' +
+        '<button class="btn btn-red btn-sm cancel-row ml-1">Cancel</button>' +
         "</div>",
     ];
   } else {
@@ -917,7 +917,7 @@ function refreshRowAfterSave($row, data) {
     data.TotalCost || "0",
     data.Remarks || "-",
     `<button class="btn btn-sm btn-primary edit-row">Edit</button>
-         <button class="btn btn-sm btn-danger delete-row ml-1">Delete</button>`,
+         <button class="btn btn-sm btn-red delete-row ml-1">Delete</button>`,
   ];
 
   deliverablesTable.row($row).data(rowContent).draw();
@@ -1028,7 +1028,7 @@ function renderPaymentsTable() {
                 <td>${payment.paymentReceived}</td>
                 <td>${payment.paymentDate}</td>
                 <td><a href="${fileURL}" download="${fileName}">${fileName}</a></td>
-                <td><button class="btn btn-danger btn-sm" onclick="deletePaymentRow(${index})">Delete</button></td>
+                <td><button class="btn btn-red btn-sm" onclick="deletePaymentRow(${index})">Delete</button></td>
             </tr>
         `;
     })

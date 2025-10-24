@@ -230,7 +230,7 @@ function addRow(data) {
       data.dateOfJoining,
       data.currentSalary,
       data.currentDesignation,
-      `<div class="container">
+      `<div class="container d-flex justify-content-center">
             <div class="toggle-btn ${decidedPermission}  ${
         data.status === true ? "active" : ""
       }" onclick="toggleStatus(this,'${data.staffID}')">
@@ -928,7 +928,7 @@ $("#statusFilter").on("click", function () {
 const policyTable = $("#policyTable").DataTable({
   paging: true,
   pageLength: 10,
-  dom: '<"top"l>frtip',
+    dom: '<"top"lBf>rt<"bottom"ip><"clear">',
   language: {
     search: "",
     searchPlaceholder: "Type to search..."

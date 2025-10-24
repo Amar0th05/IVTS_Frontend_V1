@@ -152,7 +152,7 @@
   color: #212529 !important;
 }
 .status-badge i {
-  margin-right: 0.5rem; /* using mr-2 style */
+  margin-right: 0.5rem; /* using me-2 style */
   font-size: 1rem;
   opacity: 0.9;
   transition: opacity 0.3s;
@@ -174,6 +174,37 @@
     font-size: 0.9rem;
   }
 }
+</style>
+<style>
+  /* 🔹 Default state */
+.defult {
+  display: inline-block;
+}
+
+.hover {
+  display: none;
+}
+
+/* 🔹 When hovering over the trash area (the icon container), swap icons */
+.btn-delete:hover .defult {
+  display: none;
+}
+
+.btn-delete:hover .hover {
+  display: inline-block;
+  
+}
+
+/* 🔹 Optional: smooth animation & cursor change */
+.btn-delete {
+  cursor: pointer;
+  /* transition: transform 0.2s ease-in-out; */
+}
+
+.btn-delete:hover {
+  /* transform: scale(1.1); */
+}
+
 </style>
 </head>
 
@@ -324,7 +355,7 @@
                 <div class="row align-items-center">
                   <div class="col-md-8">
                     <div class="page-title">
-                      <span class="page-title-icon bg-gradient-primary text-white mr-2">
+                      <span class="page-title-icon bg-gradient-primary text-white me-2">
                         <i class="fa-solid fa-user-graduate"></i>
                       </span>
                       <h5>Interns</h5>
@@ -839,10 +870,10 @@
 
 
                                                                     <div class="modal-footer">
-                                                                        <button type="button" class="btn btn-danger"
+                                                                        <button type="button" class="btn btn-red"
                                                                             data-dismiss="modal"
                                                                             id="exitButton">Exit</button>
-                                                                        <button type="submit" class="btn btn-success"
+                                                                        <button type="submit" class="btn btn-green"
                                                                             id="add_staff_btn"
                                                                             data-dismiss="modal">Submit</button>
                                                                     </div>
@@ -1287,8 +1318,10 @@
                                                                     </div>
                                                                     <div class="tab-pane fade show" id="tab4"
                                                                         role="tabpanel">
-                                                                        <div class="mt-4">
-                                                                            <table id="documentTable" class="table">
+                                                                        <div
+                                                                class="d-flex justify-content-center align-items-center">
+                                                                <div class="table-responsive">
+                                                                            <table id="documentTable" class="table-modern table-striped">
                                                                                 <thead class="bg-primary text-white">
                                                                                     <tr>
                                                                                         <th>Documents</th>
@@ -1304,7 +1337,7 @@
                                                                                                 class="btn btn-sm btn-primary">Download</button>
                                                                                             <button
                                                                                                 onclick="deleteDocument('0000', 'Bonafide')"
-                                                                                                class="btn btn-sm btn-danger">Delete</button> -->
+                                                                                                class="btn btn-sm btn-red">Delete</button> -->
                                                                                         </td>
                                                                                     </tr>
 
@@ -1346,6 +1379,7 @@
                                                                                 </tbody>
                                                                             </table>
                                                                         </div>
+                                                                        </div>
                                                                     </div>
                                                                      <div class="tab-pane fade show" id="tab5"
                                                                         role="tabpanel">
@@ -1366,11 +1400,11 @@
 
                                                                 <!-- Modal Footer -->
                                                                 <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-danger btn-sm"
+                                                                    <button type="button" class="btn btn-red btn-sm"
                                                                         data-dismiss="modal"
                                                                         id="exitButton2">Exit</button>
                                                                     <button type="button" id="update_intern_btn"
-                                                                        class="btn btn-success btn-sm writeElement">Update</button>
+                                                                        class="btn btn-green btn-sm writeElement">Update</button>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1515,14 +1549,14 @@
 
                 <div class="text-start mt-3">
                   <button id="changePasswordBtn" class="btn-change">
-                    <i class="fa-solid fa-key mr-2"></i>Change Password
+                    <i class="fa-solid fa-key me-2"></i>Change Password
                   </button>
                 </div>
               </div>
 
               <!-- Password Section -->
               <div id="passwordSection" class="slide-section hidden-section">
-                <h6 class="fw-bold mb-3 text-sub"><i class="fa-solid fa-key mr-2"></i>Change Password</h6>
+                <h6 class="fw-bold mb-3 text-sub"><i class="fa-solid fa-key me-2"></i>Change Password</h6>
                 <hr>
                 <form id="passwordForm" class="mt-3">
                   <div class="mb-3">
@@ -1536,9 +1570,9 @@
 
                   <div class="text-start mt-3">
                     <button type="button" class="btn-change" id="backToProfile">
-                      <i class="fa-solid fa-arrow-left mr-2"></i>Back
+                      <i class="fa-solid fa-arrow-left me-2"></i>Back
                     </button>
-                      <button  type="button"  class="btn-green btn-change"  id="savePassword"><i class="fa-solid fa-key mr-2"></i>Save Password</button>
+                      <button  type="button"  class="btn-green btn-change"  id="savePassword"><i class="fa-solid fa-key me-2"></i>Save Password</button>
                   </div>
                 </form>
               </div>

@@ -51,7 +51,7 @@ function addRow(data){
       data.Email,
       data.CollegeName,
       data.DegreeProgram,
-        `<div class="container">
+        `<div class="container d-flex justify-content-center">
             <div class="toggle-btn ${decidedPermission}  ${data.status===true?'active':''}" onclick="toggleStatus(this,'${data.Id}')">
                 <div class="slider"></div>
             </div>
@@ -399,7 +399,7 @@ async function updateInternCertificateButtons(data) {
 
     // ✅ Pass data.FullName safely as a string
  let actionHTML1 = `
-   <div class="text-center">
+   <div class="text-center d-flex align-items-center">
     <span class="status-badge bg-warning text-dark">
       <i class="fa-solid fa-spinner  fa-spin spin-icon me-2"></i> <span class="status-text">Ongoing</span>
     </span>
@@ -466,11 +466,16 @@ async function updateInternDocumentButtons(internId) {
               <i class="fa-solid fa-download me-1"></i> Download
             </button>
             <button onclick="handleAction(this, () => deleteDocument('${internId}', '${doc.name}'))" 
-                    class="btn btn-sm text-white" 
+                    class="btn btn-sm text-white btn-delete" 
                     style="background:linear-gradient(to bottom right, #EF4444, #B91C1C); border:none;">
-              <i class="fa-solid fa-trash me-1"></i> Delete
+  <i class="fa-solid fa-trash-can me-1 defult"></i>
+  <i class="fa-solid fa-trash-can fa-bounce hover"></i>
+ Delete
             </button>
         `;
+        console.log(
+          "hihi",doc.name
+        );
       } else {
         // ✅ Upload with gradient
         actionHTML = `
@@ -490,6 +495,7 @@ async function updateInternDocumentButtons(internId) {
                     <td>${actionHTML}</td>
                 </tr>
             `;
+            
         });
 
         // 4. Inject into table body
@@ -525,7 +531,27 @@ async function downloadDocument(internId, docName) {
         const res = await axiosInstance.get(API_ROUTES.downloadInternDocument(internId, docName), {
             responseType: 'blob'
         });
+        if(docName==="Photo" || docName==="IdProof" ){
+          const blob = new Blob([res.data], { type: 'image/png'});
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = `${docName}.png`; // always save with .jpg extension
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          Swal.fire({
+            icon: 'success',
+            title: 'Download Complete',
+            text: `${docName} has been downloaded successfully.`,
+            timer: 2000,
+            showConfirmButton: false
+        });
+          window.URL.revokeObjectURL(url);
+          updateInternDocumentButtons(internId);
 
+        }
+        else{
         const blob = new Blob([res.data], { type: 'application/pdf' });
         const url = window.URL.createObjectURL(blob);
 
@@ -537,7 +563,6 @@ async function downloadDocument(internId, docName) {
         a.remove();
 
         window.URL.revokeObjectURL(url);
-
         // SweetAlert2 success popup
         Swal.fire({
             icon: 'success',
@@ -547,7 +572,7 @@ async function downloadDocument(internId, docName) {
             showConfirmButton: false
         });
         updateInternDocumentButtons(internId);
-
+      }
     } catch (error) {
         console.error("Error downloading document:", error);
 

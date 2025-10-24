@@ -162,7 +162,7 @@ table.row.add([
   data.workLocation,
   `
     <span class="d-none">${statusText}</span> <!-- hidden filter text -->
-    <div class="container">
+    <div class="container d-flex justify-content-center">
       <div class="toggle-btn ${decidedPermission} ${data.status===true?'active':''}" 
            onclick="toggleStatus(this,'${data.employeeId}')">
         <div class="slider"></div>

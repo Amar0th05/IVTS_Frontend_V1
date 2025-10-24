@@ -124,7 +124,7 @@ function addRow(data) {
       data.vendorName,
       data.userName,
       data.dept,
-      `<div class="container">
+      `<div class="container d-flex justify-content-center">
             <div class="toggle-btn ${decidedPermission}  ${
         data.status === true ? "active" : ""
       }" onclick="toggleStatus(this,'${data.assetId}')">
