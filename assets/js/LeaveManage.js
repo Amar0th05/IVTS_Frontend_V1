@@ -8,90 +8,121 @@ document.addEventListener('DOMContentLoaded',async ()=>{
     // console.log(roles);
     window.roles = roles;
     handlePermission('#username');
-
-
-    const sidebarContainer = document.getElementById('sidebar-container');
-    if (sidebarContainer) {
-        sidebarContainer.innerHTML = generateSidebar();
-        
-       
-        const currentPage = window.location.pathname.split('/').pop().split('.')[0];
-        const navLinks = document.querySelectorAll('.pcoded-item a');
-        
-        navLinks.forEach(link => {
-            if (link.getAttribute('href').includes(currentPage)) {
-                link.parentElement.classList.add('active');
-                
-            
-                const accordionContent = link.closest('.accordion-content');
-                if (accordionContent) {
-                    accordionContent.style.display = 'block';
-                    const header = accordionContent.previousElementSibling;
-                    const icon = header.querySelector('.accordion-icon');
-                    if (icon) {
-                        icon.classList.remove('fa-chevron-down');
-                        icon.classList.add('fa-chevron-up');
-                    }
-                }
-            }
-        });
-    }
-
-    
-    
-    handlePermission('#username');
 });
 // side bar end
 
 // Leave Management JS
-$(document).ready(function () {
-    const table = $('#myTable').DataTable({
-        columns: [
-            { title: "Leave ID" },       // NEW column
-            { title: "Emp. ID" },
-            { title: "Employee Name" },
-            { title: "Month" },
-            { title: "Leave Type" },
-            { title: "Status" }
-        ],
-        responsive: true,
-        paging: true,
-        searching: true,
-        info: true,
-        order: [[0, 'asc']],
-        buttons: ['excel', 'csv', 'pdf']
-    });
+  $(document).ready(function () {
+  const table = $('#myTable').DataTable({
+    paging: true,
+  pageLength: 25,
+  lengthMenu: [5, 10, 25, 50, 100],
+  dom: '<"top"lBf>rt<"bottom"ip><"clear">',
+    buttons: [
+      {
+        extend: 'excel',
+         text: `
+      <span class="icon-default"><i class="fa-solid fa-file-excel"></i></span>
+      <span class="icon-extra"><i class="fa-solid fa-download"></i></span>
+      Excel
+    `,
+    className: "btn-excel"
+      },
+      {
+        extend: 'pdf',
+        text: `
+      <span class="icon-default"><i class="fa-solid fa-file-pdf"></i></span>
+      <span class="icon-extra"><i class="fa-solid fa-download"></i></span>
+      PDF
+    `,
+    className: "btn-pdf"
+      },
+      {
+        extend: 'colvis',
+        text: `
+      <span class="icon-default"><i class="fa-solid fa-eye"></i></span>
+      <span class="icon-extra"><i class="fa-solid fa-gear"></i></span>
+      Columns
+    `,
+    className: "btn-colvis"
+      }
+    ],
+    language: {
+      search: "",
+      searchPlaceholder: "Type to search...",
+    paginate: { first: "«", last: "»", next: "›", previous: "‹" }
+
+    },
+    initComplete: function () {
+      // Remove default "Search:" text
+      $('#myTable').contents().filter(function () {
+        return this.nodeType === 3;
+      }).remove();
+
+      // Wrap search input & add search icon
+      $('#myTable_filter input').wrap('<div class="search-wrapper"></div>');
+      $('.search-wrapper').prepend('<i class="fa-solid fa-magnifying-glass"></i>');
+    }
+  });
+
+  // Move export buttons into custom div
+  table.buttons().container().appendTo($('#exportButtons'));
+
+
 
     // Fetch leave data from backend
-    async function fetchLeaveSummary() {
-        try {
-            const leaves = await api.getAllLeave();
-            
+   async function fetchLeaveSummary() {
+    try {
+        const leaves = await api.getAllLeave();
+        table.clear();
 
-            table.clear();
+        leaves.forEach(leave => {
+            // 🎨 Style the Leave Status
+            let statusBadge = '';
+            switch (leave.leaveStatus.toLowerCase()) {
+                case 'approved':
+                    statusBadge = `<span class="status-badge rounded-pill fs-5 bg-success ">
+                                      <i class="fa-solid fa-circle-check me-1"></i> Approved
+                                   </span>`;
+                    break;
+                case 'pending':
+                    statusBadge = `<span class="status-badge rounded-pill bg-warning text-dark">
+                                      <i class="fa-solid fa-spinner spin-icon me-1"></i> Pending
+                                   </span>`;
+                    break;
+                case 'rejected':
+                    statusBadge = `<span class="status-badge rounded-pill bg-danger">
+                                      <i class="fa-solid fa-circle-xmark me-1"></i> Rejected
+                                   </span>`;
+                    break;
+                default:
+                    statusBadge = `<span class="status-badge rounded-pill bg-secondary">
+                                      <i class="fa-solid fa-circle-question me-1"></i> ${leave.leaveStatus}
+                                   </span>`;
+            }
 
-            leaves.forEach(leave => {
-                table.row.add([
-                    leave.leaveId,          // NEW column
-                    leave.employeeId,
-                    leave.employeeName,
-                    leave.month,
-                    leave.leaveType,
-                    leave.leaveStatus
-                ]);
-            });
+            table.row.add([
+                leave.leaveId,
+                leave.employeeId,
+                leave.employeeName,
+                leave.month,
+                leave.leaveType,
+                statusBadge // 👈 styled badge added here
+            ]);
+        });
 
-            table.draw();
-        } catch (error) {
-            console.error("Error fetching leave summary:", error);
-            toastr.error("Failed to load leave summary");
-        }
+        table.draw();
+    } catch (error) {
+        console.error("Error fetching leave summary:", error);
+        toastr.error("Failed to load leave summary");
     }
+}
+
 
     fetchLeaveSummary();
 
     function applyFilters() {
-    const month = $('#monthFilter').val().toLowerCase();       // convert filter to lowercase
+    const month = $('#monthFilter').val().toLowerCase();
     const leaveType = $('#leaveTypeFilter').val().toLowerCase();
     const status = $('#statusFilter').val().toLowerCase();
     const employee = $('#employeeFilter').val().toLowerCase();
@@ -107,12 +138,16 @@ $(document).ready(function () {
     table.rows().every(function () {
         const data = this.data();
 
-        // Map leaveType from table to display value and convert to lowercase
-        const tableLeaveType = (leaveTypeMap[data[4].toLowerCase()] || data[4]).toLowerCase();
-        const tableMonth = data[3].toLowerCase();
-        const tableStatus = data[5].toLowerCase();
-        const tableEmployeeName = data[2].toLowerCase();
-        const tableEmployeeId = data[1].toString().toLowerCase();
+        const tableLeaveType = (leaveTypeMap[data[4]?.toLowerCase()] || data[4])?.toLowerCase() || '';
+        const tableMonth = data[3]?.toLowerCase() || '';
+        
+        // 🟢 Extract text content from HTML (badge)
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = data[5];
+        const tableStatus = tempDiv.textContent.trim().toLowerCase();
+
+        const tableEmployeeName = data[2]?.toLowerCase() || '';
+        const tableEmployeeId = data[1]?.toString().toLowerCase() || '';
 
         const matchesMonth = !month || tableMonth === month;
         const matchesType = !leaveType || tableLeaveType === leaveType;
@@ -130,6 +165,7 @@ $(document).ready(function () {
     });
 }
 
+
 $('#monthFilter, #leaveTypeFilter, #statusFilter').on('change', applyFilters);
 $('#employeeFilter').on('keyup', applyFilters);
 });
@@ -143,56 +179,6 @@ const leaveTypeMap = {
     "Other": "Other"
 };
 
-// Export Leave Management to PDF
-function exportToPDF() {
-    const table = $('#myTable').DataTable();
-    const data = table.rows({ search: 'applied' }).data().toArray(); // only filtered rows
-
-    const tableBody = [
-        ["Leave ID", "Employee ID", "Employee Name", "Month", "Leave Type", "Status"],
-        ...data.map(row => [
-            row[0], // Leave ID
-            row[1], // Employee ID
-            row[2], // Employee Name
-            row[3], // Month
-            leaveTypeMap[row[4]] || row[4], // full Leave Type
-            row[5]  // Status
-        ])
-    ];
-
-    const docDefinition = {
-        pageOrientation: "landscape",
-        content: [
-            { text: "Leave Summary", style: "header" },
-            { table: { headerRows: 1, widths: ["10%", "15%", "25%", "15%", "20%", "15%"], body: tableBody } }
-        ],
-        styles: { header: { fontSize: 16, bold: true, margin: [0,0,0,10] } },
-        defaultStyle: { fontSize: 10 }
-    };
-
-    pdfMake.createPdf(docDefinition).download("Leave_Summary.pdf");
-}
-
-// Export Leave Management to Excel
-function exportToExcel() {
-    const table = $('#myTable').DataTable();
-    const data = table.rows({ search: 'applied' }).data().toArray(); // only filtered rows
-
-    const headers = ["Leave ID", "Employee ID", "Employee Name", "Month", "Leave Type", "Status"];
-    const excelData = data.map(row => [
-        row[0], // Leave ID
-        row[1], // Employee ID
-        row[2], // Employee Name
-        row[3], // Month
-        leaveTypeMap[row[4]] || row[4], // full Leave Type
-        row[5]  // Status
-    ]);
-
-    const ws = XLSX.utils.aoa_to_sheet([headers, ...excelData]);
-    const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, "Leave Summary");
-    XLSX.writeFile(wb, "Leave_Summary.xlsx");
-}
 
 
 

@@ -208,7 +208,10 @@
 <body>
   <!-- Pre-loader start -->
   <div class="theme-loader">
+    
+    <div class="loader-track">
         <img class="loading" src="assets/images/Untitled design (2).gif" alt="Loading..." >
+    </div>
   </div>  
   
   <!-- Pre-loader end -->
@@ -485,13 +488,16 @@
                         <div class="modal-content">
                           <div class="modal-header bg-primary text-white">
                             <h5 class="modal-title" id="invoiceModalLabel">Manning Cost / Month</h5>
-                            <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
+                                <button type="button"
+          class="d-flex align-items-center btn-close justify-content-center p-0"
+          style="width:32px; height:32px;background-color: transparent !important; border: transparent; cursor: pointer;"
+          data-dismiss="modal" aria-label="Close">
+          <i class="fa-solid fa-xmark text-white"></i>
+        </button>
                           </div>
                           <div class="modal-body table-responsive">
-                            <table class="table modern-table mx-auto">
-                              <thead>
+                            <table class="table-modern table-striped table-hover mx-auto">
+                              <thead class="bg-primary text-white">
                                 <tr>
                                   <th>Organisation</th>
                                   <th>Manning Cost</th>

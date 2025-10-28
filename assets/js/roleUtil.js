@@ -35,7 +35,7 @@ const moduleMaps = {
   "IC & SR SUBMISSION": ["indents"],
   "ASSETS": ["assetsDashboard", "laptops", "desktops", "server","printer"],
   "ASSETS VERIFICATION":["assetsVerficationDashboard"],
-  "LEAVE":["LeaveManagement"]
+  "LEAVE":["LeaveTracking"]
 
   // 'USER ROLES': ['roles']
 };
@@ -205,7 +205,7 @@ function generateSidebar() {
         "TALENT POOL",
       ],
     },
-    "Employee Management": ["IIT STAFF", "INTERNS"],
+    "Employee Management": ["IIT STAFF", "INTERNS","LEAVE"],
     "User Management": [
       // "USER ROLES",
       "USER MANAGEMENT",
@@ -215,7 +215,6 @@ function generateSidebar() {
       "Asset Master":["ASSETS"],
       "Asset Verification":["ASSETS VERIFICATION"]
     } ,
-    "Leave Tracking":["LEAVE"]
   };
 
   let sidebarHTML = "";
@@ -232,8 +231,7 @@ function generateSidebar() {
                     <ul class="pcoded-item pcoded-left-item"${
                       categoryName === "Employee Management" ||
                       categoryName === "User Management" ||
-                      categoryName === "MASTER MANAGEMENT"||
-                      categoryName ==="Leave Tracking"
+                      categoryName === "MASTER MANAGEMENT"
                         ? ""
                         : ' style="padding-left:25px;"'
                     }>
@@ -390,7 +388,7 @@ function getPageInfo(page) {
       title: "Dashboard",
       icon: "fa-solid fa-copy",
     }, // assets verfication dashboard
-    LeaveManagement: { title: "Dashboard", icon: "fa-solid fa-copy" }, // leave tracking dashboard
+    LeaveTracking: { title: "Leave Tracking", icon: "fa-solid fa-calendar-days"}, // leave tracking dashboard
   };
   return pageInfoMap[page];
 }

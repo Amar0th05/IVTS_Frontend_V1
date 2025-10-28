@@ -199,6 +199,8 @@ if (decidedPermission !== "") {
   // alert(decidedPermission)
 }
 
+
+
 let table;
 function addRow(data) {
   if ($.fn.dataTable.isDataTable("#myTable")) {
