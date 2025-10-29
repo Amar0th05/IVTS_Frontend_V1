@@ -184,6 +184,11 @@ const api = {
 
     getAllLeave:() => fetchData(API_ROUTES.getAllLeave,"leave"),
 
+    // insurance staff details
+    addInsurance: (payload) => postData(API_ROUTES.addinsurance, payload),
+    updateInsurance: (id, payload) => putData(API_ROUTES.updateInsurance(id), payload),
+    deleteInsurance: (id) => deleteData(API_ROUTES.deleteInsurance(id)),
+
 
 };
 

@@ -34,6 +34,9 @@ const API_ROUTES = {
   getHighestQualifications: "/hq/all/active",
 
   staff: "/staff",
+  addinsurance: "/staff/insurance",
+  updateInsurance: (id) => `/staff/insurance/${id}`,
+  deleteInsurance: (id) => `/staff/insurance/${id}`,
 
   toggleStaffStatus: (id) => `/staff/status/${id}`,
 
@@ -125,9 +128,9 @@ const API_ROUTES = {
   addLaptops: `/assets/Laptops/add`,
  updateLaptops: `/assets/Laptops/update`,
   toggleLaptopStatus: `/assets/Laptops/status/`,
-  getAllAssets: `/Assets`,
-  getAssets: (id) => `/Assets/${id}`,
-  getstaffid: `/Assets/getstaff`,
+  getAllAssets: `/assets`,
+  getAssets: (id) => `/assets/${id}`,
+  getstaffid: `/assets/getstaff`,
 
   //desktop
   addDesktops: `/assets/Desktops/add`,

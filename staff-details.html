@@ -599,11 +599,11 @@
                 <thead class="text-white"
                   style="background: linear-gradient(to bottom right, #60A5FA, #1E40AF);">
                   <tr>
-                    <th>Update Date</th>
                     <th>New Policy Number</th>
                     <th>New Provider</th>
                     <th>New Policy Start Date</th>
                     <th>New Expiry Date</th>
+                    <th>Update Date</th>
                     <th>Action</th>
                   </tr>
                 </thead>
@@ -832,59 +832,124 @@
 </div>
 <!-- !profile Model end  -->
 
- <!-- 🧾 Vertically Centered Modal -->
-  <div class="modal fade" id="insuranceModal" tabindex="-1" aria-labelledby="insuranceModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-      <div class="modal-content border-0 shadow-lg">
+<!-- ✅ ADD INSURANCE MODAL -->
+<div class="modal fade" id="insuranceModal" tabindex="-1" aria-labelledby="insuranceModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content border-0 shadow-lg">
 
-        <div class="modal-header bg-primary text-white">
-          <h5 class="modal-title" id="insuranceModalLabel">
-            <i class="fa-solid fa-shield-halved me-2"></i> Insurance Details
-          </h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title" id="insuranceModalLabel">
+          <i class="fa-solid fa-shield-halved me-2"></i> Add Insurance Details
+        </h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
 
-        <!-- 🔹 Your Tab Content Goes Here -->
-        <div class="modal-body bg-light rounded-3 shadow-sm">
-          <div class="card border-0 shadow-sm">
-            <div class="card-body">
-              <form id="new-insurance-form">
-                <div class="row g-3">
-                  <div class="col-md-6">
-                    <label class="form-label fw-semibold">Insurance Provider <span class="text-danger">*</span></label>
-                    <input type="text" name="insuranceProvider" class="form-control form-control-sm" id="insuranceProvider" placeholder="Enter Insurance Provider" required>
-                  </div>
-
-                  <div class="col-md-6">
-                    <label class="form-label fw-semibold">Policy Number</label>
-                    <input type="text" name="policyNumber" class="form-control form-control-sm" id="policyNumber" placeholder="Enter Policy Number">
-                  </div>
-
-                  <div class="col-md-6">
-                    <label class="form-label fw-semibold">Policy Start Date</label>
-                    <input type="date" name="policyStartDate" class="form-control form-control-sm" id="policyStartDate" required>
-                  </div>
-
-                  <div class="col-md-6">
-                    <label class="form-label fw-semibold">Policy Expiry Date</label>
-                    <input type="date" name="policyExpiryDate" class="form-control form-control-sm" id="policyExpiryDate">
-                  </div>
+      <div class="modal-body bg-light rounded-3 shadow-sm">
+        <div class="card border-0 shadow-sm">
+          <div class="card-body">
+            <form id="add-insurance-form">
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label class="form-label fw-semibold">
+                    Insurance Provider <span class="text-danger">*</span>
+                  </label>
+                  <input type="text" name="insuranceProvider" id="add-insuranceProvider"
+                    class="form-control form-control-sm" placeholder="Enter Insurance Provider" required>
                 </div>
-              </form>
-            </div>
+
+                <div class="col-md-6">
+                  <label class="form-label fw-semibold">Policy Number</label>
+                  <input type="text" name="policyNumber" id="add-policyNumber"
+                    class="form-control form-control-sm" placeholder="Enter Policy Number">
+                </div>
+
+                <div class="col-md-6">
+                  <label class="form-label fw-semibold">Policy Start Date</label>
+                  <input type="date" name="policyStartDate" id="add-policyStartDate"
+                    class="form-control form-control-sm" required>
+                </div>
+
+                <div class="col-md-6">
+                  <label class="form-label fw-semibold">Policy Expiry Date</label>
+                  <input type="date" name="policyExpiryDate" id="add-policyExpiryDate"
+                    class="form-control form-control-sm">
+                </div>
+              </div>
+            </form>
           </div>
         </div>
-
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <button type="submit" form="new-insurance-form" class="btn btn-success">Save</button>
-        </div>
-
       </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="submit" form="add-insurance-form" id="add-insurance" class="btn btn-success">Save</button>
+      </div>
+
     </div>
   </div>
+</div>
+<!-- END ADD MODAL -->
 
-  <!-- model end -->
+
+
+<!-- ✅ UPDATE INSURANCE MODAL -->
+<div class="modal fade" id="updateinsuranceModal" tabindex="-1" aria-labelledby="updateinsuranceModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content border-0 shadow-lg">
+
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title" id="updateinsuranceModalLabel">
+          <i class="fa-solid fa-shield-halved me-2"></i> Update Insurance Details
+        </h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body bg-light rounded-3 shadow-sm">
+        <div class="card border-0 shadow-sm">
+          <div class="card-body">
+            <form id="update-insurance-form">
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label class="form-label fw-semibold">
+                    Insurance Provider <span class="text-danger">*</span>
+                  </label>
+                  <input type="text" name="insuranceProvider" id="update-insuranceProvider"
+                    class="form-control form-control-sm" placeholder="Enter Insurance Provider" required>
+                </div>
+
+                <div class="col-md-6">
+                  <label class="form-label fw-semibold">Policy Number</label>
+                  <input type="text" name="policyNumber" id="update-policyNumber"
+                    class="form-control form-control-sm" placeholder="Enter Policy Number">
+                </div>
+
+                <div class="col-md-6">
+                  <label class="form-label fw-semibold">Policy Start Date</label>
+                  <input type="date" name="policyStartDate" id="update-policyStartDate"
+                    class="form-control form-control-sm" required>
+                </div>
+
+                <div class="col-md-6">
+                  <label class="form-label fw-semibold">Policy Expiry Date</label>
+                  <input type="date" name="policyExpiryDate" id="update-policyExpiryDate"
+                    class="form-control form-control-sm">
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="submit" form="update-insurance-form" id="update-insurance" class="btn btn-success">Save</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- END UPDATE MODAL -->
+
                   </div>
                 </div>
               </div>
@@ -899,6 +964,11 @@
     <div class="pcoded-innenr-content">
     </div>
   </div>
+
+
+
+
+
   <script src="assets/js/roleUtil.js"></script>
 
   <!-- Required jQuery -->

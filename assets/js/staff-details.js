@@ -1,6 +1,189 @@
 const addStaffButton = document.getElementById("add_staff_btn");
 const updateStaffButton = document.getElementById("update_staff_btn");
 
+let currentStaffId = null;
+let insuranceTable = null;
+let addInsuranceModal = null;
+let updateInsuranceModal = null;
+
+document.addEventListener("DOMContentLoaded", () => {
+  // Initialize DataTable
+  insuranceTable = $("#policyTable").DataTable({
+    columnDefs: [{ orderable: false, targets: [5] }],
+    pageLength: 5,
+  });
+
+  // Initialize Modals
+  addInsuranceModal = new bootstrap.Modal(document.getElementById("insuranceModal"));
+  updateInsuranceModal = new bootstrap.Modal(document.getElementById("updateinsuranceModal"));
+
+  const addForm = document.getElementById("add-insurance-form");
+  const updateForm = document.getElementById("update-insurance-form");
+
+  // --- ADD INSURANCE ---
+  addForm.addEventListener("submit", handleAddInsurance);
+
+  async function handleAddInsurance(e) {
+    e.preventDefault();
+
+    const provider = document.getElementById("add-insuranceProvider").value.trim();
+    const policyNumber = document.getElementById("add-policyNumber").value.trim();
+    const startDate = document.getElementById("add-policyStartDate").value.trim();
+    const expiryDate = document.getElementById("add-policyExpiryDate").value.trim();
+
+    if (!provider || !startDate) {
+      alert("Please fill all required fields.");
+      return;
+    }
+
+  const updateDate = new Date();
+const month = updateDate.getMonth() + 1; // Months are 0-indexed
+const day = updateDate.getDate();
+const year = updateDate.getFullYear();
+const formattedDate = `${month}-${day}-${year}`;
+
+
+    try {
+      // Example: send to backend
+      const newIns = await api.addInsurance({
+        staffId: currentStaffId,
+        insuranceProvider: provider,
+        policyNumber,
+        policyStartDate: startDate,
+        policyExpiryDate: expiryDate,
+        updateDate
+      });
+
+      // Update table
+      insuranceTable.row.add([
+        newIns.policy_number,
+        newIns.insurance_provider,
+        startDate,
+        expiryDate || "-",
+        updateDate,
+        actionButtons(newIns.id),
+      ]).draw(false);
+
+      addForm.reset();
+      addInsuranceModal.hide();
+      restoreBodyScroll(); // 🧩 Important fix
+
+    } catch (err) {
+      console.error(err);
+      alert("❌ Failed to save insurance details.");
+    }
+  }
+
+  // --- OPEN EDIT MODAL ---
+  $("#policyTable tbody").on("click", ".edit-btn1", function () {
+    const row = insuranceTable.row($(this).parents("tr"));
+    const data = row.data();
+    const id = $(this).data("id");
+
+    updateForm.dataset.rowIndex = row.index();
+    updateForm.dataset.insuranceId = id;
+
+    // Prefill form fields
+    document.getElementById("update-insuranceProvider").value = data[1];
+    document.getElementById("update-policyNumber").value = data[0];
+    document.getElementById("update-policyStartDate").value = data[2];
+    document.getElementById("update-policyExpiryDate").value = data[3];
+
+    updateInsuranceModal.show();
+  });
+
+ updateForm.addEventListener("submit", handleUpdateInsurance);
+
+async function handleUpdateInsurance(e) {
+  e.preventDefault();
+
+  const rowIndex = e.target.dataset.rowIndex;   // index of row to update
+  const id = e.target.dataset.insuranceId;
+
+  const provider = document.getElementById("update-insuranceProvider").value.trim();
+  const policyNumber = document.getElementById("update-policyNumber").value.trim();
+  const startDate = document.getElementById("update-policyStartDate").value.trim();
+  const expiryDate = document.getElementById("update-policyExpiryDate").value.trim();
+
+  // Format date as MM-DD-YYYY
+  const today = new Date();
+  const pad = (n) => n.toString().padStart(2, "0");
+  const updateDate = `${pad(today.getMonth() + 1)}-${pad(today.getDate())}-${today.getFullYear()}`;
+
+  try {
+    // ✅ Update backend
+    await axiosInstance.put(API_ROUTES.updateInsurance(id), {
+      staffId: currentStaffId,
+      insuranceProvider: provider,
+      policyNumber,
+      policyStartDate: startDate,
+      policyExpiryDate: expiryDate,
+      updatedDate: updateDate // optional if backend handles updated_date
+    });
+
+    // ✅ Update row in DataTable without page refresh
+    insuranceTable.row(rowIndex).data([
+      policyNumber || "N/A",
+      provider,
+      startDate,
+      expiryDate || "-",
+      updateDate,          // Updated date
+      actionButtons(id)    // Edit/Delete buttons
+    ]).draw(false);
+
+    // Close modal
+    updateInsuranceModal.hide();
+    updateForm.reset();
+    restoreBodyScroll();
+
+  } catch (error) {
+    console.error(error);
+    alert("❌ Failed to update insurance.");
+  }
+}
+
+
+  // --- DELETE INSURANCE ---
+  $("#policyTable tbody").on("click", ".delete-btn", async function () {
+    const id = $(this).data("id");
+    if (!confirm("Are you sure you want to delete this insurance?")) return;
+
+    try {
+      await axiosInstance.delete(API_ROUTES.deleteInsurance(id));
+      insuranceTable.row($(this).parents("tr")).remove().draw(false);
+    } catch (err) {
+      console.error(err);
+      alert("❌ Failed to delete insurance record.");
+    }
+  });
+
+  // --- SAFETY: RESTORE SCROLL WHEN ALL MODALS CLOSED ---
+  document.addEventListener('hidden.bs.modal', function () {
+    if (document.querySelectorAll('.modal.show').length === 0) {
+      restoreBodyScroll();
+    }
+  });
+});
+
+// --- HELPER: RESTORE SCROLL ---
+function restoreBodyScroll() {
+  document.body.classList.remove('modal-open');
+  document.body.style.overflow = '';
+  document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
+}
+
+// --- HELPER: ACTION BUTTONS ---
+function actionButtons(id) {
+  return `
+    <button class="btn btn-sm btn-warning edit-btn1" data-id="${id}">
+      <i class="fa fa-edit"></i>
+    </button>
+  `;
+}
+
+
+
+
 async function loadCourseOptions(id) {
   try {
     // const response = await axiosInstance.get(API_ROUTES.courses);
@@ -419,44 +602,36 @@ async function loadUpdateDetails(id) {
     const data = response.data.staffDetail;
     const insurance = response.data.insuranceDetail;
 
+    currentStaffId = data.staffID;
+
     document.getElementById("update-staffId").value = data.staffID;
     document.getElementById("update-staffName").value = data.staffName;
     document.getElementById("update-contactNumber").value = data.contactNumber;
     document.getElementById("update-aadharNumber").value = data.aadharNumber;
     document.getElementById("update-mail").value = data.mail;
-    document.getElementById("update-dateOfBirth").value = formatDate(
-      data.dateOfBirth
-    );
+    document.getElementById("update-dateOfBirth").value = formatDate(data.dateOfBirth);
     document.getElementById("update-location").value = data.locationOfWork;
-    document.getElementById("update-highestQualification").value =
-      data.highestQualification;
-    document.getElementById("update-qualifications").value =
-      data.qualifications;
+    document.getElementById("update-highestQualification").value = data.highestQualification;
+    document.getElementById("update-qualifications").value = data.qualifications;
     document.getElementById("update-courseSelect").value = data.courses;
-    document.getElementById("update-dateOfJoining").value = formatDate(
-      data.dateOfJoining
-    );
-    document.getElementById("update-certifications").value =
-      data.certifications;
-    document.getElementById("update-salary").value = data.salary
-      ? parseFloat(data.salary)
-      : "";
-    document.getElementById("update-permanentAddress").value =
-      data.permanentAddress;
+    document.getElementById("update-dateOfJoining").value = formatDate(data.dateOfJoining);
+    document.getElementById("update-certifications").value = data.certifications;
+    document.getElementById("update-salary").value = data.salary ? parseFloat(data.salary) : "";
+    document.getElementById("update-permanentAddress").value = data.permanentAddress;
 
-    let table = $("#policyTable").DataTable();
-    table.clear().draw();
+    // Clear & refill DataTable
+    insuranceTable.clear().draw();
 
-    if (insurance) {
+    if (insurance?.length) {
       insurance.forEach((ins) => {
-        table.row
-          .add([
-            formatDate(ins.policyStartDate),
+        insuranceTable
+          .row.add([
             ins.policyNumber || "N/A",
             ins.insuranceProvider || "N/A",
             formatDate(ins.policyStartDate),
             formatDate(ins.policyExpiryDate),
-            ins.updatedBy || "-",
+            formatDate(ins.updatedDate),
+            actionButtons(ins.insuranceID),
           ])
           .draw(false);
       });
@@ -465,6 +640,7 @@ async function loadUpdateDetails(id) {
     console.error(error);
   }
 }
+
 function formatDate(dateStr) {
   if (!dateStr) return "";
   let date = new Date(dateStr);
@@ -924,21 +1100,7 @@ $("#statusFilter").on("click", function () {
     .search(selectedStatus ? "^" + selectedStatus + "$" : "", true, false)
     .draw();
 });
-// Insurance table (policyTable)
-const policyTable = $("#policyTable").DataTable({
-  paging: true,
-  pageLength: 10,
-  dom: '<"top"l>frtip',
-  language: {
-    search: "",
-    searchPlaceholder: "Type to search..."
-  },
-  initComplete: function () {
-    const $input = $("#policyTable_filter input");
-    $input.wrap('<div class="search-wrapper"></div>');
-    $input.before('<i class="fa-solid fa-magnifying-glass"></i>');
-  }
-});
+
 staffTable.buttons().container().appendTo($("#exportButtons"));
 
 $("#filter").on("change", function () {

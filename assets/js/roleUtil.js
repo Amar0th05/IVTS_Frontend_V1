@@ -34,7 +34,7 @@ const moduleMaps = {
   "SRB CREATED": ["indents"],
   "IC & SR SUBMISSION": ["indents"],
   "ASSETS": ["assetsDashboard", "laptops", "desktops", "server","printer"],
-  "ASSETS VERIFICATION":["assetsVerficationDashboard"],
+  "ASSETS VERIFICATION":["assetsVerfication"],
   "LEAVE":["LeaveManagement"]
 
   // 'USER ROLES': ['roles']
@@ -386,7 +386,7 @@ function getPageInfo(page) {
     desktops: { title: "Desktops and Monitors", icon: "fa-solid fa-desktop" }, // desktops
     server: { title: "Server And Storage", icon: "fa-solid fa-server" }, // servers
     printer: { title: "Printer And Scanners", icon: "fa-solid fa-copy" }, // printer
-    assetsVerficationDashboard: {
+    assetsVerfication: {
       title: "Dashboard",
       icon: "fa-solid fa-copy",
     }, // assets verfication dashboard
