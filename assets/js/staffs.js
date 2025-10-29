@@ -74,13 +74,11 @@ addStaffButton.addEventListener('click', async (e) => {
         try {
             console.log('Submitting Payload...');
             const response = await api.addIITStaff(Data);
-
+            showSucessPopupFadeInDownLong(response.message);
             table.clear();
             await fetchAllData();
             handlePermission('#username');
-            showSucessPopupFadeInDownLong(response.data.message);
             form.reset();
-            insuranceForm.reset();
             document.querySelector('#tab').classList.add('d-none');
             document.querySelector('#tableCard').style.display = 'block';
         } catch (error) {
