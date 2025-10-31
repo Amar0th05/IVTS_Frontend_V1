@@ -2529,7 +2529,10 @@ img.comment-img {
 	justify-content: center;
 	align-items: center;
 }
-
+.loading{
+	width: 250px; 
+	height:auto;
+}
 .preloader-wrapper {
 	display: inline-block;
 	position: relative;
