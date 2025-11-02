@@ -33,18 +33,15 @@
     <link rel="stylesheet" type="text/css" href="assets/css/style copy.css">
 
     <style>
-        #myTable th:last-of-type{
-            text-align: center;
-        }
+        
         .hidden {
           display: none !important;
         }
-    .addNewRecord{
-      all:unset;
-      color: white !important;
+.addNewRecord{
+      /* all:unset; */
+      /* color: white !important; */
       padding: 10px 10px !important;
-      background: linear-gradient(135deg, #4931d1, #7f86f3);
-    }
+        }
   </style>
 
 </head>
@@ -53,54 +50,8 @@
     <!-- Pre-loader start -->
     <div class="theme-loader">
         <div class="loader-track">
-            <div class="preloader-wrapper">
-                <div class="spinner-layer spinner-blue">
-                    <div class="circle-clipper left">
-                        <div class="circle"></div>
-                    </div>
-                    <div class="gap-patch">
-                        <div class="circle"></div>
-                    </div>
-                    <div class="circle-clipper right">
-                        <div class="circle"></div>
-                    </div>
-                </div>
-                <div class="spinner-layer spinner-red">
-                    <div class="circle-clipper left">
-                        <div class="circle"></div>
-                    </div>
-                    <div class="gap-patch">
-                        <div class="circle"></div>
-                    </div>
-                    <div class="circle-clipper right">
-                        <div class="circle"></div>
-                    </div>
-                </div>
+                    <img class="loading" src="assets/images/Untitled design (2).gif" alt="Loading..." >
 
-                <div class="spinner-layer spinner-yellow">
-                    <div class="circle-clipper left">
-                        <div class="circle"></div>
-                    </div>
-                    <div class="gap-patch">
-                        <div class="circle"></div>
-                    </div>
-                    <div class="circle-clipper right">
-                        <div class="circle"></div>
-                    </div>
-                </div>
-
-                <div class="spinner-layer spinner-green">
-                    <div class="circle-clipper left">
-                        <div class="circle"></div>
-                    </div>
-                    <div class="gap-patch">
-                        <div class="circle"></div>
-                    </div>
-                    <div class="circle-clipper right">
-                        <div class="circle"></div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
     <!-- Pre-loader end -->
@@ -187,8 +138,8 @@
                 <div class="row align-items-center">
                   <div class="col-md-8">
                     <div class="page-title">
-                      <span class="page-title-icon bg-gradient-primary text-white mr-2">
-                        <i class="fa-solid fa-diagram-project"></i>
+                      <span class="page-title-icon bg-gradient-primary text-white me-2">
+                        <i class="fa-solid fa-layer-group"></i>
                       </span>
                       <h5>Stages</h5>
                     </div>
@@ -215,55 +166,52 @@
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <div class="card">
-                                                    <div class="card-header">
-                                                        <h5>Procurement Stages</h5>
-
-                                                        <div class="card-header-right">
-                                                            <ul class="list-unstyled card-option">
-                                                                <li><i class="fa fa fa-wrench open-card-option"></i>
-                                                                </li>
-                                                                <li><i class="fa fa-window-maximize full-card"></i></li>
-                                                                <li><i class="fa fa-minus minimize-card"></i></li>
-                                                                <li><i class="fa fa-refresh reload-card"></i></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
 
                                                     <div class="card-block">
 
 
  <!-----------------------------------------------UPDATE-STAGE-MODAl-START--------------------------------------------------------------------->
  
-<div class="modal fade" id="updateStageModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h5 class="modal-title" id="updateModalLabel">
-                    Update Stage</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+<div class="modal fade" id="updateStageModal" tabindex="-1" role="dialog" aria-labelledby="updateStageLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content border-0 shadow-lg rounded-3 overflow-hidden">
+
+            <!-- Header -->
+            <div class="modal-header bg-gradient text-white py-2 px-3">
+                <h5 class="modal-title fw-semibold" id="updateStageLabel">
+                    <i class="fa-solid fa-layer-group me-2"></i> Update Stage
+                </h5>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark me-2 mt-2"></i></button>
             </div>
 
-            <!-- Modal Body -->
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label for="update-stageName">Stage Name</label>
-                            <input type="text" class="form-control form-control-sm" id="update-stageName" name="courseName"
-                                placeholder="Enter Course Name">
+            <!-- Body -->
+            <div class="modal-body bg-light p-4">
+                <form id="update-stage-form">
+                    <div class="card border-0 shadow-sm p-3 rounded-3">
+                        <div class="card-body">
+                            <div class="row g-3">
+                                <!-- Stage Name -->
+                                <div class="col-md-12">
+                                    <label for="update-stageName" class="form-label fw-semibold">
+                                        Stage Name <span class="text-danger">*</span>
+                                    </label>
+                                    <input type="text" class="form-control form-control-sm" id="update-stageName" name="stageName"
+                                        placeholder="Enter Stage Name" required>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
 
-            <!-- Modal Footer -->
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Exit</button>
-                <button type="button" class="btn btn-success btn-sm" id="update_stage_btn">Update</button>
+            <!-- Footer -->
+            <div class="modal-footer bg-white border-0">
+                <button type="button" class="btn btn-red btn-sm text-white" data-dismiss="modal">
+                    <i class="fa-solid fa-xmark me-1"></i> Exit
+                </button>
+                <button type="button" class="btn btn-green btn-sm text-white" id="update_stage_btn">
+                    <i class="fa-solid fa-floppy-disk me-1"></i> Update
+                </button>
             </div>
         </div>
     </div>
@@ -275,19 +223,15 @@
                                                                 <input type="text" name="name" maxlength="25" class="form-control" id="stage-name-input"
                                                                     placeholder="Enter Stage Name">
                                                             </div>
-                                                            <button class="btn btn-success addNewRecord d-flex align-items-center  px-sm-4 py-sm-1 rounded-pill shadow border" style="padding: 6.5px 20px !important; margin-left: 3px !important;" id="create_stage_btn">
-                                                                <span class="fw-bold">Add New Stage</span>
+                                                            <button class="btn addNewRecord d-flex align-items-center  px-sm-4 py-sm-1 rounded-pill shadow border" style="margin-bottom:0rem !important; margin-left: 3px !important;" id="create_stage_btn">
+                                                                <span class="fw-bold"> <i class="fa-solid fa-layer-group me-2"></i>Add New Stage</span>
                                                             </button>
                                                         </div>
-                                                         <div class="row">
-                                                            <div id="exportButtons" class="mb-3">
-                                                            
-                                                            </div>
-                                                        </div>
+                                                         
                                                         <div class="d-flex justify-content-center align-items-center">
                                                             <div class="table-responsive">
                                                                 <table id="myTable"
-                                                                    class="table table-striped rounded table-hover">
+                                                                    class="table-modern table-striped table-hover">
                                                                     <thead class="bg-primary text-white">
                                                                         <tr>
                                                                             <th>Stage Name</th>
@@ -311,7 +255,7 @@
                                                                             </td>
                                                                             <td>
                                                                                 <div class="row d-flex justify-content-center">
-                                                                                    <span class="d-flex align-items-center justify-content-center p-0 " style="cursor:pointer;" data-toggle="modal" data-target="#updateModal" onclick="loadUpdateUser(${data.userID})">
+                                                                                    <span class="d-flex align-items-center justify-content-center p-0 edit-btn" style="cursor:pointer;" data-toggle="modal" data-target="#updateModal" onclick="loadUpdateUser(${data.userID})">
                                                                                         <i class="fa-solid fa-pen-to-square" style="font-size: larger;"></i>
                                                                                     </span>
                                                                                 </div>
@@ -393,14 +337,14 @@
 
                 <div class="text-start mt-3">
                   <button id="changePasswordBtn" class="btn-change">
-                    <i class="fa-solid fa-key mr-2"></i>Change Password
+                    <i class="fa-solid fa-key me-2"></i>Change Password
                   </button>
                 </div>
               </div>
 
               <!-- Password Section -->
               <div id="passwordSection" class="slide-section hidden-section">
-                <h6 class="fw-bold mb-3 text-sub"><i class="fa-solid fa-key mr-2"></i>Change Password</h6>
+                <h6 class="fw-bold mb-3 text-sub"><i class="fa-solid fa-key me-2"></i>Change Password</h6>
                 <hr>
                 <form id="passwordForm" class="mt-3">
                   <div class="mb-3">
@@ -414,9 +358,9 @@
 
                   <div class="text-start mt-3">
                     <button type="button" class="btn-change" id="backToProfile">
-                      <i class="fa-solid fa-arrow-left mr-2"></i>Back
+                      <i class="fa-solid fa-arrow-left me-2"></i>Back
                     </button>
-                      <button  type="button"  class="btn-green btn-change"  id="savePassword"><i class="fa-solid fa-key mr-2"></i>Save Password</button>
+                      <button  type="button"  class="btn-green btn-change"  id="savePassword"><i class="fa-solid fa-key me-2"></i>Save Password</button>
                   </div>
                 </form>
               </div>

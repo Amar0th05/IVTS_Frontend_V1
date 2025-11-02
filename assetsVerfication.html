@@ -316,7 +316,7 @@
                                                                             <th> username</th>
                                                                             <th> Catergory</th>
                                                                             <th>Verification Status</th>
-                                                                            <th>Verify</th>
+                                                                            <th>Action</th>
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody>
@@ -334,9 +334,10 @@
           <button type="button" class="btn btn-red btn-sm" data-bs-dismiss="modal" id="exitButton">
             <i class="fa-solid fa-xmark me-1"></i> Exit
           </button>
-          <button type="button" class="btn btn-green btn-sm next-btn">
-            <i class="fa-solid fa-tick me-1"></i> Complete Verification
-          </button>
+            <button id="completeVerificationBtn" 
+        class="btn btn-danger rounded-pill shadow-sm px-4 py-2">
+  <i class="fa fa-check-double me-2"></i> Complete Verification
+</button>
         </div>
       </div>
       
@@ -376,6 +377,7 @@
                                                                             <th>Verification From Date</th>
                                                                             <th>Verification End Date</th>
                                                                             <th>Verified By</th>
+                                                                            <th>Status</th>
                                                                             <th>Verification Report</th>
                                                                         </tr>
                                                                     </thead>
@@ -492,6 +494,70 @@
   </div>
 </div>
 <!-- !profile Model end  -->
+
+<!-- Asset Verification Modal -->
+<div class="modal fade" id="verifyAssetModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-md">
+    <div class="modal-content rounded-4 shadow-lg border-0">
+      
+      <!-- Header -->
+      <div class="modal-header bg-primary text-white rounded-top-4">
+        <h5 class="modal-title fw-semibold">
+          <i class="fa fa-check-circle me-2"></i> Verify Asset
+        </h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      
+      <!-- Body -->
+      <div class="modal-body px-4 py-3">
+        <form id="verifyAssetForm" novalidate>
+          <input type="hidden" id="modalAssetId" />
+
+          <!-- Status -->
+          <div class="mb-3">
+            <label for="verifiedStatus" class="form-label fw-semibold">
+              <i class="fa fa-info-circle me-1 text-secondary"></i> Status
+            </label>
+            <select class="form-select shadow-sm" id="verifiedStatus" required>
+              <option value="">Select status...</option>
+              <option value="Good">Good</option>
+              <option value="Bad">Bad</option>
+              <option value="Repair">Repair</option>
+              <option value="Missing">Missing</option>
+            </select>
+            <div class="invalid-feedback">Please select a status.</div>
+          </div>
+
+          <!-- Reason -->
+          <div class="mb-3">
+            <label for="verifiedReason" class="form-label fw-semibold">
+              <i class="fa fa-comment-dots me-1 text-secondary"></i> Remarks / Reason
+            </label>
+            <textarea
+              id="verifiedReason"
+              class="form-control shadow-sm"
+              rows="3"
+              placeholder="Enter reason or remarks (optional)"
+            ></textarea>
+          </div>
+        </form>
+      </div>
+      
+      <!-- Footer -->
+      <div class="modal-footer d-flex justify-content-end bg-light rounded-bottom-4 py-2">
+        <button type="button" class="btn btn-outline-secondary px-3" data-bs-dismiss="modal">
+          <i class="fa fa-times me-1"></i> Cancel
+        </button>
+        <button type="button" class="btn btn-success px-3" id="saveVerificationBtn">
+          <i class="fa fa-save me-1"></i> Save
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- end -->
                                 </div>
                             </div>
                         </div>

@@ -23,7 +23,7 @@ async function addRow(data){
         data.userName,
         data.mail,
         data.role,
-        `<div class="container">
+        `<div class="container d-flex justify-content-center">
             <div class="toggle-btn ${data.status===true?'active':''}" onclick="toggleStatus(this,'${data.userID}')">
                 <div class="slider"></div>
             </div>

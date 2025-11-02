@@ -177,6 +177,15 @@ const api = {
     updatePrinter: (data) => putData(API_ROUTES.updatePrinter, { data }),
 
 
+    // Asset Verification
+  getAssetsVerification: () => fetchData(API_ROUTES.getAssetsVerification,"assets"),
+  addAssetVerification: (payload) => postData(API_ROUTES.addAssetVerification, payload),
+  updateAssetVerification: (payload) => postData(API_ROUTES.updateAssetVerification, payload),
+  completeAssetVerification: (payload) => postData(API_ROUTES.completeAssetVerificatiom, payload),
+  getAssetVerificationByAssetId: (assetId) => fetchData(API_ROUTES.getAssetsVerificationId + `${assetId}`,"assets"),
+
+
+
     getAllAssets: () => fetchData(API_ROUTES.getAllAssets, "assets"),
     getstaffid: () => fetchData(API_ROUTES.getstaffid, "staffid"),
 

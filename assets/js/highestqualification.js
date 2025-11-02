@@ -18,14 +18,14 @@ async function addRow(data){
     table.row.add([
         data.highestQualification,
         data.createdOn,
-        `<div class="container">
+        `<div class="container d-flex justify-content-center">
             <div class="toggle-btn ${data.status===true?'active':''}" onclick="toggleStatus(this,'${data.qualID}')">
                 <div class="slider"></div>
             </div>
         </div>`
         ,
         `<div class="row d-flex justify-content-center">
-            <span class="d-flex align-items-center justify-content-center p-0 " style="cursor:pointer;" data-toggle="modal" data-target="#updateQualificationModal" onclick="loadUpdateQualification(${data.qualID})">
+            <span class="d-flex align-items-center justify-content-center p-0 edit-btn" style="cursor:pointer;" data-toggle="modal" data-target="#updateQualificationModal" onclick="loadUpdateQualification(${data.qualID})">
                 <i class="fa-solid fa-pen-to-square" style="font-size: larger;"></i>
             </span>
         </div>`,
@@ -173,7 +173,7 @@ async function refreshTable() {
             "paging": true,
             "pageLength": 25,
             "lengthMenu": [5, 10, 25, 50, 100],
-            dom: '<"top"l>frtip',
+              dom: '<"top"lBf>rt<"bottom"ip><"clear">',
             buttons: [
         {
             extend: 'excelHtml5',
@@ -216,9 +216,24 @@ async function refreshTable() {
                 }
             }
         }
-    ]
+    ],
+language: {
+      search: "",
+      searchPlaceholder: "Type to search...",
+    paginate: { first: "«", last: "»", next: "›", previous: "‹" }
+
+    },
+    initComplete: function () {
+      // Remove default "Search:" text
+      $('#myTable').contents().filter(function () {
+        return this.nodeType === 3;
+      }).remove();
+
+      // Wrap search input & add search icon
+      $('#myTable_filter input').wrap('<div class="search-wrapper"></div>');
+      $('.search-wrapper').prepend('<i class="fa-solid fa-magnifying-glass"></i>');
+    }
         });
 
         // Append buttons to the specified container
-        table.buttons().container().appendTo('#exportButtons');
-    });
+        table.buttons().container().appendTo('#exportButtons');    });

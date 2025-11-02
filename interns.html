@@ -64,7 +64,148 @@
       margin-bottom: 15px;
     }
   </style>
+<style>
+    /* 🔹 General Badge Style */
+.status-badge {
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  transition: all 0.3s ease-in-out;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2rem;
+  padding: 0.45rem 1rem;
+  text-transform: capitalize;
+}
 
+.status-badge:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* ✅ Completed Animation */
+.complete-icon {
+  animation: flipIn 0.8s ease-in-out;
+  transform-origin: center;
+  color: #fff;
+}
+
+.status-text {
+  display: inline-block;
+  animation: fadeInText 1s ease-in-out;
+  opacity: 0;
+  animation-fill-mode: forwards;
+  animation-delay: 0.2s;
+}
+
+/* 🔄 Ongoing Spin */
+.spin-icon {
+  animation: spin 2s linear infinite;
+}
+
+/* ❌ Withdrawn Flip */
+.flip-icon {
+  animation: flip 2.5s ease-in-out infinite;
+}
+
+/* 🌀 Animations */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes flipIn {
+  0% {
+    transform: rotateY(0deg) scale(0.8);
+    opacity: 0;
+  }
+  50% {
+    transform: rotateY(180deg) scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: rotateY(360deg) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes flip {
+  0%, 100% { transform: rotateY(0deg); }
+  50% { transform: rotateY(180deg); }
+}
+
+@keyframes fadeInText {
+  0% {
+    transform: translateX(-6px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* 🔹 Gradients */
+.bg-warning {
+  background: linear-gradient(135deg, #ffe066, #fab005) !important;
+  color: #212529 !important;
+}
+.status-badge i {
+  margin-right: 0.5rem; /* using me-2 style */
+  font-size: 1rem;
+  opacity: 0.9;
+  transition: opacity 0.3s;
+}
+
+.status-badge:hover i {
+  opacity: 1;
+}
+
+/* 🔹 Responsive */
+@media (max-width: 576px) {
+  .status-badge {
+    font-size: 0.8rem;
+    padding: 0.3rem 0.8rem;
+  }
+
+  .status-badge i {
+    margin-right: 0.4rem;
+    font-size: 0.9rem;
+  }
+}
+</style>
+<style>
+  /* 🔹 Default state */
+.defult {
+  display: inline-block;
+}
+
+.hover {
+  display: none;
+}
+
+/* 🔹 When hovering over the trash area (the icon container), swap icons */
+.btn-delete:hover .defult {
+  display: none;
+}
+
+.btn-delete:hover .hover {
+  display: inline-block;
+  
+}
+
+/* 🔹 Optional: smooth animation & cursor change */
+.btn-delete {
+  cursor: pointer;
+  /* transition: transform 0.2s ease-in-out; */
+}
+
+.btn-delete:hover {
+  /* transform: scale(1.1); */
+}
+
+</style>
 </head>
 
 <body>
@@ -73,55 +214,7 @@
 
     <div class="loader-track">
 
-            <div class="preloader-wrapper">
-
-        <div class="spinner-layer spinner-blue">
-          <div class="circle-clipper left">
-            <div class="circle"></div>
-          </div>
-          <div class="gap-patch">
-            <div class="circle"></div>
-          </div>
-          <div class="circle-clipper right">
-            <div class="circle"></div>
-          </div>
-        </div>
-        <div class="spinner-layer spinner-red">
-          <div class="circle-clipper left">
-            <div class="circle"></div>
-          </div>
-          <div class="gap-patch">
-            <div class="circle"></div>
-          </div>
-          <div class="circle-clipper right">
-            <div class="circle"></div>
-          </div>
-        </div>
-
-        <div class="spinner-layer spinner-yellow">
-          <div class="circle-clipper left">
-            <div class="circle"></div>
-          </div>
-          <div class="gap-patch">
-            <div class="circle"></div>
-          </div>
-          <div class="circle-clipper right">
-            <div class="circle"></div>
-          </div>
-        </div>
-
-        <div class="spinner-layer spinner-green">
-          <div class="circle-clipper left">
-            <div class="circle"></div>
-          </div>
-          <div class="gap-patch">
-            <div class="circle"></div>
-          </div>
-          <div class="circle-clipper right">
-            <div class="circle"></div>
-          </div>
-        </div>
-      </div>
+                    <img class="loading" src="assets/images/Untitled design (2).gif" alt="Loading..." >
     </div>
   </div>
   <!-- Pre-loader end -->
@@ -214,7 +307,7 @@
                 <div class="row align-items-center">
                   <div class="col-md-8">
                     <div class="page-title">
-                      <span class="page-title-icon bg-gradient-primary text-white mr-2">
+                      <span class="page-title-icon bg-gradient-primary text-white me-2">
                         <i class="fa-solid fa-user-graduate"></i>
                       </span>
                       <h5>Interns</h5>
@@ -237,12 +330,31 @@
                             <div class="main-body">
                                 <div class="page-wrapper">
                                     <div class="page-body">
+                                          <div class="row">
+                      <!-- Existing cards ... -->
+
+                      <div class="col-md-4">
+                        <div class="card text-center p-3 shadow">
+                          <h3 id="totalInternCount" style="color:#1725e4;">0</h3>
+                          <p>Total Interns</p>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="card text-center p-3 shadow">
+                          <h3 id="currentInternCount" style="color:#111eda;">0</h3>
+                          <p>Current Interns</p>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="card text-center p-3 shadow">
+                          <h3 id="completedInternCount" style="color:#130fda;">0</h3>
+                          <p>Completed Interns</p>
+                        </div>
+                      </div>
+                    </div>
                                         <div class="row">
                                             <div class="col-sm-12">
-                                                <div class="card">
-                                                    <div class="card-header">
-                                                        <h5>interns</h5>
-                                                    </div>
+                                                <div class="card"> 
 
                                                     <div class="card-block">
 
@@ -710,10 +822,10 @@
 
 
                                                                     <div class="modal-footer">
-                                                                        <button type="button" class="btn btn-danger"
+                                                                        <button type="button" class="btn btn-red"
                                                                             data-dismiss="modal"
                                                                             id="exitButton">Exit</button>
-                                                                        <button type="submit" class="btn btn-success"
+                                                                        <button type="submit" class="btn btn-green"
                                                                             id="add_staff_btn"
                                                                             data-dismiss="modal">Submit</button>
                                                                     </div>
@@ -1158,8 +1270,10 @@
                                                                     </div>
                                                                     <div class="tab-pane fade show" id="tab4"
                                                                         role="tabpanel">
-                                                                        <div class="mt-4">
-                                                                            <table id="documentTable" class="table">
+                                                                        <div
+                                                                class="d-flex justify-content-center align-items-center">
+                                                                <div class="table-responsive">
+                                                                            <table id="documentTable" class="table-modern table-striped">
                                                                                 <thead class="bg-primary text-white">
                                                                                     <tr>
                                                                                         <th>Documents</th>
@@ -1175,7 +1289,7 @@
                                                                                                 class="btn btn-sm btn-primary">Download</button>
                                                                                             <button
                                                                                                 onclick="deleteDocument('0000', 'Bonafide')"
-                                                                                                class="btn btn-sm btn-danger">Delete</button> -->
+                                                                                                class="btn btn-sm btn-red">Delete</button> -->
                                                                                         </td>
                                                                                     </tr>
 
@@ -1217,6 +1331,7 @@
                                                                                 </tbody>
                                                                             </table>
                                                                         </div>
+                                                                        </div>
                                                                     </div>
                                                                      <div class="tab-pane fade show" id="tab5"
                                                                         role="tabpanel">
@@ -1237,11 +1352,11 @@
 
                                                                 <!-- Modal Footer -->
                                                                 <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-danger btn-sm"
+                                                                    <button type="button" class="btn btn-red btn-sm"
                                                                         data-dismiss="modal"
                                                                         id="exitButton2">Exit</button>
                                                                     <button type="button" id="update_intern_btn"
-                                                                        class="btn btn-success btn-sm writeElement">Update</button>
+                                                                        class="btn btn-green btn-sm writeElement">Update</button>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1290,20 +1405,9 @@
                                 </div>
                               </div>
 
-                              <!-- <div class="row">
-                                                                <div id="exportButtons" class="mb-3">
-                                                                    <button onclick="fetchDataAndGenerateExcel()"
-                                                                        class="dt-button">
-                                                                        Download All Data
-                                                                    </button>
-                                                                </div>
-                                                            </div> -->
                               <div class="d-flex justify-content-center align-items-center">
                                 <div class="table-responsive">
-
-
-
-                                  <table id="myTable1" class="table table-striped rounded table-hover">
+                                  <table id="myTable1" class="table-modern table-striped">
                                     <thead class="bg-primary text-white text-center">
                                       <tr>
                                         <th>ID</th>
@@ -1397,14 +1501,14 @@
 
                 <div class="text-start mt-3">
                   <button id="changePasswordBtn" class="btn-change">
-                    <i class="fa-solid fa-key mr-2"></i>Change Password
+                    <i class="fa-solid fa-key me-2"></i>Change Password
                   </button>
                 </div>
               </div>
 
               <!-- Password Section -->
               <div id="passwordSection" class="slide-section hidden-section">
-                <h6 class="fw-bold mb-3 text-sub"><i class="fa-solid fa-key mr-2"></i>Change Password</h6>
+                <h6 class="fw-bold mb-3 text-sub"><i class="fa-solid fa-key me-2"></i>Change Password</h6>
                 <hr>
                 <form id="passwordForm" class="mt-3">
                   <div class="mb-3">
@@ -1418,9 +1522,9 @@
 
                   <div class="text-start mt-3">
                     <button type="button" class="btn-change" id="backToProfile">
-                      <i class="fa-solid fa-arrow-left mr-2"></i>Back
+                      <i class="fa-solid fa-arrow-left me-2"></i>Back
                     </button>
-                      <button  type="button"  class="btn-green btn-change"  id="savePassword"><i class="fa-solid fa-key mr-2"></i>Save Password</button>
+                      <button  type="button"  class="btn-green btn-change"  id="savePassword"><i class="fa-solid fa-key me-2"></i>Save Password</button>
                   </div>
                 </form>
               </div>
@@ -1500,6 +1604,13 @@
   <script src="assets/js/vertical/vertical-layout.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
+  <!-- pdf -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+        integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer">
+</script>
+
+
   <!-- Custom scripts -->
   <script type="module" src="./assets/js/axiosInstance.js"></script>
   <script src="assets/js/popup.js"></script>
@@ -1512,48 +1623,7 @@
   <script src="assets/js/sweetAlert.js"></script>
    <!-- Initialize DataTable -->
     <script>
-document.addEventListener('DOMContentLoaded', async function () {
 
-    // ✅ Custom Status Filter Logic (works with numeric 0/1)
-    // ✅ Custom DataTables filter for status dropdown
-$.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
-    if (settings.nTable.id !== 'myTable1') return true; // Apply only to intern table
-
-    const selectedStatus = $('#statusFilter').val(); // '', 'current', or 'completed'
-    const row = $('#myTable1').DataTable().row(dataIndex).node();
-    const isActive = $(row).find('.toggle-btn').hasClass('active'); // Check toggle button
-
-    if (selectedStatus === '') return true; // Show all
-    if (selectedStatus === 'active' && isActive) return true; // Show only active rows
-    if (selectedStatus === 'inactive' && !isActive) return true; // Show only inactive rows
-
-    return false; // Hide others
-});
-
-// ✅ Redraw table whenever dropdown changes
-$('#statusFilter').on('change', function () {
-    $('#myTable1').DataTable().draw();
-});
-
-    // ✅ Designation Filter
-    $('#designationFilter').on('change', function () {
-        const selectedDesignation = $(this).val();
-        datatable.column(5).search(selectedDesignation ? '^' + selectedDesignation + '$' : '', true, false).draw();
-    });
-
-    // ✅ Location Filter
-    $('#locationFilter').on('change', function () {
-        const selectedLocation = $(this).val();
-        datatable.column(2).search(selectedLocation ? '^' + selectedLocation + '$' : '', true, false).draw();
-    });
-
-    // ✅ Optional Category Filter
-    $('#filter').on('change', function () {
-        const selectedCategory = $(this).val();
-        datatable.column(1).search(selectedCategory || '').draw();
-    });
-
-});
 </script>
 </body>
 

@@ -16,7 +16,7 @@ $(document).ready(function () {
 					text: "Your will not be able to recover this imaginary file!",
 					type: "warning",
 					showCancelButton: true,
-					confirmButtonClass: "btn-danger",
+					confirmButtonClass: "btn-red",
 					confirmButtonText: "Yes, delete it!",
 					closeOnConfirm: false
 				},
@@ -32,7 +32,7 @@ $(document).ready(function () {
 					text: "You will not be able to recover this imaginary file!",
 					type: "warning",
 					showCancelButton: true,
-					confirmButtonClass: "btn-danger",
+					confirmButtonClass: "btn-red",
 					confirmButtonText: "Yes, delete it!",
 					cancelButtonText: "No, cancel plx!",
 					closeOnConfirm: false,

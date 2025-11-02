@@ -171,7 +171,7 @@ function addRow(data){
       data.grossPay,
       data.currentDesignation,
         `<div class="row d-flex justify-content-center writeElement">
-            <span class="d-flex align-items-center justify-content-center p-0 " style="width: 40px; height: 40px;cursor:pointer;" data-toggle="modal" data-target="#updateModal" onclick="loadUpdateLogs('${data.contractID}')">
+            <span class="d-flex align-items-center justify-content-center p-0 edit-btn" style="width: 40px; height: 40px;cursor:pointer;" data-toggle="modal" data-target="#updateModal" onclick="loadUpdateLogs('${data.contractID}')">
                 <i class="fa-solid fa-pen-to-square" style="font-size: larger;"></i>
             </span>
         </div>`

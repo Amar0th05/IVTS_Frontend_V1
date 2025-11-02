@@ -120,7 +120,7 @@ table.row
       data.vendorName,
       data.userName,
       data.dept,
-      `<div class="container">
+      `<div class="container d-flex justify-content-center">
             <div class="toggle-btn ${decidedPermission}  ${
         data.status === true ? "active" : ""
       }" onclick="toggleStatus(this,'${data.assetId}')">
@@ -402,7 +402,7 @@ if (storageHistory.length > 0) {
                 <td class="storage-type">${item.type}</td>
                 <td class="text-center" style="padding: 5px 0px 0px !important;">
                     <button class="btn btn-sm btn-primary edit-storage">Edit</button>
-                    <button class="btn btn-sm btn-danger delete-storage">Delete</button>
+                    <button class="btn btn-sm btn-red delete-storage">Delete</button>
                 </td>
 
             `;
@@ -427,7 +427,7 @@ if (storageHistory.length > 0) {
 
                 // Change button to Save
                 editBtn.textContent = 'Save';
-                editBtn.classList.replace('btn-primary','btn-success');
+                editBtn.classList.replace('btn-primary','btn-green');
 
                 // Save functionality
                 const saveHandler = () => {

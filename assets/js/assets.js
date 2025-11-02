@@ -166,7 +166,7 @@ function addRow(data){
       data.vendorName,
       data.userName,
       data.dept,
-        `<div class="container">
+        `<div class="container d-flex justify-content-center">
             <div class="toggle-btn ${decidedPermission}  ${data.status===true?'active':''}" onclick="toggleStatus(this,'${data.assetId}')">
                 <div class="slider"></div>
             </div>
@@ -487,7 +487,7 @@ document.getElementById('addRamBtn').addEventListener('click', function() {
     ramDiv.classList.add('input-group', 'mb-2');
     ramDiv.innerHTML = `
         <input type="number" name="RAM_GB[]" class="form-control form-control-sm" placeholder="Enter RAM in GB">
-        <button type="button" class="btn btn-danger btn-sm" onclick="this.parentElement.remove()">Remove</button>
+        <button type="button" class="btn btn-red btn-sm" onclick="this.parentElement.remove()">Remove</button>
     `;
     document.getElementById('ramContainer').appendChild(ramDiv);
 });
@@ -498,7 +498,7 @@ document.getElementById('addStorageBtn').addEventListener('click', function() {
     storageDiv.classList.add('input-group', 'mb-2');
     storageDiv.innerHTML = `
         <input type="text" name="HDD_GB_TB[]" class="form-control form-control-sm" placeholder="Enter Storage Capacity">
-        <button type="button" class="btn btn-danger btn-sm" onclick="this.parentElement.remove()">Remove</button>
+        <button type="button" class="btn btn-red btn-sm" onclick="this.parentElement.remove()">Remove</button>
     `;
     document.getElementById('storageContainer').appendChild(storageDiv);
 });

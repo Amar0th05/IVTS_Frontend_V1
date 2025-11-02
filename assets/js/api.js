@@ -149,6 +149,13 @@ const API_ROUTES = {
   //download bar code
   downloadBarCode: (id) => `/assets/barcode/${id}`,
 
+  // assets Verification
+  getAssetsVerification:`/assets/verification/current`,
+  addAssetVerification:`/assets/verification/start`,
+  updateAssetVerification:`/assets/verification/update`,
+  completeAssetVerificatiom:`/assets/verification/complete`,
+  getAssetsVerificationId:`/assets/verification/`,
+
   // leave
   getAllLeave:`/leavesummary`,
 

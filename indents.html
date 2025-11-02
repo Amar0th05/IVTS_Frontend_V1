@@ -64,55 +64,7 @@
 
     <div class="loader-track">
 
-      <div class="preloader-wrapper">
-
-        <div class="spinner-layer spinner-blue">
-          <div class="circle-clipper left">
-            <div class="circle"></div>
-          </div>
-          <div class="gap-patch">
-            <div class="circle"></div>
-          </div>
-          <div class="circle-clipper right">
-            <div class="circle"></div>
-          </div>
-        </div>
-        <div class="spinner-layer spinner-red">
-          <div class="circle-clipper left">
-            <div class="circle"></div>
-          </div>
-          <div class="gap-patch">
-            <div class="circle"></div>
-          </div>
-          <div class="circle-clipper right">
-            <div class="circle"></div>
-          </div>
-        </div>
-
-        <div class="spinner-layer spinner-yellow">
-          <div class="circle-clipper left">
-            <div class="circle"></div>
-          </div>
-          <div class="gap-patch">
-            <div class="circle"></div>
-          </div>
-          <div class="circle-clipper right">
-            <div class="circle"></div>
-          </div>
-        </div>
-
-        <div class="spinner-layer spinner-green">
-          <div class="circle-clipper left">
-            <div class="circle"></div>
-          </div>
-          <div class="gap-patch">
-            <div class="circle"></div>
-          </div>
-          <div class="circle-clipper right">
-            <div class="circle"></div>
-          </div>
-        </div>
-      </div>
+              <img class="loading" src="assets/images/Untitled design (2).gif" alt="Loading..." >
     </div>
   </div>
 
@@ -206,7 +158,7 @@
                 <div class="row align-items-center">
                   <div class="col-md-8">
                     <div class="page-title">
-                      <span class="page-title-icon bg-gradient-primary text-white mr-2">
+                      <span class="page-title-icon bg-gradient-primary text-white me-2">
                         <i class="fa-solid fa-clipboard-list"></i>
                       </span>
                       <h5>FMS Process</h5>
@@ -286,7 +238,7 @@
                             <div class="d-flex justify-content-center align-items-center">
                               <div class="table-responsive">
 
-                                <table id="indentsTable" class="table table-striped rounded table-hover">
+                                <table id="indentsTable" class="table-modern table-striped table-hover">
                                   <thead class="bg-primary text-white text-center">
                                     <tr>
                                       <th>Intend ID</th>
@@ -381,10 +333,10 @@
                                     <div class="tab-pane fade show active" id="vendorDetails" role="tabpanel">
                                       <div class="mb-4 border-0 form-section">
                                         <!-- <div class="bg-white border-bottom">
-                                                                      <h6 class="mb-0 font-weight-bold text-primary"><i class="fas fa-building mr-2"></i>VENDOR DETAILS</h6>
+                                                                      <h6 class="mb-0 font-weight-bold text-primary"><i class="fas fa-building me-2"></i>VENDOR DETAILS</h6>
                                                                     </div> -->
                                         <div class="card-body">
-                                          <!-- <div class="d-flex justify-content-end mb-5"><button class="btn btn-sm btn-success addNewRecord"><i class="ti ti-plus"></i>Add New Vendor</button></div> -->
+                                          <!-- <div class="d-flex justify-content-end mb-5"><button class="btn btn-sm btn-green addNewRecord"><i class="ti ti-plus"></i>Add New Vendor</button></div> -->
                                           <div id="newVendorSection" class="d-none border rounded p-2">
                                             <h5 class="text-primary mb-4 mt-2">Add New Vendor</h5>
                                             <form id="newVendorForm">
@@ -455,8 +407,8 @@
                                                 </div>
                                                 <div class="row mb-5 ">
                                                  <div class="col-md-12  d-flex justify-content-end">
-                                                  <button class="btn btn-danger btn-sm m-1" id="cancelCreateVendor">Cancel</button>
-                                                  <button class="btn btn-success btn-sm m-1" id="createVendorBtn">Submit</button>
+                                                  <button class="btn btn-red btn-sm m-1" id="cancelCreateVendor">Cancel</button>
+                                                  <button class="btn btn-green btn-sm m-1" id="createVendorBtn">Submit</button>
                                                  </div>
                                                 </div>
                                             </form>
@@ -481,7 +433,7 @@
                                           onclick="goToNextTab()">Item Details<i
                                             class="ti ti-angle-right fs-6 ml-2"></i></button>
 
-                                        <button type="button" class="btn btn-danger btn-sm m-1 modalClose"
+                                        <button type="button" class="btn btn-red btn-sm m-1 modalClose"
                                           data-dismiss="modal">Close</button>
                                       </div>
                                     </div>
@@ -669,7 +621,7 @@
                                                 <div class="form-group d-flex align-items-end">
                                                   <button type="button" class="btn btn-primary btn-block"
                                                     onclick="addItem()">
-                                                    <i class="fas fa-plus mr-1"></i> Add Item
+                                                    <i class="fas fa-plus me-1"></i> Add Item
                                                   </button>
                                                 </div>
                                               </div>
@@ -711,7 +663,7 @@
                                           onclick="goToNextTab()">
                                           Commercial Specification <i class="ti ti-angle-right fs-6 ml-2"></i>
                                         </button>
-                                        <button type="button" class="btn btn-danger btn-sm m-1 modalClose"
+                                        <button type="button" class="btn btn-red btn-sm m-1 modalClose"
                                           data-dismiss="modal">Close</button>
                                       </div>
                                     </div>
@@ -721,7 +673,7 @@
                                     <div class="tab-pane fade" id="commercialDetails" role="tabpanel">
                                       <div class="border-0 form-section">
                                         <!-- <div class="bg-white border-bottom">
-                                                                      <h6 class="mb-0 font-weight-bold text-primary"><i class="fas fa-file-contract mr-2"></i>COMMERCIAL SPECIFICATION</h6>
+                                                                      <h6 class="mb-0 font-weight-bold text-primary"><i class="fas fa-file-contract me-2"></i>COMMERCIAL SPECIFICATION</h6>
                                                                     </div> -->
                                         <div class="card-body">
                                           <form id="commercialForm">
@@ -783,7 +735,7 @@
                                             onclick="goToNextTab()">Project Details<i
                                               class="ti ti-angle-right fs-6 ml-2"></i></button>
 
-                                          <button type="button" class="btn btn-danger btn-sm btn-sm m-1 modalClose"
+                                          <button type="button" class="btn btn-red btn-sm btn-sm m-1 modalClose"
                                             data-dismiss="modal">Close</button>
                                         </div>
                                       </div>
@@ -827,7 +779,7 @@
                                           onclick="goToNextTab()">Indent Details<i
                                             class="ti ti-angle-right fs-6 ml-2"></i></button>
 
-                                        <button type="button" class="btn btn-danger btn-sm m-1"
+                                        <button type="button" class="btn btn-red btn-sm m-1"
                                           data-dismiss="modal">Close</button>
                                       </div>
                                     </div>
@@ -836,7 +788,7 @@
                                     <div class="tab-pane fade" id="indentDetails" role="tabpanel">
                                       <div class="mb-4 border-0 form-section">
                                         <!-- <div class="bg-white border-bottom">
-                                                                      <h6 class="mb-0 font-weight-bold text-primary"><i class="fas fa-file-alt mr-2"></i>INDENT DETAILS</h6>
+                                                                      <h6 class="mb-0 font-weight-bold text-primary"><i class="fas fa-file-alt me-2"></i>INDENT DETAILS</h6>
                                                                     </div> -->
                                         <div class="card-body">
                                           <form id="indentForm">
@@ -877,13 +829,13 @@
                                       </div>
                                     </div>
                                     <div class="d-flex justify-content-end">
-                                      <button type="button" class="btn btn-success btn-sm d-none preview-btn m-1 preview-btn"
+                                      <button type="button" class="btn btn-green btn-sm d-none preview-btn m-1 preview-btn"
                                         onclick="showUpdatePreviewModal()" id="updateModalBtn"><i class="ti-eye me-1"></i> Preview &
                                         Submit</button>
-                                        <button type="button" id="createModalBtn" class="btn btn-success btn-sm preview-btn m-1 preview-btn"
+                                        <button type="button" id="createModalBtn" class="btn btn-green btn-sm preview-btn m-1 preview-btn"
                                         onclick="showPreviewModal()"><i class="ti-eye me-1"></i> Preview &
                                         Submit</button>
-                                      <button type="button" onclick="resetState()"  class="btn btn-danger btn-sm m-1 modalClose"
+                                      <button type="button" onclick="resetState()"  class="btn btn-red btn-sm m-1 modalClose"
                                         data-dismiss="modal">Close</button>
                                     </div>
 
@@ -966,14 +918,14 @@
 
                 <div class="text-start mt-3">
                   <button id="changePasswordBtn" class="btn-change">
-                    <i class="fa-solid fa-key mr-2"></i>Change Password
+                    <i class="fa-solid fa-key me-2"></i>Change Password
                   </button>
                 </div>
               </div>
 
               <!-- Password Section -->
               <div id="passwordSection" class="slide-section hidden-section">
-                <h6 class="fw-bold mb-3 text-sub"><i class="fa-solid fa-key mr-2"></i>Change Password</h6>
+                <h6 class="fw-bold mb-3 text-sub"><i class="fa-solid fa-key me-2"></i>Change Password</h6>
                 <hr>
                 <form id="passwordForm" class="mt-3">
                   <div class="mb-3">
@@ -987,9 +939,9 @@
 
                   <div class="text-start mt-3">
                     <button type="button" class="btn-change" id="backToProfile">
-                      <i class="fa-solid fa-arrow-left mr-2"></i>Back
+                      <i class="fa-solid fa-arrow-left me-2"></i>Back
                     </button>
-                      <button  type="button"  class="btn-green btn-change"  id="savePassword"><i class="fa-solid fa-key mr-2"></i>Save Password</button>
+                      <button  type="button"  class="btn-green btn-change"  id="savePassword"><i class="fa-solid fa-key me-2"></i>Save Password</button>
                   </div>
                 </form>
               </div>
@@ -1042,7 +994,7 @@
               <!-- Vendor Block -->
               <div class="mb-4">
                 <h6 class="d-flex align-items-center text-uppercase text-dark fs-6 mb-3">
-                  <span class="bg-primary text-white px-2 py-1 rounded mr-2 ">1</span>
+                  <span class="bg-primary text-white px-2 py-1 rounded me-2 ">1</span>
                   Vendor Details
                 </h6>
                 <div class="ps-4">
@@ -1094,7 +1046,7 @@
 
               <div class="mb-4">
                 <h6 class="d-flex align-items-center text-uppercase text-dark fs-6 mb-3">
-                  <span class="bg-primary bg-opacity-10 text-white px-2 py-1 rounded mr-2">2</span>
+                  <span class="bg-primary bg-opacity-10 text-white px-2 py-1 rounded me-2">2</span>
                   Commercial Specification
                 </h6>
                 <div class="ps-4">
@@ -1132,7 +1084,7 @@
               <!-- Project Details -->
               <div>
                 <h6 class="d-flex align-items-center text-uppercase text-dark fs-6 mb-3">
-                  <span class="bg-primary bg-opacity-10 text-white px-2 py-1 rounded mr-2">3</span>
+                  <span class="bg-primary bg-opacity-10 text-white px-2 py-1 rounded me-2">3</span>
                   Project Details
                 </h6>
                 <div class="ps-4">
@@ -1161,7 +1113,7 @@
               <!-- Indent Details -->
               <div>
                 <h6 class="d-flex align-items-center text-uppercase text-black fs-6 mb-3">
-                  <span class="bg-primary bg-opacity-10 text-white px-2 py-1 rounded mr-2">4</span>
+                  <span class="bg-primary bg-opacity-10 text-white px-2 py-1 rounded me-2">4</span>
                   Indent Details
                 </h6>
                 <div class="ps-4">
@@ -1180,7 +1132,7 @@
             <!-- Right Column - Line Items -->
             <div class="col-md-8 p-4">
               <h6 class="d-flex align-items-center text-uppercase text-black fs-6 mb-3">
-                <span class="bg-primary bg-opacity-10 text-white px-2 py-1 rounded mr-2">5</span>
+                <span class="bg-primary bg-opacity-10 text-white px-2 py-1 rounded me-2">5</span>
                 Item Details
               </h6>
               <div class="d-flex row mb-4">
@@ -1243,10 +1195,10 @@
 
         <!-- Footer -->
         <div class="modal-footer bg-light border-top">
-          <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">
+          <button type="button" class="btn btn-red btn-sm" data-bs-dismiss="modal">
             <i class="bi bi-pencil-square me-2"></i>Cancel
           </button>
-          <button type="button" class="btn btn-success btn-sm" data-bs-dismiss="modal" id="
+          <button type="button" class="btn btn-green btn-sm" data-bs-dismiss="modal" id="
           ">
             <i class="bi bi-check-circle me-2"></i>Submit
           </button>
@@ -1320,7 +1272,7 @@
                 <!-- Vendor Block -->
                 <div class="mb-4">
                   <h6 class="d-flex align-items-center text-uppercase text-dark fs-6 mb-3">
-                    <span class="bg-primary text-white px-2 py-1 rounded mr-2 ">1</span>
+                    <span class="bg-primary text-white px-2 py-1 rounded me-2 ">1</span>
                     Vendor Details
                   </h6>
                   <div class="ps-4">
@@ -1368,8 +1320,8 @@
                     <span class="text-black w-40 me-2">Bank Details:</span>
 
                      <!-- Buttons -->
-                     <span class="btn btn-success btn-sm me-2" id="view">View</span>
-                    <span class="btn btn-danger btn-sm" id="edit">Edit</span>
+                     <span class="btn btn-green btn-sm me-2" id="view">View</span>
+                    <span class="btn btn-red btn-sm" id="edit">Edit</span>
 
                      <!-- Upload Section -->
                     <span class="ms-3 d-none" id="uploadSection">
@@ -1384,7 +1336,7 @@
 
                 <div class="mb-4">
                   <h6 class="d-flex align-items-center text-uppercase text-dark fs-6 mb-3">
-                    <span class="bg-primary bg-opacity-10 text-white px-2 py-1 rounded mr-2">2</span>
+                    <span class="bg-primary bg-opacity-10 text-white px-2 py-1 rounded me-2">2</span>
                     Commercial Specification
                   </h6>
                   <div class="ps-4">
@@ -1422,7 +1374,7 @@
                 <!-- Project Details -->
                 <div>
                   <h6 class="d-flex align-items-center text-uppercase text-dark fs-6 mb-3">
-                    <span class="bg-primary bg-opacity-10 text-white px-2 py-1 rounded mr-2">3</span>
+                    <span class="bg-primary bg-opacity-10 text-white px-2 py-1 rounded me-2">3</span>
                     Project Details
                   </h6>
                   <div class="ps-4">
@@ -1451,7 +1403,7 @@
                 <!-- Indent Details -->
                 <div>
                   <h6 class="d-flex align-items-center text-uppercase text-black fs-6 mb-3">
-                    <span class="bg-primary bg-opacity-10 text-white px-2 py-1 rounded mr-2">4</span>
+                    <span class="bg-primary bg-opacity-10 text-white px-2 py-1 rounded me-2">4</span>
                     Indent Details
                   </h6>
                   <div class="ps-4">
@@ -1470,7 +1422,7 @@
               <!-- Right Column - Line Items -->
               <div class="col-md-8 p-4">
                 <h6 class="d-flex align-items-center text-uppercase text-black fs-6 mb-3">
-                  <span class="bg-primary bg-opacity-10 text-white px-2 py-1 rounded mr-2">5</span>
+                  <span class="bg-primary bg-opacity-10 text-white px-2 py-1 rounded me-2">5</span>
                   Item Details
                 </h6>
                 <div class="d-flex row mb-4">
@@ -1708,7 +1660,7 @@
 
               </div>
               <div class="d-flex justify-content-end">
-                <button class="btn btn-success m-1 btn-sm revert-btn" id="lpcSubmitBtn">Submit</button>
+                <button class="btn btn-green m-1 btn-sm revert-btn" id="lpcSubmitBtn">Submit</button>
               </div>
               
             </div>
@@ -1738,8 +1690,8 @@
 
               <div class="col-md-12 d-flex justify-content-end">
                 <button class="btn btn-info m-1 btn-sm revert-btn" id="revertBtn">Revert Back</button>
-                <button class="btn btn-danger m-1 btn-sm revert-btn" id="indentRejectBtn">Reject</button>
-                <button class="btn btn-success m-1 btn-sm revert-btn" id="indentAapproveBtn">Approve</button>
+                <button class="btn btn-red m-1 btn-sm revert-btn" id="indentRejectBtn">Reject</button>
+                <button class="btn btn-green m-1 btn-sm revert-btn" id="indentAapproveBtn">Approve</button>
               </div>
             </div>
             <div class="p-5 lpc-form-container d-none" id="poApprovalContent">
@@ -1922,7 +1874,7 @@
                   </div>
 
                   <div class="modal-footer">
-                    <button class="btn btn-success" data-bs-dismiss="modal" id="POApprovalSubmitBtn">Submit</button>
+                    <button class="btn btn-green" data-bs-dismiss="modal" id="POApprovalSubmitBtn">Submit</button>
                     <button class="btn btn-secondary" data-bs-dismiss="modal">Go Back</button>
                   </div>
                 </div>
@@ -1951,7 +1903,7 @@
                 </div>
 
                 <div class="col-md-12 d-flex justify-content-end">
-                  <button class="btn btn-success m-1 btn-sm revert-btn" id="poGenSubmitBtn">Submit</button>
+                  <button class="btn btn-green m-1 btn-sm revert-btn" id="poGenSubmitBtn">Submit</button>
                 </div>
               </div>
             </div>
@@ -2103,7 +2055,7 @@
                   <div class="row d-flex justify-content-end align-items-center mt-3">
                     <!-- <button id="nextBtn" class="btn btn-primary btn-sm revert-btn m-1">Next <i
                         class="fa-solid fa-arrow-right ml-1"></i></button> -->
-                    <button class="btn btn-success btn-sm revert-btn m-1" id="srbSubmitBtn">Submit</button>
+                    <button class="btn btn-green btn-sm revert-btn m-1" id="srbSubmitBtn">Submit</button>
                   </div>
                 </div>
 
@@ -2145,7 +2097,7 @@
                         placeholder="Enter Reason For Rejection"></textarea>
                     </div>
                     <div class="d-flex justify-content-end mt-5">
-                      <button class="btn btn-success" id="icsrSubmit">Submit</button>
+                      <button class="btn btn-green" id="icsrSubmit">Submit</button>
                     </div>
                   </div>
                 </div>
@@ -2154,8 +2106,8 @@
             </div>
           </div>
           <!-- <div class="modal-footer"> -->
-          <!-- <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Close</button> -->
-          <!-- <button class="btn btn-success">Submit</button> -->
+          <!-- <button type="button" class="btn btn-red btn-sm" data-bs-dismiss="modal">Close</button> -->
+          <!-- <button class="btn btn-green">Submit</button> -->
           <!-- </div> -->
         </div>
       </div>

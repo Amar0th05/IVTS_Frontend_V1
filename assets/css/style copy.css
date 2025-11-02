@@ -3,6 +3,9 @@
 /**  =====================
       Custom css start
 ==========================  **/
+table.dataTable thead th, table.dataTable thead td, table.dataTable tfoot th, table.dataTable tfoot td {
+    text-align: center !important;
+}
 
 body {
 	background-color: #f3f3f3;
@@ -2522,18 +2525,9 @@ img.comment-img {
 	background: #fff;
 	position: fixed;
 	z-index: 999999;
-	top: 0;
-	left: 0;
-}
-
-.theme-loader .loader-track {
-	left: 50%;
-	top: 50%;
-	position: absolute;
-	display: block;
-	width: 50px;
-	height: 50px;
-	margin: -25px 0 0 -25px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .preloader-wrapper {
@@ -14892,3 +14886,27 @@ button:active {
   box-shadow: none !important;
   border: none !important;
 }
+
+
+.btn-warning {
+  background-color: #ffcc00 !important;
+  color: #000 !important;
+  font-weight: 600;
+  border-radius: 10px !important;
+}
+
+
+#addNew.btn-resume {
+  background-color: #ffea00 !important;
+  color: #111 !important;
+  border: none !important;
+  border-radius: 25px !important;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.08) !important;
+  background-image: none !important;
+  background-color: #FFCC00 !important;
+}
+
+#addNew.btn-resume .ti-marker {
+  color: #111 !important;
+}
+

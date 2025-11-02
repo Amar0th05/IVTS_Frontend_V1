@@ -21,10 +21,10 @@ $(document).ready(function() {
     });
     $('.theme-loader').animate({
         'opacity': '0',
-    }, 1200);
+    }, 100);
     setTimeout(function() {
         $('.theme-loader').remove();
-    }, 2000);
+    }, 10000);
     // $('.pcoded').addClass('loaded');
 
     $('.form-control').on('blur', function() {
