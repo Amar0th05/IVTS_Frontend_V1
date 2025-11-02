@@ -143,7 +143,7 @@
                                         <li class="more-details">
                                                                 <a href="#!" data-bs-toggle="modal" data-bs-target="#profileDetailsModal"><i class="ti-user"></i>View Profile</a>
                                             <!-- <a href="#!"><i class="ti-settings"></i>Settings</a> -->
-                                            <a href="login.html"><i class="ti-layout-sidebar-left"></i>Logout</a>
+                                                                  <a href="login.html" id="logout-button"><i class="ti-layout-sidebar-left"></i>Logout</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -174,7 +174,7 @@
                                             <li class="breadcrumb-item">
                                                 <a href="index.html"> <i class="fa fa-home"></i> </a>
                                             </li>
-                                            <li class="breadcrumb-item"><a href="#!">staffs</a>
+                                            <li class="breadcrumb-item"><a href="staffs.html">staffs</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -186,30 +186,63 @@
                             <div class="main-body">
                                 <div class="page-wrapper">
                                     <div class="page-body">
-                                        <div class="row mb-4">
-                                                                <div class="col-md-4">
-                                                                    <div class="card text-center p-3 shadow">
-                                                                        <h3 id="totalCount" style="color: #7f86f3;">0
-                                                                        </h3>
-                                                                        <p>Total Staff</p>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-4">
-                                                                    <div class="card text-center p-3 shadow">
-                                                                        <h3 id="fullTimeCount" style="color:#7f86f3;">0
-                                                                        </h3>
-                                                                        <p>Full-Time Staff</p>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-4">
-                                                                    <div class="card text-center p-3 shadow">
-                                                                        <h3 id="partTimeCount" style="color: #7f86f3">0
-                                                                        </h3>
-                                                                        <p>Part-Time Staff</p>
-                                                                    </div>
-                                                                </div>
+<div class="row g-4 justify-content-center text-center">
+  <!-- Total Staff -->
+  <div class="col-md-4 d-flex justify-content-center">
+    <div
+      class="card shadow border-0 rounded-4 d-flex flex-row align-items-center justify-content-center p-4 w-100"
+    >
+      <div
+        class="d-flex align-items-center justify-content-center rounded-circle me-4"
+        style="background:#e8f0ff; width:65px; height:65px;"
+      >
+        <i class="fa-solid fa-users" style="color:#448AFF; font-size:28px;"></i>
+      </div>
+      <div class="text-start">
+        <h3 id="totalCount" class="fw-bold mb-1" style="color:#448AFF;">0</h3>
+        <p class="text-muted mb-0 fs-6">Total Staff</p>
+      </div>
+    </div>
+  </div>
 
-                                                            </div>
+  <!-- Full-Time Staff -->
+  <div class="col-md-4 d-flex justify-content-center">
+    <div
+      class="card shadow border-0 rounded-4 d-flex flex-row align-items-center justify-content-center p-4 w-100"
+    >
+      <div
+        class="d-flex align-items-center justify-content-center rounded-circle me-4"
+        style="background:#e8f0ff; width:65px; height:65px;"
+      >
+        <i class="fa-solid fa-user-tie" style="color:#448AFF; font-size:28px;"></i>
+      </div>
+      <div class="text-start">
+        <h3 id="fullTimeCount" class="fw-bold mb-1" style="color:#448AFF;">0</h3>
+        <p class="text-muted mb-0 fs-6">Full-Time Staff</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Part-Time Staff -->
+  <div class="col-md-4 d-flex justify-content-center">
+    <div
+      class="card shadow border-0 rounded-4 d-flex flex-row align-items-center justify-content-center p-4 w-100"
+    >
+      <div
+        class="d-flex align-items-center justify-content-center rounded-circle me-4"
+        style="background:#e8f0ff; width:65px; height:65px;"
+      >
+        <i class="fa-solid fa-user-clock" style="color:#448AFF; font-size:28px;"></i>
+      </div>
+      <div class="text-start">
+        <h3 id="partTimeCount" class="fw-bold mb-1" style="color:#448AFF;">0</h3>
+        <p class="text-muted mb-0 fs-6">Part-Time Staff</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <div class="card">
@@ -473,7 +506,7 @@
                   <div class="col-md-6 mb-3">
                     <label for="employeeId" class="form-label fw-semibold">Employee ID <span class="text-danger">*</span></label>
                     <input type="text" name="employeeId" maxlength="20" class="form-control form-control-sm"
-                      id="employeeId" placeholder="Enter Employee ID" required>
+                      id="employeeId" placeholder="Enter Employee ID" required readonly>
                   </div>
 
                   <div class="col-md-6 mb-3">
@@ -695,10 +728,6 @@
                                                                             <select id="designationFilter"
                                                                                 class="form-select form-select-sm border-secondary">
                                                                                 <option value="">Show all</option>
-                                                                                <option value="Full Stack Development">
-                                                                                    Full Stack Development</option>
-                                                                                <option value=""></option>
-
                                                                             </select>
                                                                         </div>
                                                                     </div>
@@ -714,15 +743,17 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-md-4">
-                                                                        <div class="d-flex flex-column">
-                                                                            <label for="statusFilter"
-                                                                                class="text-muted small mb-1">Status</label>
-                                                                            <select id="statusFilter"
+                                    <div class="d-flex flex-column">
+                                      <label for="statusFilter" class="text-muted small mb-1">Status</label>
+                                      <select id="statusFilter"
                                                                                 class="form-select form-select-sm border-secondary">
                                                                                 <option value="">Show all</option>
+                                                                                <option value="active">Active
+                                                                                </option>
+                                                                                <option value="inactive">inactive</option>
                                                                             </select>
-                                                                        </div>
-                                                                    </div>
+                                    </div>
+                                  </div>
                                                                 </div>
                                                             </div>
 <!-- 
@@ -742,8 +773,8 @@
                                                                             <tr>
                                                                                 <th>Employee Id</th>
                                                                                 <th>Staff Name</th>
-                                                                                <th>Department</th>
                                                                                 <th>Designation</th>
+                                                                                <th>Department</th>
                                                                                 <th>Contact Number</th>
                                                                                 <th>Work Locationr</th>
                                                                                 <th>Action</th>

@@ -149,9 +149,6 @@ function addRow(data){
     }else{
         data.status=false;
     }
-    let statusText = (data.status === true || data.status === "true" || data.status === 1)
-  ? "active"
-  : "inactive";
 
 table.row.add([
   data.employeeId,
@@ -161,7 +158,6 @@ table.row.add([
   data.contactNumber,
   data.workLocation,
   `
-    <span class="d-none">${statusText}</span> <!-- hidden filter text -->
     <div class="container d-flex justify-content-center">
       <div class="toggle-btn ${decidedPermission} ${data.status===true?'active':''}" 
            onclick="toggleStatus(this,'${data.employeeId}')">
@@ -236,20 +232,48 @@ async function toggleStatus(element, id) {
 // fetch all data
 async function fetchAllData() {
     try {
-        const staffs = await api.getAllStaff();
-        console.log('staffDetails', staffs);
+    const staffs = await api.getAllStaff();
+    console.log("Fetched Staffs:", staffs);
+    const designations = new Set();
+    const locations = new Set();
 
-        // clear DataTable before re-adding rows
-        if ($.fn.dataTable.isDataTable('#myTable')) {
-            table = $('#myTable').DataTable();
-            table.clear().draw();
-        }
+    let table;
+    if ($.fn.dataTable.isDataTable("#myTable")) {
+      table = $("#myTable").DataTable();
+      table.clear().draw();
+    } else {
+      table = $("#myTable").DataTable();
+    }
 
-        // Add rows one by one
-        staffs.forEach(staff => {
-            addRow(staff);
-        });
+    // Clear existing filters
+    $("#designationFilter").empty().append('<option value="">Show all</option>');
+    $("#locationFilter").empty().append('<option value="">Show all</option>');
+    // $("#statusFilter").empty().append('<option value="">Show all</option>');
 
+    // Add rows and collect unique filter values
+    staffs.forEach((staff) => {
+      addRow(staff);
+
+      if (staff.designation)
+        designations.add(staff.designation);
+
+      if (staff.workLocation)
+        locations.add(staff.workLocation);
+
+    });
+
+    // Populate filters
+    designations.forEach((designation) => {
+      $("#designationFilter").append(
+        `<option value="${designation}">${designation}</option>`
+      );
+    });
+
+    locations.forEach((location) => {
+      $("#locationFilter").append(
+        `<option value="${location}">${location}</option>`
+      );
+    });
         // ✅ Count staff types
         const total = staffs.filter(i => Number(i.status) === 1).length;
         const fullTime = staffs.filter(s => 
@@ -481,73 +505,102 @@ async function fetchDataAndGenerateExcel() {
 $(document).ready(function () {
   const datatable = $('#myTable').DataTable({
     paging: true,
-  pageLength: 25,
-  lengthMenu: [5, 10, 25, 50, 100],
-  dom: '<"top"lBf>rt<"bottom"ip><"clear">',
-    // dom: 'Bfrtip',
+    pageLength: 25,
+    lengthMenu: [5, 10, 25, 50, 100],
+    dom: '<"top"lBf>rt<"bottom"ip><"clear">',
     buttons: [
       {
         extend: 'excel',
-         text: `
-      <span class="icon-default"><i class="fa-solid fa-file-excel"></i></span>
-      <span class="icon-extra"><i class="fa-solid fa-download"></i></span>
-      Excel
-    `,
-    className: "btn-excel"
+        text: `
+          <span class="icon-default"><i class="fa-solid fa-file-excel"></i></span>
+          <span class="icon-extra"><i class="fa-solid fa-download"></i></span>
+          Excel
+        `,
+        className: "btn-excel"
       },
       {
         extend: 'pdf',
         text: `
-      <span class="icon-default"><i class="fa-solid fa-file-pdf"></i></span>
-      <span class="icon-extra"><i class="fa-solid fa-download"></i></span>
-      PDF
-    `,
-    className: "btn-pdf"
+          <span class="icon-default"><i class="fa-solid fa-file-pdf"></i></span>
+          <span class="icon-extra"><i class="fa-solid fa-download"></i></span>
+          PDF
+        `,
+        className: "btn-pdf"
       },
       {
         extend: 'colvis',
-      text: `
-      <span class="icon-default"><i class="fa-solid fa-eye"></i></span>
-      <span class="icon-extra"><i class="fa-solid fa-gear"></i></span>
-      Columns
-    `,
-    className: "btn-colvis"
+        text: `
+          <span class="icon-default"><i class="fa-solid fa-eye"></i></span>
+          <span class="icon-extra"><i class="fa-solid fa-gear"></i></span>
+          Columns
+        `,
+        className: "btn-colvis"
       }
     ],
     language: {
       search: "",
       searchPlaceholder: "Type to search...",
-    paginate: { first: "«", last: "»", next: "›", previous: "‹" }
-
+      paginate: {
+        first: "«",
+        last: "»",
+        next: "›",
+        previous: "‹"
+      }
     },
     initComplete: function () {
-      // Remove default "Search:" text
-      $('#myTable').contents().filter(function () {
-        return this.nodeType === 3;
-      }).remove();
-
       // Wrap search input & add search icon
-      $('#myTable_filter input').wrap('<div class="search-wrapper"></div>');
-      $('.search-wrapper').prepend('<i class="fa-solid fa-magnifying-glass"></i>');
+      $('#myTable_filter input')
+        .wrap('<div class="search-wrapper"></div>');
+      $('.search-wrapper')
+        .prepend('<i class="fa-solid fa-magnifying-glass"></i>');
     }
   });
 
   // Move export buttons into custom div
   datatable.buttons().container().appendTo($('#exportButtons'));
 
-  // Dropdown filters logic
-  function addColumnFilter(selectId, colIndex) {
-    $(`#${selectId}`).on('change', function () {
-      const value = $(this).val();
-      datatable.column(colIndex).search(value ? '^' + value + '$' : '', true, false).draw();
-    });
-  }
+  // ================================
+  // 🔹 DROPDOWN FILTERS
+  // ================================
 
-  // Hook up filters
-  addColumnFilter("locationFilter",0);
-  addColumnFilter("designationFilter",6);
-  addColumnFilter("statusFilter",5);
+  // Designation Filter
+  $("#designationFilter").on("change", function () {
+    const selectedDesignation = $(this).val();
+    datatable
+      .column(2) // Change to your actual column index for Designation
+      .search(selectedDesignation ?selectedDesignation: '', true, false)
+      .draw();
+  });
+
+  // Location Filter
+  $("#locationFilter").on("change", function () {
+    const selectedLocation = $(this).val();
+    datatable
+      .column(5) // Change to your actual column index for Location
+      .search(selectedLocation ? '^' + selectedLocation + '$' : '', true, false)
+      .draw();
+  });
+
+
+  $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+    if (settings.datatable == 'myTable') return true; // Apply only to second table
+
+    const selectedStatus = $('#statusFilter').val(); // '', 'active', 'inactive'
+    const row = $('#myTable').DataTable().row(dataIndex).node();
+    const isActive = $(row).find('.toggle-btn').hasClass('active');
+
+    if (selectedStatus === '') return true; // Show all
+    if (selectedStatus === 'active' && isActive) return true;
+    if (selectedStatus === 'inactive' && !isActive) return true;
+    return false;
+  });
+
+  // Redraw when filters change
+  $('#statusFilter').on('change', function () {
+    datatable.draw();
+  });
 });
+
 
 
 

@@ -36,49 +36,8 @@
     .hidden {
       display: none !important;
     }
-    .modern-table {
-      color: black !important;
-      width: 90%;
-      border-collapse: separate;
-      border-spacing: 0 10px;
-      border: 1px solid #ddd;
-      margin-left: auto;
-      margin-right: auto;
-      padding: 10px;
-    }
-
-    .modern-table thead {
-      background-color: #007bff;
-      color: white;
-      text-align: center;
-    }
-
-    .modern-table th,
-    .modern-table td {
-      padding: 12px;
-      text-align: center;
-      border-bottom: 2px solid #ddd;
-    }
-
-    .modern-table tbody tr {
-      background: white;
-      transition: transform 0.2s ease-in-out;
-    }
-
-    .modern-table tbody tr:hover {
-      transform: scale(1.02);
-      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
-    }
-
-    .modern-table tr:hover {
-      transform: scale(1.02);
-      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
-    }
-
-    .modern-table td {
-      width: 50%;
-    }
-
+    
+    
     .chart-container {
       width: 100%;
       height: 250px;
@@ -91,82 +50,7 @@
       text-align: center;
       padding: 10px;
     }
-    .table-modern {
-      border-collapse: separate;
-      border-spacing: 0;
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
 
-    .table-modern th,
-    .table-modern td {
-      padding: 12px 15px;
-      text-align: center;
-    }
-
-    .table-modern th:first-child,
-    .table-modern td:first-child {
-      text-align: justify;
-      color: white;
-      background-color: #007bffc9;
-      font-weight: 600;
-      width: fit-content;
-    }
-
-    .table-modern thead th {
-      background-color: #007bffc9;
-      color: white;
-      font-weight: 600;
-    }
-
-    .table-modern tbody tr:nth-child(odd) {
-      background-color: #f8f9fa;
-    }
-
-    .table-modern tbody tr:hover {
-      background-color: #e9ecef;
-    }
-    .table-equipments {
-      border-collapse: separate;
-      border-spacing: 0;
-      border-radius: 10px;
-      overflow: hidden;
-      font-size: 14px !important;
-    }
-
-    .table-equipments tbody {
-      display: block;
-      max-height: 290px;
-      overflow-y: auto;
-    }
-
-    .table-equipments th,
-    .table-equipments td {
-      padding: 5px 10px;
-      text-align: center;
-    }
-
-    .table-equipments thead th {
-      background-color: #007bffc9;
-      color: white;
-      font-weight: 600;
-    }
-
-    .table-equipments tbody tr:nth-child(odd) {
-      background-color: #f8f9fa;
-    }
-
-    .table-equipments tbody tr:hover {
-      background-color: #e9ecef;
-    }
-
-    .table-equipments thead,
-    .table-equipments tbody tr {
-      display: table;
-      width: 100%;
-      table-layout: fixed;
-    }
     #chartdiv {
       width: 100%;
       height: 280px;
@@ -285,7 +169,7 @@
                     <li class="more-details">
                                           <a href="#!" data-bs-toggle="modal" data-bs-target="#profileDetailsModal"><i class="ti-user"></i>View Profile</a>
                       <!-- <a href="#!"><i class="ti-settings"></i>Settings</a> -->
-                      <a href="login.html"><i class="ti-layout-sidebar-left"></i>Logout</a>
+                      <a href="login.html" id="logout-button"><i class="ti-layout-sidebar-left"></i>Logout</a>
                     </li>
                   </ul>
                 </div>
@@ -495,9 +379,10 @@
           <i class="fa-solid fa-xmark text-white"></i>
         </button>
                           </div>
-                          <div class="modal-body table-responsive">
-                            <table class="table-modern table-striped table-hover mx-auto">
-                              <thead class="bg-primary text-white">
+                             <div class="d-flex justify-content-center align-items-center">
+                                <div class="modal-body table-responsive">
+                                  <table class="table-modern table-striped table-hover max-auto">
+                                    <thead class="bg-primary text-white text-center">
                                 <tr>
                                   <th>Organisation</th>
                                   <th>Manning Cost</th>
@@ -507,6 +392,7 @@
 
                               </tbody>
                             </table>
+                          </div>
                           </div>
                           <div class="modal-footer">
                             <button type="button" class="btn btn-red btn-sm" data-dismiss="modal">Close</button>
@@ -522,13 +408,17 @@
                       <div class="modal-content">
                         <div class="modal-header bg-primary text-white">
                           <h5 class="modal-title" id="modernModalLabel">Invoice Summary</h5>
-                          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
+                           <button type="button"
+          class="d-flex align-items-center btn-close justify-content-center p-0"
+          style="width:32px; height:32px;background-color: transparent !important; border: transparent; cursor: pointer;"
+          data-dismiss="modal" aria-label="Close">
+          <i class="fa-solid fa-xmark text-white"></i>
+        </button>
                         </div>
-                        <div class="modal-body table-responsive">
-                          <table class="table modern-table" id="invoiceTable">
-                            <thead>
+                        <div class="d-flex justify-content-center align-items-center">
+                                <div class="modal-body table-responsive">
+                                  <table class="table-modern  table-striped table-hover max-auto" id="invoiceTable">
+                                    <thead class="bg-primary text-white text-center">
                               <tr>
                                 <td>Organisation</td>
                                 <td>Invoice Raised</td>
@@ -538,6 +428,7 @@
                               <!-- Dynamic Data Here -->
                             </tbody>
                           </table>
+                        </div>
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-red btn-sm" data-dismiss="modal">Close</button>

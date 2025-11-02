@@ -135,17 +135,13 @@ document.addEventListener('DOMContentLoaded',async ()=>{
         'other': 'other'
     };
 
-    table.rows().every(function () {
-        const data = this.data();
+    // ✅ Use DataTables built-in search filter
+    $.fn.dataTable.ext.search = []; // clear old filters
 
-        const tableLeaveType = (leaveTypeMap[data[4]?.toLowerCase()] || data[4])?.toLowerCase() || '';
+    $.fn.dataTable.ext.search.push(function (settings, data) {
         const tableMonth = data[3]?.toLowerCase() || '';
-        
-        // 🟢 Extract text content from HTML (badge)
-        const tempDiv = document.createElement('div');
-        tempDiv.innerHTML = data[5];
-        const tableStatus = tempDiv.textContent.trim().toLowerCase();
-
+        const tableLeaveType = (leaveTypeMap[data[4]?.toLowerCase()] || data[4])?.toLowerCase() || '';
+        const tableStatus = $('<div>').html(data[5]).text().trim().toLowerCase();
         const tableEmployeeName = data[2]?.toLowerCase() || '';
         const tableEmployeeId = data[1]?.toString().toLowerCase() || '';
 
@@ -157,12 +153,10 @@ document.addEventListener('DOMContentLoaded',async ()=>{
             tableEmployeeId.includes(employee);
         const matchesStatus = !status || tableStatus === status;
 
-        if (matchesMonth && matchesType && matchesStatus && matchesEmployee) {
-            $(this.node()).show();
-        } else {
-            $(this.node()).hide();
-        }
+        return matchesMonth && matchesType && matchesStatus && matchesEmployee;
     });
+
+    table.draw(); // ✅ Redraw with filter applied
 }
 
 
