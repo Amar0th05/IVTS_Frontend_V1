@@ -60,7 +60,7 @@ const formattedDate = `${month}-${day}-${year}`;
         newIns.insurance_provider,
         startDate,
         expiryDate || "-",
-        updateDate,
+        formattedDate,
         actionButtons(newIns.id),
       ]).draw(false);
 
@@ -382,8 +382,6 @@ if (decidedPermission !== "") {
   // alert(decidedPermission)
 }
 
-
-
 let table;
 function addRow(data) {
   if ($.fn.dataTable.isDataTable("#myTable")) {
@@ -415,7 +413,7 @@ function addRow(data) {
       data.dateOfJoining,
       data.currentSalary,
       data.currentDesignation,
-      `<div class="container d-flex justify-content-center">
+      `<div class="container">
             <div class="toggle-btn ${decidedPermission}  ${
         data.status === true ? "active" : ""
       }" onclick="toggleStatus(this,'${data.staffID}')">
@@ -1102,21 +1100,7 @@ $("#statusFilter").on("click", function () {
     .search(selectedStatus ? "^" + selectedStatus + "$" : "", true, false)
     .draw();
 });
-// Insurance table (policyTable)
-const policyTable = $("#policyTable").DataTable({
-  paging: true,
-  pageLength: 10,
-    dom: '<"top"lBf>rt<"bottom"ip><"clear">',
-  language: {
-    search: "",
-    searchPlaceholder: "Type to search..."
-  },
-  initComplete: function () {
-    const $input = $("#policyTable_filter input");
-    $input.wrap('<div class="search-wrapper"></div>');
-    $input.before('<i class="fa-solid fa-magnifying-glass"></i>');
-  }
-});
+
 staffTable.buttons().container().appendTo($("#exportButtons"));
 
 $("#filter").on("change", function () {
