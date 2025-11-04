@@ -190,10 +190,10 @@ document.querySelector('#myTable').addEventListener('click', function (event) {
     }
 });
 
-document.querySelector('#exitButton2').addEventListener('click', function () {
-    document.querySelector('#tabWrapper').classList.add('d-none');
-    document.querySelector('#tableCard').style.display = 'block';
-});
+// document.querySelector('#exitButton2').addEventListener('click', function () {
+//     document.querySelector('#tabWrapper').classList.add('d-none');
+//     document.querySelector('#tableCard').style.display = 'block';
+// });
 
 // side bar 
 
@@ -406,6 +406,21 @@ function formatDate(dateStr) {
 //     loadUpdateDetails(staffId);
 
 // });
+document.querySelector('#myTable').addEventListener('click', function (event) {
+    if (event.target.closest('.edit-btn')) {
+        let button = event.target.closest('.edit-btn');
+        let staffID = button.getAttribute('data-staff-id');
+        loadUpdateDetails(staffID);
+        // loadDocumentTable(staffID);
+        document.querySelector('#tabWrapper').classList.remove('d-none');
+        document.querySelector('#tableCard').style.display = 'none';
+    }
+});
+
+// document.querySelector('#exitButton2').addEventListener('click', function () {
+//     document.querySelector('#tabWrapper').classList.add('d-none');
+//     document.querySelector('#tableCard').style.display = 'block';
+// });
 
 //generate pdf
 
@@ -607,10 +622,7 @@ $(document).ready(function () {
     document.querySelector('#addNew').addEventListener('click', function () {
         document.querySelector('#tab').classList.remove('d-none');
         document.querySelector('#tableCard').style.display = 'none';
-        document.querySelector('#exitButton').addEventListener('click',function(){
-            document.querySelector('#tab').classList.add('d-none');
-            document.querySelector('#tableCard').style.display = 'block';
-        });
+      
     });
 
 
