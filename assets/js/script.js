@@ -229,3 +229,138 @@ function toggleFullScreen() {
 }
 
 // $("body").append('<div class="fixed-button active"><a href="https://codedthemes.com/item/flash-able-bootstrap-admin-template/" target="_blank" class="btn btn-md btn-primary"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Upgrade To Pro</a> </div>');var $window=$(window),nav=$(".fixed-button");
+
+
+// popup message
+
+
+
+document.getElementById("exitButton2").addEventListener("click", async function () {
+  const result = await Swal.fire({
+    title: "Cancel Editing?",
+    text: "Your unsaved changes will be lost. Do you want to cancel?",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#d33",     // Red for confirm
+    cancelButtonColor: "#3085d6",   // Blue for cancel
+    confirmButtonText: "Yes, Cancel",
+    cancelButtonText: "No, Keep Editing",
+    reverseButtons: true,
+    customClass: {
+      popup: "swal2-custom-popup",
+      title: "swal2-custom-title"
+    }
+  });
+  if(result.isConfirmed){
+    // document.location.reload();
+      document.querySelector('#tabWrapper').classList.add('d-none');
+    document.querySelector('#tableCard').style.display = 'block';
+  }
+  else{
+  }
+});
+
+document.getElementById("exitButton").addEventListener("click", async function () {
+  const result = await Swal.fire({
+    title: "Cancel Editin?",
+    text: "Your unsaved changes will be lost. Do you want to cancel?",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#d33",     // Red for confirm
+    cancelButtonColor: "#3085d6",   // Blue for cancel
+    confirmButtonText: "Yes, Cancel",
+    cancelButtonText: "No, Keep Editing",
+    reverseButtons: true,
+    customClass: {
+      popup: "swal2-custom-popup",
+      title: "swal2-custom-title"
+    }
+  });
+  if(result.isConfirmed){
+     
+            document.querySelector('#tab').classList.add('d-none');
+            document.querySelector('#tableCard').style.display = 'block';
+  }
+  else{
+  }
+});
+
+
+
+
+
+
+// $(document).ready(function () {
+//   // When Edit button is clicked → show confirmation modal
+//   $('#editButton').on('click', function () {
+//     $('#confirmEditModal').modal('show');
+//   });
+
+//   // When "Yes, Edit" is clicked → proceed with edit action
+//   $('#confirmEditYes').on('click', function () {
+//     $('#confirmEditModal').modal('hide');
+
+//     // ✅ You can run your edit logic here
+//     // Example: Enable form fields or open another modal
+//     Swal.fire({
+//       icon: 'success',
+//       title: 'Edit Enabled',
+//       text: 'You can now edit the record.',
+//       showConfirmButton: false,
+//       timer: 1800
+//     });
+//   });
+// });
+
+
+
+
+
+// document.getElementById("exitButton").addEventListener("click", async function () {
+//   const result = await Swal.fire({
+//     title: "Are you sure?",
+//     text: "If you leave now, your unsaved changes will be lost.",
+//     icon: "warning",
+//     showCancelButton: true,
+//     confirmButtonText: "Yes, Exit Anyway",
+//     cancelButtonText: "Stay Here",
+//     confirmButtonColor: "#d33",     // red for exit
+//     cancelButtonColor: "#3085d6",   // blue for cancel
+//     background: "#fff",
+//     color: "#333",
+//     reverseButtons: true,
+//     showClass: {
+//       popup: 'animate__animated animate__fadeInDown'
+//     },
+//     hideClass: {
+//       popup: 'animate__animated animate__fadeOutUp'
+//     }
+//   });
+
+//   if (result.isConfirmed) {
+//     // ✅ Close only the edit modal (no reload)
+//     Swal.fire({
+//       icon: "success",
+//       title: "Exited!",
+//       text: "You have left the edit mode.",
+//       showConfirmButton: false,
+//       timer: 1500,
+//       timerProgressBar: true
+//     });
+
+//     // hide modal smoothly after popup
+//     setTimeout(() => {
+//       let modal = bootstrap.Modal.getInstance(document.getElementById("editStaffModal"));
+//       if (modal) modal.hide();  // close modal
+//     }, 1200);
+//   } else {
+//     Swal.fire({
+//       icon: "info",
+//       title: "Continue Editing",
+//       text: "You can continue making your changes.",
+//       showConfirmButton: false,
+//       timer: 1500
+//     });
+//   }
+// });
+

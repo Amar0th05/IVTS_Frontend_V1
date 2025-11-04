@@ -16,23 +16,21 @@ await fetchAllData();
 // ================== Validation Function ==================
 function validateForm(formData) {
     const errors = [];
-    const personID = formData.get('personID')?.trim();
     const personName = formData.get('personName')?.trim();
-    const dateOfBirth = formData.get('dateOfBirth')?.trim();
     const contactNumber = formData.get('contactNumber')?.trim();
-    const aadharNumber = formData.get('aadharNumber')?.trim();
     const mail = formData.get('mail')?.trim();
+    const postfor=formData.get('postfor')?.trim();
+    const currentLocation=formData.get('location')?.trim();
 
-    if (!personID) errors.push('Person ID is required.');
-    if (!personName) errors.push('Person Name is required.');
+     if (!personName) errors.push('Person Name is required.');
     if(!contactNumber) errors.push('Contact Number is required.');
-    if(!aadharNumber) errors.push('Aadhar Number is required.');
-    if(!mail) errors.push('Email is required.');
-    if(!dateOfBirth) errors.push('Date of Birth is required.');
+    if(!mail) errors.push('Email Id is required.');
+    if(!postfor) errors.push('Post Applied For is required.');
+    if(!currentLocation) errors.push('Current Location is required.');
+
 
 
     if (contactNumber && !/^\d{10}$/.test(contactNumber)) errors.push('Contact Number must be exactly 10 digits.');
-    if (aadharNumber && !/^\d{12}$/.test(aadharNumber)) errors.push('Aadhar Number must be exactly 12 digits.');
     if (mail && !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(mail)) errors.push('Invalid Email format.');
 
     if (errors.length) {
@@ -73,11 +71,11 @@ function checkRequiredFields() {
     const formData = new FormData(form);
 
     // ✅ required text fields must be filled
-    const requiredFields = ["personID","personName","dateOfBirth","aadharNumber","contactNumber","mail"];
+    const requiredFields = ["personName","contactNumber","mail","postfor","location"];
     const requiredTextValid = requiredFields.every(f => formData.get(f)?.trim());
 
     // ✅ required files must be present and valid
-    const requiredFiles = ["aadhaarFile","resumeFile","panFile","academicFile","idCardFile"];
+    const requiredFiles = ["resumeFile"];
     const requiredFilesValid = requiredFiles.every(f => {
         const fileInput = documentForm.querySelector(`[name="${f}"]`);
         return fileInput && fileInput.files.length > 0 && validateFileInput(fileInput);
@@ -127,7 +125,7 @@ document.getElementById('add_person_btn').addEventListener('click', async (e) =>
     if (!validateForm(formData)) return;
 
     const data = {};
-    const numericFields = ["aadharNumber","contactNumber"];
+    const numericFields = ["contactNumber"];
     formData.forEach((value,key) => {
         value = value?.trim() || value;
         data[key] = value === "" ? null : (numericFields.includes(key) ? Number(value) : value);
@@ -147,6 +145,9 @@ document.getElementById('add_person_btn').addEventListener('click', async (e) =>
         form.reset();
         documentForm.reset();
         checkRequiredFields();
+        setTimeout(() => {
+            document.location.reload();
+        }, 1500);
     } catch (error) {
         showErrorPopupFadeInDown(error.response?.data?.message || 'Failed to add person.');
     }
@@ -179,8 +180,21 @@ function formatDate(dateStr) {
 // ================== update Person Modal ==================
 document.getElementById('update_person_btn').addEventListener('click', async (e) => {
     e.preventDefault();
+    
+console.log(document.getElementById('ResumeFile'));   
+const element = document.getElementById('ResumeFile');
+
+if (element) {
+  const hasLabelOrButton = element.querySelector('label') !== null;
+  console.log(hasLabelOrButton); 
+} else {
+  console.log('Element not found');
+}
+
     const form = document.getElementById('update-person-form');
+
     const formData = new FormData(form);
+
 
     if (!validateForm(formData)) return; // use new validation
 
@@ -197,7 +211,7 @@ document.getElementById('update_person_btn').addEventListener('click', async (e)
 });
 
 function formatPersonData(formData) {
-    const numericFields = ["aadharNumber","contactNumber"];
+    const numericFields = ["contactNumber"];
     const data = {};
     formData.forEach((value,key) => {
         value = value?.trim() || value;
@@ -226,13 +240,16 @@ function addRow(data) {
         formatDate(data.dateOfBirth),
         data.contactNumber || '',
         data.mail || '',
+        data.postFor || '',
+        data.location || '',
         `<div class="row d-flex justify-content-center">
-            <div class="d-flex align-items-center justify-content-center p-0 edit-btn"
-                style="width: 40px; height: 40px; cursor:pointer"
-                data-person-id="${data.personID}">
-                <i class="fa-solid fa-pen-to-square" style="font-size: larger;"></i>
-            </div>
-        </div>`
+  <div class="d-flex align-items-center justify-content-center p-0 edit-btn"
+       style="width: 40px; height: 40px; cursor:pointer"
+       data-person-id="${data.personID}"
+       data-breadcrumb="Edit Talent">
+    <i class="fa-solid fa-pen-to-square" style="font-size: larger;"></i>
+  </div>
+</div>`
     ]);
 }
 // ================== table row click ==================
@@ -256,10 +273,10 @@ async function loadUpdateDetails(id) {
         document.getElementById('update-personID').value = data.personID;
         document.getElementById('update-personName').value = data.personName;
         document.getElementById('update-contactNumber').value = data.contactNumber;
-        document.getElementById('update-aadharNumber').value = data.aadharNumber;
         document.getElementById('update-mail').value = data.mail;
         document.getElementById('update-dateOfBirth').value = formatDate(data.dateOfBirth);
-        document.getElementById('update-permanentAddress').value = data.permanentAddress;
+        document.getElementById('update-postfor').value = data.postFor;
+        document.getElementById('update-location').value = data.location;
     } catch (err) {
         console.error("Error loading update details:", err);
     }
@@ -271,12 +288,14 @@ async function loadDocumentTable(personId) {
         const documentTableBody = document.getElementById("documentTableBody");
         documentTableBody.innerHTML = res.data.map(doc => `
            <tr>
-  <td>${doc.name}</td>
-  <td>
+  <td >${doc.name}</td>
+  <td id="${doc.name}">
     ${doc.exists ? `
   <button onclick="handleAction(this, () => downloadDocument('${personId}','${doc.name}'))" 
           class="btn btn-sm text-white" 
-          style="background:linear-gradient(to bottom right, #69A1FF, #1E3FA0); border:none;">
+          style="background:linear-gradient(to bottom right, #69A1FF, #1E3FA0); border:none;" id="download
+          "
+          >
     <i class="fa-solid fa-download me-1"></i> Download
   </button>
   <button onclick="handleAction(this, () => deleteDocument('${personId}','${doc.name}'))" 
@@ -402,7 +421,7 @@ async function fetchDataAndGeneratePDF() {
 async function fetchDataAndGenerateExcel() {
     try {
         const res = await api.downloadPersonData();
-        const headers = ["ID","Name","Date Of Birth","Aadhar Number","Contact Number","Mail","Permanent Address"];
+        const headers = ["personID","Name","Date Of Birth","Aadhar Number","Contact Number","Mail","Permanent Address"];
         const data = res.map(p => [p.personID, p.personName, new Date(p.dateOfBirth).toLocaleDateString('en-GB'), p.aadharNumber, p.contactNumber, p.mail, p.permanentAddress]);
         const ws = XLSX.utils.aoa_to_sheet([headers,...data]);
         const wb = XLSX.utils.book_new();
@@ -487,4 +506,34 @@ async function fetchDataAndGenerateExcel() {
         });
 
 
+// ================== Breadcrumb Dynamic Update ==================
+   $(document).ready(function () {
+    const breadcrumb = $('#breadcrumb');
+    const originalBreadcrumb = breadcrumb.html(); // Save the original HTML once
+
+    // Handle all breadcrumb actions
+    $(document).on('click', '[data-breadcrumb]', function () {
+      const action = $(this).data('breadcrumb');
+
+      if (action && action.toLowerCase() === 'back') {
+        // Restore original breadcrumb (Home > Talentpool)
+        breadcrumb.html(originalBreadcrumb);
+      } else {
+        // Remove old dynamic breadcrumb if exists
+        breadcrumb.find('.dynamic-breadcrumb').remove();
+
+        // Append new one dynamically
+        breadcrumb.append(`
+          <li class="breadcrumb-item dynamic-breadcrumb">
+            <a href="#">${action}</a>
+          </li>
+        `);
+      }
+    });
+
+    // When modal closes (by Exit, backdrop, or X)
+    $(document).on('hidden.bs.modal', function () {
+      breadcrumb.html(originalBreadcrumb);
+    });
+  });
 
