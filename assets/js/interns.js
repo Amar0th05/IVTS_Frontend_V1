@@ -1,4 +1,4 @@
-
+let internName;
 const updateInternButton = document.getElementById('update_intern_btn');
 // add staff 
 
@@ -80,10 +80,10 @@ document.querySelector('#myTable1').addEventListener('click', function (event) {
 });
 
 
-document.querySelector('#exitButton2').addEventListener('click', function () {
-    document.querySelector('#tabWrapper').classList.add('d-none');
-    document.querySelector('#tableCard').style.display = 'block';
-});
+// document.querySelector('#exitButton2').addEventListener('click', function () {
+//     document.querySelector('#tabWrapper').classList.add('d-none');
+//     document.querySelector('#tableCard').style.display = 'block';
+// });
 
 // side bar 
 
@@ -239,6 +239,7 @@ async function loadInternUpdateDetails(Id) {
 
         console.log("datanew",data);
         
+        internName=data.FullName;
      
         // Populate the form fields based on the intern data and your HTML IDs
         document.getElementById('fullName1').value = data.FullName || '';
@@ -458,7 +459,7 @@ function downloadOnboardingCertificate(FullName, StartDate, EndDate) {
       <p style="margin:0 0 6px 0;">Working Hours: <strong>5 Hours / day</strong></p>
       <p style="margin:0 0 6px 0;">Supervisors:</p>
       <p style="margin:0 0 4px 40px;"><strong>M.J. Muthukumar</strong></p>
-      <p style="margin:0 0 8px 40px;"><strong>S. Pradhiksha</strong></p>
+      <p style="margin:0 0 8px 40px;"><strong>R.S. Pradhiksha</strong></p>
       <p style="margin:0 0 12px 0;font-weight:bold;">Stipend Recommended: ₹10,000/month</p>
 
       <p style="margin:0 0 12px 0;text-align:justify;">
@@ -554,11 +555,11 @@ let actionHTML3 = `
     if(formatDate(new Date) < formatDate(data.EndDate)){
       rowsHTML += `
       <tr>
-        <td>Onboarding Certificate</td>
+        <td>${data.FullName} Onboarding Certificate</td>
         <td>${actionHTML3}</td>
       </tr>
       <tr>
-        <td>Completion Certificate</td>
+        <td>${data.FullName} Completion Certificate</td>
         <td>${actionHTML1}</td>
       </tr>
     `;
@@ -566,11 +567,11 @@ let actionHTML3 = `
     else{
       rowsHTML += `
       <tr>
-        <td>Onboarding Certificate</td>
+        <td>${data.FullName} Onboarding Certificate</td>
         <td>${actionHTML3}</td>
       </tr>
         <tr>
-        <td>Completion Certificate</td>
+        <td>${data.FullName} Completion Certificate</td>
         <td>${actionHTML2}</td>
       </tr>
     `;
