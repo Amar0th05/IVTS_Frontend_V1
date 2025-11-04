@@ -1262,13 +1262,45 @@
 
         <!-- Modal Footer -->
         <div class="modal-footer bg-white border-top">
-            <button type="button" class="btn btn-red btn-sm" data-dismiss="modal" id="exitButton">
+            <button type="button" class="btn btn-red btn-sm" data-dismiss="modal" id="exitButton2">
                 <i class="fas fa-times me-1"></i>Exit
             </button>
             <button type="button" id="update_intern_btn" class="btn btn-green btn-sm writeElement">
                 <i class="fas fa-save me-1"></i>Update
             </button>
         </div>
+         <!-- 🌟 Stylish Confirmation Modal -->
+                                <div class="modal fade" id="confirmExitModal" tabindex="-1" aria-labelledby="confirmExitLabel" aria-hidden="true">
+                                  <div class="modal-dialog modal-dialog-centered" style="max-width: 400px;">
+                                    <div class="modal-content"
+                                      style="border-radius: 15px; box-shadow: 0 0 25px rgba(0,0,0,0.2); border:none; overflow:hidden;">
+                                
+                                      <div class="modal-header text-white" style="background: linear-gradient(#4471D0);">
+                                        <h6 class="modal-title" id="confirmExitLabel">
+                                          <i class="fas fa-exclamation-triangle me-2"></i>Confirm Exit
+                                        </h6>
+                                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                                      </div>
+                                
+                                      <div class="modal-body text-center p-4" style="font-size: 14px; color: #333;">
+                                        <i class="fas fa-question-circle fa-3x text-danger mb-3"></i>
+                                        <p style="margin-bottom: 0;">
+                                          Are you sure you want to <b>exit without saving</b> your changes?
+                                        </p>
+                                      </div>
+                                
+                                      <div class="modal-footer justify-content-center border-0 pb-4">
+                                        <button type="button" class="btn btn-secondary px-4 py-1" data-bs-dismiss="modal">
+                                       </i>Cancel
+                                        </button>
+                                        <button type="button" id="confirmExitYes" class="btn px-4 py-1 text-white"
+                                          style="background-color:#c62828; border:none;">
+                                         </i>Yes, Exit
+                                        </button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
     </div>
 </div>
                             <!---------------------------------------------------------------------------------------------UPDATE-MODAL-END---------------------------------------------------->
