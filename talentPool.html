@@ -325,14 +325,23 @@ back to top button
                       class="form-control form-control-sm shadow-sm rounded-3"
                       id="email" placeholder="Enter Email ID" required>
                   </div>
-                     <div class="col-md-6">
+                     <!-- <div class="col-md-6">
                     <label for="postfor" class="form-label fw-semibold text-secondary">
-                      Post Applied For <span class="text-danger">*</span>
+                      Designation Applied For <span class="text-danger">*</span>
                     </label>
                     <input type="text" name="postfor"
                       class="form-control form-control-sm shadow-sm rounded-3"
                       id="postfor" placeholder="Enter Post Applied For" required>
-                  </div>
+                  </div> -->
+                     <div class="col-md-6">
+              <h6 class="text mb-3"> Designation Applied For  <span class="text-danger">*</span></h6>
+              <div class="form-group">
+                <select class="form-control form-control-sm" id="postfor" name="postfor">
+                  <option value="" disabled selected>Select Designation</option>
+                </select>
+              </div>
+            </div>
+
                   <div class="col-md-6">
                     <label for="location" class="form-label fw-semibold text-secondary">
                       Current Location<span class="text-danger">*</span>
@@ -526,14 +535,22 @@ back to top button
                       class="form-control form-control-sm editElement shadow-sm rounded-3"
                       id="update-mail" placeholder="Enter Email ID" required>
                   </div>
-                    <div class="col-md-6">
+                    <!-- <div class="col-md-6">
                       <label for="update-postfor" class="form-label fw-semibold text-secondary">
                       Post Applied For <span class="text-danger">*</span>
                     </label>
                     <input type="text" name="postfor"
                       class="form-control form-control-sm editElement shadow-sm rounded-3"
                       id="update-postfor" placeholder="Enter Post Applied For" required>
-                    </div>
+                    </div> -->
+                    <div class="col-md-6">
+              <h6 class="text mb-3"> Designation Applied For  <span class="text-danger">*</span></h6>
+              <div class="form-group">
+                <select class="form-control form-control-sm" id="update-postfor" name="postfor">
+                  <option value="" disabled selected>Select Designation</option>
+                </select>
+              </div>
+            </div>
                   <div class="col-md-6">
                     <label for="update-location" class="form-label fw-semibold text-secondary">
                       Current Location<span class="text-danger">*</span>

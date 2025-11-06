@@ -117,6 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // ================== Submit New Person ==================
 document.getElementById('add_person_btn').addEventListener('click', async (e) => {
     e.preventDefault();
+
     const form = document.getElementById('new-person-form');
     const documentForm = document.getElementById('new-Document-form');
     const formData = new FormData(form);
@@ -181,15 +182,6 @@ function formatDate(dateStr) {
 document.getElementById('update_person_btn').addEventListener('click', async (e) => {
     e.preventDefault();
     
-console.log(document.getElementById('ResumeFile'));   
-const element = document.getElementById('ResumeFile');
-
-if (element) {
-  const hasLabelOrButton = element.querySelector('label') !== null;
-  console.log(hasLabelOrButton); 
-} else {
-  console.log('Element not found');
-}
 
     const form = document.getElementById('update-person-form');
 
@@ -219,6 +211,23 @@ function formatPersonData(formData) {
     });
     return data;
 }
+async function loadDesignationOptions(id) {
+    try {
+        // const response = await axiosInstance.get(API_ROUTES.getactiveDesignations);
+        const designations = await api.getActiveDesignations();
+        const select = document.getElementById(id);
+        select.innerHTML = '<option value="">Select designation</option>';
+
+        designations.forEach(designation => {
+            const option = document.createElement("option");
+            option.value = designation.des_id;
+            option.textContent = designation.designation;
+            select.appendChild(option);
+        });
+    } catch (error) {
+        console.error("Error loading designation options:", error);
+    }
+}
 
 // ================== Fetch All Data ==================
 async function fetchAllData() {
@@ -231,8 +240,22 @@ async function fetchAllData() {
         console.error("Error fetching person details:", error);
     }
 }
+const postValue={
+1: "Project Manager",
+  2: "VTS Manager",
+  3: "VTS Operator",
+  4: "Junior VTS Operator",
+  5: "Senior Project Engineer",
+  6: "VTS Engineer",
+  7: "Senior Engineer",
+  8: "Junior Engineer",
+  9: "Laboratory Assistant"}
+     let postfor;
 
 function addRow(data) {
+    postfor=Number(data.postFor);
+     console.log("jkwr",postValue.postfor);
+
     if (!table) table = $('#myTable').DataTable();
     table.row.add([
         data.personID || '',
@@ -240,7 +263,7 @@ function addRow(data) {
         formatDate(data.dateOfBirth),
         data.contactNumber || '',
         data.mail || '',
-        data.postFor || '',
+        postValue[postfor] || '',
         data.location || '',
         `<div class="row d-flex justify-content-center">
   <div class="d-flex align-items-center justify-content-center p-0 edit-btn"
@@ -269,6 +292,8 @@ document.querySelector('#exitButton2').addEventListener('click', () => {
 async function loadUpdateDetails(id) {
     try {
         const res = await axiosInstance.get(API_ROUTES.getPerson(id));
+    await loadDesignationOptions('update-postfor');
+
         const data = res.data.person;
         document.getElementById('update-personID').value = data.personID;
         document.getElementById('update-personName').value = data.personName;
@@ -289,7 +314,7 @@ async function loadDocumentTable(personId) {
         documentTableBody.innerHTML = res.data.map(doc => `
            <tr>
   <td >${doc.name}</td>
-  <td id="${doc.name}">
+  <td>
     ${doc.exists ? `
   <button onclick="handleAction(this, () => downloadDocument('${personId}','${doc.name}'))" 
           class="btn btn-sm text-white" 
@@ -491,7 +516,8 @@ async function fetchDataAndGenerateExcel() {
 
 });
 // ================== Add New Person Button ==================
-    document.querySelector('#addNew').addEventListener('click', function () {
+    document.querySelector('#addNew').addEventListener('click',async function () {
+        await loadDesignationOptions('postfor');
         document.querySelector('#tab').classList.remove('d-none');
         document.querySelector('#tableCard').style.display = 'none';
         document.querySelector('#exitButton').addEventListener('click',function(){
