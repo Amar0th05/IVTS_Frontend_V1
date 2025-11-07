@@ -626,4 +626,60 @@ $(document).ready(function () {
     });
 
 
+    // popup message
+
+
+
+document.getElementById("exitButton2").addEventListener("click", async function () {
+  const result = await Swal.fire({
+    title: "Cancel Editing?",
+    text: "Your unsaved changes will be lost. Do you want to cancel?",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#d33",     // Red for confirm
+    cancelButtonColor: "#3085d6",   // Blue for cancel
+    confirmButtonText: "Yes, Cancel",
+    cancelButtonText: "No, Keep Editing",
+    reverseButtons: true,
+    customClass: {
+      popup: "swal2-custom-popup",
+      title: "swal2-custom-title"
+    }
+  });
+  if(result.isConfirmed){
+    // document.location.reload();
+      document.querySelector('#tabWrapper').classList.add('d-none');
+    document.querySelector('#tableCard').style.display = 'block';
+  }
+  else{
+  }
+});
+
+document.getElementById("exitButton").addEventListener("click", async function () {
+  const result = await Swal.fire({
+    title: "Cancel Editin?",
+    text: "Your unsaved changes will be lost. Do you want to cancel?",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#d33",     // Red for confirm
+    cancelButtonColor: "#3085d6",   // Blue for cancel
+    confirmButtonText: "Yes, Cancel",
+    cancelButtonText: "No, Keep Editing",
+    reverseButtons: true,
+    customClass: {
+      popup: "swal2-custom-popup",
+      title: "swal2-custom-title"
+    }
+  });
+  if(result.isConfirmed){
+     
+            document.querySelector('#tab').classList.add('d-none');
+            document.querySelector('#tableCard').style.display = 'block';
+  }
+  else{
+  }
+});
+
+
+
 

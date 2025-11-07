@@ -2519,19 +2519,25 @@ img.comment-img {
       Theme-preloader css start
 ==========================  **/
 
+
 .theme-loader {
 	height: 100%;
 	width: 100%;
 	background: #fff;
 	position: fixed;
 	z-index: 999999;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+	top: 0;
+	left: 0;
 }
-.loading{
-	width: 250px; 
-	height:auto;
+
+.theme-loader .loader-track {
+	left: 50%;
+	top: 50%;
+	position: absolute;
+	display: block;
+	width: 50px;
+	height: 50px;
+	margin: -25px 0 0 -25px;
 }
 .preloader-wrapper {
 	display: inline-block;

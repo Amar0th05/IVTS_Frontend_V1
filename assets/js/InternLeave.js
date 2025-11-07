@@ -1,3 +1,5 @@
+
+
 function getbaseurl() {
   const { hostname } = location;
   const environments = {
@@ -382,23 +384,6 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
             const result = await response.json();
-
-            if (response.ok) {
-                const container = document.querySelector(".container.shadow-lg");
-                container.innerHTML = `
-                    <div class="text-center p-5" style="animation: fadeIn 0.5s ease-in-out;">
-                        <i class="fas fa-calendar-check fa-5x text-success mb-4"></i>
-                        <h2 class="text-success mb-3">Leave Application Submitted Successfully!</h2>
-                        <p class="lead">${result.message}</p>
-                        <p>You will be notified once your leave request has been reviewed.</p>
-                        <button class="btn btn-primary mt-3" onclick="location.reload()">
-                            <i class="fas fa-plus me-2"></i>Submit Another Request
-                        </button>
-                    </div>
-                `;
-            } else {
-                throw new Error(result.message || "Submission failed.");
-            }
 
         } catch (err) {
             console.error("Error submitting leave:", err);

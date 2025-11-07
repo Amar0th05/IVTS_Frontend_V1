@@ -1,8 +1,3 @@
-// // loader
-// document.getElementById("preloader").style.display="block";
-// setTimeout(() => {
-//   document.getElementById("preloader").style.display="none";
-// }, 2000); 
 // =============== Logout Functionality ===============
 document.getElementById('logout-button').addEventListener('click',logout);
         function logout(){

@@ -1,49 +1,50 @@
 let internName;
-const updateInternButton = document.getElementById('update_intern_btn');
-// add staff 
+const updateInternButton = document.getElementById("update_intern_btn");
+// add staff
 
 let decidedPermission;
-document.addEventListener('DOMContentLoaded',async ()=>{
-    roles = await axiosInstance.get('/roles/role/perms');
-roles = roles.data.roles;
-// console.log(roles);
-window.roles = roles;
-    decidedPermission=handlePermission('#username');
+document.addEventListener("DOMContentLoaded", async () => {
+  roles = await axiosInstance.get("/roles/role/perms");
+  roles = roles.data.roles;
+  // console.log(roles);
+  window.roles = roles;
+  decidedPermission = handlePermission("#username");
 });
 
-const storedUser = JSON.parse(sessionStorage.getItem('user'));
+const storedUser = JSON.parse(sessionStorage.getItem("user"));
 document.getElementById("username").textContent = storedUser.name;
 
-if(decidedPermission!==''){
-    decidedPermission='editElement';
-    // alert(decidedPermission)
+if (decidedPermission !== "") {
+  decidedPermission = "editElement";
+  // alert(decidedPermission)
 }
 
 let table;
 let internId;
-function addRow(data){
-    if ( $.fn.dataTable.isDataTable( '#myTable1' ) ) {
-        table = $('#myTable1').DataTable();
-    }
-   
-   if(!data){
-    console.error('no data to add');
+function addRow(data) {
+  if ($.fn.dataTable.isDataTable("#myTable1")) {
+    table = $("#myTable1").DataTable();
+  }
+
+  if (!data) {
+    console.error("no data to add");
     return;
-   }
+  }
 
-    if(data.dateOfJoining){
-        data.dateOfJoining=new Date(data.dateOfJoining).toLocaleDateString();
-    }else{
-        data.dateOfJoining='';
-    }
+  if (data.dateOfJoining) {
+    data.dateOfJoining = new Date(data.dateOfJoining).toLocaleDateString();
+  } else {
+    data.dateOfJoining = "";
+  }
 
-    if(data.status){
-        data.status=true;
-    }else{
-        data.status=false;
-    }
-     
-    table.row.add([
+  if (data.status) {
+    data.status = true;
+  } else {
+    data.status = false;
+  }
+
+  table.row
+    .add([
       data.Id,
       data.FullName,
       formatDate(data.DateOfBirth),
@@ -51,13 +52,14 @@ function addRow(data){
       data.Email,
       data.CollegeName,
       data.DegreeProgram,
-        `<div class="container">
-            <div class="toggle-btn ${decidedPermission}  ${data.status===true?'active':''}" onclick="toggleStatus(this,'${data.Id}')">
+      `<div class="container">
+            <div class="toggle-btn ${decidedPermission}  ${
+        data.status === true ? "active" : ""
+      }" onclick="toggleStatus(this,'${data.Id}')">
                 <div class="slider"></div>
             </div>
-        </div>`
-        ,
-        `<div class="row d-flex justify-content-center">
+        </div>`,
+      `<div class="row d-flex justify-content-center">
     <div class="d-flex align-items-center justify-content-center p-0 edit-btn" 
         style="width: 40px; height: 40px; cursor:pointer" 
         data-intern="${data.Id}">
@@ -65,10 +67,9 @@ function addRow(data){
     </div>
 </div>
 `,
-        
-    ]).draw(false);
-
-};
+    ])
+    .draw(false);
+}
 // edit btn
 document.querySelector('#myTable1').addEventListener('click', function (event) {
     if (event.target.closest('.edit-btn')) {
@@ -80,139 +81,152 @@ document.querySelector('#myTable1').addEventListener('click', function (event) {
     }
 });
 
-
 // document.querySelector('#exitButton2').addEventListener('click', function () {
 //     document.querySelector('#tabWrapper').classList.add('d-none');
 //     document.querySelector('#tableCard').style.display = 'block';
 // });
 
-// side bar 
+// side bar
 
-document.addEventListener('DOMContentLoaded',async ()=>{
+document.addEventListener("DOMContentLoaded", async () => {
   roles = await axiosInstance.get("/roles/role/perms");
   roles = roles.data.roles;
   // console.log(roles);
   window.roles = roles;
-    await fetchAllData();
+  await fetchAllData();
 
   handlePermission("#username");
 });
 
-
 // toggle status
 
 async function toggleStatus(element, id) {
+  if (element.classList.contains("editElement")) return;
 
-    if(element.classList.contains('editElement')) return;
+  if (!id) return;
 
-    if (!id) return;
+  try {
+    const data = await api.toggleInternStatus(id);
+    showSucessPopupFadeInDownLong(data.message);
 
-    try {
-        const data=await api.toggleInternStatus(id);
-        showSucessPopupFadeInDownLong(data.message);
-
-        if (element) {
-            element.classList.toggle('active');
-        }
-                    await refreshTable();
-
-    } catch (error) {
-        showErrorPopupFadeInDown(error);
+    if (element) {
+      element.classList.toggle("active");
     }
+    await refreshTable();
+  } catch (error) {
+    showErrorPopupFadeInDown(error);
+  }
 }
 
 async function refreshTable() {
-    if ($.fn.dataTable.isDataTable('#myTable1')) {
-        table = $('#myTable1').DataTable();
-        table.clear();
-    }
+  if ($.fn.dataTable.isDataTable("#myTable1")) {
+    table = $("#myTable1").DataTable();
+    table.clear();
+  }
 
-    await fetchAllData();
+  await fetchAllData();
 }
-
 
 // fetch all data
 async function fetchAllData() {
-    try {
-        const interns = await api.getAllIntern();
-        console.log('intern', interns);
+  try {
+    const interns = await api.getAllIntern();
+    console.log("intern", interns);
 
-        // Clear and populate DataTable if needed
-        if ($.fn.dataTable.isDataTable('#myTable1')) {
-            const table = $('#myTable1').DataTable();
-            table.clear().draw();
-        }
-
-        // Add each intern as a row
-        interns.forEach(e => addRow(e));
-
-        // ✅ Count interns correctly
-        const totalInterns = interns.length;
-        const currentInterns = interns.filter(i => Number(i.status) === 1).length;
-        const completedInterns = interns.filter(i => Number(i.status) === 0).length;
-
-        // ✅ Update the HTML cards
-        document.getElementById("totalInternCount").innerText = totalInterns;
-        document.getElementById("currentInternCount").innerText = currentInterns;
-        document.getElementById("completedInternCount").innerText = completedInterns;
-
-        handlePermission('#username');
-
-    } catch (error) {
-        console.error("Error fetching intern details:", error);
+    // Clear and populate DataTable if needed
+    if ($.fn.dataTable.isDataTable("#myTable1")) {
+      const table = $("#myTable1").DataTable();
+      table.clear().draw();
     }
+
+    // Add each intern as a row
+    interns.forEach((e) => addRow(e));
+
+    // ✅ Count interns correctly
+    const totalInterns = interns.length;
+    const currentInterns = interns.filter((i) => Number(i.status) === 1).length;
+    const completedInterns = interns.filter(
+      (i) => Number(i.status) === 0
+    ).length;
+
+    // ✅ Update the HTML cards
+    document.getElementById("totalInternCount").innerText = totalInterns;
+    document.getElementById("currentInternCount").innerText = currentInterns;
+    document.getElementById("completedInternCount").innerText =
+      completedInterns;
+
+    handlePermission("#username");
+  } catch (error) {
+    console.error("Error fetching intern details:", error);
+  }
 }
 
 function limitLength(str, length) {
-    if (str.length > length) {
-        return str.substring(0, length);
-    }
-    return str;
-};
-
-
-
-function validateForm(formData) {
-    let errors = [];
-
-    const data = ["fullName","dateOfBirth","gender","mobileNumber","currentLocation","email","portfolioLink","emergencyContactName","emergencyContactRelationship","emergencyContactNumber","collegeName","degreeProgram","isPartOfCurriculum","facultySupervisor","preferredStartDate","preferredEndDate","internshipMode","howHeardAboutUs","submissionDate1",];
-
-    console.log(formData.get("fullName")?.trim());
-    data.forEach(field =>{
-        console.log(field);
-        const value=formData.get(field)?.trim();
-
-
-        if(!value){
-            errors.push(`${field} is Required`);
-            showErrorPopupFadeInDown(`${field} is Required`);
-        }
-        if (field == "contactNumber" && !/^\d{10}$/.test(contactNumber)) {
-        errors.push("Contact Number must be exactly 10 digits.");
-       }
-
-  
-    if (field == "aadharNumber" && !/^\d{12}$/.test(aadharNumber)) {
-        showErrorPopupFadeInDown('Aadhar Number must be exactly 12 digits.');
-        errors.push("Aadhar Number must be exactly 12 digits.");
-    }
-
-    
-    if (field == "mail" && !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(mail)) {
-        showErrorPopupFadeInDown('Invalid Email format');
-        errors.push("Invalid email format.");
-    }
-
-    })
-  
-    if (errors.length > 0) {
-        console.log("Form validation failed:", errors);
-        return false;
-    }
-
-    return true;
+  if (str.length > length) {
+    return str.substring(0, length);
+  }
+  return str;
 }
 
+function validateForm(formData) {
+  let errors = [];
+
+  const data = [
+    "fullName",
+    "dateOfBirth",
+    "gender",
+    "mobileNumber",
+    "currentLocation",
+    "email",
+    "portfolioLink",
+    "emergencyContactName",
+    "emergencyContactRelationship",
+    "emergencyContactNumber",
+    "collegeName",
+    "degreeProgram",
+    "isPartOfCurriculum",
+    "facultySupervisor",
+    "preferredStartDate",
+    "preferredEndDate",
+    "internshipMode",
+    "howHeardAboutUs",
+    "submissionDate1",
+  ];
+
+  console.log(formData.get("fullName")?.trim());
+  data.forEach((field) => {
+    console.log(field);
+    const value = formData.get(field)?.trim();
+
+    if (!value) {
+      errors.push(`${field} is Required`);
+      showErrorPopupFadeInDown(`${field} is Required`);
+    }
+    if (field == "contactNumber" && !/^\d{10}$/.test(contactNumber)) {
+      errors.push("Contact Number must be exactly 10 digits.");
+    }
+
+    if (field == "aadharNumber" && !/^\d{12}$/.test(aadharNumber)) {
+      showErrorPopupFadeInDown("Aadhar Number must be exactly 12 digits.");
+      errors.push("Aadhar Number must be exactly 12 digits.");
+    }
+
+    if (
+      field == "mail" &&
+      !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(mail)
+    ) {
+      showErrorPopupFadeInDown("Invalid Email format");
+      errors.push("Invalid email format.");
+    }
+  });
+
+  if (errors.length > 0) {
+    console.log("Form validation failed:", errors);
+    return false;
+  }
+
+  return true;
+}
 
 function formatDate(dateStr) {
   console.log("date");
@@ -222,65 +236,76 @@ function formatDate(dateStr) {
 }
 
 // edit btn
-$(document).on('click', '.edit-btn', function () {
-    let Id = $(this).data('intern');   
-    console.log("edit", Id)
-    loadInternUpdateDetails(Id);
+$(document).on("click", ".edit-btn", function () {
+  let Id = $(this).data("intern");
+  console.log("edit", Id);
+  loadInternUpdateDetails(Id);
 });
 
 //generate pdf
 
-
-
 async function loadInternUpdateDetails(Id) {
-   
-    try {
-        // Assume API_ROUTES.getIntern(id) exists and fetches intern-specific data
-        const response = await api.getInterById(Id);
-        const data = response; // Assuming the intern details are directly in response.data
+  try {
+    // Assume API_ROUTES.getIntern(id) exists and fetches intern-specific data
+    const response = await api.getInterById(Id);
+    const data = response; // Assuming the intern details are directly in response.data
 
-        console.log("datanew",data);
-        
-        internName=data.FullName;
-     
-        // Populate the form fields based on the intern data and your HTML IDs
-        document.getElementById('fullName1').value = data.FullName || '';
-        document.getElementById('dateOfBirth1').value = data.DateOfBirth ? formatDate(data.DateOfBirth) : '';
-        document.getElementById('gender1').value = data.Gender || '';
-        document.getElementById('mobileNumber1').value = data.MobileNumber || '';
-        document.getElementById('currentLocation1').value = data.CurrentLocation || '';
-        document.getElementById('email1').value = data.Email || '';
-        document.getElementById('portfolioLink1').value = data.PortfolioLink || '';
-        document.getElementById('emergencyContactName1').value = data.EmergencyContactName || '';
-        document.getElementById('emergencyContactRelationship1').value = data.EmergencyContactRelationship || '';
-        document.getElementById('emergencyContactNumber1').value = data.EmergencyContactNumber || '';
-        document.getElementById('collegeName1').value = data.CollegeName || '';
-        document.getElementById('degreeProgram1').value = data.DegreeProgram || '';
-        document.getElementById('isPartOfCurriculum1').value = data.IsPartOfCurriculum?"Yes":"No" || '';
-        document.getElementById('facultySupervisor1').value = data.FacultySupervisor || '';
-        document.getElementById('preferredStartDate1').value = data.PreferredStartDate ? formatDate(data.PreferredStartDate) : '';
-        document.getElementById('preferredEndDate1').value = data.PreferredEndDate ? formatDate(data.PreferredEndDate) : '';
-        document.getElementById('StartDate').value = data.StartDate ? formatDate(data.StartDate) : '';
-        document.getElementById('EndDate').value = data.EndDate? formatDate(data.EndDate) : '';
-        document.getElementById('internshipMode1').value = data.InternshipMode || '';
-        document.getElementById('howHeardAboutUs1').value = data.HowHeardAboutUs || '';
-        document.getElementById('submissionDate1').value = data.SubmissionDate ? formatDate(data.SubmissionDate) : '';
-        document.getElementById('reportingManager').value = data.Reporting_Manager || '';
+    console.log("datanew", data);
 
-        // Store ID = 1
-        document.getElementById('id1').value=Id || '';
+    internName = data.FullName;
 
+    // Populate the form fields based on the intern data and your HTML IDs
+    document.getElementById("fullName1").value = data.FullName || "";
+    document.getElementById("dateOfBirth1").value = data.DateOfBirth
+      ? formatDate(data.DateOfBirth)
+      : "";
+    document.getElementById("gender1").value = data.Gender || "";
+    document.getElementById("mobileNumber1").value = data.MobileNumber || "";
+    document.getElementById("currentLocation1").value =
+      data.CurrentLocation || "";
+    document.getElementById("email1").value = data.Email || "";
+    document.getElementById("portfolioLink1").value = data.PortfolioLink || "";
+    document.getElementById("emergencyContactName1").value =
+      data.EmergencyContactName || "";
+    document.getElementById("emergencyContactRelationship1").value =
+      data.EmergencyContactRelationship || "";
+    document.getElementById("emergencyContactNumber1").value =
+      data.EmergencyContactNumber || "";
+    document.getElementById("collegeName1").value = data.CollegeName || "";
+    document.getElementById("degreeProgram1").value = data.DegreeProgram || "";
+    document.getElementById("isPartOfCurriculum1").value =
+      data.IsPartOfCurriculum ? "Yes" : "No" || "";
+    document.getElementById("facultySupervisor1").value =
+      data.FacultySupervisor || "";
+    document.getElementById("preferredStartDate1").value =
+      data.PreferredStartDate ? formatDate(data.PreferredStartDate) : "";
+    document.getElementById("preferredEndDate1").value = data.PreferredEndDate
+      ? formatDate(data.PreferredEndDate)
+      : "";
+    document.getElementById("StartDate").value = data.StartDate
+      ? formatDate(data.StartDate)
+      : "";
+    document.getElementById("EndDate").value = data.EndDate
+      ? formatDate(data.EndDate)
+      : "";
+    document.getElementById("internshipMode1").value =
+      data.InternshipMode || "";
+    document.getElementById("howHeardAboutUs1").value =
+      data.HowHeardAboutUs || "";
+    document.getElementById("submissionDate1").value = data.SubmissionDate
+      ? formatDate(data.SubmissionDate)
+      : "";
+    document.getElementById("reportingManager").value =
+      data.Reporting_Manager || "";
 
-       
-        updateInternDocumentButtons(Id); // Call a function to update document-related buttons/links
-        updateInternCertificateButtons(data);
+    // Store ID = 1
+    document.getElementById("id1").value = Id || "";
 
-     
-
-    } catch (error) {
-        console.error("Error loading intern details:", error);
-       
-    }
+    updateInternDocumentButtons(Id); // Call a function to update document-related buttons/links
+    updateInternCertificateButtons(data);
+  } catch (error) {
+    console.error("Error loading intern details:", error);
+  }
 }
 
 function formatDate(date, formatType = "short") {
@@ -1006,236 +1031,258 @@ async function deleteDocument(internId, docName) {
 
 // Delete document
 async function deleteDocument(internId, docName) {
-    if (!(await showDeleteMessage(`Delete ${docName}?`))) return;
+  if (!(await showDeleteMessage(`Delete ${docName}?`))) return;
 
-    try {
-        await axiosInstance.delete(API_ROUTES.deleteInternDocument(internId, docName));
+  try {
+    await axiosInstance.delete(
+      API_ROUTES.deleteInternDocument(internId, docName)
+    );
 
-        // Success message
-        Swal.fire({
-            icon: 'success',
-            title: 'Deleted!',
-            text: `${docName} deleted successfully`,
-            timer: 2000,
-            showConfirmButton: false
-        });
+    // Success message
+    Swal.fire({
+      icon: "success",
+      title: "Deleted!",
+      text: `${docName} deleted successfully`,
+      timer: 2000,
+      showConfirmButton: false,
+    });
 
-        updateInternDocumentButtons(internId);
-    } catch (error) {
-        console.error("Error deleting document:", error);
-    }
+    updateInternDocumentButtons(internId);
+  } catch (error) {
+    console.error("Error deleting document:", error);
+  }
 }
 
 // Upload document
 async function uploadDocument(internId, docName, file) {
-    console.log("Uploading document:", docName);
-    const formData = new FormData();
-    formData.append("file", file);
+  console.log("Uploading document:", docName);
+  const formData = new FormData();
+  formData.append("file", file);
 
-    try {
-        await axiosInstance.post(API_ROUTES.uploadInternDocument(internId, docName), formData);
+  try {
+    await axiosInstance.post(
+      API_ROUTES.uploadInternDocument(internId, docName),
+      formData
+    );
 
-        // SweetAlert2 success message
-        Swal.fire({
-            icon: 'success',
-            title: 'Uploaded!',
-            text: `${docName} uploaded successfully`,
-            timer: 2000,
-            showConfirmButton: false
-        });
+    // SweetAlert2 success message
+    Swal.fire({
+      icon: "success",
+      title: "Uploaded!",
+      text: `${docName} uploaded successfully`,
+      timer: 2000,
+      showConfirmButton: false,
+    });
 
-        updateInternDocumentButtons(internId);
-    } catch (error) {
-        console.error("Error uploading document:", error);
+    updateInternDocumentButtons(internId);
+  } catch (error) {
+    console.error("Error uploading document:", error);
 
-        // SweetAlert2 error message
-        Swal.fire({
-            icon: 'error',
-            title: 'Upload Failed',
-            text: `Could not upload ${docName}. Please try again.`,
-        });
-    }
+    // SweetAlert2 error message
+    Swal.fire({
+      icon: "error",
+      title: "Upload Failed",
+      text: `Could not upload ${docName}. Please try again.`,
+    });
+  }
 }
 
-updateInternButton.addEventListener('click', async (e) => {
-    console.log("enter");
-    e.preventDefault();
+updateInternButton.addEventListener("click", async (e) => {
+  console.log("enter");
+  e.preventDefault();
 
-    let form = document.getElementById('update-intern-form');
-    let formData = new FormData(form);
+  let form = document.getElementById("update-intern-form");
+  let formData = new FormData(form);
 
-    let Data = Object.fromEntries(formData.entries());
+  let Data = Object.fromEntries(formData.entries());
 
-    // ✅ Fix: convert empty strings to null for SQL Date columns
-    ["StartDate", "EndDate"].forEach(field => {
-        if (Data[field] === "") {
-            Data[field] = null;
-        }
-    });
-
-    console.log("intern", Data);
-
-    if (validateForm(formData)) {
-        try {
-            const responseData = await api.updateIntern(Data.id, Data);
-            table.clear();
-            await fetchAllData();
-            handlePermission('#username');
-            showSucessPopupFadeInDownLong(responseData.message);
-            setTimeout(()=>{
-              location.reload();
-            },1000);
-        } catch (error) {
-            showErrorPopupFadeInDown(error.response?.data?.message || 'Failed to add staff. Please try again later.');
-        }
+  // ✅ Fix: convert empty strings to null for SQL Date columns
+  ["StartDate", "EndDate"].forEach((field) => {
+    if (Data[field] === "") {
+      Data[field] = null;
     }
+  });
 
-    const payload = new FormData();
-    documentFormData.forEach((value, key) => {
-        if (value instanceof File && value.name !== '') {
-            payload.append(key, value);
-        }
-    });
+  console.log("intern", Data);
+
+  if (validateForm(formData)) {
+    try {
+      const responseData = await api.updateIntern(Data.id, Data);
+      table.clear();
+      await fetchAllData();
+      handlePermission("#username");
+      showSucessPopupFadeInDownLong(responseData.message);
+      setTimeout(() => {
+        location.reload();
+      }, 1000);
+    } catch (error) {
+      showErrorPopupFadeInDown(
+        error.response?.data?.message ||
+          "Failed to add staff. Please try again later."
+      );
+    }
+  }
+
+  const payload = new FormData();
+  documentFormData.forEach((value, key) => {
+    if (value instanceof File && value.name !== "") {
+      payload.append(key, value);
+    }
+  });
 });
 $(document).ready(function () {
-  const table1 = $('#myTable1').DataTable({
+  const table1 = $("#myTable1").DataTable({
     paging: true,
     pageLength: 25,
     lengthMenu: [5, 10, 25, 50, 100],
     dom: '<"top"lBf>rt<"bottom"ip><"clear">',
     buttons: [
       {
-        extend: 'excel',
+        extend: "excel",
         text: `
           <span class="icon-default"><i class="fa-solid fa-file-excel"></i></span>
           <span class="icon-extra"><i class="fa-solid fa-download"></i></span>
           Excel
         `,
-        className: 'btn-excel'
+        className: "btn-excel",
       },
       {
-        extend: 'pdf',
+        extend: "pdf",
         text: `
           <span class="icon-default"><i class="fa-solid fa-file-pdf"></i></span>
           <span class="icon-extra"><i class="fa-solid fa-download"></i></span>
           PDF
         `,
-        className: 'btn-pdf'
+        className: "btn-pdf",
       },
       {
-        extend: 'colvis',
+        extend: "colvis",
         text: `
           <span class="icon-default"><i class="fa-solid fa-eye"></i></span>
           <span class="icon-extra"><i class="fa-solid fa-gear"></i></span>
           Columns
         `,
-        className: 'btn-colvis'
-      }
+        className: "btn-colvis",
+      },
     ],
     language: {
       search: "",
       searchPlaceholder: "Type to search...",
-      paginate: { first: "«", last: "»", next: "›", previous: "‹" }
+      paginate: { first: "«", last: "»", next: "›", previous: "‹" },
     },
-        initComplete: function () {
+    initComplete: function () {
       // Remove default "Search:" text
-      $('#myTable1').contents().filter(function () {
-        return this.nodeType === 3;
-      }).remove();
+      $("#myTable1")
+        .contents()
+        .filter(function () {
+          return this.nodeType === 3;
+        })
+        .remove();
 
       // Wrap search input & add search icon
-      $('#myTable1_filter input').wrap('<div class="search-wrapper"></div>');
-      $('.search-wrapper').prepend('<i class="fa-solid fa-magnifying-glass"></i>');
-    }
+      $("#myTable1_filter input").wrap('<div class="search-wrapper"></div>');
+      $(".search-wrapper").prepend(
+        '<i class="fa-solid fa-magnifying-glass"></i>'
+      );
+    },
   });
 
   // Move export buttons into custom div
-  table1.buttons().container().appendTo($('#exportButtons'));
+  table1.buttons().container().appendTo($("#exportButtons"));
 
   $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
-    if (settings.nTable.id !== 'myTable1') return true; // Apply only to second table
+    if (settings.nTable.id !== "myTable1") return true; // Apply only to second table
 
-    const selectedStatus = $('#statusFilter').val(); // '', 'active', 'inactive'
-    const row = $('#myTable1').DataTable().row(dataIndex).node();
-    const isActive = $(row).find('.toggle-btn').hasClass('active');
+    const selectedStatus = $("#statusFilter").val(); // '', 'active', 'inactive'
+    const row = $("#myTable1").DataTable().row(dataIndex).node();
+    const isActive = $(row).find(".toggle-btn").hasClass("active");
 
-    if (selectedStatus === '') return true; // Show all
-    if (selectedStatus === 'active' && isActive) return true;
-    if (selectedStatus === 'inactive' && !isActive) return true;
+    if (selectedStatus === "") return true; // Show all
+    if (selectedStatus === "active" && isActive) return true;
+    if (selectedStatus === "inactive" && !isActive) return true;
     return false;
   });
 
   // Redraw when filters change
-  $('#statusFilter').on('change', function () {
+  $("#statusFilter").on("change", function () {
     table1.draw();
   });
 
   // ---------------------------
   // 🔹 OTHER FILTERS (Table 2)
   // ---------------------------
-  $('#designationFilter').on('change', function () {
+  $("#designationFilter").on("change", function () {
     const val = $(this).val();
-    table1.column(5).search(val ? '^' + val + '$' : '', true, false).draw();
+    table1
+      .column(5)
+      .search(val ? "^" + val + "$" : "", true, false)
+      .draw();
   });
 
-  $('#locationFilter').on('change', function () {
+  $("#locationFilter").on("change", function () {
     const val = $(this).val();
-    table1.column(2).search(val ? '^' + val + '$' : '', true, false).draw();
+    table1
+      .column(2)
+      .search(val ? "^" + val + "$" : "", true, false)
+      .draw();
   });
 
-  $('#filter').on('change', function () {
+  $("#filter").on("change", function () {
     const val = $(this).val();
-    table1.column(1).search(val || '').draw();
+    table1
+      .column(1)
+      .search(val || "")
+      .draw();
   });
 });
 
+// JavaScript to show/hide "Other Gender" input
+document.getElementById("gender1").addEventListener("change", function () {
+  var otherGenderField = document.getElementById("otherGenderField1");
+  if (this.value === "other") {
+    otherGenderField.style.display = "block";
+  } else {
+    otherGenderField.style.display = "none";
+  }
+});
 
-    
-        // JavaScript to show/hide "Other Gender" input
-        document.getElementById('gender1').addEventListener('change', function () {
-            var otherGenderField = document.getElementById('otherGenderField1');
-            if (this.value === 'other') {
-                otherGenderField.style.display = 'block';
-            } else {
-                otherGenderField.style.display = 'none';
-            }
-        });
+// Set submission date to today's date automatically
+document.addEventListener("DOMContentLoaded", function () {
+  var today = new Date();
+  var dd = String(today.getDate()).padStart(2, "0");
+  var mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+  var yyyy = today.getFullYear();
 
-        // Set submission date to today's date automatically
-        document.addEventListener('DOMContentLoaded', function () {
-            var today = new Date();
-            var dd = String(today.getDate()).padStart(2, '0');
-            var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-            var yyyy = today.getFullYear();
- 
-            today = yyyy + '-' + mm + '-' + dd;
-            document.getElementById('submissionDate1').value = today;
-        });
-
-
+  today = yyyy + "-" + mm + "-" + dd;
+  document.getElementById("submissionDate1").value = today;
+});
 
 $(document).ready(function () {
-    console.log("enter");
+  console.log("enter");
   // Load all staff and populate dropdown
-  api.getReportingManger()
+  api
+    .getReportingManger()
     // api.getstaffid()
     // api.getReportingid()
-    .then(staffList => {
-      staffList.forEach(staff => {
-        $('.userName').append(
-          $('<option>', { value: `${staff.id} - ${staff.name}`, text: `${staff.id}-${staff.name} ` })
+    .then((staffList) => {
+      staffList.forEach((staff) => {
+        $(".userName").append(
+          $("<option>", {
+            value: `${staff.id} - ${staff.name}`,
+            text: `${staff.id}-${staff.name} `,
+          })
         );
       });
 
       // Initialize Select2 after options are added
-      $('.userName').select2({
-        placeholder: 'Select Reporting Manager',
-        allowClear: true
+      $(".userName").select2({
+        placeholder: "Select Reporting Manager",
+        allowClear: true,
       });
     })
-    .catch(error => {
-        console.log("error")
-      console.error('Error loading staff:', error);
+    .catch((error) => {
+      console.log("error");
+      console.error("Error loading staff:", error);
     });
 });
 

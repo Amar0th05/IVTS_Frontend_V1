@@ -35,7 +35,8 @@ const moduleMaps = {
   "IC & SR SUBMISSION": ["indents"],
   "ASSETS": ["assetsDashboard", "laptops", "desktops", "server","printer"],
   "ASSETS VERIFICATION":["assetsVerfication"],
-  "LEAVE":["LeaveTracking"]
+  "LEAVE":["LeaveTracking"],
+  "EMPLEAVE":["applyLeave","empLeaveTracking"]
 
   // 'USER ROLES': ['roles']
 };
@@ -215,6 +216,7 @@ function generateSidebar() {
       "Asset Master":["ASSETS"],
       "Asset Verification":["ASSETS VERIFICATION"]
     } ,
+    "Leave Management":["EMPLEAVE"]
   };
 
   let sidebarHTML = "";
@@ -231,7 +233,8 @@ function generateSidebar() {
                     <ul class="pcoded-item pcoded-left-item"${
                       categoryName === "Employee Management" ||
                       categoryName === "User Management" ||
-                      categoryName === "MASTER MANAGEMENT"
+                      categoryName === "MASTER MANAGEMENT" ||
+                      categoryName === "Leave Management"
                         ? ""
                         : ' style="padding-left:25px;"'
                     }>
@@ -389,6 +392,9 @@ function getPageInfo(page) {
       icon: "fa-solid fa-copy",
     }, // assets verfication dashboard
     LeaveTracking: { title: "Leave Tracking", icon: "fa-solid fa-calendar-days"}, // leave tracking dashboard
+        applyLeave: { title: "Apply Leave Form", icon: "fa-solid fa-calendar-days"},
+        empLeaveTracking: { title: "EMP Leave Tracking", icon: "fa-solid fa-calendar-days"},
+
   };
   return pageInfoMap[page];
 }

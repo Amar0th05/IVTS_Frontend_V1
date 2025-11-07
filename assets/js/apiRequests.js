@@ -199,7 +199,10 @@ const api = {
     updateInsurance: (id, payload) => putData(API_ROUTES.updateInsurance(id), payload),
     deleteInsurance: (id) => deleteData(API_ROUTES.deleteInsurance(id)),
 
-
+    // intern leave
+    getEmployees: () => fetchData(API_ROUTES.getEmployees, 'employees'),
+  getManager: (employeeId) => fetchData(API_ROUTES.getManager(employeeId),'manager'),
+  submitLeave: (payload) => postData(API_ROUTES.submitLeave, payload)
 };
 
 const fetchData = (url, key) => axiosInstance.get(url).then(res => key ? res.data[key] : res.data);

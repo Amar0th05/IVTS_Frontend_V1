@@ -373,70 +373,73 @@
             width: 1% !important;
         }
 
-        /* Make Select2 field look like form-control */
-        .input-group .select2-container--default .select2-selection--single {
-            height: calc(2.5rem + 2px);
-            /* same as .form-control */
-            border: 2px solid #e9ecef;
-            border-left: 0;
-            /* merge with icon */
-            border-radius: 0 8px 8px 0;
-            /* match Manager Name rounding */
-            padding: 0.75rem;
-            font-size: 1rem;
-            line-height: 1.5;
-        }
-
-        /* Align the dropdown arrow */
-        .input-group .select2-container--default .select2-selection__arrow {
-            height: 100%;
-            right: 10px;
-        }
-
-        /* Placeholder styling to match */
-        .input-group .select2-container--default .select2-selection__placeholder {
-
-
-            border-right: 0;
-            color: var(--primary-color);
-
-        }
-
-        /* Make Select2 single select look like Bootstrap .form-control */
+        /* --- Match Select2 dropdown with Bootstrap form-select --- */
         .select2-container--default .select2-selection--single {
-            height: calc(2.5rem + 2px);
-            /* same as form-control */
-            border: 2px solid #e9ecef;
-            border-radius: 0.375rem;
-            /* default Bootstrap radius */
-            padding: 0.375rem 0.75rem;
-            font-size: 1rem;
-            line-height: 1.5;
-            background-color: #fff;
-            transition: all 0.2s ease-in-out;
+            height: 50.91px !important;
+            /* same as Leave Type */
+            border: 2px solid #e9ecef !important;
+            border-radius: 8px !important;
+            padding: 0.75rem 2.25rem 0.75rem 1rem !important;
+            background-color: #fff !important;
+            font-size: 1rem !important;
+            color: #212529 !important;
+            line-height: 1.5 !important;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%236c757d' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e") !important;
+            background-repeat: no-repeat !important;
+            background-position: right 1rem center !important;
+            background-size: 16px 12px !important;
+            appearance: none !important;
         }
 
-        /* Focus state like .form-control */
+        /* Hide Select2 default arrow */
+        .select2-container--default .select2-selection__arrow {
+            display: none !important;
+            color : black !important;
+        }
+
+        /* Match placeholder text style */
+        .select2-container--default .select2-selection__rendered {
+            color: #6c757d !important;
+            padding-left: 0.25rem !important;
+        }
+
+        /* Make Select2 placeholder text black */
+        .select2-container--default .select2-selection__placeholder {
+            color: #000 !important;
+            opacity: 1 !important;
+            /* Ensure full color intensity */
+        }
+
+
+        /* Bootstrap-style focus ring */
         .select2-container--default .select2-selection--single:focus,
         .select2-container--default.select2-container--focus .select2-selection--single {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
-            outline: 0;
+            border-color: #0668fb !important;
+            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25) !important;
+            outline: 0 !important;
         }
 
-        /* Disabled state like .form-control:disabled */
-        .select2-container--default.select2-container--disabled .select2-selection--single {
-            background-color: #e9ecef;
-            opacity: 1;
-            cursor: not-allowed;
+        /* Dropdown list style */
+        .select2-dropdown {
+            border: 2px solid #e9ecef !important;
+            border-radius: 8px !important;
+            font-size: 1rem !important;
+            color: #212529 !important;
         }
 
+        .input-group .select2-container .select2-selection--single {
+            height: 50.91px !important;
+            /* Match Bootstrap .form-select height */
 
-
-        /* Align the arrow */
-        .select2-container--default .select2-selection__arrow {
-            height: 100%;
-            right: 8px;
+            border-left: none !important;
+            /* attach cleanly to icon */
+            border-radius: 0 0.375rem 0.375rem 0 !important;
+            display: flex !important;
+            align-items: center !important;
+            padding: 0 0.75rem !important;
+            background-color: #fff !important;
+            font-size: 1rem !important;
+            color: #212529 !important;
         }
     </style>
 </head>
@@ -482,20 +485,21 @@
                                 <label for="fullName" class="form-label required-field">Employee Name</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                    <select class="form-control userName" id="fullName" name="fullName" required>
-                                        <option></option> <!-- empty option for Select2 placeholder -->
+                                    <!-- wrapper added to fix Select2 layout -->
+                                    <select class="userName" id="fullName" name="fullName" required>
+
+                                        <option></option> <!-- placeholder for Select2 -->
                                     </select>
+
                                 </div>
                                 <div class="invalid-feedback">Please select an employee name.</div>
                             </div>
-
-
                             <div class="col-md-6 mb-2">
                                 <label for="ManagerName" class="form-label required-field">Manager Name</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
                                     <input type="text" class="form-control" id="ManagerName" name="ManagerName"
-                                        placeholder="Manager Name will auto-populate" readonly>
+                                        placeholder="Manager Name will auto-populate" readonly />
                                 </div>
                                 <div class="invalid-feedback">Manager Name is required and must contain only letters.
                                 </div>
