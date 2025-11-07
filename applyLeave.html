@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Leave Tracking</title>
+    <title>Leave Form Details</title>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
@@ -11,7 +11,7 @@
     <meta name="keywords"
         content="bootstrap, bootstrap admin template, admin theme, admin dashboard, dashboard template, admin template, responsive" />
     <meta name="author" content="Codedthemes" />
-      <!-- Favicon icon -->
+    <!-- Favicon icon -->
     <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
     <!-- Google font-->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
@@ -33,7 +33,7 @@
     <!-- Style.css -->
 
         <link rel="stylesheet" href="assets/css/custom.css">
-                 <link rel="stylesheet" type="text/css" href="assets/css/style copy.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/style copy.css">
 
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
@@ -44,9 +44,8 @@
 
 
 
-
     <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css"> -->
-    <style>
+       <style>
         /* #policyTable{
             border-radius: 5px;
         } */
@@ -68,6 +67,9 @@
 }
 
 
+  .row>[class*="col-"] {
+      margin-bottom: 15px;
+    }
   /* remove right border-radius from input */
   .no-radius-end {
     border-top-right-radius: 0 !important;
@@ -81,187 +83,55 @@
   }
 
 
-
    
-#storageHistoryModal .modal-content {
-  border-radius: 12px;
-  background-color: #f8f9fa;
-}
-
-#storageHistoryModal .modal-header {
-  background: linear-gradient(135deg, #69A1FF, #1E3FA0) !important;
-  border-bottom: 1px solid #e0e0e0;
-  color: #fff;
-}
-
-#storageHistoryModal .modal-title {
-  font-size: 1.1rem;
-  letter-spacing: 0.3px;
-}
-
-#storageHistoryModal .card {
-  border-radius: 10px;
-  background-color: #fff;
-}
-
-#storageHistoryModal table th,
-#storageHistoryModal table td {
-  text-align: center;
-  vertical-align: middle;
-  padding: 12px 8px;
-}
-
-#storageHistoryModal table tbody tr:hover {
-  background-color: #f5f8ff;
-  transition: background 0.2s ease-in-out;
-}
-
-#storageHistoryModal input,
-#storageHistoryModal select {
-  /* border-radius: 6px; */
-  font-size: 0.9rem;
-
-}
-
-#storageHistoryModal .btn {
-  font-size: 0.9rem;
-  /* border-radius: 6px; */
-}
-
-
-
-
 
 </style>
-
 <style>
-/* 🔹 General Badge Style */
-.status-badge {
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 0.3px;
-  transition: all 0.3s ease-in-out;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 2rem;
-  padding: 0.45rem 1rem;
-  text-transform: capitalize;
+.download-btn {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
 }
 
-.status-badge:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+/* Shared icon styles */
+.download-btn i {
+  position: absolute;
+  font-size: 25px;
+  color: #264AAA;
+  transition: all 0.3s ease;
 }
 
-/* ✅ Completed Animation */
-.complete-icon {
-  animation: flipIn 0.8s ease-in-out;
-  transform-origin: center;
-  color: #fff;
-}
-
-.status-text {
-  display: inline-block;
-  animation: fadeInText 1s ease-in-out;
-  opacity: 0;
-  animation-fill-mode: forwards;
-  animation-delay: 0.2s;
-}
-
-/* 🔄 Ongoing Spin */
-.spin-icon {
-  animation: spin 2s linear infinite;
-}
-
-/* ❌ Withdrawn Flip */
-.flip-icon {
-  animation: flip 2.5s ease-in-out infinite;
-}
-
-/* 🌀 Animations */
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-@keyframes flipIn {
-  0% {
-    transform: rotateY(0deg) scale(0.8);
-    opacity: 0;
-  }
-  50% {
-    transform: rotateY(180deg) scale(1.2);
-    opacity: 1;
-  }
-  100% {
-    transform: rotateY(360deg) scale(1);
-    opacity: 1;
-  }
-}
-
-@keyframes flip {
-  0%, 100% { transform: rotateY(0deg); }
-  50% { transform: rotateY(180deg); }
-}
-
-@keyframes fadeInText {
-  0% {
-    transform: translateX(-6px);
-    opacity: 0;
-  }
-  100% {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-/* 🔹 Gradients */
-.bg-warning {
-  background: linear-gradient(135deg, #ffe066, #fab005) !important;
-  color: #212529 !important;
-}
-
-.bg-success {
-  background: linear-gradient(135deg, #51cf66, #2f9e44) !important;
-  color: #fff !important;
-}
-
-.bg-danger {
-  background: linear-gradient(135deg, #ff8787, #fa5252) !important;
-  color: #fff !important;
-}
-
-/* 🔹 Icon styling */
-.status-badge i {
-  margin-right: 0.5rem; /* using me-2 style */
-  font-size: 0.8rem;
-  opacity: 0.9;
-  transition: opacity 0.3s;
-}
-
-.status-badge:hover i {
+/* Show QR by default */
+.qr-icon {
   opacity: 1;
+  transform: scale(1);
 }
 
-/* 🔹 Responsive */
-@media (max-width: 576px) {
-  .status-badge {
-    font-size: 0.8rem;
-    padding: 0.3rem 0.8rem;
-  }
-
-  .status-badge i {
-    margin-right: 0.4rem;
-    font-size: 0.9rem;
-  }
+/* Hide download icon initially */
+.download-icon {
+  opacity: 0;
+  transform: scale(0);
 }
 
+/* Hover effect — QR fades out, download fades in */
+.download-btn:hover .qr-icon {
+  opacity: 0;
+  transform: scale(0);
+}
+
+.download-btn:hover .download-icon {
+  opacity: 1;
+  transform: scale(1);
+    color: #26aa47;
+
+}
 </style>
+
 </head>
 
 <body>
-        <!-- Pre-loader start -->
+    <!-- Pre-loader start -->
     <div class="theme-loader">
          
         <div class="loader-track">
@@ -316,7 +186,6 @@
       </div>
         </div>
     </div>
-    
     <!-- Pre-loader end -->
     <div id="pcoded" class="pcoded">
         <div class="pcoded-overlay-box"></div>
@@ -408,9 +277,9 @@
                   <div class="col-md-8">
                     <div class="page-title">
                       <span class="page-title-icon bg-gradient-primary text-white me-2">
-                        <i class="fa fa-calendar-check"></i>
+                        <i class="fa fa-chart-line"></i>
                       </span>
-                      <h5>Leave Tracking</h5>
+                      <h5>Leave Form</h5>
                     </div>
                   </div>
                   <div class="col-md-4">
@@ -418,7 +287,7 @@
                       <li class="breadcrumb-item">
                         <a href="index.html"> <i class="fa fa-home"></i> </a>
                       </li>
-                      <li class="breadcrumb-item"><a href="LeaveTracking.html">Leave Tracking</a>
+                      <li class="breadcrumb-item"><a href="printer.html">Leave Form</a>
                       </li>
                     </ul>
                   </div>
@@ -435,120 +304,134 @@
                                             <div class="col-sm-12">
                                                 <div class="card">
                                                     <!-- <div class="card-header">
-                                                        <h5>Laptops</h5>
+                                                        <h5>Leave Form</h5>
+                                                        
                                                     </div> -->
 
                                                     <div class="card-block">
-                                                                                                            <div class="card-block">
-                                                        <div id="tableCard">
-                                                            <div class="mb-3 p-3 rounded shadow shadow-sm filter">
-                                                                <div class="row g-3">
-                                                                    <!-- Month Filter -->
-                                                                    <div class="col-md-3">
-                                                                        <div class="d-flex flex-column">
-                                                                            <label for="monthFilter"
-                                                                                class="text-muted small mb-1">Month</label>
-                                                                            <select id="monthFilter"
-                                                                                class="form-select form-select-sm border-secondary">
-                                                                                <option value="">Show all</option>
-                                                                                <option>January</option>
-                                                                                <option>February</option>
-                                                                                <option>March</option>
-                                                                                <option>April</option>
-                                                                                <option>May</option>
-                                                                                <option>June</option>
-                                                                                <option>July</option>
-                                                                                <option>August</option>
-                                                                                <option>September</option>
-                                                                                <option>October</option>
-                                                                                <option>November</option>
-                                                                                <option>December</option>
-                                                                            </select>
-                                                                        </div>
-                                                                    </div>
+                                                       <div  id="tab">
+  <div class="tab-content mt-3">
+    <!-- 🧑‍💼 Leave Application -->
+    <div class="tab-pane fade show active" id="tab1">
+      <div class="modal-body bg-light rounded-3 shadow-sm p-3">
+        <form id="internshipForm" novalidate autocomplete="off">
+          
+          <!-- 👤 Employee Details -->
+          <div class="card border-0 shadow-sm mb-3 rounded-3">
+            <div class="card-body">
+              <h6 class="text-sub fw-semibold mb-3">
+                <i class="fa-solid fa-user me-2"></i> Employee Details
+              </h6>
 
-                                                                    <!-- Leave Type Filter -->
-                                                                    <div class="col-md-3">
-                                                                        <div class="d-flex flex-column">
-                                                                            <label for="leaveTypeFilter"
-                                                                                class="text-muted small mb-1">Leave
-                                                                                Type</label>
-                                                                            <select id="leaveTypeFilter"
-                                                                                class="form-select form-select-sm border-secondary">
-                                                                                <option value="">Show all</option>
-                                                                                <option>Casual</option>
-                                                                                <option>Sick</option>
-                                                                                <option>Earned</option>
-                                                                                <option>Compensatory Off (Comp-off)
-                                                                                </option>
-                                                                                <option>Other</option>
-                                                                            </select>
-                                                                        </div>
-                                                                    </div>
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label for="fullName" class="form-label fw-semibold">Employee Name <span class="text-danger">*</span></label>
+                  <select id="fullName" name="fullName" class="form-control form-control-sm userName" style="width:100%;" required>
+                    <option value="">Select Employee</option>
+                  </select>
+                </div>
 
-                                                                    <!-- Status Filter -->
-                                                                    <div class="col-md-3">
-                                                                        <div class="d-flex flex-column">
-                                                                            <label for="statusFilter"
-                                                                                class="text-muted small mb-1">Status</label>
-                                                                            <select id="statusFilter"
-                                                                                class="form-select form-select-sm border-secondary">
-                                                                                <option value="">Show all</option>
-                                                                                <option>Approved</option>
-                                                                                <option>Pending</option>
-                                                                                <option>Rejected</option>
-                                                                            </select>
-                                                                        </div>
-                                                                    </div>
+                <div class="col-md-6">
+                  <label for="ManagerName" class="form-label fw-semibold">Manager Name <span class="text-danger">*</span></label>
+                  <input type="text" name="ManagerName" class="form-control form-control-sm" id="ManagerName"
+                    placeholder="Manager Name will auto-populate" readonly>
+                </div>
+              </div>
+            </div>
+          </div>
 
-                                                                    <!-- Employee Filter -->
-                                                                    <div class="col-md-3">
-                                                                        <div class="d-flex flex-column">
-                                                                            <label for="employeeFilter"
-                                                                                class="text-muted small mb-1">Employee</label>
-                                                                            <input type="text" id="employeeFilter"
-                                                                                class="form-control form-control-sm border-secondary"
-                                                                                placeholder="Enter name or ID">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
+          <!-- 🗓️ Leave Details -->
+          <div class="card border-0 shadow-sm mb-3 rounded-3">
+            <div class="card-body">
+              <h6 class="text-sub fw-semibold mb-3">
+                <i class="fa-solid fa-calendar-days me-2 text-primary"></i> Leave Details
+              </h6>
 
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label for="leaveType" class="form-label fw-semibold">Leave Type <span class="text-danger">*</span></label>
+                  <select class="form-select form-select-sm" id="leaveType" name="leaveType" required>
+                    <option value="" selected disabled>Select Leave Type</option>
+                    <option value="CL">Casual Leave (CL)</option>
+                    <option value="SL">Sick Leave (SL)</option>
+                    <option value="EL">Earned Leave (EL)</option>
+                    <option value="Comp-off">Compensatory Off</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
 
+                <div class="col-md-6" id="otherReasonContainer" style="display: none;">
+                  <label for="otherReason" class="form-label fw-semibold">Please Specify</label>
+                  <input type="text" id="otherReason" name="otherReason" class="form-control form-control-sm"
+                    placeholder="Enter other reason">
+                </div>
 
-                                                            <!-- <div class="row">
-                                                                <div id="exportButtons" class="mb-3">
-                                                                    <button id="exportExcel"
-                                                                        class="dt-button">Excel</button>
-                                                                </div>
-                                                                <div id="exportButtons" class="mb-3">
-                                                                    <button id="exportPDF"
-                                                                        class="dt-button">PDF</button>
-                                                                </div>
+                <div class="col-md-6">
+                  <label for="startDate" class="form-label fw-semibold">Leave Start Date <span class="text-danger">*</span></label>
+                  <input type="date" class="form-control form-control-sm" id="startDate" name="startDate" required>
+                </div>
 
-                                                            </div> -->
-                                                                                            <div class="table-responsive">
-                                  <table class="table-modern table-striped" id="myTable">
-                                    <thead class="bg-primary text-white text-center">
-                                                                                                                                                   <tr>
-                                                                                <th>Leave ID</th>
-                                                                                <th>Employee ID</th>
-                                                                                <th>Employee Name</th>
-                                                                                <th>Month</th>
-                                                                                <th>Leave Type</th>
-                                                                                <th>Status</th>
-                                                                            </tr>
+                <div class="col-md-6">
+                  <label for="endDate" class="form-label fw-semibold">Leave End Date <span class="text-danger">*</span></label>
+                  <input type="date" class="form-control form-control-sm" id="endDate" name="endDate" required>
+                </div>
 
-                                                                    </thead>
-                                                                    <tbody>
-                                                                
-                                                                    </tbody>
-                                                                </table>
-                                                            </div>
-                                                        </div>
+                <div class="col-md-6">
+                  <label for="totalDays" class="form-label fw-semibold">Total Days</label>
+                  <input type="text" class="form-control form-control-sm" id="totalDays" name="totalDays" readonly>
+                </div>
 
+                <div class="col-md-6" id="halfDayCheckboxContainer" style="display: none;">
+                  <div class="form-check mt-4">
+                    <input class="form-check-input" type="checkbox" id="requestHalfDay">
+                    <label class="form-check-label fw-semibold" for="requestHalfDay">
+                      Apply for Half-Day Leave
+                    </label>
+                  </div>
+                </div>
 
-                                                    </div>
+                <div class="col-md-12" id="halfDayOptionContainer" style="display: none;">
+                  <label class="form-label fw-semibold">Half-Day Option</label>
+                  <div class="d-flex gap-2">
+                    <button type="button" class="btn btn-outline-primary btn-sm flex-fill" id="firstHalfBtn" data-value="First Half">
+                      <i class="fa-solid fa-sun me-1"></i> First Half
+                    </button>
+                    <button type="button" class="btn btn-outline-primary btn-sm flex-fill" id="secondHalfBtn" data-value="Second Half">
+                      <i class="fa-solid fa-moon me-1"></i> Second Half
+                    </button>
+                    <input type="hidden" id="halfDayOption" name="halfDayOption">
+                  </div>
+                </div>
+
+                <div class="col-md-12">
+                  <label for="reason" class="form-label fw-semibold">Reason for Leave <span class="text-danger">*</span></label>
+                  <textarea class="form-control form-control-sm" id="reason" name="reason" rows="2" placeholder="Enter your reason" required></textarea>
+                </div>
+
+                <div class="col-md-12">
+                  <label for="documentUpload" class="form-label fw-semibold">Supporting Document (optional)</label>
+                  <input type="file" class="form-control form-control-sm" id="documentUpload" name="documentUpload">
+                </div>
+              </div>
+            </div>
+          </div>
+
+                <!-- Modal Footer -->
+      <div class="modal-footer bg-white border-top rounded-bottom">
+        <button type="button" class="btn btn-danger btn-sm text-white" data-dismiss="modal" id="exitButton">
+          <i class="fa-solid fa-xmark me-1"></i> Exit
+        </button>
+        <button type="submit" class="btn btn-success btn-sm text-white" id="submitBtn">
+          <i class="fa-solid fa-paper-plane me-1"></i> Submit Leave
+        </button>
+      </div>
+
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
 
                                                     </div>
                                                     <!-- card-block table staff details end --> 
@@ -675,67 +558,82 @@
 
         </div>
     </div>
-    <script src="assets/js/roleUtil.js"></script>
 
-    <!-- Required jQuery -->
-    <script type="text/javascript" src="assets/js/jquery/jquery.min.js"></script>
-    <script type="text/javascript" src="assets/js/jquery-ui/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="assets/js/popper.js/popper.min.js"></script>
-    <script type="text/javascript" src="assets/js/bootstrap/js/bootstrap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    
+
+  <!-- Required jQuery -->
+<script type="text/javascript" src="assets/js/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="assets/js/jquery-ui/jquery-ui.min.js"></script>
+<script type="text/javascript" src="assets/js/popper.js/popper.min.js"></script>
+<script type="text/javascript" src="assets/js/bootstrap/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- DataTables CSS -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
+<!-- jQuery and DataTables JS -->
+       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+<!-- DataTables Buttons Extension JS -->
+<script src="https://cdn.datatables.net/buttons/2.1.0/js/dataTables.buttons.min.js"></script>
+
+<!-- Buttons for Excel, CSV, and PDF -->
+<script src="https://cdn.datatables.net/buttons/2.1.0/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js"></script>
+
+<!-- Excel export -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+
+<!-- JSZip for Excel export -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
 
-    <!-- DataTables CSS -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+<!-- pdfMake for PDF export -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
 
-    <!-- jQuery and DataTables JS -->
-           <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- DataTables Buttons CSS -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.1.0/css/buttons.dataTables.min.css">
 
-    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<!-- Toastr and other scripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script src="assets/pages/waves/js/waves.min.js"></script>
+<script type="text/javascript" src="assets/js/jquery-slimscroll/jquery.slimscroll.js"></script>
+<script src="assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="assets/js/pcoded.min.js"></script>
+<script src="assets/js/vertical/vertical-layout.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-    <!-- DataTables Buttons Extension JS -->
-    <script src="https://cdn.datatables.net/buttons/2.1.0/js/dataTables.buttons.min.js"></script>
+<!-- Custom scripts -->
+<script type="module" src="./assets/js/axiosInstance.js"></script>
+<script src="assets/js/popup.js"></script>
+<script src="./assets/js/api.js"></script>
+<script src="./assets/js/apiRequests.js"></script>
+<script src="assets/js/applyLeave.js"></script>
+<script type="text/javascript" src="assets/js/script.js"></script>
+    <script src="assets/js/roleUtil.js"></script>
+<script src="assets/js/Utils.js"></script>
 
-    Buttons for Excel, CSV, and PDF
-    <script src="https://cdn.datatables.net/buttons/2.1.0/js/buttons.html5.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js"></script>
 
-    <!-- Excel export -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-
-
-    <!-- JSZip for Excel export -->
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script> -->
-
-    <!-- pdfMake for PDF export -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-
-    <!-- DataTables Buttons CSS -->
-    <link rel="stylesheet" type="text/css"
-        href="https://cdn.datatables.net/buttons/2.1.0/css/buttons.dataTables.min.css"> -->
-
-    <!-- Toastr and other scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-    <script src="assets/pages/waves/js/waves.min.js"></script>
-    <script type="text/javascript" src="assets/js/jquery-slimscroll/jquery.slimscroll.js"></script>
-    <script src="assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
-    <script src="assets/js/pcoded.min.js"></script>
-    <script src="assets/js/vertical/vertical-layout.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
-    <!-- Custom scripts -->
-    <script type="module" src="./assets/js/axiosInstance.js"></script>
-    <script src="assets/js/popup.js"></script>
-
-    <script src="assets/js/LeaveManage.js"></script>
-    <script type="text/javascript" src="assets/js/script.js"></script>
-    <script src="assets/js/Utils.js"></script>
-    <script src="assets/js/api.js"></script>
-    <script src="assets/js/apiRequests.js"></script>
+<!-- Initialize DataTable -->
 
 
 
+
+
+<!-- Bootstrap + jQuery + Select2 -->
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<!-- Bootstrap + jQuery + Select2 -->
+
+
+
+
+    <script src="assets/js/sweetAlert.js"></script>
 </body>
 
 </html>
