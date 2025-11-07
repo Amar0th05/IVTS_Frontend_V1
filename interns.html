@@ -14,30 +14,30 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-    <meta name="keywords"
-        content="bootstrap, bootstrap admin template, admin theme, admin dashboard, dashboard template, admin template, responsive" />
-    <meta name="author" content="Codedthemes" />
-    <!-- Favicon icon -->
-    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
-    <!-- Google font-->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
-    <!-- waves.css -->
-    <link rel="stylesheet" href="assets/pages/waves/css/waves.min.css" type="text/css" media="all">
-    <!-- Required Fremwork -->
-    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap/css/bootstrap.min.css">
-    <!-- waves.css -->
-    <link rel="stylesheet" href="assets/pages/waves/css/waves.min.css" type="text/css" media="all">
-    <!-- themify icon -->
-    <link rel="stylesheet" type="text/css" href="assets/icon/themify-icons/themify-icons.css">
-    <script src="https://kit.fontawesome.com/1799ed0397.js" crossorigin="anonymous"></script>
-    <!-- font-awesome-n -->
-    <link rel="stylesheet" type="text/css" href="assets/css/font-awesome-n.min.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.min.css">
-    <!-- scrollbar.css -->
-    <link rel="stylesheet" type="text/css" href="assets/css/jquery.mCustomScrollbar.css">
-    <!-- Style.css -->
-        <link rel="stylesheet" href="assets/css/custom.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/style copy.css">
+  <meta name="keywords"
+    content="bootstrap, bootstrap admin template, admin theme, admin dashboard, dashboard template, admin template, responsive" />
+  <meta name="author" content="Codedthemes" />
+  <!-- Favicon icon -->
+  <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+  <!-- Google font-->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
+  <!-- waves.css -->
+  <link rel="stylesheet" href="assets/pages/waves/css/waves.min.css" type="text/css" media="all">
+  <!-- Required Fremwork -->
+  <link rel="stylesheet" type="text/css" href="assets/css/bootstrap/css/bootstrap.min.css">
+  <!-- waves.css -->
+  <link rel="stylesheet" href="assets/pages/waves/css/waves.min.css" type="text/css" media="all">
+  <!-- themify icon -->
+  <link rel="stylesheet" type="text/css" href="assets/icon/themify-icons/themify-icons.css">
+  <script src="https://kit.fontawesome.com/1799ed0397.js" crossorigin="anonymous"></script>
+  <!-- font-awesome-n -->
+  <link rel="stylesheet" type="text/css" href="assets/css/font-awesome-n.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.min.css">
+  <!-- scrollbar.css -->
+  <link rel="stylesheet" type="text/css" href="assets/css/jquery.mCustomScrollbar.css">
+  <!-- Style.css -->
+  <link rel="stylesheet" href="assets/css/custom.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/style copy.css">
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
   <!-- Include SweetAlert2 CSS & JS -->
@@ -55,7 +55,7 @@
     }
 
 
-   
+
 
     /* input[type="file"].form-control {
   padding: 6px;
@@ -64,148 +64,164 @@
       margin-bottom: 15px;
     }
   </style>
-<style>
+  <style>
     /* 🔹 General Badge Style */
-.status-badge {
-  font-size: 0.9rem;
-  font-weight: 600;
-  letter-spacing: 0.3px;
-  transition: all 0.3s ease-in-out;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 0.1rem;
-  padding: 0.45rem 1rem;
-  text-transform: capitalize;
-}
+    .status-badge {
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      transition: all 0.3s ease-in-out;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 0.1rem;
+      padding: 0.45rem 1rem;
+      text-transform: capitalize;
+    }
 
-.status-badge:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-}
+    .status-badge:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    }
 
-/* ✅ Completed Animation */
-.complete-icon {
-  animation: flipIn 0.8s ease-in-out;
-  transform-origin: center;
-  color: #fff;
-}
+    /* ✅ Completed Animation */
+    .complete-icon {
+      animation: flipIn 0.8s ease-in-out;
+      transform-origin: center;
+      color: #fff;
+    }
 
-.status-text {
-  display: inline-block;
-  animation: fadeInText 1s ease-in-out;
-  opacity: 0;
-  animation-fill-mode: forwards;
-  animation-delay: 0.2s;
-}
+    .status-text {
+      display: inline-block;
+      animation: fadeInText 1s ease-in-out;
+      opacity: 0;
+      animation-fill-mode: forwards;
+      animation-delay: 0.2s;
+    }
 
-/* 🔄 Ongoing Spin */
-.spin-icon {
-  animation: spin 2s linear infinite;
-}
+    /* 🔄 Ongoing Spin */
+    .spin-icon {
+      animation: spin 2s linear infinite;
+    }
 
-/* ❌ Withdrawn Flip */
-.flip-icon {
-  animation: flip 2.5s ease-in-out infinite;
-}
+    /* ❌ Withdrawn Flip */
+    .flip-icon {
+      animation: flip 2.5s ease-in-out infinite;
+    }
 
-/* 🌀 Animations */
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
+    /* 🌀 Animations */
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
 
-@keyframes flipIn {
-  0% {
-    transform: rotateY(0deg) scale(0.8);
-    opacity: 0;
-  }
-  50% {
-    transform: rotateY(180deg) scale(1.2);
-    opacity: 1;
-  }
-  100% {
-    transform: rotateY(360deg) scale(1);
-    opacity: 1;
-  }
-}
+      100% {
+        transform: rotate(360deg);
+      }
+    }
 
-@keyframes flip {
-  0%, 100% { transform: rotateY(0deg); }
-  50% { transform: rotateY(180deg); }
-}
+    @keyframes flipIn {
+      0% {
+        transform: rotateY(0deg) scale(0.8);
+        opacity: 0;
+      }
 
-@keyframes fadeInText {
-  0% {
-    transform: translateX(-6px);
-    opacity: 0;
-  }
-  100% {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
+      50% {
+        transform: rotateY(180deg) scale(1.2);
+        opacity: 1;
+      }
 
-/* 🔹 Gradients */
-.bg-warning {
-  background: linear-gradient(135deg, #ffe066, #fab005) !important;
-  color: #212529 !important;
-}
-.status-badge i {
-  margin-right: 0.5rem; /* using me-2 style */
-  font-size: 1rem;
-  opacity: 0.9;
-  transition: opacity 0.3s;
-}
+      100% {
+        transform: rotateY(360deg) scale(1);
+        opacity: 1;
+      }
+    }
 
-.status-badge:hover i {
-  opacity: 1;
-}
+    @keyframes flip {
 
-/* 🔹 Responsive */
-@media (min-width: 576px) {
-  .status-badge {
-    font-size: 0.74rem;
-    padding: 0.4rem 0.8rem;
-  }
+      0%,
+      100% {
+        transform: rotateY(0deg);
+      }
 
-  .status-badge i {
-    margin-right: 0.2rem;
-    font-size: 0.9rem;
-  }
-}
-</style>
-<style>
-  /* 🔹 Default state */
-.defult {
-  display: inline-block;
-}
+      50% {
+        transform: rotateY(180deg);
+      }
+    }
 
-.hover {
-  display: none;
-}
+    @keyframes fadeInText {
+      0% {
+        transform: translateX(-6px);
+        opacity: 0;
+      }
 
-/* 🔹 When hovering over the trash area (the icon container), swap icons */
-.btn-delete:hover .defult {
-  display: none;
-}
+      100% {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
 
-.btn-delete:hover .hover {
-  display: inline-block;
-  
-}
+    /* 🔹 Gradients */
+    .bg-warning {
+      background: linear-gradient(135deg, #ffe066, #fab005) !important;
+      color: #212529 !important;
+    }
 
-/* 🔹 Optional: smooth animation & cursor change */
-.btn-delete {
-  cursor: pointer;
-  /* transition: transform 0.2s ease-in-out; */
-}
+    .status-badge i {
+      margin-right: 0.5rem;
+      /* using me-2 style */
+      font-size: 1rem;
+      opacity: 0.9;
+      transition: opacity 0.3s;
+    }
 
-/* .btn-delete:hover {
+    .status-badge:hover i {
+      opacity: 1;
+    }
+
+    /* 🔹 Responsive */
+    @media (min-width: 576px) {
+      .status-badge {
+        font-size: 0.74rem;
+        padding: 0.4rem 0.8rem;
+      }
+
+      .status-badge i {
+        margin-right: 0.2rem;
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+  <style>
+    /* 🔹 Default state */
+    .defult {
+      display: inline-block;
+    }
+
+    .hover {
+      display: none;
+    }
+
+    /* 🔹 When hovering over the trash area (the icon container), swap icons */
+    .btn-delete:hover .defult {
+      display: none;
+    }
+
+    .btn-delete:hover .hover {
+      display: inline-block;
+
+    }
+
+    /* 🔹 Optional: smooth animation & cursor change */
+    .btn-delete {
+      cursor: pointer;
+      /* transition: transform 0.2s ease-in-out; */
+    }
+
+    /* .btn-delete:hover {
   transform: scale(1.1);
 } */
-
-</style>
+  </style>
 </head>
 
 <body>
@@ -214,7 +230,7 @@
 
     <div class="loader-track">
 
-                    <img class="loading" src="assets/images/Untitled design (2).gif" alt="Loading..." >
+      <img class="loading" src="assets/images/Untitled design (2).gif" alt="Loading...">
     </div>
   </div>
   <!-- Pre-loader end -->
@@ -264,16 +280,16 @@
                   <li class="waves-effect waves-light">
                     <a href="login.html" id="logout-button">
 
-                                            <i class="fa-solid fa-right-to-bracket fa-flip-horizontal"></i> Logout
+                      <i class="fa-solid fa-right-to-bracket fa-flip-horizontal"></i> Logout
 
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
 
       <div class="pcoded-main-container">
         <div class="pcoded-wrapper">
@@ -287,22 +303,22 @@
                       <a href="#!" data-bs-toggle="modal" data-bs-target="#profileDetailsModal"><i
                           class="ti-user"></i>View Profile</a>
                       <!-- <a href="#!"><i class="ti-settings"></i>Settings</a> -->
-                                            <a href="login.html" id="logout-button"><i class="ti-layout-sidebar-left"></i>Logout</a>
+                      <a href="login.html" id="logout-button"><i class="ti-layout-sidebar-left"></i>Logout</a>
                     </li>
                   </ul>
                 </div>
               </div>
               <div id="sidebar-container">
 
-                            </div>
+              </div>
 
-                    </nav>
+          </nav>
 
 
 
-                    <div class="pcoded-content">
-                        <!-- Page-header start -->
-                       <div class="page-header">
+          <div class="pcoded-content">
+            <!-- Page-header start -->
+            <div class="page-header">
               <div class="page-block">
                 <div class="row align-items-center">
                   <div class="col-md-8">
@@ -325,905 +341,874 @@
                 </div>
               </div>
             </div>
-                        <!-- Page-header end -->
-                        <div class="pcoded-inner-content">
-                            <div class="main-body">
-                                <div class="page-wrapper">
-                                    <div class="page-body">
-                                          
-                                      
-<div class="row g-4 justify-content-center text-center">
-  <!-- Total Interns -->
-  <div class="col-md-4 d-flex justify-content-center">
-    <div
-      class="card shadow border-0 rounded-4 d-flex flex-row align-items-center justify-content-center p-4 w-100"
-    >
-      <div
-        class="d-flex align-items-center justify-content-center rounded-circle me-4"
-        style="background:#e8f0ff; width:65px; height:65px;"
-      >
-        <i class="fa-solid fa-users" style="color:#448AFF; font-size:28px;"></i>
-      </div>
-      <div class="text-start">
-        <h3 id="totalInternCount" class="fw-bold mb-1" style="color:#448AFF;">0</h3>
-        <p class="text-muted mb-0 fs-6">Total Interns</p>
-      </div>
-    </div>
-  </div>
+            <!-- Page-header end -->
+            <div class="pcoded-inner-content">
+              <div class="main-body">
+                <div class="page-wrapper">
+                  <div class="page-body">
 
-  <!-- Current Interns -->
-  <div class="col-md-4 d-flex justify-content-center">
-    <div
-      class="card shadow border-0 rounded-4 d-flex flex-row align-items-center justify-content-center p-4 w-100"
-    >
-      <div
-        class="d-flex align-items-center justify-content-center rounded-circle me-4"
-        style="background:#e8f0ff; width:65px; height:65px;"
-      >
-        <i class="fa-solid fa-briefcase" style="color:#448AFF; font-size:28px;"></i>
-      </div>
-      <div class="text-start">
-        <h3 id="currentInternCount" class="fw-bold mb-1" style="color:#448AFF;">0</h3>
-        <p class="text-muted mb-0 fs-6">Current Interns</p>
-      </div>
-    </div>
-  </div>
 
-  <!-- Completed Interns -->
-  <div class="col-md-4 d-flex justify-content-center">
-    <div
-      class="card shadow border-0 rounded-4 d-flex flex-row align-items-center justify-content-center p-4 w-100"
-    >
-      <div
-        class="d-flex align-items-center justify-content-center rounded-circle me-4"
-        style="background:#e8f0ff; width:65px; height:65px;"
-      >
-        <i class="fa-solid fa-circle-check" style="color:#448AFF; font-size:28px;"></i>
-      </div>
-      <div class="text-start">
-        <h3 id="completedInternCount" class="fw-bold mb-1" style="color:#448AFF;">0</h3>
-        <p class="text-muted mb-0 fs-6">Completed Interns</p>
-      </div>
-    </div>
-  </div>
-</div>
+                    <div class="row g-4 justify-content-center text-center show">
+                      <!-- Total Interns -->
+                      <div class="col-md-4 d-flex justify-content-center">
+                        <div
+                          class="card shadow border-0 rounded-4 d-flex flex-row align-items-center justify-content-center p-4 w-100">
+                          <div class="d-flex align-items-center justify-content-center rounded-circle me-4"
+                            style="background:#e8f0ff; width:65px; height:65px;">
+                            <i class="fa-solid fa-users" style="color:#448AFF; font-size:28px;"></i>
+                          </div>
+                          <div class="text-start">
+                            <h3 id="totalInternCount" class="fw-bold mb-1" style="color:#448AFF;">0</h3>
+                            <p class="text-muted mb-0 fs-6">Total Interns</p>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Current Interns -->
+                      <div class="col-md-4 d-flex justify-content-center">
+                        <div
+                          class="card shadow border-0 rounded-4 d-flex flex-row align-items-center justify-content-center p-4 w-100">
+                          <div class="d-flex align-items-center justify-content-center rounded-circle me-4"
+                            style="background:#e8f0ff; width:65px; height:65px;">
+                            <i class="fa-solid fa-briefcase" style="color:#448AFF; font-size:28px;"></i>
+                          </div>
+                          <div class="text-start">
+                            <h3 id="currentInternCount" class="fw-bold mb-1" style="color:#448AFF;">0</h3>
+                            <p class="text-muted mb-0 fs-6">Current Interns</p>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Completed Interns -->
+                      <div class="col-md-4 d-flex justify-content-center">
+                        <div
+                          class="card shadow border-0 rounded-4 d-flex flex-row align-items-center justify-content-center p-4 w-100">
+                          <div class="d-flex align-items-center justify-content-center rounded-circle me-4"
+                            style="background:#e8f0ff; width:65px; height:65px;">
+                            <i class="fa-solid fa-circle-check" style="color:#448AFF; font-size:28px;"></i>
+                          </div>
+                          <div class="text-start">
+                            <h3 id="completedInternCount" class="fw-bold mb-1" style="color:#448AFF;">0</h3>
+                            <p class="text-muted mb-0 fs-6">Completed Interns</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <div class="card">
+
+                          <div class="card-block">
+
+                            <!-----------------------------------------------ADD-NEW-MODAl-START--------------------------------------------------------------------->
+
+                            <div>
+
+                              <div class="d-none" id="tab">
+
+                                <div class="nav nav-tabs md-tabs" id="myTab" role="tablist">
+                                  <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab1"
+                                    type="button">Basic
+                                    Details</button>
+                                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab2"
+                                    type="button">Document
+                                    Upload</button>
+                                </div>
+                                <div class="tab-content mt-3">
+                                  <div class="tab-pane fade show active " id="tab1">
+                                    <!-- Modal Body -->
+                                    <div class="modal-body">
+                                      <form id="add-intern-form">
                                         <div class="row">
-                                            <div class="col-sm-12">
-                                                <div class="card"> 
+                                          <!-- FullName -->
+                                          <div class="col-md-6">
+                                            <div class="form-group">
+                                              <label for="fullName">Full
+                                                Name <span class="text-danger">*</span></label>
+                                              <input type="text" name="fullName" maxlength="50"
+                                                class="form-control form-control-sm" id="fullName"
+                                                placeholder="Enter Full Name" required>
+                                            </div>
+                                          </div>
 
-                                                    <div class="card-block">
+                                          <!-- Date of Birth -->
+                                          <div class="col-md-6">
+                                            <div class="form-group">
+                                              <label for="dateOfBirth">Date
+                                                of Birth</label>
+                                              <input type="date" name="dateOfBirth" class="form-control form-control-sm"
+                                                id="dateOfBirth">
+                                            </div>
+                                          </div>
+                                        </div>
 
-                                                        <!-----------------------------------------------ADD-NEW-MODAl-START--------------------------------------------------------------------->
+                                        <div class="row">
+                                          <!-- Gender -->
+                                          <div class="col-md-6">
+                                            <div class="form-group">
+                                              <label for="gender">Gender</label>
+                                              <select class="form-control form-control-sm" id="gender" name="gender">
+                                                <option value="" disabled selected>
+                                                  Select Gender
+                                                </option>
+                                                <option value="Male">
+                                                  Male</option>
+                                                <option value="Female">
+                                                  Female</option>
+                                                <option value="Other">
+                                                  Other</option>
+                                              </select>
+                                            </div>
+                                          </div>
 
-                                                        <div>
-
-                                                            <div class="d-none" id="tab">
-
-                                                                <div class="nav nav-tabs md-tabs" id="myTab"
-                                                                    role="tablist">
-                                                                    <button class="nav-link active" data-bs-toggle="tab"
-                                                                        data-bs-target="#tab1" type="button">Basic
-                                                                        Details</button>
-                                                                    <button class="nav-link" data-bs-toggle="tab"
-                                                                        data-bs-target="#tab2" type="button">Document
-                                                                        Upload</button>
-                                                                </div>
-                                                                <div class="tab-content mt-3">
-                                                                    <div class="tab-pane fade show active " id="tab1">
-                                                                        <!-- Modal Body -->
-                                                                        <div class="modal-body">
-                                                                            <form id="add-intern-form">
-                                                                                <div class="row">
-                                                                                    <!-- FullName -->
-                                                                                    <div class="col-md-6">
-                                                                                        <div class="form-group">
-                                                                                            <label for="fullName">Full
-                                                                                                Name <span
-                                                                                                    class="text-danger">*</span></label>
-                                                                                            <input type="text"
-                                                                                                name="fullName"
-                                                                                                maxlength="50"
-                                                                                                class="form-control form-control-sm"
-                                                                                                id="fullName"
-                                                                                                placeholder="Enter Full Name"
-                                                                                                required>
-                                                                                        </div>
-                                                                                    </div>
-
-                                                                                    <!-- Date of Birth -->
-                                                                                    <div class="col-md-6">
-                                                                                        <div class="form-group">
-                                                                                            <label
-                                                                                                for="dateOfBirth">Date
-                                                                                                of Birth</label>
-                                                                                            <input type="date"
-                                                                                                name="dateOfBirth"
-                                                                                                class="form-control form-control-sm"
-                                                                                                id="dateOfBirth">
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <div class="row">
-                                                                                    <!-- Gender -->
-                                                                                    <div class="col-md-6">
-                                                                                        <div class="form-group">
-                                                                                            <label
-                                                                                                for="gender">Gender</label>
-                                                                                            <select
-                                                                                                class="form-control form-control-sm"
-                                                                                                id="gender"
-                                                                                                name="gender">
-                                                                                                <option value=""
-                                                                                                    disabled selected>
-                                                                                                    Select Gender
-                                                                                                </option>
-                                                                                                <option value="Male">
-                                                                                                    Male</option>
-                                                                                                <option value="Female">
-                                                                                                    Female</option>
-                                                                                                <option value="Other">
-                                                                                                    Other</option>
-                                                                                            </select>
-                                                                                        </div>
-                                                                                    </div>
-
-                                                                                    <!-- OtherGender (Conditional) -->
-                                                                                    <div class="col-md-6"
-                                                                                        id="otherGenderField"
-                                                                                          style="display: none;">
-                                                                                        <div class="form-group">
-                                                                                            <label
-                                                                                                for="otherGender">Please
-                                                                                                Specify Gender</label>
-                                                                                            <input type="text"
-                                                                                                name="otherGender"
-                                                                                                class="form-control form-control-sm"
-                                                                                                id="otherGender"
-                                                                                                placeholder="Enter Gender">
-                                                                                        </div>
-                                                                                    </div>
-                                                                                
-
-                                                                             
-                                                                                    <!-- Mobile Number -->
-                                                                                    <div class="col-md-6">
-                                                                                        <div class="form-group">
-                                                                                            <label
-                                                                                                for="mobileNumber">Mobile
-                                                                                                Number</label>
-                                                                                            <input type="tel"
-                                                                                                maxlength="10"
-                                                                                                name="mobileNumber"
-                                                                                                class="form-control form-control-sm"
-                                                                                                id="mobileNumber"
-                                                                                                placeholder="Enter Mobile Number">
-                                                                                        </div>
-                                                                                    </div>
-
-                                                                                    <!-- Current Location -->
-                                                                                    <div class="col-md-6">
-                                                                                        <div class="form-group">
-                                                                                            <label
-                                                                                                for="currentLocation">Current
-                                                                                                Location</label>
-                                                                                            <input type="text"
-                                                                                                name="currentLocation"
-                                                                                                class="form-control form-control-sm"
-                                                                                                id="currentLocation"
-                                                                                                placeholder="Enter Current Location">
-                                                                                        </div>
-                                                                                    </div>
-                                                                               
-
-                                                                               
-                                                                                    <!-- Email -->
-                                                                                    <div class="col-md-6">
-                                                                                        <div class="form-group">
-                                                                                            <label for="email">Email
-                                                                                                <span
-                                                                                                    class="text-danger">*</span></label>
-                                                                                            <input type="email"
-                                                                                                name="email"
-                                                                                                class="form-control form-control-sm"
-                                                                                                id="email"
-                                                                                                placeholder="Enter Email Address"
-                                                                                                required>
-                                                                                        </div>
-                                                                                    </div>
-
-                                                                                    <!-- PortfolioLink -->
-                                                                                    <div class="col-md-6">
-                                                                                        <div class="form-group">
-                                                                                            <label
-                                                                                                for="portfolioLink">Portfolio
-                                                                                                Link</label>
-                                                                                            <input type="url"
-                                                                                                name="portfolioLink"
-                                                                                                class="form-control form-control-sm"
-                                                                                                id="portfolioLink"
-                                                                                                placeholder="Enter Portfolio Link (LinkedIn/GitHub etc.)">
-                                                                                        </div>
-                                                                                    </div>
-                                                                              
+                                          <!-- OtherGender (Conditional) -->
+                                          <div class="col-md-6" id="otherGenderField" style="display: none;">
+                                            <div class="form-group">
+                                              <label for="otherGender">Please
+                                                Specify Gender</label>
+                                              <input type="text" name="otherGender" class="form-control form-control-sm"
+                                                id="otherGender" placeholder="Enter Gender">
+                                            </div>
+                                          </div>
 
 
-                                                                               
-                                                                                    <!-- Emergency Contact Name -->
-                                                                                    <div class="col-md-6">
-                                                                                        <div class="form-group">
-                                                                                            <label
-                                                                                                for="emergencyContactName">Emergency
-                                                                                                Contact Name</label>
-                                                                                            <input type="text"
-                                                                                                name="emergencyContactName"
-                                                                                                class="form-control form-control-sm"
-                                                                                                id="emergencyContactName"
-                                                                                                placeholder="Enter Name">
-                                                                                        </div>
-                                                                                    </div>
 
-                                                                                    <!-- Emergency Contact Relationship -->
-                                                                                    <div class="col-md-6">
-                                                                                        <div class="form-group">
-                                                                                            <label
-                                                                                                for="emergencyContactRelationship">Relationship</label>
-                                                                                            <input type="text"
-                                                                                                name="emergencyContactRelationship"
-                                                                                                class="form-control form-control-sm"
-                                                                                                id="emergencyContactRelationship"
-                                                                                                placeholder="e.g., Parent, Sibling">
-                                                                                        </div>
-                                                                                    </div>
+                                          <!-- Mobile Number -->
+                                          <div class="col-md-6">
+                                            <div class="form-group">
+                                              <label for="mobileNumber">Mobile
+                                                Number</label>
+                                              <input type="tel" maxlength="10" name="mobileNumber"
+                                                class="form-control form-control-sm" id="mobileNumber"
+                                                placeholder="Enter Mobile Number">
+                                            </div>
+                                          </div>
 
-                                                                                    <!-- Emergency Contact Number -->
-                                                                                    <div class="col-md-6">
-                                                                                        <div class="form-group">
-                                                                                            <label
-                                                                                                for="emergencyContactNumber">Emergency
-                                                                                                Contact Number</label>
-                                                                                            <input type="tel"
-                                                                                                maxlength="10"
-                                                                                                name="emergencyContactNumber"
-                                                                                                class="form-control form-control-sm"
-                                                                                                id="emergencyContactNumber"
-                                                                                                placeholder="Enter Number">
-                                                                                        </div>
-                                                                                    </div>
-                                                                                
+                                          <!-- Current Location -->
+                                          <div class="col-md-6">
+                                            <div class="form-group">
+                                              <label for="currentLocation">Current
+                                                Location</label>
+                                              <input type="text" name="currentLocation"
+                                                class="form-control form-control-sm" id="currentLocation"
+                                                placeholder="Enter Current Location">
+                                            </div>
+                                          </div>
 
-                                                                                <!-- <hr>
+
+
+                                          <!-- Email -->
+                                          <div class="col-md-6">
+                                            <div class="form-group">
+                                              <label for="email">Email
+                                                <span class="text-danger">*</span></label>
+                                              <input type="email" name="email" class="form-control form-control-sm"
+                                                id="email" placeholder="Enter Email Address" required>
+                                            </div>
+                                          </div>
+
+                                          <!-- PortfolioLink -->
+                                          <div class="col-md-6">
+                                            <div class="form-group">
+                                              <label for="portfolioLink">Portfolio
+                                                Link</label>
+                                              <input type="url" name="portfolioLink"
+                                                class="form-control form-control-sm" id="portfolioLink"
+                                                placeholder="Enter Portfolio Link (LinkedIn/GitHub etc.)">
+                                            </div>
+                                          </div>
+
+
+
+
+                                          <!-- Emergency Contact Name -->
+                                          <div class="col-md-6">
+                                            <div class="form-group">
+                                              <label for="emergencyContactName">Emergency
+                                                Contact Name</label>
+                                              <input type="text" name="emergencyContactName"
+                                                class="form-control form-control-sm" id="emergencyContactName"
+                                                placeholder="Enter Name">
+                                            </div>
+                                          </div>
+
+                                          <!-- Emergency Contact Relationship -->
+                                          <div class="col-md-6">
+                                            <div class="form-group">
+                                              <label for="emergencyContactRelationship">Relationship</label>
+                                              <input type="text" name="emergencyContactRelationship"
+                                                class="form-control form-control-sm" id="emergencyContactRelationship"
+                                                placeholder="e.g., Parent, Sibling">
+                                            </div>
+                                          </div>
+
+                                          <!-- Emergency Contact Number -->
+                                          <div class="col-md-6">
+                                            <div class="form-group">
+                                              <label for="emergencyContactNumber">Emergency
+                                                Contact Number</label>
+                                              <input type="tel" maxlength="10" name="emergencyContactNumber"
+                                                class="form-control form-control-sm" id="emergencyContactNumber"
+                                                placeholder="Enter Number">
+                                            </div>
+                                          </div>
+
+
+                                          <!-- <hr>
                                                                                 <h5>Internship Details</h5> -->
-                                                                                
-                                                                                    <!-- College Name -->
-                                                                                    <div class="col-md-6">
-                                                                                        <div class="form-group">
-                                                                                            <label
-                                                                                                for="collegeName">College
-                                                                                                Name</label>
-                                                                                            <input type="text"
-                                                                                                name="collegeName"
-                                                                                                class="form-control form-control-sm"
-                                                                                                id="collegeName"
-                                                                                                placeholder="Enter College Name">
-                                                                                        </div>
-                                                                                    </div>
 
-                                                                                    <!-- Degree Program -->
-                                                                                    <div class="col-md-6">
-                                                                                        <div class="form-group">
-                                                                                            <label
-                                                                                                for="degreeProgram">Degree
-                                                                                                Program</label>
-                                                                                            <input type="text"
-                                                                                                name="degreeProgram"
-                                                                                                class="form-control form-control-sm"
-                                                                                                id="degreeProgram"
-                                                                                                placeholder="Enter Degree Program">
-                                                                                        </div>
-                                                                                    </div>
-                                                                               
+                                          <!-- College Name -->
+                                          <div class="col-md-6">
+                                            <div class="form-group">
+                                              <label for="collegeName">College
+                                                Name</label>
+                                              <input type="text" name="collegeName" class="form-control form-control-sm"
+                                                id="collegeName" placeholder="Enter College Name">
+                                            </div>
+                                          </div>
 
-                                                                               
-                                                                                    <!-- Is Part of Curriculum -->
-                                                                                    <div class="col-md-6">
-                                                                                        <div class="form-group">
-                                                                                            <label
-                                                                                                for="isPartOfCurriculum">Is
-                                                                                                this part of your
-                                                                                                curriculum?</label>
-                                                                                            <select
-                                                                                                class="form-control form-control-sm"
-                                                                                                id="isPartOfCurriculum"
-                                                                                                name="isPartOfCurriculum">
-                                                                                                <option value=""
-                                                                                                    disabled selected>
-                                                                                                    Select Option
-                                                                                                </option>
-                                                                                                <option value="Yes">Yes
-                                                                                                </option>
-                                                                                                <option value="No">No
-                                                                                                </option>
-                                                                                            </select>
-                                                                                        </div>
-                                                                                    </div>
+                                          <!-- Degree Program -->
+                                          <div class="col-md-6">
+                                            <div class="form-group">
+                                              <label for="degreeProgram">Degree
+                                                Program</label>
+                                              <input type="text" name="degreeProgram"
+                                                class="form-control form-control-sm" id="degreeProgram"
+                                                placeholder="Enter Degree Program">
+                                            </div>
+                                          </div>
 
-                                                                                    <!-- Faculty Supervisor -->
-                                                                                    <div class="col-md-6">
-                                                                                        <div class="form-group">
-                                                                                            <label
-                                                                                                for="facultySupervisor">Faculty
-                                                                                                Supervisor</label>
-                                                                                            <input type="text"
-                                                                                                name="facultySupervisor"
-                                                                                                class="form-control form-control-sm"
-                                                                                                id="facultySupervisor"
-                                                                                                placeholder="Enter Faculty Supervisor Name">
-                                                                                        </div>
-                                                                                    </div>
-                                                                              
-                                                                                    <!-- Preferred Start Date -->
-                                                                                    <div class="col-md-6">
-                                                                                        <div class="form-group">
-                                                                                            <label
-                                                                                                for="preferredStartDate">Preferred
-                                                                                                Start Date</label>
-                                                                                            <input type="date"
-                                                                                                name="preferredStartDate"
-                                                                                                class="form-control form-control-sm"
-                                                                                                id="preferredStartDate">
-                                                                                        </div>
-                                                                                    </div>
 
-                                                                                    <!-- Preferred End Date -->
-                                                                                    <div class="col-md-6">
-                                                                                        <div class="form-group">
-                                                                                            <label
-                                                                                                for="preferredEndDate">Preferred
-                                                                                                End Date</label>
-                                                                                            <input type="date"
-                                                                                                name="preferredEndDate"
-                                                                                                class="form-control form-control-sm"
-                                                                                                id="preferredEndDate">
-                                                                                        </div>
-                                                                                    </div>
 
-                                                                                     <!-- startDate -->
-                                                                                    <div class="col-md-6">
-                                                                                        <div class="form-group">
-                                                                                            <label
-                                                                                                for="preferredEndDate">Start
-                                                                                                Date
-                                                                                            </label>
-                                                                                            <input type="date"
-                                                                                                name="preferredEndDate"
-                                                                                                class="form-control form-control-sm"
-                                                                                                id="preferredEndDate">
-                                                                                        </div>
-                                                                                    </div>
+                                          <!-- Is Part of Curriculum -->
+                                          <div class="col-md-6">
+                                            <div class="form-group">
+                                              <label for="isPartOfCurriculum">Is
+                                                this part of your
+                                                curriculum?</label>
+                                              <select class="form-control form-control-sm" id="isPartOfCurriculum"
+                                                name="isPartOfCurriculum">
+                                                <option value="" disabled selected>
+                                                  Select Option
+                                                </option>
+                                                <option value="Yes">Yes
+                                                </option>
+                                                <option value="No">No
+                                                </option>
+                                              </select>
+                                            </div>
+                                          </div>
 
-                                                                                    <!-- endDate -->
-                                                                                    <div class="col-md-6">
-                                                                                        <div class="form-group">
-                                                                                            <label
-                                                                                                for="preferredEndDate">End
-                                                                                                Date
-                                                                                            </label>
-                                                                                            <input type="date"
-                                                                                                name="preferredEndDate"
-                                                                                                class="form-control form-control-sm"
-                                                                                                id="preferredEndDate">
-                                                                                        </div>
-                                                                                    </div>
+                                          <!-- Faculty Supervisor -->
+                                          <div class="col-md-6">
+                                            <div class="form-group">
+                                              <label for="facultySupervisor">Faculty
+                                                Supervisor</label>
+                                              <input type="text" name="facultySupervisor"
+                                                class="form-control form-control-sm" id="facultySupervisor"
+                                                placeholder="Enter Faculty Supervisor Name">
+                                            </div>
+                                          </div>
 
-                                                                                    <!-- Internship Mode -->
-                                                                                    <div class="col-md-6">
-                                                                                        <div class="form-group">
-                                                                                            <label
-                                                                                                for="internshipMode">Internship
-                                                                                                Mode</label>
-                                                                                            <select
-                                                                                                class="form-control form-control-sm"
-                                                                                                id="internshipMode"
-                                                                                                name="internshipMode">
-                                                                                                <option value=""
-                                                                                                    disabled selected>
-                                                                                                    Select Mode</option>
-                                                                                                <option value="On-site">
-                                                                                                    On-site</option>
-                                                                                                <option value="Remote">
-                                                                                                    Remote</option>
-                                                                                                <option value="Hybrid">
-                                                                                                    Hybrid</option>
-                                                                                            </select>
-                                                                                        </div>
-                                                                                    </div>
+                                          <!-- Preferred Start Date -->
+                                          <div class="col-md-6">
+                                            <div class="form-group">
+                                              <label for="preferredStartDate">Preferred
+                                                Start Date</label>
+                                              <input type="date" name="preferredStartDate"
+                                                class="form-control form-control-sm" id="preferredStartDate">
+                                            </div>
+                                          </div>
 
-                                                                                    <!-- How Heard About Us -->
-                                                                                    <div class="col-md-6">
-                                                                                        <div class="form-group">
-                                                                                            <label
-                                                                                                for="howHeardAboutUs">How
-                                                                                                did you hear about
-                                                                                                us?</label>
-                                                                                            <input type="text"
-                                                                                                name="howHeardAboutUs"
-                                                                                                class="form-control form-control-sm"
-                                                                                                id="howHeardAboutUs"
-                                                                                                placeholder="e.g., Social Media, Referral">
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
+                                          <!-- Preferred End Date -->
+                                          <div class="col-md-6">
+                                            <div class="form-group">
+                                              <label for="preferredEndDate">Preferred
+                                                End Date</label>
+                                              <input type="date" name="preferredEndDate"
+                                                class="form-control form-control-sm" id="preferredEndDate">
+                                            </div>
+                                          </div>
 
-                                                                                <div class="row">
-                                                                                    <!-- Submission Date -->
-                                                                                    <div class="col-md-12">
-                                                                                        <div class="form-group">
-                                                                                            <label
-                                                                                                for="submissionDate">Submission
-                                                                                                Date</label>
-                                                                                            <input type="date"
-                                                                                                name="submissionDate"
-                                                                                                class="form-control form-control-sm"
-                                                                                                id="submissionDate"
-                                                                                                readonly>
-                                                                                        </div>
-                                                                                    </div>
-                </div>
-                                                                            </form>
-                                                                        </div>
-                                                                    </div>
+                                          <!-- startDate -->
+                                          <div class="col-md-6">
+                                            <div class="form-group">
+                                              <label for="preferredEndDate">Start
+                                                Date
+                                              </label>
+                                              <input type="date" name="preferredEndDate"
+                                                class="form-control form-control-sm" id="preferredEndDate">
+                                            </div>
+                                          </div>
 
-                                                                    <div class="tab-pane fade" id="tab2">
-                                                                        <div class="modal-body">
-                                                                            <form id="new-Document-form"
-                                                                                class="needs-validation" novalidate>
-                                                                                <div class="row">
+                                          <!-- endDate -->
+                                          <div class="col-md-6">
+                                            <div class="form-group">
+                                              <label for="preferredEndDate">End
+                                                Date
+                                              </label>
+                                              <input type="date" name="preferredEndDate"
+                                                class="form-control form-control-sm" id="preferredEndDate">
+                                            </div>
+                                          </div>
 
-                                                                                    <!-- Bonafide File Upload -->
-                                                                                    <div class="col-md-6 mb-4">
-                                                                                        <label for="bonafideFile"
-                                                                                            class="form-label fw-semibold">
-                                                                                            Bonafide <span
-                                                                                                class="text-danger">*</span>
-                                                                                        </label>
-                                                                                        <div
-                                                                                            class="d-flex align-items-center border border-secondary rounded overflow-hidden">
-                                                                                            <input type="file"
-                                                                                                name="bonafideFile"
-                                                                                                class="form-control border-0"
-                                                                                                id="bonafideFile"
-                                                                                                required>
-                                                                                        </div>
-                                                                                    </div>
+                                          <!-- Internship Mode -->
+                                          <div class="col-md-6">
+                                            <div class="form-group">
+                                              <label for="internshipMode">Internship
+                                                Mode</label>
+                                              <select class="form-control form-control-sm" id="internshipMode"
+                                                name="internshipMode">
+                                                <option value="" disabled selected>
+                                                  Select Mode</option>
+                                                <option value="On-site">
+                                                  On-site</option>
+                                                <option value="Remote">
+                                                  Remote</option>
+                                                <option value="Hybrid">
+                                                  Hybrid</option>
+                                              </select>
+                                            </div>
+                                          </div>
 
-                                                                                    <!-- Resume File Upload -->
-                                                                                    <div class="col-md-6 mb-4">
-                                                                                        <label for="resumeFile"
-                                                                                            class="form-label fw-semibold">
-                                                                                            Resume <span
-                                                                                                class="text-danger">*</span>
-                                                                                        </label>
-                                                                                        <div
-                                                                                            class="d-flex align-items-center border border-secondary rounded overflow-hidden">
-                                                                                            <input type="file"
-                                                                                                name="resumeFile"
-                                                                                                class="form-control border-0"
-                                                                                                id="resumeFile"
-                                                                                                required>
-                                                                                        </div>
-                                                                                    </div>
+                                          <!-- How Heard About Us -->
+                                          <div class="col-md-6">
+                                            <div class="form-group">
+                                              <label for="howHeardAboutUs">How
+                                                did you hear about
+                                                us?</label>
+                                              <input type="text" name="howHeardAboutUs"
+                                                class="form-control form-control-sm" id="howHeardAboutUs"
+                                                placeholder="e.g., Social Media, Referral">
+                                            </div>
+                                          </div>
+                                        </div>
 
-                                                                                    <!-- Photo File Upload -->
-                                                                                    <div class="col-md-6 mb-4">
-                                                                                        <label for="photoFile"
-                                                                                            class="form-label fw-semibold">
-                                                                                            Photo <span
-                                                                                                class="text-danger">*</span>
-                                                                                        </label>
-                                                                                        <div
-                                                                                            class="d-flex align-items-center border border-secondary rounded overflow-hidden">
-                                                                                            <input type="file"
-                                                                                                name="photoFile"
-                                                                                                class="form-control border-0"
-                                                                                                id="photoFile" required>
-                                                                                        </div>
-                                                                                    </div>
+                                        <div class="row">
+                                          <!-- Submission Date -->
+                                          <div class="col-md-12">
+                                            <div class="form-group">
+                                              <label for="submissionDate">Submission
+                                                Date</label>
+                                              <input type="date" name="submissionDate"
+                                                class="form-control form-control-sm" id="submissionDate" readonly>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </form>
+                                    </div>
+                                  </div>
 
-                                                                                    <!-- ID Proof File Upload -->
-                                                                                    <div class="col-md-6 mb-4">
-                                                                                        <label for="idProofFile"
-                                                                                            class="form-label fw-semibold">
-                                                                                            ID Proof <span
-                                                                                                class="text-danger">*</span>
-                                                                                        </label>
-                                                                                        <div
-                                                                                            class="d-flex align-items-center border border-secondary rounded overflow-hidden">
-                                                                                            <input type="file"
-                                                                                                name="idProofFile"
-                                                                                                class="form-control border-0"
-                                                                                                id="idProofFile"
-                                                                                                required>
-                                                                                        </div>
-                                                                                    </div>
+                                  <div class="tab-pane fade" id="tab2">
+                                    <div class="modal-body">
+                                      <form id="new-Document-form" class="needs-validation" novalidate>
+                                        <div class="row">
 
-                                                                                </div>
-                                                                            </form>
-                                                                        </div>
-                                                                    </div>
+                                          <!-- Bonafide File Upload -->
+                                          <div class="col-md-6 mb-4">
+                                            <label for="bonafideFile" class="form-label fw-semibold">
+                                              Bonafide <span class="text-danger">*</span>
+                                            </label>
+                                            <div
+                                              class="d-flex align-items-center border border-secondary rounded overflow-hidden">
+                                              <input type="file" name="bonafideFile" class="form-control border-0"
+                                                id="bonafideFile" required>
+                                            </div>
+                                          </div>
+
+                                          <!-- Resume File Upload -->
+                                          <div class="col-md-6 mb-4">
+                                            <label for="resumeFile" class="form-label fw-semibold">
+                                              Resume <span class="text-danger">*</span>
+                                            </label>
+                                            <div
+                                              class="d-flex align-items-center border border-secondary rounded overflow-hidden">
+                                              <input type="file" name="resumeFile" class="form-control border-0"
+                                                id="resumeFile" required>
+                                            </div>
+                                          </div>
+
+                                          <!-- Photo File Upload -->
+                                          <div class="col-md-6 mb-4">
+                                            <label for="photoFile" class="form-label fw-semibold">
+                                              Photo <span class="text-danger">*</span>
+                                            </label>
+                                            <div
+                                              class="d-flex align-items-center border border-secondary rounded overflow-hidden">
+                                              <input type="file" name="photoFile" class="form-control border-0"
+                                                id="photoFile" required>
+                                            </div>
+                                          </div>
+
+                                          <!-- ID Proof File Upload -->
+                                          <div class="col-md-6 mb-4">
+                                            <label for="idProofFile" class="form-label fw-semibold">
+                                              ID Proof <span class="text-danger">*</span>
+                                            </label>
+                                            <div
+                                              class="d-flex align-items-center border border-secondary rounded overflow-hidden">
+                                              <input type="file" name="idProofFile" class="form-control border-0"
+                                                id="idProofFile" required>
+                                            </div>
+                                          </div>
+
+                                        </div>
+                                      </form>
+                                    </div>
+                                  </div>
 
 
 
 
 
-                                                                    <div class="modal-footer">
-                                                                        <button type="button" class="btn btn-red"
-                                                                            data-dismiss="modal"
-                                                                            id="exitButton">Exit</button>
-                                                                        <button type="submit" class="btn btn-green"
-                                                                            id="add_staff_btn"
-                                                                            data-dismiss="modal">Submit</button>
-                                                                    </div>
-                                                                </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-red" data-dismiss="modal"
+                                      id="exitButton">Exit</button>
+                                    <button type="submit" class="btn btn-green" id="add_staff_btn"
+                                      data-dismiss="modal">Submit</button>
+                                  </div>
+                                </div>
 
-                                                            </div>
+                              </div>
 
 
 
 
-                                                        </div>
+                            </div>
 
 
 
                             <!---------------------------------------------------------------------------------------------ADD-NEW-MODAL-END---------------------------------------------------->
                             <!-----------------------------------------------UPDATE-MODAl-START--------------------------------------------------------------------->
 
-                                                      <div>
-    <div class="d-none" id="tabWrapper">
-        <div class="nav nav-tabs md-tabs" id="myTab1" role="tablist">
-            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab3" type="button">
-                <i class="fas fa-user-graduate me-2"></i>Intern Details
-            </button>
-            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab4" type="button">
-                <i class="fas fa-file-upload me-2"></i>Document Upload
-            </button>
-            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab5" type="button">
-                <i class="fas fa-certificate me-2"></i>Onboarding Certificate Completion
-            </button>
-        </div>
-        <div class="tab-content mt-3">
-            <div class="tab-pane fade show active" id="tab3">
-                <!-- Modal Body -->
-                <div class="modal-body bg-light rounded-3 shadow-sm">
-                   
-                    <form id="update-intern-form">
-                        <!-- 🧑 Basic Information -->
-                        <div class="card border-0 shadow-sm mb-3">
-                            <div class="card-body">
-                                <h6 class="text-sub mb-3 fw-semibold">
-                                    <i class="fa-solid fa-user-pen me-2 text-sub"></i> Basic Information
-                                </h6>
+                            <div>
+                              <div class="d-none" id="tabWrapper">
+                                <div class="nav nav-tabs md-tabs" id="myTab1" role="tablist">
+                                  <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab3"
+                                    type="button">
+                                    <i class="fas fa-user-graduate me-2"></i>Intern Details
+                                  </button>
+                                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab4" type="button">
+                                    <i class="fas fa-file-upload me-2"></i>Document Upload
+                                  </button>
+                                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab5" type="button">
+                                    <i class="fas fa-certificate me-2"></i>Onboarding Certificate Completion
+                                  </button>
+                                </div>
+                                <div class="tab-content mt-3">
+                                  <div class="tab-pane fade show active" id="tab3">
+                                    <!-- Modal Body -->
+                                    <div class="modal-body bg-light rounded-3 shadow-sm">
 
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label for="fullName1" class="form-label fw-semibold">
-                                            Full Name
-                                            <span class="text-danger">*</span>
-                                        </label>
-                                        <input type="text" name="fullName" maxlength="50" class="form-control form-control-sm" id="fullName1" placeholder="Enter Full Name" required>
-                                    </div>
+                                      <form id="update-intern-form">
+                                        <!-- 🧑 Basic Information -->
+                                        <div class="card border-0 shadow-sm mb-3">
+                                          <div class="card-body">
+                                            <h6 class="text-sub mb-3 fw-semibold">
+                                              <i class="fa-solid fa-user-pen me-2 text-sub"></i> Basic Information
+                                            </h6>
 
-                                    <div class="col-md-6 mb-3">
-                                        <label for="dateOfBirth1" class="form-label fw-semibold">
-                                            Date of Birth
-                                            <span class="text-danger">*</span>
-                                        </label>
-                                        <input type="date" name="dateOfBirth" class="form-control form-control-sm" id="dateOfBirth1" required>
+                                            <div class="row">
+                                              <div class="col-md-6 mb-3">
+                                                <label for="fullName1" class="form-label fw-semibold">
+                                                  Full Name
+                                                  <span class="text-danger">*</span>
+                                                </label>
+                                                <input type="text" name="fullName" maxlength="50"
+                                                  class="form-control form-control-sm" id="fullName1"
+                                                  placeholder="Enter Full Name" required>
+                                              </div>
+
+                                              <div class="col-md-6 mb-3">
+                                                <label for="dateOfBirth1" class="form-label fw-semibold">
+                                                  Date of Birth
+                                                  <span class="text-danger">*</span>
+                                                </label>
+                                                <input type="date" name="dateOfBirth"
+                                                  class="form-control form-control-sm" id="dateOfBirth1" required>
+                                              </div>
+                                            </div>
+
+                                            <div class="row">
+                                              <div class="col-md-6 mb-3">
+                                                <label for="gender1" class="form-label fw-semibold">
+                                                  Gender
+                                                  <span class="text-danger">*</span>
+                                                </label>
+                                                <select class="form-control form-control-sm" id="gender1" name="gender"
+                                                  required>
+                                                  <option value="" disabled selected>Select Gender</option>
+                                                  <option value="male">Male</option>
+                                                  <option value="female">Female</option>
+                                                  <option value="other">Other</option>
+                                                </select>
+                                              </div>
+                                              <div class="col-md-6 mb-3" id="otherGenderField1" style="display: none;">
+                                                <label for="otherGender1" class="form-label fw-semibold">
+                                                  <i class="fas fa-edit me-1"></i>Please Specify Gender
+                                                  <span class="text-danger">*</span>
+                                                </label>
+                                                <input type="text" name="otherGender"
+                                                  class="form-control form-control-sm" id="otherGender1"
+                                                  placeholder="Enter Gender">
+                                              </div>
+                                            </div>
+
+                                            <div class="row">
+                                              <div class="col-md-6 mb-3">
+                                                <label for="mobileNumber1" class="form-label fw-semibold">
+                                                  Mobile Number
+                                                  <span class="text-danger">*</span>
+                                                </label>
+                                                <input type="tel" maxlength="10" name="mobileNumber"
+                                                  class="form-control form-control-sm" id="mobileNumber1"
+                                                  placeholder="Enter Mobile Number" required>
+                                              </div>
+                                              <div class="col-md-6 mb-3">
+                                                <label for="email1" class="form-label fw-semibold">
+                                                  Email
+                                                  <span class="text-danger">*</span>
+                                                </label>
+                                                <input type="email" name="email" class="form-control form-control-sm"
+                                                  id="email1" placeholder="Enter Email Address" required>
+                                              </div>
+                                            </div>
+
+                                            <div class="row">
+                                              <div class="col-md-6 mb-3">
+                                                <label for="currentLocation1" class="form-label fw-semibold">
+                                                  Current Location
+                                                  <span class="text-danger">*</span>
+                                                </label>
+                                                <input type="text" name="currentLocation"
+                                                  class="form-control form-control-sm" id="currentLocation1"
+                                                  placeholder="Enter Current Location" required>
+                                              </div>
+                                              <div class="col-md-6 mb-3">
+                                                <label for="portfolioLink1" class="form-label fw-semibold">
+                                                  Portfolio Link
+                                                  <span class="text-danger">*</span>
+                                                </label>
+                                                <input type="url" name="portfolioLink"
+                                                  class="form-control form-control-sm" id="portfolioLink1"
+                                                  placeholder="Enter Portfolio Link (LinkedIn/GitHub etc.)" required>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+
+                                        <!-- 🚨 Emergency Contact -->
+                                        <div class="card border-0 shadow-sm mb-3">
+                                          <div class="card-body">
+                                            <h6 class="text-sub mb-3 fw-semibold">
+                                              <i class="fa-solid fa-user-shield me-2 text-sub"></i> Emergency Contact
+                                            </h6>
+
+                                            <div class="row">
+                                              <div class="col-md-6 mb-3">
+                                                <label for="emergencyContactName1" class="form-label fw-semibold">
+                                                  Emergency Contact Name
+                                                  <span class="text-danger">*</span>
+                                                </label>
+                                                <input type="text" name="emergencyContactName"
+                                                  class="form-control form-control-sm" id="emergencyContactName1"
+                                                  placeholder="Enter Name" required>
+                                              </div>
+
+                                              <div class="col-md-6 mb-3">
+                                                <label for="emergencyContactRelationship1"
+                                                  class="form-label fw-semibold">
+                                                  Relationship
+                                                  <span class="text-danger">*</span>
+                                                </label>
+                                                <input type="text" name="emergencyContactRelationship"
+                                                  class="form-control form-control-sm"
+                                                  id="emergencyContactRelationship1" placeholder="e.g., Parent, Sibling"
+                                                  required>
+                                              </div>
+                                            </div>
+
+                                            <div class="row">
+                                              <div class="col-md-6 mb-3">
+                                                <label for="emergencyContactNumber1" class="form-label fw-semibold">
+                                                  Emergency Contact Number
+                                                  <span class="text-danger">*</span>
+                                                </label>
+                                                <input type="tel" maxlength="10" name="emergencyContactNumber"
+                                                  class="form-control form-control-sm" id="emergencyContactNumber1"
+                                                  placeholder="Enter Number" required>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+
+                                        <!-- 🎓 Education Details -->
+                                        <div class="card border-0 shadow-sm mb-3">
+                                          <div class="card-body">
+                                            <h6 class="text-sub mb-3 fw-semibold">
+                                              <i class="fa-solid fa-graduation-cap me-2 text-sub"></i> Education Details
+                                            </h6>
+
+                                            <div class="row">
+                                              <div class="col-md-6 mb-3">
+                                                <label for="collegeName1" class="form-label fw-semibold">
+                                                  College Name
+                                                  <span class="text-danger">*</span>
+                                                </label>
+                                                <input type="text" name="collegeName"
+                                                  class="form-control form-control-sm" id="collegeName1"
+                                                  placeholder="Enter College Name" required>
+                                              </div>
+                                              <div class="col-md-6 mb-3">
+                                                <label for="degreeProgram1" class="form-label fw-semibold">
+                                                  Degree Program
+                                                  <span class="text-danger">*</span>
+                                                </label>
+                                                <input type="text" name="degreeProgram"
+                                                  class="form-control form-control-sm" id="degreeProgram1"
+                                                  placeholder="Enter Degree Program" required>
+                                              </div>
+                                            </div>
+
+                                            <div class="row">
+                                              <div class="col-md-6 mb-3">
+                                                <label for="isPartOfCurriculum1" class="form-label fw-semibold">
+                                                  Is this part of your curriculum?
+                                                  <span class="text-danger">*</span>
+                                                </label>
+                                                <select class="form-control form-control-sm" id="isPartOfCurriculum1"
+                                                  name="isPartOfCurriculum" required>
+                                                  <option value="" disabled selected>Select Option</option>
+                                                  <option value="Yes">Yes</option>
+                                                  <option value="No">No</option>
+                                                </select>
+                                              </div>
+                                              <div class="col-md-6 mb-3">
+                                                <label for="facultySupervisor1" class="form-label fw-semibold">
+                                                  Faculty Supervisor
+                                                  <span class="text-danger">*</span>
+                                                </label>
+                                                <input type="text" name="facultySupervisor"
+                                                  class="form-control form-control-sm" id="facultySupervisor1"
+                                                  placeholder="Enter Faculty Supervisor Name" required>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+
+                                        <!-- 💼 Internship Details -->
+                                        <div class="card border-0 shadow-sm mb-3">
+                                          <div class="card-body">
+                                            <h6 class="text-sub mb-3 fw-semibold">
+                                              <i class="fa-solid fa-briefcase me-2 text-sub"></i> Internship Details
+                                            </h6>
+
+                                            <div class="row">
+                                              <div class="col-md-6 mb-3">
+                                                <label for="preferredStartDate1" class="form-label fw-semibold">
+                                                  Preferred Start Date
+                                                  <span class="text-danger">*</span>
+                                                </label>
+                                                <input type="date" name="preferredStartDate"
+                                                  class="form-control form-control-sm" id="preferredStartDate1"
+                                                  required>
+                                              </div>
+                                              <div class="col-md-6 mb-3">
+                                                <label for="preferredEndDate1" class="form-label fw-semibold">
+                                                  Preferred End Date
+                                                  <span class="text-danger">*</span>
+                                                </label>
+                                                <input type="date" name="preferredEndDate"
+                                                  class="form-control form-control-sm" id="preferredEndDate1" required>
+                                              </div>
+                                            </div>
+
+                                            <div class="row">
+                                              <div class="col-md-6 mb-3">
+                                                <label for="internshipMode1" class="form-label fw-semibold">
+                                                  Internship Mode
+                                                  <span class="text-danger">*</span>
+                                                </label>
+                                                <select class="form-control form-control-sm" id="internshipMode1"
+                                                  name="internshipMode" required>
+                                                  <option value="" disabled selected>Select Mode</option>
+                                                  <option value="online">Online</option>
+                                                  <option value="offline">Offline</option>
+                                                  <option value="Hybrid">Hybrid</option>
+                                                </select>
+                                              </div>
+                                              <div class="col-md-6 mb-3">
+                                                <label for="howHeardAboutUs1" class="form-label fw-semibold">
+                                                  How did you hear about us?
+                                                  <span class="text-danger">*</span>
+                                                </label>
+                                                <input type="text" name="howHeardAboutUs"
+                                                  class="form-control form-control-sm" id="howHeardAboutUs1"
+                                                  placeholder="e.g., Social Media, Referral" required>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+
+                                        <!-- 📅 Additional Information -->
+                                        <div class="card border-0 shadow-sm mb-3">
+                                          <div class="card-body">
+                                            <h6 class="text-sub mb-3 fw-semibold">
+                                              <i class="fa-solid fa-calendar-alt me-2 text-sub"></i> Additional Information
+                                            </h6>
+                                        
+                                            <div class="row">
+                                              <div class="col-md-12 mb-3">
+                                                <label for="submissionDate1" class="form-label fw-semibold">
+                                                  Submission Date
+                                                </label>
+                                                <input type="date" name="submissionDate1" class="form-control form-control-sm" id="submissionDate1" readonly>
+                                              </div>
+                                            </div>
+                                        
+                                            <div class="row">
+                                              <div class="col-md-4 mb-3">
+                                                <label for="StartDate" class="form-label fw-semibold">
+                                                  Actual Start Date
+                                                </label>
+                                                <input type="date" name="StartDate" class="form-control form-control-sm" id="StartDate">
+                                              </div>
+                                              <div class="col-md-4 mb-3">
+                                                <label for="EndDate" class="form-label fw-semibold">
+                                                  Actual End Date
+                                                </label>
+                                                <input type="date" name="EndDate" class="form-control form-control-sm" id="EndDate">
+                                              </div>
+                                              <div class="col-md-4">
+                                                <div class="form-group">
+                                                  <label for="reportingManager">Reporting Manager <span class="text-danger">*</span></label>
+                                                  <select id="reportingManager" name="reportingManager" class="form-control form-control-sm userName"
+                                                    style="width:100%;" required>
+                                                    <option value="">Reporting Manager</option>
+                                                  </select>
+                                                </div>
+                                              </div>
+                                            </div>
+                                        
+                                            <!-- 🆕 New Row for Stipend -->
+                                            <div class="row">
+                                              <div class="col-md-4 mb-3">
+                                                <label for="Stipend" class="form-label fw-semibold">
+                                                  Stipend
+                                                </label>
+                                                <input type="text" name="Stipend" class="form-control form-control-sm" id="Stipend"
+                                                  placeholder="Enter Stipend Amount">
+                                              </div>
+                                            </div>
+                                            <!-- End New Row -->
+                                        
+                                          </div>
+                                        </div>
+
+
+                                        <!-- Hidden ID Field -->
+                                        <div class="d-none">
+                                          <input type="text" name="id" class="form-control form-control-sm" id="id1">
+                                        </div>
+
+                                      </form>
                                     </div>
+                                  </div>
+                                  <div class="tab-pane fade show" id="tab4" role="tabpanel">
+                                    <div class="d-flex justify-content-center align-items-center">
+                                      <div class="table-responsive">
+                                        <table id="documentTable" class="table-modern table-striped">
+                                          <thead class="bg-primary text-white">
+                                            <tr>
+                                              <th>Documents</th>
+                                              <th>Edit</th>
+                                            </tr>
+                                          </thead>
+                                          <tbody id="documentTableBody">
+                                            <tr>
+                                              <td>Bonafide</td>
+                                              <td></td>
+                                            </tr>
+                                            <tr>
+                                              <td><i class="fas fa-file-alt me-2"></i>Resume</td>
+                                              <td></td>
+                                            </tr>
+                                            <tr>
+                                              <td><i class="fas fa-image me-2"></i>Photo</td>
+                                              <td></td>
+                                            </tr>
+                                            <tr>
+                                              <td><i class="fas fa-id-card me-2"></i>ID Proof</td>
+                                              <td></td>
+                                            </tr>
+                                          </tbody>
+                                        </table>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="tab-pane fade show" id="tab5" role="tabpanel">
+                                    <div class="d-flex justify-content-center align-items-center">
+                                      <div class="table-responsive">
+                                        <table id="documentTable" class="table-modern table-striped ">
+                                          <thead class="bg-primary text-white">
+                                            <tr>
+                                              <th>Documents</th>
+                                              <th>Edit</th>
+                                            </tr>
+                                          </thead>
+                                          <tbody id="Certificatebody">
+                                            <!-- Certificate content will be populated here -->
+                                          </tbody>
+                                        </table>
+                                      </div>
+                                    </div>
+                                  </div>
                                 </div>
 
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label for="gender1" class="form-label fw-semibold">
-                                            Gender
-                                            <span class="text-danger">*</span>
-                                        </label>
-                                        <select class="form-control form-control-sm" id="gender1" name="gender" required>
-                                            <option value="" disabled selected>Select Gender</option>
-                                            <option value="male">Male</option>
-                                            <option value="female">Female</option>
-                                            <option value="other">Other</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-6 mb-3" id="otherGenderField1" style="display: none;">
-                                        <label for="otherGender1" class="form-label fw-semibold">
-                                            <i class="fas fa-edit me-1"></i>Please Specify Gender
-                                            <span class="text-danger">*</span>
-                                        </label>
-                                        <input type="text" name="otherGender" class="form-control form-control-sm" id="otherGender1" placeholder="Enter Gender">
-                                    </div>
+                                <!-- Modal Footer -->
+                                <div class="modal-footer bg-white border-top">
+                                  <button type="button" class="btn btn-red btn-sm" data-dismiss="modal" id="exitButton2">
+                                    <i class="fas fa-times me-1"></i>Exit
+                                  </button>
+                                  <button type="button" id="update_intern_btn"
+                                    class="btn btn-green btn-sm writeElement">
+                                    <i class="fas fa-save me-1"></i>Update
+                                  </button>
                                 </div>
-
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label for="mobileNumber1" class="form-label fw-semibold">
-                                            Mobile Number
-                                            <span class="text-danger">*</span>
-                                        </label>
-                                        <input type="tel" maxlength="10" name="mobileNumber" class="form-control form-control-sm" id="mobileNumber1" placeholder="Enter Mobile Number" required>
+                                  <!-- 🌟 Stylish Confirmation Modal -->
+                                <div class="modal fade" id="confirmExitModal" tabindex="-1" aria-labelledby="confirmExitLabel" aria-hidden="true">
+                                  <div class="modal-dialog modal-dialog-centered" style="max-width: 400px;">
+                                    <div class="modal-content"
+                                      style="border-radius: 15px; box-shadow: 0 0 25px rgba(0,0,0,0.2); border:none; overflow:hidden;">
+                                
+                                      <div class="modal-header text-white" style="background: linear-gradient(#4471D0);">
+                                        <h6 class="modal-title" id="confirmExitLabel">
+                                          <i class="fas fa-exclamation-triangle me-2"></i>Confirm Exit
+                                        </h6>
+                                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                                      </div>
+                                
+                                      <div class="modal-body text-center p-4" style="font-size: 14px; color: #333;">
+                                        <i class="fas fa-question-circle fa-3x text-danger mb-3"></i>
+                                        <p style="margin-bottom: 0;">
+                                          Are you sure you want to <b>exit without saving</b> your changes?
+                                        </p>
+                                      </div>
+                                
+                                      <div class="modal-footer justify-content-center border-0 pb-4">
+                                        <button type="button" class="btn btn-secondary px-4 py-1" data-bs-dismiss="modal">
+                                       </i>Cancel
+                                        </button>
+                                        <button type="button" id="confirmExitYes" class="btn px-4 py-1 text-white"
+                                          style="background-color:#c62828; border:none;">
+                                         </i>Yes, Exit
+                                        </button>
+                                      </div>
                                     </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label for="email1" class="form-label fw-semibold">
-                                            Email
-                                            <span class="text-danger">*</span>
-                                        </label>
-                                        <input type="email" name="email" class="form-control form-control-sm" id="email1" placeholder="Enter Email Address" required>
-                                    </div>
+                                  </div>
                                 </div>
-
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label for="currentLocation1" class="form-label fw-semibold">
-                                            Current Location
-                                            <span class="text-danger">*</span>
-                                        </label>
-                                        <input type="text" name="currentLocation" class="form-control form-control-sm" id="currentLocation1" placeholder="Enter Current Location" required>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label for="portfolioLink1" class="form-label fw-semibold">
-                                            Portfolio Link
-                                            <span class="text-danger">*</span>
-                                        </label>
-                                        <input type="url" name="portfolioLink" class="form-control form-control-sm" id="portfolioLink1" placeholder="Enter Portfolio Link (LinkedIn/GitHub etc.)" required>
-                                    </div>
-                                </div>
+                              </div>
                             </div>
-                        </div>
-
-                        <!-- 🚨 Emergency Contact -->
-                        <div class="card border-0 shadow-sm mb-3">
-                            <div class="card-body">
-                                <h6 class="text-sub mb-3 fw-semibold">
-                                    <i class="fa-solid fa-user-shield me-2 text-sub"></i> Emergency Contact
-                                </h6>
-
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label for="emergencyContactName1" class="form-label fw-semibold">
-                                            Emergency Contact Name
-                                            <span class="text-danger">*</span>
-                                        </label>
-                                        <input type="text" name="emergencyContactName" class="form-control form-control-sm" id="emergencyContactName1" placeholder="Enter Name" required>
-                                    </div>
-
-                                    <div class="col-md-6 mb-3">
-                                        <label for="emergencyContactRelationship1" class="form-label fw-semibold">
-                                            Relationship
-                                            <span class="text-danger">*</span>
-                                        </label>
-                                        <input type="text" name="emergencyContactRelationship" class="form-control form-control-sm" id="emergencyContactRelationship1" placeholder="e.g., Parent, Sibling" required>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label for="emergencyContactNumber1" class="form-label fw-semibold">
-                                            Emergency Contact Number
-                                            <span class="text-danger">*</span>
-                                        </label>
-                                        <input type="tel" maxlength="10" name="emergencyContactNumber" class="form-control form-control-sm" id="emergencyContactNumber1" placeholder="Enter Number" required>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- 🎓 Education Details -->
-                        <div class="card border-0 shadow-sm mb-3">
-                            <div class="card-body">
-                                <h6 class="text-sub mb-3 fw-semibold">
-                                    <i class="fa-solid fa-graduation-cap me-2 text-sub"></i> Education Details
-                                </h6>
-
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label for="collegeName1" class="form-label fw-semibold">
-                                            College Name
-                                            <span class="text-danger">*</span>
-                                        </label>
-                                        <input type="text" name="collegeName" class="form-control form-control-sm" id="collegeName1" placeholder="Enter College Name" required>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label for="degreeProgram1" class="form-label fw-semibold">
-                                           Degree Program
-                                            <span class="text-danger">*</span>
-                                        </label>
-                                        <input type="text" name="degreeProgram" class="form-control form-control-sm" id="degreeProgram1" placeholder="Enter Degree Program" required>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label for="isPartOfCurriculum1" class="form-label fw-semibold">
-                                            Is this part of your curriculum?
-                                            <span class="text-danger">*</span>
-                                        </label>
-                                        <select class="form-control form-control-sm" id="isPartOfCurriculum1" name="isPartOfCurriculum" required>
-                                            <option value="" disabled selected>Select Option</option>
-                                            <option value="Yes">Yes</option>
-                                            <option value="No">No</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label for="facultySupervisor1" class="form-label fw-semibold">
-                                            Faculty Supervisor
-                                            <span class="text-danger">*</span>
-                                        </label>
-                                        <input type="text" name="facultySupervisor" class="form-control form-control-sm" id="facultySupervisor1" placeholder="Enter Faculty Supervisor Name" required>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- 💼 Internship Details -->
-                        <div class="card border-0 shadow-sm mb-3">
-                            <div class="card-body">
-                                <h6 class="text-sub mb-3 fw-semibold">
-                                    <i class="fa-solid fa-briefcase me-2 text-sub"></i> Internship Details
-                                </h6>
-
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label for="preferredStartDate1" class="form-label fw-semibold">
-                                            Preferred Start Date
-                                            <span class="text-danger">*</span>
-                                        </label>
-                                        <input type="date" name="preferredStartDate" class="form-control form-control-sm" id="preferredStartDate1" required>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label for="preferredEndDate1" class="form-label fw-semibold">
-                                            Preferred End Date
-                                            <span class="text-danger">*</span>
-                                        </label>
-                                        <input type="date" name="preferredEndDate" class="form-control form-control-sm" id="preferredEndDate1" required>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label for="internshipMode1" class="form-label fw-semibold">
-                                           Internship Mode
-                                            <span class="text-danger">*</span>
-                                        </label>
-                                        <select class="form-control form-control-sm" id="internshipMode1" name="internshipMode" required>
-                                            <option value="" disabled selected>Select Mode</option>
-                                            <option value="online">Online</option>
-                                            <option value="offline">Offline</option>
-                                            <option value="Hybrid">Hybrid</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label for="howHeardAboutUs1" class="form-label fw-semibold">
-                                            How did you hear about us?
-                                            <span class="text-danger">*</span>
-                                        </label>
-                                        <input type="text" name="howHeardAboutUs" class="form-control form-control-sm" id="howHeardAboutUs1" placeholder="e.g., Social Media, Referral" required>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- 📅 Additional Information -->
-                        <div class="card border-0 shadow-sm mb-3">
-                            <div class="card-body">
-                                <h6 class="text-sub mb-3 fw-semibold">
-                                    <i class="fa-solid fa-calendar-alt me-2 text-sub"></i> Additional Information
-                                </h6>
-
-                                <div class="row">
-                                    <div class="col-md-12 mb-3">
-                                        <label for="submissionDate1" class="form-label fw-semibold">
-                                            Submission Date
-                                        </label>
-                                        <input type="date" name="submissionDate1" class="form-control form-control-sm" id="submissionDate1" readonly>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-4 mb-3">
-                                        <label for="StartDate" class="form-label fw-semibold">
-                                            Actual Start Date
-                                        </label>
-                                        <input type="date" name="StartDate" class="form-control form-control-sm" id="StartDate">
-                                    </div>
-                                    <div class="col-md-4 mb-3">
-                                        <label for="EndDate" class="form-label fw-semibold">
-                                            Actual End Date
-                                        </label>
-                                        <input type="date" name="EndDate" class="form-control form-control-sm" id="EndDate">
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="userName2">Reporting Manager <span class="text-danger">*</span></label>
-                                            <select id="reportingManager" name="reportingManager" class="form-control form-control-sm userName" style="width:100%;"
-                                                required>
-                                                <option value="">Reporting Manager</option>
-                  </select>
-                </div>
-                                </div>
-                            </div>
-                            </div>
-                        </div>
-
-                        <!-- Hidden ID Field -->
-                        <div class="d-none">
-                            <input type="text" name="id" class="form-control form-control-sm" id="id1">
-                        </div>
-
-                    </form>
-                </div>
-            </div>
-            <div class="tab-pane fade show" id="tab4" role="tabpanel">
-                <div class="d-flex justify-content-center align-items-center">
-                    <div class="table-responsive">
-                        <table id="documentTable" class="table-modern table-striped">
-                            <thead class="bg-primary text-white">
-                                <tr>
-                                    <th>Documents</th>
-                                    <th>Edit</th>
-                                </tr>
-                            </thead>
-                            <tbody id="documentTableBody">
-                                <tr>
-                                    <td>Bonafide</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td><i class="fas fa-file-alt me-2"></i>Resume</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td><i class="fas fa-image me-2"></i>Photo</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td><i class="fas fa-id-card me-2"></i>ID Proof</td>
-                                    <td></td>
-                                  </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="tab-pane fade show" id="tab5" role="tabpanel">
-                <div class="d-flex justify-content-center align-items-center">
-                    <div class="table-responsive">
-                    <table id="documentTable" class="table-modern table-striped ">
-                        <thead class="bg-primary text-white">
-                            <tr>
-                                <th>Documents</th>
-                                <th>Edit</th>
-                            </tr>
-                        </thead>
-                        <tbody id="Certificatebody">
-                            <!-- Certificate content will be populated here -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            </div>
-        </div>
-
-        <!-- Modal Footer -->
-        <div class="modal-footer bg-white border-top">
-            <button type="button" class="btn btn-red btn-sm" data-dismiss="modal" id="exitButton">
-                <i class="fas fa-times me-1"></i>Exit
-            </button>
-            <button type="button" id="update_intern_btn" class="btn btn-green btn-sm writeElement">
-                <i class="fas fa-save me-1"></i>Update
-            </button>
-        </div>
-    </div>
-</div>
                             <!---------------------------------------------------------------------------------------------UPDATE-MODAL-END---------------------------------------------------->
 
 
@@ -1234,7 +1219,8 @@
                                 <div class="row g-3">
                                   <div class="col-md-4">
                                     <div class="d-flex flex-column">
-                                      <label for="designationFilter" class="text-muted small mb-1">Mode of Internship</label>
+                                      <label for="designationFilter" class="text-muted small mb-1">Mode of
+                                        Internship</label>
                                       <select id="designationFilter"
                                         class="form-select form-select-sm border-secondary">
                                         <option value="">Show all</option>
@@ -1255,14 +1241,13 @@
                                   <div class="col-md-4">
                                     <div class="d-flex flex-column">
                                       <label for="statusFilter" class="text-muted small mb-1">Status</label>
-                                      <select id="statusFilter"
-                                                                                class="form-select form-select-sm border-secondary">
-                                                                                <option value="">Show all</option>
-                                                                                <option value="active">Active Interns
-                                                                                </option>
-                                                                                <option value="inactive">inactive
-                                                                                    Interns</option>
-                                                                            </select>
+                                      <select id="statusFilter" class="form-select form-select-sm border-secondary">
+                                        <option value="">Show all</option>
+                                        <option value="active">Active Interns
+                                        </option>
+                                        <option value="inactive">inactive
+                                          Interns</option>
+                                      </select>
                                     </div>
                                   </div>
                                 </div>
@@ -1300,107 +1285,110 @@
                         </div>
                       </div>
                     </div>
-                                       <!-- PROFILE MODAL -->
-                  <div class="modal fade" id="profileDetailsModal" tabindex="-1" aria-labelledby="profileDetailsLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-lg">
-    <div class="modal-content">
+                    <!-- PROFILE MODAL -->
+                    <div class="modal fade" id="profileDetailsModal" tabindex="-1" aria-labelledby="profileDetailsLabel"
+                      aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered modal-lg">
+                        <div class="modal-content">
 
-      <!-- HEADER -->
-      <div class="modal-header bg-primary text-white">
-        <h5 class="modal-title">
-          <i class="fa-solid fa-user me-2"></i>
-          <span id="modalTitle">Profile Details</span>
-        </h5>
-        <button type="button"
-          class="d-flex align-items-center btn-close justify-content-center p-0"
-          style="width:32px; height:32px;background-color: transparent !important; border: transparent; cursor: pointer;"
-          data-bs-dismiss="modal" aria-label="Close">
-          <i class="fa-solid fa-xmark text-white"></i>
-        </button>
-      </div>
+                          <!-- HEADER -->
+                          <div class="modal-header bg-primary text-white">
+                            <h5 class="modal-title">
+                              <i class="fa-solid fa-user me-2"></i>
+                              <span id="modalTitle">Profile Details</span>
+                            </h5>
+                            <button type="button" class="d-flex align-items-center btn-close justify-content-center p-0"
+                              style="width:32px; height:32px;background-color: transparent !important; border: transparent; cursor: pointer;"
+                              data-bs-dismiss="modal" aria-label="Close">
+                              <i class="fa-solid fa-xmark text-white"></i>
+                            </button>
+                          </div>
 
-      <!-- BODY -->
-      <div class="modal-body">
-        <div class="card border-0">
-          <div id="slideContainer" class="slide-container">
+                          <!-- BODY -->
+                          <div class="modal-body">
+                            <div class="card border-0">
+                              <div id="slideContainer" class="slide-container">
 
-            <!-- Left Profile Panel -->
-            <div id="profilePanel" class="col-md-4 gradient-custom text-center d-flex flex-column align-items-center justify-content-center p-4 profile-left">
-              <img id="profileImage"
-                   alt="Avatar" class="img-fluid rounded-circle mb-3" style="width: 100px;">
-              <h5 id="profileName" class="fw-bold mb-1">John</h5>
-              <p id="profileRole" class="mb-2">Web Developer</p>
-            </div>
+                                <!-- Left Profile Panel -->
+                                <div id="profilePanel"
+                                  class="col-md-4 gradient-custom text-center d-flex flex-column align-items-center justify-content-center p-4 profile-left">
+                                  <img id="profileImage" alt="Avatar" class="img-fluid rounded-circle mb-3"
+                                    style="width: 100px;">
+                                  <h5 id="profileName" class="fw-bold mb-1">John</h5>
+                                  <p id="profileRole" class="mb-2">Web Developer</p>
+                                </div>
 
-            <!-- Right Panel -->
-            <div class="col-md-8 position-relative p-4">
+                                <!-- Right Panel -->
+                                <div class="col-md-8 position-relative p-4">
 
-              <!-- Profile Section -->
-              <div id="profileSection" class="slide-section visible-section">
-                <h6 class="fw-bold text-sub mb-3">Personal Information</h6>
-                <hr class="mt-0 mb-3">
+                                  <!-- Profile Section -->
+                                  <div id="profileSection" class="slide-section visible-section">
+                                    <h6 class="fw-bold text-sub mb-3">Personal Information</h6>
+                                    <hr class="mt-0 mb-3">
 
-                <div class="row">
-                  <div class="col-6 mb-3">
-                    <p class="profile-label text-sub">Name</p>
-                    <p id="firstName" class="readonly-text">john</p>
-                  </div>
-                  <div class="col-6 mb-3">
-                    <p class="profile-label text-sub">Employee ID</p>
-                    <p id="empId" class="readonly-text">98t5</p>
-                  </div>
-                </div>
+                                    <div class="row">
+                                      <div class="col-6 mb-3">
+                                        <p class="profile-label text-sub">Name</p>
+                                        <p id="firstName" class="readonly-text">john</p>
+                                      </div>
+                                      <div class="col-6 mb-3">
+                                        <p class="profile-label text-sub">Employee ID</p>
+                                        <p id="empId" class="readonly-text">98t5</p>
+                                      </div>
+                                    </div>
 
-                <div class="row">
-                  <div class="col-6 mb-3">
-                    <p class="profile-label text-sub">Email ID</p>
-                    <p id="emailId" class="readonly-text">john008@gmail.com</p>
-                  </div>
-                  <div class="col-6 mb-3">
-                    <p class="profile-label text-sub">Designation</p>
-                    <p id="Designation" class="readonly-text">Developer</p>
-                  </div>
-                </div>
+                                    <div class="row">
+                                      <div class="col-6 mb-3">
+                                        <p class="profile-label text-sub">Email ID</p>
+                                        <p id="emailId" class="readonly-text">john008@gmail.com</p>
+                                      </div>
+                                      <div class="col-6 mb-3">
+                                        <p class="profile-label text-sub">Designation</p>
+                                        <p id="Designation" class="readonly-text">Developer</p>
+                                      </div>
+                                    </div>
 
-                <div class="text-start mt-3">
-                  <button id="changePasswordBtn" class="btn-change">
-                    <i class="fa-solid fa-key me-2"></i>Change Password
-                  </button>
-                </div>
-              </div>
+                                    <div class="text-start mt-3">
+                                      <button id="changePasswordBtn" class="btn-change">
+                                        <i class="fa-solid fa-key me-2"></i>Change Password
+                                      </button>
+                                    </div>
+                                  </div>
 
-              <!-- Password Section -->
-              <div id="passwordSection" class="slide-section hidden-section">
-                <h6 class="fw-bold mb-3 text-sub"><i class="fa-solid fa-key me-2"></i>Change Password</h6>
-                <hr>
-                <form id="passwordForm" class="mt-3">
-                  <div class="mb-3">
-                    <label for="newPassword" class="form-label">New Password</label>
-                    <input type="password" class="form-control" id="newPassword" required>
-                  </div>
-                  <div class="mb-3">
-                    <label for="confirmPassword" class="form-label">Confirm Password</label>
-                    <input type="password" class="form-control" id="confirmPassword" required>
-                  </div>
+                                  <!-- Password Section -->
+                                  <div id="passwordSection" class="slide-section hidden-section">
+                                    <h6 class="fw-bold mb-3 text-sub"><i class="fa-solid fa-key me-2"></i>Change
+                                      Password</h6>
+                                    <hr>
+                                    <form id="passwordForm" class="mt-3">
+                                      <div class="mb-3">
+                                        <label for="newPassword" class="form-label">New Password</label>
+                                        <input type="password" class="form-control" id="newPassword" required>
+                                      </div>
+                                      <div class="mb-3">
+                                        <label for="confirmPassword" class="form-label">Confirm Password</label>
+                                        <input type="password" class="form-control" id="confirmPassword" required>
+                                      </div>
 
-                  <div class="text-start mt-3">
-                    <button type="button" class="btn-change" id="backToProfile">
-                      <i class="fa-solid fa-arrow-left me-2"></i>Back
-                    </button>
-                      <button  type="button"  class="btn-green btn-change"  id="savePassword"><i class="fa-solid fa-key me-2"></i>Save Password</button>
-                  </div>
-                </form>
-              </div>
+                                      <div class="text-start mt-3">
+                                        <button type="button" class="btn-change" id="backToProfile">
+                                          <i class="fa-solid fa-arrow-left me-2"></i>Back
+                                        </button>
+                                        <button type="button" class="btn-green btn-change" id="savePassword"><i
+                                            class="fa-solid fa-key me-2"></i>Save Password</button>
+                                      </div>
+                                    </form>
+                                  </div>
 
-            </div>
-          </div>
-        </div>
-      </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
 
-    </div>
-  </div>
-</div>
-<!-- !profile Model end  -->
+                        </div>
+                      </div>
+                    </div>
+                    <!-- !profile Model end  -->
                   </div>
                 </div>
               </div>
@@ -1455,8 +1443,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
 
   <!-- DataTables Buttons CSS -->
-    <link rel="stylesheet" type="text/css"
-        href="https://cdn.datatables.net/buttons/2.1.0/css/buttons.dataTables.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.1.0/css/buttons.dataTables.min.css">
 
   <!-- Toastr and other scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
@@ -1466,18 +1453,18 @@
   <script src="assets/js/pcoded.min.js"></script>
   <script src="assets/js/vertical/vertical-layout.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  
-Bootstrap + jQuery + Select2
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-<!-- Bootstrap + jQuery + Select2 -->
+
+  Bootstrap + jQuery + Select2
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+  <!-- Bootstrap + jQuery + Select2 -->
 
   <!-- pdf -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
-        integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer">
-</script>
+    integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer">
+    </script>
 
 
   <!-- Custom scripts -->
@@ -1490,10 +1477,10 @@ Bootstrap + jQuery + Select2
   <script src="assets/js/roleUtil.js"></script>
   <script src="assets/js/Utils.js"></script>
   <script src="assets/js/sweetAlert.js"></script>
-   <!-- Initialize DataTable -->
-    <script>
+  <!-- Initialize DataTable -->
+  <script>
 
-</script>
+  </script>
 </body>
 
 </html>

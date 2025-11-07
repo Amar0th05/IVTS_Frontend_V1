@@ -238,7 +238,7 @@ function toggleFullScreen() {
 document.getElementById("exitButton2").addEventListener("click", async function () {
   const result = await Swal.fire({
     title: "Cancel Editing?",
-    text: "Your unsaved changes will be lost. Do you want to cancel?",
+    text: "You have unsaved changes. Are you sure you want to cancel?",
     icon: "warning",
     showCancelButton: true,
     confirmButtonColor: "#d33",     // Red for confirm
@@ -262,7 +262,7 @@ document.getElementById("exitButton2").addEventListener("click", async function 
 
 document.getElementById("exitButton").addEventListener("click", async function () {
   const result = await Swal.fire({
-    title: "Cancel Editin?",
+    title: "Cancel Editing?",
     text: "Your unsaved changes will be lost. Do you want to cancel?",
     icon: "warning",
     showCancelButton: true,

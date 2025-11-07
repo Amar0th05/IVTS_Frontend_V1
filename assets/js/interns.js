@@ -76,6 +76,7 @@ document.querySelector('#myTable1').addEventListener('click', function (event) {
         Id = button.getAttribute('data-inter-id');  
         document.querySelector('#tabWrapper').classList.remove('d-none');
         document.querySelector('#tableCard').style.display = 'none';
+        document.querySelector('.show').classList.add('d-none')
     }
 });
 
@@ -214,6 +215,7 @@ function validateForm(formData) {
 
 
 function formatDate(dateStr) {
+  console.log("date");
     if (!dateStr) return '';
     let date = new Date(dateStr);
     return date.toISOString().split('T')[0];
@@ -281,37 +283,43 @@ async function loadInternUpdateDetails(Id) {
     }
 }
 
-function downloadCertificate(FullName, StartDate, EndDate) {
-  if (!FullName && !StartDate && !EndDate) {
-    console.error("❌ No data provided to downloadCertificate()");
-    return;
-  }
-
-  const refNo = "NTCPWC/INT/009";
-  const issueDate =
-    new Date().toLocaleDateString("en-GB")?.replace(/\//g, "-") || "";
-
-  function formatDate(date) {
-    if (!date) return "";
-    const d = new Date(date);
+function formatDate(date, formatType = "short") {
+  if (!date) return "";
+  const d = new Date(date);
+  if (formatType === "short") {
     return d.toLocaleDateString("en-GB", {
       day: "2-digit",
       month: "short",
       year: "numeric",
     });
+  } else if (formatType === "dd-mm-yyyy") {
+    const day = String(d.getDate()).padStart(2, "0");
+    const month = String(d.getMonth() + 1).padStart(2, "0");
+    const year = d.getFullYear();
+    return `${day}-${month}-${year}`;
+  }
+  return d.toLocaleDateString("en-GB"); // Default fallback
+}
+
+function downloadCertificate(FullName, StartDate, EndDate, issueDateStr) {
+  if (!FullName && !StartDate && !EndDate) {
+    console.error("❌ No data provided to downloadCertificate()");
+    return;
   }
 
-  // Certificate container
+  const refNo = "NTCPWC/INT/001";
+  const formattedIssueDate = formatDate(issueDateStr, "dd-mm-yyyy");
+
   const container = document.createElement("div");
   container.style.width = "210mm";
-  container.style.minHeight = "285mm"; // ✅ slightly less than A4 height
-  container.style.maxHeight = "297mm"; // ✅ keep within A4 boundary
+  container.style.minHeight = "285mm";
+  container.style.maxHeight = "297mm";
   container.style.background = "#fff";
-  container.style.padding = "18mm"; // ✅ reduced padding to prevent overflow
+  container.style.padding = "18mm";
   container.style.boxSizing = "border-box";
   container.style.fontFamily = "Arial, sans-serif";
   container.style.position = "relative";
-  container.style.overflow = "hidden"; // ✅ prevents spill to new page
+  container.style.overflow = "hidden";
 
   container.innerHTML = `
     <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px;">
@@ -327,7 +335,7 @@ function downloadCertificate(FullName, StartDate, EndDate) {
 
     <div style="display:flex; justify-content:space-between; margin-top:10px; margin-bottom:25px; font-size:11px;">
       <div style="font-weight:bold;">${refNo}</div>
-      <div>${issueDate}</div>
+      <div>${formattedIssueDate}</div>
     </div>
 
     <div style="text-align:center; font-size:12px; font-weight:bold; margin-bottom:15px; text-decoration:underline;">
@@ -347,17 +355,24 @@ function downloadCertificate(FullName, StartDate, EndDate) {
       <p>We wish him/her the very best for his/her future academic and professional endeavors.</p>
     </div>
 
-    <div style="margin-top:30px; font-size:11px;">
-      <p>Sincerely,</p>
-      <p>For National Technology Centre for Ports Waterways and Coasts</p>
-      <p style="font-weight:bold;">M.J. Muthukumar</p>
-      <p>(Principal Project Officer)</p>
+    <!-- Signature Block -->
+    <div style="margin-top:25px;font-size:11px;">
+      <p style="margin:0 0 5px 0;">Sincerely,</p>
+      <p style="margin:0 0 20px 0;">For National Technology Centre for Ports Waterways and Coasts</p>
+      
+      <div>
+        <img src="assets/images/seal.png" alt="Seal" style="height:70px;width:auto;object-fit:contain;margin-bottom:5px;">
+        <img src="assets/images/sign.png" alt="Signature" style="height:30px;width:auto;object-fit:contain;margin-bottom:5px;">
+      </div>
+
+      <p style="margin:0;font-weight:bold;">M.J. Muthukumar</p>
+      <p style="margin:0;">(Principal Project Officer)</p>
     </div>
 
     <div style="position:absolute;bottom:15mm;left:18mm;right:18mm;padding-top:8px;border-top:1px solid #ddd;font-size:10px;text-align:center;">
       <p style="margin:0 0 3px 0;"><strong>Tel: 091-44-22578918; Mobile: +91-9080056974</strong></p>
       <p style="margin:0;"><strong>
-        E-mail: <a href="mailto:jmutu86@ntcpwc.iitm.ac.in" style="color:#3f51b5;text-decoration:none;">jmutu86@ntcpwc.iitm.ac.in</a>;
+        E-mail: <a href="mailto:jmuthu86@ntcpwc.iitm.ac.in" style="color:#3f51b5;text-decoration:none;">jmuthu86@ntcpwc.iitm.ac.in</a>;
         Web: <a href="http://www.ntcpwc.iitm.ac.in" style="color:#3f51b5;text-decoration:none;">www.ntcpwc.iitm.ac.in</a>
       </strong></p>
     </div>
@@ -365,7 +380,9 @@ function downloadCertificate(FullName, StartDate, EndDate) {
 
   document.body.appendChild(container);
 
-  const filename = `${FullName.replace(/\s+/g, "_") || "Intern"}_Certificate.pdf`;
+  const filename = `${
+    FullName.replace(/\s+/g, "_") || "Intern"
+  }_Completion_Certificate.pdf`;
 
   const opt = {
     margin: 0,
@@ -373,54 +390,60 @@ function downloadCertificate(FullName, StartDate, EndDate) {
     image: { type: "jpeg", quality: 1 },
     html2canvas: { scale: 2, useCORS: true, scrollY: 0 },
     jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
-    pagebreak: { mode: ["avoid"] }, // ✅ prevent any page break
+    pagebreak: { mode: ["avoid"] },
   };
 
   html2pdf()
     .set(opt)
     .from(container)
     .save()
-    .then(() => document.body.removeChild(container))
-    .catch((err) => console.error("❌ PDF generation failed:", err));
+    .then(() => {
+      document.body.removeChild(container);
+      Swal.fire({
+        icon: "success",
+        title: "Certificate Downloaded!",
+        text: "The completion certificate has been successfully downloaded.",
+        timer: 2000,
+        showConfirmButton: false,
+      });
+    })
+    .catch((err) => {
+      console.error("❌ PDF generation failed:", err);
+      Swal.fire({
+        icon: "error",
+        title: "Download Failed",
+        text: "Could not download the completion certificate. Please try again.",
+      });
+    });
 }
 
-
-function downloadOnboardingCertificate(FullName, StartDate, EndDate) {
+function downloadOnboardingCertificate(FullName, StartDate, EndDate, generateDateStr) {
   if (!FullName && !StartDate && !EndDate) {
     console.error("❌ No data provided to downloadOnboardingCertificate()");
     return;
   }
 
-  const refNo = "NTCPWC/INT/009";
-  const issueDate = new Date()
-    .toLocaleDateString("en-GB")
-    ?.replace(/\//g, "-") || "";
+  const refNo = "NTCPWC/INT/001";
+  const formattedGenerateDate = formatDate(generateDateStr, "dd-mm-yyyy");
 
-  // Helper for date formatting
-  function formatDate(date) {
-    if (!date) return "";
-    const d = new Date(date);
-    return d.toLocaleDateString("en-GB", {
-      day: "2-digit",
-      month: "short",
-      year: "numeric",
-    });
-  }
-
-  // ✅ Container within A4 height
   const container = document.createElement("div");
+  container.style.width = "210mm";
+  container.style.minHeight = "285mm";
+  container.style.background = "#fff";
+  container.style.border = "1px solid #eee";
+  container.style.boxShadow = "0 0 6px rgba(0,0,0,0.1)";
+  container.style.padding = "18mm 18mm 20mm 18mm";
+  container.style.boxSizing = "border-box";
+  container.style.position = "relative";
+  container.style.fontFamily = "Arial, sans-serif";
+  container.style.overflow = "hidden";
+
   container.innerHTML = `
   <div style="
-    width:210mm;
-    min-height:285mm;       /* ✅ slightly smaller than A4 */
-    background:#fff;
-    border:1px solid #eee;
-    box-shadow:0 0 6px rgba(0,0,0,0.1);
-    padding:18mm 18mm 20mm 18mm;  /* ✅ reduced padding */
-    box-sizing:border-box;
+    width:100%; /* Inner div takes full width of outer container */
+    height:100%; /* Inner div takes full height of outer container */
     position:relative;
-    font-family:Arial, sans-serif;
-    overflow:hidden;">
+    font-family:Arial, sans-serif;">
  
     <!-- Header -->
     <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;">
@@ -437,7 +460,7 @@ function downloadOnboardingCertificate(FullName, StartDate, EndDate) {
     <!-- Ref No and Date -->
     <div style="display:flex;justify-content:space-between;align-items:center;margin:15px 0 25px 0;font-size:11px;">
       <div style="font-weight:bold;">${refNo}</div>
-      <div>${issueDate}</div>
+      <div>${formattedGenerateDate}</div>
     </div>
  
     <!-- Title -->
@@ -455,7 +478,9 @@ function downloadOnboardingCertificate(FullName, StartDate, EndDate) {
         Below are the details of your internship:
       </p>
 
-      <p style="margin:0 0 6px 0;">Internship Duration: <strong>${formatDate(StartDate)} to ${formatDate(EndDate)}</strong></p>
+      <p style="margin:0 0 6px 0;">Internship Duration: <strong>${formatDate(
+        StartDate
+      )} to ${formatDate(EndDate)}</strong></p>
       <p style="margin:0 0 6px 0;">Working Hours: <strong>5 Hours / day</strong></p>
       <p style="margin:0 0 6px 0;">Supervisors:</p>
       <p style="margin:0 0 4px 40px;"><strong>M.J. Muthukumar</strong></p>
@@ -472,11 +497,16 @@ function downloadOnboardingCertificate(FullName, StartDate, EndDate) {
       </p>
     </div>
 
-    <!-- Signature -->
-    <div style="margin-top:25px;text-align:right;font-size:11px;">
-      <p style="margin:0 0 20px 0;font-weight:bold;">Thanking you</p>
-      <p style="margin:0;">With Regards,</p>
-      <p style="margin:25px 0 0 0;font-weight:bold;">M.J. Muthukumar</p>
+    <!-- Signature Block -->
+    <div style="margin-top:25px;font-size:11px;">
+      <p style="margin:0 0 5px 0;">Sincerely,</p>
+      <p style="margin:0 0 20px 0;">For National Technology Centre for Ports Waterways and Coasts</p>
+      
+      <div>
+        <img src="assets/images/seal.png" alt="Seal" style="height:60px;width:auto;object-fit:contain;margin-bottom:5px;">
+        <img src="assets/images/sign.png" alt="Signature" style="height:20px;width:auto;object-fit:contain;margin-bottom:5px;">
+      </div>
+      <p style="margin:0;font-weight:bold;">M.J. Muthukumar</p>
       <p style="margin:0;">(Principal Project Officer)</p>
     </div>
 
@@ -493,7 +523,7 @@ function downloadOnboardingCertificate(FullName, StartDate, EndDate) {
       <p style="margin:0 0 3px 0;"><strong>Tel: 091-44-22578918; Mobile: +91-9080056974</strong></p>
       <p style="margin:0;">
         <strong>
-          E-mail: <a href="mailto:jmutu86@ntcpwc.iitm.ac.in" style="color:#3F51B5;text-decoration:none;">jmutu86@ntcpwc.iitm.ac.in</a>;
+          E-mail: <a href="mailto:jmuthu86@ntcpwc.iitm.ac.in" style="color:#3F51B5;text-decoration:none;">jmuthu86@ntcpwc.iitm.ac.in</a>;
           Web: <a href="http://www.ntcpwc.iitm.ac.in" style="color:#3F51B5;text-decoration:none;">www.ntcpwc.iitm.ac.in</a>
         </strong>
       </p>
@@ -502,7 +532,9 @@ function downloadOnboardingCertificate(FullName, StartDate, EndDate) {
 
   document.body.appendChild(container);
 
-  const filename = `${FullName.replace(/\s+/g, "_") || "Intern"}_Onboarding_Certificate.pdf`;
+  const filename = `${
+    FullName.replace(/\s+/g, "_") || "Intern"
+  }_Onboarding_Certificate.pdf`;
 
   const opt = {
     margin: 0,
@@ -517,194 +549,459 @@ function downloadOnboardingCertificate(FullName, StartDate, EndDate) {
     .set(opt)
     .from(container)
     .save()
-    .then(() => document.body.removeChild(container))
-    .catch(err => console.error("❌ PDF generation failed:", err));
+    .then(() => {
+      document.body.removeChild(container);
+      Swal.fire({
+        icon: "success",
+        title: "Certificate Downloaded!",
+        text: "The onboarding certificate has been successfully downloaded.",
+        timer: 2000,
+        showConfirmButton: false,
+      });
+    })
+    .catch((err) => {
+      console.error("❌ PDF generation failed:", err);
+      Swal.fire({
+        icon: "error",
+        title: "Download Failed",
+        text: "Could not download the onboarding certificate. Please try again.",
+      });
+    });
 }
-
 
 // intern completion certificate
 async function updateInternCertificateButtons(data) {
+  console.log(data.id);
   try {
     const documentTableBody = document.getElementById("Certificatebody");
     let rowsHTML = "";
 
-    // ✅ Pass data.FullName safely as a string
- let actionHTML1 = `
-   <div class="text-start">
-    <span class="status-badge bg-warning text-dark">
-      <i class="fa-solid fa-spinner  fa-spin spin-icon me-2"></i> <span class="status-text">Ongoing</span>
-    </span>
-  </div>
-`;
-let actionHTML2 = `
-  <button onclick="downloadCertificate('${data.FullName}', '${data.StartDate}', '${data.EndDate}')"
-                    class="btn btn-sm text-white" 
-                    style="background:linear-gradient(to bottom right, #69A1FF, #1E3FA0); border:none;">
-              <i class="fa-solid fa-download me-1"></i> Download
-            </button>
-`;
-let actionHTML3 = `
-<button onclick="downloadOnboardingCertificate('${data.FullName}', '${data.StartDate}', '${data.EndDate}')"
-                    class="btn btn-sm text-white" 
-                    style="background:linear-gradient(to bottom right, #69A1FF, #1E3FA0); border:none;">
-              <i class="fa-solid fa-download me-1"></i> Download
-            </button>
-`;
-
-
-    if(formatDate(new Date) < formatDate(data.EndDate)){
-      rowsHTML += `
-      <tr>
-        <td>${data.FullName} Onboarding Certificate</td>
-        <td>${actionHTML3}</td>
-      </tr>
-      <tr>
-        <td>${data.FullName} Completion Certificate</td>
-        <td>${actionHTML1}</td>
-      </tr>
+    // acceptance generated date (for completion)
+    let actionHTMLCompletionGenerated = `
+      <button class="btn btn-sm text-white" disabled
+                  style="background:linear-gradient(to bottom right, #A9A9A9, #A9A9A9); border:none; opacity:0.8; cursor:not-allowed;">
+            <i class="fa-solid fa-check me-1"></i> Generated
+          </button>
+            <button onclick="downloadCertificate('${data.FullName}', '${
+      data.StartDate
+    }', '${data.EndDate}','${data.Completion_GenerateDate}')"
+                  class="btn btn-sm text-white"
+                  style="background:linear-gradient(to bottom right, #69A1FF, #1E3FA0); border:none;">
+            <i class="fa-solid fa-download me-1"></i> Download
+          </button>
     `;
-    }
-    else{
+
+    // acceptance not generated (for completion)
+    let actionHTMLCompletionNotGenerated = `
+    <div id='certificateActions_${data.id}'>
+      <button onclick="generateCertificate('${data.FullName}', '${
+      data.StartDate
+    }', '${data.EndDate}','${data.id}')" class="btn btn-sm text-white"
+                  style="background:linear-gradient(to bottom right, #90EE90, #4CAF50); border:none;">
+            <i class="fa-solid fa-check me-1"></i> Generate
+          </button>
+            <button onclick="downloadCertificate('${data.FullName}', '${
+      data.StartDate
+    }', '${data.EndDate}','${data.Completion_GenerateDate}')"
+                  class="btn btn-sm text-white d-none"
+                  style="background:linear-gradient(to bottom right, #69A1FF, #1E3FA0); border:none;">
+            <i class="fa-solid fa-download me-1"></i> Download
+          </button>
+      </div>    
+    `;
+
+    // acceptance generated date (for onboarding)
+    let actionHTMLOnboardingGenerated = `
+      <button class="btn btn-sm text-white" disabled
+                  style="background:linear-gradient(to bottom right, #A9A9A9, #A9A9A9); border:none; opacity:0.8; cursor:not-allowed;">
+            <i class="fa-solid fa-check me-1"></i> Generated
+          </button>
+            <button onclick="downloadOnboardingCertificate('${data.FullName}', '${
+      data.StartDate
+    }', '${data.EndDate}','${data.Acceptance_GenerateDate}')"
+                  class="btn btn-sm text-white"
+                  style="background:linear-gradient(to bottom right, #69A1FF, #1E3FA0); border:none;">
+            <i class="fa-solid fa-download me-1"></i> Download
+          </button>
+    `;
+
+    // acceptance not generated (for onboarding)
+    let actionHTMLOnboardingNotGenerated = `
+    <div id='onboardingActions_${data.id}'>
+      <button onclick="generateOnboardingCertificate('${data.FullName}', '${
+      data.StartDate
+    }', '${data.EndDate}','${data.id}')" class="btn btn-sm text-white"
+                  style="background:linear-gradient(to bottom right, #90EE90, #4CAF50); border:none;">
+            <i class="fa-solid fa-check me-1"></i> Generate
+          </button>
+            <button onclick="downloadOnboardingCertificate('${data.FullName}', '${
+      data.StartDate
+    }', '${data.EndDate}','${data.Acceptance_GenerateDate}')"
+                  class="btn btn-sm text-white d-none"
+                  style="background:linear-gradient(to bottom right, #69A1FF, #1E3FA0); border:none;">
+            <i class="fa-solid fa-download me-1"></i> Download
+          </button>
+    </div>
+    `;
+
+    // Pending status for ongoing internships
+    let actionHTMLOngoing = `
+      <div class="text-start">
+        <span class="status-badge bg-warning text-dark">
+          <i class="fa-solid fa-spinner fa-spin me-2"></i> <span class="status-text">Ongoing</span>
+        </span>
+      </div>
+    `;
+
+    const today = new Date();
+    const endDate = new Date(data.EndDate);
+
+    if (today < endDate) {
+      // Internship is ongoing
       rowsHTML += `
-      <tr>
-        <td>${data.FullName} Onboarding Certificate</td>
-        <td>${actionHTML3}</td>
-      </tr>
         <tr>
-        <td>${data.FullName} Completion Certificate</td>
-        <td>${actionHTML2}</td>
-      </tr>
-    `;
+          <td>${data.FullName} Acceptance Letter</td>
+          <td>${actionHTMLOngoing}</td>
+        </tr>
+        <tr>
+          <td>${data.FullName} Completion Letter</td>
+          <td>${actionHTMLOngoing}</td>
+        </tr>
+      `;
+    } else {
+      // Internship has ended
+      rowsHTML += `
+        <tr>
+          <td>${data.FullName} Acceptance Letter</td>
+          <td>${
+            data.Acceptance_GenerateDate != null
+              ? actionHTMLOnboardingGenerated
+              : actionHTMLOnboardingNotGenerated
+          }</td>
+        </tr>
+        <tr>
+          <td>${data.FullName} Completion Letter</td>
+          <td>${
+            data.Completion_GenerateDate != null
+              ? actionHTMLCompletionGenerated
+              : actionHTMLCompletionNotGenerated
+          }</td>
+        </tr>
+      `;
     }
-
     documentTableBody.innerHTML = rowsHTML;
   } catch (error) {
     console.error("Error loading documents:", error);
+    Swal.fire({
+      icon: "error",
+      title: "Error",
+      text: "Failed to load certificate buttons. Please try again.",
+    });
   }
 }
 
+async function generateCertificate(fullName, startDate, endDate, id) {
+  const container = document.getElementById(`certificateActions_${id}`);
+  const btn = container.querySelector("button");
 
+  btn.style.background = "linear-gradient(to bottom right, #90EE90, #4CAF50)";
+  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-1"></i> Generating...';
+  btn.disabled = true;
 
+  try {
+    const date = new Date();
+    const generateDate = date.toISOString().slice(0, 19).replace("T", " ");
+    const generateName = "Completion_GenerateDate";
+
+    await api.updateGenarateDate(id, { generateDate, generateName }); // Assuming api is defined globally
+
+    // Update the button state after successful generation
+    container.innerHTML = `
+      <div id='certificateActions_${id}'>
+        <button class="btn btn-sm text-white" disabled
+                style="background:linear-gradient(to bottom right, #A9A9A9, #A9A9A9); border:none; opacity:0.8; cursor:not-allowed;">
+          <i class="fa-solid fa-check me-1"></i> Generated
+        </button>
+        <button onclick="downloadCertificate('${fullName}', '${startDate}', '${endDate}','${generateDate}')"
+                class="btn btn-sm text-white"
+                style="background:linear-gradient(to bottom right, #69A1FF, #1E3FA0); border:none;">
+          <i class="fa-solid fa-download me-1"></i> Download
+        </button>
+      </div>
+    `;
+    Swal.fire({
+      icon: "success",
+      title: "Certificate Generated!",
+      text: "The completion certificate is now available for download.",
+      timer: 2000,
+      showConfirmButton: false,
+    });
+  } catch (error) {
+    console.error("Error generating certificate:", error);
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fa-solid fa-check me-1"></i> Generate'; // Revert button on error
+    Swal.fire({
+      icon: "error",
+      title: "Generation Failed",
+      text: "Could not generate the completion certificate. Please try again.",
+    });
+  }
+}
+
+async function generateOnboardingCertificate(fullName, startDate, endDate, id) {
+  const container = document.getElementById(`onboardingActions_${id}`);
+  const btn = container.querySelector("button");
+
+  btn.style.background = "linear-gradient(to bottom right, #90EE90, #4CAF50)";
+  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-1"></i> Generating...';
+  btn.disabled = true;
+
+  try {
+    const date = new Date();
+    const generateDate = date.toISOString().slice(0, 19).replace("T", " ");
+    const generateName = "Acceptance_GenerateDate";
+
+    await api.updateGenarateDate(id, { generateDate, generateName }); // Assuming api is defined globally
+
+    container.innerHTML = `
+      <div id='onboardingActions_${id}'>
+        <button class="btn btn-sm text-white" disabled
+                style="background:linear-gradient(to bottom right, #A9A9A9, #A9A9A9); border:none; opacity:0.8; cursor:not-allowed;">
+          <i class="fa-solid fa-check me-1"></i> Generated
+        </button>
+        <button onclick="downloadOnboardingCertificate('${fullName}', '${startDate}', '${endDate}','${generateDate}')"
+                class="btn btn-sm text-white"
+                style="background:linear-gradient(to bottom right, #69A1FF, #1E3FA0); border:none;">
+          <i class="fa-solid fa-download me-1"></i> Download
+        </button>
+      </div>
+    `;
+    Swal.fire({
+      icon: "success",
+      title: "Certificate Generated!",
+      text: "The onboarding certificate is now available for download.",
+      timer: 2000,
+      showConfirmButton: false,
+    });
+  } catch (error) {
+    console.error("Error generating onboarding certificate:", error);
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fa-solid fa-check me-1"></i> Generate'; // Revert button on error
+    Swal.fire({
+      icon: "error",
+      title: "Generation Failed",
+      text: "Could not generate the onboarding certificate. Please try again.",
+    });
+  }
+}
 
 async function updateInternDocumentButtons(internId) {
-    try {
-        console.log("Loading document table for Intern ID:", internId);
+  try {
+    console.log("Loading document table for Intern ID:", internId);
 
-        // 1. API call -> only metadata (not full binary)
-        const res = await axiosInstance.get(API_ROUTES.getInternDocumentsMetadata(internId));
-        const documents = res.data; 
-        // Expected format: [{ name: "BonafideFileData", exists: true }, ...]
+    // Assuming axiosInstance and API_ROUTES are defined elsewhere
+    const res = await axiosInstance.get(
+      API_ROUTES.getInternDocumentsMetadata(internId)
+    );
+    const documents = res.data;
 
-        console.log("documents", documents);
+    console.log("documents", documents);
 
-        // 2. Target tbody
-        const documentTableBody = document.getElementById("documentTableBody");
-        let rowsHTML = "";
+    const documentTableBody = document.getElementById("documentTableBody");
+    let rowsHTML = "";
 
-        // 3. Loop through docs
-        documents.forEach(doc => {
-            let actionHTML = "";
+    documents.forEach((doc) => {
+      let actionHTML = "";
 
-            if (doc.exists) {
-          actionHTML = `
-            <button onclick="handleAction(this, () => downloadDocument('${internId}', '${doc.name}'))" 
-                    class="btn btn-sm text-white" 
-                    style="background:linear-gradient(to bottom right, #69A1FF, #1E3FA0); border:none;">
-              <i class="fa-solid fa-download me-1"></i> Download
-            </button>
-            <button onclick="handleAction(this, () => deleteDocument('${internId}', '${doc.name}'))" 
-                    class="btn btn-sm text-white" 
-                    style="background:linear-gradient(to bottom right, #EF4444, #B91C1C); border:none;">
-              <i class="fa-solid fa-trash me-1"></i> Delete
-            </button>
-        `;
+      if (doc.exists) {
+        actionHTML = `
+          <button onclick="handleAction(this, () => downloadDocument('${internId}', '${doc.name}'))" 
+                  class="btn btn-sm text-white" 
+                  style="background:linear-gradient(to bottom right, #69A1FF, #1E3FA0); border:none;">
+            <i class="fa-solid fa-download me-1"></i> Download
+          </button>
+          <button onclick="handleAction(this, () => deleteDocument('${internId}', '${doc.name}'))" 
+                  class="btn btn-sm text-white" 
+                  style="background:linear-gradient(to bottom right, #EF4444, #B91C1C); border:none;">
+            <i class="fa-solid fa-trash me-1"></i> Delete
+          </button>
+      `;
       } else {
-        // ✅ Upload with gradient
         actionHTML = `
           <label class="btn btn-sm text-white mb-0" 
-                 style="background:linear-gradient(to bottom right, #34D399, #059669); border:none; cursor:pointer; color:white !important; fontsize:0px !important;">
+                 style="background:linear-gradient(to bottom right, #34D399, #059669); border:none; cursor:pointer;">
             <i class="fa-solid fa-upload me-1"></i> Upload
             <input type="file" style="display:none" 
-                   onchange="handleAction(this.parentElement, () => uploadDocument('${internId}', '${doc.name}', this.files[0]))">
+                   onchange="uploadDocumentWrapper(this, '${internId}', '${doc.name}')">
           </label>
         `;
       }
 
-            // Build row
-            rowsHTML += `
-                <tr>
-                    <td>${doc.name}</td>
-                    <td>${actionHTML}</td>
-                </tr>
-            `;
-        });
-
-        // 4. Inject into table body
-        documentTableBody.innerHTML = rowsHTML;
-
-    } catch (error) {
-        console.error("Error loading documents:", error);
-    }
-}
-function handleAction(btn, actionFn) {
-  let originalHTML = btn.innerHTML;
-  btn.disabled = true;
-  btn.innerHTML = `<span class="spinner-border spinner-border-sm me-1" role="status"></span> Processing...`;
-
-  // Run the async action
-  Promise.resolve(actionFn())
-    .then(() => {
-      // ✅ Success: restore button
-      btn.disabled = false;
-      btn.innerHTML = originalHTML;
-    })
-    .catch(err => {
-      console.error("Action failed:", err);
-      btn.disabled = false;
-      btn.innerHTML = originalHTML;
-      alert("Something went wrong, please try again.");
+      rowsHTML += `
+          <tr>
+              <td>${doc.name}</td>
+              <td>${actionHTML}</td>
+          </tr>
+      `;
     });
+
+    documentTableBody.innerHTML = rowsHTML;
+  } catch (error) {
+    console.error("Error loading documents:", error);
+    Swal.fire({
+      icon: "error",
+      title: "Error",
+      text: "Failed to load document buttons. Please try again.",
+    });
+  }
+}
+
+// Wrapper for uploadDocument to correctly pass the button element to handleAction
+async function uploadDocumentWrapper(fileInput, internId, docName) {
+  const labelButton = fileInput.parentElement;
+  await handleAction(labelButton, () =>
+    uploadDocument(internId, docName, fileInput.files[0])
+  );
+}
+
+async function handleAction(btnElement, actionFn) {
+  let originalHTML = btnElement.innerHTML;
+  let originalStyle = btnElement.style.cssText; // Store original style for restoration
+
+  btnElement.disabled = true;
+  btnElement.innerHTML = `<span class="spinner-border spinner-border-sm me-1" role="status"></span> Processing...`;
+  btnElement.style.cssText += "opacity: 0.7; cursor: not-allowed;"; // Add processing style
+
+  try {
+    await actionFn();
+    // Success actions (handled by individual functions with Swal.fire)
+  } catch (err) {
+    console.error("Action failed:", err);
+    Swal.fire({
+      icon: "error",
+      title: "Action Failed",
+      text: `Something went wrong: ${err.message || "Please try again."}`,
+    });
+  } finally {
+    // Restore original state regardless of success or failure
+    if (btnElement) {
+      btnElement.disabled = false;
+      btnElement.innerHTML = originalHTML;
+      btnElement.style.cssText = originalStyle;
+    }
+  }
 }
 
 // Download document (binary to blob)
 async function downloadDocument(internId, docName) {
-    try {
-        const res = await axiosInstance.get(API_ROUTES.downloadInternDocument(internId, docName), {
-            responseType: 'blob'
-        });
+  try {
+    const res = await axiosInstance.get(
+      API_ROUTES.downloadInternDocument(internId, docName),
+      {
+        responseType: "blob",
+      }
+    );
 
-        const blob = new Blob([res.data], { type: 'application/pdf' });
-        const url = window.URL.createObjectURL(blob);
+    const blob = new Blob([res.data], { type: "application/pdf" });
+    const url = window.URL.createObjectURL(blob);
 
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `${docName}.pdf`; // always save with .pdf extension
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `${docName}.pdf`; // always save with .pdf extension
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
 
-        window.URL.revokeObjectURL(url);
+    window.URL.revokeObjectURL(url);
 
-        // SweetAlert2 success popup
-        Swal.fire({
-            icon: 'success',
-            title: 'Download Complete',
-            text: `${docName} has been downloaded successfully.`,
-            timer: 2000,
-            showConfirmButton: false
-        });
-        updateInternDocumentButtons(internId);
+    Swal.fire({
+      icon: "success",
+      title: "Download Complete",
+      text: `${docName} has been downloaded successfully.`,
+      timer: 2000,
+      showConfirmButton: false,
+    });
+    await updateInternDocumentButtons(internId); // Refresh the buttons to reflect changes
+  } catch (error) {
+    console.error("Error downloading document:", error);
+    throw new Error("Download failed."); // Re-throw to be caught by handleAction
+  }
+}
 
-    } catch (error) {
-        console.error("Error downloading document:", error);
+async function uploadDocument(internId, docName, file) {
+  if (!file) {
+    Swal.fire({
+      icon: "warning",
+      title: "No file selected",
+      text: "Please select a file to upload.",
+    });
+    throw new Error("No file selected.");
+  }
 
-        // SweetAlert2 error popup
-        Swal.fire({
-            icon: 'error',
-            title: 'Download Failed',
-            text: `Could not download ${docName}. Please try again.`,
-        });
+  const formData = new FormData();
+  formData.append("file", file); // 'file' is the key expected by the backend
+
+  try {
+    // Assuming API_ROUTES.uploadInternDocument returns a URL for the specific document
+    await axiosInstance.post(
+      API_ROUTES.uploadInternDocument(internId, docName),
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+
+    Swal.fire({
+      icon: "success",
+      title: "Upload Successful!",
+      text: `${docName} has been uploaded successfully.`,
+      timer: 2000,
+      showConfirmButton: false,
+    });
+    await updateInternDocumentButtons(internId); // Refresh the buttons to reflect changes
+  } catch (error) {
+    console.error("Error uploading document:", error);
+    throw new Error("Upload failed."); // Re-throw to be caught by handleAction
+  }
+}
+
+async function deleteDocument(internId, docName) {
+  try {
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: `Do you really want to delete ${docName}? This action cannot be undone.`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, delete it!",
+    });
+
+    if (result.isConfirmed) {
+      await axiosInstance.delete(
+        API_ROUTES.deleteInternDocument(internId, docName)
+      );
+
+      Swal.fire({
+        icon: "success",
+        title: "Deleted!",
+        text: `${docName} has been deleted.`,
+        timer: 2000,
+        showConfirmButton: false,
+      });
+      await updateInternDocumentButtons(internId); // Refresh the buttons to reflect changes
+    } else {
+      throw new Error("Deletion cancelled."); // User cancelled, so don't show error to user but stop execution
     }
+  } catch (error) {
+    console.error("Error deleting document:", error);
+    // Only show error if it wasn't a user cancellation
+    if (error.message !== "Deletion cancelled.") {
+      throw new Error("Delete failed."); // Re-throw to be caught by handleAction
+    }
+  }
 }
 
 // Delete document
@@ -941,7 +1238,4 @@ $(document).ready(function () {
       console.error('Error loading staff:', error);
     });
 });
-
-
-
 

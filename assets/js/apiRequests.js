@@ -143,6 +143,7 @@ const api = {
     toggleInternStatus: (id) => putData(`/intern/status/${id}`),
     //reporting manager
     getReportingManger: () => fetchData(API_ROUTES.getReportingManager, "staffid"),
+    updateGenarateDate: (id,data) => postData(API_ROUTES.updateGenerateDate+`/${id}`,{data}),
 
 // talent Pool
     getAllPersons:()=>fetchData(API_ROUTES.getAllTalentpool,"talent"),
