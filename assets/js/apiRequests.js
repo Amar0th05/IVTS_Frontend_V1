@@ -199,7 +199,7 @@ const api = {
     deleteInsurance: (id) => deleteData(API_ROUTES.deleteInsurance(id)),
 
     // intern leave
-    getEmployees: () => fetchData(API_ROUTES.getEmployees, 'employees'),
+    getEmployees: (id) => fetchData(API_ROUTES.getEmployees+`/${id}`, 'employees'),
   getManager: (employeeId) => fetchData(API_ROUTES.getManager(employeeId),'manager'),
   submitLeave: (payload) => postData(API_ROUTES.submitLeave, payload)
 };

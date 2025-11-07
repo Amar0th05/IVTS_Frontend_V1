@@ -308,42 +308,76 @@ async function loadUpdateDetails(id) {
 }
 // ================== Doument upload, download, delete ==================
 async function loadDocumentTable(personId) {
-    try {
-        const res = await axiosInstance.get(API_ROUTES.getPersonDocumentsMetadata(personId));
-        const documentTableBody = document.getElementById("documentTableBody");
-        documentTableBody.innerHTML = res.data.map(doc => `
-           <tr>
-  <td >${doc.name}</td>
-  <td>
-    ${doc.exists ? `
-  <button onclick="handleAction(this, () => downloadDocument('${personId}','${doc.name}'))" 
-          class="btn btn-sm text-white" 
-          style="background:linear-gradient(to bottom right, #69A1FF, #1E3FA0); border:none;" id="download
-          "
-          >
-    <i class="fa-solid fa-download me-1"></i> Download
-  </button>
-  <button onclick="handleAction(this, () => deleteDocument('${personId}','${doc.name}'))" 
-          class="btn btn-sm text-white ms-3" 
-          style="background:linear-gradient(to bottom right, #EF4444, #B91C1C); border:none;">
-    <i class="fa-solid fa-trash me-1"></i> Delete
-  </button>
-    ` : `
-      <label class="btn btn-sm text-white mb-0" 
-             style="background:linear-gradient(to bottom right, #34D399, #059669); border:none; cursor:pointer;">
-        <i class="fa-solid fa-upload me-1"></i> Upload
-        <input type="file" style="display:none" onchange="handleAction(this.parentElement, () => uploadDocument('${personId}','${doc.name}', this.files[0]))">
-      </label>
-    `}
-  </td>
-</tr>
+  try {
+    const res = await axiosInstance.get(API_ROUTES.getPersonDocumentsMetadata(personId));
+    const documentTableBody = document.getElementById("documentTableBody");
 
+    documentTableBody.innerHTML = res.data
+      .map((doc) => {
+        // ✅ If document exists
+        if (doc.exists) {
+          // Special case for ResumeFile
+          if (doc.name === "ResumeFile") {
+            return `
+              <tr>
+                <td>${doc.name}</td>
+                <td>
+                  <button onclick="handleAction(this, () => downloadDocument('${personId}','${doc.name}'))" 
+                          class="btn btn-sm text-white"
+                          style="background:linear-gradient(to bottom right, #69A1FF, #1E3FA0); border:none;">
+                    <i class="fa-solid fa-download me-1"></i> Download
+                  </button>
 
-        `).join('');
-    } catch(err) {
-        console.error(err);
-    }
+                  <label class="btn btn-sm text-white ms-3 mb-0" 
+                         style="background:linear-gradient(to bottom right, #F59E0B, #B45309); border:none; cursor:pointer;">
+                    <i class="fa-solid fa-repeat me-1"></i> Replace
+                    <input type="file" style="display:none" onchange="handleAction(this.parentElement, () => uploadDocument('${personId}','${doc.name}', this.files[0]))">
+                  </label>
+                </td>
+              </tr>
+            `;
+          }
+
+          // Default (non-ResumeFile)
+          return `
+            <tr>
+              <td>${doc.name}</td>
+              <td>
+                <button onclick="handleAction(this, () => downloadDocument('${personId}','${doc.name}'))" 
+                        class="btn btn-sm text-white" 
+                        style="background:linear-gradient(to bottom right, #69A1FF, #1E3FA0); border:none;">
+                  <i class="fa-solid fa-download me-1"></i> Download
+                </button>
+                <button onclick="handleAction(this, () => deleteDocument('${personId}','${doc.name}'))" 
+                        class="btn btn-sm text-white ms-3" 
+                        style="background:linear-gradient(to bottom right, #EF4444, #B91C1C); border:none;">
+                  <i class="fa-solid fa-trash me-1"></i> Delete
+                </button>
+              </td>
+            </tr>
+          `;
+        }
+
+        // ✅ If document does not exist
+        return `
+          <tr>
+            <td>${doc.name}</td>
+            <td>
+              <label class="btn btn-sm text-white mb-0" 
+                     style="background:linear-gradient(to bottom right, #34D399, #059669); border:none; cursor:pointer;">
+                <i class="fa-solid fa-upload me-1"></i> Upload
+                <input type="file" style="display:none" onchange="handleAction(this.parentElement, () => uploadDocument('${personId}','${doc.name}', this.files[0]))">
+              </label>
+            </td>
+          </tr>
+        `;
+      })
+      .join("");
+  } catch (err) {
+    console.error(err);
+  }
 }
+
 function handleAction(btn, actionFn) {
   let originalHTML = btn.innerHTML;
   btn.disabled = true;

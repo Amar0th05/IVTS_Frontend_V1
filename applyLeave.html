@@ -27,7 +27,6 @@
 
     <!-- font-awesome-n -->
     <link rel="stylesheet" type="text/css" href="assets/css/font-awesome-n.min.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.min.css">
     <!-- scrollbar.css -->
     <link rel="stylesheet" type="text/css" href="assets/css/jquery.mCustomScrollbar.css">
     <!-- Style.css -->
@@ -308,132 +307,133 @@
                                                         
                                                     </div> -->
 
-                                                    <div class="card-block">
-                                                       <div  id="tab">
-  <div class="tab-content mt-3">
-    <!-- 🧑‍💼 Leave Application -->
-    <div class="tab-pane fade show active" id="tab1">
-      <div class="modal-body bg-light rounded-3 shadow-sm p-3">
-        <form id="internshipForm" novalidate autocomplete="off">
-          
-          <!-- 👤 Employee Details -->
-          <div class="card border-0 shadow-sm mb-3 rounded-3">
-            <div class="card-body">
-              <h6 class="text-sub fw-semibold mb-3">
-                <i class="fa-solid fa-user me-2"></i> Employee Details
-              </h6>
+                                                   <div class="card-block">
+  <div id="tab">
+    <div class="tab-content mt-3">
+      <!-- 🧑‍💼 Leave Application -->
+      <div class="tab-pane fade show active">
+        <div class="modal-body bg-light rounded-3 shadow-sm p-3">
+          <form id="internshipForm" novalidate autocomplete="off">
 
-              <div class="row g-3">
-                <div class="col-md-6">
-                  <label for="fullName" class="form-label fw-semibold">Employee Name <span class="text-danger">*</span></label>
-                  <select id="fullName" name="fullName" class="form-control form-control-sm userName" style="width:100%;" required>
-                    <option value="">Select Employee</option>
-                  </select>
-                </div>
+            <!-- 👤 Employee Details -->
+            <div class="card border-0 shadow-sm mb-3 rounded-3">
+              <div class="card-body">
+                <h6 class="text-sub fw-semibold mb-3">
+                  <i class="fa-solid fa-user me-2"></i> Employee Details
+                </h6>
 
-                <div class="col-md-6">
-                  <label for="ManagerName" class="form-label fw-semibold">Manager Name <span class="text-danger">*</span></label>
-                  <input type="text" name="ManagerName" class="form-control form-control-sm" id="ManagerName"
-                    placeholder="Manager Name will auto-populate" readonly>
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <label for="fullName" class="form-label fw-semibold">Employee Name<span class="text-danger">*</span></label>
+                    <input type="text" name="fullName" class="form-control form-control-sm fullName" id="fullName"
+                      placeholder="Employee Name will auto-populate" readonly>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="ManagerName" class="form-label fw-semibold">Manager Name <span class="text-danger">*</span></label>
+                    <input type="text" name="ManagerName" class="form-control form-control-sm ManagerName" id="ManagerName"
+                      placeholder="Manager Name will auto-populate" readonly>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          <!-- 🗓️ Leave Details -->
-          <div class="card border-0 shadow-sm mb-3 rounded-3">
-            <div class="card-body">
-              <h6 class="text-sub fw-semibold mb-3">
-                <i class="fa-solid fa-calendar-days me-2 text-primary"></i> Leave Details
-              </h6>
+            <!-- 🗓️ Leave Details -->
+            <div class="card border-0 shadow-sm mb-3 rounded-3">
+              <div class="card-body">
+                <h6 class="text-sub fw-semibold mb-3">
+                  <i class="fa-solid fa-calendar-days me-2 text-sub"></i> Leave Details
+                </h6>
 
-              <div class="row g-3">
-                <div class="col-md-6">
-                  <label for="leaveType" class="form-label fw-semibold">Leave Type <span class="text-danger">*</span></label>
-                  <select class="form-select form-select-sm" id="leaveType" name="leaveType" required>
-                    <option value="" selected disabled>Select Leave Type</option>
-                    <option value="CL">Casual Leave (CL)</option>
-                    <option value="SL">Sick Leave (SL)</option>
-                    <option value="EL">Earned Leave (EL)</option>
-                    <option value="Comp-off">Compensatory Off</option>
-                    <option value="Other">Other</option>
-                  </select>
-                </div>
-
-                <div class="col-md-6" id="otherReasonContainer" style="display: none;">
-                  <label for="otherReason" class="form-label fw-semibold">Please Specify</label>
-                  <input type="text" id="otherReason" name="otherReason" class="form-control form-control-sm"
-                    placeholder="Enter other reason">
-                </div>
-
-                <div class="col-md-6">
-                  <label for="startDate" class="form-label fw-semibold">Leave Start Date <span class="text-danger">*</span></label>
-                  <input type="date" class="form-control form-control-sm" id="startDate" name="startDate" required>
-                </div>
-
-                <div class="col-md-6">
-                  <label for="endDate" class="form-label fw-semibold">Leave End Date <span class="text-danger">*</span></label>
-                  <input type="date" class="form-control form-control-sm" id="endDate" name="endDate" required>
-                </div>
-
-                <div class="col-md-6">
-                  <label for="totalDays" class="form-label fw-semibold">Total Days</label>
-                  <input type="text" class="form-control form-control-sm" id="totalDays" name="totalDays" readonly>
-                </div>
-
-                <div class="col-md-6" id="halfDayCheckboxContainer" style="display: none;">
-                  <div class="form-check mt-4">
-                    <input class="form-check-input" type="checkbox" id="requestHalfDay">
-                    <label class="form-check-label fw-semibold" for="requestHalfDay">
-                      Apply for Half-Day Leave
-                    </label>
+                <div class="row g-3">
+                  <!-- Leave Type -->
+                  <div class="col-md-6">
+                    <label for="leaveType" class="form-label fw-semibold">Leave Type <span class="text-danger">*</span></label>
+                    <select class="form-select form-control form-control-sm" id="leaveType" name="leaveType" required>
+                      <option value="" selected disabled>Select Leave Type</option>
+                      <option value="CL">Casual Leave (CL)</option>
+                      <option value="SL">Sick Leave (SL)</option>
+                      <option value="Other">Other</option>
+                    </select>
                   </div>
-                </div>
 
-                <div class="col-md-12" id="halfDayOptionContainer" style="display: none;">
-                  <label class="form-label fw-semibold">Half-Day Option</label>
-                  <div class="d-flex gap-2">
-                    <button type="button" class="btn btn-outline-primary btn-sm flex-fill" id="firstHalfBtn" data-value="First Half">
-                      <i class="fa-solid fa-sun me-1"></i> First Half
-                    </button>
-                    <button type="button" class="btn btn-outline-primary btn-sm flex-fill" id="secondHalfBtn" data-value="Second Half">
-                      <i class="fa-solid fa-moon me-1"></i> Second Half
-                    </button>
-                    <input type="hidden" id="halfDayOption" name="halfDayOption">
+                  <!-- Reason -->
+                  <div class="col-md-6">
+                    <label for="reason" class="form-label fw-semibold">Reason for Leave <span class="text-danger">*</span></label>
+                    <textarea class="form-control form-control-sm" id="reason" name="reason" rows="1" placeholder="Enter your reason" required></textarea>
                   </div>
-                </div>
 
-                <div class="col-md-12">
-                  <label for="reason" class="form-label fw-semibold">Reason for Leave <span class="text-danger">*</span></label>
-                  <textarea class="form-control form-control-sm" id="reason" name="reason" rows="2" placeholder="Enter your reason" required></textarea>
-                </div>
+                  <!-- Start & End Date -->
+                  <div class="col-md-6">
+                    <div class="row g-2">
+                      <div class="col-6">
+                        <label for="startDate" class="form-label fw-semibold">Start Date <span class="text-danger">*</span></label>
+                        <input type="date" class="form-control form-control-sm" id="startDate" name="startDate" required>
+                      </div>
+                      <div class="col-6">
+                        <label for="endDate" class="form-label fw-semibold">End Date <span class="text-danger">*</span></label>
+                        <input type="date" class="form-control form-control-sm" id="endDate" name="endDate" required>
+                      </div>
+                    </div>
+                  </div>
 
-                <div class="col-md-12">
-                  <label for="documentUpload" class="form-label fw-semibold">Supporting Document (optional)</label>
-                  <input type="file" class="form-control form-control-sm" id="documentUpload" name="documentUpload">
+                  <!-- Total Days -->
+                  <div class="col-md-6">
+                    <label for="totalDays" class="form-label fw-semibold">Total Days</label>
+                    <input type="text" class="form-control form-control-sm" id="totalDays" name="totalDays" readonly>
+                  </div>
+
+                  <!-- Half-Day Checkbox -->
+                  <div class="col-12" id="halfDayCheckboxContainer" style="display: none;">
+                    <div class="form-check pt-1">
+                      <input class="form-check-input" type="checkbox" id="requestHalfDay">
+                      <label class="form-label fw-semibold" for="requestHalfDay">
+                        Apply for Half-Day Leave <span class="fw-normal text-muted">(Applies only to single-day leaves)</span>
+                      </label>
+                    </div>
+                  </div>
+
+                  <!-- Half-Day Option Buttons -->
+                  <div class="col-12" id="halfDayOptionContainer"  style="display: none;">
+                    <div class="row">
+                      <div class="col-6">
+                        <button type="button" class="btn btn-outline-primary py-2" id="firstHalfBtn" data-value="First Half" style="width:100%;">
+                          <i class="fa-solid fa-sun me-2"></i> First Half
+                        </button>
+                      </div>
+                      <div class="col-6">
+                        <button type="button" class="btn btn-outline-primary py-2" id="secondHalfBtn" data-value="Second Half" style="width:100%;">
+                          <i class="fa-solid fa-moon me-1"></i> Second Half
+                        </button>
+                       <input type="hidden" id="halfDayOption" name="halfDayOption">
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Supporting Document -->
+                  <div class="col-md-12">
+                    <label for="documentUpload" class="form-label fw-semibold">Supporting Document (optional)</label>
+                    <input type="file" class="form-control form-control-sm" id="documentUpload" name="documentUpload">
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
-                <!-- Modal Footer -->
-      <div class="modal-footer bg-white border-top rounded-bottom">
-        <button type="button" class="btn btn-danger btn-sm text-white" data-dismiss="modal" id="exitButton">
-          <i class="fa-solid fa-xmark me-1"></i> Exit
-        </button>
-        <button type="submit" class="btn btn-success btn-sm text-white" id="submitBtn">
-          <i class="fa-solid fa-paper-plane me-1"></i> Submit Leave
-        </button>
+            <!-- Modal Footer -->
+            <div class="modal-footer bg-white border-top rounded-bottom">
+              <!-- <button type="button" class="btn btn-danger btn-sm text-white" data-dismiss="modal" id="exitButton">
+                <i class="fa-solid fa-xmark me-1"></i> Exit
+              </button> -->
+              <button type="submit" class="btn btn-success btn-sm text-white" id="submitBtn">
+                <i class="fa-solid fa-paper-plane me-1"></i> Submit Leave
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
-
-        </form>
-      </div>
-
     </div>
   </div>
 </div>
 
-                                                    </div>
                                                     <!-- card-block table staff details end --> 
                                                 </div>
                                             </div>

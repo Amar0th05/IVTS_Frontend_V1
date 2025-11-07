@@ -1,10 +1,27 @@
 let decidedPermission;
+let email;
+let employeeId;
+
+let username=document.getElementById("fullName");
+let Managername=document.getElementById("ManagerName");
+
 document.addEventListener("DOMContentLoaded", async () => {
   roles = await axiosInstance.get("/roles/role/perms");
   roles = roles.data.roles;
+
   // console.log(roles);
   window.roles = roles;
   decidedPermission = handlePermission("#username");
+    let storedUser = JSON.parse(sessionStorage.getItem('user'));
+
+      if (storedUser) {
+    email=storedUser.mail;
+       }
+   const result=await api.getEmployees(email);
+   console.log(result);
+  username.value=result.FullName;
+  employeeId=result.id;
+  Managername.value=result.ManagerName;
 });
 
 if (decidedPermission !== "") {
@@ -12,70 +29,7 @@ if (decidedPermission !== "") {
   // alert(decidedPermission)
 }
 
-$(document).ready(function () {
-  //  Load staff and populate dropdown
-  api
-    .getEmployees()
-    .then((staffList) => {
-      const $userSelect = $(".userName");
-      $userSelect.empty().append("<option></option>"); // placeholder
 
-      staffList.forEach((staff) => {
-        $userSelect.append(
-          $("<option>", {
-            value: `${staff.id} - ${staff.name}`,
-            text: `${staff.id} - ${staff.name}`,
-          })
-        );
-      });
-
-      // Initialize Select2 (only once)
-      $userSelect.select2({
-        placeholder: "Select Employee Name",
-        allowClear: true,
-        width: "100%",
-      });
-    })
-    .catch((error) => {
-      console.error("Error loading staff:", error);
-    });
-
-  // Prevent Select2 dropdown clicks from bubbling
-
-  $(".userName").on("select2:open select2:closing click", function (event) {
-    event.stopPropagation();
-  });
-
-  // Fetch manager name when an employee is selected
-
-  $(".userName").on("change", async function () {
-    const value = $(this).val();
-    if (!value || !value.includes("-")) {
-      $("#ManagerName").val("");
-      return;
-    }
-
-    const employeeId = value.split("-")[0].trim();
-
-    try {
-      const response = await api.getManager(employeeId);
-      console.log("Manager API Response:", response);
-
-      //  Backend
-      const managerName =
-        typeof response === "string"
-          ? response
-          : response?.manager ||
-            response?.data?.manager ||
-            "No manager assigned";
-
-      $("#ManagerName").val(managerName);
-    } catch (error) {
-      console.error(" Error fetching manager:", error);
-      $("#ManagerName").val("Error fetching manager");
-    }
-  });
-});
 
 // Function to get today's date in 'YYYY-MM-DD' format
 function getTodayDateString() {
@@ -278,7 +232,7 @@ function toggleHalfDayCheckbox() {
     startDate.getTime() === endDate.getTime()
   ) {
     halfDayCheckboxContainer.style.display = "block";
-  } else {
+  } else {http://localhost:5506/staffs.html
     // Hide checkbox + reset
     halfDayCheckboxContainer.style.display = "none";
     requestHalfDayCheckbox.checked = false;
@@ -289,7 +243,7 @@ function toggleHalfDayCheckbox() {
 // 2. Show/hide options only when checkbox is ticked
 function toggleHalfDayUI() {
   if (requestHalfDayCheckbox.checked) {
-    halfDayOptionContainer.style.display = "flex";
+    halfDayOptionContainer.style.display = "block";
     halfDayHiddenInput.setAttribute("required", "required");
   } else {
     halfDayOptionContainer.style.display = "none";
@@ -342,8 +296,8 @@ document.addEventListener("DOMContentLoaded", function () {
       const formData = new FormData(form);
 
       // --- Get selected employee ---
-      const selectedValue = $(".userName").val();
-      if (!selectedValue || !selectedValue.includes("-")) {
+      const selectedValue = $(".fullName").val();
+      if (!selectedValue) {
         showWarningPopupFadeInDown(
           "Please select a valid employee from the dropdown."
         );
@@ -351,9 +305,6 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
       }
 
-      const [employeeId, employeeName] = selectedValue
-        .split("-")
-        .map((s) => s.trim());
 
       // --- Validate date range ---
       const startDate = formData.get("startDate");
@@ -377,7 +328,7 @@ document.addEventListener("DOMContentLoaded", function () {
       // --- Build payload ---
       const payload = {
         employeeId,
-        employeeName,
+        employeeName:formData.get("fullName")?.trim() || "",
         managerName: formData.get("ManagerName")?.trim() || "",
         leaveType: formData.get("leaveType")?.trim() || "",
         startDate,
