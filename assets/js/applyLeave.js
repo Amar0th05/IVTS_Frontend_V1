@@ -93,11 +93,7 @@ const otherReasonInput = document.getElementById("otherReason");
 const startDateInput = document.getElementById("startDate");
 const endDateInput = document.getElementById("endDate");
 const totalDaysInput = document.getElementById("totalDays");
-const halfDayOptionContainer = document.getElementById(
-  "halfDayOptionContainer"
-);
-const halfDayButtons = document.querySelectorAll(".half-day-options .btn");
-const halfDayHiddenInput = document.getElementById("halfDayOption");
+const halfDayOptionContainer = document.getElementById("halfDayOptionContainer");
 
 // --- Form Validation and Logic Functions ---
 
@@ -106,6 +102,11 @@ function validateInput(input) {
   let isValid = true;
   let message = "";
   input.classList.remove("is-invalid", "is-valid");
+
+  // 🧩 NEW: Skip validation for hidden fields (not visible on screen)
+  const style = window.getComputedStyle(input);
+  const isHidden = style.display === "none" || style.visibility === "hidden" || input.type === "hidden";
+  if (isHidden) return true;
 
   if (input.required && input.value.trim() === "") {
     isValid = false;
@@ -209,7 +210,12 @@ function calculateTotalDays() {
     currentDate.setDate(currentDate.getDate() + 1);
   }
 
-  totalDaysInput.value = count;
+  // ✅ Show 0.5 for half day
+  if (requestHalfDayCheckbox.checked) {
+    totalDaysInput.value = 0.5;
+  } else {
+    totalDaysInput.value = count;
+  }
 }
 
 // Recalculate whenever start or end date changes
@@ -232,7 +238,8 @@ function toggleHalfDayCheckbox() {
     startDate.getTime() === endDate.getTime()
   ) {
     halfDayCheckboxContainer.style.display = "block";
-  } else {http://localhost:5506/staffs.html
+  } else {
+    // http://localhost:5506/staffs.html
     // Hide checkbox + reset
     halfDayCheckboxContainer.style.display = "none";
     requestHalfDayCheckbox.checked = false;
@@ -253,12 +260,30 @@ function toggleHalfDayUI() {
   }
 }
 
-// 3. Half-day option button selection
+// ✅ FINAL WORKING Half-Day Option Logic (active style + backend value)
+const halfDayButtons = document.querySelectorAll("#halfDayOptionContainer .btn");
+const halfDayHiddenInput = document.getElementById("halfDayHiddenInput");
+
+
+// Add click listeners for First Half / Second Half buttons
 halfDayButtons.forEach((btn) => {
   btn.addEventListener("click", () => {
-    halfDayButtons.forEach((b) => b.classList.remove("active-toggle"));
-    btn.classList.add("active-toggle");
-    halfDayHiddenInput.value = btn.dataset.value;
+    // Remove active style from all buttons first
+    halfDayButtons.forEach((b) => {
+      b.classList.remove("active-toggle", "btn-primary");
+      b.classList.add("btn-outline-primary");
+    });
+
+    // Add active style to the selected button
+    btn.classList.add("active-toggle", "btn-primary");
+    btn.classList.remove("btn-outline-primary");
+
+    // ✅ Update the hidden input value so backend receives it
+    const selectedValue = btn.getAttribute("data-value");
+    halfDayHiddenInput.value = selectedValue;
+    halfDayHiddenInput.name = "halfDayOption"; // ensure correct name
+
+    console.log("✅ Selected Half-Day Option:", selectedValue);
   });
 });
 
@@ -266,6 +291,7 @@ halfDayButtons.forEach((btn) => {
 startDateInput.addEventListener("change", toggleHalfDayCheckbox);
 endDateInput.addEventListener("change", toggleHalfDayCheckbox);
 requestHalfDayCheckbox.addEventListener("change", toggleHalfDayUI);
+requestHalfDayCheckbox.addEventListener("change", calculateTotalDays);
 
 document.querySelectorAll("input, select, textarea").forEach((input) => {
   input.addEventListener("input", () => validateInput(input));
@@ -317,9 +343,8 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
       }
 
-      // --- Calculate total days ---
-      let totalDays = parseInt(formData.get("totalDays"), 10);
-      if (!totalDays || totalDays < 1) {
+      let totalDays = parseFloat(formData.get("totalDays"));
+      if (!totalDays || totalDays < 0.5) {
         const start = new Date(startDate);
         const end = new Date(endDate);
         totalDays = Math.floor((end - start) / (1000 * 3600 * 24)) + 1;
@@ -346,11 +371,17 @@ document.addEventListener("DOMContentLoaded", function () {
       console.log(" Server Response:", result);
 
       if (result?.message?.toLowerCase().includes("success")) {
-        showSucessPopupFadeInDownLong("Leave submitted successfully!");
-        form.reset();
-        $("#ManagerName").val("");
-        $(".userName").val("").trigger("change");
-      } else {
+  showSucessPopupFadeInDownLong("Leave submitted successfully!");
+  form.reset();
+  $("#ManagerName").val("");
+  $(".userName").val("").trigger("change");
+
+  // Redirect to empleavetrack.html after a short delay
+  setTimeout(() => {
+    window.location.href = "empLeaveTracking.html";
+  }, 2000); // 2-second delay so user can see the success message
+}
+ else {
         showErrorPopupFadeInDown(
           `Failed to submit leave: ${result?.message || "Unknown error"}`
         );

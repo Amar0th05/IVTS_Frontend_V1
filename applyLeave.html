@@ -51,6 +51,12 @@
     .hidden {
       display: none !important;
     }
+    .active-toggle.btn-primary {
+  background-color: #5E518B !important;
+  color: #fff !important;
+  border-color: #5E518B !important;
+}
+
     /* .addNewRecord{
       all:unset;
       color: white !important;
@@ -393,21 +399,37 @@
                   </div>
 
                   <!-- Half-Day Option Buttons -->
-                  <div class="col-12" id="halfDayOptionContainer"  style="display: none;">
-                    <div class="row">
-                      <div class="col-6">
-                        <button type="button" class="btn btn-outline-primary py-2" id="firstHalfBtn" data-value="First Half" style="width:100%;">
-                          <i class="fa-solid fa-sun me-2"></i> First Half
-                        </button>
-                      </div>
-                      <div class="col-6">
-                        <button type="button" class="btn btn-outline-primary py-2" id="secondHalfBtn" data-value="Second Half" style="width:100%;">
-                          <i class="fa-solid fa-moon me-1"></i> Second Half
-                        </button>
-                       <input type="hidden" id="halfDayOption" name="halfDayOption">
-                      </div>
-                    </div>
-                  </div>
+                  <!-- Half-Day Option Buttons -->
+<div class="col-12" id="halfDayOptionContainer" style="display: none;">
+  <div class="row">
+    <div class="col-6">
+      <button
+        type="button"
+        class="btn btn-outline-primary py-2"
+        id="firstHalfBtn"
+        data-value="First Half"
+        style="width: 100%;"
+      >
+        <i class="fa-solid fa-sun me-2"></i> First Half
+      </button>
+    </div>
+    <div class="col-6">
+      <button
+        type="button"
+        class="btn btn-outline-primary py-2"
+        id="secondHalfBtn"
+        data-value="Second Half"
+        style="width: 100%;"
+      >
+        <i class="fa-solid fa-moon me-1"></i> Second Half
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ✅ Add this hidden input -->
+<input type="hidden" id="halfDayHiddenInput" name="halfDayOption" />
+
 
                   <!-- Supporting Document -->
                   <div class="col-md-12">
