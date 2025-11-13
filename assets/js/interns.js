@@ -71,14 +71,14 @@ function addRow(data) {
     .draw(false);
 }
 // edit btn
-document.querySelector('#myTable1').addEventListener('click', function (event) {
-    if (event.target.closest('.edit-btn')) {
-        let button = event.target.closest('.edit-btn');
-        Id = button.getAttribute('data-inter-id');  
-        document.querySelector('#tabWrapper').classList.remove('d-none');
-        document.querySelector('#tableCard').style.display = 'none';
-        document.querySelector('.show').classList.add('d-none')
-    }
+document.querySelector("#myTable1").addEventListener("click", function (event) {
+  if (event.target.closest(".edit-btn")) {
+    let button = event.target.closest(".edit-btn");
+    Id = button.getAttribute("data-inter-id");
+    document.querySelector("#tabWrapper").classList.remove("d-none");
+    document.querySelector("#tableCard").style.display = "none";
+    document.querySelector(".show").classList.add("d-none");
+  }
 });
 
 // document.querySelector('#exitButton2').addEventListener('click', function () {
@@ -152,8 +152,8 @@ async function fetchAllData() {
     // ✅ Update the HTML cards
     document.getElementById("totalInternCount").innerText = totalInterns;
     document.getElementById("currentInternCount").innerText = currentInterns;
-    document.getElementById("completedInternCount").innerText =
-      completedInterns;
+    document.getElementById("completedInternCount").innerText =completedInterns;
+  
 
     handlePermission("#username");
   } catch (error) {
@@ -249,6 +249,12 @@ async function loadInternUpdateDetails(Id) {
     // Assume API_ROUTES.getIntern(id) exists and fetches intern-specific data
     const response = await api.getInterById(Id);
     const data = response; // Assuming the intern details are directly in response.data
+function formatDate(dateStr) {
+  console.log("date");
+    if (!dateStr) return '';
+    let date = new Date(dateStr);
+    return date.toISOString().split('T')[0];
+}
 
     console.log("datanew", data);
 
@@ -300,6 +306,7 @@ async function loadInternUpdateDetails(Id) {
 
     // Store ID = 1
     document.getElementById("id1").value = Id || "";
+    document.getElementById("stipendAmount").value= data.stipendAmount;
 
     updateInternDocumentButtons(Id); // Call a function to update document-related buttons/links
     updateInternCertificateButtons(data);
@@ -326,14 +333,21 @@ function formatDate(date, formatType = "short") {
   return d.toLocaleDateString("en-GB"); // Default fallback
 }
 
-function downloadCertificate(FullName, StartDate, EndDate, issueDateStr) {
-  if (!FullName && !StartDate && !EndDate) {
+function downloadCertificate(
+  FullName,
+  StartDate,
+  EndDate,
+  issueDateStr,
+  internId
+) {
+  console.log("vjhvi", FullName, StartDate, EndDate, issueDateStr, internId);
+  if (!FullName && !StartDate && !EndDate && !internId) {
     console.error("❌ No data provided to downloadCertificate()");
     return;
   }
 
-  const refNo = "NTCPWC/INT/001";
-  const formattedIssueDate = formatDate(issueDateStr, "dd-mm-yyyy");
+  const refNo = `NTCPWC/INT/${internId}`;
+  const formattedIssueDate = formatDate(issueDateStr,"dd-mm-yyyy");
 
   const container = document.createElement("div");
   container.style.width = "210mm";
@@ -347,61 +361,91 @@ function downloadCertificate(FullName, StartDate, EndDate, issueDateStr) {
   container.style.overflow = "hidden";
 
   container.innerHTML = `
-    <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px;">
-      <div>
-        <p style="margin:0; font-size:12px; font-weight:bold; margin-bottom:4px; color:#3f51b5;">
-          National Technology Centre for Ports, Waterways and Coasts<br>(NTCPWC)
-        </p>
-        <p style="margin:0; font-size:11px; color:#555;">Indian Institute of Technology Madras, Chennai, India</p>
-        <p style="font-size:11px;margin-top:10px;"><strong>M.J. Muthukumar, Principal Project Officer</strong></p>
-      </div>
-      <img src="assets/images/image.jpeg" alt="NTCPWC Logo" style="height:45px; width:auto;" />
+  <!-- Header Section -->
+  <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:15px;margin-top:25px;">
+    <div style="flex:1;">
+      <p style="margin:0; font-size:12px; font-weight:bold; margin-bottom:4px; color:#3f51b5; line-height:1.3;">
+        National Technology Centre for Ports, Waterways and Coasts<br>(NTCPWC)
+      </p>
+      <p style="margin:0; font-size:11px; color:#555; margin-bottom:8px;">
+        Indian Institute of Technology Madras, Chennai, India
+      </p>
+      <p style="margin:0; font-size:11px; font-weight:bold; margin-top:8px;">
+        M.J. Muthukumar, Principal Project Officer
+      </p>
+    </div>
+    <div style="flex-shrink:0;">
+      <img src="assets/images/image.jpeg" alt="NTCPWC Logo" style="height:50px; width:auto; display:block;" />
+    </div>
+  </div>
+
+  <!-- Reference Number and Date -->
+  <div style="display:flex; justify-content:space-between; margin:15px 0 25px 0; font-size:11px;">
+    <div style="font-weight:bold;">${refNo}</div>
+    <div>${formattedIssueDate}</div>
+  </div>
+
+  <!-- Certificate Title -->
+  <div style="text-align:center; font-size:12px; font-weight:bold; margin:20px 0; text-decoration:underline; letter-spacing:0.5px;">
+    TO WHOM IT MAY CONCERN
+  </div>
+
+  <!-- Body Content -->
+  <div style="line-height:1.7; font-size:11px; text-align:justify; font-family:'Times New Roman', Times, serif;">
+    <p style="margin:0 0 12px 0;">
+      This is to certify that <strong>${FullName}</strong> has successfully completed his/her internship at NTCPWC, IIT Madras from <strong>${formatDate(StartDate)}</strong> to <strong>${formatDate(EndDate)}</strong>.
+    </p>
+    <p style="margin:0 0 12px 0;">
+      During his/her internship, he/she demonstrated exceptional enthusiasm and professionalism in all assigned tasks and a proactive approach to problem-solving.
+    </p>
+    <p style="margin:0 0 12px 0;">
+      His/Her ability to adapt quickly, collaborate effectively with the team, and maintain a consistent work ethic was commendable. He/She delivered high-quality work within timelines and showed a keen interest in learning and contributing beyond the assigned scope.
+    </p>
+    <p style="margin:0 0 12px 0;">
+      We wish him/her the very best for his/her future academic and professional endeavors.
+    </p>
+  </div>
+
+  <!-- Signature Block -->
+  <div style="margin-top:50px; font-size:11px; line-height:1.6;">
+    <p style="margin:0 0 6px 0;">Sincerely,</p>
+    <p style="margin:0 0 20px 0;">For National Technology Centre for Ports, Waterways and Coasts</p>
+
+    <!-- Seal and Signature Images - Corrected alignment -->
+    <div style="text-align: left; margin:20px 0;">
+      <img src="assets/images/seal.png"
+           alt="Official Seal"
+           style="height:90px; width:auto; object-fit:contain; display:block; margin-bottom: 10px;"> <!-- seal on top, with bottom margin -->
+      <img src="assets/images/sign.png"
+           alt="Signature"
+           style="height:45px; width:auto; object-fit:contain; display:block;"> <!-- sign below -->
     </div>
 
-    <div style="display:flex; justify-content:space-between; margin-top:10px; margin-bottom:25px; font-size:11px;">
-      <div style="font-weight:bold;">${refNo}</div>
-      <div>${formattedIssueDate}</div>
+
+    <!-- Signatory Information -->
+    <div style="margin-top:10px;">
+      <p style="margin:0 0 2px 0; font-weight:bold;">M.J. Muthukumar</p>
+      <p style="margin:0; font-size:10.5px;">(Principal Project Officer)</p>
     </div>
+  </div>
 
-    <div style="text-align:center; font-size:12px; font-weight:bold; margin-bottom:15px; text-decoration:underline;">
-      TO WHOM IT MAY CONCERN
-    </div>
-
-    <div style="line-height:1.5; font-size:11px; text-align:justify;">
-      <p>This is to certify that <strong>${FullName}</strong> has successfully completed
-      his/her internship at NTCPWC, IIT Madras from <b>${formatDate(
-        StartDate
-      )}</b> to <b>${formatDate(EndDate)}</b>.</p>
-
-      <p>During his/her internship, he/she demonstrated exceptional enthusiasm and professionalism in all assigned tasks and a proactive approach to problem-solving.</p>
-
-      <p>His/Her ability to adapt quickly, collaborate effectively with the team, and maintain a consistent work ethic was commendable. He/She delivered high-quality work within timelines and showed a keen interest in learning and contributing beyond the assigned scope.</p>
-
-      <p>We wish him/her the very best for his/her future academic and professional endeavors.</p>
-    </div>
-
-    <!-- Signature Block -->
-    <div style="margin-top:25px;font-size:11px;">
-      <p style="margin:0 0 5px 0;">Sincerely,</p>
-      <p style="margin:0 0 20px 0;">For National Technology Centre for Ports Waterways and Coasts</p>
-      
-      <div>
-        <img src="assets/images/seal.png" alt="Seal" style="height:70px;width:auto;object-fit:contain;margin-bottom:5px;">
-        <img src="assets/images/sign.png" alt="Signature" style="height:30px;width:auto;object-fit:contain;margin-bottom:5px;">
-      </div>
-
-      <p style="margin:0;font-weight:bold;">M.J. Muthukumar</p>
-      <p style="margin:0;">(Principal Project Officer)</p>
-    </div>
-
-    <div style="position:absolute;bottom:15mm;left:18mm;right:18mm;padding-top:8px;border-top:1px solid #ddd;font-size:10px;text-align:center;">
-      <p style="margin:0 0 3px 0;"><strong>Tel: 091-44-22578918; Mobile: +91-9080056974</strong></p>
-      <p style="margin:0;"><strong>
-        E-mail: <a href="mailto:jmuthu86@ntcpwc.iitm.ac.in" style="color:#3f51b5;text-decoration:none;">jmuthu86@ntcpwc.iitm.ac.in</a>;
-        Web: <a href="http://www.ntcpwc.iitm.ac.in" style="color:#3f51b5;text-decoration:none;">www.ntcpwc.iitm.ac.in</a>
-      </strong></p>
-    </div>
-  `;
+  <!-- Footer Block -->
+  <div style="position:absolute; bottom:15mm; left:18mm; right:18mm; padding-top:10px; border-top:1px solid #ccc; font-size:10px; text-align:center; line-height:1.5;">
+    <p style="margin:0 0 4px 0;">
+      <strong>Tel:</strong> 091-44-22578918; <strong>Mobile:</strong> +91-9080056974
+    </p>
+    <p style="margin:0;">
+      <strong>E-mail:</strong> 
+      <a href="mailto:jmuthu86@ntcpwc.iitm.ac.in" style="color:#3f51b5; text-decoration:none;">
+        jmuthu86@ntcpwc.iitm.ac.in
+      </a> | 
+      <strong>Web:</strong> 
+      <a href="http://www.ntcpwc.iitm.ac.in" style="color:#3f51b5; text-decoration:none;">
+        www.ntcpwc.iitm.ac.in
+      </a>
+    </p>
+  </div>
+`;
 
   document.body.appendChild(container);
 
@@ -442,20 +486,36 @@ function downloadCertificate(FullName, StartDate, EndDate, issueDateStr) {
     });
 }
 
-function downloadOnboardingCertificate(FullName, StartDate, EndDate, generateDateStr) {
-  if (!FullName && !StartDate && !EndDate) {
+function downloadOnboardingCertificate(
+  FullName,
+  StartDate,
+  EndDate,
+  generateDateStr,
+  internId,
+  stipend
+) {
+  if (!FullName && !StartDate && !EndDate && !internId) {
     console.error("❌ No data provided to downloadOnboardingCertificate()");
     return;
   }
-
-  const refNo = "NTCPWC/INT/001";
+  console.log
+  const refNo = `NTCPWC/INT/${internId}`;
   const formattedGenerateDate = formatDate(generateDateStr, "dd-mm-yyyy");
+  let stipendHTML;
+
+  console.log(stipend,"stipend")
+  if(stipend != 'null'){
+    stipendHTML=`<p style="margin:0 0 12px 0;font-weight:bold;">Stipend Recommended: ₹${stipend}/month</p>`
+  }
+  else{
+    stipendHTML=""
+  }
 
   const container = document.createElement("div");
   container.style.width = "210mm";
   container.style.minHeight = "285mm";
   container.style.background = "#fff";
-  container.style.border = "1px solid #eee";
+  // container.style.border = "1px solid #eee";
   container.style.boxShadow = "0 0 6px rgba(0,0,0,0.1)";
   container.style.padding = "18mm 18mm 20mm 18mm";
   container.style.boxSizing = "border-box";
@@ -465,95 +525,137 @@ function downloadOnboardingCertificate(FullName, StartDate, EndDate, generateDat
 
   container.innerHTML = `
   <div style="
-    width:100%; /* Inner div takes full width of outer container */
-    height:100%; /* Inner div takes full height of outer container */
+    width:100%;
+    height:100%;
     position:relative;
-    font-family:Arial, sans-serif;">
+    font-family:'Arial, sans-serif;
+    padding:0;
+    box-sizing:border-box;">
  
-    <!-- Header -->
-    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;">
-      <div>
-        <p style="margin:0;font-size:12px;line-height:1.3;font-weight:bold;color:#3F51B5;">
-          National Technology Centre for Ports, Waterways and Coasts<br>(NTCPWC)
-        </p>
-        <p style="margin:0;font-size:11px;color:#555;">Indian Institute of Technology Madras, Chennai, India</p>
-        <p style="font-size:11px;margin-top:10px;"><strong>M.J. Muthukumar, Principal Project Officer</strong></p>
-      </div>
-      <img src="assets/images/image.jpeg" alt="NTCPWC Logo" style="height:45px;width:auto;object-fit:contain;">
+    <!-- Header Section -->
+    <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:15px;margin-top:25px;">
+    <div style="flex:1;">
+      <p style="margin:0; font-size:12px; font-weight:bold; margin-bottom:4px; color:#3f51b5; line-height:1.3;">
+        National Technology Centre for Ports, Waterways and Coasts<br>(NTCPWC)
+      </p>
+      <p style="margin:0; font-size:11px; color:#555; margin-bottom:8px;">
+        Indian Institute of Technology Madras, Chennai, India
+      </p>
+      <p style="margin:0; font-size:11px; font-weight:bold; margin-top:8px;">
+        M.J. Muthukumar, Principal Project Officer
+      </p>
     </div>
+    <div style="flex-shrink:0;">
+      <img src="assets/images/image.jpeg" alt="NTCPWC Logo" style="height:50px; width:auto; display:block;" />
+    </div>
+  </div>
  
-    <!-- Ref No and Date -->
-    <div style="display:flex;justify-content:space-between;align-items:center;margin:15px 0 25px 0;font-size:11px;">
-      <div style="font-weight:bold;">${refNo}</div>
-      <div>${formattedGenerateDate}</div>
+    <!-- Reference Number -->
+    <div style="font-size:11px; font-weight:bold; margin-bottom:35px;">
+      ${refNo}
+    </div>
+
+    <!-- Date (Right Aligned) -->
+    <div style="text-align:right; font-size:11px; margin-bottom:25px;">
+      ${formattedGenerateDate}
     </div>
  
     <!-- Title -->
-    <div style="text-align:center;font-size:12px;font-weight:bold;margin-bottom:15px;text-decoration:underline;">
+    <div style="text-align:center; font-size:12px; font-weight:bold; margin-bottom:20px; text-decoration:underline; letter-spacing:0.5px;">
       TO WHOM IT MAY CONCERN
     </div>
  
     <!-- Main Content -->
-    <div style="font-size:11px;line-height:1.6;">
-      <p style="margin:0 0 10px 0;"><strong>Subject:</strong> Internship Confirmation</p>
-      <p style="margin:0 0 10px 0;">Dear Mr./Ms. <strong>${FullName}</strong>,</p>
+    <div style="font-size:11px; line-height:1.7; text-align:justify;">
+      
+      <!-- Subject Line -->
+      <p style="margin:0 0 12px 0;">
+        <strong>Subject:</strong> Internship Confirmation
+      </p>
+      
+      <!-- Salutation -->
+      <p style="margin:0 0 12px 0;">
+        Dear Mr./Ms. <strong>${FullName}</strong>
+      </p>
 
-      <p style="margin:0 0 12px 0;text-align:justify;">
-        We are pleased to confirm that you have been selected for an internship at NTCPWC, IIT Madras. 
+      <!-- Introduction Paragraph -->
+      <p style="margin:0 0 15px 0;">
+        We are pleased to confirm that you have been selected for an internship at NTCPWC, IITM. 
         Below are the details of your internship:
       </p>
 
-      <p style="margin:0 0 6px 0;">Internship Duration: <strong>${formatDate(
-        StartDate
-      )} to ${formatDate(EndDate)}</strong></p>
-      <p style="margin:0 0 6px 0;">Working Hours: <strong>5 Hours / day</strong></p>
-      <p style="margin:0 0 6px 0;">Supervisors:</p>
-      <p style="margin:0 0 4px 40px;"><strong>M.J. Muthukumar</strong></p>
-      <p style="margin:0 0 8px 40px;"><strong>R.S. Pradhiksha</strong></p>
-      <p style="margin:0 0 12px 0;font-weight:bold;">Stipend Recommended: ₹10,000/month</p>
-
-      <p style="margin:0 0 12px 0;text-align:justify;">
-        During your internship, you will work on various projects and gain practical experience. 
-        This will be an excellent opportunity to apply academic knowledge and develop professional skills.
+      <!-- Internship Details -->
+      <p style="margin:0 0 5px 0;">
+        <strong>Internship Duration:</strong> ${formatDate(StartDate)} to ${formatDate(EndDate)}
+      </p>
+      <p style="margin:0 0 5px 0;">
+        <strong>Working Hours:</strong> 5 Hours
+      </p>
+      
+      <p style="margin:0 0 3px 0;">
+        <strong>Supervisors:</strong> M.J. Muthukumar
+      </p>
+      <p style="margin:0 0 0 80px;">
+        S Pradhiksha
       </p>
 
-      <p style="margin:0 0 25px 0;text-align:justify;">
+       
+       ${stipendHTML}
+      
+
+      <!-- Body Paragraphs -->
+      <p style="margin:0 0 12px 0;">
+        During your internship, you will work on various projects and gain practical experience. 
+        We believe this will be an excellent opportunity for you to apply your academic knowledge 
+        and develop your professional skill.
+      </p>
+
+      <p style="margin:0 0 40px 0;">
         We look forward to welcoming you to our team and wish you a productive and rewarding internship.
       </p>
     </div>
 
     <!-- Signature Block -->
-    <div style="margin-top:25px;font-size:11px;">
-      <p style="margin:0 0 5px 0;">Sincerely,</p>
-      <p style="margin:0 0 20px 0;">For National Technology Centre for Ports Waterways and Coasts</p>
-      
-      <div>
-        <img src="assets/images/seal.png" alt="Seal" style="height:60px;width:auto;object-fit:contain;margin-bottom:5px;">
-        <img src="assets/images/sign.png" alt="Signature" style="height:20px;width:auto;object-fit:contain;margin-bottom:5px;">
+    <div style="margin-top:30px; font-size:11px;">
+      <div style="text-align:right; margin-bottom:25px;">
+        <p style="margin:0 0 5px 0; font-weight:bold;">Thanking you</p>
+        <p style="margin:0;">With Regards</p>
       </div>
-      <p style="margin:0;font-weight:bold;">M.J. Muthukumar</p>
-      <p style="margin:0;">(Principal Project Officer)</p>
-    </div>
+      
+      <!-- Signature and Seal (Right Aligned) -->
+      <div style="text-align:right; margin-bottom:10px;">
+        <img src="assets/images/sign.png" alt="Signature" style="height:45px; width:auto; object-fit:contain; margin-bottom:5px; display:inline-block;">
+      </div>
+      <br>
+      
+      <div style="text-align:right;">
+        <img src="assets/images/seal.png" alt="Official Seal" style="height:90px; width:auto; object-fit:contain; display:inline-block;">
+      </div>
+      <!-- Signatory Information -->
+      <div style="margin-bottom:5px; text-align:right;">
+        <p style="margin:0 0 2px 0; font-weight:bold;">M.J. Muthukumar</p>
+        <p style="margin:0; font-size:10.5px;">(Principal Project Officer)</p>
+      </div>
+  </div>
+    
 
-    <!-- Footer -->
-    <div style="
-      position:absolute;
-      bottom:15mm;
-      left:18mm;
-      right:18mm;
-      padding-top:6px;
-      border-top:1px solid #ddd;
-      font-size:10px;
-      text-align:center;">
-      <p style="margin:0 0 3px 0;"><strong>Tel: 091-44-22578918; Mobile: +91-9080056974</strong></p>
-      <p style="margin:0;">
-        <strong>
-          E-mail: <a href="mailto:jmuthu86@ntcpwc.iitm.ac.in" style="color:#3F51B5;text-decoration:none;">jmuthu86@ntcpwc.iitm.ac.in</a>;
-          Web: <a href="http://www.ntcpwc.iitm.ac.in" style="color:#3F51B5;text-decoration:none;">www.ntcpwc.iitm.ac.in</a>
-        </strong>
-      </p>
-    </div>
-  </div>`;
+   <!-- Footer Block -->
+  <div style="position:absolute; bottom:-35mm; left:18mm; right:18mm; padding-top:10px; border-top:1px solid #ccc; font-size:10px; text-align:center; line-height:1.5;">
+    <p style="margin:0 0 4px 0;">
+      <strong>Tel:</strong> 091-44-22578918; <strong>Mobile:</strong> +91-9080056974
+    </p>
+    <p style="margin:0;">
+      <strong>E-mail:</strong> 
+      <a href="mailto:jmuthu86@ntcpwc.iitm.ac.in" style="color:#3f51b5; text-decoration:none;">
+        jmuthu86@ntcpwc.iitm.ac.in
+      </a> | 
+      <strong>Web:</strong> 
+      <a href="http://www.ntcpwc.iitm.ac.in" style="color:#3f51b5; text-decoration:none;">
+        www.ntcpwc.iitm.ac.in
+      </a>
+    </p>
+  </div>
+`;
 
   document.body.appendChild(container);
 
@@ -607,9 +709,8 @@ async function updateInternCertificateButtons(data) {
                   style="background:linear-gradient(to bottom right, #A9A9A9, #A9A9A9); border:none; opacity:0.8; cursor:not-allowed;">
             <i class="fa-solid fa-check me-1"></i> Generated
           </button>
-            <button onclick="downloadCertificate('${data.FullName}', '${
-      data.StartDate
-    }', '${data.EndDate}','${data.Completion_GenerateDate}')"
+            <button onclick="downloadCertificate('${data.FullName}', '${data.StartDate}', '${data.EndDate}',
+    '${data.Completion_GenerateDate}','${data.internId}')"
                   class="btn btn-sm text-white"
                   style="background:linear-gradient(to bottom right, #69A1FF, #1E3FA0); border:none;">
             <i class="fa-solid fa-download me-1"></i> Download
@@ -619,15 +720,11 @@ async function updateInternCertificateButtons(data) {
     // acceptance not generated (for completion)
     let actionHTMLCompletionNotGenerated = `
     <div id='certificateActions_${data.id}'>
-      <button onclick="generateCertificate('${data.FullName}', '${
-      data.StartDate
-    }', '${data.EndDate}','${data.id}')" class="btn btn-sm text-white"
+      <button onclick="generateCertificate('${data.FullName}', '${data.StartDate}', '${data.EndDate}','${data.id}','${data.internId}')" class="btn btn-sm text-white"
                   style="background:linear-gradient(to bottom right, #90EE90, #4CAF50); border:none;">
             <i class="fa-solid fa-check me-1"></i> Generate
           </button>
-            <button onclick="downloadCertificate('${data.FullName}', '${
-      data.StartDate
-    }', '${data.EndDate}','${data.Completion_GenerateDate}')"
+            <button onclick="downloadCertificate('${data.FullName}', '${data.StartDate}', '${data.EndDate}','${data.Completion_GenerateDate}','${data.internId}')"
                   class="btn btn-sm text-white d-none"
                   style="background:linear-gradient(to bottom right, #69A1FF, #1E3FA0); border:none;">
             <i class="fa-solid fa-download me-1"></i> Download
@@ -641,9 +738,7 @@ async function updateInternCertificateButtons(data) {
                   style="background:linear-gradient(to bottom right, #A9A9A9, #A9A9A9); border:none; opacity:0.8; cursor:not-allowed;">
             <i class="fa-solid fa-check me-1"></i> Generated
           </button>
-            <button onclick="downloadOnboardingCertificate('${data.FullName}', '${
-      data.StartDate
-    }', '${data.EndDate}','${data.Acceptance_GenerateDate}')"
+            <button onclick="downloadOnboardingCertificate('${data.FullName}', '${data.StartDate}', '${data.EndDate}','${data.Acceptance_GenerateDate}','${data.internId}','${data.stipendAmount}')"
                   class="btn btn-sm text-white"
                   style="background:linear-gradient(to bottom right, #69A1FF, #1E3FA0); border:none;">
             <i class="fa-solid fa-download me-1"></i> Download
@@ -653,15 +748,11 @@ async function updateInternCertificateButtons(data) {
     // acceptance not generated (for onboarding)
     let actionHTMLOnboardingNotGenerated = `
     <div id='onboardingActions_${data.id}'>
-      <button onclick="generateOnboardingCertificate('${data.FullName}', '${
-      data.StartDate
-    }', '${data.EndDate}','${data.id}')" class="btn btn-sm text-white"
+      <button onclick="generateOnboardingCertificate('${data.FullName}', '${data.StartDate}', '${data.EndDate}','${data.id}','${data.internId}','${data.stipendAmount}')" class="btn btn-sm text-white"
                   style="background:linear-gradient(to bottom right, #90EE90, #4CAF50); border:none;">
             <i class="fa-solid fa-check me-1"></i> Generate
           </button>
-            <button onclick="downloadOnboardingCertificate('${data.FullName}', '${
-      data.StartDate
-    }', '${data.EndDate}','${data.Acceptance_GenerateDate}')"
+            <button onclick="downloadOnboardingCertificate('${data.FullName}', '${data.StartDate}', '${data.EndDate}','${data.Acceptance_GenerateDate}','${data.internId}','${data.stipendAmount}')"
                   class="btn btn-sm text-white d-none"
                   style="background:linear-gradient(to bottom right, #69A1FF, #1E3FA0); border:none;">
             <i class="fa-solid fa-download me-1"></i> Download
@@ -725,12 +816,13 @@ async function updateInternCertificateButtons(data) {
   }
 }
 
-async function generateCertificate(fullName, startDate, endDate, id) {
+async function generateCertificate(fullName, startDate, endDate, id, internId) {
   const container = document.getElementById(`certificateActions_${id}`);
   const btn = container.querySelector("button");
 
   btn.style.background = "linear-gradient(to bottom right, #90EE90, #4CAF50)";
-  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-1"></i> Generating...';
+  btn.innerHTML =
+    '<i class="fa-solid fa-spinner fa-spin me-1"></i> Generating...';
   btn.disabled = true;
 
   try {
@@ -747,7 +839,7 @@ async function generateCertificate(fullName, startDate, endDate, id) {
                 style="background:linear-gradient(to bottom right, #A9A9A9, #A9A9A9); border:none; opacity:0.8; cursor:not-allowed;">
           <i class="fa-solid fa-check me-1"></i> Generated
         </button>
-        <button onclick="downloadCertificate('${fullName}', '${startDate}', '${endDate}','${generateDate}')"
+        <button onclick="downloadCertificate('${fullName}', '${startDate}', '${endDate}','${generateDate}','${internId}')"
                 class="btn btn-sm text-white"
                 style="background:linear-gradient(to bottom right, #69A1FF, #1E3FA0); border:none;">
           <i class="fa-solid fa-download me-1"></i> Download
@@ -773,12 +865,20 @@ async function generateCertificate(fullName, startDate, endDate, id) {
   }
 }
 
-async function generateOnboardingCertificate(fullName, startDate, endDate, id) {
+async function generateOnboardingCertificate(
+  fullName,
+  startDate,
+  endDate,
+  id,
+  internId,
+  stipendAmount
+) {
   const container = document.getElementById(`onboardingActions_${id}`);
   const btn = container.querySelector("button");
 
   btn.style.background = "linear-gradient(to bottom right, #90EE90, #4CAF50)";
-  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-1"></i> Generating...';
+  btn.innerHTML =
+    '<i class="fa-solid fa-spinner fa-spin me-1"></i> Generating...';
   btn.disabled = true;
 
   try {
@@ -794,7 +894,7 @@ async function generateOnboardingCertificate(fullName, startDate, endDate, id) {
                 style="background:linear-gradient(to bottom right, #A9A9A9, #A9A9A9); border:none; opacity:0.8; cursor:not-allowed;">
           <i class="fa-solid fa-check me-1"></i> Generated
         </button>
-        <button onclick="downloadOnboardingCertificate('${fullName}', '${startDate}', '${endDate}','${generateDate}')"
+        <button onclick="downloadOnboardingCertificate('${fullName}', '${startDate}', '${endDate}','${generateDate}','${internId}','${stipendAmount}')"
                 class="btn btn-sm text-white"
                 style="background:linear-gradient(to bottom right, #69A1FF, #1E3FA0); border:none;">
           <i class="fa-solid fa-download me-1"></i> Download
@@ -927,31 +1027,48 @@ async function downloadDocument(internId, docName) {
       }
     );
 
-    const blob = new Blob([res.data], { type: "application/pdf" });
+    // 👇 Auto-detect file type from response headers
+    const contentType = res.headers["content-type"];
+    const isImage = contentType?.includes("image");
+    const fileExtension = isImage ? "png" : "pdf";
+
+    // Create Blob with the correct MIME type
+    const blob = new Blob([res.data], { type: contentType });
     const url = window.URL.createObjectURL(blob);
 
+    // Create and trigger download
     const a = document.createElement("a");
     a.href = url;
-    a.download = `${docName}.pdf`; // always save with .pdf extension
+    a.download = `${docName}.${fileExtension}`;
     document.body.appendChild(a);
     a.click();
     a.remove();
 
     window.URL.revokeObjectURL(url);
 
+    // Sweet alert success message 💫
     Swal.fire({
       icon: "success",
-      title: "Download Complete",
-      text: `${docName} has been downloaded successfully.`,
+      title: "✨ Download Complete!",
+      text: `${docName}.${fileExtension} has been downloaded successfully.`,
       timer: 2000,
       showConfirmButton: false,
     });
-    await updateInternDocumentButtons(internId); // Refresh the buttons to reflect changes
+
+    // Optional: refresh intern document buttons
+    await updateInternDocumentButtons(internId);
   } catch (error) {
-    console.error("Error downloading document:", error);
-    throw new Error("Download failed."); // Re-throw to be caught by handleAction
+    console.error("❌ Error downloading document:", error);
+    Swal.fire({
+      icon: "error",
+      title: "Download Failed",
+      text: "Unable to download the document. Please try again.",
+      timer: 2500,
+      showConfirmButton: false,
+    });
   }
 }
+
 
 async function uploadDocument(internId, docName, file) {
   if (!file) {
@@ -1112,9 +1229,9 @@ updateInternButton.addEventListener("click", async (e) => {
       await fetchAllData();
       handlePermission("#username");
       showSucessPopupFadeInDownLong(responseData.message);
-      setTimeout(() => {
-        location.reload();
-      }, 1000);
+      // setTimeout(() => {
+      //   location.reload();
+      // }, 1000);
     } catch (error) {
       showErrorPopupFadeInDown(
         error.response?.data?.message ||
