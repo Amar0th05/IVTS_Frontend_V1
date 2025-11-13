@@ -159,6 +159,7 @@ const API_ROUTES = {
 
   // leave
   getAllLeave:`/leavesummary`,
+  getAllLeaveById: (EmpId) =>`/leavesummary/${EmpId}`,
 
   // intern leave form
   getEmployees: '/internLeave/getemployees',

@@ -235,7 +235,48 @@ async function fetchAllData() {
         const talent = await api.getAllPersons();
         console.log(talent);
         talent.forEach(person => addRow(person));
-        table.draw();
+        // table.draw();
+        const designations = new Set();
+    const locations = new Set();
+
+    let table;
+    if ($.fn.dataTable.isDataTable("#myTable")) {
+      table = $("#myTable").DataTable();
+      table.clear().draw();
+    } else {
+      table = $("#myTable").DataTable();
+    }
+
+    // Clear existing filters
+    $("#designationFilter").empty().append('<option value="">Show all</option>');
+    $("#locationFilter").empty().append('<option value="">Show all</option>');
+    // $("#statusFilter").empty().append('<option value="">Show all</option>');
+
+    // Add rows and collect unique filter values
+    talent.forEach((talents) => {
+      addRow(talents);
+
+      if (postValue[postfor])
+        designations.add(postValue[postfor]);
+
+      if (talents.location)
+        locations.add(talents.location);
+
+    });
+
+    // Populate filters
+    designations.forEach((designation) => {
+      $("#designationFilter").append(
+        `<option value="${designation}">${designation}</option>`
+      );
+    });
+
+    locations.forEach((location) => {
+      $("#locationFilter").append(
+        `<option value="${location}">${location}</option>`
+      );
+    });
+          table.draw();
     } catch (error) {
         console.error("Error fetching person details:", error);
     }
@@ -269,7 +310,7 @@ function addRow(data) {
   <div class="d-flex align-items-center justify-content-center p-0 edit-btn"
        style="width: 40px; height: 40px; cursor:pointer"
        data-person-id="${data.personID}"
-       data-breadcrumb="Edit Talent">
+       data-breadcrumb="Edit candidate">
     <i class="fa-solid fa-pen-to-square" style="font-size: larger;"></i>
   </div>
 </div>`
@@ -543,10 +584,27 @@ async function fetchDataAndGenerateExcel() {
       $('#myTable_filter input').wrap('<div class="search-wrapper"></div>');
       $('.search-wrapper').prepend('<i class="fa-solid fa-magnifying-glass"></i>');
     }
+    
   });
 
   // Move export buttons into custom div
   datatable.buttons().container().appendTo($('#exportButtons'));
+   $("#designationFilter").on("change", function () {
+    const selectedDesignation = $(this).val();
+    datatable
+      .column(5) // Change to your actual column index for Designation
+      .search(selectedDesignation ?selectedDesignation: '', true, false)
+      .draw();
+  });
+
+  // Location Filter
+  $("#locationFilter").on("change", function () {
+    const selectedLocation = $(this).val();
+    datatable
+      .column(6) // Change to your actual column index for Location
+      .search(selectedLocation ? '^' + selectedLocation + '$' : '', true, false)
+      .draw();
+  });
 
 });
 // ================== Add New Person Button ==================

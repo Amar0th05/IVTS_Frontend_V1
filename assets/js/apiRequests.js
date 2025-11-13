@@ -193,6 +193,8 @@ const api = {
     // Leave
 
     getAllLeave:() => fetchData(API_ROUTES.getAllLeave,"leave"),
+    getAllLeaveById:(EmpId) => fetchData(API_ROUTES.getAllLeaveById(EmpId),"leave"),
+
 
     // insurance staff details
     addInsurance: (payload) => postData(API_ROUTES.addinsurance, payload),
