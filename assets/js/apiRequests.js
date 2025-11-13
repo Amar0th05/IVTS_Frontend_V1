@@ -143,6 +143,7 @@ const api = {
     toggleInternStatus: (id) => putData(`/intern/status/${id}`),
     //reporting manager
     getReportingManger: () => fetchData(API_ROUTES.getReportingManager, "staffid"),
+    updateGenarateDate: (id,data) => postData(API_ROUTES.updateGenerateDate+`/${id}`,{data}),
 
 // talent Pool
     getAllPersons:()=>fetchData(API_ROUTES.getAllTalentpool,"talent"),
@@ -192,6 +193,8 @@ const api = {
     // Leave
 
     getAllLeave:() => fetchData(API_ROUTES.getAllLeave,"leave"),
+    getAllLeaveById:(EmpId) => fetchData(API_ROUTES.getAllLeaveById(EmpId),"leave"),
+
 
     // insurance staff details
     addInsurance: (payload) => postData(API_ROUTES.addinsurance, payload),
@@ -199,7 +202,7 @@ const api = {
     deleteInsurance: (id) => deleteData(API_ROUTES.deleteInsurance(id)),
 
     // intern leave
-    getEmployees: () => fetchData(API_ROUTES.getEmployees, 'employees'),
+    getEmployees: (id) => fetchData(API_ROUTES.getEmployees+`/${id}`, 'employees'),
   getManager: (employeeId) => fetchData(API_ROUTES.getManager(employeeId),'manager'),
   submitLeave: (payload) => postData(API_ROUTES.submitLeave, payload)
 };

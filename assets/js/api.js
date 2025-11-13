@@ -107,6 +107,7 @@ const API_ROUTES = {
     `/intern/${staffId}/documents/${docName}`,
   getActiveintern: `/activeIntern/all`,
   getReportingManager: `/intern/getReportingManager`,
+  updateGenerateDate:`/intern/generateDate`,
 
 
   // talent Pool
@@ -158,6 +159,7 @@ const API_ROUTES = {
 
   // leave
   getAllLeave:`/leavesummary`,
+  getAllLeaveById: (EmpId) =>`/leavesummary/${EmpId}`,
 
   // intern leave form
   getEmployees: '/internLeave/getemployees',

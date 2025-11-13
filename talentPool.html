@@ -620,11 +620,33 @@ back to top button
   <button id="addNew"
     class="btn btn-primary addNewRecord writeElement d-flex align-items-center gap-2 px-sm-4 py-sm-2 rounded-pill shadow"
     data-toggle="modal" data-target="#addNewModal"
-    data-breadcrumb="Add Talent">
+    data-breadcrumb="Add candidate">
     <i class="ti-plus text-white fs-5"></i>
-    <span class="fw-bold">Add New Person</span>
+    <span class="fw-bold">Add New candidate</span>
   </button>
 </div>
+<div class="mb-3 p-3 rounded shadow shadow-sm filter">
+                                <div class="row g-3">
+                                  <div class="col-md-6">
+                                    <div class="d-flex flex-column">
+                                      <label for="designationFilter" class="text-muted small mb-1">Post Applied For</label>
+                                      <select id="designationFilter"
+                                        class="form-select form-select-sm border-secondary">
+                                        <option value="">Show all</option>
+                                      </select>
+                                    </div>
+                                  </div>
+
+                                  <div class="col-md-6">
+                                    <div class="d-flex flex-column">
+                                      <label for="locationFilter" class="text-muted small mb-1">Current Location</label>
+                                      <select id="locationFilter" class="form-select form-select-sm border-secondary">
+                                        <option value="">Show all</option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
 <!-- 
                                                         <div class="row">
                                                             <div id="exportButtons" class="mb-3">

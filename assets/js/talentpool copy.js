@@ -235,7 +235,48 @@ async function fetchAllData() {
         const talent = await api.getAllPersons();
         console.log(talent);
         talent.forEach(person => addRow(person));
-        table.draw();
+        // table.draw();
+        const designations = new Set();
+    const locations = new Set();
+
+    let table;
+    if ($.fn.dataTable.isDataTable("#myTable")) {
+      table = $("#myTable").DataTable();
+      table.clear().draw();
+    } else {
+      table = $("#myTable").DataTable();
+    }
+
+    // Clear existing filters
+    $("#designationFilter").empty().append('<option value="">Show all</option>');
+    $("#locationFilter").empty().append('<option value="">Show all</option>');
+    // $("#statusFilter").empty().append('<option value="">Show all</option>');
+
+    // Add rows and collect unique filter values
+    talent.forEach((talents) => {
+      addRow(talents);
+
+      if (postValue[postfor])
+        designations.add(postValue[postfor]);
+
+      if (talents.location)
+        locations.add(talents.location);
+
+    });
+
+    // Populate filters
+    designations.forEach((designation) => {
+      $("#designationFilter").append(
+        `<option value="${designation}">${designation}</option>`
+      );
+    });
+
+    locations.forEach((location) => {
+      $("#locationFilter").append(
+        `<option value="${location}">${location}</option>`
+      );
+    });
+          table.draw();
     } catch (error) {
         console.error("Error fetching person details:", error);
     }
@@ -269,7 +310,7 @@ function addRow(data) {
   <div class="d-flex align-items-center justify-content-center p-0 edit-btn"
        style="width: 40px; height: 40px; cursor:pointer"
        data-person-id="${data.personID}"
-       data-breadcrumb="Edit Talent">
+       data-breadcrumb="Edit candidate">
     <i class="fa-solid fa-pen-to-square" style="font-size: larger;"></i>
   </div>
 </div>`
@@ -308,42 +349,76 @@ async function loadUpdateDetails(id) {
 }
 // ================== Doument upload, download, delete ==================
 async function loadDocumentTable(personId) {
-    try {
-        const res = await axiosInstance.get(API_ROUTES.getPersonDocumentsMetadata(personId));
-        const documentTableBody = document.getElementById("documentTableBody");
-        documentTableBody.innerHTML = res.data.map(doc => `
-           <tr>
-  <td >${doc.name}</td>
-  <td>
-    ${doc.exists ? `
-  <button onclick="handleAction(this, () => downloadDocument('${personId}','${doc.name}'))" 
-          class="btn btn-sm text-white" 
-          style="background:linear-gradient(to bottom right, #69A1FF, #1E3FA0); border:none;" id="download
-          "
-          >
-    <i class="fa-solid fa-download me-1"></i> Download
-  </button>
-  <button onclick="handleAction(this, () => deleteDocument('${personId}','${doc.name}'))" 
-          class="btn btn-sm text-white ms-3" 
-          style="background:linear-gradient(to bottom right, #EF4444, #B91C1C); border:none;">
-    <i class="fa-solid fa-trash me-1"></i> Delete
-  </button>
-    ` : `
-      <label class="btn btn-sm text-white mb-0" 
-             style="background:linear-gradient(to bottom right, #34D399, #059669); border:none; cursor:pointer;">
-        <i class="fa-solid fa-upload me-1"></i> Upload
-        <input type="file" style="display:none" onchange="handleAction(this.parentElement, () => uploadDocument('${personId}','${doc.name}', this.files[0]))">
-      </label>
-    `}
-  </td>
-</tr>
+  try {
+    const res = await axiosInstance.get(API_ROUTES.getPersonDocumentsMetadata(personId));
+    const documentTableBody = document.getElementById("documentTableBody");
 
+    documentTableBody.innerHTML = res.data
+      .map((doc) => {
+        // ✅ If document exists
+        if (doc.exists) {
+          // Special case for ResumeFile
+          if (doc.name === "ResumeFile") {
+            return `
+              <tr>
+                <td>${doc.name}</td>
+                <td>
+                  <button onclick="handleAction(this, () => downloadDocument('${personId}','${doc.name}'))" 
+                          class="btn btn-sm text-white"
+                          style="background:linear-gradient(to bottom right, #69A1FF, #1E3FA0); border:none;">
+                    <i class="fa-solid fa-download me-1"></i> Download
+                  </button>
 
-        `).join('');
-    } catch(err) {
-        console.error(err);
-    }
+                  <label class="btn btn-sm text-white ms-3 mb-0" 
+                         style="background:linear-gradient(to bottom right, #F59E0B, #B45309); border:none; cursor:pointer;">
+                    <i class="fa-solid fa-repeat me-1"></i> Replace
+                    <input type="file" style="display:none" onchange="handleAction(this.parentElement, () => uploadDocument('${personId}','${doc.name}', this.files[0]))">
+                  </label>
+                </td>
+              </tr>
+            `;
+          }
+
+          // Default (non-ResumeFile)
+          return `
+            <tr>
+              <td>${doc.name}</td>
+              <td>
+                <button onclick="handleAction(this, () => downloadDocument('${personId}','${doc.name}'))" 
+                        class="btn btn-sm text-white" 
+                        style="background:linear-gradient(to bottom right, #69A1FF, #1E3FA0); border:none;">
+                  <i class="fa-solid fa-download me-1"></i> Download
+                </button>
+                <button onclick="handleAction(this, () => deleteDocument('${personId}','${doc.name}'))" 
+                        class="btn btn-sm text-white ms-3" 
+                        style="background:linear-gradient(to bottom right, #EF4444, #B91C1C); border:none;">
+                  <i class="fa-solid fa-trash me-1"></i> Delete
+                </button>
+              </td>
+            </tr>
+          `;
+        }
+
+        // ✅ If document does not exist
+        return `
+          <tr>
+            <td>${doc.name}</td>
+            <td>
+              <label class="btn btn-sm text-white mb-0" 
+                     style="background:linear-gradient(to bottom right, #34D399, #059669); border:none; cursor:pointer;">
+                <i class="fa-solid fa-upload me-1"></i> Upload
+                <input type="file" style="display:none" onchange="handleAction(this.parentElement, () => uploadDocument('${personId}','${doc.name}', this.files[0]))">
+              </label>
+            </td>
+          </tr>
+        `;
+      })
+      .join("");
+  } catch (err) {
+    console.error(err);
+  }
 }
+
 function handleAction(btn, actionFn) {
   let originalHTML = btn.innerHTML;
   btn.disabled = true;
@@ -509,10 +584,27 @@ async function fetchDataAndGenerateExcel() {
       $('#myTable_filter input').wrap('<div class="search-wrapper"></div>');
       $('.search-wrapper').prepend('<i class="fa-solid fa-magnifying-glass"></i>');
     }
+    
   });
 
   // Move export buttons into custom div
   datatable.buttons().container().appendTo($('#exportButtons'));
+   $("#designationFilter").on("change", function () {
+    const selectedDesignation = $(this).val();
+    datatable
+      .column(5) // Change to your actual column index for Designation
+      .search(selectedDesignation ?selectedDesignation: '', true, false)
+      .draw();
+  });
+
+  // Location Filter
+  $("#locationFilter").on("change", function () {
+    const selectedLocation = $(this).val();
+    datatable
+      .column(6) // Change to your actual column index for Location
+      .search(selectedLocation ? '^' + selectedLocation + '$' : '', true, false)
+      .draw();
+  });
 
 });
 // ================== Add New Person Button ==================

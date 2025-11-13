@@ -309,43 +309,39 @@
                                     <!-- Modal Body -->
                                     <div class="modal-body bg-light rounded-3 shadow-sm">
                                       <form id="new-staff-form">
-
+                                    
                                         <!-- 🧑 Basic Information -->
                                         <div class="card border-0 shadow-sm mb-3">
                                           <div class="card-body">
                                             <h6 class="text-sub mb-3 fw-semibold">
                                               <i class="fa-solid fa-user-pen me-2 text-sub"></i> Basic Information
                                             </h6>
-
+                                    
                                             <div class="row">
                                               <div class="col-md-6 mb-3">
                                                 <label for="employeeId" class="form-label fw-semibold">Employee ID <span
                                                     class="text-danger">*</span></label>
-                                                <input type="text" name="employeeId" maxlength="20"
-                                                  class="form-control form-control-sm" id="employeeId"
+                                                <input type="text" name="employeeId" maxlength="20" class="form-control form-control-sm" id="employeeId"
                                                   placeholder="Enter Employee ID" required>
                                               </div>
-
+                                    
                                               <div class="col-md-6 mb-3">
-                                                <label for="staffName" class="form-label fw-semibold">Staff Name <span
-                                                    class="text-danger">*</span></label>
-                                                <input type="text" name="staffName" maxlength="50"
-                                                  class="form-control form-control-sm" id="staffName"
+                                                <label for="staffName" class="form-label fw-semibold">Staff Name <span class="text-danger">*</span></label>
+                                                <input type="text" name="staffName" maxlength="50" class="form-control form-control-sm" id="staffName"
                                                   placeholder="Enter Staff Name" required>
                                               </div>
                                             </div>
-
+                                    
                                             <div class="row">
                                               <div class="col-md-6 mb-3">
-                                                <label for="dateOfBirth" class="form-label fw-semibold">Date of
-                                                  Birth</label>
-                                                <input type="date" name="dateOfBirth"
-                                                  class="form-control form-control-sm" id="dateOfBirth">
+                                                <label for="dateOfBirth" class="form-label fw-semibold">Date of Birth <span
+                                                    class="text-danger">*</span></label>
+                                                <input type="date" name="dateOfBirth" class="form-control form-control-sm" id="dateOfBirth" required>
                                               </div>
-
+                                    
                                               <div class="col-md-6 mb-3">
-                                                <label for="gender" class="form-label fw-semibold">Gender</label>
-                                                <select class="form-control form-control-sm" id="gender" name="gender">
+                                                <label for="gender" class="form-label fw-semibold">Gender <span class="text-danger">*</span></label>
+                                                <select class="form-control form-control-sm" id="gender" name="gender" required>
                                                   <option value="" disabled selected>Select Gender</option>
                                                   <option value="Male">Male</option>
                                                   <option value="Female">Female</option>
@@ -353,100 +349,89 @@
                                                 </select>
                                               </div>
                                             </div>
-
+                                    
                                             <div class="row">
                                               <div class="col-md-6 mb-3">
-                                                <label for="contactNumber" class="form-label fw-semibold">Contact
-                                                  Number</label>
-                                                <input type="tel" maxlength="10" name="contactNumber"
-                                                  class="form-control form-control-sm" id="contactNumber"
-                                                  placeholder="Enter Contact Number">
+                                                <label for="contactNumber" class="form-label fw-semibold">Contact Number <span
+                                                    class="text-danger">*</span></label>
+                                                <input type="tel" maxlength="10" name="contactNumber" class="form-control form-control-sm"
+                                                  id="contactNumber" placeholder="Enter Contact Number" required>
                                               </div>
                                               <div class="col-md-6 mb-3">
-                                                <label for="personalEmail" class="form-label fw-semibold">Personal
-                                                  Email</label>
-                                                <input type="email" name="personalEmail"
-                                                  class="form-control form-control-sm" id="personalEmail"
-                                                  placeholder="Enter Personal Email">
+                                                <label for="personalEmail" class="form-label fw-semibold">Personal Email <span
+                                                    class="text-danger">*</span></label>
+                                                <input type="email" name="personalEmail" class="form-control form-control-sm" id="personalEmail"
+                                                  placeholder="Enter Personal Email" required>
                                               </div>
                                             </div>
-
+                                    
                                             <div class="row">
                                               <div class="col-md-6 mb-3">
-                                                <label for="emergencyContactName"
-                                                  class="form-label fw-semibold">Emergency Contact Name</label>
-                                                <input type="text" name="emergencyContactName"
-                                                  class="form-control form-control-sm" id="emergencyContactName"
-                                                  placeholder="Enter Emergency Contact Name">
+                                                <label for="emergencyContactName" class="form-label fw-semibold">Emergency Contact Name <span
+                                                    class="text-danger">*</span></label>
+                                                <input type="text" name="emergencyContactName" class="form-control form-control-sm"
+                                                  id="emergencyContactName" placeholder="Enter Emergency Contact Name" required>
                                               </div>
-
+                                    
                                               <div class="col-md-6 mb-3">
-                                                <label for="emergencyContactNumber"
-                                                  class="form-label fw-semibold">Emergency Contact Number</label>
-                                                <input type="tel" maxlength="10" name="emergencyContactNumber"
-                                                  class="form-control form-control-sm" id="emergencyContactNumber"
-                                                  placeholder="Enter Emergency Contact Number">
+                                                <label for="emergencyContactNumber" class="form-label fw-semibold">Emergency Contact Number <span
+                                                    class="text-danger">*</span></label>
+                                                <input type="tel" maxlength="10" name="emergencyContactNumber" class="form-control form-control-sm"
+                                                  id="emergencyContactNumber" placeholder="Enter Emergency Contact Number" required>
                                               </div>
                                             </div>
-
+                                    
                                             <div class="row">
                                               <div class="col-md-12">
-                                                <label for="permanentAddress" class="form-label fw-semibold">Permanent
-                                                  Address</label>
-                                                <textarea class="form-control form-control-sm" id="permanentAddress"
-                                                  maxlength="255" name="permanentAddress" rows="2"
-                                                  placeholder="Enter Permanent Address"></textarea>
+                                                <label for="permanentAddress" class="form-label fw-semibold">Permanent Address <span
+                                                    class="text-danger">*</span></label>
+                                                <textarea class="form-control form-control-sm" id="permanentAddress" maxlength="255" name="permanentAddress"
+                                                  rows="2" placeholder="Enter Permanent Address" required></textarea>
                                               </div>
                                             </div>
                                           </div>
                                         </div>
-
+                                    
                                         <!-- 💼 Work Details -->
                                         <div class="card border-0 shadow-sm mb-3">
                                           <div class="card-body">
                                             <h6 class="text-sub mb-3 fw-semibold">
                                               <i class="fa-solid fa-briefcase me-2 text-sub"></i> Work Details
                                             </h6>
-
+                                    
                                             <div class="row">
                                               <div class="col-md-6 mb-3">
-                                                <label for="dateOfJoining" class="form-label fw-semibold">Date of
-                                                  Joining</label>
-                                                <input type="date" name="dateOfJoining"
-                                                  class="form-control form-control-sm" id="dateOfJoining">
+                                                <label for="dateOfJoining" class="form-label fw-semibold">Date of Joining <span
+                                                    class="text-danger">*</span></label>
+                                                <input type="date" name="dateOfJoining" class="form-control form-control-sm" id="dateOfJoining" required>
                                               </div>
                                               <div class="col-md-6 mb-3">
-                                                <label for="workLocation" class="form-label fw-semibold">Work Location
-                                                  <span class="text-danger">*</span></label>
-                                                <input type="text" class="form-control form-control-sm"
-                                                  id="workLocation" name="workLocation" required>
+                                                <label for="workLocation" class="form-label fw-semibold">Work Location <span
+                                                    class="text-danger">*</span></label>
+                                                <input type="text" class="form-control form-control-sm" id="workLocation" name="workLocation" required>
                                               </div>
                                             </div>
-
+                                    
                                             <div class="row">
                                               <div class="col-md-6 mb-3">
-                                                <label for="department"
-                                                  class="form-label fw-semibold">Department</label>
-                                                <input type="text" name="department"
-                                                  class="form-control form-control-sm" id="department"
-                                                  placeholder="Enter Department">
+                                                <label for="department" class="form-label fw-semibold">Department <span class="text-danger">*</span></label>
+                                                <input type="text" name="department" class="form-control form-control-sm" id="department"
+                                                  placeholder="Enter Department" required>
                                               </div>
-
+                                    
                                               <div class="col-md-6 mb-3">
-                                                <label for="designation"
-                                                  class="form-label fw-semibold">Designation</label>
-                                                <input type="text" name="designation"
-                                                  class="form-control form-control-sm" id="designation"
-                                                  placeholder="Enter Designation">
+                                                <label for="designation" class="form-label fw-semibold">Designation <span
+                                                    class="text-danger">*</span></label>
+                                                <input type="text" name="designation" class="form-control form-control-sm" id="designation"
+                                                  placeholder="Enter Designation" required>
                                               </div>
                                             </div>
-
+                                    
                                             <div class="row">
                                               <div class="col-md-6 mb-3">
-                                                <label for="employmentType" class="form-label fw-semibold">Employment
-                                                  Type</label>
-                                                <select class="form-control form-control-sm" id="employmentType"
-                                                  name="employmentType">
+                                                <label for="employmentType" class="form-label fw-semibold">Employment Type <span
+                                                    class="text-danger">*</span></label>
+                                                <select class="form-control form-control-sm" id="employmentType" name="employmentType" required>
                                                   <option value="" disabled selected>Select Employment Type</option>
                                                   <option value="Full-Time">Full-Time</option>
                                                   <option value="Part-Time">Part-Time</option>
@@ -454,97 +439,89 @@
                                                   <option value="Intern">Intern</option>
                                                 </select>
                                               </div>
-
+                                    
                                               <div class="col-md-6 mb-3">
-                                                <label for="reportingManager" class="form-label fw-semibold">Reporting
-                                                  Manager</label>
-                                                <input type="text" name="reportingManager"
-                                                  class="form-control form-control-sm" id="reportingManager"
-                                                  placeholder="Enter Reporting Manager Name">
+                                                <label for="reportingManager" class="form-label fw-semibold">Reporting Manager <span
+                                                    class="text-danger">*</span></label>
+                                                <input type="text" name="reportingManager" class="form-control form-control-sm" id="reportingManager"
+                                                  placeholder="Enter Reporting Manager Name" required>
                                               </div>
                                             </div>
                                           </div>
                                         </div>
-
+                                    
                                         <!-- 🎓 Education & Experience -->
                                         <div class="card border-0 shadow-sm mb-3">
                                           <div class="card-body">
                                             <h6 class="text-sub mb-3 fw-semibold">
-                                              <i class="fa-solid fa-graduation-cap me-2 text-sub"></i> Education &
-                                              Experience
+                                              <i class="fa-solid fa-graduation-cap me-2 text-sub"></i> Education & Experience
                                             </h6>
-
+                                    
                                             <div class="row">
                                               <div class="col-md-6 mb-3">
-                                                <label for="highestQualification" class="form-label fw-semibold">Highest
-                                                  Qualification</label>
-                                                <input type="text" name="highestQualification"
-                                                  class="form-control form-control-sm" id="highestQualification"
-                                                  placeholder="Enter Highest Qualification">
+                                                <label for="highestQualification" class="form-label fw-semibold">Highest Qualification <span
+                                                    class="text-danger">*</span></label>
+                                                <input type="text" name="highestQualification" class="form-control form-control-sm"
+                                                  id="highestQualification" placeholder="Enter Highest Qualification" required>
                                               </div>
                                               <div class="col-md-6 mb-3">
-                                                <label for="specialization"
-                                                  class="form-label fw-semibold">Specialization</label>
-                                                <input type="text" name="specialization"
-                                                  class="form-control form-control-sm" id="specialization"
-                                                  placeholder="Enter Specialization">
+                                                <label for="specialization" class="form-label fw-semibold">Specialization <span
+                                                    class="text-danger">*</span></label>
+                                                <input type="text" name="specialization" class="form-control form-control-sm" id="specialization"
+                                                  placeholder="Enter Specialization" required>
                                               </div>
                                             </div>
-
+                                    
                                             <div class="row">
                                               <div class="col-md-6 mb-3">
-                                                <label for="previousCompany" class="form-label fw-semibold">Previous
-                                                  Company</label>
-                                                <input type="text" name="previousCompany"
-                                                  class="form-control form-control-sm" id="previousCompany"
-                                                  placeholder="Enter Previous Company">
+                                                <label for="previousCompany" class="form-label fw-semibold">Previous Company <span
+                                                    class="text-danger">*</span></label>
+                                                <input type="text" name="previousCompany" class="form-control form-control-sm" id="previousCompany"
+                                                  placeholder="Enter Previous Company" required>
                                               </div>
                                               <div class="col-md-6 mb-3">
-                                                <label for="experience" class="form-label fw-semibold">Total Years of
-                                                  Experience</label>
-                                                <input type="number" name="experience"
-                                                  class="form-control form-control-sm" id="experience"
-                                                  placeholder="Enter Years of Experience">
+                                                <label for="experience" class="form-label fw-semibold">Total Years of Experience <span
+                                                    class="text-danger">*</span></label>
+                                                <input type="number" name="experience" class="form-control form-control-sm" id="experience"
+                                                  placeholder="Enter Years of Experience" required>
                                               </div>
                                             </div>
                                           </div>
                                         </div>
-
+                                    
                                         <!-- 🌐 Links & Assets -->
                                         <div class="card border-0 shadow-sm mb-3">
                                           <div class="card-body">
                                             <h6 class="text-sub mb-3 fw-semibold">
                                               <i class="fa-solid fa-link me-2 text-sub"></i> Links & Assets
                                             </h6>
-
+                                    
                                             <div class="row">
                                               <div class="col-md-6 mb-3">
-                                                <label for="portfolio" class="form-label fw-semibold">LinkedIn / GitHub
-                                                  / Portfolio Link</label>
-                                                <input type="url" name="portfolio" class="form-control form-control-sm"
-                                                  id="portfolio" placeholder="Enter Profile Link">
+                                                <label for="portfolio" class="form-label fw-semibold">LinkedIn / GitHub / Portfolio Link <span
+                                                    class="text-danger">*</span></label>
+                                                <input type="url" name="portfolio" class="form-control form-control-sm" id="portfolio"
+                                                  placeholder="Enter Profile Link" required>
                                               </div>
                                               <div class="col-md-6 mb-3">
-                                                <label for="officeAssets" class="form-label fw-semibold">Office
-                                                  Assets</label>
-                                                <textarea class="form-control form-control-sm" id="officeAssets"
-                                                  name="officeAssets" rows="2"
-                                                  placeholder="Enter Office Assets (Laptop/Desktop/iPad etc.)"></textarea>
+                                                <label for="officeAssets" class="form-label fw-semibold">Office Assets <span
+                                                    class="text-danger">*</span></label>
+                                                <textarea class="form-control form-control-sm" id="officeAssets" name="officeAssets" rows="2"
+                                                  placeholder="Enter Office Assets (Laptop/Desktop/iPad etc.)" required></textarea>
                                               </div>
                                             </div>
-
+                                    
                                             <div class="row">
                                               <div class="col-md-12">
-                                                <label for="officialEmail" class="form-label fw-semibold">Official Email
-                                                  Address</label>
-                                                <input type="email" name="officialEmail"
-                                                  class="form-control form-control-sm" id="officialEmail"
-                                                  placeholder="Enter Official Email Address">
+                                                <label for="officialEmail" class="form-label fw-semibold">Official Email Address <span
+                                                    class="text-danger">*</span></label>
+                                                <input type="email" name="officialEmail" class="form-control form-control-sm" id="officialEmail"
+                                                  placeholder="Enter Official Email Address" required>
                                               </div>
                                             </div>
                                           </div>
                                         </div>
-
+                                    
                                       </form>
                                     </div>
 
@@ -607,244 +584,225 @@
                                   <div class="tab-pane fade show active" id="tab4">
 
                                     <!-- Modal Body -->
-                                    <div class="modal-body bg-light rounded-3 shadow-sm">
-                                      <form id="update-staff-form">
-
-                                        <!-- 🧑 Basic Information -->
-                                        <div class="card border-0 shadow-sm mb-3">
-                                          <div class="card-body">
-                                            <h6 class="text-sub mb-3 fw-semibold">
-                                              <i class="fa-solid fa-user-pen me-2 text-sub"></i> Basic Information
-                                            </h6>
-
-                                            <div class="row">
-                                              <div class="col-md-6 mb-3">
-                                                <label for="employeeId" class="form-label fw-semibold">Employee ID <span
-                                                    class="text-danger">*</span></label>
-                                                <input type="text" name="employeeId" maxlength="20"
-                                                  class="form-control form-control-sm" id="employeeId"
-                                                  placeholder="Enter Employee ID" required readonly>
-                                              </div>
-
-                                              <div class="col-md-6 mb-3">
-                                                <label for="staffName" class="form-label fw-semibold">Staff Name <span
-                                                    class="text-danger">*</span></label>
-                                                <input type="text" name="staffName" maxlength="50"
-                                                  class="form-control form-control-sm" id="staffName"
-                                                  placeholder="Enter Staff Name" required>
-                                              </div>
+                                  <div class="modal-body bg-light rounded-3 shadow-sm">
+                                    <form id="update-staff-form">
+                                  
+                                      <!-- 🧑 Basic Information -->
+                                      <div class="card border-0 shadow-sm mb-3">
+                                        <div class="card-body">
+                                          <h6 class="text-sub mb-3 fw-semibold">
+                                            <i class="fa-solid fa-user-pen me-2 text-sub"></i> Basic Information
+                                          </h6>
+                                  
+                                          <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                              <label for="employeeId" class="form-label fw-semibold">Employee ID <span
+                                                  class="text-danger">*</span></label>
+                                              <input type="text" name="employeeId" maxlength="20" class="form-control form-control-sm" id="employeeId"
+                                                placeholder="Enter Employee ID" required readonly>
                                             </div>
-
-                                            <div class="row">
-                                              <div class="col-md-6 mb-3">
-                                                <label for="dateOfBirth" class="form-label fw-semibold">Date of
-                                                  Birth</label>
-                                                <input type="date" name="dateOfBirth"
-                                                  class="form-control form-control-sm" id="dateOfBirth">
-                                              </div>
-                                              <div class="col-md-6 mb-3">
-                                                <label for="gender" class="form-label fw-semibold">Gender</label>
-                                                <select class="form-control form-control-sm" id="gender" name="gender">
-                                                  <option value="" disabled selected>Select Gender</option>
-                                                  <option value="Male">Male</option>
-                                                  <option value="Female">Female</option>
-                                                  <option value="Other">Other</option>
-                                                </select>
-                                              </div>
+                                  
+                                            <div class="col-md-6 mb-3">
+                                              <label for="staffName" class="form-label fw-semibold">Staff Name <span class="text-danger">*</span></label>
+                                              <input type="text" name="staffName" maxlength="50" class="form-control form-control-sm" id="staffName"
+                                                placeholder="Enter Staff Name" required>
                                             </div>
-
-                                            <div class="row">
-                                              <div class="col-md-6 mb-3">
-                                                <label for="contactNumber" class="form-label fw-semibold">Contact
-                                                  Number</label>
-                                                <input type="tel" maxlength="10" name="contactNumber"
-                                                  class="form-control form-control-sm" id="contactNumber"
-                                                  placeholder="Enter Contact Number">
-                                              </div>
-                                              <div class="col-md-6 mb-3">
-                                                <label for="personalEmail" class="form-label fw-semibold">Personal
-                                                  Email</label>
-                                                <input type="email" name="personalEmail"
-                                                  class="form-control form-control-sm" id="personalEmail"
-                                                  placeholder="Enter Personal Email">
-                                              </div>
+                                          </div>
+                                  
+                                          <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                              <label for="dateOfBirth" class="form-label fw-semibold">Date of Birth <span
+                                                  class="text-danger">*</span></label>
+                                              <input type="date" name="dateOfBirth" class="form-control form-control-sm" id="dateOfBirth" required>
                                             </div>
-
-                                            <div class="row">
-                                              <div class="col-md-6 mb-3">
-                                                <label for="emergencyContactName"
-                                                  class="form-label fw-semibold">Emergency Contact Name</label>
-                                                <input type="text" name="emergencyContactName"
-                                                  class="form-control form-control-sm" id="emergencyContactName"
-                                                  placeholder="Enter Emergency Contact Name">
-                                              </div>
-
-                                              <div class="col-md-6 mb-3">
-                                                <label for="emergencyContactNumber"
-                                                  class="form-label fw-semibold">Emergency Contact Number</label>
-                                                <input type="tel" maxlength="10" name="emergencyContactNumber"
-                                                  class="form-control form-control-sm" id="emergencyContactNumber"
-                                                  placeholder="Enter Emergency Contact Number">
-                                              </div>
+                                  
+                                            <div class="col-md-6 mb-3">
+                                              <label for="gender" class="form-label fw-semibold">Gender <span class="text-danger">*</span></label>
+                                              <select class="form-control form-control-sm" id="gender" name="gender" required>
+                                                <option value="" disabled selected>Select Gender</option>
+                                                <option value="Male">Male</option>
+                                                <option value="Female">Female</option>
+                                                <option value="Other">Other</option>
+                                              </select>
                                             </div>
-
-                                            <div class="row">
-                                              <div class="col-md-12">
-                                                <label for="permanentAddress" class="form-label fw-semibold">Permanent
-                                                  Address</label>
-                                                <textarea class="form-control form-control-sm" id="permanentAddress"
-                                                  maxlength="255" name="permanentAddress" rows="2"
-                                                  placeholder="Enter Permanent Address"></textarea>
-                                              </div>
+                                          </div>
+                                  
+                                          <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                              <label for="contactNumber" class="form-label fw-semibold">Contact Number <span
+                                                  class="text-danger">*</span></label>
+                                              <input type="tel" maxlength="10" name="contactNumber" class="form-control form-control-sm"
+                                                id="contactNumber" placeholder="Enter Contact Number" required>
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                              <label for="personalEmail" class="form-label fw-semibold">Personal Email <span
+                                                  class="text-danger">*</span></label>
+                                              <input type="email" name="personalEmail" class="form-control form-control-sm" id="personalEmail"
+                                                placeholder="Enter Personal Email" required>
+                                            </div>
+                                          </div>
+                                  
+                                          <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                              <label for="emergencyContactName" class="form-label fw-semibold">Emergency Contact Name <span
+                                                  class="text-danger">*</span></label>
+                                              <input type="text" name="emergencyContactName" class="form-control form-control-sm"
+                                                id="emergencyContactName" placeholder="Enter Emergency Contact Name" required>
+                                            </div>
+                                  
+                                            <div class="col-md-6 mb-3">
+                                              <label for="emergencyContactNumber" class="form-label fw-semibold">Emergency Contact Number <span
+                                                  class="text-danger">*</span></label>
+                                              <input type="tel" maxlength="10" name="emergencyContactNumber" class="form-control form-control-sm"
+                                                id="emergencyContactNumber" placeholder="Enter Emergency Contact Number" required>
+                                            </div>
+                                          </div>
+                                  
+                                          <div class="row">
+                                            <div class="col-md-12">
+                                              <label for="permanentAddress" class="form-label fw-semibold">Permanent Address <span
+                                                  class="text-danger">*</span></label>
+                                              <textarea class="form-control form-control-sm" id="permanentAddress" maxlength="255" name="permanentAddress"
+                                                rows="2" placeholder="Enter Permanent Address" required></textarea>
                                             </div>
                                           </div>
                                         </div>
-
-                                        <!-- 💼 Work Details -->
-                                        <div class="card border-0 shadow-sm mb-3">
-                                          <div class="card-body">
-                                            <h6 class="text-sub mb-3 fw-semibold">
-                                              <i class="fa-solid fa-briefcase me-2 text-sub"></i> Work Details
-                                            </h6>
-
-                                            <div class="row">
-                                              <div class="col-md-6 mb-3">
-                                                <label for="dateOfJoining" class="form-label fw-semibold">Date of
-                                                  Joining</label>
-                                                <input type="date" name="dateOfJoining"
-                                                  class="form-control form-control-sm" id="dateOfJoining">
-                                              </div>
-                                              <div class="col-md-6 mb-3">
-                                                <label for="workLocation" class="form-label fw-semibold">Work Location
-                                                  <span class="text-danger">*</span></label>
-                                                <input type="text" name="workLocation"
-                                                  class="form-control form-control-sm" id="workLocation"
-                                                  placeholder="Enter Work Location">
-                                              </div>
+                                      </div>
+                                  
+                                      <!-- 💼 Work Details -->
+                                      <div class="card border-0 shadow-sm mb-3">
+                                        <div class="card-body">
+                                          <h6 class="text-sub mb-3 fw-semibold">
+                                            <i class="fa-solid fa-briefcase me-2 text-sub"></i> Work Details
+                                          </h6>
+                                  
+                                          <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                              <label for="dateOfJoining" class="form-label fw-semibold">Date of Joining <span
+                                                  class="text-danger">*</span></label>
+                                              <input type="date" name="dateOfJoining" class="form-control form-control-sm" id="dateOfJoining" required>
                                             </div>
-
-                                            <div class="row">
-                                              <div class="col-md-6 mb-3">
-                                                <label for="department"
-                                                  class="form-label fw-semibold">Department</label>
-                                                <input type="text" name="department"
-                                                  class="form-control form-control-sm" id="department"
-                                                  placeholder="Enter Department">
-                                              </div>
-                                              <div class="col-md-6 mb-3">
-                                                <label for="designation"
-                                                  class="form-label fw-semibold">Designation</label>
-                                                <input type="text" name="designation"
-                                                  class="form-control form-control-sm" id="designation"
-                                                  placeholder="Enter Designation">
-                                              </div>
+                                            <div class="col-md-6 mb-3">
+                                              <label for="workLocation" class="form-label fw-semibold">Work Location <span
+                                                  class="text-danger">*</span></label>
+                                              <input type="text" name="workLocation" class="form-control form-control-sm" id="workLocation"
+                                                placeholder="Enter Work Location" required>
                                             </div>
-
-                                            <div class="row">
-                                              <div class="col-md-6 mb-3">
-                                                <label for="employmentType" class="form-label fw-semibold">Employment
-                                                  Type</label>
-                                                <select class="form-control form-control-sm" id="employmentType"
-                                                  name="employmentType">
-                                                  <option value="" disabled selected>Select Employment Type</option>
-                                                  <option value="Contract - Full-time">Full-Time</option>
-                                                  <option value="Contract - Part-time">Part-Time</option>
-                                                  <option value="Contract">Contract</option>
-                                                  <option value="Intern">Intern</option>
-                                                </select>
-                                              </div>
-                                              <div class="col-md-6 mb-3">
-                                                <label for="reportingManager" class="form-label fw-semibold">Reporting
-                                                  Manager</label>
-                                                <input type="text" name="reportingManager"
-                                                  class="form-control form-control-sm" id="reportingManager"
-                                                  placeholder="Enter Reporting Manager Name">
-                                              </div>
+                                          </div>
+                                  
+                                          <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                              <label for="department" class="form-label fw-semibold">Department <span class="text-danger">*</span></label>
+                                              <input type="text" name="department" class="form-control form-control-sm" id="department"
+                                                placeholder="Enter Department" required>
+                                            </div>
+                                  
+                                            <div class="col-md-6 mb-3">
+                                              <label for="designation" class="form-label fw-semibold">Designation <span
+                                                  class="text-danger">*</span></label>
+                                              <input type="text" name="designation" class="form-control form-control-sm" id="designation"
+                                                placeholder="Enter Designation" required>
+                                            </div>
+                                          </div>
+                                  
+                                          <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                              <label for="employmentType" class="form-label fw-semibold">Employment Type <span
+                                                  class="text-danger">*</span></label>
+                                              <select class="form-control form-control-sm" id="employmentType" name="employmentType" required>
+                                                <option value="" disabled selected>Select Employment Type</option>
+                                                <option value="Full-Time">Full-Time</option>
+                                                <option value="Part-Time">Part-Time</option>
+                                                <option value="Contract">Contract</option>
+                                                <option value="Intern">Intern</option>
+                                              </select>
+                                            </div>
+                                  
+                                            <div class="col-md-6 mb-3">
+                                              <label for="reportingManager" class="form-label fw-semibold">Reporting Manager <span
+                                                  class="text-danger">*</span></label>
+                                              <input type="text" name="reportingManager" class="form-control form-control-sm" id="reportingManager"
+                                                placeholder="Enter Reporting Manager Name" required>
                                             </div>
                                           </div>
                                         </div>
-
-                                        <!-- 🎓 Education & Experience -->
-                                        <div class="card border-0 shadow-sm mb-3">
-                                          <div class="card-body">
-                                            <h6 class="text-sub mb-3 fw-semibold">
-                                              <i class="fa-solid fa-graduation-cap me-2 text-sub"></i> Education &
-                                              Experience
-                                            </h6>
-
-                                            <div class="row">
-                                              <div class="col-md-6 mb-3">
-                                                <label for="highestQualification" class="form-label fw-semibold">Highest
-                                                  Qualification</label>
-                                                <input type="text" name="highestQualification"
-                                                  class="form-control form-control-sm" id="highestQualification"
-                                                  placeholder="Enter Highest Qualification">
-                                              </div>
-                                              <div class="col-md-6 mb-3">
-                                                <label for="specialization"
-                                                  class="form-label fw-semibold">Specialization</label>
-                                                <input type="text" name="specialization"
-                                                  class="form-control form-control-sm" id="specialization"
-                                                  placeholder="Enter Specialization">
-                                              </div>
+                                      </div>
+                                  
+                                      <!-- 🎓 Education & Experience -->
+                                      <div class="card border-0 shadow-sm mb-3">
+                                        <div class="card-body">
+                                          <h6 class="text-sub mb-3 fw-semibold">
+                                            <i class="fa-solid fa-graduation-cap me-2 text-sub"></i> Education & Experience
+                                          </h6>
+                                  
+                                          <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                              <label for="highestQualification" class="form-label fw-semibold">Highest Qualification <span
+                                                  class="text-danger">*</span></label>
+                                              <input type="text" name="highestQualification" class="form-control form-control-sm"
+                                                id="highestQualification" placeholder="Enter Highest Qualification" required>
                                             </div>
-
-                                            <div class="row">
-                                              <div class="col-md-6 mb-3">
-                                                <label for="previousCompany" class="form-label fw-semibold">Previous
-                                                  Company</label>
-                                                <input type="text" name="previousCompany"
-                                                  class="form-control form-control-sm" id="previousCompany"
-                                                  placeholder="Enter Previous Company">
-                                              </div>
-                                              <div class="col-md-6 mb-3">
-                                                <label for="experience" class="form-label fw-semibold">Total Years of
-                                                  Experience</label>
-                                                <input type="text" name="experience"
-                                                  class="form-control form-control-sm" id="experience"
-                                                  placeholder="Enter Years of Experience">
-                                              </div>
+                                            <div class="col-md-6 mb-3">
+                                              <label for="specialization" class="form-label fw-semibold">Specialization <span
+                                                  class="text-danger">*</span></label>
+                                              <input type="text" name="specialization" class="form-control form-control-sm" id="specialization"
+                                                placeholder="Enter Specialization" required>
+                                            </div>
+                                          </div>
+                                  
+                                          <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                              <label for="previousCompany" class="form-label fw-semibold">Previous Company <span
+                                                  class="text-danger">*</span></label>
+                                              <input type="text" name="previousCompany" class="form-control form-control-sm" id="previousCompany"
+                                                placeholder="Enter Previous Company" required>
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                              <label for="experience" class="form-label fw-semibold">Total Years of Experience <span
+                                                  class="text-danger">*</span></label>
+                                              <input type="text" name="experience" class="form-control form-control-sm" id="experience"
+                                                placeholder="Enter Years of Experience" required>
                                             </div>
                                           </div>
                                         </div>
-
-                                        <!-- 🌐 Links & Assets -->
-                                        <div class="card border-0 shadow-sm mb-3">
-                                          <div class="card-body">
-                                            <h6 class="text-sub mb-3 fw-semibold">
-                                              <i class="fa-solid fa-link me-2 text-sub"></i> Links & Assets
-                                            </h6>
-
-                                            <div class="row">
-                                              <div class="col-md-6 mb-3">
-                                                <label for="portfolio" class="form-label fw-semibold">LinkedIn / GitHub
-                                                  / Portfolio Link</label>
-                                                <input type="url" name="portfolio" class="form-control form-control-sm"
-                                                  id="portfolio" placeholder="Enter Profile Link">
-                                              </div>
-                                              <div class="col-md-6 mb-3">
-                                                <label for="officeAssets" class="form-label fw-semibold">Office
-                                                  Assets</label>
-                                                <textarea class="form-control form-control-sm" id="officeAssets"
-                                                  name="officeAssets" rows="2"
-                                                  placeholder="Enter Office Assets (Laptop/Desktop/iPad etc.)"></textarea>
-                                              </div>
+                                      </div>
+                                  
+                                      <!-- 🌐 Links & Assets -->
+                                      <div class="card border-0 shadow-sm mb-3">
+                                        <div class="card-body">
+                                          <h6 class="text-sub mb-3 fw-semibold">
+                                            <i class="fa-solid fa-link me-2 text-sub"></i> Links & Assets
+                                          </h6>
+                                  
+                                          <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                              <label for="portfolio" class="form-label fw-semibold">LinkedIn / GitHub / Portfolio Link <span
+                                                  class="text-danger">*</span></label>
+                                              <input type="url" name="portfolio" class="form-control form-control-sm" id="portfolio"
+                                                placeholder="Enter Profile Link" required>
                                             </div>
-
-                                            <div class="row">
-                                              <div class="col-md-12">
-                                                <label for="officialEmail" class="form-label fw-semibold">Official Email
-                                                  Address</label>
-                                                <input type="email" name="officialEmail"
-                                                  class="form-control form-control-sm" id="officialEmail"
-                                                  placeholder="Enter Official Email Address">
-                                              </div>
+                                            <div class="col-md-6 mb-3">
+                                              <label for="officeAssets" class="form-label fw-semibold">Office Assets <span
+                                                  class="text-danger">*</span></label>
+                                              <textarea class="form-control form-control-sm" id="officeAssets" name="officeAssets" rows="2"
+                                                placeholder="Enter Office Assets (Laptop/Desktop/iPad etc.)" required></textarea>
+                                            </div>
+                                          </div>
+                                  
+                                          <div class="row">
+                                            <div class="col-md-12">
+                                              <label for="officialEmail" class="form-label fw-semibold">Official Email Address <span
+                                                  class="text-danger">*</span></label>
+                                              <input type="email" name="officialEmail" class="form-control form-control-sm" id="officialEmail"
+                                                placeholder="Enter Official Email Address" required>
                                             </div>
                                           </div>
                                         </div>
+                                      </div>
+                                  
+                                    </form>
+                                  </div>
 
-                                      </form>
-                                    </div>
 
                                     <!-- Modal Footer -->
                                     <div class="modal-footer bg-white border-top">

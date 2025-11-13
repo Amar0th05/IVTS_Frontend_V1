@@ -519,23 +519,12 @@
                                         <option value="" selected disabled>Select Leave Type</option>
                                         <option value="CL">Casual Leave (CL)</option>
                                         <option value="SL">Sick Leave (SL)</option>
-                                        <option value="EL">Earned Leave (EL)</option>
-                                        <option value="Comp-off">Compensatory Off (Comp-off)</option>
                                         <option value="Other">Other</option>
                                     </select>
                                 </div>
                                 <div class="invalid-feedback">Leave Type is required.</div>
                             </div>
 
-                            <div class="col-md-6 mb-4" id="otherReasonContainer" style="display: none;">
-                                <label for="otherReason" class="form-label">Please specify</label>
-                                <div class="input-group">
-                                    <span class="input-group-text"><i class="fas fa-pencil-alt"></i></span>
-                                    <input type="text" id="otherReason" name="otherReason" class="form-control"
-                                        placeholder="Enter other reason for leave">
-                                </div>
-                                <div class="invalid-feedback">Please specify the reason.</div>
-                            </div>
 
                             <div class="col-md-6 mb-4">
                                 <label for="startDate" class="form-label required-field">Leave Start Date</label>
@@ -553,43 +542,54 @@
                                     <input type="date" class="form-control" id="endDate" name="endDate" required>
                                 </div>
                             </div>
+                            <div class="col-md-6">
+                    <label for="totalDays" class="form-label fw-semibold">Total Days</label>
+                    <input type="text" class="form-control form-control-sm" id="totalDays" name="totalDays" readonly>
+                  </div>
 
 
 
-                            <div class="col-md-6 mb-4">
-                                <label for="totalDays" class="form-label">Total Days</label>
-                                <div class="input-group">
-                                    <span class="input-group-text"><i class="fas fa-calculator"></i></span>
-                                    <input type="text" class="form-control" id="totalDays" name="totalDays" readonly>
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3" id="halfDayCheckboxContainer" style="display:none;">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="requestHalfDay">
-                                    <label class="form-check-label" for="requestHalfDay">
-                                        I want to apply for a half-day leave
-                                    </label>
-                                </div>
-                            </div>
+                        <div class="col-12" id="halfDayCheckboxContainer" style="display: none;">
+                    <div class="form-check pt-1">
+                      <input class="form-check-input" type="checkbox" id="requestHalfDay">
+                      <label class="form-label fw-semibold" for="requestHalfDay">
+                        Apply for Half-Day Leave <span class="fw-normal text-muted">(Applies only to single-day leaves)</span>
+                      </label>
+                    </div>
+                  </div>
 
+                  <!-- Half-Day Option Buttons -->
+                  <!-- Half-Day Option Buttons -->
+<div class="col-12" id="halfDayOptionContainer" style="display: none;">
+  <div class="row">
+    <div class="col-6">
+      <button
+        type="button"
+        class="btn btn-outline-primary py-2"
+        id="firstHalfBtn"
+        data-value="First Half"
+        style="width: 100%;"
+      >
+        <i class="fa-solid fa-sun me-2"></i> First Half
+      </button>
+    </div>
+    <div class="col-6">
+      <button
+        type="button"
+        class="btn btn-outline-primary py-2"
+        id="secondHalfBtn"
+        data-value="Second Half"
+        style="width: 100%;"
+      >
+        <i class="fa-solid fa-moon me-1"></i> Second Half
+      </button>
+    </div>
+  </div>
+</div>
 
-                            <div class="row" id="halfDayOptionContainer" style="display: none;">
-                                <div class="col-md-12 mb-4">
-                                    <label class="form-label required-field">Half-Day Option</label>
-                                    <div class="half-day-options d-flex">
-                                        <button type="button" class="btn btn-outline-primary flex-fill me-2"
-                                            id="firstHalfBtn" data-value="First Half">
-                                            <i class="fas fa-sun me-2"></i> First Half
-                                        </button>
-                                        <button type="button" class="btn btn-outline-primary flex-fill"
-                                            id="secondHalfBtn" data-value="Second Half">
-                                            <i class="fas fa-moon me-2"></i> Second Half
-                                        </button>
-                                        <input type="hidden" id="halfDayOption" name="halfDayOption" required>
-                                    </div>
-                                    <div class="invalid-feedback">Please select a half-day option.</div>
-                                </div>
-                            </div>
+<!-- ✅ Add this hidden input -->
+<input type="hidden" id="halfDayHiddenInput" name="halfDayOption" />
+
 
                             <div class="form-group mb-4">
                                 <label for="reason" class="form-label required-field">Reason for Leave</label>
@@ -612,8 +612,9 @@
                             </div>
                             <div class="row mt-4">
                                 <div class="col-md-12 text-center">
-                                    <button type="submit" id="submitBtn" class="btn btn-primary">Submit</button>
-                                </div>
+<button type="submit" class="btn btn-success btn-sm text-white" id="submitBtn">
+                <i class="fa-solid fa-paper-plane me-1"></i> Submit Leave
+              </button>                                </div>
                             </div>
                         </div>
                     </div>
