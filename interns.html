@@ -790,7 +790,7 @@
                                           <!-- ID Proof File Upload -->
                                           <div class="col-md-6 mb-4">
                                             <label for="idProofFile" class="form-label fw-semibold">
-                                              ID Proof <span class="text-danger">*</span>
+                                              Aadhar Proof <span class="text-danger">*</span>
                                             </label>
                                             <div
                                               class="d-flex align-items-center border border-secondary rounded overflow-hidden">
@@ -1120,13 +1120,15 @@
                                                 </label>
                                                 <input type="date" name="StartDate" class="form-control form-control-sm" id="StartDate">
                                               </div>
+                                        
                                               <div class="col-md-4 mb-3">
                                                 <label for="EndDate" class="form-label fw-semibold">
                                                   Actual End Date
                                                 </label>
                                                 <input type="date" name="EndDate" class="form-control form-control-sm" id="EndDate">
                                               </div>
-                                              <div class="col-md-4">
+                                        
+                                              <div class="col-md-4 mb-3">
                                                 <div class="form-group">
                                                   <label for="reportingManager">Reporting Manager <span class="text-danger">*</span></label>
                                                   <select id="reportingManager" name="reportingManager" class="form-control form-control-sm userName"
@@ -1137,17 +1139,14 @@
                                               </div>
                                             </div>
                                         
-                                            <!-- 🆕 New Row for Stipend -->
+                                            <!-- ✅ Added Stipend Row -->
                                             <div class="row">
                                               <div class="col-md-4 mb-3">
-                                                <label for="Stipend" class="form-label fw-semibold">
-                                                  Stipend
-                                                </label>
-                                                <input type="text" name="Stipend" class="form-control form-control-sm" id="Stipend"
-                                                  placeholder="Enter Stipend Amount">
+                                                <label for="stipendAmount" class="form-label fw-semibold">Stipend</label>
+                                                <input type="number" name="stipendAmount" class="form-control form-control-sm" id="stipendAmount"
+                                                  placeholder="Enter stipend amount">
                                               </div>
                                             </div>
-                                            <!-- End New Row -->
                                         
                                           </div>
                                         </div>
@@ -1212,16 +1211,17 @@
                                   </div>
                                 </div>
 
-        <!-- Modal Footer -->
-        <div class="modal-footer bg-white border-top">
-            <button type="button" class="btn btn-red btn-sm" data-dismiss="modal" id="exitButton2">
-                <i class="fas fa-times me-1"></i>Exit
-            </button>
-            <button type="button" id="update_intern_btn" class="btn btn-green btn-sm writeElement">
-                <i class="fas fa-save me-1"></i>Update
-            </button>
-        </div>
-         <!-- 🌟 Stylish Confirmation Modal -->
+                                <!-- Modal Footer -->
+                                <div class="modal-footer bg-white border-top">
+                                  <button type="button" class="btn btn-red btn-sm" data-dismiss="modal" id="exitButton2">
+                                    <i class="fas fa-times me-1"></i>Exit
+                                  </button>
+                                  <button type="button" id="update_intern_btn"
+                                    class="btn btn-green btn-sm writeElement">
+                                    <i class="fas fa-save me-1"></i>Update
+                                  </button>
+                                </div>
+                                  <!-- 🌟 Stylish Confirmation Modal -->
                                 <div class="modal fade" id="confirmExitModal" tabindex="-1" aria-labelledby="confirmExitLabel" aria-hidden="true">
                                   <div class="modal-dialog modal-dialog-centered" style="max-width: 400px;">
                                     <div class="modal-content"
@@ -1253,8 +1253,8 @@
                                     </div>
                                   </div>
                                 </div>
-    </div>
-</div>
+                              </div>
+                            </div>
                             <!---------------------------------------------------------------------------------------------UPDATE-MODAL-END---------------------------------------------------->
 
 
