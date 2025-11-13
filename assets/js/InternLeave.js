@@ -334,82 +334,76 @@ document.addEventListener('DOMContentLoaded', function () {
     form.addEventListener('submit', async function (e) {
         e.preventDefault();
 
-        // --- Validate Step Before Submission ---
         if (typeof validateStep === 'function' && !validateStep()) {
             alert("Please correct the errors before submitting.");
             return;
         }
 
-        // --- Disable submit button and show spinner ---
         submitBtn.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Submitting...`;
         submitBtn.disabled = true;
 
         try {
             const formData = new FormData(form);
 
-            // --- Get selected employee from Select2 ---
-            const selectedValue = $('.userName').val(); // safer with Select2
+            // --- Get selected employee ---
+            const selectedValue = $('.userName').val();
             if (!selectedValue || !selectedValue.includes('-')) {
                 alert("Please select a valid employee from the dropdown.");
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = "Submit";
+                resetButton();
                 return;
             }
 
-            const parts = selectedValue.split('-');
-            const employeeId = parts[0]?.trim();
-            const employeeName = parts[1]?.trim();
-
+            const [employeeId, employeeName] = selectedValue.split('-').map(v => v.trim());
             if (!employeeId || !employeeName) {
                 alert("Invalid employee selection.");
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = "Submit";
+                resetButton();
                 return;
             }
 
-            // --- Validate dates ---
             const startDate = formData.get('startDate');
             const endDate = formData.get('endDate');
+
             if (new Date(endDate) < new Date(startDate)) {
                 alert("End date must be on or after the start date.");
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = "Submit";
+                resetButton();
                 return;
             }
 
-            // --- Calculate total days if not already calculated ---
-           let totalDays = parseFloat(formData.get("totalDays"));
-      if (!totalDays || totalDays < 0.5) {
-        const start = new Date(startDate);
-        const end = new Date(endDate);
-        totalDays = Math.floor((end - start) / (1000 * 3600 * 24)) + 1;
-      }
+            let totalDays = parseFloat(formData.get("totalDays"));
+            if (!totalDays || totalDays < 0.5) {
+                const start = new Date(startDate);
+                const end = new Date(endDate);
+                totalDays = Math.floor((end - start) / (1000 * 3600 * 24)) + 1;
+            }
 
-            // --- Build payload for backend ---
-            const payload = {
-                
-                    employeeId,
-                    employeeName,
-                    ManagerName: formData.get('ManagerName')?.trim() || "",
-                    leaveType: formData.get('leaveType')?.trim() || "",
-                    startDate,
-                    endDate,
-                    totalDays,
-                    halfDayOption: formData.get('halfDayOption') || null,
-                    leaveReason: formData.get('reason')?.trim() || "",
-                    supportingDocument: null // Add file handling if needed
-                
-            };
+            // --- Get file ---
+            const documentFile = document.getElementById("documentUpload").files[0];
 
-              const baseUrl = getbaseurl();
-            // --- POST request to backend ---
+            // --- Build FormData payload ---
+            const payload = new FormData();
+            payload.append("employeeId", employeeId);
+            payload.append("employeeName", employeeName);
+            payload.append("ManagerName", formData.get('ManagerName')?.trim() || "");
+            payload.append("leaveType", formData.get('leaveType')?.trim() || "");
+            payload.append("startDate", startDate);
+            payload.append("endDate", endDate);
+            payload.append("totalDays", totalDays);
+            payload.append("halfDayOption", formData.get('halfDayOption') || "");
+            payload.append("leaveReason", formData.get('reason')?.trim() || "");
+            if (documentFile) {
+                payload.append("documentUpload", documentFile);
+            }
+
+            const baseUrl = getbaseurl();
+
+            // --- POST FormData (no headers needed) ---
             const response = await fetch(`${baseUrl}/internLeave/request`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload)
-});
+                method: "POST",
+                body: payload
+            });
 
             const result = await response.json();
+
             if (response.ok) {
                 const container = document.querySelector(".container.shadow-lg");
                 container.innerHTML = `
@@ -431,17 +425,12 @@ document.addEventListener('DOMContentLoaded', function () {
             console.error("Error submitting leave:", err);
             alert(`Submission failed: ${err.message}`);
         } finally {
+            resetButton();
+        }
+
+        function resetButton() {
             submitBtn.disabled = false;
             submitBtn.innerHTML = "Submit";
         }
     });
 });
-
-
-
-
-
-
-
-
-
