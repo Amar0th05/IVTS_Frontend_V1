@@ -623,14 +623,15 @@ function downloadOnboardingCertificate(
       </div>
       
       <!-- Signature and Seal (Right Aligned) -->
-      <div style="text-align:right; margin-bottom:10px;">
+    
+      <div style="text-align:right;margin-bottom:10px;">
+        <img src="assets/images/seal.png" alt="Official Seal" style="height:90px; width:auto; object-fit:contain; display:inline-block;">
+      </div>
+
+      <div style="text-align:right; ">
         <img src="assets/images/sign.png" alt="Signature" style="height:45px; width:auto; object-fit:contain; margin-bottom:5px; display:inline-block;">
       </div>
       <br>
-      
-      <div style="text-align:right;">
-        <img src="assets/images/seal.png" alt="Official Seal" style="height:90px; width:auto; object-fit:contain; display:inline-block;">
-      </div>
       <!-- Signatory Information -->
       <div style="margin-bottom:5px; text-align:right;">
         <p style="margin:0 0 2px 0; font-weight:bold;">M.J. Muthukumar</p>
@@ -640,7 +641,7 @@ function downloadOnboardingCertificate(
     
 
    <!-- Footer Block -->
-  <div style="position:absolute; bottom:-35mm; left:18mm; right:18mm; padding-top:10px; border-top:1px solid #ccc; font-size:10px; text-align:center; line-height:1.5;">
+  <div style="position:absolute; bottom:-32mm; left:18mm; right:18mm; padding-top:10px; border-top:1px solid #ccc; font-size:10px; text-align:center; line-height:1.5;">
     <p style="margin:0 0 4px 0;">
       <strong>Tel:</strong> 091-44-22578918; <strong>Mobile:</strong> +91-9080056974
     </p>
