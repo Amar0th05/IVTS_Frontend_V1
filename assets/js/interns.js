@@ -517,7 +517,7 @@ function downloadOnboardingCertificate(
   container.style.background = "#fff";
   // container.style.border = "1px solid #eee";
   container.style.boxShadow = "0 0 6px rgba(0,0,0,0.1)";
-  container.style.padding = "18mm 18mm 20mm 18mm";
+  container.style.padding = "14mm 18mm 14mm 18mm";
   container.style.boxSizing = "border-box";
   container.style.position = "relative";
   container.style.fontFamily = "Arial, sans-serif";
