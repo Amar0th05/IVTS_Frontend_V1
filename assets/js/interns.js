@@ -45,7 +45,7 @@ function addRow(data) {
 
   table.row
     .add([
-      data.Id,
+      data.internId,
       data.FullName,
       formatDate(data.DateOfBirth),
       data.MobileNumber,
