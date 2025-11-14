@@ -358,7 +358,7 @@ async function loadDocumentTable(personId) {
         // ✅ If document exists
         if (doc.exists) {
           // Special case for ResumeFile
-          if (doc.name === "ResumeFile") {
+          if (doc.name === "Resume") {
             return `
               <tr>
                 <td>${doc.name}</td>
