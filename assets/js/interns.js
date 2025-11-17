@@ -152,8 +152,8 @@ async function fetchAllData() {
     // ✅ Update the HTML cards
     document.getElementById("totalInternCount").innerText = totalInterns;
     document.getElementById("currentInternCount").innerText = currentInterns;
-    document.getElementById("completedInternCount").innerText =completedInterns;
-  
+    document.getElementById("completedInternCount").innerText =
+      completedInterns;
 
     handlePermission("#username");
   } catch (error) {
@@ -230,9 +230,9 @@ function validateForm(formData) {
 
 function formatDate(dateStr) {
   console.log("date");
-    if (!dateStr) return '';
-    let date = new Date(dateStr);
-    return date.toISOString().split('T')[0];
+  if (!dateStr) return "";
+  let date = new Date(dateStr);
+  return date.toISOString().split("T")[0];
 }
 
 // edit btn
@@ -249,12 +249,12 @@ async function loadInternUpdateDetails(Id) {
     // Assume API_ROUTES.getIntern(id) exists and fetches intern-specific data
     const response = await api.getInterById(Id);
     const data = response; // Assuming the intern details are directly in response.data
-function formatDate(dateStr) {
-  console.log("date");
-    if (!dateStr) return '';
-    let date = new Date(dateStr);
-    return date.toISOString().split('T')[0];
-}
+    function formatDate(dateStr) {
+      console.log("date");
+      if (!dateStr) return "";
+      let date = new Date(dateStr);
+      return date.toISOString().split("T")[0];
+    }
 
     console.log("datanew", data);
 
@@ -306,7 +306,7 @@ function formatDate(dateStr) {
 
     // Store ID = 1
     document.getElementById("id1").value = Id || "";
-    document.getElementById("stipendAmount").value= data.stipendAmount;
+    document.getElementById("stipendAmount").value = data.stipendAmount;
 
     updateInternDocumentButtons(Id); // Call a function to update document-related buttons/links
     updateInternCertificateButtons(data);
@@ -347,7 +347,7 @@ function downloadCertificate(
   }
 
   const refNo = `NTCPWC/INT/${internId}`;
-  const formattedIssueDate = formatDate(issueDateStr,"dd-mm-yyyy");
+  const formattedIssueDate = formatDate(issueDateStr, "dd-mm-yyyy");
 
   const container = document.createElement("div");
   container.style.width = "210mm";
@@ -393,7 +393,9 @@ function downloadCertificate(
   <!-- Body Content -->
   <div style="line-height:1.7; font-size:11px; text-align:justify; font-family:'Times New Roman', Times, serif;">
     <p style="margin:0 0 12px 0;">
-      This is to certify that <strong>${FullName}</strong> has successfully completed his/her internship at NTCPWC, IIT Madras from <strong>${formatDate(StartDate)}</strong> to <strong>${formatDate(EndDate)}</strong>.
+      This is to certify that <strong>${FullName}</strong> has successfully completed his/her internship at NTCPWC, IIT Madras from <strong>${formatDate(
+    StartDate
+  )}</strong> to <strong>${formatDate(EndDate)}</strong>.
     </p>
     <p style="margin:0 0 12px 0;">
       During his/her internship, he/she demonstrated exceptional enthusiasm and professionalism in all assigned tasks and a proactive approach to problem-solving.
@@ -498,17 +500,16 @@ function downloadOnboardingCertificate(
     console.error("❌ No data provided to downloadOnboardingCertificate()");
     return;
   }
-  console.log
+  console.log;
   const refNo = `NTCPWC/INT/${internId}`;
   const formattedGenerateDate = formatDate(generateDateStr, "dd-mm-yyyy");
   let stipendHTML;
 
-  console.log(stipend,"stipend")
-  if(stipend != 'null'){
-    stipendHTML=`<p style="margin:0 0 12px 0;font-weight:bold;">Stipend Recommended: ₹${stipend}/month</p>`
-  }
-  else{
-    stipendHTML=""
+  console.log(stipend, "stipend");
+  if (stipend != "null") {
+    stipendHTML = `<p style="margin:0 0 12px 0;font-weight:bold;">Stipend Recommended: ₹${stipend}/month</p>`;
+  } else {
+    stipendHTML = "";
   }
 
   const container = document.createElement("div");
@@ -586,7 +587,9 @@ function downloadOnboardingCertificate(
 
       <!-- Internship Details -->
       <p style="margin:0 0 5px 0;">
-        <strong>Internship Duration:</strong> ${formatDate(StartDate)} to ${formatDate(EndDate)}
+        <strong>Internship Duration:</strong> ${formatDate(
+          StartDate
+        )} to ${formatDate(EndDate)}
       </p>
       <p style="margin:0 0 5px 0;">
         <strong>Working Hours:</strong> 5 Hours
@@ -623,14 +626,17 @@ function downloadOnboardingCertificate(
       </div>
       
       <!-- Signature and Seal (Right Aligned) -->
+
+      
       <div style="text-align:right; margin-bottom:10px;">
+        <img src="assets/images/seal.png" alt="Official Seal" style="height:90px; width:auto; object-fit:contain; display:inline-block;">
+      </div>
+
+      <div style="text-align:right;">
         <img src="assets/images/sign.png" alt="Signature" style="height:45px; width:auto; object-fit:contain; margin-bottom:5px; display:inline-block;">
       </div>
       <br>
       
-      <div style="text-align:right;">
-        <img src="assets/images/seal.png" alt="Official Seal" style="height:90px; width:auto; object-fit:contain; display:inline-block;">
-      </div>
       <!-- Signatory Information -->
       <div style="margin-bottom:5px; text-align:right;">
         <p style="margin:0 0 2px 0; font-weight:bold;">M.J. Muthukumar</p>
@@ -640,7 +646,7 @@ function downloadOnboardingCertificate(
     
 
    <!-- Footer Block -->
-  <div style="position:absolute; bottom:-35mm; left:18mm; right:18mm; padding-top:10px; border-top:1px solid #ccc; font-size:10px; text-align:center; line-height:1.5;">
+  <div style="position:absolute; bottom:-32mm; left:18mm; right:18mm; padding-top:10px; border-top:1px solid #ccc; font-size:10px; text-align:center; line-height:1.5;">
     <p style="margin:0 0 4px 0;">
       <strong>Tel:</strong> 091-44-22578918; <strong>Mobile:</strong> +91-9080056974
     </p>
@@ -696,84 +702,113 @@ function downloadOnboardingCertificate(
     });
 }
 
+// //
+
 // intern completion certificate
+// MAIN FUNCTION
 async function updateInternCertificateButtons(data) {
   console.log(data.id);
   try {
     const documentTableBody = document.getElementById("Certificatebody");
     let rowsHTML = "";
 
-    // acceptance generated date (for completion)
-    let actionHTMLCompletionGenerated = `
-      <button class="btn btn-sm text-white" disabled
-                  style="background:linear-gradient(to bottom right, #A9A9A9, #A9A9A9); border:none; opacity:0.8; cursor:not-allowed;">
-            <i class="fa-solid fa-check me-1"></i> Generated
-          </button>
-            <button onclick="downloadCertificate('${data.FullName}', '${data.StartDate}', '${data.EndDate}',
-    '${data.Completion_GenerateDate}','${data.internId}')"
-                  class="btn btn-sm text-white"
-                  style="background:linear-gradient(to bottom right, #69A1FF, #1E3FA0); border:none;">
-            <i class="fa-solid fa-download me-1"></i> Download
-          </button>
+    // ================= COMPLETION CERTIFICATE BUTTONS =================
+
+    let actionHTMLCompletion = `
+      <button 
+        id="generateBtn_${data.id}" 
+        class="btn btn-sm text-white"
+        style="
+          background:${data.Completion_GenerateDate ? "gray" : "#4CAF50"};
+          border:none;
+        "
+        onclick="generateCompletion(${data.id})"
+        ${data.Completion_GenerateDate ? "disabled" : ""}
+      >
+        <i class="fa-solid fa-check me-1"></i>
+        ${data.Completion_GenerateDate ? "Generated" : "Generate"}
+      </button>
+
+      <button 
+        id="downloadBtn_${data.id}" 
+        class="btn btn-sm text-white"
+        style="
+          background:${data.Completion_GenerateDate ? "#1E3FA0" : "#69A1FF"};
+          border:none;
+          opacity:${data.Completion_GenerateDate ? "1" : "0.5"};
+          cursor:${data.Completion_GenerateDate ? "pointer" : "not-allowed"};
+        "
+        onclick="downloadCompletion(${data.id})"
+        ${data.Completion_GenerateDate ? "" : "disabled"}
+      >
+        <i class="fa-solid fa-download me-1"></i> Download
+      </button>
     `;
 
-    // acceptance not generated (for completion)
-    let actionHTMLCompletionNotGenerated = `
-    <div id='certificateActions_${data.id}'>
-      <button onclick="generateCertificate('${data.FullName}', '${data.StartDate}', '${data.EndDate}','${data.id}','${data.internId}')" class="btn btn-sm text-white"
-                  style="background:linear-gradient(to bottom right, #90EE90, #4CAF50); border:none;">
-            <i class="fa-solid fa-check me-1"></i> Generate
-          </button>
-            <button onclick="downloadCertificate('${data.FullName}', '${data.StartDate}', '${data.EndDate}','${data.Completion_GenerateDate}','${data.internId}')"
-                  class="btn btn-sm text-white d-none"
-                  style="background:linear-gradient(to bottom right, #69A1FF, #1E3FA0); border:none;">
-            <i class="fa-solid fa-download me-1"></i> Download
-          </button>
-      </div>    
+    // ================= ONBOARDING CERTIFICATE BUTTONS =================
+
+    let actionHTMLOnboarding = `
+      <button 
+        onclick="generateOnboardingCertificate(
+          '${data.FullName}', 
+          '${data.StartDate}', 
+          '${data.EndDate}',
+          '${data.id}',
+          '${data.internId}',
+          '${data.stipendAmount}'
+        )"
+        id="generateOnboardBtn_${data.id}"
+        class="btn btn-sm text-white"
+        style="
+          background:${data.Acceptance_GenerateDate ? "gray" : "#4CAF50"};
+          border:none;
+        "
+        ${data.Acceptance_GenerateDate ? "disabled" : ""}
+      >
+        <i class="fa-solid fa-check me-1"></i>
+        ${data.Acceptance_GenerateDate ? "Generated" : "Generate" }
+      </button>
+
+      <button 
+        onclick="downloadOnboardingCertificate(
+          '${data.FullName}', 
+          '${data.StartDate}',
+          '${data.EndDate}',
+          '${data.Acceptance_GenerateDate}',
+          '${data.internId}',
+          '${data.stipendAmount}'
+        )"
+        id="downloadOnboardBtn_${data.id}"
+        class="btn btn-sm text-white"
+        style="
+          background:${data.Acceptance_GenerateDate ? "#1E3FA0" : "#69A1FF"};
+          border:none;
+          opacity:${data.Acceptance_GenerateDate ? "1" : "0.5"};
+          cursor:${data.Acceptance_GenerateDate ? "pointer" : "not-allowed"};
+        "
+        ${data.Acceptance_GenerateDate ? "" : "disabled"}
+      >
+        <i class="fa-solid fa-download me-1"></i> Download
+      </button>
     `;
 
-    // acceptance generated date (for onboarding)
-    let actionHTMLOnboardingGenerated = `
-      <button class="btn btn-sm text-white" disabled
-                  style="background:linear-gradient(to bottom right, #A9A9A9, #A9A9A9); border:none; opacity:0.8; cursor:not-allowed;">
-            <i class="fa-solid fa-check me-1"></i> Generated
-          </button>
-            <button onclick="downloadOnboardingCertificate('${data.FullName}', '${data.StartDate}', '${data.EndDate}','${data.Acceptance_GenerateDate}','${data.internId}','${data.stipendAmount}')"
-                  class="btn btn-sm text-white"
-                  style="background:linear-gradient(to bottom right, #69A1FF, #1E3FA0); border:none;">
-            <i class="fa-solid fa-download me-1"></i> Download
-          </button>
-    `;
+    // =============== ONGOING BADGE =================
 
-    // acceptance not generated (for onboarding)
-    let actionHTMLOnboardingNotGenerated = `
-    <div id='onboardingActions_${data.id}'>
-      <button onclick="generateOnboardingCertificate('${data.FullName}', '${data.StartDate}', '${data.EndDate}','${data.id}','${data.internId}','${data.stipendAmount}')" class="btn btn-sm text-white"
-                  style="background:linear-gradient(to bottom right, #90EE90, #4CAF50); border:none;">
-            <i class="fa-solid fa-check me-1"></i> Generate
-          </button>
-            <button onclick="downloadOnboardingCertificate('${data.FullName}', '${data.StartDate}', '${data.EndDate}','${data.Acceptance_GenerateDate}','${data.internId}','${data.stipendAmount}')"
-                  class="btn btn-sm text-white d-none"
-                  style="background:linear-gradient(to bottom right, #69A1FF, #1E3FA0); border:none;">
-            <i class="fa-solid fa-download me-1"></i> Download
-          </button>
-    </div>
-    `;
-
-    // Pending status for ongoing internships
     let actionHTMLOngoing = `
-      <div class="text-start">
-        <span class="status-badge bg-warning text-dark">
-          <i class="fa-solid fa-spinner fa-spin me-2"></i> <span class="status-text">Ongoing</span>
-        </span>
-      </div>
+      <span class="status-badge bg-warning text-dark">
+        <i class="fa-solid fa-spinner fa-spin me-2"></i> Ongoing
+      </span>
     `;
+
+    // =============== DATE CHECK ===============
 
     const today = new Date();
     const endDate = new Date(data.EndDate);
+    today.setHours(0,0,0,0);
+    endDate.setHours(0,0,0,0);
 
+    // Generate rows
     if (today < endDate) {
-      // Internship is ongoing
       rowsHTML += `
         <tr>
           <td>${data.FullName} Acceptance Letter</td>
@@ -785,27 +820,20 @@ async function updateInternCertificateButtons(data) {
         </tr>
       `;
     } else {
-      // Internship has ended
       rowsHTML += `
         <tr>
           <td>${data.FullName} Acceptance Letter</td>
-          <td>${
-            data.Acceptance_GenerateDate != null
-              ? actionHTMLOnboardingGenerated
-              : actionHTMLOnboardingNotGenerated
-          }</td>
+          <td>${actionHTMLOnboarding}</td>
         </tr>
         <tr>
           <td>${data.FullName} Completion Letter</td>
-          <td>${
-            data.Completion_GenerateDate != null
-              ? actionHTMLCompletionGenerated
-              : actionHTMLCompletionNotGenerated
-          }</td>
+          <td>${actionHTMLCompletion}</td>
         </tr>
       `;
     }
+
     documentTableBody.innerHTML = rowsHTML;
+
   } catch (error) {
     console.error("Error loading documents:", error);
     Swal.fire({
@@ -816,115 +844,104 @@ async function updateInternCertificateButtons(data) {
   }
 }
 
-async function generateCertificate(fullName, startDate, endDate, id, internId) {
-  const container = document.getElementById(`certificateActions_${id}`);
-  const btn = container.querySelector("button");
 
-  btn.style.background = "linear-gradient(to bottom right, #90EE90, #4CAF50)";
-  btn.innerHTML =
-    '<i class="fa-solid fa-spinner fa-spin me-1"></i> Generating...';
-  btn.disabled = true;
+// COMPLETION CERTIFICATE – GENERATE
+
+
+async function generateCompletion(id) {
+  const generateBtn = document.getElementById(`generateBtn_${id}`);
+  const downloadBtn = document.getElementById(`downloadBtn_${id}`);
+
+  generateBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-1"></i> Generating...';
+  generateBtn.disabled = true;
+  generateBtn.style.background = "gray";
 
   try {
-    const date = new Date();
-    const generateDate = date.toISOString().slice(0, 19).replace("T", " ");
-    const generateName = "Completion_GenerateDate";
+    const now = new Date().toISOString().slice(0, 19).replace("T", " ");
 
-    await api.updateGenarateDate(id, { generateDate, generateName }); // Assuming api is defined globally
+    await api.updateGenarateDate(id, { 
+      generateDate: now, 
+      generateName: "Completion_GenerateDate" 
+    });
 
-    // Update the button state after successful generation
-    container.innerHTML = `
-      <div id='certificateActions_${id}'>
-        <button class="btn btn-sm text-white" disabled
-                style="background:linear-gradient(to bottom right, #A9A9A9, #A9A9A9); border:none; opacity:0.8; cursor:not-allowed;">
-          <i class="fa-solid fa-check me-1"></i> Generated
-        </button>
-        <button onclick="downloadCertificate('${fullName}', '${startDate}', '${endDate}','${generateDate}','${internId}')"
-                class="btn btn-sm text-white"
-                style="background:linear-gradient(to bottom right, #69A1FF, #1E3FA0); border:none;">
-          <i class="fa-solid fa-download me-1"></i> Download
-        </button>
-      </div>
-    `;
+    generateBtn.innerHTML = '<i class="fa-solid fa-check me-1"></i> Generated';
+
+    downloadBtn.disabled = false;
+    downloadBtn.style.opacity = "1";
+    downloadBtn.style.cursor = "pointer";
+    downloadBtn.style.background = "#1E3FA0";
+
     Swal.fire({
       icon: "success",
-      title: "Certificate Generated!",
-      text: "The completion certificate is now available for download.",
-      timer: 2000,
-      showConfirmButton: false,
+      title: "Completion certificate generated!",
+      timer: 1800,
+      showConfirmButton: false
     });
+
   } catch (error) {
-    console.error("Error generating certificate:", error);
-    btn.disabled = false;
-    btn.innerHTML = '<i class="fa-solid fa-check me-1"></i> Generate'; // Revert button on error
-    Swal.fire({
-      icon: "error",
-      title: "Generation Failed",
-      text: "Could not generate the completion certificate. Please try again.",
-    });
+    generateBtn.innerHTML = "Generate";
+    generateBtn.disabled = false;
+    generateBtn.style.background = "#4CAF50";
   }
 }
 
-async function generateOnboardingCertificate(
-  fullName,
-  startDate,
-  endDate,
-  id,
-  internId,
-  stipendAmount
-) {
-  const container = document.getElementById(`onboardingActions_${id}`);
-  const btn = container.querySelector("button");
 
-  btn.style.background = "linear-gradient(to bottom right, #90EE90, #4CAF50)";
-  btn.innerHTML =
-    '<i class="fa-solid fa-spinner fa-spin me-1"></i> Generating...';
-  btn.disabled = true;
+// COMPLETION CERTIFICATE – DOWNLOAD
+
+
+function downloadCompletion(id) {
+  console.log("Download completion for:", id);
+  // Add your PDF code
+}
+
+
+// ONBOARDING CERTIFICATE – SAME LOGIC
+
+
+async function generateOnboardingCertificate(fullName, startDate, endDate, id, internId, stipendAmount) {
+  const generateBtn = document.getElementById(`generateOnboardBtn_${id}`);
+  const downloadBtn = document.getElementById(`downloadOnboardBtn_${id}`);
+
+  generateBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-1"></i> Generating...';
+  generateBtn.disabled = true;
+  generateBtn.style.background = "gray";
 
   try {
-    const date = new Date();
-    const generateDate = date.toISOString().slice(0, 19).replace("T", " ");
-    const generateName = "Acceptance_GenerateDate";
+    const now = new Date().toISOString().slice(0, 19).replace("T", " ");
 
-    await api.updateGenarateDate(id, { generateDate, generateName }); // Assuming api is defined globally
+    await api.updateGenarateDate(id, { 
+      generateDate: now,
+      generateName: "Acceptance_GenerateDate"
+    });
 
-    container.innerHTML = `
-      <div id='onboardingActions_${id}'>
-        <button class="btn btn-sm text-white" disabled
-                style="background:linear-gradient(to bottom right, #A9A9A9, #A9A9A9); border:none; opacity:0.8; cursor:not-allowed;">
-          <i class="fa-solid fa-check me-1"></i> Generated
-        </button>
-        <button onclick="downloadOnboardingCertificate('${fullName}', '${startDate}', '${endDate}','${generateDate}','${internId}','${stipendAmount}')"
-                class="btn btn-sm text-white"
-                style="background:linear-gradient(to bottom right, #69A1FF, #1E3FA0); border:none;">
-          <i class="fa-solid fa-download me-1"></i> Download
-        </button>
-      </div>
-    `;
+    generateBtn.innerHTML = '<i class="fa-solid fa-check me-1"></i> Generated';
+
+    downloadBtn.disabled = false;
+    downloadBtn.style.opacity = "1";
+    downloadBtn.style.cursor = "pointer";
+    downloadBtn.style.background = "#1E3FA0";
+
     Swal.fire({
       icon: "success",
-      title: "Certificate Generated!",
-      text: "The onboarding certificate is now available for download.",
-      timer: 2000,
-      showConfirmButton: false,
+      title: "Onboarding certificate generated!",
+      timer: 1800,
+      showConfirmButton: false
     });
+
   } catch (error) {
-    console.error("Error generating onboarding certificate:", error);
-    btn.disabled = false;
-    btn.innerHTML = '<i class="fa-solid fa-check me-1"></i> Generate'; // Revert button on error
-    Swal.fire({
-      icon: "error",
-      title: "Generation Failed",
-      text: "Could not generate the onboarding certificate. Please try again.",
-    });
+    generateBtn.innerHTML = "Generate";
+    generateBtn.disabled = false;
+    generateBtn.style.background = "#4CAF50";
   }
 }
 
+
+//
+//
 async function updateInternDocumentButtons(internId) {
   try {
     console.log("Loading document table for Intern ID:", internId);
 
-    // Assuming axiosInstance and API_ROUTES are defined elsewhere
     const res = await axiosInstance.get(
       API_ROUTES.getInternDocumentsMetadata(internId)
     );
@@ -940,17 +957,27 @@ async function updateInternDocumentButtons(internId) {
 
       if (doc.exists) {
         actionHTML = `
-          <button onclick="handleAction(this, () => downloadDocument('${internId}', '${doc.name}'))" 
-                  class="btn btn-sm text-white" 
-                  style="background:linear-gradient(to bottom right, #69A1FF, #1E3FA0); border:none;">
+          <button 
+            onclick="handleAction(this, () => downloadDocument('${internId}', '${doc.name}'))" 
+            class="btn btn-sm text-white" 
+            style="background:linear-gradient(to bottom right, #69A1FF, #1E3FA0); border:none;">
             <i class="fa-solid fa-download me-1"></i> Download
           </button>
-          <button onclick="handleAction(this, () => deleteDocument('${internId}', '${doc.name}'))" 
-                  class="btn btn-sm text-white" 
-                  style="background:linear-gradient(to bottom right, #EF4444, #B91C1C); border:none;">
-            <i class="fa-solid fa-trash me-1"></i> Delete
-          </button>
-      `;
+
+          <button 
+          onclick="handleAction(this, () => viewDocument('${internId}', '${doc.name}'))"
+          class="btn btn-sm text-white ms-2"
+          style="background:linear-gradient(to bottom right, #10B981, #047857); border:none;">
+          <i class="fa-solid fa-eye me-1"></i> View
+        </button>
+
+          <label class="btn btn-sm text-white ms-3 mb-0" 
+                 style="background:linear-gradient(135deg, #ffe066, #fab005); border:none; cursor:pointer;">
+            <i class="fa-solid fa-file-pen"></i> Edit
+            <input type="file" style="display:none" 
+                   onchange="uploadDocumentWrapper(this, '${internId}', '${doc.name}')">
+          </label>
+        `;
       } else {
         actionHTML = `
           <label class="btn btn-sm text-white mb-0" 
@@ -963,10 +990,10 @@ async function updateInternDocumentButtons(internId) {
       }
 
       rowsHTML += `
-          <tr>
-              <td>${doc.name}</td>
-              <td>${actionHTML}</td>
-          </tr>
+        <tr>
+          <td>${doc.name}</td>
+          <td>${actionHTML}</td>
+        </tr>
       `;
     });
 
@@ -1068,7 +1095,41 @@ async function downloadDocument(internId, docName) {
     });
   }
 }
+async function viewDocument(internId, docName) {
+  try {
+    const res = await axiosInstance.get(
+      API_ROUTES.downloadInternDocument(internId, docName),
+      {
+        responseType: "blob",
+      }
+    );
 
+    // Detect file type
+    const contentType = res.headers["content-type"];
+    const isImage = contentType?.includes("image");
+
+    // Create Blob
+    const blob = new Blob([res.data], { type: contentType });
+
+    // Create URL
+    const url = window.URL.createObjectURL(blob);
+
+    // OPEN in NEW TAB 🆕
+    window.open(url, "_blank");
+
+    // Revoke URL after some time
+    setTimeout(() => window.URL.revokeObjectURL(url), 2000);
+  } catch (error) {
+    console.error("❌ Error viewing document:", error);
+    Swal.fire({
+      icon: "error",
+      title: "View Failed",
+      text: "Unable to open the document. Please try again.",
+      timer: 2500,
+      showConfirmButton: false,
+    });
+  }
+}
 
 async function uploadDocument(internId, docName, file) {
   if (!file) {
@@ -1402,4 +1463,3 @@ $(document).ready(function () {
       console.error("Error loading staff:", error);
     });
 });
-
