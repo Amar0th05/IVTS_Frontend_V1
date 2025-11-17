@@ -773,22 +773,15 @@ async function updateInternCertificateButtons(data) {
     const today = new Date();
     const endDate = new Date(data.EndDate);
 
-    if (today < endDate) {
-      // Internship is ongoing
-      rowsHTML += `
-        <tr>
+         if(data.startDate == null && data.EndDate == null){
+      rowsHTML += `<tr>
           <td>${data.FullName} Acceptance Letter</td>
           <td>${actionHTMLOngoing}</td>
-        </tr>
-        <tr>
-          <td>${data.FullName} Completion Letter</td>
-          <td>${actionHTMLOngoing}</td>
-        </tr>
-      `;
-    } else {
-      // Internship has ended
+        </tr>` 
+    } 
+    else{
       rowsHTML += `
-        <tr>
+              <tr>
           <td>${data.FullName} Acceptance Letter</td>
           <td>${
             data.Acceptance_GenerateDate != null
@@ -796,6 +789,21 @@ async function updateInternCertificateButtons(data) {
               : actionHTMLOnboardingNotGenerated
           }</td>
         </tr>
+      `
+    }
+
+    if (today < endDate || data.StartDate == null || data.EndDate == null) {
+      // Internship is ongoing
+      rowsHTML += `
+        <tr>
+          <td>${data.FullName} Completion Letter</td>
+          <td>${actionHTMLOngoing}</td>
+        </tr>
+      `;
+    }
+    else {
+      // Internship has ended
+      rowsHTML += `
         <tr>
           <td>${data.FullName} Completion Letter</td>
           <td>${
@@ -806,6 +814,7 @@ async function updateInternCertificateButtons(data) {
         </tr>
       `;
     }
+
     documentTableBody.innerHTML = rowsHTML;
   } catch (error) {
     console.error("Error loading documents:", error);
