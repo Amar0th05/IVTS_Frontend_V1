@@ -26,22 +26,29 @@ document.addEventListener("DOMContentLoaded", () => {
   async function handleAddInsurance(e) {
     e.preventDefault();
 
-    const provider = document.getElementById("add-insuranceProvider").value.trim();
-    const policyNumber = document.getElementById("add-policyNumber").value.trim();
-    const startDate = document.getElementById("add-policyStartDate").value.trim();
-    const expiryDate = document.getElementById("add-policyExpiryDate").value.trim();
+    const provider = document
+      .getElementById("add-insuranceProvider")
+      .value.trim();
+    const policyNumber = document
+      .getElementById("add-policyNumber")
+      .value.trim();
+    const startDate = document
+      .getElementById("add-policyStartDate")
+      .value.trim();
+    const expiryDate = document
+      .getElementById("add-policyExpiryDate")
+      .value.trim();
 
     if (!provider || !startDate) {
       alert("Please fill all required fields.");
       return;
     }
 
-  const updateDate = new Date();
-const month = updateDate.getMonth() + 1; // Months are 0-indexed
-const day = updateDate.getDate();
-const year = updateDate.getFullYear();
-const formattedDate = `${month}-${day}-${year}`;
-
+    const updateDate = new Date();
+    const month = updateDate.getMonth() + 1; // Months are 0-indexed
+    const day = updateDate.getDate();
+    const year = updateDate.getFullYear();
+    const formattedDate = `${month}-${day}-${year}`;
 
     try {
       // Example: send to backend
@@ -51,23 +58,24 @@ const formattedDate = `${month}-${day}-${year}`;
         policyNumber,
         policyStartDate: startDate,
         policyExpiryDate: expiryDate,
-        updateDate
+        updateDate,
       });
 
       // Update table
-      insuranceTable.row.add([
-        newIns.policy_number,
-        newIns.insurance_provider,
-        startDate,
-        expiryDate || "-",
-        formattedDate,
-        actionButtons(newIns.id),
-      ]).draw(false);
+      insuranceTable.row
+        .add([
+          newIns.policy_number,
+          newIns.insurance_provider,
+          startDate,
+          expiryDate || "-",
+          formattedDate,
+          actionButtons(newIns.id),
+        ])
+        .draw(false);
 
       addForm.reset();
       addInsuranceModal.hide();
       restoreBodyScroll(); // 🧩 Important fix
-
     } catch (err) {
       console.error(err);
       alert("❌ Failed to save insurance details.");
@@ -92,56 +100,67 @@ const formattedDate = `${month}-${day}-${year}`;
     updateInsuranceModal.show();
   });
 
- updateForm.addEventListener("submit", handleUpdateInsurance);
+  updateForm.addEventListener("submit", handleUpdateInsurance);
 
-async function handleUpdateInsurance(e) {
-  e.preventDefault();
+  async function handleUpdateInsurance(e) {
+    e.preventDefault();
 
-  const rowIndex = e.target.dataset.rowIndex;   // index of row to update
-  const id = e.target.dataset.insuranceId;
+    const rowIndex = e.target.dataset.rowIndex; // index of row to update
+    const id = e.target.dataset.insuranceId;
 
-  const provider = document.getElementById("update-insuranceProvider").value.trim();
-  const policyNumber = document.getElementById("update-policyNumber").value.trim();
-  const startDate = document.getElementById("update-policyStartDate").value.trim();
-  const expiryDate = document.getElementById("update-policyExpiryDate").value.trim();
+    const provider = document
+      .getElementById("update-insuranceProvider")
+      .value.trim();
+    const policyNumber = document
+      .getElementById("update-policyNumber")
+      .value.trim();
+    const startDate = document
+      .getElementById("update-policyStartDate")
+      .value.trim();
+    const expiryDate = document
+      .getElementById("update-policyExpiryDate")
+      .value.trim();
 
-  // Format date as MM-DD-YYYY
-  const today = new Date();
-  const pad = (n) => n.toString().padStart(2, "0");
-  const updateDate = `${pad(today.getMonth() + 1)}-${pad(today.getDate())}-${today.getFullYear()}`;
+    // Format date as MM-DD-YYYY
+    const today = new Date();
+    const pad = (n) => n.toString().padStart(2, "0");
+    const updateDate = `${pad(today.getMonth() + 1)}-${pad(
+      today.getDate()
+    )}-${today.getFullYear()}`;
 
-  try {
-    // ✅ Update backend
-    await axiosInstance.put(API_ROUTES.updateInsurance(id), {
-      staffId: currentStaffId,
-      insuranceProvider: provider,
-      policyNumber,
-      policyStartDate: startDate,
-      policyExpiryDate: expiryDate,
-      updatedDate: updateDate // optional if backend handles updated_date
-    });
+    try {
+      // ✅ Update backend
+      await axiosInstance.put(API_ROUTES.updateInsurance(id), {
+        staffId: currentStaffId,
+        insuranceProvider: provider,
+        policyNumber,
+        policyStartDate: startDate,
+        policyExpiryDate: expiryDate,
+        updatedDate: updateDate, // optional if backend handles updated_date
+      });
 
-    // ✅ Update row in DataTable without page refresh
-    insuranceTable.row(rowIndex).data([
-      policyNumber || "N/A",
-      provider,
-      startDate,
-      expiryDate || "-",
-      updateDate,          // Updated date
-      actionButtons(id)    // Edit/Delete buttons
-    ]).draw(false);
+      // ✅ Update row in DataTable without page refresh
+      insuranceTable
+        .row(rowIndex)
+        .data([
+          policyNumber || "N/A",
+          provider,
+          startDate,
+          expiryDate || "-",
+          updateDate, // Updated date
+          actionButtons(id), // Edit/Delete buttons
+        ])
+        .draw(false);
 
-    // Close modal
-    updateInsuranceModal.hide();
-    updateForm.reset();
-    restoreBodyScroll();
-
-  } catch (error) {
-    console.error(error);
-    alert("❌ Failed to update insurance.");
+      // Close modal
+      updateInsuranceModal.hide();
+      updateForm.reset();
+      restoreBodyScroll();
+    } catch (error) {
+      console.error(error);
+      alert("❌ Failed to update insurance.");
+    }
   }
-}
-
 
   // --- DELETE INSURANCE ---
   $("#policyTable tbody").on("click", ".delete-btn", async function () {
@@ -158,8 +177,8 @@ async function handleUpdateInsurance(e) {
   });
 
   // --- SAFETY: RESTORE SCROLL WHEN ALL MODALS CLOSED ---
-  document.addEventListener('hidden.bs.modal', function () {
-    if (document.querySelectorAll('.modal.show').length === 0) {
+  document.addEventListener("hidden.bs.modal", function () {
+    if (document.querySelectorAll(".modal.show").length === 0) {
       restoreBodyScroll();
     }
   });
@@ -167,9 +186,9 @@ async function handleUpdateInsurance(e) {
 
 // --- HELPER: RESTORE SCROLL ---
 function restoreBodyScroll() {
-  document.body.classList.remove('modal-open');
-  document.body.style.overflow = '';
-  document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
+  document.body.classList.remove("modal-open");
+  document.body.style.overflow = "";
+  document.querySelectorAll(".modal-backdrop").forEach((el) => el.remove());
 }
 
 // --- HELPER: ACTION BUTTONS ---
@@ -180,9 +199,6 @@ function actionButtons(id) {
     </button>
   `;
 }
-
-
-
 
 async function loadCourseOptions(id) {
   try {
@@ -311,15 +327,17 @@ addStaffButton.addEventListener("click", async (e) => {
       document.querySelector("#tableCard").style.display = "block";
     } catch (error) {
       if (error.response) {
-    // Server responded with status code != 2xx
-    showErrorPopupFadeInDown(error.response.data?.message);
-  } else if (error.request) {
-    // No response (likely network or CORS issue)
-    showErrorPopupFadeInDown("Network error. Please check your connection.");
-  } else {
-    // Something else
-    showErrorPopupFadeInDown(error.message);
-  }
+        // Server responded with status code != 2xx
+        showErrorPopupFadeInDown(error.response.data?.message);
+      } else if (error.request) {
+        // No response (likely network or CORS issue)
+        showErrorPopupFadeInDown(
+          "Network error. Please check your connection."
+        );
+      } else {
+        // Something else
+        showErrorPopupFadeInDown(error.message);
+      }
     }
   }
 });
@@ -457,7 +475,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   handlePermission("#username");
 });
 
-
 async function toggleStatus(element, id) {
   if (element.classList.contains("editElement")) return;
 
@@ -492,7 +509,9 @@ async function fetchAllData() {
     }
 
     // Clear existing filters
-    $("#designationFilter").empty().append('<option value="">Show all</option>');
+    $("#designationFilter")
+      .empty()
+      .append('<option value="">Show all</option>');
     $("#locationFilter").empty().append('<option value="">Show all</option>');
     $("#statusFilter").empty().append('<option value="">Show all</option>');
 
@@ -503,8 +522,7 @@ async function fetchAllData() {
       if (staffDetail.currentDesignation)
         designations.add(staffDetail.currentDesignation);
 
-      if (staffDetail.locationOfWork)
-        locations.add(staffDetail.locationOfWork);
+      if (staffDetail.locationOfWork) locations.add(staffDetail.locationOfWork);
 
       status.add(staffDetail.status ? "Active" : "Inactive");
     });
@@ -524,9 +542,7 @@ async function fetchAllData() {
 
     // Populate status filter
     status.forEach((label) => {
-      $("#statusFilter").append(
-        `<option value="${label}">${label}</option>`
-      );
+      $("#statusFilter").append(`<option value="${label}">${label}</option>`);
     });
 
     // Permissions
@@ -544,12 +560,12 @@ function limitLength(str, length) {
 }
 
 async function refreshTable() {
-    if ($.fn.dataTable.isDataTable('#myTable')) {
-        table = $('#myTable').DataTable();
-        table.clear();
-    }
+  if ($.fn.dataTable.isDataTable("#myTable")) {
+    table = $("#myTable").DataTable();
+    table.clear();
+  }
 
-    await fetchAllData();
+  await fetchAllData();
 }
 
 function validateForm(formData) {
@@ -609,23 +625,33 @@ async function loadUpdateDetails(id) {
     document.getElementById("update-contactNumber").value = data.contactNumber;
     document.getElementById("update-aadharNumber").value = data.aadharNumber;
     document.getElementById("update-mail").value = data.mail;
-    document.getElementById("update-dateOfBirth").value = formatDate(data.dateOfBirth);
+    document.getElementById("update-dateOfBirth").value = formatDate(
+      data.dateOfBirth
+    );
     document.getElementById("update-location").value = data.locationOfWork;
-    document.getElementById("update-highestQualification").value = data.highestQualification;
-    document.getElementById("update-qualifications").value = data.qualifications;
+    document.getElementById("update-highestQualification").value =
+      data.highestQualification;
+    document.getElementById("update-qualifications").value =
+      data.qualifications;
     document.getElementById("update-courseSelect").value = data.courses;
-    document.getElementById("update-dateOfJoining").value = formatDate(data.dateOfJoining);
-    document.getElementById("update-certifications").value = data.certifications;
-    document.getElementById("update-salary").value = data.salary ? parseFloat(data.salary) : "";
-    document.getElementById("update-permanentAddress").value = data.permanentAddress;
+    document.getElementById("update-dateOfJoining").value = formatDate(
+      data.dateOfJoining
+    );
+    document.getElementById("update-certifications").value =
+      data.certifications;
+    document.getElementById("update-salary").value = data.salary
+      ? parseFloat(data.salary)
+      : "";
+    document.getElementById("update-permanentAddress").value =
+      data.permanentAddress;
 
     // Clear & refill DataTable
     insuranceTable.clear().draw();
 
     if (insurance?.length) {
       insurance.forEach((ins) => {
-        insuranceTable
-          .row.add([
+        insuranceTable.row
+          .add([
             ins.policyNumber || "N/A",
             ins.insuranceProvider || "N/A",
             formatDate(ins.policyStartDate),
@@ -863,7 +889,7 @@ function handleAction(btn, actionFn) {
       btn.disabled = false;
       btn.innerHTML = originalHTML;
     })
-    .catch(err => {
+    .catch((err) => {
       console.error("Action failed:", err);
       btn.disabled = false;
       btn.innerHTML = originalHTML;
@@ -1018,42 +1044,40 @@ const staffTable = $("#myTable").DataTable({
   pageLength: 25,
   lengthMenu: [5, 10, 25, 50, 100],
   dom: '<"top"lBf>rt<"bottom"ip><"clear">',
- buttons: [
-  {
-    extend: "excel",
-    text: `
+  buttons: [
+    {
+      extend: "excel",
+      text: `
       <span class="icon-default"><i class="fa-solid fa-file-excel"></i></span>
       <span class="icon-extra"><i class="fa-solid fa-download"></i></span>
       Excel
     `,
-    className: "btn-excel"
-  },
-  {
-    extend: "pdf",
-    text: `
+      className: "btn-excel",
+    },
+    {
+      extend: "pdf",
+      text: `
       <span class="icon-default"><i class="fa-solid fa-file-pdf"></i></span>
       <span class="icon-extra"><i class="fa-solid fa-download"></i></span>
       PDF
     `,
-    className: "btn-pdf"
-  },
-  {
-    extend: "colvis",
-    text: `
+      className: "btn-pdf",
+    },
+    {
+      extend: "colvis",
+      text: `
       <span class="icon-default"><i class="fa-solid fa-eye"></i></span>
       <span class="icon-extra"><i class="fa-solid fa-gear"></i></span>
       Columns
     `,
-    className: "btn-colvis"
-  }
-],
-
-
+      className: "btn-colvis",
+    },
+  ],
 
   language: {
     search: "",
     searchPlaceholder: "Type to search...",
-    paginate: { first: "«", last: "»", next: "›", previous: "‹" }
+    paginate: { first: "«", last: "»", next: "›", previous: "‹" },
   },
   columnDefs: [
     {
@@ -1063,20 +1087,24 @@ const staffTable = $("#myTable").DataTable({
           return $(data).filter(".status-text").text().trim();
         }
         return data;
-      }
-    }
+      },
+    },
   ],
   initComplete: function () {
     const $input = $("#myTable_filter input");
     $input.wrap('<div class="search-wrapper"></div>');
     $input.before('<i class="fa-solid fa-magnifying-glass"></i>');
-  }
+  },
 });
 $("#designationFilter").on("change", function () {
   const selectedDesignation = $(this).val();
   staffTable
     .column(5)
-    .search(selectedDesignation ? "^" + selectedDesignation + "$" : "", true, false)
+    .search(
+      selectedDesignation ? "^" + selectedDesignation + "$" : "",
+      true,
+      false
+    )
     .draw();
 });
 
