@@ -200,6 +200,39 @@ document.getElementById("savePassword")?.addEventListener('click',()=>{
   }
 
 });
+// =========================================================================================
+//                          Breadcrumb Dynamic Update
+// =========================================================================================
+
+   $(document).ready(function () {
+    const breadcrumb = $('#breadcrumb');
+    const originalBreadcrumb = breadcrumb.html(); // Save the original HTML once
+
+    // Handle all breadcrumb actions
+    $(document).on('click', '[data-breadcrumb]', function () {
+      const action = $(this).data('breadcrumb');
+
+      if (action && action.toLowerCase() === 'back') {
+        // Restore original breadcrumb (Home > Talentpool)
+        breadcrumb.html(originalBreadcrumb);
+      } else {
+        // Remove old dynamic breadcrumb if exists
+        breadcrumb.find('.dynamic-breadcrumb').remove();
+
+        // Append new one dynamically
+        breadcrumb.append(`
+          <li class="breadcrumb-item dynamic-breadcrumb">
+            <a href="#">${action}</a>
+          </li>
+        `);
+      }
+    });
+
+    // When modal closes (by Exit, backdrop, or X)
+    $(document).on('hidden.bs.modal', function () {
+      breadcrumb.html(originalBreadcrumb);
+    });
+  });
 
 
 
