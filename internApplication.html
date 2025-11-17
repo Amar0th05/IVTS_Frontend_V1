@@ -453,6 +453,14 @@
             background-color: #0d6efd;
             color: white;
         }
+        .drag-active {
+        border: 2px dashed #4CAF50 !important;
+        background: #f0fff0;
+        border-radius: 10px;
+        padding: 10px;
+        transition: 0.2s;
+        }
+
     </style>
 </head>
 
@@ -564,7 +572,8 @@
                                 Number</label>
                             <div class="input-group"><span class="input-group-text"><i
                                         class="fas fa-phone"></i></span><input type="tel" class="form-control"
-                                    id="mobile" name="mobile" placeholder="e.g., 9876543210" required="" maxlength="10"></div>
+                                    id="mobile" name="mobile" placeholder="e.g., 9876543210" required="" maxlength="10">
+                            </div>
                             <div class="invalid-feedback"></div>
                         </div>
                         <div class="col-md-6 mb-4"><label for="location" class="form-label required-field">Current
@@ -607,8 +616,8 @@
                                 class="form-label required-field">Emergency Contact Number</label>
                             <div class="input-group"><span class="input-group-text"><i
                                         class="fas fa-phone-alt"></i></span><input type="tel" class="form-control"
-                                    placeholder="Contact number" id="emergencyNumber" name="emergencyNumber"
-                                    required="" maxlength="10">
+                                    placeholder="Contact number" id="emergencyNumber" name="emergencyNumber" required=""
+                                    maxlength="10">
                             </div>
                             <div class="invalid-feedback"></div>
                         </div>
@@ -657,41 +666,47 @@
                 </div>
                 <!-- Step 3: Internship Preferences -->
                 <div class="form-step" id="form-step-3">
-                    <h4 class="section-title"><i class="fas fa-calendar-alt me-2"></i>Section 3: Internship Preferences
-                    </h4>
+                    <h4 class="section-title"><i class="fas fa-calendar-alt me-2"></i>Section 3: Internship Preferences</h4>
+                
                     <div class="row">
+                
                         <div class="col-md-4 mb-4">
                             <label for="startDate" class="form-label required-field">Preferred Start Date</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="fas fa-calendar-plus"></i></span>
                                 <input type="text" class="form-control" id="startDate" name="startDate" placeholder="Select start date"
-                                    required>
+                                    required onpaste="return false" oncopy="return false" oncut="return false" ondrop="return false">
                             </div>
                             <div class="invalid-feedback"></div>
                         </div>
-                        
+                
                         <div class="col-md-4 mb-4">
                             <label for="endDate" class="form-label required-field">Preferred End Date</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="fas fa-calendar-minus"></i></span>
-                                <input type="text" class="form-control" id="endDate" name="endDate" placeholder="Select end date" required>
+                                <input type="text" class="form-control" id="endDate" name="endDate" placeholder="Select end date"
+                                    required onpaste="return false" oncopy="return false" oncut="return false" ondrop="return false">
                             </div>
                             <div class="invalid-feedback"></div>
                         </div>
-                        <div class="col-md-4 mb-4"><label for="mode" class="form-label required-field">Mode of
-                                Internship</label>
-                            <div class="input-group"><span class="input-group-text"><i
-                                        class="fas fa-laptop-house"></i></span>
-                                <select class="form-select" id="mode" name="mode" required="">
-                                    <option value="" selected="" disabled="">Select Mode</option>
+                
+                        <div class="col-md-4 mb-4">
+                            <label for="mode" class="form-label required-field">Mode of Internship</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-laptop-house"></i></span>
+                                <select class="form-select" id="mode" name="mode" required onpaste="return false" oncopy="return false"
+                                    oncut="return false" ondrop="return false">
+                                    <option value="" selected disabled>Select Mode</option>
                                     <option value="online">Online</option>
                                     <option value="offline">Offline</option>
                                 </select>
                             </div>
                             <div class="invalid-feedback"></div>
                         </div>
+                
                     </div>
                 </div>
+
                 <!-- Step 4: Document Uploads -->
                 <div class="form-step" id="form-step-4">
                     <h4 class="section-title"><i class="fas fa-file-upload me-2"></i>Section 4: Mandatory Document
@@ -787,9 +802,9 @@
     <!-- You might also need its CSS if there's one, check Flatpickr documentation -->
     <!-- Flatpickr JS -->
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    
-<!-- Pikaday JS (include once in your page) -->
-<script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
+
+    <!-- Pikaday JS (include once in your page) -->
+    <script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
 
     <script>
         var picker = new Pikaday({
@@ -807,72 +822,72 @@
         });
     </script>
     <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    // Start Date picker
-    const startPicker = new Pikaday({
-      field: document.querySelector('#startDate'),
-      format: 'YYYY-MM-DD',
-      toString(date) {
-        const options = { year: 'numeric', month: 'long', day: 'numeric' };
-        return date.toLocaleDateString(undefined, options);
-      },
-      
-      maxDate: new Date(new Date().setFullYear(new Date().getFullYear() + 5)),
-      yearRange: [new Date().getFullYear(), new Date().getFullYear() + 5]
-    });
+        document.addEventListener('DOMContentLoaded', function () {
+            // Start Date picker
+            const startPicker = new Pikaday({
+                field: document.querySelector('#startDate'),
+                format: 'YYYY-MM-DD',
+                toString(date) {
+                    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+                    return date.toLocaleDateString(undefined, options);
+                },
 
-    // End Date picker
-    const endPicker = new Pikaday({
-      field: document.querySelector('#endDate'),
-      format: 'YYYY-MM-DD',
-      toString(date) {
-        const options = { year: 'numeric', month: 'long', day: 'numeric' };
-        return date.toLocaleDateString(undefined, options);
-      },
-     
-      maxDate: new Date(new Date().setFullYear(new Date().getFullYear() + 5)),
-      yearRange: [new Date().getFullYear(), new Date().getFullYear() + 5]
-    });
-  });
-</script>
+                maxDate: new Date(new Date().setFullYear(new Date().getFullYear() + 5)),
+                yearRange: [new Date().getFullYear(), new Date().getFullYear() + 5]
+            });
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Start Date picker
-    const startPicker = new Pikaday({
-        field: document.querySelector('#startDate'),
-        format: 'YYYY-MM-DD',
-        toString(date) {
-            const options = { year: 'numeric', month: 'long', day: 'numeric' };
-            return date.toLocaleDateString(undefined, options);
-        },
-      
-        maxDate: new Date(new Date().setFullYear(new Date().getFullYear() + 5)),
-        yearRange: [new Date().getFullYear(), new Date().getFullYear() + 5],
-        onSelect: function(date) {
-            // When Start Date is selected, update End Date's minDate
-            endPicker.setMinDate(date);
-            // Optional: if End Date is before Start Date, clear End Date
-            if(endPicker.getDate() && endPicker.getDate() < date){
-                endPicker.setDate(null);
-            }
-        }
-    });
+            // End Date picker
+            const endPicker = new Pikaday({
+                field: document.querySelector('#endDate'),
+                format: 'YYYY-MM-DD',
+                toString(date) {
+                    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+                    return date.toLocaleDateString(undefined, options);
+                },
 
-    // End Date picker
-    const endPicker = new Pikaday({
-        field: document.querySelector('#endDate'),
-        format: 'YYYY-MM-DD',
-        toString(date) {
-            const options = { year: 'numeric', month: 'long', day: 'numeric' };
-            return date.toLocaleDateString(undefined, options);
-        },
-       
-        maxDate: new Date(new Date().setFullYear(new Date().getFullYear() + 5)),
-        yearRange: [new Date().getFullYear(), new Date().getFullYear() + 5]
-    });
-});
-</script>
+                maxDate: new Date(new Date().setFullYear(new Date().getFullYear() + 5)),
+                yearRange: [new Date().getFullYear(), new Date().getFullYear() + 5]
+            });
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Start Date picker
+            const startPicker = new Pikaday({
+                field: document.querySelector('#startDate'),
+                format: 'YYYY-MM-DD',
+                toString(date) {
+                    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+                    return date.toLocaleDateString(undefined, options);
+                },
+
+                maxDate: new Date(new Date().setFullYear(new Date().getFullYear() + 5)),
+                yearRange: [new Date().getFullYear(), new Date().getFullYear() + 5],
+                onSelect: function (date) {
+                    // When Start Date is selected, update End Date's minDate
+                    endPicker.setMinDate(date);
+                    // Optional: if End Date is before Start Date, clear End Date
+                    if (endPicker.getDate() && endPicker.getDate() < date) {
+                        endPicker.setDate(null);
+                    }
+                }
+            });
+
+            // End Date picker
+            const endPicker = new Pikaday({
+                field: document.querySelector('#endDate'),
+                format: 'YYYY-MM-DD',
+                toString(date) {
+                    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+                    return date.toLocaleDateString(undefined, options);
+                },
+
+                maxDate: new Date(new Date().setFullYear(new Date().getFullYear() + 5)),
+                yearRange: [new Date().getFullYear(), new Date().getFullYear() + 5]
+            });
+        });
+    </script>
 
 
 
