@@ -3,6 +3,14 @@ const updateInternButton = document.getElementById("update_intern_btn");
 // add staff
 
 let decidedPermission;
+
+function capitalizeFirst(str) {
+  if (!str) return "";
+  str = str.trim(); // remove starting/ending spaces
+  console.log("Cleaned:", str);
+  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+}
+
 document.addEventListener("DOMContentLoaded", async () => {
   roles = await axiosInstance.get("/roles/role/perms");
   roles = roles.data.roles;
@@ -258,6 +266,13 @@ async function loadInternUpdateDetails(Id) {
 
     console.log("datanew", data);
 
+    reportingManagername = capitalizeFirst(
+      (data.Reporting_Manager || "").split("-")[1]
+    );
+    secondaryReportingManagername = capitalizeFirst(
+      (data.secondaryReportingManager || "").split("-")[1]
+    );
+
     internName = data.FullName;
 
     // Populate the form fields based on the intern data and your HTML IDs
@@ -301,8 +316,11 @@ async function loadInternUpdateDetails(Id) {
     document.getElementById("submissionDate1").value = data.SubmissionDate
       ? formatDate(data.SubmissionDate)
       : "";
-    document.getElementById("reportingManager").value =
-      data.Reporting_Manager || "";
+    // document.getElementById("reportingManager").value =
+    //   data.Reporting_Manager;
+
+    $(".userName").val(data.Reporting_Manager).trigger("change");
+    $(".userName").eq(1).val(data.secondaryReportingManager).trigger("change");
 
     // Store ID = 1
     document.getElementById("id1").value = Id || "";
@@ -595,11 +613,11 @@ function downloadOnboardingCertificate(
         <strong>Working Hours:</strong> 5 Hours
       </p>
       
-      <p style="margin:0 0 3px 0;">
-        <strong>Supervisors:</strong> M.J. Muthukumar
+      <p style="margin:0 0 3px 0;font-size: small;">
+        <strong>Supervisors:</strong> ${reportingManagername}
       </p>
-      <p style="margin:0 0 0 80px;">
-        S Pradhiksha
+      <p style="margin:0 0 0 80px;font-size: small;">
+        ${secondaryReportingManagername}
       </p>
 
        
@@ -706,8 +724,10 @@ function downloadOnboardingCertificate(
 
 // intern completion certificate
 // MAIN FUNCTION
+
+let reportingManagername;
+let secondaryReportingManagername;
 async function updateInternCertificateButtons(data) {
-  console.log(data.id);
   try {
     const documentTableBody = document.getElementById("Certificatebody");
     let rowsHTML = "";
@@ -738,7 +758,9 @@ async function updateInternCertificateButtons(data) {
           opacity:${data.Completion_GenerateDate ? "1" : "0.5"};
           cursor:${data.Completion_GenerateDate ? "pointer" : "not-allowed"};
         "
-        onclick="downloadCompletion(${data.id})"
+        onclick="downloadCertificate('${data.FullName}','${data.StartDate}','${
+      data.EndDate
+    }','${data.Completion_GenerateDate}','${data.internId}')"
         ${data.Completion_GenerateDate ? "" : "disabled"}
       >
         <i class="fa-solid fa-download me-1"></i> Download
@@ -766,7 +788,7 @@ async function updateInternCertificateButtons(data) {
         ${data.Acceptance_GenerateDate ? "disabled" : ""}
       >
         <i class="fa-solid fa-check me-1"></i>
-        ${data.Acceptance_GenerateDate ? "Generated" : "Generate" }
+        ${data.Acceptance_GenerateDate ? "Generated" : "Generate"}
       </button>
 
       <button 
@@ -804,18 +826,15 @@ async function updateInternCertificateButtons(data) {
 
     const today = new Date();
     const endDate = new Date(data.EndDate);
-    today.setHours(0,0,0,0);
-    endDate.setHours(0,0,0,0);
+    today.setHours(0, 0, 0, 0);
+    endDate.setHours(0, 0, 0, 0);
 
     // Generate rows
-    if (today < endDate) {
+    // Generate rows
+    if (data.StartDate == null || data.EndDate == null) {
       rowsHTML += `
         <tr>
           <td>${data.FullName} Acceptance Letter</td>
-          <td>${actionHTMLOngoing}</td>
-        </tr>
-        <tr>
-          <td>${data.FullName} Completion Letter</td>
           <td>${actionHTMLOngoing}</td>
         </tr>
       `;
@@ -825,15 +844,25 @@ async function updateInternCertificateButtons(data) {
           <td>${data.FullName} Acceptance Letter</td>
           <td>${actionHTMLOnboarding}</td>
         </tr>
+      `;
+      if (today < endDate) {
+        rowsHTML += `
+        <tr>
+          <td>${data.FullName} Completion Letter</td>
+          <td>${actionHTMLOngoing}</td>
+        </tr>
+      `;
+      } else {
+        rowsHTML += `
         <tr>
           <td>${data.FullName} Completion Letter</td>
           <td>${actionHTMLCompletion}</td>
         </tr>
       `;
+      }
     }
 
     documentTableBody.innerHTML = rowsHTML;
-
   } catch (error) {
     console.error("Error loading documents:", error);
     Swal.fire({
@@ -844,24 +873,23 @@ async function updateInternCertificateButtons(data) {
   }
 }
 
-
 // COMPLETION CERTIFICATE – GENERATE
-
 
 async function generateCompletion(id) {
   const generateBtn = document.getElementById(`generateBtn_${id}`);
   const downloadBtn = document.getElementById(`downloadBtn_${id}`);
 
-  generateBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-1"></i> Generating...';
+  generateBtn.innerHTML =
+    '<i class="fa-solid fa-spinner fa-spin me-1"></i> Generating...';
   generateBtn.disabled = true;
   generateBtn.style.background = "gray";
 
   try {
     const now = new Date().toISOString().slice(0, 19).replace("T", " ");
 
-    await api.updateGenarateDate(id, { 
-      generateDate: now, 
-      generateName: "Completion_GenerateDate" 
+    await api.updateGenarateDate(id, {
+      generateDate: now,
+      generateName: "Completion_GenerateDate",
     });
 
     generateBtn.innerHTML = '<i class="fa-solid fa-check me-1"></i> Generated';
@@ -875,9 +903,8 @@ async function generateCompletion(id) {
       icon: "success",
       title: "Completion certificate generated!",
       timer: 1800,
-      showConfirmButton: false
+      showConfirmButton: false,
     });
-
   } catch (error) {
     generateBtn.innerHTML = "Generate";
     generateBtn.disabled = false;
@@ -885,33 +912,37 @@ async function generateCompletion(id) {
   }
 }
 
-
 // COMPLETION CERTIFICATE – DOWNLOAD
-
 
 function downloadCompletion(id) {
   console.log("Download completion for:", id);
   // Add your PDF code
 }
 
-
 // ONBOARDING CERTIFICATE – SAME LOGIC
 
-
-async function generateOnboardingCertificate(fullName, startDate, endDate, id, internId, stipendAmount) {
+async function generateOnboardingCertificate(
+  fullName,
+  startDate,
+  endDate,
+  id,
+  internId,
+  stipendAmount
+) {
   const generateBtn = document.getElementById(`generateOnboardBtn_${id}`);
   const downloadBtn = document.getElementById(`downloadOnboardBtn_${id}`);
 
-  generateBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-1"></i> Generating...';
+  generateBtn.innerHTML =
+    '<i class="fa-solid fa-spinner fa-spin me-1"></i> Generating...';
   generateBtn.disabled = true;
   generateBtn.style.background = "gray";
 
   try {
     const now = new Date().toISOString().slice(0, 19).replace("T", " ");
 
-    await api.updateGenarateDate(id, { 
+    await api.updateGenarateDate(id, {
       generateDate: now,
-      generateName: "Acceptance_GenerateDate"
+      generateName: "Acceptance_GenerateDate",
     });
 
     generateBtn.innerHTML = '<i class="fa-solid fa-check me-1"></i> Generated';
@@ -925,16 +956,14 @@ async function generateOnboardingCertificate(fullName, startDate, endDate, id, i
       icon: "success",
       title: "Onboarding certificate generated!",
       timer: 1800,
-      showConfirmButton: false
+      showConfirmButton: false,
     });
-
   } catch (error) {
     generateBtn.innerHTML = "Generate";
     generateBtn.disabled = false;
     generateBtn.style.background = "#4CAF50";
   }
 }
-
 
 //
 //
@@ -955,7 +984,7 @@ async function updateInternDocumentButtons(internId) {
     documents.forEach((doc) => {
       let actionHTML = "";
 
-      if (doc.exists) {
+      if (doc.exists && doc.name != "Photo") {
         actionHTML = `
           <button 
             onclick="handleAction(this, () => downloadDocument('${internId}', '${doc.name}'))" 
@@ -974,7 +1003,30 @@ async function updateInternDocumentButtons(internId) {
           <label class="btn btn-sm text-white ms-3 mb-0" 
                  style="background:linear-gradient(135deg, #ffe066, #fab005); border:none; cursor:pointer;">
             <i class="fa-solid fa-file-pen"></i> Edit
-            <input type="file" style="display:none" 
+            <input type="file" accept=".pdf, .doc, .docx" style="display:none" 
+                   onchange="uploadDocumentWrapper(this, '${internId}', '${doc.name}')">
+          </label>
+        `;
+      } else if (doc.name == "Photo" && doc.exists) {
+        actionHTML = `
+          <button 
+            onclick="handleAction(this, () => downloadDocument('${internId}', '${doc.name}'))" 
+            class="btn btn-sm text-white" 
+            style="background:linear-gradient(to bottom right, #69A1FF, #1E3FA0); border:none;">
+            <i class="fa-solid fa-download me-1"></i> Download
+          </button>
+
+          <button 
+          onclick="handleAction(this, () => viewDocument('${internId}', '${doc.name}'))"
+          class="btn btn-sm text-white ms-2"
+          style="background:linear-gradient(to bottom right, #10B981, #047857); border:none;">
+          <i class="fa-solid fa-eye me-1"></i> View
+        </button>
+
+          <label class="btn btn-sm text-white ms-3 mb-0" 
+                 style="background:linear-gradient(135deg, #ffe066, #fab005); border:none; cursor:pointer;">
+            <i class="fa-solid fa-file-pen"></i> Edit
+            <input type="file" accept="image/png, image/jpeg" style="display:none" 
                    onchange="uploadDocumentWrapper(this, '${internId}', '${doc.name}')">
           </label>
         `;
@@ -1290,9 +1342,9 @@ updateInternButton.addEventListener("click", async (e) => {
       await fetchAllData();
       handlePermission("#username");
       showSucessPopupFadeInDownLong(responseData.message);
-      // setTimeout(() => {
-      //   location.reload();
-      // }, 1000);
+      setTimeout(() => {
+        location.reload();
+      }, 1000);
     } catch (error) {
       showErrorPopupFadeInDown(
         error.response?.data?.message ||
@@ -1464,54 +1516,53 @@ $(document).ready(function () {
     });
 });
 
-
-document.getElementById("exitButton2").addEventListener("click", async function () {
-  const result = await Swal.fire({
-    title: "Cancel Editing?",
-    text: "You have unsaved changes. Are you sure you want to cancel?",
-    icon: "warning",
-    showCancelButton: true,
-    confirmButtonColor: "#d33",     // Red for confirm
-    cancelButtonColor: "#3085d6",   // Blue for cancel
-    confirmButtonText: "Yes, Cancel",
-    cancelButtonText: "No, Keep Editing",
-    reverseButtons: true,
-    customClass: {
-      popup: "swal2-custom-popup",
-      title: "swal2-custom-title"
+document
+  .getElementById("exitButton2")
+  .addEventListener("click", async function () {
+    const result = await Swal.fire({
+      title: "Cancel Editing?",
+      text: "You have unsaved changes. Are you sure you want to cancel?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33", // Red for confirm
+      cancelButtonColor: "#3085d6", // Blue for cancel
+      confirmButtonText: "Yes, Cancel",
+      cancelButtonText: "No, Keep Editing",
+      reverseButtons: true,
+      customClass: {
+        popup: "swal2-custom-popup",
+        title: "swal2-custom-title",
+      },
+    });
+    if (result.isConfirmed) {
+      // document.location.reload();
+      document.querySelector("#tabWrapper").classList.add("d-none");
+      document.querySelector("#tableCard").style.display = "block";
+    } else {
     }
   });
-  if(result.isConfirmed){
-    // document.location.reload();
-      document.querySelector('#tabWrapper').classList.add('d-none');
-    document.querySelector('#tableCard').style.display = 'block';
-  }
-  else{
-  }
-});
 
-document.getElementById("exitButton").addEventListener("click", async function () {
-  const result = await Swal.fire({
-    title: "Cancel Editing?",
-    text: "Your unsaved changes will be lost. Do you want to cancel?",
-    icon: "warning",
-    showCancelButton: true,
-    confirmButtonColor: "#d33",     // Red for confirm
-    cancelButtonColor: "#3085d6",   // Blue for cancel
-    confirmButtonText: "Yes, Cancel",
-    cancelButtonText: "No, Keep Editing",
-    reverseButtons: true,
-    customClass: {
-      popup: "swal2-custom-popup",
-      title: "swal2-custom-title"
+document
+  .getElementById("exitButton")
+  .addEventListener("click", async function () {
+    const result = await Swal.fire({
+      title: "Cancel Editing?",
+      text: "Your unsaved changes will be lost. Do you want to cancel?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33", // Red for confirm
+      cancelButtonColor: "#3085d6", // Blue for cancel
+      confirmButtonText: "Yes, Cancel",
+      cancelButtonText: "No, Keep Editing",
+      reverseButtons: true,
+      customClass: {
+        popup: "swal2-custom-popup",
+        title: "swal2-custom-title",
+      },
+    });
+    if (result.isConfirmed) {
+      document.querySelector("#tab").classList.add("d-none");
+      document.querySelector("#tableCard").style.display = "block";
+    } else {
     }
   });
-  if(result.isConfirmed){
-     
-            document.querySelector('#tab').classList.add('d-none');
-            document.querySelector('#tableCard').style.display = 'block';
-  }
-  else{
-  }
-});
-

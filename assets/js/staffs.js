@@ -399,8 +399,7 @@ async function loadUpdateDetails(id) {
     document.querySelectorAll("#department")[1].value = data.department;
     document.querySelectorAll("#designation")[1].value = data.designation;
     document.querySelectorAll("#employmentType")[1].value = data.employmentType;
-    document.querySelectorAll("#reportingManager")[1].value =
-      data.reportingManager;
+    document.querySelectorAll("#reportingManager")[1].value = data.reportingManager;
     document.querySelectorAll("#highestQualification")[1].value =
       data.education;
     document.querySelectorAll("#specialization")[1].value = data.specialization;
