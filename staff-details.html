@@ -31,7 +31,6 @@
   <!-- scrollbar.css -->
   <link rel="stylesheet" type="text/css" href="assets/css/jquery.mCustomScrollbar.css">
   <!-- Style.css -->
-  <link rel="stylesheet" type="text/css" href="assets/css/style copy.css">
       <link rel="stylesheet" href="assets/css/custom.css">
     <link rel="stylesheet" type="text/css" href="assets/css/style copy.css">
 
@@ -207,21 +206,22 @@
                 <div class="row align-items-center">
                   <div class="col-md-8">
                     <div class="page-title">
-                      <span class="page-title-icon bg-gradient-primary text-white mr-2">
+                      <span class="page-title-icon bg-gradient-primary text-white me-2">
                         <i class="fa-solid fa-id-card"></i>
                       </span>
                       <h5>Staff Details</h5>
                     </div>
                   </div>
                   <div class="col-md-4">
-                    <ul class="breadcrumb">
-                      <li class="breadcrumb-item">
-                        <a href="index.html"> <i class="fa fa-home"></i> </a>
-                      </li>
-                      <li class="breadcrumb-item"><a href="staff-details.html">Staff Details</a>
-                      </li>
-                    </ul>
-                  </div>
+  <ul class="breadcrumb" id="breadcrumb">
+    <li class="breadcrumb-item">
+      <a href="index.html"><i class="fa fa-home"></i></a>
+    </li>
+    <li class="breadcrumb-item">
+      <a href="staff-details.html">Staff Details</a>
+    </li>
+  </ul>
+</div>
                 </div>
               </div>
             </div>
@@ -451,10 +451,10 @@
 
     <!-- Modal Footer -->
     <div class="modal-footer bg-white border-top">
-      <button type="button" class="btn btn-red btn-sm text-white" id="exitButton">
+      <button type="button" class="btn btn-red btn-sm text-white" data-breadcrumb="back"id="exitButton">
         <i class="fa-solid fa-xmark me-1"></i> Exit
       </button>
-      <button type="submit" class="btn btn-green btn-sm text-white" id="add_staff_btn">
+      <button type="submit" class="btn btn-green btn-sm text-white" data-breadcrumb="back" id="add_staff_btn">
         <i class="fa-solid fa-circle-check me-1"></i> Submit
       </button>
     </div>
@@ -592,10 +592,12 @@
         <div class="modal-body bg-light rounded-3 shadow-sm">
           <div class="card border-0 shadow-sm">
             <div class="card-body">
-              <h6 class="text-sub fw-semibold mb-3">
-                <i class="fa-solid fa-shield-halved me-2"></i> Insurance Updates
-              </h6>
-              <table id="policyTable" class="table table-hover align-middle">
+               <div class="d-flex justify-content-end mb-5">
+                               <button class=" btn  addNewRecord" data-bs-toggle="modal" data-bs-target="#insuranceModal">
+    <i class="fa-solid fa-plus me-1"></i> Add Insurance
+  </button>
+                              </div>
+              <table id="policyTable" class="table-modern table-hover align-items-center">
                 <thead class="text-white"
                   style="background: linear-gradient(to bottom right, #60A5FA, #1E40AF);">
                   <tr>
@@ -612,9 +614,7 @@
               </table>
               <div class="text-end mt-2">
                   <!-- 🔘 Add Button -->
-  <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#insuranceModal">
-    <i class="fa-solid fa-plus me-1"></i> Add Insurance
-  </button>
+ 
               </div>
             </div>
           </div>
@@ -629,9 +629,9 @@
               <h6 class="text-sub fw-semibold mb-3">
                 <i class="fa-solid fa-file-pen me-2"></i> Document Update
               </h6>
-              <table id="documentTable" class="table table-hover align-middle">
-                <thead class="text-white"
-                  style="background: linear-gradient(to bottom right, #60A5FA, #1E40AF);">
+              <table id="documentTable" class="table-modern table-hover">
+                                                    <thead class="bg-primary text-white text-center">
+
                   <tr>
                     <th>Documents</th>
                     <th>Edit</th>
@@ -647,10 +647,10 @@
 
     <!-- Modal Footer -->
     <div class="modal-footer bg-white border-top">
-      <button type="button" class="btn btn-red btn-sm" data-dismiss="modal" id="exitButton2">
+      <button type="button" class="btn btn-red btn-sm" data-dismiss="modal" data-breadcrumb="back" id="exitButton2">
         <i class="fa-solid fa-xmark me-1"></i> Exit
       </button>
-      <button type="button" id="update_staff_btn" class="btn btn-green btn-sm writeElement">
+      <button type="button" id="update_staff_btn"  data-breadcrumb="back" class="btn btn-green btn-sm writeElement">
         <i class="fa-solid fa-circle-check me-1"></i> Update
       </button>
     </div>
@@ -662,7 +662,7 @@
                               <div class="d-flex justify-content-end mb-5">
                                 <button id="addNew"
                                   class="btn btn-primary addNewRecord writeElement d-flex align-items-center gap-2 px-sm-4 py-sm-2 rounded-pill shadow"
-                                  data-toggle="modal" data-target="#addNewModal">
+                                  data-toggle="modal" data-target="#addNewModal" data-breadcrumb="Add Staff">
                                   <i class="ti-plus text-white fs-5"></i>
                                   <span class="fw-bold">Add New Staff</span>
                                 </button>
@@ -841,8 +841,12 @@
         <h5 class="modal-title" id="insuranceModalLabel">
           <i class="fa-solid fa-shield-halved me-2"></i> Add Insurance Details
         </h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
+    <button type="button"
+          class="d-flex align-items-center btn-close justify-content-center p-0"
+          style="width:32px; height:32px;background-color: transparent !important; border: transparent; cursor: pointer;"
+          data-bs-dismiss="modal" aria-label="Close">
+          <i class="fa-solid fa-xmark text-white"></i>
+        </button>      </div>
 
       <div class="modal-body bg-light rounded-3 shadow-sm">
         <div class="card border-0 shadow-sm">
@@ -881,8 +885,8 @@
       </div>
 
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="submit" form="add-insurance-form" id="add-insurance" class="btn btn-success">Save</button>
+        <button type="button" class="btn btn-red" data-bs-dismiss="modal">Cancel</button>
+        <button type="submit" form="add-insurance-form" id="add-insurance" class="btn btn-green">Save</button>
       </div>
 
     </div>
@@ -941,8 +945,8 @@
       </div>
 
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="submit" form="update-insurance-form" id="update-insurance" class="btn btn-success">Save</button>
+        <button type="button" class="btn btn-red" data-bs-dismiss="modal">Cancel</button>
+        <button type="submit" form="update-insurance-form" id="update-insurance" class="btn btn-green">Save</button>
       </div>
 
     </div>

@@ -14644,6 +14644,40 @@ table.dataTable.dtr-inline.collapsed>tbody>tr>th:first-child:before {
         color: #2f3985 !important
     }
 /* Base button */
+.edit-btn1 {
+  border-radius: 50%;
+  transition: background 0.3s ease, transform 0.25s ease;
+}
+
+/* Default icon */
+.edit-btn1 i {
+  color: #264AAA;
+  transition: transform 0.25s ease;
+}
+
+/* Hover: soft glow + tilt + zoom */
+.edit-btn1:hover {
+  background: rgba(38, 74, 170, 0.12); /* Light tint of #264AAA */
+  transform: scale(1.1);
+  box-shadow: 0 0 8px rgba(38, 74, 170, 0.2);
+}
+
+.edit-btn1:hover i {
+  transform: rotate(-10deg) scale(1.15);
+}
+
+/* Click (press) effect */
+.edit-btn1:active {
+  transform: scale(0.9);
+  background: rgba(38, 74, 170, 0.25);
+  box-shadow: inset 0 0 6px rgba(38, 74, 170, 0.3);
+}
+
+.edit-btn1:active i {
+  transform: scale(0.9);
+}
+/* Base button */
+
 .edit-btn {
   border-radius: 50%;
   transition: background 0.3s ease, transform 0.25s ease;
