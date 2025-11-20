@@ -166,27 +166,63 @@ document.querySelectorAll("input, select").forEach((input) => {
   input.addEventListener("change", () => validateInput(input));
 });
 
-// File upload preview + validation
+// File upload preview + validation + drag & drop
 document.querySelectorAll('input[type="file"]').forEach((input) => {
-  input.addEventListener("change", function () {
-    validateInput(this);
-    const label = this.nextElementSibling;
-    if (this.files.length > 0) {
-      label.innerHTML = `<i class="fas fa-check-circle fa-2x mb-2 text-success"></i>
-        <div class="text-truncate">${this.files[0].name}</div>
-        <small class="text-muted">Click to change</small>`;
+  const label = input.nextElementSibling;
+
+  // ---- FUNCTION : Update Label Preview ----
+  function updateLabelPreview() {
+    validateInput(input);
+
+    if (input.files.length > 0) {
+      label.innerHTML = `
+        <i class="fas fa-check-circle fa-2x mb-2 text-success"></i>
+        <div class="text-truncate">${input.files[0].name}</div>
+        <small class="text-muted">Click to change</small>
+      `;
     } else {
       const originalText =
-        this.id === "photo"
+        input.id === "photo"
           ? "Upload JPG/PNG (Max 10MB)"
           : "Upload PDF (Max 10MB)";
-      const iconClass =
-        this.id === "photo" ? "fa-image" : "fa-cloud-upload-alt";
-      label.innerHTML = `<i class="fas ${iconClass} fa-2x mb-2 text-primary"></i>
-        <div>${originalText}</div>`;
+      const iconClass = input.id === "photo" ? "fa-image" : "fa-cloud-upload-alt";
+
+      label.innerHTML = `
+        <i class="fas ${iconClass} fa-2x mb-2 text-primary"></i>
+        <div>${originalText}</div>
+      `;
     }
+  }
+
+  // ---- 1️⃣ Normal upload ----
+  input.addEventListener("change", updateLabelPreview);
+
+  // ---- 2️⃣ Drag & Drop Support ----
+  label.addEventListener("dragover", (e) => {
+    e.preventDefault();
+    label.classList.add("drag-active");
+  });
+
+  label.addEventListener("dragleave", () => {
+    label.classList.remove("drag-active");
+  });
+
+  label.addEventListener("drop", (e) => {
+    e.preventDefault();
+    label.classList.remove("drag-active");
+
+    const droppedFile = e.dataTransfer.files[0];
+    if (!droppedFile) return;
+
+    // Add dropped file to input.files
+    const dataTransfer = new DataTransfer();
+    dataTransfer.items.add(droppedFile);
+    input.files = dataTransfer.files;
+
+    updateLabelPreview();
   });
 });
+
 
 // --- Final Submit Logic ---
 document

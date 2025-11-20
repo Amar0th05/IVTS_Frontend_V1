@@ -3,15 +3,22 @@ let updating = false;
 let isInitializing = true;
 let updateRoleID = null;
 
-// GROUP DEFINITIONS
+// production 
 const moduleGroups = {
   "NTCPWC FMS": [10, 11, 12, 13, 14, 15, 16, 17, 18, 2],
-  "IVTMS MANAGEMENT": [3, 4, 5, 6, 7, 24],
-  "EMPLOYEE MANAGEMENT": [20, 21, 1026],
-  "ASSETS MANAGEMENT": [26, 1027],
+  "IVTMS MANAGEMENT": [3, 4, 5, 1, 6, 7, 21],
+  "EMPLOYEE MANAGEMENT": [19, 20, 24],
+  "ASSETS MANAGEMENT": [22, 23],
 };
 
-
+// developement
+// GROUP DEFINITIONS
+// const moduleGroups = {
+//   "NTCPWC FMS": [10, 11, 12, 13, 14, 15, 16, 17, 18, 2],
+//   "IVTMS MANAGEMENT": [3, 4, 5, 6, 7, 24],
+//   "EMPLOYEE MANAGEMENT": [20, 21, 1026],
+//   "ASSETS MANAGEMENT": [26, 1027],
+// };
 
 document.addEventListener("DOMContentLoaded", async function () {
   let modules = await axiosInstance.get("/modules/all");

@@ -40,6 +40,8 @@
   <link rel="stylesheet" type="text/css" href="assets/css/style copy.css">
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
   <!-- Include SweetAlert2 CSS & JS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -230,7 +232,7 @@
 
     <div class="loader-track">
 
-                    <div class="preloader-wrapper">
+      <div class="preloader-wrapper">
         <div class="spinner-layer spinner-blue">
           <div class="circle-clipper left">
             <div class="circle"></div>
@@ -1101,53 +1103,76 @@
                                         <div class="card border-0 shadow-sm mb-3">
                                           <div class="card-body">
                                             <h6 class="text-sub mb-3 fw-semibold">
-                                              <i class="fa-solid fa-calendar-alt me-2 text-sub"></i> Additional Information
+                                              <i class="fa-solid fa-calendar-alt me-2 text-sub"></i> Additional
+                                              Information
                                             </h6>
-                                        
+
                                             <div class="row">
                                               <div class="col-md-12 mb-3">
                                                 <label for="submissionDate1" class="form-label fw-semibold">
                                                   Submission Date
                                                 </label>
-                                                <input type="date" name="submissionDate1" class="form-control form-control-sm" id="submissionDate1" readonly>
+                                                <input type="date" name="submissionDate1"
+                                                  class="form-control form-control-sm" id="submissionDate1" readonly>
                                               </div>
                                             </div>
-                                        
+
                                             <div class="row">
-                                              <div class="col-md-4 mb-3">
+                                              <div class="col-md-6 mb-3">
                                                 <label for="StartDate" class="form-label fw-semibold">
-                                                  Actual Start Date
+                                                  Actual Start Date <span
+                                                      class="text-danger">*</span>
                                                 </label>
-                                                <input type="date" name="StartDate" class="form-control form-control-sm" id="StartDate">
+                                                <input type="date" name="StartDate" class="form-control form-control-sm"
+                                                  id="StartDate">
                                               </div>
-                                        
-                                              <div class="col-md-4 mb-3">
+
+                                              <div class="col-md-6 mb-3">
                                                 <label for="EndDate" class="form-label fw-semibold">
-                                                  Actual End Date
+                                                  Actual End Date <span
+                                                      class="text-danger">*</span>
                                                 </label>
-                                                <input type="date" name="EndDate" class="form-control form-control-sm" id="EndDate">
+                                                <input type="date" name="EndDate" class="form-control form-control-sm"
+                                                  id="EndDate">
                                               </div>
-                                        
-                                              <div class="col-md-4 mb-3">
+
+                                              <div class="col-md-6 mb-3">
                                                 <div class="form-group">
-                                                  <label for="reportingManager">Reporting Manager <span class="text-danger">*</span></label>
-                                                  <select id="reportingManager" name="reportingManager" class="form-control form-control-sm userName"
-                                                    style="width:100%;" required>
+                                                  <label for="reportingManager">Reporting Manager <span
+                                                      class="text-danger">*</span></label>
+                                                  <select id="reportingManager" name="reportingManager"
+                                                    class="form-control form-control-sm userName" style="width:100%;"
+                                                    required>
                                                     <option value="">Reporting Manager</option>
+                                                    <!-- <option value="IC40634 - SELVARAJIV">Test</option> -->
+
                                                   </select>
                                                 </div>
                                               </div>
+                                              <div class="col-md-6 mb-3">
+                                                <div class="form-group">
+                                                  <label for="secondaryReportingManager">Secondary Reporting Manager
+                                                    <span class="text-danger">*</span></label>
+                                                  <select id="secondaryReportingManager" name="secondaryReportingManager"
+                                                    class="form-control form-control-sm userName" style="width:100%;" required>
+                                                    <option value="">Select Secondary Reporting Manager</option>
+                                                  </select>
+                                                </div>
+                                              </div>
+
                                             </div>
-                                        
+
                                             <!-- ✅ Added Stipend Row -->
                                             <div class="row">
                                               <div class="col-md-4 mb-3">
-                                                <label for="stipendAmount" class="form-label fw-semibold">Stipend</label>
-                                                <input type="number" name="stipendAmount" class="form-control form-control-sm" id="stipendAmount"
+                                                <label for="stipendAmount"
+                                                  class="form-label fw-semibold">Stipend</label>
+                                                <input type="number" name="stipendAmount"
+                                                  class="form-control form-control-sm" id="stipendAmount"
                                                   placeholder="Enter stipend amount">
                                               </div>
                                             </div>
-                                        
+
                                           </div>
                                         </div>
 
@@ -1213,7 +1238,8 @@
 
                                 <!-- Modal Footer -->
                                 <div class="modal-footer bg-white border-top">
-                                  <button type="button" class="btn btn-red btn-sm" data-dismiss="modal" id="exitButton2">
+                                  <button type="button" class="btn btn-red btn-sm" data-dismiss="modal"
+                                    id="exitButton2">
                                     <i class="fas fa-times me-1"></i>Exit
                                   </button>
                                   <button type="button" id="update_intern_btn"
@@ -1221,33 +1247,37 @@
                                     <i class="fas fa-save me-1"></i>Update
                                   </button>
                                 </div>
-                                  <!-- 🌟 Stylish Confirmation Modal -->
-                                <div class="modal fade" id="confirmExitModal" tabindex="-1" aria-labelledby="confirmExitLabel" aria-hidden="true">
+                                <!-- 🌟 Stylish Confirmation Modal -->
+                                <div class="modal fade" id="confirmExitModal" tabindex="-1"
+                                  aria-labelledby="confirmExitLabel" aria-hidden="true">
                                   <div class="modal-dialog modal-dialog-centered" style="max-width: 400px;">
                                     <div class="modal-content"
                                       style="border-radius: 15px; box-shadow: 0 0 25px rgba(0,0,0,0.2); border:none; overflow:hidden;">
-                                
-                                      <div class="modal-header text-white" style="background: linear-gradient(#4471D0);">
+
+                                      <div class="modal-header text-white"
+                                        style="background: linear-gradient(#4471D0);">
                                         <h6 class="modal-title" id="confirmExitLabel">
                                           <i class="fas fa-exclamation-triangle me-2"></i>Confirm Exit
                                         </h6>
-                                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                                        <button type="button" class="btn-close btn-close-white"
+                                          data-bs-dismiss="modal"></button>
                                       </div>
-                                
+
                                       <div class="modal-body text-center p-4" style="font-size: 14px; color: #333;">
                                         <i class="fas fa-question-circle fa-3x text-danger mb-3"></i>
                                         <p style="margin-bottom: 0;">
                                           Are you sure you want to <b>exit without saving</b> your changes?
                                         </p>
                                       </div>
-                                
+
                                       <div class="modal-footer justify-content-center border-0 pb-4">
-                                        <button type="button" class="btn btn-secondary px-4 py-1" data-bs-dismiss="modal">
-                                       </i>Cancel
+                                        <button type="button" class="btn btn-secondary px-4 py-1"
+                                          data-bs-dismiss="modal">
+                                          </i>Cancel
                                         </button>
                                         <button type="button" id="confirmExitYes" class="btn px-4 py-1 text-white"
                                           style="background-color:#c62828; border:none;">
-                                         </i>Yes, Exit
+                                          </i>Yes, Exit
                                         </button>
                                       </div>
                                     </div>
@@ -1447,6 +1477,7 @@
     </div>
   </div>
   </div>
+  
   <!-- Warning Section Starts -->
 
   <div id="pcoded-container" class="pcoded">
@@ -1454,6 +1485,7 @@
 
     </div>
   </div>
+  
 
   <!-- Required jQuery -->
   <script type="text/javascript" src="assets/js/jquery/jquery.min.js"></script>
@@ -1501,7 +1533,6 @@
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
   Bootstrap + jQuery + Select2
-  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
   <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
   <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
   <!-- Bootstrap + jQuery + Select2 -->

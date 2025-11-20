@@ -8,10 +8,58 @@ let updateInsuranceModal = null;
 
 document.addEventListener("DOMContentLoaded", () => {
   // Initialize DataTable
-  insuranceTable = $("#policyTable").DataTable({
-    columnDefs: [{ orderable: false, targets: [5] }],
-    pageLength: 5,
-  });
+  // insuranceTable = $("#policyTable").DataTable({
+  //   columnDefs: [{ orderable: false, targets: [5] }],
+  //   pageLength: 5,
+  // });
+insuranceTable = $("#policyTable").DataTable({
+  paging: true,
+  pageLength: 25,
+  lengthMenu: [5, 10, 25, 50, 100],
+  dom: '<"top"lBf>rt<"bottom"ip><"clear">',
+  buttons: [
+    {
+      extend: "excel",
+      text: `
+      <span class="icon-default"><i class="fa-solid fa-file-excel"></i></span>
+      <span class="icon-extra"><i class="fa-solid fa-download"></i></span>
+      Excel
+    `,
+      className: "btn-excel",
+    },
+    {
+      extend: "pdf",
+      text: `
+      <span class="icon-default"><i class="fa-solid fa-file-pdf"></i></span>
+      <span class="icon-extra"><i class="fa-solid fa-download"></i></span>
+      PDF
+    `,
+      className: "btn-pdf",
+    },
+    {
+      extend: "colvis",
+      text: `
+      <span class="icon-default"><i class="fa-solid fa-eye"></i></span>
+      <span class="icon-extra"><i class="fa-solid fa-gear"></i></span>
+      Columns
+    `,
+      className: "btn-colvis",
+    },
+  ],
+
+  language: {
+    search: "",
+    searchPlaceholder: "Type to search...",
+    paginate: { first: "«", last: "»", next: "›", previous: "‹" },
+  },
+      columnDefs: [{ orderable: false, targets: [5] }],
+
+  initComplete: function () {
+    const $input = $("#policyTable_filter input");
+    $input.wrap('<div class="search-wrapper"></div>');
+    $input.before('<i class="fa-solid fa-magnifying-glass"></i>');
+  },
+});
 
   // Initialize Modals
   addInsuranceModal = new bootstrap.Modal(document.getElementById("insuranceModal"));
@@ -193,11 +241,21 @@ function restoreBodyScroll() {
 
 // --- HELPER: ACTION BUTTONS ---
 function actionButtons(id) {
-  return `
-    <button class="btn btn-sm btn-warning edit-btn1" data-id="${id}">
-      <i class="fa fa-edit"></i>
-    </button>
-  `;
+return `
+  <div class="row d-flex justify-content-center">
+    <div class="d-flex align-items-center justify-content-center p-0 edit-btn1" 
+        style="width: 40px; height: 40px; cursor:pointer" 
+        data-id="${id}" data-breadcrumb="Edit Staff">
+        <i class="fa-solid fa-pen-to-square" style="font-size: larger;"></i>
+    </div>
+
+    <div class="d-flex align-items-center justify-content-center p-0 delete-btn" 
+        style="width: 40px; height: 40px; cursor:pointer" 
+        data-id="${id}" data-breadcrumb="Edit Staff">
+        <i class="fa-solid fa-trash text-danger" style="font-size: larger;"></i>
+    </div>
+  </div>
+`;
 }
 
 async function loadCourseOptions(id) {
@@ -377,6 +435,9 @@ updateStaffButton.addEventListener("click", async (e) => {
       await fetchAllData();
       handlePermission("#username");
       showSucessPopupFadeInDownLong(responseData.message);
+      setTimeout(() => {
+            document.location.reload();
+        }, 1500);
     } catch (error) {
       showErrorPopupFadeInDown(
         error.response?.data?.message ||
@@ -441,7 +502,7 @@ function addRow(data) {
       `<div class="row d-flex justify-content-center">
     <div class="d-flex align-items-center justify-content-center p-0 edit-btn" 
         style="width: 40px; height: 40px; cursor:pointer" 
-        data-staff-id="${data.staffID}">
+        data-staff-id="${data.staffID}" data-breadcrumb="Edit Staff">
         <i class="fa-solid fa-pen-to-square" style="font-size: larger;"></i>
     </div>
 </div>

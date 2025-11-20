@@ -144,18 +144,35 @@ const halfDayOptionContainer = document.getElementById("halfDayOptionContainer")
 function validateInput(input) {
     let isValid = true;
     let message = "";
-    input.classList.remove("is-invalid", "is-valid");
-      // 🧩 NEW: Skip validation for hidden fields (not visible on screen)
-  const style = window.getComputedStyle(input);
-  const isHidden = style.display === "none" || style.visibility === "hidden" || input.type === "hidden";
-  if (isHidden) return true;
 
+    input.classList.remove("is-invalid", "is-valid");
+
+    const style = window.getComputedStyle(input);
+    const isHidden =
+        style.display === "none" ||
+        style.visibility === "hidden" ||
+        input.type === "hidden";
+
+    if (isHidden) return true;
+
+    // Required empty
     if (input.required && input.value.trim() === "") {
         isValid = false;
-        message = "This field is required.";
-    } else if (input.id === "ManagerName" && input.value && !/^[A-Za-z\s]+$/.test(input.value)) {
+
+        if (input.id.toLowerCase().includes("reason")) {
+            message = "Please fill the reason.";
+        } else {
+            message = "This field is required.";
+        }
+
+    } else if (
+        input.id === "ManagerName" &&
+        input.value &&
+        !/^[A-Za-z\s]+$/.test(input.value)
+    ) {
         isValid = false;
         message = "Manager Name must contain only letters and spaces.";
+
     } else if (input.id === "endDate" && input.value) {
         const startDate = document.getElementById("startDate").value;
         if (startDate && new Date(input.value) < new Date(startDate)) {
@@ -164,14 +181,16 @@ function validateInput(input) {
         }
     }
 
-    if (isValid) {
-        setFeedback(input, "", false);
-    } else {
+    if (!isValid) {
         input.classList.add("is-invalid");
         setFeedback(input, message, true);
+    } else {
+        setFeedback(input, "", false);
     }
+
     return isValid;
 }
+
 
 // Function to set validation feedback messages.
 function setFeedback(input, message, isInvalid) {
@@ -186,13 +205,44 @@ function setFeedback(input, message, isInvalid) {
 
 // Function to validate all fields in the current step.
 function validateStep() {
-    let isValid = true;
-    const inputs = form.querySelectorAll("input[required], select[required], textarea[required]");
+    let firstInvalidInput = null;
+
+    const inputs = form.querySelectorAll(
+        "input[required], select[required], textarea[required]"
+    );
+
     inputs.forEach((input) => {
-        if (!validateInput(input)) isValid = false;
+        const valid = validateInput(input);
+        if (!valid && !firstInvalidInput) {
+            firstInvalidInput = input;
+        }
     });
-    return isValid;
+
+    if (!firstInvalidInput) return null; // all OK
+
+    // 🔍 Try to get Column/Label name
+    let labelText = "";
+    const label = document.querySelector(`label[for="${firstInvalidInput.id}"]`);
+    if (label) {
+        labelText = label.textContent.trim();
+    } else {
+        labelText =
+            firstInvalidInput.placeholder ||
+            firstInvalidInput.name ||
+            "this field";
+    }
+
+    // Special: Reason field
+    // if (
+    //     firstInvalidInput.id.toLowerCase().includes("reason")
+    // ) {
+    //     return "Please fill the reason.";
+    // }
+
+    return `Please fill the ${labelText}.`;
 }
+
+
 
 // --- Event Listeners for Dynamic Form Behavior ---
 
@@ -334,10 +384,19 @@ document.addEventListener('DOMContentLoaded', function () {
     form.addEventListener('submit', async function (e) {
         e.preventDefault();
 
-        if (typeof validateStep === 'function' && !validateStep()) {
-            alert("Please correct the errors before submitting.");
-            return;
-        }
+if (typeof validateStep === "function") {
+    const errorText = validateStep();
+    console.log("Validation result:", errorText);
+
+    if (errorText != null) {
+        // showErrorPopupFadeInDown(errorText);
+        showErrorPopupFadeInDown("Please fill all required fields correctly before submitting.");
+
+        return;
+    }
+}
+
+
 
         submitBtn.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Submitting...`;
         submitBtn.disabled = true;
@@ -348,14 +407,14 @@ document.addEventListener('DOMContentLoaded', function () {
             // --- Get selected employee ---
             const selectedValue = $('.userName').val();
             if (!selectedValue || !selectedValue.includes('-')) {
-                alert("Please select a valid employee from the dropdown.");
+                showErrorPopupFadeInDown("Please select a valid employee from the dropdown.");
                 resetButton();
                 return;
             }
 
             const [employeeId, employeeName] = selectedValue.split('-').map(v => v.trim());
             if (!employeeId || !employeeName) {
-                alert("Invalid employee selection.");
+                alshowErrorPopupFadeInDownert("Invalid employee selection.");
                 resetButton();
                 return;
             }
@@ -364,7 +423,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const endDate = formData.get('endDate');
 
             if (new Date(endDate) < new Date(startDate)) {
-                alert("End date must be on or after the start date.");
+                showErrorPopupFadeInDown("End date must be on or after the start date.");
                 resetButton();
                 return;
             }
