@@ -54,6 +54,29 @@ async function loadHighestQualificationsOptions(id) {
   }
 }
 
+
+$(document).ready(function () {
+  api.getReportingManger()
+    .then((staffList) => {
+      staffList.forEach((staff) => {
+        $(".userName").append(
+          $("<option>", {
+            value: `${staff.id} - ${staff.name}`,
+            text: `${staff.id}-${staff.name}`,
+          })
+        );
+      });
+
+      $(".userName").select2({
+        placeholder: "Select Reporting Manager",
+        allowClear: true,
+      });
+    })
+    .catch((error) => {
+      console.error("Error loading staff:", error);
+    });
+});
+
 // add staff
 addStaffButton.addEventListener("click", async (e) => {
   e.preventDefault();
@@ -63,21 +86,22 @@ addStaffButton.addEventListener("click", async (e) => {
   let formData = new FormData(form);
 
   let Data = Object.fromEntries(formData.entries());
+  // console.log("Form Data:",formData);
 
   if (validateForm(formData)) {
     try {
-      console.log("Submitting Payload...");
+      // console.log("Submitting Payload...",data);
       const response = await api.addIITStaff(Data);
 
       table.clear();
       await fetchAllData();
       handlePermission("#username");
-      showSucessPopupFadeInDownLong(response.data.message);
+      showSucessPopupFadeInDownLong(response?.message || "Staff Added Successfully");
       form.reset();
-      insuranceForm.reset();
       document.querySelector("#tab").classList.add("d-none");
       document.querySelector("#tableCard").style.display = "block";
     } catch (error) {
+      console.log("Error Adding Staff:", error);
       showErrorPopupFadeInDown(
         error.response?.data?.message ||
           "Failed to add staff. Please try again later."
@@ -399,8 +423,10 @@ async function loadUpdateDetails(id) {
     document.querySelectorAll("#department")[1].value = data.department;
     document.querySelectorAll("#designation")[1].value = data.designation;
     document.querySelectorAll("#employmentType")[1].value = data.employmentType;
-    document.querySelectorAll("#reportingManager")[1].value =
-      data.reportingManager;
+    $("#reportingManager_2")
+  .val(data.reportingManager)
+  .trigger("change");
+
     document.querySelectorAll("#highestQualification")[1].value =
       data.education;
     document.querySelectorAll("#specialization")[1].value = data.specialization;
@@ -581,7 +607,6 @@ async function fetchDataAndGenerateExcel() {
       staff.department,
       staff.designation,
       staff.employmentType,
-      ,
       staff.reportingManager,
       staff.workLocation,
       staff.education,

@@ -86,6 +86,8 @@ const API_ROUTES = {
 
   projects: `/projects`,
   getAllProjects: `/projects/all`,
+    getProjectIncharge: `/projects/getProjectIncharge`,
+
   clientBase: `/clients`,
   getAllClients: `/clients/all`,
 

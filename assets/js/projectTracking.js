@@ -1,5 +1,7 @@
-let payments = [];
+// let payments = [];
 let NoOfDeliverables = 1;
+let NoOfPayments = 1;
+let paymentTable;
 let deliverablesTable;
 let updateprojectButton = document.getElementById("update_project_btn");
 
@@ -12,17 +14,23 @@ deliverablesTable = $("#deliverablesTable").DataTable({
     buttons: [
       {
         extend: 'excel',
-        text: '<i class="fa-solid fa-file-excel"></i> Excel',
+        text: `<span class="icon-default"><i class="fa-solid fa-file-excel"></i></span>
+      <span class="icon-extra"><i class="fa-solid fa-download"></i></span>
+      Excel`,
         className: 'btn-excel'
       },
       {
         extend: 'pdf',
-        text: '<i class="fa-solid fa-file-pdf"></i> PDF',
+        text: ` <span class="icon-default"><i class="fa-solid fa-file-pdf"></i></span>
+      <span class="icon-extra"><i class="fa-solid fa-download"></i></span>
+      PDF`,
         className: 'btn-pdf'
       },
       {
         extend: 'colvis',
-        text: '<i class="fa-solid fa-eye"></i> Columns',
+       text: `<span class="icon-default"><i class="fa-solid fa-eye"></i></span>
+      <span class="icon-extra"><i class="fa-solid fa-gear"></i></span>
+      Columns`,
         className: 'btn-colvis'
       }
     ],
@@ -47,6 +55,59 @@ deliverablesTable = $("#deliverablesTable").DataTable({
   // Move export buttons into custom div
   deliverablesTable.buttons().container().appendTo($('#deliverablesTableExportButtons'));
 
+  
+paymentTable = $("#paymentTable").DataTable({
+  paging: true,
+  pageLength: 25,
+  lengthMenu: [5, 10, 25, 50, 100],
+  dom: '<"top"lBf>rt<"bottom"ip><"clear">',
+    // dom: 'Bfrtip',
+    buttons: [
+      {
+        extend: 'excel',
+        text: `<span class="icon-default"><i class="fa-solid fa-file-excel"></i></span>
+      <span class="icon-extra"><i class="fa-solid fa-download"></i></span>
+      Excel`,
+        
+        className: 'btn-excel'
+      },
+        
+      {
+        extend: 'pdf',
+        text: ` <span class="icon-default"><i class="fa-solid fa-file-pdf"></i></span>
+      <span class="icon-extra"><i class="fa-solid fa-download"></i></span>
+      PDF`,
+        className: 'btn-pdf'
+      },
+      {
+        extend: 'colvis',
+        text: `<span class="icon-default"><i class="fa-solid fa-eye"></i></span>
+      <span class="icon-extra"><i class="fa-solid fa-gear"></i></span>
+      Columns`,
+        className: 'btn-colvis'
+      }
+    ],
+    language: {
+      search: "",
+      searchPlaceholder: "Type to search...",
+    paginate: { first: "«", last: "»", next: "›", previous: "‹" }
+
+    },
+    initComplete: function () {
+      // Remove default "Search:" text
+      $('#paymentTable').contents().filter(function () {
+        return this.nodeType === 3;
+      }).remove();
+
+      // Wrap search input & add search icon
+      $('#paymentTable_filter input').wrap('<div class="search-wrapper"></div>');
+      $('.search-wrapper').prepend('<i class="fa-solid fa-magnifying-glass"></i>');
+    }
+  });
+
+  // Move export buttons into custom div
+  // deliverablesTable.buttons().container().appendTo($('#deliverablesTableExportButtons'));
+  paymentTable.buttons().container().appendTo($('#paymentTableExportButtons'));
 
 let updateProjectCostField = document.querySelector("#update-ProjectCost");
 let updateGstField = document.querySelector("#update-GST");
@@ -74,14 +135,22 @@ function calculateUpdateTotalCost() {
   updateTotalCostField.value = totalCost;
 }
 
-document
-  .querySelector("#update-NoOfDeliverables")
-  .addEventListener("change", function () {
-    if (this.value <= 0) {
-      showErrorPopupFadeInDown("Atleast one deliverable is required");
-      this.value = 1;
-    }
-  });
+// document
+//   .querySelector("#update-NoOfDeliverables")
+//   .addEventListener("change", function () {
+//     if (this.value <= 0) {
+//       showErrorPopupFadeInDown("Atleast one deliverable is required");
+//       this.value = 1;
+//     }
+//   });
+// document
+//   .querySelector("#update-NoOfPayments")
+//   .addEventListener("change", function () {
+//     if (this.value <= 0) {
+//       showErrorPopupFadeInDown("Atleast one payment is required");
+//       this.value = 1;
+//     }
+//   });
 
 let table;
 let decidedPermission;
@@ -93,6 +162,10 @@ document.addEventListener("DOMContentLoaded", async () => {
   decidedPermission = handlePermission("#username");
 });
 
+
+if (decidedPermission !== "") {
+  decidedPermission = "editElement";
+}
 function addRow(data) {
   if ($.fn.dataTable.isDataTable("#projectsTable")) {
     table = $("#projectsTable").DataTable();
@@ -103,15 +176,20 @@ function addRow(data) {
     return;
   }
 
-  if (data.StartDate) {
-    data.StartDate = new Date(data.StartDate).toLocaleDateString("en-GB");
+  if (data.EstStartDate) {
+    data.EstStartDate = new Date(data.EstStartDate).toLocaleDateString("en-GB");
   } else {
-    data.StartDate = "-";
+    data.EstStartDate = "-";
   }
   if (data.EstEndDate) {
     data.EstEndDate = new Date(data.EstEndDate).toLocaleDateString("en-GB");
   } else {
     data.EstEndDate = "-";
+  }
+  if(data.ActualStartDate) {
+    data.ActualStartDate = new Date(data.ActualStartDate).toLocaleDateString("en-GB");
+  } else {
+    data.ActualStartDate = "-";
   }
   if (data.ActualEndDate) {
     data.ActualEndDate = new Date(data.ActualEndDate).toLocaleDateString(
@@ -159,7 +237,7 @@ StatusRow = `
       data.ProjectName,
       data.ProjectIncharge,
       data.ClientName,
-      data.StartDate,
+      data.EstStartDate,
       data.EstEndDate,
       data.ActualEndDate,
       data.ProjectCost,
@@ -177,8 +255,37 @@ StatusRow = `
     ])
     .draw(false);
 }
+$(document).ready(function () {
+  console.log("enter");
+  // Load all staff and populate dropdown
+  api
+    .getProjectIncharge()
+    // api.getstaffid()
+    // api.getReportingid()
+    .then((staffList) => {
+      staffList.forEach((staff) => {
+        $(".userName").append(
+          $("<option>", {
+            value: `${staff.id} - ${staff.name}`,
+            text: `${staff.id}-${staff.name} `,
+          })
+        );
+      });
+
+      // Initialize Select2 after options are added
+      $(".userName").select2({
+        placeholder: "Select Reporting Manager",
+        allowClear: true,
+      });
+    })
+    .catch((error) => {
+      console.log("error");
+      console.error("Error loading staff:", error);
+    });
+});
 
 async function loadUpdateData(id) {
+  console.log("enter load")
   if (id) {
     try {
       const project = await api.getProjectById(id);
@@ -187,14 +294,26 @@ async function loadUpdateData(id) {
 
       document.querySelector("#update-ProjectID").value = project.ProjectID;
       document.querySelector("#update-ProjectName").value = project.ProjectName;
-      document.querySelector("#update-ProjectIncharge").value =
-        project.ProjectIncharge;
-      document.querySelector("#update-ClientName").value = project.ClientName;
-      document.querySelector("#update-StartDate").value = project.StartDate
-        ? new Date(project.StartDate).toISOString().split("T")[0]
+      // document.querySelector("#update-ProjectIncharge").value =project.ProjectIncharge;
+      $("#update-ProjectIncharge")
+  .val(project.ProjectIncharge)
+  .trigger("change");
+
+   
+    console.log("project.ClientName",  $("#update-ClientName"));
+$("#update-ClientName").val(project.ClientID).trigger("change");
+
+
+// input.dispatchEvent(new Event("change"));
+
+      document.querySelector("#update-EstStartDate").value = project.EstStartDate
+        ? new Date(project.EstStartDate).toISOString().split("T")[0]
         : "";
       document.querySelector("#update-EstEndDate").value = project.EstEndDate
         ? new Date(project.EstEndDate).toISOString().split("T")[0]
+        : "";
+      document.querySelector("#update-ActualStartDate").value = project.ActualStartDate
+        ? new Date(project.ActualStartDate).toISOString().split("T")[0]
         : "";
       document.querySelector("#update-ActualEndDate").value =
         project.ActualEndDate
@@ -206,8 +325,10 @@ async function loadUpdateData(id) {
         project.TotalProjectCost;
       document.querySelector("#update-NoOfDeliverables").value =
         project.NoOfDeliverables;
-      document.querySelector("#update-ProjectStatus").value =
-        project.ProjectStatus;
+        document.querySelector("#update-NoOfPayments").value =
+        project.NoOfPayments;
+      // document.querySelector("#update-ProjectStatus").value =
+      //   project.ProjectStatus;
       document.querySelector("#update-ProjectID").dataset.id = id;
 
       deliverablesTable.clear().draw();
@@ -218,6 +339,12 @@ async function loadUpdateData(id) {
           addDeliverablesRow(element);
         });
       }
+        if (project.Payments) {
+        // console.log((project.deliverables));
+        project.Payments.forEach((element) => {
+          addPaymentsRow(element);
+        });
+      }
     } catch (err) {
       console.log(err);
     }
@@ -226,6 +353,8 @@ async function loadUpdateData(id) {
 
   console.log("No id found");
 }
+
+
 
 async function getAllProjects() {
   try {
@@ -300,25 +429,31 @@ document
   .querySelector("#add_project_btn")
   .addEventListener("click", function () {
     let form = document.querySelector("#new-project-form");
-    let client = document.querySelector("#ClientName").dataset.selectedId;
+let client = document.getElementById("ClientName").value;
+console.log("client", client);
 
     let formData = new FormData(form);
     formData.set("Client", client);
     let data = Object.fromEntries(formData.entries());
 
-    if (data.EstEndDate && data.EstEndDate < data.StartDate) {
+    if (data.EstEndDate && data.EstEndDate < data.EstStartDate) {
+      showErrorPopupFadeInDown("Estimated End Date must be after Start Date.");
+      return;
+    }
+        if (data.ActualEndDate && data.ActualEndDate < data.ActualStartDate) {
       showErrorPopupFadeInDown("Estimated End Date must be after Start Date.");
       return;
     }
 
-    if (
-      data.ActualEndDate &&
-      data.StartDate &&
-      data.ActualEndDate < data.StartDate
-    ) {
-      showErrorPopupFadeInDown("Actual End Date must be after Start Date.");
-      return;
-    }
+    // if (
+    //   data.ActualEndDate &&
+    //   data.EstStartDate &&
+    //   data.ActualEndDate < data.EstStartDate
+    // ) {
+    //   showErrorPopupFadeInDown("Actual End Date must be after Start Date.");
+    //   return;
+    // }
+
 
     if (data.ProjectCost != undefined) {
       data.ProjectCost = Number(data.ProjectCost);
@@ -350,22 +485,30 @@ document
     if (data.Client != undefined) {
       data.Client = Number(data.Client);
     }
+            console.log(data.Client);
+
     if (NoOfDeliverables != undefined) {
       NoOfDeliverables = Number(NoOfDeliverables);
     }
     data.NoOfDeliverables = NoOfDeliverables;
+
+        if (NoOfPayments != undefined) {
+      NoOfPayments = Number(NoOfPayments);
+    }
+    data.NoOfPayments = NoOfPayments;
 
     let requiredFields = [
       "ProjectID",
       "ProjectName",
       "ProjectIncharge",
       "ClientName",
-      "StartDate",
+      "EstStartDate",
       "ActualEndDate",
       "ProjectCost",
       "GST",
       "TotalProjectCost",
       "NoOfDeliverables",
+      "NoOfPayments",
       "ProjectStatus",
     ];
 
@@ -380,6 +523,7 @@ document
       "GST",
       "Total Project Cost",
       "No of Deliverables",
+      "No of Payments",
       "Project Status",
     ];
 
@@ -447,10 +591,41 @@ document
       });
     });
 
-    if (payments.length === 0) {
-      showErrorPopupFadeInDown("Please add at least one payment.");
-      return;
-    }
+    data.payments = [];
+
+    let isValidPayment = true;
+    let payments = [];
+
+    document.querySelectorAll(".payment-item").forEach((payment) => {
+      const description = payment.querySelector(".payment-description").value.trim();
+      const amount = payment.querySelector(".payment-amount").value.trim();
+      const PaymentStatus = payment.querySelector(".payment-status").value;
+
+      if (
+        description === "" ||
+        amount === "" ||
+        PaymentStatus === null
+      ) {
+        showErrorPopupFadeInDown("Please fill in all the deliverables data.");
+        isValidPayment = false;
+        return;
+      }
+
+      if (isNaN(amount) || Number(amount) < 0) {
+        showErrorPopupFadeInDown("Payment amount cannot be negative.");
+        payment.querySelector(".payment-amount").value = "0";
+        isValidPayment = false;
+        return;
+      }
+
+      payments.push({
+        description,
+        PaymentAmount: parseFloat(amount),
+        PaymentStatus,
+      });
+    });
+
+    if (!isValidPayment) return;
 
     if (!isValid) return;
 
@@ -464,9 +639,9 @@ document
     formData.set("deliverables", JSON.stringify(deliverables));
     formData.set("payments", JSON.stringify(payments));
 
-    payments.forEach((payment, index) => {
-      apiFormData.set(`payment_invoice_${index}`, payment.invoice);
-    });
+    // payments.forEach((payment, index) => {
+    //   apiFormData.set(`payment_invoice_${index}`, payment.invoice);
+    // });
 
     console.log(Object.fromEntries(apiFormData.entries()));
 
@@ -496,7 +671,7 @@ document
   .addEventListener("click", function () {
     let form = document.querySelector("#update-project-form");
     let client =
-      document.querySelector("#update-ClientName").dataset.selectedId;
+      document.querySelector("#update-ClientName").value;
 
     let id = document.querySelector("#update-ProjectID").dataset.id;
 
@@ -504,19 +679,19 @@ document
     formData.set("Client", client);
     let data = Object.fromEntries(formData.entries());
 
-    if (data.EstEndDate && data.EstEndDate < data.StartDate) {
+    if (data.EstEndDate && data.EstEndDate < data.EstStartDate) {
       showErrorPopupFadeInDown("Estimated End Date must be after Start Date.");
       return;
     }
 
-    if (
-      data.ActualEndDate &&
-      data.StartDate &&
-      data.ActualEndDate < data.StartDate
-    ) {
-      showErrorPopupFadeInDown("Actual End Date must be after Start Date.");
-      return;
-    }
+    // if (
+    //   data.ActualEndDate &&
+    //   data.EstStartDate &&
+    //   data.ActualEndDate < data.EstStartDate
+    // ) {
+    //   showErrorPopupFadeInDown("Actual End Date must be after Start Date.");
+    //   return;
+    // }
 
     if (data.ProjectCost != undefined) {
       data.ProjectCost = Number(data.ProjectCost);
@@ -545,9 +720,10 @@ document
       }
     }
 
-    if (data.Client != undefined) {
-      data.Client = Number(data.Client);
+    if (data.Clients != undefined) {
+      data.Client = Number(data.Clients);
     }
+
     if (NoOfDeliverables != undefined) {
       NoOfDeliverables = Number(NoOfDeliverables);
     }
@@ -559,7 +735,8 @@ document
       "ProjectName",
       "ProjectIncharge",
       "ClientName",
-      "StartDate",
+      "EstStartDate",
+      "ActualStartDate",
       "ActualEndDate",
       "ProjectCost",
       "GST",
@@ -638,7 +815,17 @@ document.querySelector("#deliverablesIncrementBtn").addEventListener("click", ()
   // Add missing rows if needed
     addDeliverableFields("deliverablesDynamicContainer", NoOfDeliverables - existingCount);
 });
+document.querySelector("#paymentIncrementBtn").addEventListener("click", () => {
+    NoOfPayments++;
+    document.getElementById("paymentCountInput").value = NoOfPayments;
 
+  // Get table body instead of full container
+  const tbody = document.querySelector("#paymentDynamicContainer tbody");
+  const existingCount = tbody.children.length;
+
+  // Add missing rows if needed
+    addPaymentFields("paymentDynamicContainer", NoOfPayments - existingCount);
+});
 
 var columnTypes = {
   0: "text",
@@ -646,6 +833,260 @@ var columnTypes = {
   2: "number",
   3: "text",
 };
+var columnPaymentTypes = {
+  0: "text",
+  1: "number",
+  2: "text",
+};
+let originalPaymentRowData = {};
+
+
+$("#paymentTable").on("click", ".edit-row1", function () {
+  enableEditPaymentMode($(this).closest("tr"));
+});
+
+$("#paymentTable").on("click", ".cancel-row1", function () {
+  const $row = $(this).closest("tr");
+  if ($row.hasClass("new-payment")) {
+    paymentTable.row($row).remove().draw();
+  } else {
+    cancelEditPaymentMode($row);
+  }
+});
+
+$("#paymentTable").on("click", ".save-row1", function () {
+  savePaymentRow($(this).closest("tr"));
+});
+
+$("#addRowBtnPayment").click(function () {
+  addPaymentsRow(null, true);
+});
+
+
+/* ------------------------------------------------------------------
+    ENABLE EDIT MODE
+------------------------------------------------------------------ */
+function enableEditPaymentMode($row) {
+
+  originalPaymentRowData[$row.index()] = {
+    description: $row.find("td:eq(0)").text().trim(),
+    amount: $row.find("td:eq(1)").text().trim(),
+    status: $row.find("td:eq(2) span").text().trim(),
+    id: $row.data("id"),
+  };
+
+  // DESCRIPTION
+  $row.find("td:eq(0)").html(`
+      <input type="text" class="form-control" value="${originalPaymentRowData[$row.index()].description}">
+  `);
+
+  // AMOUNT
+  $row.find("td:eq(1)").html(`
+      <input type="number" class="form-control" min="0" step="0.01" value="${originalPaymentRowData[$row.index()].amount}">
+  `);
+
+  // STATUS DROPDOWN
+  $row.find("td:eq(2)").html(`
+    <div class="d-flex align-items-center">
+        <select class="form-control payment-status" style="flex:1">
+            <option value="Received" ${originalPaymentRowData[$row.index()].status === "Received" ? "selected" : ""}>Received</option>
+            <option value="Not Received" ${originalPaymentRowData[$row.index()].status === "Not Received" ? "selected" : ""}>Not Received</option>
+        </select>
+
+        <button class="btn btn-green btn-sm save-row1 ml-2">Save</button>
+        <button class="btn btn-red btn-sm cancel-row1 ml-1">Cancel</button>
+    </div>
+  `);
+}
+
+
+/* ------------------------------------------------------------------
+    CANCEL EDIT MODE
+------------------------------------------------------------------ */
+function cancelEditPaymentMode($row) {
+  const rowIndex = $row.index();
+  let d = originalPaymentRowData[rowIndex];
+
+  const rowContent = [
+    d.description,
+    d.amount,
+    `<div class="d-flex align-items-center">
+        <span style="flex:1">${d.status}</span>
+        <button class="btn btn-primary btn-sm edit-row1 ml-2">Edit</button>
+     </div>`
+  ];
+
+  paymentTable.row($row).data(rowContent).draw();
+
+  if (d.id) $row.attr("data-id", d.id);
+
+  delete originalPaymentRowData[rowIndex];
+}
+
+
+/* ------------------------------------------------------------------
+    SAVE ROW (NEW + UPDATE)
+------------------------------------------------------------------ */
+async function savePaymentRow($row) {
+
+  const description = $row.find("td:eq(0) input").val()?.trim();
+  const amount = $row.find("td:eq(1) input").val()?.trim();
+  const status = $row.find("td:eq(2) select").val()?.trim();
+
+  if (!description || !amount) {
+    alert("Description and Amount are required!");
+    return;
+  }
+
+  const saveData = {
+    Description: description,
+    PaymentAmount: parseFloat(amount),
+    PaymentStatus: status
+  };
+
+  const isNew = $row.hasClass("new-payment");
+  const rowId = $row.data("id");
+
+  // ------------------------ NEW ROW ------------------------
+  if (isNew) {
+    saveData.ProjectID = $("#update-ProjectID").val();
+
+    axiosInstance
+      .post("/deliverables/payments", saveData)
+      .then((response) => {
+        let rowContent = [
+          saveData.Description,
+          saveData.PaymentAmount,
+          `<div class="d-flex align-items-center">
+              <span style="flex:1">${saveData.PaymentStatus}</span>
+              <button class="btn btn-primary btn-sm edit-row1 ml-2">Edit</button>
+           </div>`
+        ];
+
+        paymentTable.row($row).data(rowContent).draw();
+
+        $row.removeClass("new-payment");
+        $row.attr("data-id", response.data.id);
+      })
+      .catch((err) => {
+        showErrorPopupFadeInDown("Failed to add payment.");
+      });
+
+  }
+  // ------------------------ UPDATE EXISTING ------------------------
+  else {
+    saveData.ID = rowId;
+    console
+    await api.updateProjectPayment(saveData);
+    refreshRowAfterPaymentSave($row, saveData);
+  }
+}
+
+
+/* ------------------------------------------------------------------
+    REFRESH ROW AFTER SAVE
+------------------------------------------------------------------ */
+function refreshRowAfterPaymentSave($row, data) {
+
+  const rowContent = [
+    data.Description,
+    data.PaymentAmount,
+    `<div class="d-flex align-items-center">
+        <span style="flex:1">${data.PaymentStatus}</span>
+        <button class="btn btn-primary btn-sm edit-row1 ml-2">Edit</button>
+     </div>`
+  ];
+
+  paymentTable.row($row).data(rowContent).draw();
+}
+
+async function updatePaymentRow($row) {
+
+  // Read values from row
+  const description = $row.find("td:eq(0) input").val()?.trim();
+  const amount = $row.find("td:eq(1) input").val()?.trim();
+  const status = $row.find("td:eq(2) select").val()?.trim();
+
+  // Prepare data object
+  const data = {
+    ID: $row.data("id"),
+    Description: description,
+    PaymentAmount: parseFloat(amount),
+    PaymentStatus: status
+  };
+
+  try {
+    await api.updateProjectPayment(data); // corrected API name
+  } catch (err) {
+    console.error("Update failed:", err);
+  }
+}
+
+
+/* ------------------------------------------------------------------
+    ADD NEW PAYMENT ROW
+------------------------------------------------------------------ */
+function addPaymentsRow(data, isNew = false) {
+
+  let rowContent;
+
+  if (isNew) {
+    rowContent = [
+      `<input type="text" class="form-control payment-description" placeholder="Description">`,
+      `<input type="number" class="form-control payment-amount" placeholder="Amount" min="0" step="0.01">`,
+      `<div class="d-flex align-items-center">
+          <select class="form-control payment-status me-2">
+              <option value="Received">Received</option>
+              <option value="Not Received">Not Received</option>
+          </select>
+
+          <button class="btn btn-green btn-sm save-row1 ml-2">Save</button>
+          <button class="btn btn-red btn-sm cancel-row1 ml-1">Cancel</button>
+      </div>`
+    ];
+  } else {
+    rowContent = [
+      data.Description,
+      data.PaymentAmount,
+      `<div class="d-flex align-items-center">
+          <span style="flex:1">${data.PaymentStatus}</span>
+          <button class="btn btn-primary btn-sm edit-row1 ml-2">Edit</button>
+       </div>`
+    ];
+  }
+
+  let rowNode = paymentTable.row.add(rowContent).draw(false).node();
+
+  if (isNew) $(rowNode).addClass("new-payment");
+  else if (data.ID) $(rowNode).attr("data-id", data.ID);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  console.log("Payment script loaded.");
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 $("#deliverablesTable").on("click", ".edit-row", function () {
   enableEditMode($(this).closest("tr"));
@@ -939,108 +1380,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   console.log("834");
 });
 
-function calculateTotalPaymentCost() {
-  let projectCost = document.querySelector("#costExcGST").value;
-  let gst = document.querySelector("#-GST").value;
-
-  let totalCost = Number(projectCost) + Number(gst);
-  document.querySelector("#-totalCost").value = totalCost;
-}
-
-document
-  .querySelector("#costExcGST")
-  .addEventListener("input", calculateTotalPaymentCost);
-document
-  .querySelector("#-GST")
-  .addEventListener("input", calculateTotalPaymentCost);
-
-let paymentTerms = document.querySelector("#paymentTerms");
-let costExcGST = document.querySelector("#costExcGST");
-let GST = document.querySelector("#-GST");
-let totalCost = document.querySelector("#-totalCost");
-let paymentDate = document.querySelector("#paymentDate");
-let invoice = document.querySelector("#invoice");
-let addPRBtn = document.querySelector("#addPRBtn");
-let paymentReceived = document.querySelector("#paymentReceived");
-let paymentsTable = document.querySelector("#paymentsTable");
-
-function addPaymentsRow() {
-  const invoiceFile = invoice.files[0];
-
-  let paymentTermValue = paymentTerms.value;
-  let costExcGSTValue = costExcGST.value;
-  let GSTValue = GST.value;
-  let totalCostValue = totalCost.value;
-  let paymentDateValue = paymentDate.value;
-  let paymentReceivedValue = paymentReceived.value;
-  // let invoiceFileValue=invoice.value;
-
-  if (!invoiceFile) {
-    showErrorPopupFadeInDown("Please Select invoice file");
-    return;
-  }
-
-  if (!paymentTermValue) {
-    showErrorPopupFadeInDown("Please Enter Payment Term");
-    return;
-  }
-
-  if (!paymentDateValue) {
-    showErrorPopupFadeInDown("Please Enter Payment Date");
-    return;
-  }
-
-  payments.push({
-    paymentTerm: paymentTermValue,
-    costExcGST: costExcGSTValue,
-    GST: GSTValue,
-    totalCost: totalCostValue,
-    paymentDate: paymentDateValue,
-    paymentReceived: paymentReceivedValue,
-    invoice: invoiceFile,
-  });
-
-  renderPaymentsTable();
-
-  paymentTerms.value = "";
-  costExcGST.value = "0";
-  GST.value = "0";
-  totalCost.value = "0";
-  paymentReceived.value = "0";
-  paymentDate.value = "";
-  invoice.value = "";
-}
-
-function renderPaymentsTable() {
-  paymentsTable.querySelector("tbody").innerHTML = payments
-    .map((payment, index) => {
-      const fileURL = payment.invoice
-        ? URL.createObjectURL(payment.invoice)
-        : "#";
-      const fileName = payment.invoice ? payment.invoice.name : "No File";
-
-      return `
-            <tr>
-                <td>${payment.paymentTerm}</td>
-                <td>${payment.costExcGST}</td>
-                <td>${payment.GST}</td>
-                <td>${payment.totalCost}</td>
-                <td>${payment.paymentReceived}</td>
-                <td>${payment.paymentDate}</td>
-                <td><a href="${fileURL}" download="${fileName}">${fileName}</a></td>
-                <td><button class="btn btn-red btn-sm" onclick="deletePaymentRow(${index})">Delete</button></td>
-            </tr>
-        `;
-    })
-    .join("");
-}
-
-function deletePaymentRow(index) {
-  payments.splice(index, 1);
-  renderPaymentsTable();
-}
-
-document.getElementById("addPRBtn").addEventListener("click", addPaymentsRow);
 
 window.NoOfDeliverables = NoOfDeliverables;
 $(document).ready(function () {
@@ -1145,127 +1484,6 @@ initComplete: function () {
   });
 });
 
-// $(document).ready(function () {
-//   console.log("1057");
-//   const datatable = $("#projectsTable").DataTable({
-//     paging: true,
-//     pageLength: 25,
-//     lengthMenu: [5, 10, 25, 50, 100],
-//     dom: '<"top"l>frtip',
-//     buttons: [
-//       {
-//         extend: "excelHtml5",
-//         text: "Excel",
-//         exportOptions: {
-//           columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-//           format: {
-//             body: function (data, row, column, node) {
-//               if ($(node).find(".status-btn").length) {
-//                 let btn = $(node).find(".status-btn");
-//                 let text = "-";
-//                 if (btn.hasClass("bg-success")) {
-//                   text = "Completed";
-//                 } else if (btn.hasClass("bg-warning")) {
-//                   text = "Ongoing";
-//                 } else if (btn.hasClass("bg-danger")) {
-//                   text = "Withdrawn";
-//                 }
-//                 return text;
-//               }
-
-//               return data;
-//             },
-//           },
-//         },
-//       },
-//       {
-//         extend: "csvHtml5",
-//         text: "CSV",
-//         exportOptions: {
-//           columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-//           format: {
-//             body: function (data, row, column, node) {
-//               if ($(node).find(".status-btn").length) {
-//                 let btn = $(node).find(".status-btn");
-//                 let text = "-";
-//                 if (btn.hasClass("bg-success")) {
-//                   text = "Completed";
-//                 } else if (btn.hasClass("bg-warning")) {
-//                   text = "Ongoing";
-//                 } else if (btn.hasClass("bg-danger")) {
-//                   text = "Withdrawn";
-//                 }
-//                 return text;
-//               }
-//               return data;
-//             },
-//           },
-//         },
-//       },
-//       {
-//         extend: "pdfHtml5",
-//         text: "PDF",
-//         orientation: "landscape",
-//         exportOptions: {
-//           columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-//           format: {
-//             body: function (data, row, column, node) {
-//               if ($(node).find(".status-btn").length) {
-//                 let btn = $(node).find(".status-btn");
-//                 let text = "-";
-//                 if (btn.hasClass("bg-success")) {
-//                   text = "Completed";
-//                 } else if (btn.hasClass("bg-warning")) {
-//                   text = "Ongoing";
-//                 } else if (btn.hasClass("bg-danger")) {
-//                   text = "Withdrawn";
-//                 }
-//                 return text;
-//               }
-//               return data;
-//             },
-//           },
-//         },
-//       },
-//       "colvis",
-//     ],
-//     columnDefs: [{ targets: [5, 6, 7, 8, 9, 10, 11], visible: false }],
-//   });
-//   datatable.buttons().container().appendTo($("#exportButtons"));
-//   $("#clientFilter").on("change", function () {
-//     const selectedClient = $(this).val();
-//     datatable
-//       .column(4)
-//       .search(selectedClient ? "^" + selectedClient + "$" : "", true, false)
-//       .draw();
-//   });
-//   $("#inchargeFilter").on("change", function () {
-//     const selectedIncharge = $(this).val();
-//     datatable
-//       .column(3)
-//       .search(selectedIncharge ? "^" + selectedIncharge + "$" : "", true, false)
-//       .draw();
-//   });
-//   $("#statusFilter").on("change", function () {
-//     const selectedStatus = $(this).val();
-//     $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
-//       if (selectedStatus === "") return true;
-//       const cellData = datatable.cell(dataIndex, 12).nodes().to$();
-//       const statusText = cellData.find(".status-btn").text().trim();
-//       return statusText === selectedStatus;
-//     });
-//     datatable.draw();
-//     $.fn.dataTable.ext.search.pop();
-//   });
-// });
-// $("#filter").on("change", function () {
-//   const selectedCategory = $(this).val();
-//   if (selectedCategory) {
-//     datatable.column(1).search(selectedCategory).draw();
-//   } else {
-//     datatable.column(1).search("").draw();
-//   }
-// });
 document.querySelector("#addNew").addEventListener("click", function () {
   document.querySelector("#tab").classList.remove("d-none");
   document.querySelector("#tableCard").style.display = "none";
@@ -1301,7 +1519,6 @@ function adjustDeliverableFields(inputElement) {
   }
 
   document.querySelector("#deliverablesCountInput").value = value;
-  // document.querySelector("#deliverablesCountInput1").value = value;
 
   const container = document.querySelector("#deliverablesDynamicContainer");
   const existingCount = container.children.length;
@@ -1361,32 +1578,113 @@ function addDeliverableFields(tableId, count) {
     tbody.appendChild(row);
   }
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  console.log("1274");
+  addPaymentFields("paymentDynamicContainer", 1);
+});
+function adjustPaymentFields(inputElement) {
+  let value = parseInt(inputElement.value) || 1;
+  if (value < 1) {
+    inputElement.value = 1;
+    value = 1;
+  }
+
+  document.querySelector("#paymentCountInput").value = value;
+
+  const container = document.querySelector("#paymentDynamicContainer");
+  const existingCount = container.children.length;
+
+  if (value > existingCount) {
+    addPaymentFields("paymentDynamicContainer", value - existingCount);
+  } else {
+    while (tbody.children.length > value) {
+      tbody.removeChild(tbody.lastChild);
+    }
+  }
+}
+
+function addPaymentFields(tableId, count) {
+  const table = document.getElementById(tableId);
+  const tbody = table.querySelector("tbody");
+
+  for (let i = 0; i < count; i++) {
+    const row = document.createElement("tr");
+    row.classList.add("payment-item", "align-middle");
+
+    row.innerHTML = `
+      <td>
+        <input type="text" class="form-control form-control-sm payment-description" placeholder="Enter Payment Description">
+      </td>
+      <td>
+        <input type="number" class="form-control form-control-sm payment-amount" placeholder="Enter Amount">
+      </td>
+      <td>
+      <div class="d-flex align-items-center justify-content-between">
+<select class="form-control form-control-sm payment-status me-2">
+              <option value="" selected>-- Select Status --</option>
+    <option value="Received">Received</option>
+    <option value="Not Received">Not Received</option>
+  </select>          
+ <button type="button" class="btn btn-red btn-sm remove-payment ms-2">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+        </div>
+  
+</td>
+
+    `;
+
+    row.querySelector(".remove-payment").addEventListener("click", () => {
+      const rowCount = tbody.children.length;
+      if (rowCount > 1) {
+        row.remove();
+        NoOfPayments--;
+        document.getElementById("paymentCountInput").value =
+          NoOfPayments;
+      } else {
+        showErrorPopupFadeInDown("At least one Payment is required.");
+      }
+    });
+
+    tbody.appendChild(row);
+  }
+}
+
 document.addEventListener("DOMContentLoaded", async function () {
   try {
     const response = await axiosInstance.get("/clients/all/active");
-    let clients = response.data.clients;
+    const clients = response.data.clients;
+    console.log("Fetched clients:", clients);
+
     if (clients && clients.length > 0) {
-      let updateDataList = document.getElementById("clients");
-      let createDataList = document.getElementById("create-clients");
-      updateDataList.innerHTML = "";
-      createDataList.innerHTML = "";
-      clients.forEach((client) => {
-        let updateOption = document.createElement("option");
-        updateOption.value = client.ClientName;
-        updateOption.dataset.id = client.ID;
-        updateDataList.appendChild(updateOption);
-        let createOption = document.createElement("option");
-        createOption.value = client.ClientName;
-        createOption.dataset.id = client.ID;
-        createDataList.appendChild(createOption);
+
+      const elements = document.getElementsByClassName("ClientName");
+
+      Array.from(elements).forEach(select => {
+
+        const select2Data = clients.map(client => ({
+          id: client.ID,                // FIXED
+          text: client.ClientName
+        }));
+
+        $(select).select2({
+          data: select2Data,
+          placeholder: "-- Select Client --",
+          allowClear: true,
+          width: "100%"
+        });
       });
-      setupClientInput("update-ClientName", "clients");
-      setupClientInput("ClientName", "create-clients");
     }
+
   } catch (error) {
     console.error("Error fetching clients:", error);
   }
 });
+
+
+
+
 function setupClientInput(inputId, datalistId) {
   document.getElementById(inputId).addEventListener("change", function () {
     delete this.dataset.selectedId;
