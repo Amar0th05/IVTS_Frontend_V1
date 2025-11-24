@@ -40,6 +40,8 @@
   <link rel="stylesheet" type="text/css" href="assets/css/style copy.css">
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
   <!-- Include SweetAlert2 CSS & JS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -1116,7 +1118,7 @@
                                             </div>
 
                                             <div class="row">
-                                              <div class="col-md-4 mb-3">
+                                              <div class="col-md-6 mb-3">
                                                 <label for="StartDate" class="form-label fw-semibold">
                                                   Actual Start Date
                                                 </label>
@@ -1124,7 +1126,7 @@
                                                   id="StartDate">
                                               </div>
 
-                                              <div class="col-md-4 mb-3">
+                                              <div class="col-md-6 mb-3">
                                                 <label for="EndDate" class="form-label fw-semibold">
                                                   Actual End Date
                                                 </label>
@@ -1132,7 +1134,7 @@
                                                   id="EndDate">
                                               </div>
 
-                                              <div class="col-md-4 mb-3">
+                                              <div class="col-md-6 mb-3">
                                                 <div class="form-group">
                                                   <label for="reportingManager">Reporting Manager <span
                                                       class="text-danger">*</span></label>
@@ -1140,9 +1142,22 @@
                                                     class="form-control form-control-sm userName" style="width:100%;"
                                                     required>
                                                     <option value="">Reporting Manager</option>
+                                                    <!-- <option value="IC40634 - SELVARAJIV">Test</option> -->
+
                                                   </select>
                                                 </div>
                                               </div>
+                                              <div class="col-md-6 mb-3">
+                                                <div class="form-group">
+                                                  <label for="secondaryReportingManager">Secondary Reporting Manager
+                                                    <span class="text-danger">*</span></label>
+                                                  <select id="secondaryReportingManager" name="secondaryReportingManager"
+                                                    class="form-control form-control-sm userName" style="width:100%;" required>
+                                                    <option value="">Select Secondary Reporting Manager</option>
+                                                  </select>
+                                                </div>
+                                              </div>
+
                                             </div>
 
                                             <!-- ✅ Added Stipend Row -->
@@ -1516,7 +1531,6 @@
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
   Bootstrap + jQuery + Select2
-  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
   <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
   <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
   <!-- Bootstrap + jQuery + Select2 -->
