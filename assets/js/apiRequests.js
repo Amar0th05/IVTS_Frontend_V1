@@ -123,6 +123,10 @@ const api = {
     getAllProjects:()=>fetchData(API_ROUTES.getAllProjects,"projects"),
     getProjectById:(id)=>fetchData(API_ROUTES.projects+`/${id}`,"project"),
     updateProjectDeliverable:(data)=>putData('/deliverables',data),
+        getProjectIncharge: () => fetchData(API_ROUTES.getProjectIncharge, "staffid"),
+
+    updateProjectPayment:(data)=>putData('/deliverables/payments',data),
+    // addProjectPayment:(data)=>postData('/deliverables/payments',data),
 
 
     getAllClients:()=>fetchData(API_ROUTES.getAllClients,"clients"),

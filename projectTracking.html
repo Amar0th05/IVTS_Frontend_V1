@@ -177,6 +177,69 @@
 }
 
 </style>
+<style>
+/* Remove the box and make it look underline-only */
+.select2-container--default .select2-selection--single {
+    height: 40px ;
+    border-radius: 5px;
+    box-shadow: none;
+    color: black;
+        padding: .25rem .5rem;
+    font-size: .875rem;
+    line-height: 1.5;
+}
+
+.select2-container .select2-selection--single{
+    height: 40px !important;
+}
+/* Remove the outline and shadow */
+.select2-container--default.select2-container--focus 
+.select2-selection--single {
+    border-bottom: 2px solid #007bff !important; /* active/blue underline */
+    outline: none;
+    box-shadow: none;
+}
+
+/* Text styling */
+.select2-selection__rendered {
+    color: #000;
+    padding-left: 0;
+    padding-right: 20px;/* for the arrow */
+}
+
+/* Hide the default Select2 arrow background box */
+.select2-selection__arrow {
+    right: 0;
+    top: 3px;
+}
+.select2-container .select2-selection--single .select2-selection__clear {
+  color:#37474F;
+  font-size: large !important;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow{
+
+   height:38px !important;
+   
+}
+
+/* Style dropdown list */
+.select2-container .select2-dropdown {
+    border-radius: 0;
+    border: 1px solid #ccc;
+}
+
+/* Options */
+.select2-results__option {
+    padding: 8px 12px;
+}
+
+/* Hovered option */
+.select2-results__option--highlighted {
+    background-color: #007bff !important;
+    color: #fff !important;
+}
+
+</style>
 </head>
 
 <body>
@@ -396,37 +459,64 @@
                     <input type="text" name="ProjectName" maxlength="25" class="form-control form-control-sm"
                       id="ProjectName" placeholder="Enter Project Name">
                   </div>
-                  <div class="col-md-6">
-                    <label class="form-label fw-semibold">Client <span class="text-danger">*</span></label>
-                    <input type="text" id="ClientName" name="ClientName" class="form-control form-control-sm"
-                      placeholder="Enter Client Name" list="create-clients" autocomplete="off" required>
-                    <datalist id="create-clients"></datalist>
+                   <div class="col-md-6">
+                    <label class="form-label fw-semibold">Project Status <span class="text-danger">*</span></label>
+                    <select name="ProjectStatus" id="ProjectStatus" class="form-control form-control-sm">
+                      <option value="" selected>-- Select Status --</option>
+                      <option value="Ongoing" >Ongoing</option>
+                      <option value="Completed">Completed</option>
+                      <option value="Withdrawn">Withdrawn</option>
+                    </select>
                   </div>
-                  <div class="col-md-6">
+                  <!-- <div class="col-md-6">
                     <label class="form-label fw-semibold">Project Incharge <span class="text-danger">*</span></label>
                     <input type="text" name="ProjectIncharge" class="form-control form-control-sm" id="ProjectIncharge"
                       placeholder="Enter Project Incharge">
-                  </div>
+                  </div> -->
+                  <div class="col-md-6 mb-3">
+  <div class="form-group">
+    <label for="ProjectIncharge">Project Incharge <span class="text-danger">*</span></label>
+    <select id="ProjectIncharge" name="ProjectIncharge"
+      class="form-control form-control-sm userName" style="width:100%;" required>
+      <option value="">Project Incharge</option>
+    </select>
+  </div>
+</div>
+                 <div class="col-md-12">
+  <label class="form-label fw-semibold">
+    Client <span class="text-danger">*</span>
+  </label>
+<select id="ClientName" name="ClientName"class="ClientName form-control form-control-sm">
+  <option value="">Select ClientName</option>
+</select>
+</div>
+
                 </div>
               </div>
             </div>
 
             <!-- 📅 Project Duration -->
-            <div class="card border-0 shadow-sm mb-4">
+          <div class="card border-0 shadow-sm mb-4">
               <div class="card-body py-3 px-4">
                 <h6 class="text-sub fw-semibold mb-3">
                   <i class="fa-solid fa-calendar-days me-2"></i> Project Duration
                 </h6>
                 <div class="row g-3">
-                  <div class="col-md-4">
-                    <label class="form-label fw-semibold">Start Date <span class="text-danger">*</span></label>
-                    <input type="date" name="StartDate" class="form-control form-control-sm" id="StartDate">
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold">Estimated Start Date<span class="text-danger">*</span></label>
+                    <input type="date" name="EstStartDate" class="form-control form-control-sm" id="EstStartDate">
                   </div>
-                  <div class="col-md-4">
+                  <div class="col-md-6">
                     <label class="form-label fw-semibold">Estimated End Date</label>
                     <input type="date" name="EstEndDate" class="form-control form-control-sm" id="EstEndDate">
                   </div>
-                  <div class="col-md-4">
+                </div>
+                                <div class="row g-3">
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold">Actual Start Date <span class="text-danger">*</span></label>
+                    <input type="date" name="ActualStartDate" class="form-control form-control-sm" id="ActualStartDate">
+                  </div>
+                  <div class="col-md-6">
                     <label class="form-label fw-semibold">Actual End Date <span class="text-danger">*</span></label>
                     <input type="date" name="ActualEndDate" class="form-control form-control-sm" id="ActualEndDate">
                   </div>
@@ -455,14 +545,6 @@
                     <label class="form-label fw-semibold">Total Project Cost</label>
                     <input type="number" name="TotalProjectCost" id="TotalProjectCost" min="0" step="any"
                       class="form-control form-control-sm fw-bold text-success text-center" value="0" readonly>
-                  </div>
-                  <div class="col-md-6">
-                    <label class="form-label fw-semibold">Project Status <span class="text-danger">*</span></label>
-                    <select name="ProjectStatus" id="ProjectStatus" class="form-control form-control-sm">
-                      <option value="Ongoing" selected>Ongoing</option>
-                      <option value="Completed">Completed</option>
-                      <option value="Withdrawn">Withdrawn</option>
-                    </select>
                   </div>
                 </div>
               </div>
@@ -522,87 +604,51 @@
       </div>
 
       <!-- 💰 Tab 3: Payment Details -->
-      <div class="tab-pane fade" id="tab6">
+        <div class="tab-pane fade" id="tab6">
         <div class="modal-body bg-light rounded-3 shadow-sm p-3">
           <div class="card border-0 shadow-sm mb-3">
             <div class="card-body py-3 px-4">
               <h6 class="text-sub fw-semibold mb-3">
-                <i class="fa-solid fa-sack-dollar me-2"></i> Payment Details
+                <i class="fa-solid fa-box-open me-2"></i> payment Details
               </h6>
 
-              <div class="p-3 border rounded bg-white mb-3">
-                <div class="row g-3 mb-3">
-                  <div class="col-md-12">
-                    <label class="form-label fw-semibold">Payment Terms <span class="text-danger">*</span></label>
-                    <textarea name="paymentTerms" class="form-control form-control-sm" id="paymentTerms" rows="2"
-                      placeholder="Enter Payment Terms"></textarea>
-                  </div>
-                </div>
-
-                <div class="row g-3 mb-3">
-                  <div class="col-md-4">
-                    <label class="form-label fw-semibold">Cost (Excl. GST) <span class="text-danger">*</span></label>
-                    <input name="ExcGST" type="number" min="0" step="any" value="0" class="form-control form-control-sm"
-                      id="costExcGST" placeholder="Enter Cost">
-                  </div>
-                  <div class="col-md-4">
-                    <label class="form-label fw-semibold">GST (%) <span class="text-danger">*</span></label>
-                    <input name="ExcGST" type="number" min="0" step="any" value="0" class="form-control form-control-sm"
-                      id="-GST" placeholder="Enter GST">
-                  </div>
-                  <div class="col-md-4">
-                    <label class="form-label fw-semibold">Total Cost <span class="text-danger">*</span></label>
-                    <input name="totalCost" type="number" min="0" step="any" value="0" readonly
-                      class="form-control form-control-sm fw-bold text-success text-center" id="-totalCost">
-                  </div>
-                </div>
-
-                <div class="row g-3">
-                  <div class="col-md-4">
-                    <label class="form-label fw-semibold">Payment Received <span class="text-danger">*</span></label>
-                    <input name="payment" type="number" min="0" value="0" class="form-control form-control-sm"
-                      id="paymentReceived">
-                  </div>
-                  <div class="col-md-4">
-                    <label class="form-label fw-semibold">Payment Date <span class="text-danger">*</span></label>
-                    <input name="paymentDate" type="date" class="form-control form-control-sm" id="paymentDate">
-                  </div>
-                  <div class="col-md-4">
-                    <label class="form-label fw-semibold">Upload Invoice <span class="text-danger">*</span></label>
-                    <input name="invoice" type="file" class="form-control form-control-sm" id="invoice">
-                  </div>
-                </div>
-
-                <div class="text-end mt-3">
-                  <button class="btn btn-green btn-sm px-3" id="addPRBtn">
-                    <i class="fa-solid fa-plus me-1"></i> Add
-                  </button>
-                </div>
+              <div class="d-flex justify-content-end align-items-center mb-3">
+                <input type="number" min="1" step="1" style="width: 60px;" value="1"
+                  class="form-control form-control-sm text-center me-2" id="paymentCountInput" readonly>
+                <button class="btn btn-green btn-sm px-3" id="paymentIncrementBtn">
+                  <i class="fa-solid fa-plus"></i>
+                </button>
               </div>
-  <div class="d-flex justify-content-center align-items-center">
+                   <div
+                                                                class="d-flex justify-content-center align-items-center">
                                                                 <div class="table-responsive">
-                                  <table class="table-modern table-striped" id="paymentsTable">
+                                  <table class="table-modern table-striped" id="paymentDynamicContainer">
                                     <thead class="bg-primary text-white text-center">
-                    <tr>
-                      <th>Payment Terms</th>
-                      <th>Cost (Excl. GST)</th>
-                      <th>GST</th>
-                      <th>Total Cost</th>
-                      <th>Payment Received</th>
-                      <th>Payment Date</th>
-                      <th>Invoice</th>
-                      <th>Action</th>
-                    </tr>
-                  </thead>
-                  <tbody></tbody>
-                </table>
+                                                                            <tr>
+                                                                                <th>Desc</th>
+                                                                                <th>Payment Amount</th>
+                                                                                <th>Payment Status</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+
+              <!-- <div class="row bg-primary text-white py-2 rounded-top text-center fw-semibold">
+                <div class="col-md-3">Deliverable Name</div>
+                <div class="col-md-3">Estimated Delivery Date</div>
+                <div class="col-md-3">Remarks</div>
+                <div class="col-md-3">Total Cost</div>
               </div>
+
+              <div class="border rounded-bottom p-2 bg-white" id="deliverablesDynamicContainer"></div> -->
             </div>
           </div>
         </div>
       </div>
-
-    </div>
 
     <!-- Footer -->
     <div class="modal-footer bg-white border-top mt-3">
@@ -627,13 +673,13 @@
     <!-- Tabs Header -->
     <div class="nav nav-tabs md-tabs border-bottom-0" id="myTab1" role="tablist">
       <button class="nav-link active fw-semibold px-4 py-2" data-bs-toggle="tab" data-bs-target="#tab3" type="button">
-        <i class="fa-solid fa-diagram-project me-2 text-primary"></i> Basic Details
+        <i class="fa-solid fa-diagram-project me-2"></i> Basic Details
       </button>
       <button class="nav-link fw-semibold px-4 py-2" data-bs-toggle="tab" data-bs-target="#tab4" type="button">
-        <i class="fa-solid fa-boxes-stacked me-2 text-success"></i> Deliverables
+        <i class="fa-solid fa-boxes-stacked me-2"></i> Deliverables
       </button>
       <button class="nav-link fw-semibold px-4 py-2" data-bs-toggle="tab" data-bs-target="#tab5" type="button">
-        <i class="fa-solid fa-money-check-dollar me-2 text-warning"></i> Payment Details
+        <i class="fa-solid fa-money-check-dollar me-2"></i> Payment Details
       </button>
     </div>
 
@@ -649,31 +695,51 @@
             <div class="card border-0 shadow-sm mb-3">
               <div class="card-body">
                 <h6 class="text-sub fw-semibold mb-3">
-                  <i class="fa-solid fa-circle-info me-2 text-primary"></i> Project Information
+                  <i class="fa-solid fa-circle-info me-2 text-sub"></i> Project Information
                 </h6>
                 
                 <div class="row g-3 mb-2">
                   <div class="col-md-6">
                     <label for="update-ProjectID" class="form-label fw-semibold">Project ID <span class="text-danger">*</span></label>
                     <input type="text" name="ProjectID" maxlength="20" class="form-control form-control-sm"
-                      id="update-ProjectID" placeholder="Enter Project ID" required>
+                      id="update-ProjectID" placeholder="Enter Project ID" readonly required>
                   </div>
                   <div class="col-md-6">
                     <label for="update-ProjectName" class="form-label fw-semibold">Project Name <span class="text-danger">*</span></label>
                     <input type="text" name="ProjectName" maxlength="25" class="form-control form-control-sm"
                       id="update-ProjectName" placeholder="Enter Project Name">
                   </div>
-                  <div class="col-md-6">
-                    <label for="update-ClientName" class="form-label fw-semibold">Client <span class="text-danger">*</span></label>
-                    <input type="text" id="update-ClientName" name="ClientName" class="form-control form-control-sm"
-                      placeholder="Enter Client Name" list="clients" autocomplete="off" required>
-                    <datalist id="clients"></datalist>
+                   <div class="col-md-6">
+                    <label class="form-label fw-semibold">Project Status <span class="text-danger">*</span></label>
+                    <select name="ProjectStatus" id="update-ProjectStatus" class="form-control form-control-sm">
+                      <option value="Ongoing" selected>Ongoing</option>
+                      <option value="Completed">Completed</option>
+                      <option value="Withdrawn">Withdrawn</option>
+                    </select>
                   </div>
-                  <div class="col-md-6">
-                    <label for="update-ProjectIncharge" class="form-label fw-semibold">Project Incharge <span class="text-danger">*</span></label>
+                  <!-- <div class="col-md-6">
+                    <label for="" class="form-label fw-semibold">Project Incharge <span class="text-danger">*</span></label>
                     <input type="text" name="ProjectIncharge" class="form-control form-control-sm"
                       id="update-ProjectIncharge" placeholder="Enter Project Incharge">
-                  </div>
+                  </div> -->
+                  <div class="col-md-6">
+  <div class="form-group">
+    <label for="update-ProjectIncharge">Project Incharge<span class="text-danger">*</span></label>
+    <select id="update-ProjectIncharge"name="ProjectIncharge"
+      class="form-control form-control-sm userName" style="width:100%;" required>
+      <option value="">Project Incharge</option>
+    </select>
+  </div>
+</div>
+                  <div class="col-md-12">
+  <label class="form-label fw-semibold">
+    Client <span class="text-danger">*</span>
+  </label>
+  <select id="update-ClientName" name="ClientName" class="form-control form-control-sm ClientName" required>
+    <option value="">-- Select Client --</option>
+  </select>
+</div>
+                  
                 </div>
               </div>
             </div>
@@ -682,19 +748,25 @@
             <div class="card border-0 shadow-sm mb-3">
               <div class="card-body">
                 <h6 class="text-sub fw-semibold mb-3">
-                  <i class="fa-solid fa-calendar-days me-2 text-secondary"></i> Project Duration
+                  <i class="fa-solid fa-calendar-days me-2 text-sub"></i> Project Duration
                 </h6>
 
-                <div class="row g-3 mb-2">
-                  <div class="col-md-4">
-                    <label for="update-StartDate" class="form-label fw-semibold">Start Date <span class="text-danger">*</span></label>
-                    <input type="date" name="StartDate" class="form-control form-control-sm" id="update-StartDate">
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <label for="update-EstStartDate" class="form-label fw-semibold">Estimated Start Date <span class="text-danger">*</span></label>
+                    <input type="date" name="EstStartDate" class="form-control form-control-sm" id="update-EstStartDate">
                   </div>
-                  <div class="col-md-4">
+
+
+                  <div class="col-md-6">
                     <label for="update-EstEndDate" class="form-label fw-semibold">Estimated End Date</label>
                     <input type="date" name="EstEndDate" class="form-control form-control-sm" id="update-EstEndDate">
                   </div>
-                  <div class="col-md-4">
+                  <div class="col-md-6">
+                    <label for="update-ActualStartDate" class="form-label fw-semibold">Actual Start Date <span class="text-danger">*</span></label>
+                    <input type="date" name="ActualStartDate" class="form-control form-control-sm" id="update-ActualStartDate">
+                  </div>
+                  <div class="col-md-6">
                     <label for="update-ActualEndDate" class="form-label fw-semibold">Actual End Date <span class="text-danger">*</span></label>
                     <input type="date" name="ActualEndDate" class="form-control form-control-sm" id="update-ActualEndDate">
                   </div>
@@ -706,7 +778,7 @@
             <div class="card border-0 shadow-sm mb-3">
               <div class="card-body">
                 <h6 class="text-sub fw-semibold mb-3">
-                  <i class="fa-solid fa-indian-rupee-sign me-2 text-success"></i> Financial Overview
+                  <i class="fa-solid fa-indian-rupee-sign me-2 text-sub"></i> Financial Overview
                 </h6>
 
                 <div class="row g-3 mb-3">
@@ -721,18 +793,24 @@
                       class="form-control form-control-sm" placeholder="Enter GST">
                   </div>
                   <div class="col-md-6">
+                    <label for="update-NoOfDeliverables" class="form-label fw-semibold">No. of Deliverables</label>
+                    <input type="number" min="1" step="1" name="NoOfDeliverables"
+                      id="update-NoOfDeliverables" value="1" class="form-control form-control-sm" readonly>
+                  </div> 
+                  <div class="col-md-6">
+                    <label for="update-NoOfPayments" class="form-label fw-semibold">No. of Payments</label>
+                    <input type="number" min="1" step="1" name="NoOfPayments"
+                      id="update-NoOfPayments" value="1" class="form-control form-control-sm" readonly>
+                  </div> 
+                  <div class="col-md-6">
                     <label for="update-TotalProjectCost" class="form-label fw-semibold">Total Project Cost</label>
                     <input type="number" min="0" step="any" class="form-control form-control-sm fw-bold text-success text-center"
                       name="TotalProjectCost" id="update-TotalProjectCost" value="0" readonly>
                   </div>
-                  <div class="col-md-6">
-                    <label for="update-NoOfDeliverables" class="form-label fw-semibold">No. of Deliverables</label>
-                    <input type="number" min="1" step="1" name="NoOfDeliverables"
-                      id="update-NoOfDeliverables" value="1" class="form-control form-control-sm">
-                  </div>
+                 
                 </div>
 
-                <div class="row g-3">
+                <!-- <div class="row g-3">
                   <div class="col-md-12">
                     <label for="update-ProjectStatus" class="form-label fw-semibold">Project Status</label>
                     <select name="ProjectStatus" id="update-ProjectStatus" class="form-select form-select-sm">
@@ -741,7 +819,7 @@
                       <option value="Withdrawn">Withdrawn</option>
                     </select>
                   </div>
-                </div>
+                </div> -->
               </div>
             </div>
           </form>
@@ -764,7 +842,7 @@
           <div class="card border-0 shadow-sm">
             <div class="card-body">
               <h6 class="text-sub fw-semibold mb-3">
-                <i class="fa-solid fa-box-open me-2 text-success"></i> Deliverables
+                <i class="fa-solid fa-box-open me-2 text-sub"></i> Deliverables
               </h6>
 
               <div class="d-flex justify-content-between align-items-center mb-3">
@@ -793,14 +871,33 @@
       </div>
 
       <!-- 💳 Payment -->
-      <div class="tab-pane fade" id="tab5">
+ <div class="tab-pane fade" id="tab5">
         <div class="modal-body bg-light rounded-3 shadow-sm">
           <div class="card border-0 shadow-sm">
             <div class="card-body">
               <h6 class="text-sub fw-semibold mb-3">
-                <i class="fa-solid fa-sack-dollar me-2 text-sub"></i> Payment Details
+                <i class="fa-solid fa-money-check-dollar me-2 text-sub"></i> Payments
               </h6>
-              <p class="text-muted small mb-0">This section can later be expanded to handle payment tracking, uploaded invoices, and status updates.</p>
+
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <div id="paymentTableExportButtons"></div>
+                <button class="btn btn-primary btn-sm px-3" id="addRowBtnPayment">
+                  <i class="fa-solid fa-plus me-1"></i> Add Row
+                </button>
+              </div>
+
+              <div class="table-responsive">
+                <table id="paymentTable" class="table-modern table-striped table-hover align-middle rounded">
+                  <thead class="bg-primary text-white text-center">
+                       <tr>
+                                                                                <th>Desc</th>
+                                                                                <th>Payment Amount</th>
+                                                                                <th>Payment Status</th>
+                                                                            </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
@@ -1036,6 +1133,11 @@
     <script type="text/javascript" src="assets/js/popper.js/popper.min.js"></script>
     <script type="text/javascript" src="assets/js/bootstrap/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+  <!-- Bootstrap + jQuery + Select2 -->
 
     <!-- DataTables CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
