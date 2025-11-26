@@ -2,6 +2,8 @@
 let NoOfDeliverables = 1;
 let NoOfPayments = 1;
 let paymentTable;
+let deliverablesData;
+let paymentsData;
 let deliverablesTable;
 let updateprojectButton = document.getElementById("update_project_btn");
 
@@ -135,22 +137,22 @@ function calculateUpdateTotalCost() {
   updateTotalCostField.value = totalCost;
 }
 
-// document
-//   .querySelector("#update-NoOfDeliverables")
-//   .addEventListener("change", function () {
-//     if (this.value <= 0) {
-//       showErrorPopupFadeInDown("Atleast one deliverable is required");
-//       this.value = 1;
-//     }
-//   });
-// document
-//   .querySelector("#update-NoOfPayments")
-//   .addEventListener("change", function () {
-//     if (this.value <= 0) {
-//       showErrorPopupFadeInDown("Atleast one payment is required");
-//       this.value = 1;
-//     }
-//   });
+document
+  .querySelector("#update-NoOfDeliverables")
+  .addEventListener("change", function () {
+    if (this.value <= 0) {
+      showErrorPopupFadeInDown("Atleast one deliverable is required");
+      this.value = 1;
+    }
+  });
+document
+  .querySelector("#update-NoOfPayments")
+  .addEventListener("change", function () {
+    if (this.value <= 0) {
+      showErrorPopupFadeInDown("Atleast one payment is required");
+      this.value = 1;
+    }
+  });
 
 let table;
 let decidedPermission;
@@ -247,10 +249,9 @@ StatusRow = `
       StatusRow,
       `
      <div class="d-flex align-items-center justify-content-center p-0 edit-btn ${decidedPermission} writeElement" 
-      style="width: 40px; height: 40px; cursor:pointer">
-       <i class="fa-solid fa-pen-to-square" data-id='${data.ID}' onclick="loadUpdateData(${data.ID})"  style="font-size: 20px;"></i>
+      style="width: 40px; height: 40px; cursor:pointer" data-id='${data.ID}' onclick="loadUpdateData(${data.ID})">
+       <i class="fa-solid fa-pen-to-square" style="font-size: 20px;"></i>
     </div>
-
     `,
     ])
     .draw(false);
@@ -323,10 +324,11 @@ $("#update-ClientName").val(project.ClientID).trigger("change");
       document.querySelector("#update-GST").value = project.GST;
       document.querySelector("#update-TotalProjectCost").value =
         project.TotalProjectCost;
-      document.querySelector("#update-NoOfDeliverables").value =
-        project.NoOfDeliverables;
-        document.querySelector("#update-NoOfPayments").value =
-        project.NoOfPayments;
+      deliverablesData =Number(project.NoOfDeliverables);
+      document.querySelector("#update-NoOfDeliverables").value =deliverablesData;
+       
+        paymentsData =Number(project.NoOfPayments);
+      document.querySelector("#update-NoOfPayments").value = paymentsData;
       // document.querySelector("#update-ProjectStatus").value =
       //   project.ProjectStatus;
       document.querySelector("#update-ProjectID").dataset.id = id;
@@ -437,11 +439,11 @@ console.log("client", client);
     let data = Object.fromEntries(formData.entries());
 
     if (data.EstEndDate && data.EstEndDate < data.EstStartDate) {
-      showErrorPopupFadeInDown("Estimated End Date must be after Start Date.");
+      showErrorPopupFadeInDown("Estimated End Date must be after Estimated Start Date.");
       return;
     }
         if (data.ActualEndDate && data.ActualEndDate < data.ActualStartDate) {
-      showErrorPopupFadeInDown("Estimated End Date must be after Start Date.");
+      showErrorPopupFadeInDown("Actual End Date must be after Actual Start Date.");
       return;
     }
 
@@ -606,7 +608,7 @@ console.log("client", client);
         amount === "" ||
         PaymentStatus === null
       ) {
-        showErrorPopupFadeInDown("Please fill in all the deliverables data.");
+        showErrorPopupFadeInDown("Please fill in all the Payments data.");
         isValidPayment = false;
         return;
       }
@@ -954,6 +956,8 @@ async function savePaymentRow($row) {
     axiosInstance
       .post("/deliverables/payments", saveData)
       .then((response) => {
+        paymentsData += 1;
+        document.querySelector("#update-NoOfPayments").value=paymentsData;
         let rowContent = [
           saveData.Description,
           saveData.PaymentAmount,
@@ -1000,27 +1004,27 @@ function refreshRowAfterPaymentSave($row, data) {
   paymentTable.row($row).data(rowContent).draw();
 }
 
-async function updatePaymentRow($row) {
+// async function updatePaymentRow($row) {
 
-  // Read values from row
-  const description = $row.find("td:eq(0) input").val()?.trim();
-  const amount = $row.find("td:eq(1) input").val()?.trim();
-  const status = $row.find("td:eq(2) select").val()?.trim();
+//   // Read values from row
+//   const description = $row.find("td:eq(0) input").val()?.trim();
+//   const amount = $row.find("td:eq(1) input").val()?.trim();
+//   const status = $row.find("td:eq(2) select").val()?.trim();
 
-  // Prepare data object
-  const data = {
-    ID: $row.data("id"),
-    Description: description,
-    PaymentAmount: parseFloat(amount),
-    PaymentStatus: status
-  };
+//   // Prepare data object
+//   const data = {
+//     ID: $row.data("id"),
+//     Description: description,
+//     PaymentAmount: parseFloat(amount),
+//     PaymentStatus: status
+//   };
 
-  try {
-    await api.updateProjectPayment(data); // corrected API name
-  } catch (err) {
-    console.error("Update failed:", err);
-  }
-}
+//   try {
+//     await api.updateProjectPayment(data); // corrected API name
+//   } catch (err) {
+//     console.error("Update failed:", err);
+//   }
+// }
 
 
 /* ------------------------------------------------------------------
@@ -1230,6 +1234,8 @@ async function saveDeliverableRow($row) {
     axiosInstance
       .post("/deliverables", saveData)
       .then(async (response) => {
+        deliverablesData += 1;
+        document.querySelector("#update-NoOfDeliverables").value=deliverablesData;
         console.log(response);
         const rowContent = [
           saveData.DeliverableName,
@@ -1335,21 +1341,21 @@ function addDeliverablesRow(data, isNew = false) {
   }
 }
 
-async function updateDeliverableRow($row) {
-  const data = {
-    ID: $row.data("id"),
-    DeliverableName: $row.find("td:eq(0) input").val().trim(),
-    EstDeliveryDate: $row.find("td:eq(1)").text().trim(),
-    TotalCost: parseFloat($row.find("td:eq(2)").text().trim()),
-    Remarks: $row.find("td:eq(3)").text().trim(),
-  };
+// async function updateDeliverableRow($row) {
+//   const data = {
+//     ID: $row.data("id"),
+//     DeliverableName: $row.find("td:eq(0) input").val().trim(),
+//     EstDeliveryDate: $row.find("td:eq(1)").text().trim(),
+//     TotalCost: parseFloat($row.find("td:eq(2)").text().trim()),
+//     Remarks: $row.find("td:eq(3)").text().trim(),
+//   };
 
-  try {
-    await api.updateProjectDeliverable(data);
-  } catch (err) {
-    console.error("Update failed:", err);
-  }
-}
+//   try {
+//     await api.updateProjectDeliverable(data);
+//   } catch (err) {
+//     console.error("Update failed:", err);
+//   }
+// }
 
 function refreshRowAfterSave($row, data) {
   const rowContent = [
@@ -1364,17 +1370,17 @@ function refreshRowAfterSave($row, data) {
   deliverablesTable.row($row).data(rowContent).draw();
 }
 
-async function deleteDeliverableRow($row) {
-  if (!confirm("Are you sure you want to delete this deliverable?")) return;
+// async function deleteDeliverableRow($row) {
+//   if (!confirm("Are you sure you want to delete this deliverable?")) return;
 
-  try {
-    await api.deleteProjectDeliverable($row.data("id"));
-    deliverablesTable.row($row).remove().draw();
-  } catch (error) {
-    console.error("Error deleting deliverable:", error);
-    showErrorPopupFadeInDown("Failed to delete deliverable");
-  }
-}
+//   try {
+//     await api.deleteProjectDeliverable($row.data("id"));
+//     deliverablesTable.row($row).remove().draw();
+//   } catch (error) {
+//     console.error("Error deleting deliverable:", error);
+//     showErrorPopupFadeInDown("Failed to delete deliverable");
+//   }
+// }
 
 document.addEventListener("DOMContentLoaded", async () => {
   console.log("834");
