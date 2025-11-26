@@ -92,18 +92,16 @@ addStaffButton.addEventListener("click", async (e) => {
     try {
       // console.log("Submitting Payload...",data);
       const response = await api.addIITStaff(Data);
-
-      table.clear();
-      await fetchAllData();
-      handlePermission("#username");
       showSucessPopupFadeInDownLong(response?.message || "Staff Added Successfully");
       form.reset();
-      document.querySelector("#tab").classList.add("d-none");
-      document.querySelector("#tableCard").style.display = "block";
+      setTimeout(() => {
+      window.location.reload();
+
+      },2000);
     } catch (error) {
       console.log("Error Adding Staff:", error);
       showErrorPopupFadeInDown(
-        error.response?.data?.message ||
+        error.response?.message ||
           "Failed to add staff. Please try again later."
       );
     }
@@ -122,13 +120,13 @@ updateStaffButton.addEventListener("click", async (e) => {
     console.log("enter", formData);
     try {
       const responseData = await api.updateIITStaff(Data);
-      table.clear();
-      await fetchAllData();
-      handlePermission("#username");
       showSucessPopupFadeInDownLong(responseData.message);
+      setTimeout(() => {
+      window.location.reload(); 
+      },2000);
     } catch (error) {
       showErrorPopupFadeInDown(
-        error.response?.data?.message ||
+        error.response?.message ||
           "Failed to update staff. Please try again later."
       );
     }
@@ -453,16 +451,16 @@ function formatDate(dateStr) {
 //     loadUpdateDetails(staffId);
 
 // });
-document.querySelector("#myTable").addEventListener("click", function (event) {
-  if (event.target.closest(".edit-btn")) {
-    let button = event.target.closest(".edit-btn");
-    let staffID = button.getAttribute("data-staff-id");
-    loadUpdateDetails(staffID);
-    // loadDocumentTable(staffID);
-    document.querySelector("#tabWrapper").classList.remove("d-none");
-    document.querySelector("#tableCard").style.display = "none";
-  }
-});
+// document.querySelector("#myTable").addEventListener("click", function (event) {
+//   if (event.target.closest(".edit-btn")) {
+//     let button = event.target.closest(".edit-btn");
+//     let staffID = button.getAttribute("data-staff-id");
+//     loadUpdateDetails(staffID);
+//     // loadDocumentTable(staffID);
+//     document.querySelector("#tabWrapper").classList.remove("d-none");
+//     document.querySelector("#tableCard").style.display = "none";
+//   }
+// });
 
 // document.querySelector('#exitButton2').addEventListener('click', function () {
 //     document.querySelector('#tabWrapper').classList.add('d-none');
