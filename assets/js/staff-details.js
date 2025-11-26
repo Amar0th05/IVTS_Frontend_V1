@@ -733,10 +733,10 @@ function formatDate(dateStr) {
   let date = new Date(dateStr);
   return date.toISOString().split("T")[0];
 }
-$(document).on("click", ".edit-btn", function () {
-  let staffId = $(this).data("staff-id");
-  loadUpdateDetails(staffId);
-});
+// $(document).on("click", ".edit-btn", function () {
+//   let staffId = $(this).data("staff-id");
+//   loadUpdateDetails(staffId);
+// });
 async function fetchDataAndGeneratePDF() {
   try {
     const res = await api.downloadStaffData();
