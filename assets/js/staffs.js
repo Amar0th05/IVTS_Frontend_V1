@@ -62,7 +62,7 @@ $(document).ready(function () {
         $(".userName").append(
           $("<option>", {
             value: `${staff.id} - ${staff.name}`,
-            text: `${staff.id}-${staff.name}`,
+            text: `${staff.name}`,
           })
         );
       });
