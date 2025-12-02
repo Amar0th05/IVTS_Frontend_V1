@@ -285,7 +285,10 @@ $(document).ready(function () {
     });
 });
 
+let originalId;
+
 async function loadUpdateData(id) {
+  originalId=id;
   console.log("enter load")
   if (id) {
     try {
@@ -341,6 +344,37 @@ $("#update-ClientName").val(project.ClientID).trigger("change");
           addDeliverablesRow(element);
         });
       }
+        if (project.Payments) {
+        // console.log((project.deliverables));
+        project.Payments.forEach((element) => {
+          addPaymentsRow(element);
+        });
+      }
+    } catch (err) {
+      console.log(err);
+    }
+    return;
+  }
+
+  console.log("No id found");
+}
+
+
+async function loadUpdateData1(id) {
+  console.log("enter load")
+  if (id) {
+    try {
+      const project = await api.getProjectById(id);
+
+      deliverablesTable.clear().draw();
+
+      if (project.deliverables) {
+        // console.log((project.deliverables));
+        project.deliverables.forEach((element) => {
+          addDeliverablesRow(element);
+        });
+      }
+      paymentTable.clear().draw();
         if (project.Payments) {
         // console.log((project.deliverables));
         project.Payments.forEach((element) => {
@@ -959,6 +993,7 @@ async function savePaymentRow($row) {
         paymentsData += 1;
         document.querySelector("#update-NoOfPayments").value=paymentsData;
         let rowContent = [
+
           saveData.Description,
           saveData.PaymentAmount,
           `<div class="d-flex align-items-center">
@@ -971,6 +1006,7 @@ async function savePaymentRow($row) {
 
         $row.removeClass("new-payment");
         $row.attr("data-id", response.data.id);
+        loadUpdateData1(originalId);
       })
       .catch((err) => {
         showErrorPopupFadeInDown("Failed to add payment.");
@@ -980,7 +1016,6 @@ async function savePaymentRow($row) {
   // ------------------------ UPDATE EXISTING ------------------------
   else {
     saveData.ID = rowId;
-    console
     await api.updateProjectPayment(saveData);
     refreshRowAfterPaymentSave($row, saveData);
   }
@@ -1252,6 +1287,7 @@ async function saveDeliverableRow($row) {
         deliverablesTable.row($row).data(rowContent).draw();
         $row.removeClass("new-deliverable");
         $row.attr("data-id", response.data.id);
+        loadUpdateData1(originalId);
       })
       .catch((err) => {
         console.log(err);

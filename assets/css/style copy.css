@@ -14517,7 +14517,7 @@ table.dataTable.dtr-inline.collapsed>tbody>tr>th:first-child:before {
 
 /* new style  */
 
-.addNewRecord {
+.addNewRecord,.addNewRecord1 {
             all: unset;
             color: white !important;
             padding: 10px 16px !important;
@@ -14532,12 +14532,12 @@ table.dataTable.dtr-inline.collapsed>tbody>tr>th:first-child:before {
             margin-bottom: 1rem;
         }
 
-        .addNewRecord:hover {
+        .addNewRecord:hover, .addNewRecord1:hover {
             background: linear-gradient(to bottom right, #4a84e0, #162e75);
             transform: translateY(-2px);
         }
 
-        .addNewRecord:active {
+        .addNewRecord:active, .addNewRecord1:active {
             transform: translateY(0);
         }
 
