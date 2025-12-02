@@ -14682,6 +14682,10 @@ table.dataTable.dtr-inline.collapsed>tbody>tr>th:first-child:before {
   border-radius: 50%;
   transition: background 0.3s ease, transform 0.25s ease;
 }
+.approve-btn {
+  border-radius: 50%;
+  transition: background 0.3s ease, transform 0.25s ease;
+}
 
 /* Default icon */
 .edit-btn i {
@@ -14694,6 +14698,16 @@ table.dataTable.dtr-inline.collapsed>tbody>tr>th:first-child:before {
   background: rgba(38, 74, 170, 0.12); /* Light tint of #264AAA */
   transform: scale(1.1);
   box-shadow: 0 0 8px rgba(38, 74, 170, 0.2);
+}
+
+.approve-btn:hover {
+  background: rgba(38, 74, 170, 0.12); /* Light tint of #264AAA */
+  transform: scale(1.1);
+  box-shadow: 0 0 8px rgba(38, 74, 170, 0.2);
+}
+
+.approve-btn:hover i {
+  transform: rotate(-10deg) scale(1.15);
 }
 
 .edit-btn:hover i {

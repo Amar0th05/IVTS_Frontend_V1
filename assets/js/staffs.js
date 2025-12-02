@@ -785,3 +785,9 @@ document
     } else {
     }
   });
+
+  document.querySelector("#addNew").addEventListener("click", function () {
+  document.querySelector("#tab").classList.remove("d-none");
+  document.querySelector("#tableCard").style.display = "none";
+  
+});
