@@ -132,7 +132,7 @@
     </div>
     <!-- Pre-loader end -->
     <div id="pcoded" class="pcoded">
-        <div class="pcoded-overlay-box"></div>
+        
         <div class="pcoded-container navbar-wrapper">
                <nav class="navbar header-navbar pcoded-header">
         <div class="navbar-wrapper">
@@ -219,14 +219,14 @@
                 <div class="row align-items-center">
                   <div class="col-md-8">
                     <div class="page-title">
-                      <span class="page-title-icon bg-gradient-primary text-white mr-2">
-                        <i class="fa-solid fa-user-group"></i>
+                      <span class="page-title-icon bg-gradient-primary text-white me-2">
+                        <i class="fa-solid fa-check-to-slot"></i>
                       </span>
                       <h5>Assets Verification</h5>
                     </div>
                   </div>
                   <div class="col-md-4">
-                    <ul class="breadcrumb">
+                      <ul class="breadcrumb" id="breadcrumb">
                       <li class="breadcrumb-item">
                         <a href="index.html"> <i class="fa fa-home"></i> </a>
                       </li>
@@ -331,7 +331,7 @@
 
         <!-- Footer -->
         <div class="modal-footer">
-          <button type="button" class="btn btn-red btn-sm" data-bs-dismiss="modal" id="exitButton">
+          <button type="button" class="btn btn-red btn-sm" data-bs-dismiss="modal" id="exitButton" data-breadcrumb="back">
             <i class="fa-solid fa-xmark me-1"></i> Exit
           </button>
             <button id="completeVerificationBtn" 

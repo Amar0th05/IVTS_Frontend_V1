@@ -1685,7 +1685,8 @@ document
       },
     });
     if (result.isConfirmed) {
-      // document.location.reload();
+      console.log("back");  
+      document.querySelector(".cls").setAttribute("data-breadcrumb","back");
       document.querySelector(".show").classList.remove("d-none");
 
       document.querySelector("#tabWrapper").classList.add("d-none");
@@ -1741,6 +1742,8 @@ document
       },
     });
     if (result.isConfirmed) {
+
+      document.querySelector(".cls").setAttribute("data-breadcrumb","back");
 document.querySelector(".show").classList.remove("d-none");
       document.querySelector("#tableCard").style.display = "none";
     } else {

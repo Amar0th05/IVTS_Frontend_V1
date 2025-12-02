@@ -121,9 +121,7 @@ updateStaffButton.addEventListener("click", async (e) => {
     try {
       const responseData = await api.updateIITStaff(Data);
       showSucessPopupFadeInDownLong(responseData.message);
-      setTimeout(() => {
-      window.location.reload(); 
-      },2000);
+
     } catch (error) {
       showErrorPopupFadeInDown(
         error.response?.message ||
@@ -755,6 +753,7 @@ document
     });
     if (result.isConfirmed) {
       // document.location.reload();
+    document.querySelector(".cls").setAttribute("data-breadcrumb", "back");
       document.querySelector("#tabWrapper").classList.add("d-none");
       document.querySelector("#tableCard").style.display = "block";
     } else {
@@ -780,6 +779,7 @@ document
       },
     });
     if (result.isConfirmed) {
+      document.querySelector(".cls").setAttribute("data-breadcrumb", "back");
       document.querySelector("#tab").classList.add("d-none");
       document.querySelector("#tableCard").style.display = "block";
     } else {

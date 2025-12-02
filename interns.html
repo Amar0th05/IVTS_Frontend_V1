@@ -284,7 +284,7 @@
   </div>
   <!-- Pre-loader end -->
   <div id="pcoded" class="pcoded">
-    <div class="pcoded-overlay-box"></div>
+    
     <div class="pcoded-container navbar-wrapper">
       <nav class="navbar header-navbar pcoded-header">
         <div class="navbar-wrapper">
@@ -379,7 +379,7 @@
                     </div>
                   </div>
                   <div class="col-md-4">
-                    <ul class="breadcrumb">
+                      <ul class="breadcrumb" id="breadcrumb">
                       <li class="breadcrumb-item">
                         <a href="index.html"> <i class="fa fa-home"></i> </a>
                       </li>
@@ -826,8 +826,8 @@
 
 
                                   <div class="modal-footer">
-                                    <button type="button" class="btn btn-red" data-dismiss="modal"
-                                      id="exitButton">Exit</button>
+                                    <button type="button" class="btn btn-red cls" data-dismiss="modal"
+                                      id="exitButton" data-breadcrumb="back">Exit</button>
                                     <button type="submit" class="btn btn-green" id="add_staff_btn"
                                       data-dismiss="modal">Submit</button>
                                   </div>
@@ -1262,8 +1262,8 @@
 
                                 <!-- Modal Footer -->
                                 <div class="modal-footer bg-white border-top">
-                                  <button type="button" class="btn btn-red btn-sm" data-dismiss="modal"
-                                    id="exitButton2">
+                                  <button type="button" class="btn btn-red btn-sm cls" data-dismiss="modal"
+                                    id="exitButton2" data-breadcrumb="back">
                                     <i class="fas fa-times me-1"></i>Exit
                                   </button>
                                   <button type="button" id="update_intern_btn"
