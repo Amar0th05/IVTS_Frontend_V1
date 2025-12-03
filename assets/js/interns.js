@@ -1033,17 +1033,12 @@ async function generateCompletion(id) {
   generateBtn.style.background = "gray";
 
   try {
-<<<<<<< HEAD
-    const now = new Date().toISOString().slice(0, 19).replace("T", " ");
-    Completion_GenerateDate = now;
-=======
     const istNow = new Date();
 const now = new Date(istNow.getTime() + 5.5 * 60 * 60 * 1000)
   .toISOString()
   .slice(0, 19)
   .replace("T", " ");
 
->>>>>>> 7378fc33197b440ec519eecd5b0982760052edd7
 
     await api.updateGenarateDate(id, {
       generateDate: now,
