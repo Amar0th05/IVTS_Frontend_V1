@@ -145,6 +145,7 @@ const api = {
     getInterById:(id) => fetchData(API_ROUTES.getAllIntern+`/${id}`, "intern"),
     updateIntern: (id,data) => putData(API_ROUTES.getAllIntern+`/${id}`, { data }),
     toggleInternStatus: (id) => putData(`/intern/status/${id}`),
+    updateInternStatus: (id) => putData(`/intern/internstatus/${id}`),
     //reporting manager
     getReportingManger: () => fetchData(API_ROUTES.getReportingManager, "staffid"),
     updateGenarateDate: (id,data) => postData(API_ROUTES.updateGenerateDate+`/${id}`,{data}),

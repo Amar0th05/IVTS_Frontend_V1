@@ -386,14 +386,11 @@ function getPageInfo(page) {
     laptops: { title: "Laptops", icon: "fa-solid fa-laptop" }, // laptops
     desktops: { title: "Desktops and Monitors", icon: "fa-solid fa-desktop" }, // desktops
     server: { title: "Server And Storage", icon: "fa-solid fa-server" }, // servers
-    printer: { title: "Printer And Scanners", icon: "fa-solid fa-copy" }, // printer
-    assetsVerfication: {
-      title: "Dashboard",
-      icon: "fa-solid fa-copy",
-    }, // assets verfication dashboard
+    printer: { title: "Printer And Scanners", icon: "fa-solid fa-print" }, // printer
+    assetsVerfication: {title: "Dashboard",icon: "fa-solid fa-check-to-slot"}, // assets verfication dashboard
     LeaveTracking: { title: "Leave Tracking", icon: "fa-solid fa-calendar-days"}, // leave tracking dashboard
-        applyLeave: { title: "Apply Leave Form", icon: "fa-solid fa-calendar-days"},
-        empLeaveTracking: { title: "EMP Leave Tracking", icon: "fa-solid fa-calendar-days"},
+        applyLeave: { title: "Apply Leave Form", icon: "fa-solid fa-rectangle-list"},
+        empLeaveTracking: { title: "EMP Leave Tracking", icon: "fa-solid fa-clock"},
 
   };
   return pageInfoMap[page];

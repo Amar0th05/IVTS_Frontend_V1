@@ -245,13 +245,13 @@ return `
   <div class="row d-flex justify-content-center">
     <div class="d-flex align-items-center justify-content-center p-0 edit-btn1" 
         style="width: 40px; height: 40px; cursor:pointer" 
-        data-id="${id}" data-breadcrumb="Edit Staff">
+        data-id="${id}">
         <i class="fa-solid fa-pen-to-square" style="font-size: larger;"></i>
     </div>
 
     <div class="d-flex align-items-center justify-content-center p-0 delete-btn" 
         style="width: 40px; height: 40px; cursor:pointer" 
-        data-id="${id}" data-breadcrumb="Edit Staff">
+        data-id="${id}">
         <i class="fa-solid fa-trash text-danger" style="font-size: larger;"></i>
     </div>
   </div>
@@ -502,7 +502,7 @@ function addRow(data) {
       `<div class="row d-flex justify-content-center">
     <div class="d-flex align-items-center justify-content-center p-0 edit-btn" 
         style="width: 40px; height: 40px; cursor:pointer" 
-        data-staff-id="${data.staffID}" data-breadcrumb="Edit Staff">
+        data-staff-id="${data.staffID}">
         <i class="fa-solid fa-pen-to-square" style="font-size: larger;"></i>
     </div>
 </div>

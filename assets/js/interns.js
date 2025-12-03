@@ -13,7 +13,7 @@ function capitalizeFirst(str) {
   if (!str) return "";
   str = str.trim(); // remove starting/ending spaces
   console.log("Cleaned:", str);
-  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+  return str.charAt(0).toUpperCase() + str.slice(1).toUpperCase();
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -34,65 +34,124 @@ if (decidedPermission !== "") {
 
 let table;
 let internId;
-function addRow(data) {
-  if ($.fn.dataTable.isDataTable("#myTable1")) {
-    table = $("#myTable1").DataTable();
-  }
 
+function addRow(data) {
   if (!data) {
-    console.error("no data to add");
+    console.error("No data to add");
     return;
   }
 
-  if (data.dateOfJoining) {
-    data.dateOfJoining = new Date(data.dateOfJoining).toLocaleDateString();
+  // ✅ Initialize DataTable ONLY ONCE
+  if (!$.fn.DataTable.isDataTable("#myTable1")) {
+    table = $("#myTable1").DataTable({
+      columnDefs: [
+        {
+          targets: [7, 8, 9], // Action, Update, Approved
+          orderable: false,
+          searchable: false,
+          defaultContent: ""
+        }
+      ]
+    });
   } else {
-    data.dateOfJoining = "";
+    table = $("#myTable1").DataTable();
   }
 
-  if (data.status) {
-    data.status = true;
-  } else {
-    data.status = false;
+  // ✅ Format values safely
+  const dob = data.DateOfBirth ? formatDate(data.DateOfBirth) : "";
+  const status = data.status === true;
+
+// ✅ Update
+  const edit =
+    `<div class="row d-flex justify-content-center">
+      <div class="d-flex align-items-center justify-content-center p-0 edit-btn"
+           style="width:40px;height:40px;cursor:pointer"
+           data-intern="${data.Id}">
+        <i class="fa-regular fa-pen-to-square fa-xl"></i>
+      </div>
+     </div>`
+ // ✅ Approve
+     const approve =
+    `<div class="row d-flex justify-content-center">
+      <div class="d-flex align-items-center justify-content-center p-0 approve-btn"
+           style="width:40px;height:40px;cursor:pointer"
+           data-intern="${data.Id}" id="approvebtn">
+          <i class="fa-regular fa-pen-to-square fa-xl" style="color: #e90707;"></i>
+      </div>
+     </div>`
+  let finaledit;
+
+  if(data.internStatus == false){
+    finaledit = approve
+  }else{
+    finaledit = edit
   }
 
-  table.row
-    .add([
-      data.internId,
-      data.FullName,
-      formatDate(data.DateOfBirth),
-      data.MobileNumber,
-      data.Email,
-      data.CollegeName,
-      data.DegreeProgram,
-      `<div class="container">
-            <div class="toggle-btn ${decidedPermission}  ${
-        data.status === true ? "active" : ""
-      }" onclick="toggleStatus(this,'${data.Id}')">
-                <div class="slider"></div>
-            </div>
-        </div>`,
-      `<div class="row d-flex justify-content-center">
-    <div class="d-flex align-items-center justify-content-center p-0 edit-btn" 
-        style="width: 40px; height: 40px; cursor:pointer" 
-        data-intern="${data.Id}">
-        <i class="fa-solid fa-pen-to-square" style="font-size: larger;"></i>
-    </div>
-</div>
-`,
-    ])
-    .draw(false);
+  // ✅ Add row (EXACTLY 10 COLUMNS)
+  table.row.add([
+    data.internId || "",
+    data.FullName || "",
+    dob,
+    data.MobileNumber || "",
+    data.Email || "",
+    data.CollegeName || "",
+    data.DegreeProgram || "",
+
+    // ✅ Action (Toggle)
+    `<div class="container">
+      <div class="toggle-btn ${decidedPermission} ${status ? "active" : ""}"
+           onclick="toggleStatus(this,'${data.Id}')">
+        <div class="slider"></div>
+      </div>
+     </div>`,
+     finaledit
+
+  ]).draw(false);
 }
+
+
+// Approve btn
+
+document.getElementById("approve_btn").addEventListener("click",async function (e) {
+  
+  await api.updateInternStatus(internId);
+  showSucessPopupFadeInDownLong("Intern Approved Successfully");
+  setInterval(() => {
+  window.location.reload();
+  },1500);
+});
+
+
+
 // edit btn
 document.querySelector("#myTable1").addEventListener("click", function (event) {
   if (event.target.closest(".edit-btn")) {
     let button = event.target.closest(".edit-btn");
-    Id = button.getAttribute("data-inter-id");
+    Id = button.getAttribute("data-intern-id");
     document.querySelector("#tabWrapper").classList.remove("d-none");
     document.querySelector("#tableCard").style.display = "none";
     document.querySelector(".show").classList.add("d-none");
   }
+  
+    if (event.target.closest(".approve-btn")) {
+    let button = event.target.closest(".approve-btn");
+    Id = button.getAttribute("data-intern-id");
+    document.querySelector("#tabWrapper2").classList.remove("d-none");
+    document.querySelector("#tableCard").style.display = "none";
+    document.querySelector(".show").classList.add("d-none");
+  }
 });
+// document.querySelector("#myTable1").addEventListener("click", function (event) {
+//   if (event.target.closest(".approved-btn")) {
+//     let button = event.target.closest(".approved-btn");
+//     Id = button.getAttribute("data-inter-id");
+//     document.querySelector("#tabWrapper").classList.remove("d-none");
+//     document.querySelector("#tableCard").style.display = "none";
+//     document.querySelector(".show").classList.add("d-none");
+//   }
+// });
+
+
 
 // document.querySelector('#exitButton2').addEventListener('click', function () {
 //     document.querySelector('#tabWrapper').classList.add('d-none');
@@ -166,7 +225,7 @@ async function fetchAllData() {
     document.getElementById("totalInternCount").innerText = totalInterns;
     document.getElementById("currentInternCount").innerText = currentInterns;
     document.getElementById("completedInternCount").innerText =
-      completedInterns;
+    completedInterns;
 
     handlePermission("#username");
   } catch (error) {
@@ -255,6 +314,13 @@ $(document).on("click", ".edit-btn", function () {
   loadInternUpdateDetails(Id);
 });
 
+// edit btn
+$(document).on("click", ".approve-btn", function () {
+  let Id = $(this).data("intern");
+  console.log("edit", Id);
+  loadInternApproveDetails(Id);
+});
+
 //generate pdf
 
 async function loadInternUpdateDetails(Id) {
@@ -332,8 +398,84 @@ async function loadInternUpdateDetails(Id) {
     document.getElementById("id1").value = Id || "";
     document.getElementById("stipendAmount").value = data.stipendAmount;
 
+    // certificate status
+    document.getElementById("certificateStatus").value = data.certificateStatus || "";
+
     updateInternDocumentButtons(Id); // Call a function to update document-related buttons/links
     updateInternCertificateButtons(data);
+  } catch (error) {
+    console.error("Error loading intern details:", error);
+  }
+}
+
+// Approve Details
+async function loadInternApproveDetails(Id) {
+  internId = Id;
+  try {
+    // Assume API_ROUTES.getIntern(id) exists and fetches intern-specific data
+    const response = await api.getInterById(Id);
+    const data = response; // Assuming the intern details are directly in response.data
+    function formatDate(dateStr) {
+      if (!dateStr) return "";
+      let date = new Date(dateStr);
+      return date.toISOString().split("T")[0];
+    }
+
+    console.log("datanew", data);
+
+    reportingManagername = capitalizeFirst(
+      (data.Reporting_Manager || "").split("-")[1]
+    );
+    secondaryReportingManagername = capitalizeFirst(
+      (data.secondaryReportingManager || "").split("-")[1]
+    );
+
+    internName = data.FullName;
+
+    // Populate the form fields based on the intern data and your HTML IDs
+    document.getElementById("fullName2").value = data.FullName || "";
+    document.getElementById("dateOfBirth2").value = data.DateOfBirth
+      ? formatDate(data.DateOfBirth)
+      : "";
+    document.getElementById("gender2").value = data.Gender || "";
+    document.getElementById("mobileNumber2").value = data.MobileNumber || "";
+    document.getElementById("currentLocation2").value =
+      data.CurrentLocation || "";
+    document.getElementById("email2").value = data.Email || "";
+    document.getElementById("portfolioLink2").value = data.PortfolioLink || "";
+    document.getElementById("emergencyContactName2").value =
+      data.EmergencyContactName || "";
+    document.getElementById("emergencyContactRelationship2").value =
+      data.EmergencyContactRelationship || "";
+    document.getElementById("emergencyContactNumber2").value =
+      data.EmergencyContactNumber || "";
+    document.getElementById("collegeName2").value = data.CollegeName || "";
+    document.getElementById("degreeProgram2").value = data.DegreeProgram || "";
+    document.getElementById("isPartOfCurriculum2").value =
+      data.IsPartOfCurriculum ? "Yes" : "No" || "";
+    document.getElementById("facultySupervisor2").value =
+      data.FacultySupervisor || "";
+    document.getElementById("preferredStartDate2").value =
+      data.PreferredStartDate ? formatDate(data.PreferredStartDate) : "";
+    document.getElementById("preferredEndDate2").value = data.PreferredEndDate
+      ? formatDate(data.PreferredEndDate)
+      : "";
+    document.getElementById("internshipMode2").value =
+      data.InternshipMode || "";
+    document.getElementById("howHeardAboutUs2").value =
+      data.HowHeardAboutUs || "";
+    document.getElementById("submissionDate2").value = data.SubmissionDate
+      ? formatDate(data.SubmissionDate)
+      : "";
+
+    console.log(document.getElementById("submissionDate2"));
+    // document.getElementById("reportingManager").value =
+    //   data.Reporting_Manager;
+
+    $(".userName").val(data.Reporting_Manager).trigger("change");
+    $(".userName").eq(1).val(data.secondaryReportingManager).trigger("change");
+
+    updateInternDocumentButtons(Id); // Call a function to update document-related buttons/links
   } catch (error) {
     console.error("Error loading intern details:", error);
   }
@@ -730,6 +872,8 @@ function downloadOnboardingCertificate(
 
 let reportingManagername;
 let secondaryReportingManagername;
+
+
 async function updateInternCertificateButtons(data) {
   try {
     const documentTableBody = document.getElementById("Certificatebody");
@@ -756,7 +900,7 @@ async function updateInternCertificateButtons(data) {
         id="downloadBtn_${data.id}" 
         class="btn btn-sm text-white"
         style="
-          background:${data.Completion_GenerateDate ? "#1E3FA0" : "#69A1FF"};
+          background:${data.Completion_GenerateDate ? "#406bebff" : "#69A1FF"};
           border:none;
           opacity:${data.Completion_GenerateDate ? "1" : "0.5"};
           cursor:${data.Completion_GenerateDate ? "pointer" : "not-allowed"};
@@ -807,7 +951,7 @@ async function updateInternCertificateButtons(data) {
         id="downloadOnboardBtn_${data.id}"
         class="btn btn-sm text-white"
         style="
-          background:${data.Acceptance_GenerateDate ? "#1E3FA0" : "#69A1FF"};
+          background:${data.Acceptance_GenerateDate ? "#406bebff" : "#69A1FF"};
           border:none;
           opacity:${data.Acceptance_GenerateDate ? "1" : "0.5"};
           cursor:${data.Acceptance_GenerateDate ? "pointer" : "not-allowed"};
@@ -849,7 +993,7 @@ async function updateInternCertificateButtons(data) {
           <td>${actionHTMLOnboarding}</td>
         </tr>
       `;
-      if (today < endDate) {
+      if (today < endDate && data.certificateStatus == "Not Closed") {
         rowsHTML += `
         <tr>
           <td>${data.FullName} Completion Letter</td>
@@ -889,8 +1033,17 @@ async function generateCompletion(id) {
   generateBtn.style.background = "gray";
 
   try {
+<<<<<<< HEAD
     const now = new Date().toISOString().slice(0, 19).replace("T", " ");
     Completion_GenerateDate = now;
+=======
+    const istNow = new Date();
+const now = new Date(istNow.getTime() + 5.5 * 60 * 60 * 1000)
+  .toISOString()
+  .slice(0, 19)
+  .replace("T", " ");
+
+>>>>>>> 7378fc33197b440ec519eecd5b0982760052edd7
 
     await api.updateGenarateDate(id, {
       generateDate: now,
@@ -902,7 +1055,7 @@ async function generateCompletion(id) {
     downloadBtn.disabled = false;
     downloadBtn.style.opacity = "1";
     downloadBtn.style.cursor = "pointer";
-    downloadBtn.style.background = "#1E3FA0";
+    downloadBtn.style.background = "#406bebff";
 
     Swal.fire({
       icon: "success",
@@ -966,7 +1119,7 @@ async function generateOnboardingCertificate(
     downloadBtn.disabled = false;
     downloadBtn.style.opacity = "1";
     downloadBtn.style.cursor = "pointer";
-    downloadBtn.style.background = "#1E3FA0";
+    downloadBtn.style.background = "#406bebff";
 
     Swal.fire({
       icon: "success",
@@ -994,7 +1147,7 @@ async function updateInternDocumentButtons(internId) {
 
     console.log("documents", documents);
 
-    const documentTableBody = document.getElementById("documentTableBody");
+    const documentTableBody = document.getElementsByClassName("documentTableBody")[1];
     let rowsHTML = "";
 
     documents.forEach((doc) => {
@@ -1005,7 +1158,7 @@ async function updateInternDocumentButtons(internId) {
           <button 
             onclick="handleAction(this, () => downloadDocument('${internId}', '${doc.name}'))" 
             class="btn btn-sm text-white" 
-            style="background:linear-gradient(to bottom right, #69A1FF, #1E3FA0); border:none;">
+            style="background:linear-gradient(to bottom right, #69A1FF, #406bebff); border:none;">
             <i class="fa-solid fa-download me-1"></i> Download
           </button>
 
@@ -1028,7 +1181,7 @@ async function updateInternDocumentButtons(internId) {
           <button 
             onclick="handleAction(this, () => downloadDocument('${internId}', '${doc.name}'))" 
             class="btn btn-sm text-white" 
-            style="background:linear-gradient(to bottom right, #69A1FF, #1E3FA0); border:none;">
+            style="background:linear-gradient(to bottom right, #69A1FF, #406bebff); border:none;">
             <i class="fa-solid fa-download me-1"></i> Download
           </button>
 
@@ -1378,6 +1531,7 @@ updateInternButton.addEventListener("click", async (e) => {
 });
 $(document).ready(function () {
   const table1 = $("#myTable1").DataTable({
+    order: [[0, 'desc']],
     paging: true,
     pageLength: 25,
     lengthMenu: [5, 10, 25, 50, 100],
@@ -1551,8 +1705,39 @@ document
       },
     });
     if (result.isConfirmed) {
-      // document.location.reload();
+      console.log("back");  
+      document.querySelector(".cls").setAttribute("data-breadcrumb","back");
+      document.querySelector(".show").classList.remove("d-none");
+
       document.querySelector("#tabWrapper").classList.add("d-none");
+      document.querySelector("#tableCard").style.display = "block";
+    } else {
+    }
+  });
+
+  document
+  .getElementById("exitButton3")
+  .addEventListener("click", async function () {
+    const result = await Swal.fire({
+      title: "Cancel Editing?",
+      text: "You have unsaved changes. Are you sure you want to cancel?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33", // Red for confirm
+      cancelButtonColor: "#3085d6", // Blue for cancel
+      confirmButtonText: "Yes, Cancel",
+      cancelButtonText: "No, Keep Editing",
+      reverseButtons: true,
+      customClass: {
+        popup: "swal2-custom-popup",
+        title: "swal2-custom-title",
+      },
+    });
+    if (result.isConfirmed) {
+      // document.location.reload();
+      document.querySelector(".show").classList.remove("d-none");
+
+      document.querySelector("#tabWrapper2").classList.add("d-none");
       document.querySelector("#tableCard").style.display = "block";
     } else {
     }
@@ -1577,8 +1762,15 @@ document
       },
     });
     if (result.isConfirmed) {
-      document.querySelector("#tab").classList.add("d-none");
-      document.querySelector("#tableCard").style.display = "block";
+
+      document.querySelector(".cls").setAttribute("data-breadcrumb","back");
+document.querySelector(".show").classList.remove("d-none");
+      document.querySelector("#tableCard").style.display = "none";
     } else {
     }
   });
+
+//   document.querySelector("#edit-btn").addEventListener("click", function () {
+//   document.querySelector("#tab").classList.remove("d-none");
+// });
+

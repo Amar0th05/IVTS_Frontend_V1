@@ -204,35 +204,49 @@ document.getElementById("savePassword")?.addEventListener('click',()=>{
 //                          Breadcrumb Dynamic Update
 // =========================================================================================
 
-   $(document).ready(function () {
-    const breadcrumb = $('#breadcrumb');
-    const originalBreadcrumb = breadcrumb.html(); // Save the original HTML once
+$(document).ready(function () {
+  const breadcrumb = $('#breadcrumb');
+  const originalBreadcrumb = breadcrumb.html();
 
-    // Handle all breadcrumb actions
-    $(document).on('click', '[data-breadcrumb]', function () {
-      const action = $(this).data('breadcrumb');
+  // Detect last static breadcrumb name (ex: Talentpool)
+  const baseName = breadcrumb.find("li:last").text().trim();
 
-      if (action && action.toLowerCase() === 'back') {
-        // Restore original breadcrumb (Home > Talentpool)
-        breadcrumb.html(originalBreadcrumb);
-      } else {
-        // Remove old dynamic breadcrumb if exists
-        breadcrumb.find('.dynamic-breadcrumb').remove();
+  $(document).on('click', '[data-breadcrumb], .addNewRecord, .edit-btn', function () {
 
-        // Append new one dynamically
-        breadcrumb.append(`
-          <li class="breadcrumb-item dynamic-breadcrumb">
-            <a href="#">${action}</a>
-          </li>
-        `);
-      }
-    });
+    let action = $(this).data('breadcrumb');
 
-    // When modal closes (by Exit, backdrop, or X)
-    $(document).on('hidden.bs.modal', function () {
+    // Class based auto-actions
+    if ($(this).hasClass("addNewRecord")) {
+      action = "add";
+    }
+    if ($(this).hasClass("edit-btn")) {
+      action = "edit";
+    }
+
+    if (!action) return;
+
+    if (action.toLowerCase() === "back") {
       breadcrumb.html(originalBreadcrumb);
-    });
+      return;
+    }
+
+    // Remove previous dynamic breadcrumbs
+    breadcrumb.find(".dynamic-breadcrumb").remove();
+
+    // Capitalized action text
+    const actionTitle = action.charAt(0).toUpperCase() + action.slice(1);
+
+    // Full display ex: "Add Talentpool", "Edit Talentpool"
+    const fullTitle = `${actionTitle} ${baseName}`;
+
+    breadcrumb.append(`
+      <li class="breadcrumb-item dynamic-breadcrumb">
+        <a href="#">${fullTitle}</a>
+      </li>
+    `);
   });
+});
+
 
 
 

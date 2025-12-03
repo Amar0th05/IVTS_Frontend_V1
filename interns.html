@@ -284,7 +284,7 @@
   </div>
   <!-- Pre-loader end -->
   <div id="pcoded" class="pcoded">
-    <div class="pcoded-overlay-box"></div>
+    
     <div class="pcoded-container navbar-wrapper">
       <nav class="navbar header-navbar pcoded-header">
         <div class="navbar-wrapper">
@@ -379,7 +379,7 @@
                     </div>
                   </div>
                   <div class="col-md-4">
-                    <ul class="breadcrumb">
+                      <ul class="breadcrumb" id="breadcrumb">
                       <li class="breadcrumb-item">
                         <a href="index.html"> <i class="fa fa-home"></i> </a>
                       </li>
@@ -399,7 +399,7 @@
 
                     <div class="row g-4 justify-content-center text-center show">
                       <!-- Total Interns -->
-                      <div class="col-md-4 d-flex justify-content-center">
+                      <div class="col-md-3 d-flex justify-content-center">
                         <div
                           class="card shadow border-0 rounded-4 d-flex flex-row align-items-center justify-content-center p-4 w-100">
                           <div class="d-flex align-items-center justify-content-center rounded-circle me-4"
@@ -414,7 +414,7 @@
                       </div>
 
                       <!-- Current Interns -->
-                      <div class="col-md-4 d-flex justify-content-center">
+                      <div class="col-md-3 d-flex justify-content-center">
                         <div
                           class="card shadow border-0 rounded-4 d-flex flex-row align-items-center justify-content-center p-4 w-100">
                           <div class="d-flex align-items-center justify-content-center rounded-circle me-4"
@@ -428,8 +428,23 @@
                         </div>
                       </div>
 
+                      <!-- Process Interns -->
+                      <div class="col-md-3 d-flex justify-content-center">
+                        <div
+                          class="card shadow border-0 rounded-4 d-flex flex-row align-items-center justify-content-center p-4 w-100">
+                          <div class="d-flex align-items-center justify-content-center rounded-circle me-4"
+                            style="background:#e8f0ff; width:65px; height:65px;">
+                            <i class="fa-solid fa-hourglass-start" style="color:#448AFF; font-size:28px;"></i>
+                          </div>
+                          <div class="text-start">
+                            <h3 id="processInternCount" class="fw-bold mb-1" style="color:#448AFF;">0</h3>
+                            <p class="text-muted mb-0 fs-6">Process Interns</p>
+                          </div>
+                        </div>
+                      </div>
+
                       <!-- Completed Interns -->
-                      <div class="col-md-4 d-flex justify-content-center">
+                      <div class="col-md-3 d-flex justify-content-center">
                         <div
                           class="card shadow border-0 rounded-4 d-flex flex-row align-items-center justify-content-center p-4 w-100">
                           <div class="d-flex align-items-center justify-content-center rounded-circle me-4"
@@ -811,8 +826,8 @@
 
 
                                   <div class="modal-footer">
-                                    <button type="button" class="btn btn-red" data-dismiss="modal"
-                                      id="exitButton">Exit</button>
+                                    <button type="button" class="btn btn-red cls" data-dismiss="modal"
+                                      id="exitButton" data-breadcrumb="back">Exit</button>
                                     <button type="submit" class="btn btn-green" id="add_staff_btn"
                                       data-dismiss="modal">Submit</button>
                                   </div>
@@ -1121,19 +1136,17 @@
                                               <div class="col-md-6 mb-3">
                                                 <label for="StartDate" class="form-label fw-semibold">
                                                   Actual Start Date <span
-                                                      class="text-danger">*</span>
-                                                </label>
+                                                      class="text-danger">*</span></label></label>
                                                 <input type="date" name="StartDate" class="form-control form-control-sm"
-                                                  id="StartDate">
+                                                  id="StartDate" required>
                                               </div>
 
                                               <div class="col-md-6 mb-3">
                                                 <label for="EndDate" class="form-label fw-semibold">
                                                   Actual End Date <span
-                                                      class="text-danger">*</span>
-                                                </label>
+                                                      class="text-danger">*</span></label></label>
                                                 <input type="date" name="EndDate" class="form-control form-control-sm"
-                                                  id="EndDate">
+                                                  id="EndDate"required>
                                               </div>
 
                                               <div class="col-md-6 mb-3">
@@ -1152,9 +1165,9 @@
                                               <div class="col-md-6 mb-3">
                                                 <div class="form-group">
                                                   <label for="secondaryReportingManager">Secondary Reporting Manager
-                                                    <span class="text-danger">*</span></label>
+                                                    </label>
                                                   <select id="secondaryReportingManager" name="secondaryReportingManager"
-                                                    class="form-control form-control-sm userName" style="width:100%;" required>
+                                                    class="form-control form-control-sm userName" style="width:100%;" >
                                                     <option value="">Select Secondary Reporting Manager</option>
                                                   </select>
                                                 </div>
@@ -1164,12 +1177,23 @@
 
                                             <!-- ✅ Added Stipend Row -->
                                             <div class="row">
-                                              <div class="col-md-4 mb-3">
+                                              <div class="col-md-6 mb-3">
                                                 <label for="stipendAmount"
                                                   class="form-label fw-semibold">Stipend</label>
                                                 <input type="number" name="stipendAmount"
                                                   class="form-control form-control-sm" id="stipendAmount"
                                                   placeholder="Enter stipend amount">
+                                              </div>
+                                                                            
+                                                <div class="col-md-6 mb-3">
+                                                  <div class="form-group">
+                                                    <label>Certificate Status</label>
+                                                    <select name="certificateStatus" id="certificateStatus" class="form-control form-control-sm border" style="border-radius: 5px;">
+                                                      <option value="">Select certificate Status</option>
+                                                      <option value="Closed">Close</option>
+                                                      <option value="Not Closed">Not Close</option>
+                                                    </select>
+                                                  </div>
                                               </div>
                                             </div>
 
@@ -1195,7 +1219,7 @@
                                               <th>Edit</th>
                                             </tr>
                                           </thead>
-                                          <tbody id="documentTableBody">
+                                          <tbody class="documentTableBody">
                                             <tr>
                                               <td>Bonafide</td>
                                               <td></td>
@@ -1238,8 +1262,8 @@
 
                                 <!-- Modal Footer -->
                                 <div class="modal-footer bg-white border-top">
-                                  <button type="button" class="btn btn-red btn-sm" data-dismiss="modal"
-                                    id="exitButton2">
+                                  <button type="button" class="btn btn-red btn-sm cls" data-dismiss="modal"
+                                    id="exitButton2" data-breadcrumb="back">
                                     <i class="fas fa-times me-1"></i>Exit
                                   </button>
                                   <button type="button" id="update_intern_btn"
@@ -1287,6 +1311,388 @@
                             </div>
                             <!---------------------------------------------------------------------------------------------UPDATE-MODAL-END---------------------------------------------------->
 
+                            <!----------------------------------------------- Approve-MODAl-START --------------------------------------------------------------------->
+                                                        <div>
+                              <div class="d-none" id="tabWrapper2">
+                                <div class="nav nav-tabs md-tabs" id="myTab2" role="tablist">
+                                  <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab6"
+                                    type="button">
+                                    <i class="fas fa-user-graduate me-2"></i>Intern Details
+                                  </button>
+                                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab7" type="button">
+                                    <i class="fas fa-file-upload me-2"></i>Document Upload
+                                  </button>
+                                </div>
+                                <div class="tab-content mt-3">
+                                  <div class="tab-pane fade show active" id="tab6">
+                                    <!-- Modal Body -->
+                                    <div class="modal-body bg-light rounded-3 shadow-sm">
+
+                                      <form id="update-intern-form">
+                                        <!-- 🧑 Basic Information -->
+                                        <div class="card border-0 shadow-sm mb-3">
+                                          <div class="card-body">
+                                            <h6 class="text-sub mb-3 fw-semibold">
+                                              <i class="fa-solid fa-user-pen me-2 text-sub"></i> Basic Information
+                                            </h6>
+
+                                            <div class="row">
+                                              <div class="col-md-6 mb-3">
+                                                <label for="fullName1" class="form-label fw-semibold">
+                                                  Full Name
+                                                  <span class="text-danger">*</span>
+                                                </label>
+                                                <input type="text" name="fullName" maxlength="50"
+                                                  class="form-control form-control-sm" id="fullName2"
+                                                  placeholder="Enter Full Name" required>
+                                              </div>
+
+                                              <div class="col-md-6 mb-3">
+                                                <label for="dateOfBirth1" class="form-label fw-semibold">
+                                                  Date of Birth
+                                                  <span class="text-danger">*</span>
+                                                </label>
+                                                <input type="date" name="dateOfBirth"
+                                                  class="form-control form-control-sm" id="dateOfBirth2" required>
+                                              </div>
+                                            </div>
+
+                                            <div class="row">
+                                              <div class="col-md-6 mb-3">
+                                                <label for="gender1" class="form-label fw-semibold">
+                                                  Gender
+                                                  <span class="text-danger">*</span>
+                                                </label>
+                                                <select class="form-control form-control-sm" id="gender2" name="gender"
+                                                  required>
+                                                  <option value="" disabled selected>Select Gender</option>
+                                                  <option value="male">Male</option>
+                                                  <option value="female">Female</option>
+                                                  <option value="other">Other</option>
+                                                </select>
+                                              </div>
+                                              <div class="col-md-6 mb-3" id="otherGenderField2" style="display: none;">
+                                                <label for="otherGender1" class="form-label fw-semibold">
+                                                  <i class="fas fa-edit me-1"></i>Please Specify Gender
+                                                  <span class="text-danger">*</span>
+                                                </label>
+                                                <input type="text" name="otherGender"
+                                                  class="form-control form-control-sm" id="otherGender2"
+                                                  placeholder="Enter Gender">
+                                              </div>
+                      
+                                            </div>
+
+                                            <div class="row">
+                                              <div class="col-md-6 mb-3">
+                                                <label for="mobileNumber1" class="form-label fw-semibold">
+                                                  Mobile Number
+                                                  <span class="text-danger">*</span>
+                                                </label>
+                                                <input type="tel" maxlength="10" name="mobileNumber"
+                                                  class="form-control form-control-sm" id="mobileNumber2"
+                                                  placeholder="Enter Mobile Number" required>
+                                              </div>
+                                              <div class="col-md-6 mb-3">
+                                                <label for="email1" class="form-label fw-semibold">
+                                                  Email
+                                                  <span class="text-danger">*</span>
+                                                </label>
+                                                <input type="email" name="email" class="form-control form-control-sm"
+                                                  id="email2" placeholder="Enter Email Address" required>
+                                              </div>
+                                            </div>
+
+                                            <div class="row">
+                                              <div class="col-md-6 mb-3">
+                                                <label for="currentLocation1" class="form-label fw-semibold">
+                                                  Current Location
+                                                  <span class="text-danger">*</span>
+                                                </label>
+                                                <input type="text" name="currentLocation"
+                                                  class="form-control form-control-sm" id="currentLocation2"
+                                                  placeholder="Enter Current Location" required>
+                                              </div>
+                                              <div class="col-md-6 mb-3">
+                                                <label for="portfolioLink1" class="form-label fw-semibold">
+                                                  Portfolio Link
+                                                  <span class="text-danger">*</span>
+                                                </label>
+                                                <input type="url" name="portfolioLink"
+                                                  class="form-control form-control-sm" id="portfolioLink2"
+                                                  placeholder="Enter Portfolio Link (LinkedIn/GitHub etc.)" required>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+
+                                        <!-- 🚨 Emergency Contact -->
+                                        <div class="card border-0 shadow-sm mb-3">
+                                          <div class="card-body">
+                                            <h6 class="text-sub mb-3 fw-semibold">
+                                              <i class="fa-solid fa-user-shield me-2 text-sub"></i> Emergency Contact
+                                            </h6>
+
+                                            <div class="row">
+                                              <div class="col-md-6 mb-3">
+                                                <label for="emergencyContactName1" class="form-label fw-semibold">
+                                                  Emergency Contact Name
+                                                  <span class="text-danger">*</span>
+                                                </label>
+                                                <input type="text" name="emergencyContactName"
+                                                  class="form-control form-control-sm" id="emergencyContactName2"
+                                                  placeholder="Enter Name" required>
+                                              </div>
+
+                                              <div class="col-md-6 mb-3">
+                                                <label for="emergencyContactRelationship1"
+                                                  class="form-label fw-semibold">
+                                                  Relationship
+                                                  <span class="text-danger">*</span>
+                                                </label>
+                                                <input type="text" name="emergencyContactRelationship"
+                                                  class="form-control form-control-sm"
+                                                  id="emergencyContactRelationship2" placeholder="e.g., Parent, Sibling"
+                                                  required>
+                                              </div>
+                                            </div>
+
+                                            <div class="row">
+                                              <div class="col-md-6 mb-3">
+                                                <label for="emergencyContactNumber1" class="form-label fw-semibold">
+                                                  Emergency Contact Number
+                                                  <span class="text-danger">*</span>
+                                                </label>
+                                                <input type="tel" maxlength="10" name="emergencyContactNumber"
+                                                  class="form-control form-control-sm" id="emergencyContactNumber2"
+                                                  placeholder="Enter Number" required>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+
+                                        <!-- 🎓 Education Details -->
+                                        <div class="card border-0 shadow-sm mb-3">
+                                          <div class="card-body">
+                                            <h6 class="text-sub mb-3 fw-semibold">
+                                              <i class="fa-solid fa-graduation-cap me-2 text-sub"></i> Education Details
+                                            </h6>
+
+                                            <div class="row">
+                                              <div class="col-md-6 mb-3">
+                                                <label for="collegeName1" class="form-label fw-semibold">
+                                                  College Name
+                                                  <span class="text-danger">*</span>
+                                                </label>
+                                                <input type="text" name="collegeName"
+                                                  class="form-control form-control-sm" id="collegeName2"
+                                                  placeholder="Enter College Name" required>
+                                              </div>
+                                              <div class="col-md-6 mb-3">
+                                                <label for="degreeProgram1" class="form-label fw-semibold">
+                                                  Degree Program
+                                                  <span class="text-danger">*</span>
+                                                </label>
+                                                <input type="text" name="degreeProgram"
+                                                  class="form-control form-control-sm" id="degreeProgram2"
+                                                  placeholder="Enter Degree Program" required>
+                                              </div>
+                                            </div>
+
+                                            <div class="row">
+                                              <div class="col-md-6 mb-3">
+                                                <label for="isPartOfCurriculum1" class="form-label fw-semibold">
+                                                  Is this part of your curriculum?
+                                                  <span class="text-danger">*</span>
+                                                </label>
+                                                <select class="form-control form-control-sm" id="isPartOfCurriculum2"
+                                                  name="isPartOfCurriculum" required>
+                                                  <option value="" disabled selected>Select Option</option>
+                                                  <option value="Yes">Yes</option>
+                                                  <option value="No">No</option>
+                                                </select>
+                                              </div>
+                                              <div class="col-md-6 mb-3">
+                                                <label for="facultySupervisor1" class="form-label fw-semibold">
+                                                  Faculty Supervisor
+                                                  <span class="text-danger">*</span>
+                                                </label>
+                                                <input type="text" name="facultySupervisor"
+                                                  class="form-control form-control-sm" id="facultySupervisor2"
+                                                  placeholder="Enter Faculty Supervisor Name" required>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+
+                                        <!-- 💼 Internship Details -->
+                                        <div class="card border-0 shadow-sm mb-3">
+                                          <div class="card-body">
+                                            <h6 class="text-sub mb-3 fw-semibold">
+                                              <i class="fa-solid fa-briefcase me-2 text-sub"></i> Internship Details
+                                            </h6>
+
+                                            <div class="row">
+                                              <div class="col-md-6 mb-3">
+                                                <label for="preferredStartDate1" class="form-label fw-semibold">
+                                                  Preferred Start Date
+                                                  <span class="text-danger">*</span>
+                                                </label>
+                                                <input type="date" name="preferredStartDate"
+                                                  class="form-control form-control-sm" id="preferredStartDate2"
+                                                  required>
+                                              </div>
+                                              <div class="col-md-6 mb-3">
+                                                <label for="preferredEndDate1" class="form-label fw-semibold">
+                                                  Preferred End Date
+                                                  <span class="text-danger">*</span>
+                                                </label>
+                                                <input type="date" name="preferredEndDate"
+                                                  class="form-control form-control-sm" id="preferredEndDate2" required>
+                                              </div>
+                                            </div>
+
+                                            <div class="row">
+                                              <div class="col-md-6 mb-3">
+                                                <label for="internshipMode1" class="form-label fw-semibold">
+                                                  Internship Mode
+                                                  <span class="text-danger">*</span>
+                                                </label>
+                                                <select class="form-control form-control-sm" id="internshipMode2"
+                                                  name="internshipMode" required>
+                                                  <option value="" disabled selected>Select Mode</option>
+                                                  <option value="online">Online</option>
+                                                  <option value="offline">Offline</option>
+                                                  <option value="Hybrid">Hybrid</option>
+                                                </select>
+                                              </div>
+                                              <div class="col-md-6 mb-3">
+                                                <label for="howHeardAboutUs1" class="form-label fw-semibold">
+                                                  How did you hear about us?
+                                                  <span class="text-danger">*</span>
+                                                </label>
+                                                <input type="text" name="howHeardAboutUs"
+                                                  class="form-control form-control-sm" id="howHeardAboutUs2"
+                                                  placeholder="e.g., Social Media, Referral" required>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+
+                                        <!-- 📅 Additional Information -->
+                                        <div class="card border-0 shadow-sm mb-3">
+                                          <div class="card-body">
+                                            <h6 class="text-sub mb-3 fw-semibold">
+                                              <i class="fa-solid fa-calendar-alt me-2 text-sub"></i> Additional
+                                              Information
+                                            </h6>
+
+                                            <div class="row">
+                                              <div class="col-md-12 mb-3">
+                                                <label for="submissionDate2" class="form-label fw-semibold">
+                                                  Submission Date
+                                                </label>
+                                                <input type="date" name="submissionDate1"
+                                                  class="form-control form-control-sm" id="submissionDate2" readonly>
+                                              </div>
+                                            </div>
+
+                                          </div>
+                                        </div>
+
+
+                                        <!-- Hidden ID Field -->
+                                        <div class="d-none">
+                                          <input type="text" name="id" class="form-control form-control-sm" id="id1">
+                                        </div>
+
+                                      </form>
+                                    </div>
+                                  </div>
+                                  <div class="tab-pane fade show" id="tab7" role="tabpanel">
+                                    <div class="d-flex justify-content-center align-items-center">
+                                      <div class="table-responsive">
+                                        <table id="documentTable" class="table-modern table-striped">
+                                          <thead class="bg-primary text-white">
+                                            <tr>
+                                              <th>Documents</th>
+                                              <th>Edit</th>
+                                            </tr>
+                                          </thead>
+                                          <tbody class="documentTableBody">
+                                            <tr>
+                                              <td><i class="fas fa-id-card me-2"></i>Bonafide</td>
+                                              <td></td>
+                                            </tr>
+                                            <tr>
+                                              <td><i class="fas fa-file-alt me-2"></i>Resume</td>
+                                              <td></td>
+                                            </tr>
+                                            <tr>
+                                              <td><i class="fas fa-image me-2"></i>Photo</td>
+                                              <td></td>
+                                            </tr>
+                                            <tr>
+                                              <td><i class="fas fa-id-card me-2"></i>ID Proof</td>
+                                              <td></td>
+                                            </tr>
+                                          </tbody>
+                                        </table>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <!-- Modal Footer -->
+                                <div class="modal-footer bg-white border-top">
+                                  <button type="button" class="btn btn-red btn-sm" data-dismiss="modal"
+                                    id="exitButton3">
+                                    <i class="fas fa-times me-1"></i>Exit
+                                  </button>
+                                  <button type="button" id="approve_btn"
+                                    class="btn btn-green btn-sm writeElement">
+                                    <i class="fas fa-save me-1"></i>Approve
+                                  </button>
+                                </div>
+                                <!-- 🌟 Stylish Confirmation Modal -->
+                                <div class="modal fade" id="confirmExitModal" tabindex="-1"
+                                  aria-labelledby="confirmExitLabel" aria-hidden="true">
+                                  <div class="modal-dialog modal-dialog-centered" style="max-width: 400px;">
+                                    <div class="modal-content"
+                                      style="border-radius: 15px; box-shadow: 0 0 25px rgba(0,0,0,0.2); border:none; overflow:hidden;">
+
+                                      <div class="modal-header text-white"
+                                        style="background: linear-gradient(#4471D0);">
+                                        <h6 class="modal-title" id="confirmExitLabel">
+                                          <i class="fas fa-exclamation-triangle me-2"></i>Confirm Exit
+                                        </h6>
+                                        <button type="button" class="btn-close btn-close-white"
+                                          data-bs-dismiss="modal"></button>
+                                      </div>
+
+                                      <div class="modal-body text-center p-4" style="font-size: 14px; color: #333;">
+                                        <i class="fas fa-question-circle fa-3x text-danger mb-3"></i>
+                                        <p style="margin-bottom: 0;">
+                                          Are you sure you want to <b>exit without saving</b> your changes?
+                                        </p>
+                                      </div>
+
+                                      <div class="modal-footer justify-content-center border-0 pb-4">
+                                        <button type="button" class="btn btn-secondary px-4 py-1"
+                                          data-bs-dismiss="modal">
+                                          </i>Cancel
+                                        </button>
+                                        <button type="button" id="confirmExitYes" class="btn px-4 py-1 text-white"
+                                          style="background-color:#c62828; border:none;">
+                                          </i>Yes, Exit
+                                        </button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <!----------------------------------------------- Approve-MODAl-END --------------------------------------------------------------------->
 
                             <div id="tableCard">
 
@@ -1323,6 +1729,8 @@
                                         </option>
                                         <option value="inactive">inactive
                                           Interns</option>
+                                          <option value="Process Interns">inactive
+                                          Interns</option>
                                       </select>
                                     </div>
                                   </div>
@@ -1344,7 +1752,6 @@
                                         <th>Action</th>
                                         <!-- <th>Actions</th> -->
                                         <th>Update</th>
-
                                       </tr>
                                     </thead>
                                     <tbody>

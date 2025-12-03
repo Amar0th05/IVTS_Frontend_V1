@@ -120,7 +120,7 @@
   </div>
   <!-- Pre-loader end -->
   <div id="pcoded" class="pcoded">
-    <div class="pcoded-overlay-box"></div>
+    
     <div class="pcoded-container navbar-wrapper">
       <nav class="navbar header-navbar pcoded-header">
         <div class="navbar-wrapper">
@@ -216,7 +216,7 @@
                     </div>
                   </div>
                   <div class="col-md-4">
-                    <ul class="breadcrumb">
+                      <ul class="breadcrumb" id="breadcrumb">
                       <li class="breadcrumb-item">
                         <a href="index.html"> <i class="fa fa-home"></i> </a>
                       </li>
@@ -502,10 +502,10 @@
                                             <div class="row">
                                               <div class="col-md-6 mb-3">
                                                 <label for="previousCompany" class="form-label fw-semibold">Previous
-                                                  Company <span class="text-danger">*</span></label>
+                                                  Company </label>
                                                 <input type="text" name="previousCompany"
                                                   class="form-control form-control-sm" id="previousCompany"
-                                                  placeholder="Enter Previous Company" required>
+                                                  placeholder="Enter Previous Company" >
                                               </div>
                                               <div class="col-md-6 mb-3">
                                                 <label for="experience" class="form-label fw-semibold">Total Years of
@@ -559,7 +559,7 @@
 
                                     <!-- Modal Footer -->
                                     <div class="modal-footer bg-white border-top">
-                                      <button type="button" class="btn btn-red btn-sm" data-dismiss="modal"
+                                      <button type="button" class="btn btn-red btn-sm cls" data-dismiss="modal"
                                         id="exitButton">
                                         <i class="fa-solid fa-xmark me-1"></i> Exit
                                       </button>
@@ -815,10 +815,10 @@
                                             <div class="row">
                                               <div class="col-md-6 mb-3">
                                                 <label for="previousCompany" class="form-label fw-semibold">Previous
-                                                  Company <span class="text-danger">*</span></label>
+                                                  Company </label>
                                                 <input type="text" name="previousCompany"
                                                   class="form-control form-control-sm" id="previousCompany"
-                                                  placeholder="Enter Previous Company" required>
+                                                  placeholder="Enter Previous Company">
                                               </div>
                                               <div class="col-md-6 mb-3">
                                                 <label for="experience" class="form-label fw-semibold">Total Years of
@@ -873,7 +873,7 @@
 
                                     <!-- Modal Footer -->
                                     <div class="modal-footer bg-white border-top">
-                                      <button type="button" class="btn btn-red btn-sm" id="exitButton2">
+                                      <button type="button" class="btn btn-red btn-sm cls" id="exitButton2" data-breadcrumb="back">
                                         <i class="fa-solid fa-xmark me-1"></i> Exit
                                       </button>
                                       <button type="button" id="update_staff_btn"
