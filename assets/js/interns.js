@@ -1289,10 +1289,10 @@ async function downloadDocument(internId, docName) {
 
     window.URL.revokeObjectURL(url);
 
-    // Sweet alert success message 💫
+    // Sweet alert success message
     Swal.fire({
       icon: "success",
-      title: "✨ Download Complete!",
+      title: "Download Complete!",
       text: `${docName}.${fileExtension} has been downloaded successfully.`,
       timer: 2000,
       showConfirmButton: false,
