@@ -35,6 +35,7 @@ if (decidedPermission !== "") {
 let table;
 let internId;
 
+
 function addRow(data) {
   if (!data) {
     console.error("No data to add");
@@ -216,7 +217,8 @@ async function fetchAllData() {
 
     // ✅ Count interns correctly
     const totalInterns = interns.length;
-    const currentInterns = interns.filter((i) => Number(i.status) === 1).length;
+    const currentInterns = interns.filter(i => Number(i.status) === 1).length;
+    const processIntern = interns.filter(i => Number(i.internStatus) === 0).length;
     const completedInterns = interns.filter(
       (i) => Number(i.status) === 0
     ).length;
@@ -224,6 +226,7 @@ async function fetchAllData() {
     // ✅ Update the HTML cards
     document.getElementById("totalInternCount").innerText = totalInterns;
     document.getElementById("currentInternCount").innerText = currentInterns;
+    document.getElementById("processInternCount").innerText = processIntern;
     document.getElementById("completedInternCount").innerText =
     completedInterns;
 
