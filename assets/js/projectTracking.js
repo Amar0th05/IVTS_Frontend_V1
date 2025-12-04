@@ -686,6 +686,7 @@ console.log("client", client);
       .then(async (res) => {
         if (res.data.message) {
           showPopupFadeInDown(res.data.message);
+          // await fetchAllData();
           await refreshTable();
           form.reset();
           window.location.reload();
@@ -825,7 +826,9 @@ document
       .put("/projects", data)
       .then(async (res) => {
         if (res.data.message) {
-          console.log(res.data.message);
+          await refreshTable();
+          form.reset();
+          window.location.reload();
           showPopupFadeInDown(res.data.message);
         } else {
           showErrorPopupFadeInDown("No response from the server");
