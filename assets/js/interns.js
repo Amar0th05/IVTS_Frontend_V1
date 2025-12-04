@@ -1516,55 +1516,78 @@ $(document).ready(function () {
     });
 });
 
-document
-  .getElementById("exitButton2")
-  .addEventListener("click", async function () {
-    const result = await Swal.fire({
-      title: "Cancel Editing?",
-      text: "You have unsaved changes. Are you sure you want to cancel?",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#d33", // Red for confirm
-      cancelButtonColor: "#3085d6", // Blue for cancel
-      confirmButtonText: "Yes, Cancel",
-      cancelButtonText: "No, Keep Editing",
-      reverseButtons: true,
-      customClass: {
-        popup: "swal2-custom-popup",
-        title: "swal2-custom-title",
-      },
-    });
-    if (result.isConfirmed) {
-      console.log("back");  
-      document.querySelector(".cls").setAttribute("data-breadcrumb","back");
-      document.querySelector("#tabWrapper").classList.add("d-none");
-      document.querySelector("#tableCard").style.display = "block";
-    } else {
-    }
+// update exit button functionality
+
+  const exitButton2 = document.getElementById("exitButton2");
+
+  let status2 = true;
+async function handleExitClick1(e) {
+  const el = e.currentTarget;
+  if (el.getAttribute("data-breadcrumb") === "back" && status2) {
+    status2 = false;
+    return;
+  }else{
+    el.removeAttribute("data-breadcrumb");
+    status2 = true;
+  }
+  const result = await Swal.fire({
+    title: "Cancel Updating?",
+    text: "Your unsaved changes will be lost. Do you want to exit?",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#d33",
+    cancelButtonColor: "#3085d6",
+    confirmButtonText: "Yes, Cancel",
+    cancelButtonText: "No, Keep Editing",
+    reverseButtons: true,
   });
 
-document
-  .getElementById("exitButton")
-  .addEventListener("click", async function () {
-    const result = await Swal.fire({
-      title: "Cancel Editing?",
-      text: "Your unsaved changes will be lost. Do you want to cancel?",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#d33", // Red for confirm
-      cancelButtonColor: "#3085d6", // Blue for cancel
-      confirmButtonText: "Yes, Cancel",
-      cancelButtonText: "No, Keep Editing",
-      reverseButtons: true,
-      customClass: {
-        popup: "swal2-custom-popup",
-        title: "swal2-custom-title",
-      },
-    });
-    if (result.isConfirmed) {
-      document.querySelector(".cls").setAttribute("data-breadcrumb","back");
-      document.querySelector("#tab").classList.add("d-none");
-      document.querySelector("#tableCard").style.display = "block";
-    } else {
-    }
+  if (result.isConfirmed) {
+    el.setAttribute("data-breadcrumb", "back");
+    el.click();
+    document.getElementById("tabWrapper")?.classList.add("d-none");
+    const tableCard = document.getElementById("tableCard");
+    if (tableCard) tableCard.style.display = "block";
+  }
+}
+
+exitButton2.addEventListener("click", handleExitClick1);
+
+// add exit button functionality
+
+  const exitButton = document.getElementById("exitButton");
+
+  let status1 = true;
+async function handleExitClick(e) {
+  const el = e.currentTarget;
+  if (el.getAttribute("data-breadcrumb") === "back" && status1) {
+    status1 = false;
+    return;
+  }else{
+    el.removeAttribute("data-breadcrumb");
+    status1 = true;
+  }
+  const result = await Swal.fire({
+    title: "Cancel Editing?",
+    text: "Your unsaved changes will be lost. Do you want to cancel?",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#d33",
+    cancelButtonColor: "#3085d6",
+    confirmButtonText: "Yes, Cancel",
+    cancelButtonText: "No, Keep Editing",
+    reverseButtons: true,
   });
+
+  if (result.isConfirmed) {
+    el.setAttribute("data-breadcrumb", "back");
+    el.click();
+    document.getElementById("tab")?.classList.add("d-none");
+    const tableCard = document.getElementById("tableCard");
+    if (tableCard) tableCard.style.display = "block";
+  }
+}
+
+exitButton.addEventListener("click", handleExitClick);
+
+

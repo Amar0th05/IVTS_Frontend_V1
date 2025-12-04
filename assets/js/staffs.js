@@ -80,17 +80,14 @@ $(document).ready(function () {
 // add staff
 addStaffButton.addEventListener("click", async (e) => {
   e.preventDefault();
-  console.log("Add Staff Button Clicked");
 
   let form = document.getElementById("new-staff-form");
   let formData = new FormData(form);
 
   let Data = Object.fromEntries(formData.entries());
-  // console.log("Form Data:",formData);
 
   if (validateForm(formData)) {
     try {
-      // console.log("Submitting Payload...",data);
       const response = await api.addIITStaff(Data);
       showSucessPopupFadeInDownLong(response?.message || "Staff Added Successfully");
       form.reset();
@@ -99,7 +96,6 @@ addStaffButton.addEventListener("click", async (e) => {
 
       },2000);
     } catch (error) {
-      console.log("Error Adding Staff:", error);
       showErrorPopupFadeInDown(
         error.response?.message ||
           "Failed to add staff. Please try again later."
@@ -117,7 +113,6 @@ updateStaffButton.addEventListener("click", async (e) => {
   let Data = Object.fromEntries(formData.entries());
 
   if (validateForm(formData)) {
-    console.log("enter", formData);
     try {
       const responseData = await api.updateIITStaff(Data);
       showSucessPopupFadeInDownLong(responseData.message);
@@ -135,7 +130,6 @@ let decidedPermission;
 document.addEventListener("DOMContentLoaded", async () => {
   roles = await axiosInstance.get("/roles/role/perms");
   roles = roles.data.roles;
-  // console.log(roles);
   window.roles = roles;
   decidedPermission = handlePermission("#username");
 });
@@ -221,7 +215,6 @@ document.querySelector("#myTable").addEventListener("click", function (event) {
 document.addEventListener("DOMContentLoaded", async () => {
   roles = await axiosInstance.get("/roles/role/perms");
   roles = roles.data.roles;
-  // console.log(roles);
   window.roles = roles;
   await fetchAllData();
 
@@ -231,7 +224,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 // toggle status
 
 async function toggleStatus(element, id) {
-  console.log("Toggle status for ID:", id);
   if (element.classList.contains("editElement")) return;
 
   if (!id) return;
@@ -252,7 +244,6 @@ async function toggleStatus(element, id) {
 async function fetchAllData() {
   try {
     const staffs = await api.getAllStaff();
-    console.log("Fetched Staffs:", staffs);
     const designations = new Set();
     const locations = new Set();
 
@@ -377,7 +368,6 @@ function validateForm(formData) {
   });
 
   if (errors.length > 0) {
-    console.log("Form validation failed:", errors);
     return false;
   }
 
@@ -388,15 +378,9 @@ function validateForm(formData) {
 
 async function loadUpdateDetails(id) {
   try {
-    console.log("id", typeof id);
 
     const response = await axiosInstance.get(API_ROUTES.getIITStaff(id));
     const data = response.data.staffs;
-
-    console.log(data);
-    console.log(data.staffName);
-
-    console.log(document.getElementById("employeeId"));
 
     document.querySelectorAll("#employeeId")[1].value = data.employeeId;
     document.querySelectorAll("#staffName")[1].value = data.staffName;
@@ -731,57 +715,79 @@ document.querySelector("#addNew").addEventListener("click", function () {
   document.querySelector("#tableCard").style.display = "none";
 });
 
-// popup message
 
-document
-  .getElementById("exitButton2")
-  .addEventListener("click", async function () {
-    const result = await Swal.fire({
-      title: "Cancel Updating?",
-      text: "Your unsaved changes will be lost. Do you want to exit?",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#d33", // Red for confirm
-      cancelButtonColor: "#3085d6", // Blue for cancel
-      confirmButtonText: "Yes, Cancel",
-      cancelButtonText: "No, Keep Editing",
-      reverseButtons: true,
-      customClass: {
-        popup: "swal2-custom-popup",
-        title: "swal2-custom-title",
-      },
-    });
-    if (result.isConfirmed) {
-      // document.location.reload();
-    document.querySelector(".cls").setAttribute("data-breadcrumb", "back");
-      document.querySelector("#tabWrapper").classList.add("d-none");
-      document.querySelector("#tableCard").style.display = "block";
-    } else {
-    }
+// update exit button functionality
+
+  const exitButton2 = document.getElementById("exitButton2");
+
+  let status2 = true;
+async function handleExitClick1(e) {
+  const el = e.currentTarget;
+  if (el.getAttribute("data-breadcrumb") === "back" && status2) {
+    status2 = false;
+    return;
+  }else{
+    el.removeAttribute("data-breadcrumb");
+    status2 = true;
+  }
+  const result = await Swal.fire({
+    title: "Cancel Updating?",
+    text: "Your unsaved changes will be lost. Do you want to exit?",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#d33",
+    cancelButtonColor: "#3085d6",
+    confirmButtonText: "Yes, Cancel",
+    cancelButtonText: "No, Keep Editing",
+    reverseButtons: true,
   });
 
-document
-  .getElementById("exitButton")
-  .addEventListener("click", async function () {
-    const result = await Swal.fire({
-      title: "Cancel Editin?",
-      text: "Your unsaved changes will be lost. Do you want to cancel?",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#d33", // Red for confirm
-      cancelButtonColor: "#3085d6", // Blue for cancel
-      confirmButtonText: "Yes, Cancel",
-      cancelButtonText: "No, Keep Editing",
-      reverseButtons: true,
-      customClass: {
-        popup: "swal2-custom-popup",
-        title: "swal2-custom-title",
-      },
-    });
-    if (result.isConfirmed) {
-      document.querySelector(".cls").setAttribute("data-breadcrumb", "back");
-      document.querySelector("#tab").classList.add("d-none");
-      document.querySelector("#tableCard").style.display = "block";
-    } else {
-    }
+  if (result.isConfirmed) {
+    el.setAttribute("data-breadcrumb", "back");
+    el.click();
+    document.getElementById("tabWrapper")?.classList.add("d-none");
+    const tableCard = document.getElementById("tableCard");
+    if (tableCard) tableCard.style.display = "block";
+  }
+}
+
+exitButton2.addEventListener("click", handleExitClick1);
+
+// add exit button functionality
+
+  const exitButton = document.getElementById("exitButton");
+
+  let status1 = true;
+async function handleExitClick(e) {
+  const el = e.currentTarget;
+  if (el.getAttribute("data-breadcrumb") === "back" && status1) {
+    status1 = false;
+    return;
+  }else{
+    el.removeAttribute("data-breadcrumb");
+    status1 = true;
+  }
+  const result = await Swal.fire({
+    title: "Cancel Editing?",
+    text: "Your unsaved changes will be lost. Do you want to cancel?",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#d33",
+    cancelButtonColor: "#3085d6",
+    confirmButtonText: "Yes, Cancel",
+    cancelButtonText: "No, Keep Editing",
+    reverseButtons: true,
   });
+
+  if (result.isConfirmed) {
+    el.setAttribute("data-breadcrumb", "back");
+    el.click();
+    document.getElementById("tab")?.classList.add("d-none");
+    const tableCard = document.getElementById("tableCard");
+    if (tableCard) tableCard.style.display = "block";
+  }
+}
+
+exitButton.addEventListener("click", handleExitClick);
+
+
