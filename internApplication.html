@@ -61,12 +61,21 @@
             margin-bottom: 0.25rem;
         }
 
-        .step-indicator {
+        /* .step-indicator {
             display: flex;
             justify-content: center;
             align-items: center;
             margin: 2rem 0;
             padding: 0 1rem;
+        } */
+          .step-indicator {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 1.5rem 0;
+            padding: 0 0.5rem;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
         }
 
         .step {
@@ -806,7 +815,6 @@
     <!-- Pikaday JS (include once in your page) -->
     <script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
 
-    
     <script>
         var picker = new Pikaday({
             field: document.getElementById('dob'),
