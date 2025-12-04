@@ -106,6 +106,7 @@ document.addEventListener('DOMContentLoaded',async ()=>{
                 leave.employeeId,
                 leave.employeeName,
                 leave.month,
+                leave.totalDays,
                 leave.leaveType,
                 statusBadge // 👈 styled badge added here
             ]);
