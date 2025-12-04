@@ -188,7 +188,7 @@
     </div>
     <!-- Pre-loader end -->
     <div id="pcoded" class="pcoded">
-        <div class="pcoded-overlay-box"></div>
+        
         <div class="pcoded-container navbar-wrapper">
             <nav class="navbar header-navbar pcoded-header">
         <div class="navbar-wrapper">
@@ -277,17 +277,17 @@
                   <div class="col-md-8">
                     <div class="page-title">
                       <span class="page-title-icon bg-gradient-primary text-white me-2">
-                        <i class="fa fa-chart-line"></i>
+<i class="fa-solid fa-print"></i>
                       </span>
                       <h5>Printer and Scanners</h5>
                     </div>
                   </div>
                   <div class="col-md-4">
-                    <ul class="breadcrumb">
+                      <ul class="breadcrumb" id="breadcrumb">
                       <li class="breadcrumb-item">
                         <a href="index.html"> <i class="fa fa-home"></i> </a>
                       </li>
-                      <li class="breadcrumb-item"><a href="printer.html">Printer and Scanners</a>
+                      <li class="breadcrumb-item"><a href="printer.html">Printer & Scanner</a>
                       </li>
                     </ul>
                   </div>
@@ -437,11 +437,11 @@
 
         <!-- Modal Footer -->
         <div class="modal-footer bg-white border-top rounded-bottom">
-          <button type="button" class="btn btn-red btn-sm text-white" data-dismiss="modal" id="exitButton">
+          <button type="button" class="btn btn-red btn-sm text-white" data-dismiss="modal" id="exitButton" data-breadcrumb="back">
             <i class="fa-solid fa-xmark me-1"></i> Exit
           </button>
           <button type="submit" class="btn btn-green btn-sm text-white" id="add_printer_btn" data-dismiss="modal">
-            <i class="fa-solid fa-circle-check me-1"></i> Submit Printer
+            <i class="fa-solid fa-circle-check me-1"></i>Add Printer
           </button>
         </div>
       </div>
@@ -594,11 +594,11 @@
 
         <!-- Modal Footer -->
         <div class="modal-footer bg-white border-top rounded-bottom">
-          <button type="button" class="btn btn-red btn-sm text-white" data-dismiss="modal" id="exitButton2">
+          <button type="button" class="btn btn-red btn-sm text-white" data-dismiss="modal" id="exitButton2" data-breadcrumb="back">
             <i class="fa-solid fa-xmark me-1"></i> Exit
           </button>
           <button type="button" id="update_printer_btn" class="btn btn-green btn-sm text-white writeElement">
-            <i class="fa-solid fa-floppy-disk me-1"></i> Update
+            <i class="fa-solid fa-floppy-disk me-1"></i>Update
           </button>
         </div>
 
